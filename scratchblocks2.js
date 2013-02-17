@@ -44,6 +44,7 @@ scratchblocks2._classes = {
         "string",
         "dropdown",
         "number",
+        "number-dropdown",
         "variable-reporter",
         "custom-definition",
         "custom-arg",
@@ -267,6 +268,7 @@ scratchblocks2._render_block = function (code, kind) {
     // strip brackets
     if (kind == undefined) kind = "";
     var bracket = "";
+    var is_dropdown = false;
     if (is_open_bracket(code[0])) {
         bracket = code[0];
         code = strip_brackets(code);
@@ -278,15 +280,23 @@ scratchblocks2._render_block = function (code, kind) {
     }
 
     // check kind
-    if (bracket == "(" && /^(-?[0-9.]+)?$/.test(code)) {
+    if (bracket == "(" && /^(-?[0-9.]+( v)?)?$/.test(code)) {
         kind = "number";
     } else if (bracket == "[") {
         kind = "string";
+    }
+
+    // dropdowns for [string v] and number (123 v)
+    if (kind == "number" || kind == "string") {
         if (/ v$/.test(code)) {
-            kind = "dropdown";
+            is_dropdown = true;
             code = code.substr(0, code.length - 2);
+            if (kind == "string") {
+                kind = "dropdown";
+            } else {
+                kind = "number-dropdown";
+            }
         }
-        console.log(code);
     }
     
     // custom block definitions
@@ -351,6 +361,8 @@ scratchblocks2._render_block = function (code, kind) {
     } else {
         var $block = $("<span>");
     } 
+
+    // add shape class
     $block.addClass(cls(kind));
     
     // give special classes colour
@@ -422,7 +434,12 @@ scratchblocks2._render_block = function (code, kind) {
             // TODO custom blocks
             var classes = scratchblocks2._find_block(text, args);
             if (classes.length == 0) {
-                $block.addClass(cls("custom")); // can't find the block!
+                // can't find the block!
+                if (kind == "stack") {
+                    $block.addClass(cls("custom"));
+                } else {
+                    $block.addClass(cls("obsolete"));
+                }
             } else {
                 $.each(classes, function (i, name) {
                     $block.addClass(cls(name));
@@ -445,7 +462,7 @@ scratchblocks2._render_block = function (code, kind) {
 scratchblocks2._find_block = function (text, args) {
     var blocks = scratchblocks2.blocks;
 
-    text = text.replace(/[ ,%?]/g, "");
+    text = text.replace(/[ ,%?:]/g, "");
     text = text.toLowerCase();
     
     for (i=0; i<blocks.length; i++) {
@@ -484,9 +501,13 @@ scratchblocks2.blocks = [
     ["xposition", "motion", []],
     ["yposition", "motion", []],
     ["direction", "motion", []],
+    ["setrotationstyle", "motion", []],
+
+    // Events //
+    ["whengreenflagclicked", "events", [], "hat"],
+    ["whengfclicked", "events", [], "hat"],
 
     // Control //
-    ["whengreenflagclicked", "control", [], "hat"],
     ["whenkeypressed", "control", ["%k"], "hat"],
     ["whenclicked", "control", ["%m"], "hat"],
     ["waitsecs", "control", ["%n"]],
@@ -495,10 +516,9 @@ scratchblocks2.blocks = [
     ["broadcast", "control", ["%e"]],
     ["broadcastandwait", "control", ["%e"]],
     ["whenireceive", "control", ["%e"], "hat"],
-    ["whengreenflagclicked", "control", [], "hat"],
-    ["whengfclicked", "control", [], "hat"],
     ["foreverif", "control", ["%b"], "cstart"],
     ["if", "control", ["%b"], "cstart"],
+    ["ifthen", "control", ["%b"], "cstart"],
     ["else", "control", ["%b"], "celse"],
     ["end", "control", ["%b"], "cend"],
     ["waituntil", "control", ["%b"]],
