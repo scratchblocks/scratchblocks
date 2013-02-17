@@ -36,6 +36,8 @@ scratchblocks2._classes = {
         "script",
     ],
     "shape": [
+        "hat",
+        "cap",
         "stack",
         "reporter",
         "boolean",
@@ -43,6 +45,9 @@ scratchblocks2._classes = {
         "dropdown",
         "number",
         "variable-reporter",
+        "custom-definition",
+        "custom-arg",
+        "outline",
 
         "cstart",
         "cmouth",
@@ -150,6 +155,10 @@ scratchblocks2._render = function (code) {
                     }
                 });
 
+                if ($block.hasClass(cls("cap"))) {
+                    $cwrap.addClass(cls("cap"));
+                }
+
                 nesting += 1;
 
             } else if ($block.hasClass(cls("celse"))) {
@@ -240,21 +249,27 @@ scratchblocks2._render_block = function (code, kind) {
         // we got this far: he's okay! rescue him from bracketedness.
         return true;
     };
+    var strip_brackets = function (code) {
+        if (is_open_bracket(code[0])) {
+            var bracket = code[0]; 
+            if (code[code.length - 1] == get_matching_bracket(bracket)) {
+                code = code.substr(0, code.length - 1);
+            }
+            code = code.substr(1);
+        }
+        return code;
+    }
+
     
     // trim
     code = code.trim();
 
-    // check kind
+    // strip brackets
     if (kind == undefined) kind = "";
     var bracket = "";
     if (is_open_bracket(code[0])) {
-        bracket = code[0]; // We're an embedded reporter! 
-
-        // strip brackets
-        if (code[code.length - 1] == get_matching_bracket(bracket)) {
-            code = code.substr(0, code.length - 1);
-        }
-        code = code.substr(1);
+        bracket = code[0];
+        code = strip_brackets(code);
     }
 
     // trim again
@@ -263,7 +278,7 @@ scratchblocks2._render_block = function (code, kind) {
     }
 
     // check kind
-    if (bracket == "(" && /^-?[0-9.]+$/.test(code)) {
+    if (bracket == "(" && /^(-?[0-9.]+)?$/.test(code)) {
         kind = "number";
     } else if (bracket == "[") {
         kind = "string";
@@ -271,13 +286,20 @@ scratchblocks2._render_block = function (code, kind) {
             kind = "dropdown";
             code = code.substr(0, code.length - 2);
         }
+        console.log(code);
     }
     
+    // custom block definitions
+    if (/^define/.test(code.trim())) {
+        kind = "custom-definition"; 
+        code = code.substr(6).trim();
+    }
+
+    // split into pieces
     var pieces = [];
-    if (!kind || kind == "stack") {
+    if (!kind || kind == "stack" || kind == "custom-definition") {
         code = code.trim();
 
-        // split into pieces
         var piece = "";
         var piece_bracket = "";
         var matching_bracket = "";
@@ -324,23 +346,28 @@ scratchblocks2._render_block = function (code, kind) {
     }
 
     // make the DOM element
-    if (kind == "stack") {
+    if (kind == "stack" || kind == "hat" || kind == "custom-definition") {
         var $block = $("<div>");
     } else {
         var $block = $("<span>");
-    }
+    } 
+    $block.addClass(cls(kind));
     
-    $block.addClass(cls(kind))
-
+    // give special classes colour
     if (kind == "variable-reporter") {
         $block.addClass(cls("variables"));
+        pieces = [];
+    } else if (kind == "custom-definition") {
+        $block.addClass(cls("custom"));
     }
 
+    // block content
     if (pieces.length == 0) {
-        $block.html(code);
         if (code.length == 0) {
+            code = " "; // must have content to size correctly
             $block.addClass("empty");
         }
+        $block.html(code);
     } else {
         var is_block = function (piece) {
             return piece.length > 1 && (
@@ -360,32 +387,55 @@ scratchblocks2._render_block = function (code, kind) {
         }
 
         // render the pieces
-        for (var i=0; i<pieces.length; i++) {
-            var piece = pieces[i];
-            if (is_block(piece)) {
-                $block.append(scratchblocks2._render_block(piece));
-            } else {
-                $block.append(piece);
+        if (kind == "custom-definition") { // custom block args
+            $block.append("define");
+            var $outline = $("<span>").addClass(cls("outline"));
+            $block.append($outline);
+
+            for (var i=0; i<pieces.length; i++) {
+                var piece = pieces[i];
+                if (is_block(piece)) {
+                    var $arg = $("<span>").addClass(cls("custom-arg"));
+                    if (piece[0] == "<") {
+                        $arg.addClass(cls("boolean"));
+                    }
+                    $arg.html(strip_brackets(piece));
+                    $outline.append($arg);
+                } else {
+                    $outline.append(piece);
+                }
+            }
+        } else {
+            for (var i=0; i<pieces.length; i++) {
+                var piece = pieces[i];
+                if (is_block(piece)) {
+                    $block.append(scratchblocks2._render_block(piece));
+                    $block.append("&nbsp;"); // ensure inserts are spaced out
+                } else {
+                    $block.append(piece);
+                }
             }
         }
 
-        var classes = scratchblocks2._find_block(text, args);
-        $.each(classes, function (i, name) {
-            $block.addClass(cls(name));
-        });
-        
-        // HACK DEBUG TODO //
-        if (/if/.test(text)) {
-            $block.addClass("cstart");
-        } else if (/end/.test(text)) {
-            var content = $block.html()
-            $block.html("").append($("<span>").html(content)).addClass("cend");
-        } else if (/else/.test(text)) {
-            $block.addClass("celse");
-        } else if (/when/.test(text)) {
-            $block.addClass("hat");
+        // get category
+        if (kind != "custom-definition") {
+            // TODO custom blocks
+            var classes = scratchblocks2._find_block(text, args);
+            if (classes.length == 0) {
+                $block.addClass(cls("custom")); // can't find the block!
+            } else {
+                $.each(classes, function (i, name) {
+                    $block.addClass(cls(name));
+                });
+            }
         }
-    }
+        
+        // cend blocks: hide "end" text
+        if ($block.hasClass(cls("cend"))) {
+            var content = $block.html();
+            $block.html("").append($("<span>").html(content))
+        }
+   }
 
     return $block;
 };
@@ -395,7 +445,8 @@ scratchblocks2._render_block = function (code, kind) {
 scratchblocks2._find_block = function (text, args) {
     var blocks = scratchblocks2.blocks;
 
-    text = text.replace(/[ ,]/g, "");
+    text = text.replace(/[ ,%?]/g, "");
+    text = text.toLowerCase();
     
     for (i=0; i<blocks.length; i++) {
         var block = blocks[i];
@@ -408,9 +459,9 @@ scratchblocks2._find_block = function (text, args) {
         }
     }
     
-    console.log(text);
+    console.log("Missing block: ", text);
 
-    return ["obsolete"];
+    return [];
 };
 
 
@@ -435,22 +486,25 @@ scratchblocks2.blocks = [
     ["direction", "motion", []],
 
     // Control //
-    ["whengreenflagclicked", "control", []],
-    ["whenkeypressed", "control", ["%k"]],
-    ["whenclicked", "control", ["%m"]],
+    ["whengreenflagclicked", "control", [], "hat"],
+    ["whenkeypressed", "control", ["%k"], "hat"],
+    ["whenclicked", "control", ["%m"], "hat"],
     ["waitsecs", "control", ["%n"]],
     ["forever", "control", [], "cstart", "cap"],
     ["repeat", "control", ["%n"], "cstart"],
     ["broadcast", "control", ["%e"]],
     ["broadcastandwait", "control", ["%e"]],
-    ["whengreenflagclicked", "control", []],
+    ["whenireceive", "control", ["%e"], "hat"],
+    ["whengreenflagclicked", "control", [], "hat"],
+    ["whengfclicked", "control", [], "hat"],
     ["foreverif", "control", ["%b"], "cstart"],
     ["if", "control", ["%b"], "cstart"],
     ["else", "control", ["%b"], "celse"],
+    ["end", "control", ["%b"], "cend"],
     ["waituntil", "control", ["%b"]],
-    ["repeatuntil", "control", ["%b"]],
-    ["stopscript", "control", []],
-    ["stopall", "control", []],
+    ["repeatuntil", "control", ["%b"], "cstart"],
+    ["stopscript", "control", [], "cap"],
+    ["stopall", "control", [], "cap"],
 
     // Looks //
     ["switchtobackground", "looks", ["%l"]],
@@ -518,7 +572,7 @@ scratchblocks2.blocks = [
     ["playnoteforbeats", "sound", ["%N", "%n"]],
     ["setinstrumentto", "sound", ["%I"]],
     ["changevolumeby", "sound", ["%n"]],
-    ["setvolumeto%", "sound", ["%n"]],
+    ["setvolumeto", "sound", ["%n"]],
     ["volume", "sound", []],
     ["changetempoby", "sound", ["%n"]],
     ["settempotobpm", "sound", ["%n"]],
@@ -534,7 +588,7 @@ scratchblocks2.blocks = [
     ["=", "operators", ["%s", "%s"]],
     [">", "operators", ["%s", "%s"]],
     ["and", "operators", ["%b", "%b"]],
-    ["obsolete!", "", []],
+    ["or", "operators", ["%b", "%b"]],
     ["not", "operators", ["%b"]],
     ["join", "operators", ["%s", "%s"]],
     ["letterof", "operators", ["%n", "%s"]],
