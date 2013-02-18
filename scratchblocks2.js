@@ -34,18 +34,19 @@ scratchblocks2._classes = {
     "misc": [
         "container",
         "script",
+        "empty",
     ],
     "shape": [
         "hat",
         "cap",
         "stack",
+        "embedded",
         "reporter",
         "boolean",
         "string",
         "dropdown",
         "number",
         "number-dropdown",
-        "variable-reporter",
         "custom-definition",
         "custom-arg",
         "outline",
@@ -113,32 +114,65 @@ scratchblocks2.parse = function (d) {
     $(selector).each(function (i, el) {
         var $el = $(el);
 
-        var script = $el.text();
-        $el.html("");
-        $el.append(scratchblocks2._render(script));
+        var code = $el.text();
+        var scripts = scratchblocks2._render(code);
 
+        $el.html("");
         $el.addClass(cls("container"));
+        $.each(scripts, function (i, $script) {
+            $el.append($script);
+        });
     });
 };
 
 
-/* Render script code to DOM. */
+/* Render script code to a list of DOM elements, one for each script. */
 scratchblocks2._render = function (code) {
     var cls = scratchblocks2._cls;
     var classes = scratchblocks2._classes;
     var assert = scratchblocks2._assert;
 
-    var $script = $("<div>").addClass(cls("script"));
-    var $current = $script;
-    var nesting = 0;
+    var scripts = [];
+    var $script;
+    var $current;
+    var nesting;
+
+    var new_script = function() {
+        if ($script != undefined && $script.length > 0) {
+            console.log($script);
+            scripts.push($script);
+        }
+        $script = $("<div>").addClass(cls("script"));
+        $current = $script;
+        nesting = 0;
+    };
+    new_script();
 
     var lines = code.split(/\n/);
     for (var i=0; i<lines.length; i++) {
         var line = lines[i];
 
+        // TODO: comments
+        // ignore them for now
+        if (/^\/\//.test(line.trim())) {
+            continue;
+        }
+        
+        // empty lines separate stacks
+        if (line.trim() == "") {
+            new_script();
+            continue;
+        }
+
         $block = scratchblocks2._render_block(line, "stack");
         
         if ($block) {
+            if ( $block.hasClass(cls("hat")) ||
+                 $block.hasClass(cls("custom-definition")) ||
+                 $block.hasClass(cls("reporter"))) {
+                new_script();
+            }
+            
             if ($block.hasClass(cls("cstart"))) {
                 var $cwrap = $("<div>").addClass(cls("cwrap"));
                 $current.append($cwrap);
@@ -192,7 +226,7 @@ scratchblocks2._render = function (code) {
             }
         }
     }
-    return $script;
+    return scripts;
 };
 
 
@@ -261,13 +295,15 @@ scratchblocks2._render_block = function (code, kind) {
         return code;
     }
 
+    // init vars
+    if (kind == undefined) kind = "";
+    var category = "";
+    var bracket = "";
     
     // trim
     code = code.trim();
 
     // strip brackets
-    if (kind == undefined) kind = "";
-    var bracket = "";
     var is_dropdown = false;
     if (is_open_bracket(code[0])) {
         bracket = code[0];
@@ -305,9 +341,29 @@ scratchblocks2._render_block = function (code, kind) {
         code = code.substr(6).trim();
     }
 
-    // split into pieces
+    // MAKE dom element
+    if (kind == "stack" || kind == "hat" || kind == "custom-definition") {
+        var $block = $("<div>");
+    } else {
+        var $block = $("<span>");
+    }
+    
+    // give special classes colour
+    if (kind == "custom-definition") {
+        $block.addClass(cls("custom"));
+    }
+
+    
+    // SPLIT into pieces
     var pieces = [];
-    if (!kind || kind == "stack" || kind == "custom-definition") {
+    if (kind && kind != "stack" && kind != "custom-definition") {
+        pieces = [code]; // don't bother splitting
+
+        if (code.length == 0) {
+            code = " "; // must have content to size correctly
+            $block.addClass(cls("empty"));
+        }
+    } else {
         code = code.trim();
 
         var piece = "";
@@ -344,115 +400,111 @@ scratchblocks2._render_block = function (code, kind) {
 
         // check for variables
         if (bracket == "(" && pieces.length == 1 && !is_open_bracket(pieces[0][0])) {
-            kind = "variable-reporter";
+            kind = "reporter";
+            var category = "variables";
         }
     }
 
     // check for embedded blocks
     if (bracket == "<") {
         kind = "boolean";
+        var category = "operators";
     } else if (kind == "") {
-        kind = "reporter";
+        kind = "embedded";
     }
-
-    // make the DOM element
-    if (kind == "stack" || kind == "hat" || kind == "custom-definition") {
-        var $block = $("<div>");
-    } else {
-        var $block = $("<span>");
-    } 
 
     // add shape class
     $block.addClass(cls(kind));
     
-    // give special classes colour
-    if (kind == "variable-reporter") {
-        $block.addClass(cls("variables"));
-        pieces = [];
-    } else if (kind == "custom-definition") {
-        $block.addClass(cls("custom"));
-    }
-
     // block content
     if (pieces.length == 0) {
+        // we didn't bother parsing the block into pieces!
         if (code.length == 0) {
             code = " "; // must have content to size correctly
-            $block.addClass("empty");
+            $block.addClass(cls("empty"));
         }
-        $block.html(code);
-    } else {
-        var is_block = function (piece) {
-            return piece.length > 1 && (
-                is_open_bracket(piece[0]) || is_close_bracket(piece[0]));
-        };
+        pieces = [code];
+        //$block.html(code);
+    }
 
-        // filter out block text & args
-        var text = "";
-        var args = [];
+    
+    // RENDARRR //
+    var is_block = function (piece) {
+        return piece.length > 1 && (
+            is_open_bracket(piece[0]) || is_close_bracket(piece[0]));
+    };
+
+    // filter out block text & args
+    var text = "";
+    var args = [];
+    for (var i=0; i<pieces.length; i++) {
+        var piece = pieces[i];
+        if (is_block(piece)) {
+           args.push(piece);
+        } else {
+            text += piece;
+        }
+    }
+
+    // render the pieces
+    if (pieces.length == 1) {
+        $block.html(code);
+    } else if (kind == "custom-definition") { // custom block args
+        $block.append("define");
+        var $outline = $("<span>").addClass(cls("outline"));
+        $block.append($outline);
+
         for (var i=0; i<pieces.length; i++) {
             var piece = pieces[i];
             if (is_block(piece)) {
-               args.push(piece);
+                var $arg = $("<span>").addClass(cls("custom-arg"));
+                if (piece[0] == "<") {
+                    $arg.addClass(cls("boolean"));
+                }
+                $arg.html(strip_brackets(piece));
+                $outline.append($arg);
             } else {
-                text += piece;
+                $outline.append(piece);
             }
         }
+    } else {
+        for (var i=0; i<pieces.length; i++) {
+            var piece = pieces[i];
+            if (is_block(piece)) {
+                $block.append(scratchblocks2._render_block(piece));
+            } else {
+                $block.append(piece);
+            }
+        }
+    }
 
-        // render the pieces
-        if (kind == "custom-definition") { // custom block args
-            $block.append("define");
-            var $outline = $("<span>").addClass(cls("outline"));
-            $block.append($outline);
-
-            for (var i=0; i<pieces.length; i++) {
-                var piece = pieces[i];
-                if (is_block(piece)) {
-                    var $arg = $("<span>").addClass(cls("custom-arg"));
-                    if (piece[0] == "<") {
-                        $arg.addClass(cls("boolean"));
-                    }
-                    $arg.html(strip_brackets(piece));
-                    $outline.append($arg);
-                } else {
-                    $outline.append(piece);
+    // get category
+    if (kind != "custom-definition") {
+        // TODO custom blocks
+        var classes = scratchblocks2._find_block(text, args);
+        if (classes.length == 0) {
+            // can't find the block!
+            if (category != "") {
+                $block.addClass(cls(category));
+            } else {
+                if (kind == "stack") {
+                    $block.addClass(cls("custom"));
+                } else if (!$block.hasClass(cls("empty"))) {
+                    $block.addClass(cls("obsolete"));
                 }
             }
         } else {
-            for (var i=0; i<pieces.length; i++) {
-                var piece = pieces[i];
-                if (is_block(piece)) {
-                    $block.append(scratchblocks2._render_block(piece));
-                    $block.append("&nbsp;"); // ensure inserts are spaced out
-                } else {
-                    $block.append(piece);
-                }
-            }
+            $.each(classes, function (i, name) {
+                $block.addClass(cls(name));
+            });
         }
-
-        // get category
-        if (kind != "custom-definition") {
-            // TODO custom blocks
-            var classes = scratchblocks2._find_block(text, args);
-            if (classes.length == 0) {
-                // can't find the block!
-                if (kind == "stack") {
-                    $block.addClass(cls("custom"));
-                } else {
-                    $block.addClass(cls("obsolete"));
-                }
-            } else {
-                $.each(classes, function (i, name) {
-                    $block.addClass(cls(name));
-                });
-            }
-        }
-        
-        // cend blocks: hide "end" text
-        if ($block.hasClass(cls("cend"))) {
-            var content = $block.html();
-            $block.html("").append($("<span>").html(content))
-        }
-   }
+    }
+    
+    // cend blocks: hide "end" text
+    if ($block.hasClass(cls("cend"))) {
+        var content = $block.html();
+        $block.html("").append($("<span>").html(content))
+    }
 
     return $block;
 };
@@ -534,6 +586,8 @@ scratchblocks2.blocks = [
     ["seteffectto", "looks", ["%g", "%n"]],
     ["cleargraphiceffects", "looks", []],
     ["switchtocostume", "looks", ["%l"]],
+    ["switchcostumeto", "looks", ["%l"]],
+    ["switchbackdropto", "looks", ["%l"]],
     ["nextcostume", "looks", []],
     ["costume#", "looks", []],
     ["sayforsecs", "looks", ["%s", "%n"]],
@@ -544,12 +598,18 @@ scratchblocks2.blocks = [
     ["seteffectto", "looks", ["%g", "%n"]],
     ["cleargraphiceffects", "looks", []],
     ["changesizeby", "looks", ["%n"]],
-    ["setsizeto%", "looks", ["%n"]],
+    ["setsizeto", "looks", ["%n"]],
     ["size", "looks", []],
     ["show", "looks", []],
     ["hide", "looks", []],
     ["gotofront", "looks", []],
     ["gobacklayers", "looks", ["%n"]],
+    ["backdropname", "looks"],
+    ["backdrop#", "looks"],
+    ["switchbackgroundtoandwait", "looks", ["%l"]],
+    ["nextbackdrop", "looks", []],
+    ["turnvideo", "looks", []],
+    ["setvideotransparencyto", "looks", []],
 
     // Sensing //
     ["askandwait", "sensing", ["%s"]],

@@ -57,8 +57,8 @@
 @operators_bg: #5cb712;
 @operators_btop: #a7ce87;
 @operators_bbot: #488f0e;
-@operators_ibot: #336609;
-@operators_itop: #74b83d;
+@operators_itop: #336609;
+@operators_ibot: #74b83d;
 @operators_inset: #54a810;
 @operators_arrow: #214306;
 
@@ -107,6 +107,12 @@
 @background: #fff;
 
 
+// Z-indexes //
+@z_container: 100;
+@z_bottom_stub: 101;
+@z_cmouth: 102;
+
+
 
 .border-radius(@radius) {
     border-radius: @radius;
@@ -141,7 +147,7 @@
             border-color: ~"@{@{category}_btop}";
         }
 
-        > .dropdown {
+        > .dropdown, > .boolean.empty {
             background: ~"@{@{category}_inset}";
             border-color: ~"@{@{category}_itop}" ~"@{@{category}_ibot}"
                           ~"@{@{category}_ibot}" ~"@{@{category}_itop}";
@@ -154,8 +160,8 @@
         .cmouth {
             &:before {
                 background-color: ~"@{@{category}_bg}";
-                border-left: 1px solid ~"@{@{category}_btop}";
-                border-right: 1px solid ~"@{@{category}_bbot}";
+                border-left-color: ~"@{@{category}_btop}";
+                border-right-color: ~"@{@{category}_bbot}";
             }
         }
     }
@@ -174,10 +180,10 @@
     
     display: block;
 
-    z-index: 100;
+    z-index: @z_container;
 
 
-    // colors
+    // Colors //
     .category-color("obsolete");
     .category-color("control");
     .category-color("custom");
@@ -192,12 +198,17 @@
     .category-color("variables");
     .category-color("custom-arg");
 
-    .boolean {
-        .stack-color("operators");
+
+    // Scripts are stacks of blocks //
+    .script {
+        margin-top: 15px;
+        &:first-child {
+            margin-top: 0;
+        }
     }
 
-    
-    // elements
+
+    // Elements //
     div {
         display: table;
     }
@@ -209,17 +220,29 @@
 
     .hat, .custom-definition, .stack, .boolean, .reporter,
         .variable-reporter, .custom-arg, .dropdown {
-        border: 1px solid;
+        border: 2px solid;
+    }
+    .stack {
+        border-top-width: 1px;
     }
 
     .stack, .hat, .custom-definition {
-        padding: 2px 4px 2px;
+        padding: 2px 4px;
+
+        // vertically centred min height
+        min-height: 16px;
+        line-height: 16px;
+        & > * {
+            line-height: 10px;
+        }
     } 
     
     .stack, .outline {
         .border-radius(4px);
     }
 
+
+    // Puzzle pieces //
     .stack, .hat, .cap, .custom-definition {
         position: relative;
     }
@@ -250,10 +273,10 @@
             border: inherit;
             border-top: none;
             background: inherit;
-            .border-radius(0 0 4px 4px);
+            .border-radius(0 0 3px 3px);
 
-            bottom: -4px;
-            z-index: 101;
+            bottom: -5px;
+            z-index: @z_bottom_stub;
         }
     }
 
@@ -263,15 +286,18 @@
     
     .cstart, .celse {
         &:after {
-            left: 24px;
-        }
-    }
-    .cend, .celse {
-        &:before {
-            left: 23px;
+            left: 26px;
         }
     }
 
+    .cend, .celse {
+        &:before {
+            left: 25px;
+        }
+    }
+
+
+    // Custom block definition outline //
     .outline {
         padding: 3px 4px 3px 5px;
         border: 1px solid #31125c;
@@ -301,6 +327,8 @@
         }
     }
 
+
+    // Hat block shapes //
     .hat, .custom-definition {
         position: relative;
 
@@ -308,10 +336,7 @@
 
         .border-radius(0 4px 4px 4px);
         
-        margin-top: 30px;
-        &:first-child {
-            margin-top: 10px;
-        }
+        margin-top: 15px;
 
         min-width: 120px;
 
@@ -333,6 +358,9 @@
         }
     }
 
+
+    // C Blocks //
+    @cleft_padding: 14px;
     .cwrap { 
         .cstart {
             //margin: 0 0 -1px 0;
@@ -351,15 +379,17 @@
                 content: "";
                 display: block;
                 position: absolute;
-                width: 10px;
+                border-style: solid;
+                border-width: 0 2px 0 2px;
+                width: @cleft_padding - 4px;
                 height: 100%;
-                margin: -1px 0 0 0;
-                padding: 1px 0;
-                z-index: 103;
+                margin: -2px 0 0;
+                padding: 2px 0 1px;
+                z-index: @z_cmouth;
             }
 
             > div {
-                margin-left: 12px;
+                margin-left: @cleft_padding;
             }
         }
 
@@ -381,6 +411,8 @@
         }
     }
 
+
+    // Block inserts //
     .number, .number-dropdown, .string, .dropdown {
         font-weight: normal;
     }
@@ -393,6 +425,7 @@
         // box-shadow: 1px 1px 1px #8f958a inset;
         padding: 2px 4px;
     }
+
     .number, .number-dropdown {
         border-radius: 10px;
     }
@@ -413,31 +446,28 @@
     .number-dropdown:after {
             color: @number_dropdown_arrow;
     }
+   
+    .embedded, .boolean {
+        padding: 2px 4px;
+    }
 
-    .variable-reporter, .custom-arg {
-        padding: 4px 6px;
+    .reporter, .custom-arg {
+        padding: 3px 6px;
         border-width: 2px;
     }
 
-    .variable-reporter, .reporter, .custom-arg, .boolean {
-        padding: 2px 6px;
+    // Rounded shapes //
+    .reporter, .custom-arg, .embedded, .boolean {
         .border-radius(10000px);
     }
 
-    .boolean {
-        position: relative;
+    
 
-        /*&:before {
-            content: "";
-            display: block;
-            position: absolute;
-            left: -32px;
-            top: 0;
 
-            width: 0;
-            border-top: 32px solid transparent;
-            border-bottom: 32px solid transparent;
-            border-right: 32px solid blue;
-        }*/
-    }
+    /*// Free-floating reporters //
+    div {
+        &.reporter, &.embedded, &.boolean {
+            margin: 8px 0 0;
+        }
+    }  */  
 }
