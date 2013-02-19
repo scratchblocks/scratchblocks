@@ -140,7 +140,7 @@
         script = script.replace(/^position\:[0-9\., ]+/i, '');  // Kurt
         script = script.trim();
         
-        location.hash = '#'+encodeURI(script);
+        location.hash = '#'+encodeURIComponent(script);
         oldHash = location.hash;
         link_url.value = location;
         
@@ -159,13 +159,13 @@
     
     function checkHash() {
         if (oldHash != location.hash) {
-            code.value = decodeURI(location.hash.substr(1));
+            code.value = decodeURIComponent((location.href.split("#")[1] || ""));
             refresh();
         }    
         window.setTimeout(checkHash, 1000);
     }
     
-    code.value = decodeURI(location.hash.substr(1));
+    code.value = decodeURIComponent((location.href.split("#")[1] || ""));
     checkHash();
     
         
