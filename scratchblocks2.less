@@ -147,7 +147,7 @@
             border-color: ~"@{@{category}_btop}";
         }
 
-        > .dropdown, > .boolean.empty {
+        > .dropdown, > .boolean.empty, > .color {
             background: ~"@{@{category}_inset}";
             border-color: ~"@{@{category}_itop}" ~"@{@{category}_ibot}"
                           ~"@{@{category}_ibot}" ~"@{@{category}_itop}";
@@ -413,6 +413,13 @@
 
 
     // Block inserts //
+    .color {
+        border: 1px solid;
+        width: 11px;
+        height: 11px;
+        padding: 0;
+    }
+
     .number, .number-dropdown, .string, .dropdown {
         font-weight: normal;
     }
@@ -424,6 +431,10 @@
         border-color: #777 #fff #fff #777;
         // box-shadow: 1px 1px 1px #8f958a inset;
         padding: 2px 4px;
+    }
+
+    .string {
+        padding: 2px;
     }
 
     .number, .number-dropdown {

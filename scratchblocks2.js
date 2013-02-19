@@ -49,6 +49,7 @@ scratchblocks2._classes = {
         "dropdown",
         "number",
         "number-dropdown",
+        "color",
         "custom-definition",
         "custom-arg",
         "outline",
@@ -359,6 +360,10 @@ scratchblocks2._render_block = function (code, kind) {
         kind = "number";
     } else if (bracket == "[") {
         kind = "string";
+
+        if (/#[A-Fa-f0-9]+/.test(code))  {
+            kind = "color";
+        }
     }
 
     // dropdowns for [string v] and number (123 v)
@@ -397,11 +402,6 @@ scratchblocks2._render_block = function (code, kind) {
     var pieces = [];
     if (kind && kind != "stack" && kind != "custom-definition") {
         pieces = [code]; // don't bother splitting
-
-        if (code.length == 0) {
-            code = " "; // must have content to size correctly
-            $block.addClass(cls("empty"));
-        }
     } else {
         code = code.trim();
 
@@ -459,17 +459,21 @@ scratchblocks2._render_block = function (code, kind) {
     // add shape class
     $block.addClass(cls(kind));
     
-    // block content
-    if (pieces.length == 0) {
-        // we didn't bother parsing the block into pieces!
-        if (code.length == 0) {
-            code = " "; // must have content to size correctly
-            $block.addClass(cls("empty"));
-        }
+    // empty blocks must have content to size correctly
+    if (code.length == 0) {
+        code = " ";
         pieces = [code];
-        //$block.html(code);
+        $block.addClass(cls("empty"));
+    } 
+    
+    // render color inputs
+    if (kind == "color") {
+        $block.css({
+            "background-color": code,
+        });
+        $block.html(" ");
+        return $block;
     }
-
     
     // RENDARRR //
     var is_block = function (piece) {
@@ -543,10 +547,6 @@ scratchblocks2._render_block = function (code, kind) {
             arg_classes = info[1];
         }
 
-        if (arg_classes.length > 0) {
-            console.log(arg_classes);
-        }
-
         if (classes.length == 0) {
             // can't find the block!
             if (category != "") {
@@ -608,12 +608,7 @@ scratchblocks2._find_block = function (text, args) {
 
     // strip block text
     text = strip_block_text(text);
-
-    // SPECIAL: When () Clicked
-    if (/^when(.*)clicked$/.test(text)) {
-        text = "whenclicked";
-    }
-
+    
     // get block for text
     var block;
     if (text in blocks) {
@@ -647,7 +642,7 @@ scratchblocks2._find_block = function (text, args) {
             });
         }
     }
-
+   
     var classes = [];
     var arg_classes = [];
     if (block) {
@@ -692,6 +687,8 @@ scratchblocks2._load_blocks_db = function () {
     for (var i=0; i<lines.length; i++) {
         var line = lines[i];
         line = line.trim();
+
+        if (line.length == 0) continue;
 
         var classes = [category];
 
