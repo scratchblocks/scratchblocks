@@ -1,3 +1,19 @@
+/* scratchblocks2.less
+
+Copyright © 2012 Tim Radvan
+
+Requires the files:
+
+  * ccw.png
+  * cw.png
+  * flag@2x.png
+
+in the block_images/ directory, in the same folder as this file.
+
+Written for the LESS CSS preprocessor: http://lesscss.org/
+
+*/
+
 @control_bg: #e1a91a;
 @control_btop: #e5b53a;
 @control_bbot: #a07812;
@@ -62,13 +78,13 @@
 @operators_inset: #54a810;
 @operators_arrow: #214306;
 
-@obsolete_bg: #f00;    // TODO
-@obsolete_btop: #f00;  // TODO
-@obsolete_bbot: #f00;  // TODO
-@obsolete_ibot: none;  // TODO
-@obsolete_itop: none;  // TODO
-@obsolete_inset: none; // TODO
-@obsolete_arrow: none; // TODO
+@obsolete_bg: #d42828;
+@obsolete_btop: #da4646;
+@obsolete_bbot: #971c1c;
+@obsolete_ibot: #ec2e34;  // guessed
+@obsolete_itop: #96191c;  // guessed
+@obsolete_inset: #c32525; // guessed
+@obsolete_arrow: #5c0b0d; // guessed
 
 @pen_bg: #0e9a6c;
 @pen_btop: #30a880;
@@ -77,6 +93,14 @@
 @pen_ibot: #62785b; // TODO
 @pen_inset: none;   // TODO
 @pen_arrow: none;   // TODO
+
+@purple_bg: #672d79;
+@purple_btop: #7c4a8b;
+@purple_bbot: #492056;
+@purple_itop: #391843;
+@purple_ibot: #7d528a;
+@purple_inset: #5e296f;
+@purple_arrow: #25102c;
 
 @sensing_bg: #2ca5e2;
 @sensing_btop: #49b1e6;
@@ -136,16 +160,16 @@
 // See http://stackoverflow.com/questions/11198221/defining-variable-variables-using-less-css
 .category-color(@category) {
     (~".@{category}") {
-        &.hat, &.custom-definition, &.stack, &.boolean, &.reporter, &.embedded,
-        &.variable-reporter, &.custom-arg {
-            .stack-color(@category);
-        }
-
         &.stack, &.cap {
             &:before {
                 border-color: ~"@{@{category}_bbot}" ~"@{@{category}_btop}"
                               ~"@{@{category}_btop}" ~"@{@{category}_bbot}";
             }
+        }
+
+        &.hat, &.hat:before, &.custom-definition, &.stack, &.boolean, &.reporter,
+        &.embedded, &.variable-reporter, &.custom-arg {
+            .stack-color(@category);
         }
 
         &.custom-definition:before {
@@ -162,7 +186,7 @@
             }
         }
         
-        .cmouth {
+        > .cmouth {
             &:before {
                 background-color: ~"@{@{category}_bg}";
                 border-left-color: ~"@{@{category}_btop}";
@@ -179,6 +203,13 @@
     color: white;
     font-size: 10px;
     line-height: 10px;
+    margin: 10px 0;
+    
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
 
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -186,6 +217,8 @@
     display: block;
 
     z-index: @z_container;
+
+
 
 
     // Colors //
@@ -202,6 +235,7 @@
     .category-color("sound");
     .category-color("variables");
     .category-color("custom-arg");
+    .category-color("purple");
 
 
     // Scripts are stacks of blocks //
@@ -215,7 +249,10 @@
 
     // Elements //
     div {
-        display: table;
+        //display: table;
+        display: inline-block;
+        float: left;
+        clear: both;
     }
 
     span {
@@ -250,19 +287,22 @@
     // Puzzle pieces //
     .stack, .hat, .cap, .custom-definition {
         position: relative;
+        .box-sizing_border-box;
     }
 
     .stack, .cap {
         &:before {
             content: "";
+            .box-sizing_border-box;
             position: absolute;
             left: 11px;
-            width: 13px;
-            height: 3px;
+            width: 15px;
+            height: 4px;
             border: inherit;
             border-top: none;
+            border-width: 1px;
             background: @background;
-            .border-radius(0 0 4px 4px);
+            .border-radius(0 0 5px 5px);
 
             top: -1px;
         }
@@ -271,10 +311,11 @@
     .stack, .hat, .custom-definition {
         &:after {
             content: "";
+            .box-sizing_border-box;
             position: absolute;
             left: 12px;
-            width: 11px;
-            height: 3px;
+            width: 13px;
+            height: 5px;
             border: inherit;
             border-top: none;
             background: inherit;
@@ -283,6 +324,10 @@
             bottom: -5px;
             z-index: @z_bottom_stub;
         }
+    }
+
+    .cap:after {
+        content: none;
     }
 
     .cwrap.cap > .cend:after {
@@ -298,6 +343,38 @@
     .cend, .celse {
         &:before {
             left: 25px;
+        }
+    }
+
+
+    // Hat block shapes //
+    .hat, .custom-definition {
+        position: relative;
+
+        padding: 4px;
+
+        .border-radius(0 4px 4px 4px);
+        
+        margin-top: 15px;
+
+        min-width: 120px;
+
+        &:before {
+            content: "";
+            .box-sizing_border-box;
+            position: absolute;
+            height: 15px;
+            width: 100px;
+            top: -15px;
+            left: -1px;
+            background: inherit;
+            border: inherit;
+            border-bottom: none;
+            .border-radius(50px 50px 0 0 e('/') 15px 15px 0 0);
+        }
+
+        &.custom-definition:before {
+            border-top-width: 2px;
         }
     }
 
@@ -333,42 +410,12 @@
     }
 
 
-    // Hat block shapes //
-    .hat, .custom-definition {
-        position: relative;
-
-        padding: 4px;
-
-        .border-radius(0 4px 4px 4px);
-        
-        margin-top: 15px;
-
-        min-width: 120px;
-
-        &:before {
-            content: "";
-            position: absolute;
-            height: 15px;
-            width: 100px;
-            top: -15px;
-            left: -1px;
-            background: inherit;
-            border: inherit;
-            border-bottom: none;
-            .border-radius(50px 50px 0 0 e('/') 15px 15px 0 0);
-        }
-
-        &.custom-definition:before {
-            border-top-width: 2px;
-        }
-    }
-
-
     // C Blocks //
     @cleft_padding: 14px;
     .cwrap { 
         .cstart {
             .border-radius(4px 4px 4px 0);
+            min-width: 60px;
         }
 
         .cmouth {
@@ -406,7 +453,7 @@
 
         .cend {
             .box-sizing_border-box;
-            max-height: 8px;
+            height: 8px;
             width: 100%;
             span {
                 display: none;
@@ -434,7 +481,7 @@
         border: 1px solid #a59e97;
         border-color: #777 #fff #fff #777;
         // box-shadow: 1px 1px 1px #8f958a inset;
-        padding: 2px 4px;
+        padding: 1px 4px;
     }
 
     .string {
@@ -445,8 +492,9 @@
         border-radius: 10px;
     }
 
-    .dropdown {
-        border: 1px solid;
+    .dropdown, .string {
+        border-style: solid;
+        border-width: 1px;
     }
     
     .dropdown, .number-dropdown {
@@ -460,6 +508,7 @@
 
     .number-dropdown:after {
         color: @number_dropdown_arrow;
+        padding-left: 2px;
     }
    
     .embedded, .boolean {
@@ -476,14 +525,30 @@
     .reporter, .custom-arg, .embedded, .boolean {
         .border-radius(10000px);
     }
-
     
+    
+    // Images //
+    .arrow-cw, .arrow-ccw {
+        display: inline-block;
+        padding: 0;
+        width: 14px;
+        height: 14px;
+    }
+    .arrow-cw {
+        background: url(block_images/cw.png) 0 0 no-repeat;
+    }
+    .arrow-ccw {
+        background: url(block_images/ccw.png) 0 0 no-repeat;
+    }
 
-
-    /*// Free-floating reporters //
-    div {
-        &.reporter, &.embedded, &.boolean {
-            margin: 8px 0 0;
-        }
-    }  */  
+    .green-flag {
+        display: inline-block;
+        padding: 0;
+        vertical-align: bottom;
+        margin: 0 2px;
+        width: 20px;
+        height: 20px;
+        background: url(block_images/flag@2x.png) 0 0 no-repeat;
+        background-size: contain;
+    }
 }

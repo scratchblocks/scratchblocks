@@ -1,3 +1,9 @@
+/* scratchblocks2.js
+
+Copyright © 2012 Tim Radvan
+
+*/
+
 var scratchblocks2 = {};
 
 
@@ -58,7 +64,8 @@ scratchblocks2._classes = {
         "cmouth",
         "cwrap",
         "celse",
-        "cend"
+        "cend",
+        "ifblock",
     ],
     "category": [
         "obsolete",
@@ -73,7 +80,10 @@ scratchblocks2._classes = {
         "pen",
         "sensing",
         "sound",
-        "variables"
+        "variables",
+        "purple", // The ([slider v] sensor value) and 
+                  // <sensor [button pressed v]?> blocks. I'm not sure what
+                  // category this is supposed to be.
     ]
 };
 
@@ -132,8 +142,8 @@ scratchblocks2.parse = function (d) {
 /* Render script code to a list of DOM elements, one for each script. */
 scratchblocks2._render = function (code) {
     var cls = scratchblocks2._cls;
-    var classes = scratchblocks2._classes;
     var assert = scratchblocks2._assert;
+    var get_block_category = scratchblocks2._get_block_category;
 
     var scripts = [];
     var $script;
@@ -190,12 +200,7 @@ scratchblocks2._render = function (code) {
                 $current = $cmouth;
 
                 // give $cwrap the color of $block
-                $.each($block.attr("class").split(/\s+/), function(i, name) {
-                    // TODO fix for cls() prefix
-                    if (classes.category.indexOf(name) > -1) {
-                        $cwrap.addClass(name);
-                    }
-                });
+                $cwrap.addClass(get_block_category($block));
 
                 if ($block.hasClass(cls("cap"))) {
                     $cwrap.addClass(cls("cap"));
@@ -207,12 +212,16 @@ scratchblocks2._render = function (code) {
                 if (nesting > 0) {
                     var $cwrap = $current.parent();
                     assert($cwrap.hasClass(cls("cwrap")));
-                    
+
                     $cwrap.append($block);
 
                     var $cmouth = $("<div>").addClass(cls("cmouth"));
                     $cwrap.append($cmouth);
                     $current = $cmouth;
+                    
+                    // give $block the color of $cwrap
+                    $block.removeClass(get_block_category($block));
+                    $block.addClass(get_block_category($cwrap));
                 } else {
                     $current.append($block);
                 }
@@ -225,6 +234,10 @@ scratchblocks2._render = function (code) {
                     $cwrap.append($block);
                     $current = $cwrap.parent();
                     nesting -= 1;
+
+                    // give $block the color of $cwrap
+                    $block.removeClass(get_block_category($block));
+                    $block.addClass(get_block_category($cwrap));
                 } else {
                     $current.append($block);
                 }
@@ -261,6 +274,14 @@ scratchblocks2._render = function (code) {
         });
     }
 
+/*    // make .before and .after
+    var lists = [];
+    for (var i=0; i<scripts.length; i++) {
+        var $script = scripts[i];
+        $script.find(".stack, .cap").prepend("<div class=before>");
+        $script.find(".stack, .hat, .custom-definition").append("<div class=after>");
+    }*/
+
     return scripts;
 };
 
@@ -268,7 +289,7 @@ scratchblocks2._render = function (code) {
 /* Render script code to DOM. */
 scratchblocks2._render_block = function (code, kind) {
     var cls = scratchblocks2._cls;
-    var arg_shape = scratchblocks2._arg_shape;
+    var get_arg_shape = scratchblocks2._get_arg_shape;
 
     if (code.trim().length == 0 && kind == 'stack') {
         return;
@@ -520,7 +541,7 @@ scratchblocks2._render_block = function (code, kind) {
                 var $arg = scratchblocks2._render_block(piece,
                         is_database ? "database" : ""); // DATABASE: avoid find_block
                 $block.append($arg);
-                args.push(arg_shape($arg));
+                args.push(get_arg_shape($arg));
                 $arg_list.push($arg);
             } else {
                 $block.append(piece);
@@ -560,13 +581,43 @@ scratchblocks2._render_block = function (code, kind) {
             }
         } else {
             $.each(classes, function (i, name) {
-                $block.addClass(cls(name));
+                if (!(/^-/.test(name))) {
+                    $block.addClass(cls(name));
+                }
             });
 
             $.each(arg_classes, function (i, name) {
                 var $arg = $arg_list[i];
                 if ($arg && name) $arg.addClass(name);
             });
+        }
+        
+        // image: green flag
+        if (classes.indexOf("-green-flag") > -1) {
+            var html = $block.html();
+            var image = '<span class="green-flag"></span>';
+            if (/green flag/.test(html)) {
+                html = html.replace("green flag", image);
+            } else {
+                html = html.replace("flag", image);
+                html = html.replace("gf", image);
+            }
+            $block.html(html);
+        }
+
+        // image: turn cw/ccw arrows
+        if (classes.indexOf("-turn-arrow") > -1) {
+            var html = $block.html();
+            if (/ccw|left/.test(html)) {
+                var image = '<span class="arrow-cw"></span>';
+                html = html.replace("ccw", image);
+                html = html.replace("left", image);
+            } else {
+                var image = '<span class="arrow-ccw"></span>';
+                html = html.replace("cw", image);
+                html = html.replace("right", image);
+            }
+            $block.html(html);
         }
     }
     
@@ -580,8 +631,22 @@ scratchblocks2._render_block = function (code, kind) {
 };
 
 
+/* Return the category class for the given block. */
+scratchblocks2._get_block_category = function ($block) {
+    var cls = scratchblocks2._cls;
+    var classes = scratchblocks2._classes;
+    var block_category;
+    $.each(classes.category, function (i, category) {
+        if ($block.hasClass(cls(category))) {
+            block_category = category;
+        }
+    });
+    return block_category;
+};
+
+
 /* Return the shape class for the given insert. */
-scratchblocks2._arg_shape = function ($arg) {
+scratchblocks2._get_arg_shape = function ($arg) {
     var cls = scratchblocks2._cls;
     var SHAPES = ["reporter", "boolean", "string", "dropdown",
                   "number", "number-dropdown", "list-dropdown"];
@@ -678,7 +743,7 @@ scratchblocks2._get_blocks_db = function () {
 scratchblocks2._load_blocks_db = function () {
     var strip_block_text = scratchblocks2._strip_block_text;
     var cls = scratchblocks2._cls;
-    var arg_shape = scratchblocks2._arg_shape;
+    var get_arg_shape = scratchblocks2._get_arg_shape;
 
     var db = {};
     var category = "";
@@ -710,7 +775,7 @@ scratchblocks2._load_blocks_db = function () {
         // get arg shapes
         var arg_shapes = [];
         $block.children().each(function (i, arg) {
-            arg_shapes.push(arg_shape($(arg)));
+            arg_shapes.push(get_arg_shape($(arg)));
         });
         
         // get text
@@ -733,6 +798,35 @@ scratchblocks2._load_blocks_db = function () {
 
 /* The list of blocks, in scratchblocks format. */
 scratchblocks2.blocks = "\
+## Motion ##   \
+move (10) steps   \
+turn cw (15) degrees ## -turn-arrow   \
+turn right (15) degrees ## -turn-arrow   \
+turn ccw (15) degrees ## -turn-arrow   \
+turn left (15) degrees ## -turn-arrow   \
+\
+point in direction (90 v)   \
+point towards [ v]   \
+\
+go to x: (0) y: (0)   \
+go to [mouse-pointer v]   \
+glide (1) secs to x: (0) y: (0)   \
+\
+change x by (10)   \
+set x to (0)   \
+change y by (10)   \
+set y to (0)   \
+\
+if on edge, bounce   \
+\
+set rotation style [left-right v]   \
+\
+(x position)   \
+(y position)   \
+(direction)   \
+\
+\
+\
 ## Looks ##   \
 say [Hello!] for (2) secs   \
 say [Hello!]   \
@@ -837,8 +931,9 @@ hide list [list v]   \
 \
 \
 ## Events ##   \
-when gf clicked ## hat   \
-when green flag clicked ## hat   \
+when gf clicked ## hat -green-flag   \
+when green flag clicked ## hat -green-flag   \
+when flag clicked ## hat -green-flag   \
 when [space v] key pressed ## hat   \
 when this sprite clicked ## hat   \
 when backdrop switches to [backdrop1 v] ## hat   \
@@ -855,14 +950,14 @@ broadcast [message1 v] and wait   \
 wait (1) secs   \
 \
 repeat (10) ## cstart   \
-forever ## cstart   \
-if <> then ## cstart   \
+forever ## cstart cap   \
+if <> then ## ifblock cstart   \
 else ## celse   \
 end ## cend   \
 wait until <>   \
 repeat until <> ## cstart  \
 \
-stop [all v]   \
+stop [all v] ## cap   \
 \
 when I start as a clone ## hat   \
 create clone of [myself v]   \
@@ -922,4 +1017,21 @@ reset timer   \
 (round ())   \
 \
 ([sqrt v] of (9))   \
+" +
+
+
+
+
+// Obsolete Scratch 1.4 blocks //
+"\
+## Obsolete ##   \
+if <> ## cstart   \
+forever if <> ## cstart cap  \
+<loud?>   \
+\
+\
+\
+## Purple ##   \
+([slider v] sensor value)   \
+<sensor [button pressed v]?>   \
 ";

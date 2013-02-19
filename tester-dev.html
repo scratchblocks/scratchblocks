@@ -4,11 +4,25 @@
     <meta charset="utf8">
     <title>[scratchblocks]</title>
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script> 
+    <script type="text/javascript" src="tester/jquery-1.7.2.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="scratchblocks2.css">
+    <link rel="stylesheet/less" type="text/css" href="scratchblocks2.less">
     <script type="text/javascript" src="scratchblocks2.js"></script>
-      
+    
+    <script type="text/javascript">
+        less = {
+            env: "development", // or "production"
+            fileAsync: false,   // load imports async when in a page under 
+                                // a file protocol
+            poll: 500,          // when in watch mode, time in ms between polls
+            dumpLineNumbers: "all", // or "mediaQuery" or "all"
+        };
+    </script>
+    <script type="text/javascript" src="tester/less-1.3.3.min.js"></script>
+    <script type="text/javascript">
+    less.watch();
+    </script>
+    
     <style type="text/css">
     h1 {
         font-family: monospace;
@@ -22,6 +36,7 @@
     }
     body {
         margin: 1em;
+        margin-bottom: 100%;
         font-family: sans-serif;
     }
     input, button {
@@ -32,7 +47,7 @@
         font-size: 1em;
         margin-bottom: 1em;
         min-width: 30em;
-        min-height: 15em;
+        min-height: 5em; /* DEBUG 15em;*/
     }
     button {
         display: block;
@@ -59,15 +74,6 @@
         font-weight: bold;
         cursor: pointer;
     }
-    #footer {
-        text-align: right;
-        padding: 1em;
-        background: rgba(255, 255, 255, 0.5);
-        z-index: 60000;
-    }
-    #footer a {
-        color: black;
-    }
     #me {
         font-weight: bold;
     }
@@ -75,29 +81,15 @@
 </head>
 
 <body>
-    <h1>[scratchblocks]</h1>
-    <p>
-        Test <code>[scratchblocks]</code>...<code>[/scratchblocks]</code> code for the 
-        <a href="http://scratch.mit.edu/forums/viewtopic.php?id=90403">Scratch Forums</a> 
-        or <code>&lt;scratchblocks&gt;</code>...<code>&lt;/scratchblocks&gt;</code> code for the 
-        <a href="http://wiki.scratch.mit.edu/wiki/Block_Plugin">Scratch Wiki</a>.
-    </p>
-    <p>
-        To generate the code: <a href="http://scratch.mit.edu/forums/viewtopic.php?id=102175">Squeak plugin</a> | <a href="https://github.com/blob8108/kurt#decompiler">Python script</a>
-    </p>
+    <h1>[scratchblocks]: dev</h1>
+    <p>LESS is now watching the file for changes: update the file on
+        disk, and the styles will automatically reload here.</p>
+
     <textarea id="code"></textarea>
     
     <button id="render">Render</button>
     
-    <div id="link">
-        <label for="link-url" id="link-url-label">Link:</label>
-        <input type="text" id="link-url" readonly>
-    </div>
-    
     <pre id="preview" class="blocks"></pre>
-    
-    <div id="footer"><a id="me"
-            href="http://scratch.mit.edu/users/blob8108">~blob8108</a></div>
     
     <script type="text/javascript">
     if(typeof(String.prototype.trim) === "undefined") {
@@ -123,7 +115,6 @@
         
         location.hash = '#'+encodeURIComponent(script);
         oldHash = location.hash;
-        link_url.value = location;
         
         script = script.replace(/&/g, '&amp;');
 		script = script.replace(/</g, '&lt;');
@@ -155,20 +146,7 @@
     code.oncopy = code.onpaste = function(e) {
         window.setTimeout(refresh, 100);
     }
-    
-    
-    link_url.onclick = link_url.onfocus = link_url_label.onclick = function(e) {
-        link_url.focus();
-        link_url.select();
-        
-        // Work around Chrome's little problem
-        link_url.onmouseup = function() {
-            // Prevent further mouseup intervention
-            link_url.onmouseup = null;
-            return false;
-        };
-    }
-    
+
     refresh();
     </script>
 </body>
