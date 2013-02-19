@@ -120,6 +120,11 @@
     -moz-border-radius: @radius;
 }
 
+.box-sizing_border-box {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
 
 .stack-color(@category) {
     background-color: ~"@{@{category}_bg}";
@@ -363,7 +368,6 @@
     @cleft_padding: 14px;
     .cwrap { 
         .cstart {
-            //margin: 0 0 -1px 0;
             .border-radius(4px 4px 4px 0);
         }
 
@@ -394,15 +398,15 @@
         }
 
         .celse {
+            .box-sizing_border-box;
             width: 100%;
             position: relative;
             .border-radius(0 4px 4px 0);
-            //margin: -1px 0;
         }
 
         .cend {
-            //margin: -1px 0 0 0;
-            height: 10px;
+            .box-sizing_border-box;
+            max-height: 8px;
             width: 100%;
             span {
                 display: none;
