@@ -131,7 +131,7 @@
 // See http://stackoverflow.com/questions/11198221/defining-variable-variables-using-less-css
 .category-color(@category) {
     (~".@{category}") {
-        &.hat, &.custom-definition, &.stack, &.boolean, &.reporter,
+        &.hat, &.custom-definition, &.stack, &.boolean, &.reporter, &.embedded,
         &.variable-reporter, &.custom-arg {
             .stack-color(@category);
         }
@@ -372,7 +372,7 @@
 
             &:empty {
                 content: " ";
-                min-height: 20px;
+                min-height: 12px;
             }
 
             &:before {
@@ -444,10 +444,11 @@
     }
 
     .number-dropdown:after {
-            color: @number_dropdown_arrow;
+        color: @number_dropdown_arrow;
     }
    
     .embedded, .boolean {
+        border: 2px solid;
         padding: 2px 4px;
     }
 

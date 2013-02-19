@@ -35,6 +35,8 @@ scratchblocks2._classes = {
         "container",
         "script",
         "empty",
+
+        "list-dropdown",
     ],
     "shape": [
         "hat",
@@ -138,8 +140,7 @@ scratchblocks2._render = function (code) {
     var nesting;
 
     var new_script = function() {
-        if ($script != undefined && $script.length > 0) {
-            console.log($script);
+        if ($script != undefined && $script.children().length > 0) {
             scripts.push($script);
         }
         $script = $("<div>").addClass(cls("script"));
@@ -167,10 +168,15 @@ scratchblocks2._render = function (code) {
         $block = scratchblocks2._render_block(line, "stack");
         
         if ($block) {
+            var one_only = false;
             if ( $block.hasClass(cls("hat")) ||
-                 $block.hasClass(cls("custom-definition")) ||
-                 $block.hasClass(cls("reporter"))) {
+                 $block.hasClass(cls("custom-definition")) ) {
                 new_script();
+            } else if ($block.hasClass(cls("boolean")) ||
+                       $block.hasClass(cls("embedded")) ||
+                       $block.hasClass(cls("reporter"))) {
+                new_script();
+                one_only = true;
             }
             
             if ($block.hasClass(cls("cstart"))) {
@@ -224,8 +230,36 @@ scratchblocks2._render = function (code) {
             } else {
                 $current.append($block);
             }
+
+            if (one_only) {
+                new_script();
+            }
         }
     }
+
+    // push last script
+    new_script();
+
+    // HACK: list reporters
+    var lists = [];
+    for (var i=0; i<scripts.length; i++) {
+        var $script = scripts[i];
+        $script.find(".list-dropdown").each(function (i, list) {
+            var name = $(list).text();
+            lists.push(name);
+        });
+    }
+    for (var i=0; i<scripts.length; i++) {
+        var $script = scripts[i];
+        $script.find(".variables.reporter").each(function (i, variable) {
+            var $variable = $(variable);
+            var name = $variable.text();
+            if (lists.indexOf(name) > -1) {
+                $variable.removeClass("variables").addClass("list");
+            }
+        });
+    }
+
     return scripts;
 };
 
@@ -233,6 +267,7 @@ scratchblocks2._render = function (code) {
 /* Render script code to DOM. */
 scratchblocks2._render_block = function (code, kind) {
     var cls = scratchblocks2._cls;
+    var arg_shape = scratchblocks2._arg_shape;
 
     if (code.trim().length == 0 && kind == 'stack') {
         return;
@@ -296,6 +331,10 @@ scratchblocks2._render_block = function (code, kind) {
     }
 
     // init vars
+    if (kind == "database") {
+        var is_database = true;
+        kind = "";
+    }
     if (kind == undefined) kind = "";
     var category = "";
     var bracket = "";
@@ -413,6 +452,10 @@ scratchblocks2._render_block = function (code, kind) {
         kind = "embedded";
     }
 
+    if (kind == "stack" && bracket == "(") {
+        kind = "embedded";
+    }
+
     // add shape class
     $block.addClass(cls(kind));
     
@@ -434,19 +477,18 @@ scratchblocks2._render_block = function (code, kind) {
             is_open_bracket(piece[0]) || is_close_bracket(piece[0]));
     };
 
-    // filter out block text & args
+    // filter out block text
     var text = "";
     var args = [];
     for (var i=0; i<pieces.length; i++) {
         var piece = pieces[i];
-        if (is_block(piece)) {
-           args.push(piece);
-        } else {
+        if (!is_block(piece)) {
             text += piece;
         }
     }
 
     // render the pieces
+    var $arg_list = [];
     if (pieces.length == 1) {
         $block.html(code);
     } else if (kind == "custom-definition") { // custom block args
@@ -471,9 +513,18 @@ scratchblocks2._render_block = function (code, kind) {
         for (var i=0; i<pieces.length; i++) {
             var piece = pieces[i];
             if (is_block(piece)) {
-                $block.append(scratchblocks2._render_block(piece));
+                var $arg = scratchblocks2._render_block(piece,
+                        is_database ? "database" : ""); // DATABASE: avoid find_block
+                $block.append($arg);
+                args.push(arg_shape($arg));
+                $arg_list.push($arg);
             } else {
                 $block.append(piece);
+            }
+
+            // DATABASE: tag list dropdowns
+            if (is_database && piece == "[list v]") {
+                $arg.addClass("list-dropdown");
             }
         }
     }
@@ -481,7 +532,21 @@ scratchblocks2._render_block = function (code, kind) {
     // get category
     if (kind != "custom-definition") {
         // TODO custom blocks
-        var classes = scratchblocks2._find_block(text, args);
+        var classes = [];
+        var arg_classes = [];
+
+        if (is_database) {
+            // DATABASE: don't try to find_block!
+        } else {
+            var info = scratchblocks2._find_block(text, args);
+            classes = info[0];
+            arg_classes = info[1];
+        }
+
+        if (arg_classes.length > 0) {
+            console.log(arg_classes);
+        }
+
         if (classes.length == 0) {
             // can't find the block!
             if (category != "") {
@@ -489,13 +554,18 @@ scratchblocks2._render_block = function (code, kind) {
             } else {
                 if (kind == "stack") {
                     $block.addClass(cls("custom"));
-                } else if (!$block.hasClass(cls("empty"))) {
+                } else if (kind == "embedded" && !$block.hasClass(cls("empty"))) {
                     $block.addClass(cls("obsolete"));
                 }
             }
         } else {
             $.each(classes, function (i, name) {
                 $block.addClass(cls(name));
+            });
+
+            $.each(arg_classes, function (i, name) {
+                var $arg = $arg_list[i];
+                if ($arg && name) $arg.addClass(name);
             });
         }
     }
@@ -510,207 +580,349 @@ scratchblocks2._render_block = function (code, kind) {
 };
 
 
-/* Return information for a block, given its text. Uses args as hints. */
-scratchblocks2._find_block = function (text, args) {
-    var blocks = scratchblocks2.blocks;
-
-    text = text.replace(/[ ,%?:]/g, "");
-    text = text.toLowerCase();
-    
-    for (i=0; i<blocks.length; i++) {
-        var block = blocks[i];
-        if (block[0] == text) {
-            var classes = [ block[1] ];
-            if (block.length > 3) {
-                classes = classes.concat(block.slice(3));
-            }
-            return classes;
+/* Return the shape class for the given insert. */
+scratchblocks2._arg_shape = function ($arg) {
+    var cls = scratchblocks2._cls;
+    var SHAPES = ["reporter", "boolean", "string", "dropdown",
+                  "number", "number-dropdown", "list-dropdown"];
+    var arg_shape;
+    $.each(SHAPES, function (i, shape) {
+        if ($arg.hasClass(cls(shape))) {
+            arg_shape = shape;
         }
-    }
-    
-    console.log("Missing block: ", text);
-
-    return [];
+    });
+    return arg_shape;
 };
 
 
-/* The list of blocks. */
-scratchblocks2.blocks = [
-    // Motion //
-    ["movesteps", "motion", ["%n"]],
-    ["turncwdegrees", "motion", ["%n"]],
-    ["turnccwdegrees", "motion", ["%n"]],
-    ["pointindirection", "motion", ["%d"]],
-    ["pointtowards", "motion", ["%m"]],
-    ["gotoxy", "motion", ["%n", "%n"]],
-    ["goto", "motion", ["%m"]],
-    ["glidesecstoxy", "motion", ["%n", "%n", "%n"]],
-    ["changexby", "motion", ["%n"]],
-    ["setxto", "motion", ["%n"]],
-    ["changeyby", "motion", ["%n"]],
-    ["setyto", "motion", ["%n"]],
-    ["ifonedgebounce", "motion", []],
-    ["xposition", "motion", []],
-    ["yposition", "motion", []],
-    ["direction", "motion", []],
-    ["setrotationstyle", "motion", []],
+/* Strip block text, for looking up in blocks db. */
+scratchblocks2._strip_block_text = function (text) {
+    return text.replace(/[ ,%?:]/g, "").toLowerCase();
+};
 
-    // Events //
-    ["whengreenflagclicked", "events", [], "hat"],
-    ["whengfclicked", "events", [], "hat"],
 
-    // Control //
-    ["whenkeypressed", "control", ["%k"], "hat"],
-    ["whenclicked", "control", ["%m"], "hat"],
-    ["waitsecs", "control", ["%n"]],
-    ["forever", "control", [], "cstart", "cap"],
-    ["repeat", "control", ["%n"], "cstart"],
-    ["broadcast", "control", ["%e"]],
-    ["broadcastandwait", "control", ["%e"]],
-    ["whenireceive", "control", ["%e"], "hat"],
-    ["foreverif", "control", ["%b"], "cstart"],
-    ["if", "control", ["%b"], "cstart"],
-    ["ifthen", "control", ["%b"], "cstart"],
-    ["else", "control", ["%b"], "celse"],
-    ["end", "control", ["%b"], "cend"],
-    ["waituntil", "control", ["%b"]],
-    ["repeatuntil", "control", ["%b"], "cstart"],
-    ["stopscript", "control", [], "cap"],
-    ["stopall", "control", [], "cap"],
+/* Return [classes, arg_shapes] for a block, given its text. Uses args as hints. */
+scratchblocks2._find_block = function (text, args) {
+    var strip_block_text = scratchblocks2._strip_block_text;
+    var blocks = scratchblocks2._get_blocks_db();
 
-    // Looks //
-    ["switchtobackground", "looks", ["%l"]],
-    ["nextbackground", "looks", []],
-    ["background#", "looks", []],
-    ["changeeffectby", "looks", ["%g", "%n"]],
-    ["seteffectto", "looks", ["%g", "%n"]],
-    ["cleargraphiceffects", "looks", []],
-    ["switchtocostume", "looks", ["%l"]],
-    ["switchcostumeto", "looks", ["%l"]],
-    ["switchbackdropto", "looks", ["%l"]],
-    ["nextcostume", "looks", []],
-    ["costume#", "looks", []],
-    ["sayforsecs", "looks", ["%s", "%n"]],
-    ["say", "looks", ["%s"]],
-    ["thinkforsecs", "looks", ["%s", "%n"]],
-    ["think", "looks", ["%s"]],
-    ["changeeffectby", "looks", ["%g", "%n"]],
-    ["seteffectto", "looks", ["%g", "%n"]],
-    ["cleargraphiceffects", "looks", []],
-    ["changesizeby", "looks", ["%n"]],
-    ["setsizeto", "looks", ["%n"]],
-    ["size", "looks", []],
-    ["show", "looks", []],
-    ["hide", "looks", []],
-    ["gotofront", "looks", []],
-    ["gobacklayers", "looks", ["%n"]],
-    ["backdropname", "looks"],
-    ["backdrop#", "looks"],
-    ["switchbackgroundtoandwait", "looks", ["%l"]],
-    ["nextbackdrop", "looks", []],
-    ["turnvideo", "looks", []],
-    ["setvideotransparencyto", "looks", []],
+    // strip block text
+    text = strip_block_text(text);
 
-    // Sensing //
-    ["askandwait", "sensing", ["%s"]],
-    ["answer", "sensing", []],
-    ["mousex", "sensing", []],
-    ["mousey", "sensing", []],
-    ["mousedown", "sensing", []],
-    ["keypressed", "sensing", ["%k"]],
-    ["resettimer", "sensing", []],
-    ["timer", "sensing", []],
-    ["of", "sensing", ["%a", "%m"]],
-    ["loudness", "sensing", []],
-    ["loud", "sensing", []],
-    ["sensorvalue", "sensing", ["%H"]],
-    ["sensor", "sensing", ["%h"]],
-    ["touching", "sensing", ["%m"]],
-    ["touchingcolor", "sensing", ["%C"]],
-    ["coloristouching", "sensing", ["%C", "%C"]],
-    ["askandwait", "sensing", ["%s"]],
-    ["answer", "sensing", []],
-    ["mousex", "sensing", []],
-    ["mousey", "sensing", []],
-    ["mousedown", "sensing", []],
-    ["keypressed", "sensing", ["%k"]],
-    ["distanceto", "sensing", ["%m"]],
-    ["resettimer", "sensing", []],
-    ["timer", "sensing", []],
-    ["of", "sensing", ["%a", "%m"]],
-    ["loudness", "sensing", []],
-    ["loud", "sensing", []],
-    ["sensorvalue", "sensing", ["%H"]],
-    ["sensor", "sensing", ["%h"]],
+    // SPECIAL: When () Clicked
+    if (/^when(.*)clicked$/.test(text)) {
+        text = "whenclicked";
+    }
 
-    // Sound //
-    ["playsound", "sound", ["%S"]],
-    ["playsounduntildone", "sound", ["%S"]],
-    ["stopallsounds", "sound", []],
-    ["playdrumforbeats", "sound", ["%D", "%n"]],
-    ["restforbeats", "sound", ["%n"]],
-    ["playnoteforbeats", "sound", ["%N", "%n"]],
-    ["setinstrumentto", "sound", ["%I"]],
-    ["changevolumeby", "sound", ["%n"]],
-    ["setvolumeto", "sound", ["%n"]],
-    ["volume", "sound", []],
-    ["changetempoby", "sound", ["%n"]],
-    ["settempotobpm", "sound", ["%n"]],
-    ["tempo", "sound", []],
+    // get block for text
+    var block;
+    if (text in blocks) {
+        var poss_blocks = blocks[text];
 
-    // Operators //
-    ["+", "operators", ["%n", "%n"]],
-    ["-", "operators", ["%n", "%n"]],
-    ["*", "operators", ["%n", "%n"]],
-    ["/", "operators", ["%n", "%n"]],
-    ["pickrandomto", "operators", ["%n", "%n"]],
-    ["<", "operators", ["%s", "%s"]],
-    ["=", "operators", ["%s", "%s"]],
-    [">", "operators", ["%s", "%s"]],
-    ["and", "operators", ["%b", "%b"]],
-    ["or", "operators", ["%b", "%b"]],
-    ["not", "operators", ["%b"]],
-    ["join", "operators", ["%s", "%s"]],
-    ["letterof", "operators", ["%n", "%s"]],
-    ["lengthof", "operators", ["%s"]],
-    ["mod", "operators", ["%n", "%n"]],
-    ["round", "operators", ["%n"]],
-    ["of", "operators", ["%f", "%n"]],
-    ["ablockwithcolorandcolor", "operators", ["%C", "%c"]],
+        block = poss_blocks[0];
 
-    // Pen //
-    ["clear", "pen", []],
-    ["clear", "pen", []],
-    ["pendown", "pen", []],
-    ["penup", "pen", []],
-    ["setpencolorto", "pen", ["%c"]],
-    ["changepencolorby", "pen", ["%n"]],
-    ["setpencolorto", "pen", ["%n"]],
-    ["changepenshadeby", "pen", ["%n"]],
-    ["setpenshadeto", "pen", ["%n"]],
-    ["changepensizeby", "pen", ["%n"]],
-    ["setpensizeto", "pen", ["%n"]],
-    ["stamp", "pen", []],
+        if (poss_blocks.length > 1) {
+            // choose based on args
+            $.each(poss_blocks, function (i, poss_block) {
+                var category = poss_block[0][0];
+                var need_args = poss_block[1];
+                var fits = true;
 
-    // Variables //
-    ["showvariable", "variables", ["%v"]],
-    ["hidevariable", "variables", ["%v"]],
-    ["changeby", "variables", ["%v", "%n"]],
-    ["setto", "variables", ["%v", "%s"]],
+                for (var i=0; i<need_args.length; i++) {
+                    if (args[i] != need_args[i]) {
+                        if (args[i] == "reporter" && (
+                                need_args[i] == "number" ||
+                                need_args[i] == "string" )) {
+                            // allow reporters in number/string inserts
+                        } else {
+                            fits = false;
+                            break;
+                        }
+                    }
+                }
 
-    // List //
-    ["addto", "list", ["%s", "%L"]],
-    ["deleteof", "list", ["%y", "%L"]],
-    ["insertatof", "list", ["%s", "%i", "%L"]],
-    ["replaceitemofwith", "list", ["%i", "%L", "%s"]],
-    ["itemof", "list", ["%i", "%L"]],
-    ["lengthof", "list", ["%L"]],
-    ["contains", "list", ["%L", "%s"]],
+                if (fits) {
+                    block = poss_block;
+                }
+            });
+        }
+    }
 
-    // Motor //
-    ["motoronforsecs", "motor", ["%n"]],
-    ["motoron", "motor", []],
-    ["motoroff", "motor", []],
-    ["motorpower", "motor", ["%n"]],
-    ["motordirection", "motor", ["%W"]],
-];
+    var classes = [];
+    var arg_classes = [];
+    if (block) {
+        classes = block[0];
+
+        // tag list dropdowns
+        $.each(block[1], function (i, shape) {
+            if (shape == "list-dropdown") {
+                arg_classes.push(shape);
+            } else {
+                arg_classes.push("");
+            }
+        });
+    }
+
+    return [classes, arg_classes];
+};
+
+
+/* Return the blocks database, loading it first if needed. */
+scratchblocks2._get_blocks_db = function () {
+    if ( scratchblocks2._blocks_original === undefined ||
+         scratchblocks2._blocks_original !== scratchblocks2.blocks) {
+        // blocks code has changed, parse it again!
+        scratchblocks2._load_blocks_db();
+        console.log("Parsed blocks db.");
+    }
+    return scratchblocks2._blocks_db;
+};
+
+
+/* Parse the blocks database. */
+scratchblocks2._load_blocks_db = function () {
+    var strip_block_text = scratchblocks2._strip_block_text;
+    var cls = scratchblocks2._cls;
+    var arg_shape = scratchblocks2._arg_shape;
+
+    var db = {};
+    var category = "";
+
+    var lines = scratchblocks2.blocks.split(/  /);
+    for (var i=0; i<lines.length; i++) {
+        var line = lines[i];
+        line = line.trim();
+
+        var classes = [category];
+
+        // get category comment
+        var commentIndex = line.indexOf("##");
+        if (commentIndex == 0) {
+            category = line.replace(/##/g, "").trim().toLowerCase();
+            continue;
+        } else if (commentIndex > 0) {
+            var extra = line.substr(commentIndex+2).trim();
+            line = line.substr(0, commentIndex);
+            line = line.trim();
+            classes = classes.concat(extra.split(" "));
+        }
+
+        // parse block
+        var $block = scratchblocks2._render_block(line, "database");
+
+        // get arg shapes
+        var arg_shapes = [];
+        $block.children().each(function (i, arg) {
+            arg_shapes.push(arg_shape($(arg)));
+        });
+        
+        // get text
+        $block.children().remove();
+        var text = $block.text();
+        text = strip_block_text(text);
+
+        // add block
+        if (!(text in db)) db[text] = [];
+        var block = [classes, arg_shapes];
+        db[text].push(block);
+    }
+    
+    scratchblocks2._blocks_db = db;
+
+    // keep a reference to the blocks code, in case it changes.
+    scratchblocks2._blocks_original = scratchblocks2.blocks;
+};
+
+
+/* The list of blocks, in scratchblocks format. */
+scratchblocks2.blocks = "\
+## Looks ##   \
+say [Hello!] for (2) secs   \
+say [Hello!]   \
+think [Hmm...] for (2) secs   \
+think [Hmm...]   \
+\
+show   \
+hide   \
+\
+switch costume to [costume1 v]   \
+next costume   \
+switch backdrop to [backdrop1 v]   \
+\
+change [color v] effect by (25)   \
+set [color v] effect to (0)   \
+clear graphic effects   \
+\
+change size by (10)   \
+set size to (100)%   \
+\
+go to front   \
+go back (1) layers   \
+\
+(costume #)   \
+(backdrop name)   \
+(size)   \
+\
+# Stage-specific   \
+switch background to [backdrop1 v] and wait   \
+next backdrop   \
+\
+turn video [off v]   \
+set video transparency to (50)%   \
+\
+(backdrop #)   \
+\
+\
+\
+## Sound ##   \
+play sound [pop v]   \
+play sound [pop v] until done   \
+stop all sounds   \
+\
+play drum (1 v) for (0.2) beats   \
+rest for (0.2) beats   \
+\
+play note (60 v) for (0.5) beats   \
+set instrument to (1 v)   \
+\
+change volume by (-10)   \
+set volume to (100)%   \
+(volume)   \
+\
+change tempo by (20)   \
+set tempo to (60) bpm   \
+(tempo)   \
+\
+\
+\
+## Pen ##   \
+clear   \
+\
+stamp   \
+\
+pen down   \
+pen up   \
+\
+set pen color to [#f0f]   \
+change pen color by (10)   \
+set pen color to (0)   \
+\
+change pen shade by (10)   \
+set pen shade to (50)   \
+\
+change pen size by (1)   \
+set pen size to (1)   \
+\
+\
+\
+## Variables ##   \
+set [var v] to [0]   \
+change [var v] by (1)   \
+show variable [var v]   \
+hide variable [var v]   \
+\
+\
+\
+## List ##   \
+add [thing] to [list v]   \
+\
+delete (1 v) of [list v]   \
+insert [thing] at (1 v) of [list v]   \
+replace item (1 v) of [list v] with [thing]   \
+\
+(item (1 v) of [list v])   \
+(length of [list v])   \
+<[list v] contains [thing]>   \
+\
+show list [list v]   \
+hide list [list v]   \
+\
+\
+\
+## Events ##   \
+when gf clicked ## hat   \
+when green flag clicked ## hat   \
+when [space v] key pressed ## hat   \
+when this sprite clicked ## hat   \
+when backdrop switches to [backdrop1 v] ## hat   \
+\
+when [loudness v] > (10) ## hat   \
+\
+when I receive [message1 v] ## hat   \
+broadcast [message1 v]   \
+broadcast [message1 v] and wait   \
+\
+\
+\
+## Control ##   \
+wait (1) secs   \
+\
+repeat (10) ## cstart   \
+forever ## cstart   \
+if <> then ## cstart   \
+else ## celse   \
+end ## cend   \
+wait until <>   \
+repeat until <> ## cstart  \
+\
+stop [all v]   \
+\
+when I start as a clone ## hat   \
+create clone of [myself v]   \
+delete this clone   \
+\
+\
+\
+## Sensing ##   \
+<touching [ v]?>   \
+<touching color [#f0f]?>   \
+<color [#f0f] is touching?>   \
+(distance to [ v])   \
+\
+ask [What's your name?] and wait   \
+(answer)   \
+\
+<key [space v] pressed?>   \
+<mouse down?>   \
+(mouse x)   \
+(mouse y)   \
+\
+(loudness)   \
+(video [motion v] on [this sprite v])   \
+\
+(timer)   \
+reset timer   \
+\
+([x position v] of [Sprite1 v]   \
+\
+(current [minute v])   \
+(days since 2000)   \
+(user id)   \
+\
+\
+\
+## Operators ##   \
+(() + ())   \
+(() - ())   \
+(() * ())   \
+(() / ())   \
+\
+(pick random (1) to (10))   \
+\
+<[] < []>   \
+<[] = []>   \
+<[] > []>   \
+\
+<<> and <>>   \
+<<> or <>>   \
+<not <>>   \
+\
+(join [hello ] [world])   \
+(letter (1) of [world])   \
+(length of [world])   \
+\
+(() mod ())   \
+(round ())   \
+\
+([sqrt v] of (9))   \
+";
