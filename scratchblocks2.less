@@ -244,19 +244,19 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
         &:first-child {
             margin-top: 0;
         }
+
+        display: block;
+        float: none;
+        &:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
     }
 
 
     // Elements //
     div {
-        //display: table;
-        display: inline-block;
-        float: left;
-        clear: both;
-    }
-
-    span {
-        padding: 2px;
         display: inline-block;
     }
 
@@ -264,8 +264,11 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
         .variable-reporter, .custom-arg, .dropdown {
         border: 2px solid;
     }
-    .stack {
+    .stack, .cwrap, .cmouth {
         border-top-width: 1px;
+
+        float: left;
+        clear: both;
     }
 
     .stack, .hat, .custom-definition {
@@ -330,13 +333,17 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
         content: none;
     }
 
+    .cend.capend:before {
+        content: none;
+    }
+
     .cwrap.cap > .cend:after {
         content: none;
     }
     
     .cstart, .celse {
         &:after {
-            left: 26px;
+            left: 27px;
         }
     }
 
@@ -350,6 +357,7 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
     // Hat block shapes //
     .hat, .custom-definition {
         position: relative;
+        float: left;
 
         padding: 4px;
 
@@ -413,12 +421,17 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
     // C Blocks //
     @cleft_padding: 14px;
     .cwrap { 
+        display: block;
+
         .cstart {
+            .box-sizing_border-box;
             .border-radius(4px 4px 4px 0);
             min-width: 60px;
         }
 
         .cmouth {
+            .box-sizing_border-box;
+            display: block;
             position: relative;
 
             &:empty {
@@ -446,7 +459,7 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
 
         .celse {
             .box-sizing_border-box;
-            width: 100%;
+            min-width: 60px;
             position: relative;
             .border-radius(0 4px 4px 0);
         }
@@ -454,7 +467,7 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
         .cend {
             .box-sizing_border-box;
             height: 8px;
-            width: 100%;
+            min-width: 60px;
             span {
                 display: none;
             }
@@ -497,6 +510,10 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
         border-width: 1px;
     }
     
+    .dropdown {
+        padding: 0 2px;
+    }
+    
     .dropdown, .number-dropdown {
         &:after {
             content: "▼";
@@ -523,7 +540,7 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
 
     // Rounded shapes //
     .reporter, .custom-arg, .embedded, .boolean {
-        .border-radius(10000px);
+        .border-radius(20px);
     }
     
     
@@ -531,6 +548,7 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
     .arrow-cw, .arrow-ccw {
         display: inline-block;
         padding: 0;
+        vertical-align: middle;
         width: 14px;
         height: 14px;
     }

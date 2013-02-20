@@ -44,6 +44,9 @@ scratchblocks2._classes = {
 
         "list-dropdown",
     ],
+    "internal": [
+        "math-function",
+    ],
     "shape": [
         "hat",
         "cap",
@@ -66,6 +69,7 @@ scratchblocks2._classes = {
         "celse",
         "cend",
         "ifblock",
+        "capend",
     ],
     "category": [
         "obsolete",
@@ -171,7 +175,7 @@ scratchblocks2._render = function (code) {
         }
         
         // empty lines separate stacks
-        if (line.trim() == "") {
+        if (line.trim() == "" && nesting == 0) {
             new_script();
             continue;
         }
@@ -204,6 +208,7 @@ scratchblocks2._render = function (code) {
 
                 if ($block.hasClass(cls("cap"))) {
                     $cwrap.addClass(cls("cap"));
+                    $block.removeClass(cls("cap"));
                 }
 
                 nesting += 1;
@@ -228,6 +233,7 @@ scratchblocks2._render = function (code) {
 
             } else if ($block.hasClass(cls("cend"))) {
                 if (nesting > 0) {
+                    var $cmouth = $current;
                     var $cwrap = $current.parent();
                     assert($cwrap.hasClass(cls("cwrap")));
                     
@@ -238,6 +244,12 @@ scratchblocks2._render = function (code) {
                     // give $block the color of $cwrap
                     $block.removeClass(get_block_category($block));
                     $block.addClass(get_block_category($cwrap));
+
+                    // check for cap blocks at end of cmouth
+                    y = $cmouth;
+                    if ($cmouth.find("> :last-child").hasClass("cap")) {
+                        $block.addClass("capend");
+                    }
                 } else {
                     $current.append($block);
                 }
@@ -254,7 +266,8 @@ scratchblocks2._render = function (code) {
     // push last script
     new_script();
 
-    // HACK: list reporters
+
+    // HACK list reporters
     var lists = [];
     for (var i=0; i<scripts.length; i++) {
         var $script = scripts[i];
@@ -265,22 +278,26 @@ scratchblocks2._render = function (code) {
     }
     for (var i=0; i<scripts.length; i++) {
         var $script = scripts[i];
+
+        // HACK custom arg reporters
+        var custom_args = [];
+        if ($script.children().first().hasClass("custom-definition")) {
+            $script.children().first().find(".custom-arg").each(function (i, arg) {
+                custom_args.push($(arg).text());
+            });
+        }
+
+        // replace variable reporters
         $script.find(".variables.reporter").each(function (i, variable) {
             var $variable = $(variable);
             var name = $variable.text();
             if (lists.indexOf(name) > -1) {
                 $variable.removeClass("variables").addClass("list");
+            } else if (custom_args.indexOf(name) > -1) {
+                $variable.removeClass("variables").addClass("custom-arg");
             }
         });
     }
-
-/*    // make .before and .after
-    var lists = [];
-    for (var i=0; i<scripts.length; i++) {
-        var $script = scripts[i];
-        $script.find(".stack, .cap").prepend("<div class=before>");
-        $script.find(".stack, .hat, .custom-definition").append("<div class=after>");
-    }*/
 
     return scripts;
 };
@@ -382,7 +399,7 @@ scratchblocks2._render_block = function (code, kind) {
     } else if (bracket == "[") {
         kind = "string";
 
-        if (/#[A-Fa-f0-9]+/.test(code))  {
+        if (/^#[A-Fa-f0-9]{3,6}$/.test(code))  {
             kind = "color";
         }
     }
@@ -407,11 +424,7 @@ scratchblocks2._render_block = function (code, kind) {
     }
 
     // MAKE dom element
-    if (kind == "stack" || kind == "hat" || kind == "custom-definition") {
-        var $block = $("<div>");
-    } else {
-        var $block = $("<span>");
-    }
+    var $block = $("<div>");
     
     // give special classes colour
     if (kind == "custom-definition") {
@@ -504,7 +517,6 @@ scratchblocks2._render_block = function (code, kind) {
 
     // filter out block text
     var text = "";
-    var args = [];
     for (var i=0; i<pieces.length; i++) {
         var piece = pieces[i];
         if (!is_block(piece)) {
@@ -514,17 +526,15 @@ scratchblocks2._render_block = function (code, kind) {
 
     // render the pieces
     var $arg_list = [];
-    if (pieces.length == 1) {
-        $block.html(code);
-    } else if (kind == "custom-definition") { // custom block args
+    if (kind == "custom-definition") { // custom definition args
         $block.append("define");
-        var $outline = $("<span>").addClass(cls("outline"));
+        var $outline = $("<div>").addClass(cls("outline"));
         $block.append($outline);
 
         for (var i=0; i<pieces.length; i++) {
             var piece = pieces[i];
             if (is_block(piece)) {
-                var $arg = $("<span>").addClass(cls("custom-arg"));
+                var $arg = $("<div>").addClass(cls("custom-arg"));
                 if (piece[0] == "<") {
                     $arg.addClass(cls("boolean"));
                 }
@@ -534,6 +544,8 @@ scratchblocks2._render_block = function (code, kind) {
                 $outline.append(piece);
             }
         }
+    } else if (pieces.length == 1) {
+        $block.html(code);
     } else {
         for (var i=0; i<pieces.length; i++) {
             var piece = pieces[i];
@@ -541,15 +553,23 @@ scratchblocks2._render_block = function (code, kind) {
                 var $arg = scratchblocks2._render_block(piece,
                         is_database ? "database" : ""); // DATABASE: avoid find_block
                 $block.append($arg);
-                args.push(get_arg_shape($arg));
                 $arg_list.push($arg);
             } else {
                 $block.append(piece);
             }
 
+            // space between pieces
+            if (i < pieces.length - 1) {
+                $block.append(" ");
+            }
+
             // DATABASE: tag list dropdowns
             if (is_database && piece == "[list v]") {
                 $arg.addClass("list-dropdown");
+            }
+            // DATABASE: tag math function
+            if (is_database && piece == "[sqrt v]") {
+                $arg.addClass("math-function");
             }
         }
     }
@@ -563,7 +583,7 @@ scratchblocks2._render_block = function (code, kind) {
         if (is_database) {
             // DATABASE: don't try to find_block!
         } else {
-            var info = scratchblocks2._find_block(text, args);
+            var info = scratchblocks2._find_block(text, $arg_list);
             classes = info[0];
             arg_classes = info[1];
         }
@@ -648,8 +668,10 @@ scratchblocks2._get_block_category = function ($block) {
 /* Return the shape class for the given insert. */
 scratchblocks2._get_arg_shape = function ($arg) {
     var cls = scratchblocks2._cls;
-    var SHAPES = ["reporter", "boolean", "string", "dropdown",
-                  "number", "number-dropdown", "list-dropdown"];
+    var SHAPES = ["reporter", "boolean", "string", "dropdown", "number",
+                  "number-dropdown",
+                  // special shapes:
+                  "list-dropdown", "math-function"];
     var arg_shape;
     $.each(SHAPES, function (i, shape) {
         if ($arg.hasClass(cls(shape))) {
@@ -667,7 +689,7 @@ scratchblocks2._strip_block_text = function (text) {
 
 
 /* Return [classes, arg_shapes] for a block, given its text. Uses args as hints. */
-scratchblocks2._find_block = function (text, args) {
+scratchblocks2._find_block = function (text, $arg_list) {
     var strip_block_text = scratchblocks2._strip_block_text;
     var blocks = scratchblocks2._get_blocks_db();
 
@@ -688,12 +710,25 @@ scratchblocks2._find_block = function (text, args) {
                 var need_args = poss_block[1];
                 var fits = true;
 
-                for (var i=0; i<need_args.length; i++) {
-                    if (args[i] != need_args[i]) {
-                        if (args[i] == "reporter" && (
-                                need_args[i] == "number" ||
-                                need_args[i] == "string" )) {
+                for (var j=0; j<need_args.length; j++) {
+                    var $arg = $arg_list[j];
+                    var arg_shape = scratchblocks2._get_arg_shape($arg);
+
+                    if (arg_shape != need_args[j]) {
+                        if (need_args[j] == "math-function") {
+                            // check is valid math function
+                            var func = $arg.text();
+                            if (scratchblocks2._math_functions.indexOf(func) == -1) {
+                                // can't find the argument!
+                                fits = false;
+                                break;
+                            }
+
+                        } else if (arg_shape == "reporter" && (
+                                need_args[j] == "number" ||
+                                need_args[j] == "string" )) {
                             // allow reporters in number/string inserts
+
                         } else {
                             fits = false;
                             break;
@@ -715,7 +750,7 @@ scratchblocks2._find_block = function (text, args) {
 
         // tag list dropdowns
         $.each(block[1], function (i, shape) {
-            if (shape == "list-dropdown") {
+            if (shape == "list-dropdown" || shape == "math-function") {
                 arg_classes.push(shape);
             } else {
                 arg_classes.push("");
@@ -796,7 +831,19 @@ scratchblocks2._load_blocks_db = function () {
 };
 
 
-/* The list of blocks, in scratchblocks format. */
+/* List of arguments to math function dropdown. Used to identify "of" block in
+ * ambigious situations. */
+scratchblocks2._math_functions = ["abs", "floor", "ceiling", "sqrt", "sin",
+        "cos", "tan", "asin", "acos", "atan", "ln", "log", "e ^", "10 ^"]
+
+
+/* The list of blocks, in scratchblocks format.
+ *
+ * Special values:
+    [list v] -- used to identify list dropdowns
+    [sqrt v] -- identifies math function, in the ([sqrt v] of ()) block
+ *
+ */
 scratchblocks2.blocks = "\
 ## Motion ##   \
 move (10) steps   \
@@ -1028,10 +1075,20 @@ reset timer   \
 if <> ## cstart   \
 forever if <> ## cstart cap  \
 <loud?>   \
+stop script   \
+stop all   \
+switch to costume [costume1 v]   \
+when clicked   \
 \
 \
 \
 ## Purple ##   \
 ([slider v] sensor value)   \
 <sensor [button pressed v]?>   \
+\
+motor on   \
+motor off   \
+motor on for (1) seconds   \
+motor power (100)   \
+motor direction [this way v]   \
 ";

@@ -6,7 +6,7 @@ Requires the files:
 
   * ccw.png
   * cw.png
-  * gf.png
+  * flag@2x.png
 
 in the block_images/ directory, in the same folder as this file.
 
@@ -526,17 +526,18 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
 }
 .container .script {
   margin-top: 15px;
+  display: block;
+  float: none;
 }
 .container .script:first-child {
   margin-top: 0;
 }
-.container div {
-  display: inline-block;
-  float: left;
+.container .script:after {
+  content: "";
+  display: block;
   clear: both;
 }
-.container span {
-  padding: 2px;
+.container div {
   display: inline-block;
 }
 .container .hat,
@@ -549,8 +550,12 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
 .container .dropdown {
   border: 2px solid;
 }
-.container .stack {
+.container .stack,
+.container .cwrap,
+.container .cmouth {
   border-top-width: 1px;
+  float: left;
+  clear: both;
 }
 .container .stack,
 .container .hat,
@@ -618,12 +623,15 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
 .container .cap:after {
   content: none;
 }
+.container .cend.capend:before {
+  content: none;
+}
 .container .cwrap.cap > .cend:after {
   content: none;
 }
 .container .cstart:after,
 .container .celse:after {
-  left: 26px;
+  left: 27px;
 }
 .container .cend:before,
 .container .celse:before {
@@ -632,6 +640,7 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
 .container .hat,
 .container .custom-definition {
   position: relative;
+  float: left;
   padding: 4px;
   border-radius: 0 4px 4px 4px;
   -webkit-border-radius: 0 4px 4px 4px;
@@ -688,13 +697,21 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
   -webkit-border-radius: 0 0 4px 4px;
   -moz-border-radius: 0 0 4px 4px;
 }
+.container .cwrap {
+  display: block;
+}
 .container .cwrap .cstart {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
   border-radius: 4px 4px 4px 0;
   -webkit-border-radius: 4px 4px 4px 0;
   -moz-border-radius: 4px 4px 4px 0;
   min-width: 60px;
 }
 .container .cwrap .cmouth {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  display: block;
   position: relative;
 }
 .container .cwrap .cmouth:empty {
@@ -719,7 +736,7 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
 .container .cwrap .celse {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-  width: 100%;
+  min-width: 60px;
   position: relative;
   border-radius: 0 4px 4px 0;
   -webkit-border-radius: 0 4px 4px 0;
@@ -729,7 +746,7 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   height: 8px;
-  width: 100%;
+  min-width: 60px;
   border-radius: 0 4px 4px 4px;
   -webkit-border-radius: 0 4px 4px 4px;
   -moz-border-radius: 0 4px 4px 4px;
@@ -770,6 +787,9 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
   border-style: solid;
   border-width: 1px;
 }
+.container .dropdown {
+  padding: 0 2px;
+}
 .container .dropdown:after,
 .container .number-dropdown:after {
   content: "▼";
@@ -797,14 +817,15 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
 .container .custom-arg,
 .container .embedded,
 .container .boolean {
-  border-radius: 10000px;
-  -webkit-border-radius: 10000px;
-  -moz-border-radius: 10000px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
 }
 .container .arrow-cw,
 .container .arrow-ccw {
   display: inline-block;
   padding: 0;
+  vertical-align: middle;
   width: 14px;
   height: 14px;
 }
