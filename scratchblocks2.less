@@ -4,9 +4,8 @@ Copyright © 2012 Tim Radvan
 
 Requires the files:
 
-  * ccw.png
-  * cw.png
-  * flag@2x.png
+  * arrows.png
+  * flag.png
 
 in the block_images/ directory, in the same folder as this file.
 
@@ -197,7 +196,7 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
 }
 
 
-.container {
+.scratchblocks2-container {
     font-family: Verdana, sans-serif;
     font-weight: bold;
     color: white;
@@ -549,14 +548,12 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
         display: inline-block;
         padding: 0;
         vertical-align: middle;
-        width: 14px;
-        height: 14px;
-    }
-    .arrow-cw {
-        background: url(block_images/cw.png) 0 0 no-repeat;
+        width: 16px;
+        height: 13px;
+        background: url(block_images/arrows.png) 0 0 no-repeat;
     }
     .arrow-ccw {
-        background: url(block_images/ccw.png) 0 0 no-repeat;
+        background-position: 0 -13px;
     }
 
     .green-flag {

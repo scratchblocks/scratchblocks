@@ -38,7 +38,7 @@ scratchblocks2._cls = function (name) {
 
 scratchblocks2._classes = {
     "misc": [
-        "container",
+        "scratchblocks2-container",
         "script",
         "empty",
 
@@ -135,7 +135,7 @@ scratchblocks2.parse = function (d) {
         var scripts = scratchblocks2._render(code);
 
         $el.html("");
-        $el.addClass(cls("container"));
+        $el.addClass(cls("scratchblocks2-container"));
         $.each(scripts, function (i, $script) {
             $el.append($script);
         });
@@ -629,11 +629,11 @@ scratchblocks2._render_block = function (code, kind) {
         if (classes.indexOf("-turn-arrow") > -1) {
             var html = $block.html();
             if (/ccw|left/.test(html)) {
-                var image = '<span class="arrow-cw"></span>';
+                var image = '<span class="arrow-ccw"></span>';
                 html = html.replace("ccw", image);
                 html = html.replace("left", image);
             } else {
-                var image = '<span class="arrow-ccw"></span>';
+                var image = '<span class="arrow-cw"></span>';
                 html = html.replace("cw", image);
                 html = html.replace("right", image);
             }

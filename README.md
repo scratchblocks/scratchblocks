@@ -41,6 +41,16 @@ Just include the CSS and JS in the `<head>` of your page:
     <link rel="stylesheet" type="text/css" href="scratchblocks2.css">
     <script type="text/javascript" src="scratchblocks2.js"></script>
 
+And make sure the images `flag.png` and `arrows.png` are in the folder
+`block_images`, which is in the same folder as the CSS. Your directory layout
+should look like this:
+
+    block_images/
+        arrows.png
+        flag.png
+    scratchblocks2.css
+    scratchblocks2.js
+
 
 # Development
 
