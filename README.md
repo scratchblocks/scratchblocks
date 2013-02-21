@@ -36,20 +36,35 @@ at the MIT Media Lab._
 
 # Usage
 
-Just include the CSS and JS in the `<head>` of your page:
+Include the CSS and JS in the `<head>` of your page:
 
     <link rel="stylesheet" type="text/css" href="scratchblocks2.css">
     <script type="text/javascript" src="scratchblocks2.js"></script>
 
-And make sure the images `flag.png` and `arrows.png` are in the folder
-`block_images`, which is in the same folder as the CSS. Your directory layout
-should look like this:
+Make sure the images `flag.png` and `arrows.png` are in the folder
+`block_images`, which is in the same folder as the CSS.
+
+In summary, your directory layout should look like this:
 
     block_images/
         arrows.png
         flag.png
     scratchblocks2.css
     scratchblocks2.js
+
+Then just call `scratchblocks2.parse` after the page has loaded to render
+matching page elements to shiny scratch blocks. Its sole argument is the
+CSS-style selector for the page elements that contain the scratchblocks code.
+
+    scratchblocks2.parse("pre.blocks");
+
+It also accepts a dictionary with separate tag and class values, for
+compatibility with the Block Plugin:
+
+    scratchblocks2.parse({
+       containerTag: "pre",
+       containerClass: "blocks",
+    });
 
 
 # Development

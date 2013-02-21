@@ -9,8 +9,6 @@ Requires the files:
 
 in the block_images/ directory, in the same folder as this file.
 
-Written for the LESS CSS preprocessor: http://lesscss.org/
-
 */
 .box-sizing_border-box {
   box-sizing: border-box;
