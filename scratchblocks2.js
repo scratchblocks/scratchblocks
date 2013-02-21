@@ -4,6 +4,7 @@ Copyright © 2012 Tim Radvan
 
 */
 
+// TODO: only find_block on reporters
 
 var scratchblocks2 = function ($) {
     "use strict";
@@ -17,10 +18,17 @@ var scratchblocks2 = function ($) {
         MATH_FUNCTIONS = ["abs", "floor", "ceiling", "sqrt", "sin", "cos",
                 "tan", "asin", "acos", "atan", "ln", "log", "e ^", "10 ^"],
 
+        // List of insert classes -- don't call find_block on these
+        NO_LOOKUP = ["string", "dropdown", "number", "number-dropdown",
+                "color"],
+        
+        // List of classes for get_arg_shape
         ARG_SHAPES = ["reporter", "boolean", "string", "dropdown", "number",
                 "number-dropdown",
                 // special shapes:
                 "list-dropdown", "math-function"],
+        
+
 
         // List of valid classes used in HTML
         CLASSES = {
@@ -604,7 +612,8 @@ var scratchblocks2 = function ($) {
                 arg_classes = [],
                 info;
 
-            if (!is_database) { // DATABASE: don't try to find_block!
+            // find block
+            if ($.inArray(kind, NO_LOOKUP) == -1 && !is_database) {
                 info = find_block(text, $arg_list);
                 classes = info[0];
                 arg_classes = info[1];
@@ -851,7 +860,7 @@ var scratchblocks2 = function ($) {
 
         if ($.type(d) === "string") {
             selector = d;
-        } else {
+        } else if (d !== undefined) {
             // support same args as JSO's scratchBlocksPlugin
             if (d.containerTag !== undefined) {
                 selector += d.containerTag;
