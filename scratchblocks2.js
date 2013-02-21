@@ -638,40 +638,30 @@ var scratchblocks2 = function ($) {
             }
         }
 
-        var html,
-            image;
+        function replace_text_with_image(regex, image_class) {
+            var html = $block.html(),
+                image = '<span class="' + image_class + '"></span>';
+            html = html.replace(regex, image);
+            $block.html(html);
+        }
 
         // image: green flag
         if ($.inArray("-green-flag", classes) > -1) {
-            html = $block.html();
-            image = '<span class="green-flag"></span>';
-            if (/green flag/.test(html)) {
-                html = html.replace("green flag", image);
-            } else {
-                html = html.replace("flag", image);
-                html = html.replace("gf", image);
-            }
-            $block.html(html);
+            replace_text_with_image(/green flag|flag|gf/, "green-flag");
         }
 
         // image: turn cw/ccw arrows
         if ($.inArray("-turn-arrow", classes) > -1) {
-            html = $block.html();
-            if (/ccw|left/.test(html)) {
-                image = '<span class="arrow-ccw"></span>';
-                html = html.replace("ccw", image);
-                html = html.replace("left", image);
+            if (/ccw|left/.test(text)) {
+                replace_text_with_image(/ccw|left/, "arrow-ccw");
             } else {
-                image = '<span class="arrow-cw"></span>';
-                html = html.replace("cw", image);
-                html = html.replace("right", image);
+                replace_text_with_image(/cw|right/, "arrow-cw");
             }
-            $block.html(html);
         }
 
         // cend blocks: hide "end" text
         if ($block.hasClass(cls("cend"))) {
-            html = $block.html();
+            var html = $block.html();
             $block.html("").append($("<span>").html(html));
         }
 

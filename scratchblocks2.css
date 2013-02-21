@@ -787,7 +787,7 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
   border-width: 1px;
 }
 .scratchblocks2-container .dropdown {
-  padding: 0 2px;
+  padding: 1px 2px;
 }
 .scratchblocks2-container .dropdown:after,
 .scratchblocks2-container .number-dropdown:after {
