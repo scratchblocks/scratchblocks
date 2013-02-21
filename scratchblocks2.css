@@ -839,6 +839,6 @@ Written for the LESS CSS preprocessor: http://lesscss.org/
   margin: 0 2px;
   width: 20px;
   height: 20px;
-  background: url(block_images/flag@2x.png) 0 0 no-repeat;
+  background: url(block_images/flag.png) 0 0 no-repeat;
   background-size: contain;
 }
