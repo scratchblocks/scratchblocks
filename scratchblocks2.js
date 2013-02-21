@@ -4,8 +4,6 @@ Copyright © 2012 Tim Radvan
 
 */
 
-/*jslint continue: true, nomen: true, plusplus: true, browser: true, indent: 4,
-         maxlen: 80 */
 
 var scratchblocks2 = function ($) {
     "use strict";
@@ -16,7 +14,7 @@ var scratchblocks2 = function ($) {
         BRACKETS = "([<)]>",
 
         // Valid arguments to "of" dropdown, for resolving ambiguous situations
-        math_functions = ["abs", "floor", "ceiling", "sqrt", "sin", "cos",
+        MATH_FUNCTIONS = ["abs", "floor", "ceiling", "sqrt", "sin", "cos",
                 "tan", "asin", "acos", "atan", "ln", "log", "e ^", "10 ^"],
 
         ARG_SHAPES = ["reporter", "boolean", "string", "dropdown", "number",
@@ -25,7 +23,7 @@ var scratchblocks2 = function ($) {
                 "list-dropdown", "math-function"],
 
         // List of valid classes used in HTML
-        classes = {
+        CLASSES = {
             "misc": [
                 "scratchblocks2-container",
                 "script",
@@ -84,10 +82,7 @@ var scratchblocks2 = function ($) {
         blocks_db,
 
         // Used to keep a copy of sb2.blocks, so we can detect changes
-        blocks_original,
-
-        // function, defined later
-        render_block;
+        blocks_original;
 
 
     function log(message) {
@@ -109,7 +104,7 @@ var scratchblocks2 = function ($) {
     function is_class(name) {
         if (all_classes === undefined) {
             all_classes = [];
-            $.each(classes, function (i, classes_group) {
+            $.each(CLASSES, function (i, classes_group) {
                 all_classes = all_classes.concat(classes_group);
             });
         }
@@ -242,7 +237,7 @@ var scratchblocks2 = function ($) {
     /* Return the category class for the given block. */
     function get_block_category($block) {
         var block_category;
-        $.each(classes.category, function (i, category) {
+        $.each(CLASSES.category, function (i, category) {
             if ($block.hasClass(cls(category))) {
                 block_category = category;
             }
@@ -363,30 +358,34 @@ var scratchblocks2 = function ($) {
             if (poss_blocks.length > 1) {
                 // choose based on args
                 $.each(poss_blocks, function (i, poss_block) {
-                    var category = poss_block[0][0];
-                    var need_args = poss_block[1];
-                    var fits = true;
+                    var category = poss_block[0][0],
+                        need_args = poss_block[1],
+                        fits = true,
+                        $arg,
+                        arg_shape,
+                        j;
 
-                    for (var j=0; j<need_args.length; j++) {
-                        var $arg = $arg_list[j];
-                        var arg_shape = get_arg_shape($arg);
+                    for (j = 0; j < need_args.length; j++) {
+                        $arg = $arg_list[j];
+                        arg_shape = get_arg_shape($arg);
 
                         if (arg_shape !== need_args[j]) {
-                            if (need_args[j] == "math-function") {
+                            if (need_args[j] === "math-function") {
                                 // check is valid math function
-                                var func = $arg.text();
-                                if ($.inArray(func, math_functions) === -1) {
+                                if ($.inArray($arg.text(), MATH_FUNCTIONS)
+                                        === -1) {
                                     // can't find the argument!
                                     fits = false;
                                     break;
                                 }
 
-                            } else if (arg_shape == "reporter" && (
-                                    need_args[j] == "number" ||
-                                    need_args[j] == "string" )) {
+                            } else if (
                                 // allow reporters in number/string inserts
-
-                            } else {
+                                !(arg_shape === "reporter" && (
+                                    need_args[j] === "number" ||
+                                    need_args[j] === "string"
+                                ))
+                            ) {
                                 fits = false;
                                 break;
                             }
@@ -399,13 +398,13 @@ var scratchblocks2 = function ($) {
                 });
             }
         }
-       
+
         if (block) {
             classes = block[0];
 
             // tag list dropdowns
             $.each(block[1], function (i, shape) {
-                if (shape == "list-dropdown" || shape == "math-function") {
+                if (shape === "list-dropdown" || shape === "math-function") {
                     arg_classes.push(shape);
                 } else {
                     arg_classes.push("");
@@ -424,7 +423,8 @@ var scratchblocks2 = function ($) {
             category = "",
             bracket = "",
             is_dropdown = false,
-            pieces = [];
+            pieces = [],
+            text = "";
 
         if (code.trim().length === 0 && kind === 'stack') {
             return;
@@ -477,7 +477,7 @@ var scratchblocks2 = function ($) {
                 }
             }
         }
- 
+
         // custom block definitions
         if (/^define/.test(code.trim())) {
             kind = "custom-definition";
@@ -488,7 +488,7 @@ var scratchblocks2 = function ($) {
         if (kind === "custom-definition") {
             $block.addClass(cls("custom"));
         }
- 
+
         // split into pieces
         if (kind && kind !== "stack" && kind !== "custom-definition") {
             pieces = [code]; // don't bother splitting
@@ -501,68 +501,66 @@ var scratchblocks2 = function ($) {
             if (bracket === "(" && pieces.length === 1 &&
                     !is_open_bracket(pieces[0][0])) {
                 kind = "reporter";
-                var category = "variables";
+                category = "variables";
             }
         }
 
         // check for embedded blocks
-        if (bracket == "<") {
+        if (bracket === "<") {
             kind = "boolean";
-            var category = "operators";
-        } else if (kind == "") {
+            category = "operators";
+        } else if (kind === "") {
             kind = "embedded";
         }
 
-        if (kind == "stack" && bracket == "(") {
+        if (kind === "stack" && bracket === "(") {
             kind = "embedded";
         }
 
         // add shape class
         $block.addClass(cls(kind));
-        
+
         // empty blocks must have content to size correctly
-        if (code.length == 0) {
+        if (code.length === 0) {
             code = " ";
             pieces = [code];
             $block.addClass(cls("empty"));
-        } 
-        
+        }
+
         // render color inputs
-        if (kind == "color") {
+        if (kind === "color") {
             $block.css({
-                "background-color": code,
+                "background-color": code
             });
             $block.html(" ");
             return $block;
         }
-        
+
         // RENDARRR //
-        var is_block = function (piece) {
+        function is_block(piece) {
             return piece.length > 1 && (
-                is_open_bracket(piece[0]) || is_close_bracket(piece[0]));
+                is_open_bracket(piece[0]) || is_close_bracket(piece[0])
+            );
         }
 
         // filter out block text
-        var text = "";
-        for (var i=0; i<pieces.length; i++) {
-            var piece = pieces[i];
+        $.each(pieces, function (i, piece) {
             if (!is_block(piece)) {
                 text += piece;
             }
-        }
+        });
 
         // render the pieces
         var $arg_list = [];
-        if (kind == "custom-definition") { // custom definition args
+        if (kind === "custom-definition") { // custom definition args
             $block.append("define");
             var $outline = $("<div>").addClass(cls("outline"));
             $block.append($outline);
 
-            for (var i=0; i<pieces.length; i++) {
-                var piece = pieces[i];
+            $.each(pieces, function (i, piece) {
                 if (is_block(piece)) {
                     var $arg = $("<div>").addClass(cls("custom-arg"));
-                    if (piece[0] == "<") {
+                    if (piece[0] === "<") {
                         $arg.addClass(cls("boolean"));
                     }
                     $arg.html(strip_brackets(piece));
@@ -570,15 +568,19 @@ var scratchblocks2 = function ($) {
                 } else {
                     $outline.append(piece);
                 }
-            }
-        } else if (pieces.length == 1) {
+            });
+        } else if (pieces.length === 1) {
             $block.html(code);
         } else {
-            for (var i=0; i<pieces.length; i++) {
-                var piece = pieces[i];
+            $.each(pieces, function (i, piece) {
+                var $arg;
                 if (is_block(piece)) {
-                    var $arg = render_block(piece,
-                            is_database ? "database" : ""); // DATABASE: avoid find_block
+                    if (is_database) {
+                        // DATABASE: avoid find_block
+                        $arg = render_block(piece, "database");
+                    } else {
+                        $arg = render_block(piece);
+                    }
                     $block.append($arg);
                     $arg_list.push($arg);
                 } else {
@@ -586,38 +588,37 @@ var scratchblocks2 = function ($) {
                 }
 
                 // DATABASE: tag list dropdowns
-                if (is_database && piece == "[list v]") {
+                if (is_database && piece === "[list v]") {
                     $arg.addClass("list-dropdown");
                 }
                 // DATABASE: tag math function
-                if (is_database && piece == "[sqrt v]") {
+                if (is_database && piece === "[sqrt v]") {
                     $arg.addClass("math-function");
                 }
-            }
+            });
         }
 
         // get category
-        if (kind != "custom-definition") {
-            // TODO custom blocks
-            var classes = [];
-            var arg_classes = [];
+        if (kind !== "custom-definition") {
+            var classes = [],
+                arg_classes = [],
+                info;
 
-            if (is_database) {
-                // DATABASE: don't try to find_block!
-            } else {
-                var info = find_block(text, $arg_list);
+            if (!is_database) { // DATABASE: don't try to find_block!
+                info = find_block(text, $arg_list);
                 classes = info[0];
                 arg_classes = info[1];
             }
 
-            if (classes.length == 0) {
+            if (classes.length === 0) {
                 // can't find the block!
-                if (category != "") {
+                if (category !== "") {
                     $block.addClass(cls(category));
                 } else {
-                    if (kind == "stack") {
+                    if (kind === "stack") {
                         $block.addClass(cls("custom"));
-                    } else if (kind == "embedded" && !$block.hasClass(cls("empty"))) {
+                    } else if (kind === "embedded" &&
+                            !$block.hasClass(cls("empty"))) {
                         $block.addClass(cls("obsolete"));
                     }
                 }
@@ -630,43 +631,48 @@ var scratchblocks2 = function ($) {
 
                 $.each(arg_classes, function (i, name) {
                     var $arg = $arg_list[i];
-                    if ($arg && name) $arg.addClass(name);
+                    if ($arg && name) {
+                        $arg.addClass(name);
+                    }
                 });
             }
-            
-            // image: green flag
-            if ($.inArray("-green-flag", classes) > -1) {
-                var html = $block.html();
-                var image = '<span class="green-flag"></span>';
-                if (/green flag/.test(html)) {
-                    html = html.replace("green flag", image);
-                } else {
-                    html = html.replace("flag", image);
-                    html = html.replace("gf", image);
-                }
-                $block.html(html);
-            }
-
-            // image: turn cw/ccw arrows
-            if ($.inArray("-turn-arrow", classes) > -1) {
-                var html = $block.html();
-                if (/ccw|left/.test(html)) {
-                    var image = '<span class="arrow-ccw"></span>';
-                    html = html.replace("ccw", image);
-                    html = html.replace("left", image);
-                } else {
-                    var image = '<span class="arrow-cw"></span>';
-                    html = html.replace("cw", image);
-                    html = html.replace("right", image);
-                }
-                $block.html(html);
-            }
         }
-        
+
+        var html,
+            image;
+
+        // image: green flag
+        if ($.inArray("-green-flag", classes) > -1) {
+            html = $block.html();
+            image = '<span class="green-flag"></span>';
+            if (/green flag/.test(html)) {
+                html = html.replace("green flag", image);
+            } else {
+                html = html.replace("flag", image);
+                html = html.replace("gf", image);
+            }
+            $block.html(html);
+        }
+
+        // image: turn cw/ccw arrows
+        if ($.inArray("-turn-arrow", classes) > -1) {
+            html = $block.html();
+            if (/ccw|left/.test(html)) {
+                image = '<span class="arrow-ccw"></span>';
+                html = html.replace("ccw", image);
+                html = html.replace("left", image);
+            } else {
+                image = '<span class="arrow-cw"></span>';
+                html = html.replace("cw", image);
+                html = html.replace("right", image);
+            }
+            $block.html(html);
+        }
+
         // cend blocks: hide "end" text
         if ($block.hasClass(cls("cend"))) {
-            var content = $block.html();
-            $block.html("").append($("<span>").html(content))
+            html = $block.html();
+            $block.html("").append($("<span>").html(html));
         }
 
         return $block;
@@ -689,8 +695,9 @@ var scratchblocks2 = function ($) {
             custom_arg_names,
             $variable,
             var_name,
+            $first,
             i;
-        
+
         function new_script() {
             if ($script !== undefined && $script.children().length > 0) {
                 scripts.push($script);
@@ -709,7 +716,7 @@ var scratchblocks2 = function ($) {
             if (/^\/\//.test(line.trim())) {
                 continue;
             }
-            
+
             // empty lines separate stacks
             if (line.trim() === "" && nesting === 0) {
                 new_script();
@@ -717,11 +724,11 @@ var scratchblocks2 = function ($) {
             }
 
             $block = render_block(line, "stack");
-            
+
             if ($block) {
                 one_only = false;
-                if ( $block.hasClass(cls("hat")) ||
-                     $block.hasClass(cls("custom-definition")) ) {
+                if ($block.hasClass(cls("hat")) ||
+                        $block.hasClass(cls("custom-definition"))) {
                     new_script();
                 } else if ($block.hasClass(cls("boolean")) ||
                            $block.hasClass(cls("embedded")) ||
@@ -729,12 +736,12 @@ var scratchblocks2 = function ($) {
                     new_script();
                     one_only = true;
                 }
-                
+
                 if ($block.hasClass(cls("cstart"))) {
                     $cwrap = $("<div>").addClass(cls("cwrap"));
                     $current.append($cwrap);
                     $cwrap.append($block);
-                    
+
                     $cmouth = $("<div>").addClass(cls("cmouth"));
                     $cwrap.append($cmouth);
                     $current = $cmouth;
@@ -759,7 +766,7 @@ var scratchblocks2 = function ($) {
                         $cmouth = $("<div>").addClass(cls("cmouth"));
                         $cwrap.append($cmouth);
                         $current = $cmouth;
-                        
+
                         // give $block the color of $cwrap
                         $block.removeClass(get_block_category($block));
                         $block.addClass(get_block_category($cwrap));
@@ -772,7 +779,7 @@ var scratchblocks2 = function ($) {
                         $cmouth = $current;
                         $cwrap = $current.parent();
                         assert($cwrap.hasClass(cls("cwrap")));
-                        
+
                         $cwrap.append($block);
                         $current = $cwrap.parent();
                         nesting -= 1;
@@ -815,9 +822,9 @@ var scratchblocks2 = function ($) {
 
             // HACK custom arg reporters
             custom_arg_names = [];
-            if ($script.children().first().hasClass("custom-definition")) {
-                $script.children().first().find(".custom-arg")
-                                          .each(function (i, arg) {
+            $first = $script.children().first();
+            if ($first.hasClass("custom-definition")) {
+                $first.find(".custom-arg").each(function (i, arg) {
                     custom_arg_names.push($(arg).text());
                 });
             }
