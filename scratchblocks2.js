@@ -291,10 +291,10 @@ scratchblocks2._render = function (code) {
         $script.find(".variables.reporter").each(function (i, variable) {
             var $variable = $(variable);
             var name = $variable.text();
-            if (lists.indexOf(name) > -1) {
-                $variable.removeClass("variables").addClass("list");
-            } else if (custom_args.indexOf(name) > -1) {
+            if (custom_args.indexOf(name) > -1) {
                 $variable.removeClass("variables").addClass("custom-arg");
+            } else if (lists.indexOf(name) > -1) {
+                $variable.removeClass("variables").addClass("list");
             }
         });
     }
