@@ -19,6 +19,11 @@ var scratchblocks2 = function ($) {
         math_functions = ["abs", "floor", "ceiling", "sqrt", "sin", "cos",
                 "tan", "asin", "acos", "atan", "ln", "log", "e ^", "10 ^"],
 
+        ARG_SHAPES = ["reporter", "boolean", "string", "dropdown", "number",
+                "number-dropdown",
+                // special shapes:
+                "list-dropdown", "math-function"],
+
         // List of valid classes used in HTML
         classes = {
             "misc": [
@@ -79,14 +84,22 @@ var scratchblocks2 = function ($) {
         blocks_db,
 
         // Used to keep a copy of sb2.blocks, so we can detect changes
-        blocks_original;
+        blocks_original,
+
+        // function, defined later
+        render_block;
+
+
+    function log(message) {
+        if (window.console !== undefined) {
+            window.console.log(message);
+        }
+    }
 
 
     function assert(bool) {
         if (!bool) {
-            if (window.console !== undefined) {
-                window.console.log("Assertion failed!");
-            }
+            log("Assertion failed!");
             //debugger;
         }
     }
@@ -106,7 +119,9 @@ var scratchblocks2 = function ($) {
 
     /* helper function for class name prefixes */
     function cls(name) {
-        assert(is_class(name));
+        if (!is_class(name)) {
+            log("Invalid class: " + name);
+        }
         return name;
     }
 
@@ -152,7 +167,7 @@ var scratchblocks2 = function ($) {
         }
 
         for (i = index - 1; i > -1; i--) {
-            var chr = code[i];
+            chr = code[i];
             if (is_close_bracket(chr)) {
                 break; // must be an innocuous lt/gt!
             } else if (chr !== " ") {
@@ -164,12 +179,12 @@ var scratchblocks2 = function ($) {
         return true;
     }
 
-    
+
     /* Strip one level of surrounding <([ brackets from scratchblocks code */
     function strip_brackets(code) {
         if (is_open_bracket(code[0])) {
-            var bracket = code[0]; 
-            if (code[code.length - 1] == get_matching_bracket(bracket)) {
+            var bracket = code[0];
+            if (code[code.length - 1] === get_matching_bracket(bracket)) {
                 code = code.substr(0, code.length - 1);
             }
             code = code.substr(1);
@@ -178,77 +193,304 @@ var scratchblocks2 = function ($) {
     }
 
 
+
+    function split_into_pieces(code) {
+        var pieces = [],
+            piece = "",
+            piece_bracket = "",
+            matching_bracket = "",
+            nesting = 0,
+            chr,
+            i;
+
+        for (i = 0; i < code.length; i++) {
+            chr = code[i];
+            if (nesting > 0) {
+                piece += chr;
+                if (chr === piece_bracket && !is_lt_gt(code, i)) {
+                    nesting += 1;
+                } else if (chr === matching_bracket && !is_lt_gt(code, i)) {
+                    nesting -= 1;
+                    if (nesting === 0) {
+                        pieces.push(piece);
+                        piece = "";
+                    }
+                }
+            } else {
+                if (is_open_bracket(chr) && !is_lt_gt(code, i)) {
+                    piece_bracket = chr;
+                    matching_bracket = get_matching_bracket(chr);
+                    nesting += 1;
+                    if (piece) {
+                        pieces.push(piece);
+                    }
+                    piece = "";
+                }
+                piece += chr;
+            }
+        }
+
+        // last piece
+        if (piece) {
+            pieces.push(piece);
+        }
+
+        return pieces;
+    }
+
+
+    /* Return the category class for the given block. */
+    function get_block_category($block) {
+        var block_category;
+        $.each(classes.category, function (i, category) {
+            if ($block.hasClass(cls(category))) {
+                block_category = category;
+            }
+        });
+        return block_category;
+    }
+
+
+    /* Return the shape class for the given insert. */
+    function get_arg_shape($arg) {
+        var arg_shape;
+        $.each(ARG_SHAPES, function (i, shape) {
+            if ($arg.hasClass(cls(shape))) {
+                arg_shape = shape;
+            }
+        });
+        return arg_shape;
+    }
+
+
+    /* Strip block text, for looking up in blocks db. */
+    function strip_block_text(text) {
+        return text.replace(/[ ,%?:]/g, "").toLowerCase();
+    }
+
+
+    /* Parse the blocks database. */
+    function load_blocks_db() {
+        var db = {},
+            category = "";
+
+        // newlines are escaped, so split at double-space instead
+        $.each(sb2.blocks.split(/ {2}/), function (i, line) {
+            line = line.trim();
+            if (line.length === 0) {
+                return; // continue
+            }
+
+            var classes = [category],
+                commentIndex = line.indexOf("##"),
+                extra,
+                $block,
+                arg_shapes,
+                text,
+                block;
+
+            // get category comment
+            if (commentIndex === 0) {
+                category = line.replace(/##/g, "").trim().toLowerCase();
+                return; // continue
+            }
+            if (commentIndex > 0) {
+                extra = line.substr(commentIndex + 2).trim();
+                line = line.substr(0, commentIndex);
+                line = line.trim();
+                classes = classes.concat(extra.split(" "));
+            }
+
+            // parse block
+            $block = render_block(line, "database");
+
+            // get arg shapes
+            arg_shapes = [];
+            $block.children().each(function (i, arg) {
+                arg_shapes.push(get_arg_shape($(arg)));
+            });
+
+            // get text
+            $block.children().remove();
+            text = $block.text();
+            text = strip_block_text(text);
+
+            // add block
+            block = [classes, arg_shapes];
+            if (db[text] === undefined) {
+                db[text] = [];
+            }
+            db[text].push(block);
+        });
+
+        blocks_db = db;
+
+        // keep a reference to the blocks definition, in case it changes.
+        blocks_original = sb2.blocks;
+    }
+
+
+    /* Return the blocks database, loading it first if needed. */
+    function get_blocks_db() {
+        if (blocks_original === undefined ||
+                blocks_original !== sb2.blocks) {
+            // blocks code has changed, parse it again!
+            load_blocks_db();
+            log("Parsed blocks db.");
+        }
+        return blocks_db;
+    }
+
+
+    /* Return [classes, arg_shapes] for a block, given its text. Uses args as
+     * hints. */
+    function find_block(text, $arg_list) {
+        // strip block text
+        text = strip_block_text(text);
+
+        var blocks = get_blocks_db(),
+            block,
+            poss_blocks,
+            classes = [],
+            arg_classes = [];
+
+        poss_blocks = blocks[text];
+
+        // get block for text
+        if (poss_blocks !== undefined) {
+            block = poss_blocks[0];
+
+            if (poss_blocks.length > 1) {
+                // choose based on args
+                $.each(poss_blocks, function (i, poss_block) {
+                    var category = poss_block[0][0];
+                    var need_args = poss_block[1];
+                    var fits = true;
+
+                    for (var j=0; j<need_args.length; j++) {
+                        var $arg = $arg_list[j];
+                        var arg_shape = get_arg_shape($arg);
+
+                        if (arg_shape !== need_args[j]) {
+                            if (need_args[j] == "math-function") {
+                                // check is valid math function
+                                var func = $arg.text();
+                                if ($.inArray(func, math_functions) === -1) {
+                                    // can't find the argument!
+                                    fits = false;
+                                    break;
+                                }
+
+                            } else if (arg_shape == "reporter" && (
+                                    need_args[j] == "number" ||
+                                    need_args[j] == "string" )) {
+                                // allow reporters in number/string inserts
+
+                            } else {
+                                fits = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (fits) {
+                        block = poss_block;
+                    }
+                });
+            }
+        }
+       
+        if (block) {
+            classes = block[0];
+
+            // tag list dropdowns
+            $.each(block[1], function (i, shape) {
+                if (shape == "list-dropdown" || shape == "math-function") {
+                    arg_classes.push(shape);
+                } else {
+                    arg_classes.push("");
+                }
+            });
+        }
+
+        return [classes, arg_classes];
+    }
+
+
     /* Render script code to DOM. */
     function render_block(code, kind) {
+        var $block = $("<div>"),
+            is_database = false,
+            category = "",
+            bracket = "",
+            is_dropdown = false,
+            pieces = [];
+
         if (code.trim().length === 0 && kind === 'stack') {
             return;
         }
 
         // init vars
         if (kind === "database") {
-            var is_database = true;
+            is_database = true;
             kind = "";
         }
-        if (kind === undefined) kind = "";
-        var category = "";
-        var bracket = "";
-        
+        if (kind === undefined) {
+            kind = "";
+        }
+
         // trim
         code = code.trim();
 
         // strip brackets
-        var is_dropdown = false;
         if (is_open_bracket(code[0])) {
             bracket = code[0];
             code = strip_brackets(code);
         }
 
         // trim again
-        if (bracket != "[") {
+        if (bracket !== "[") {
             code = code.trim();
         }
 
         // check kind
-        if (bracket == "(" && /^(-?[0-9.]+( v)?)?$/.test(code)) {
+        if (bracket === "(" && /^(-?[0-9.]+( v)?)?$/.test(code)) {
             kind = "number";
-        } else if (bracket == "[") {
+        } else if (bracket === "[") {
             kind = "string";
 
-            if (/^#[A-Fa-f0-9]{3,6}$/.test(code))  {
+            if (/^#[A-Fa-f0-9]{3,6}$/.test(code)) {
                 kind = "color";
             }
         }
 
         // dropdowns for [string v] and number (123 v)
-        if (kind == "number" || kind == "string") {
+        if (kind === "number" || kind === "string") {
             if (/ v$/.test(code)) {
                 is_dropdown = true;
                 code = code.substr(0, code.length - 2);
-                if (kind == "string") {
+
+                if (kind === "string") {
                     kind = "dropdown";
                 } else {
                     kind = "number-dropdown";
                 }
             }
         }
-        
+ 
         // custom block definitions
         if (/^define/.test(code.trim())) {
-            kind = "custom-definition"; 
+            kind = "custom-definition";
             code = code.substr(6).trim();
         }
 
-        // make dom element
-        var $block = $("<div>");
-        
         // give special classes colour
-        if (kind == "custom-definition") {
+        if (kind === "custom-definition") {
             $block.addClass(cls("custom"));
         }
-        
+ 
         // split into pieces
-        var pieces = [];
-        if (kind && kind != "stack" && kind != "custom-definition") {
+        if (kind && kind !== "stack" && kind !== "custom-definition") {
             pieces = [code]; // don't bother splitting
         } else {
             code = code.trim();
@@ -256,7 +498,8 @@ var scratchblocks2 = function ($) {
             pieces = split_into_pieces(code);
 
             // check for variables
-            if (bracket == "(" && pieces.length == 1 && !is_open_bracket(pieces[0][0])) {
+            if (bracket === "(" && pieces.length === 1 &&
+                    !is_open_bracket(pieces[0][0])) {
                 kind = "reporter";
                 var category = "variables";
             }
@@ -427,219 +670,6 @@ var scratchblocks2 = function ($) {
         }
 
         return $block;
-    }
-
-
-
-    function split_into_pieces(code) {
-        var pieces = [];
-        var piece = "";
-        var piece_bracket = "";
-        var matching_bracket = "";
-        var nesting = 0;
-
-        for (var i=0; i<code.length; i++) {
-            var chr = code[i];
-            if (nesting > 0) {
-                piece += chr;
-                if (chr == piece_bracket && !is_lt_gt(code, i)) {
-                    nesting += 1;
-                } else if (chr == matching_bracket && !is_lt_gt(code, i)) {
-                    nesting -= 1;
-                    if (nesting == 0) {
-                        pieces.push(piece);
-                        piece = "";
-                    }
-                }
-            } else {
-                if (is_open_bracket(chr) && !is_lt_gt(code, i)) {
-                    piece_bracket = chr;
-                    matching_bracket = get_matching_bracket(chr)
-                    nesting += 1;
-                    if (piece) pieces.push(piece);
-                    piece = "";
-                }
-                piece += chr;
-            }
-        }
-
-        // last piece
-        if (piece) pieces.push(piece);
-
-        return pieces;
-    }
-
-
-    /* Return the category class for the given block. */
-    function get_block_category($block) {
-        var block_category;
-        $.each(classes.category, function (i, category) {
-            if ($block.hasClass(cls(category))) {
-                block_category = category;
-            }
-        });
-        return block_category;
-    }
-
-
-    /* Return the shape class for the given insert. */
-    function get_arg_shape($arg) {
-        var SHAPES = ["reporter", "boolean", "string", "dropdown", "number",
-                      "number-dropdown",
-                      // special shapes:
-                      "list-dropdown", "math-function"];
-        var arg_shape;
-        $.each(SHAPES, function (i, shape) {
-            if ($arg.hasClass(cls(shape))) {
-                arg_shape = shape;
-            }
-        });
-        return arg_shape;
-    }
-
-
-    /* Strip block text, for looking up in blocks db. */
-    function strip_block_text(text) {
-        return text.replace(/[ ,%?:]/g, "").toLowerCase();
-    }
-
-
-    /* Return [classes, arg_shapes] for a block, given its text. Uses args as
-     * hints. */
-    function find_block(text, $arg_list) {
-        var blocks = get_blocks_db();
-
-        // strip block text
-        text = strip_block_text(text);
-        
-        // get block for text
-        var block;
-        if (text in blocks) {
-            var poss_blocks = blocks[text];
-
-            block = poss_blocks[0];
-
-            if (poss_blocks.length > 1) {
-                // choose based on args
-                $.each(poss_blocks, function (i, poss_block) {
-                    var category = poss_block[0][0];
-                    var need_args = poss_block[1];
-                    var fits = true;
-
-                    for (var j=0; j<need_args.length; j++) {
-                        var $arg = $arg_list[j];
-                        var arg_shape = get_arg_shape($arg);
-
-                        if (arg_shape !== need_args[j]) {
-                            if (need_args[j] == "math-function") {
-                                // check is valid math function
-                                var func = $arg.text();
-                                if ($.inArray(func, math_functions) === -1) {
-                                    // can't find the argument!
-                                    fits = false;
-                                    break;
-                                }
-
-                            } else if (arg_shape == "reporter" && (
-                                    need_args[j] == "number" ||
-                                    need_args[j] == "string" )) {
-                                // allow reporters in number/string inserts
-
-                            } else {
-                                fits = false;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (fits) {
-                        block = poss_block;
-                    }
-                });
-            }
-        }
-       
-        var classes = [];
-        var arg_classes = [];
-        if (block) {
-            classes = block[0];
-
-            // tag list dropdowns
-            $.each(block[1], function (i, shape) {
-                if (shape == "list-dropdown" || shape == "math-function") {
-                    arg_classes.push(shape);
-                } else {
-                    arg_classes.push("");
-                }
-            });
-        }
-
-        return [classes, arg_classes];
-    }
-
-
-    /* Return the blocks database, loading it first if needed. */
-    function get_blocks_db() {
-        if ( blocks_original === undefined ||
-             blocks_original !== sb2.blocks) {
-            // blocks code has changed, parse it again!
-            load_blocks_db();
-            console.log("Parsed blocks db.");
-        }
-        return blocks_db;
-    }
-
-
-    /* Parse the blocks database. */
-    function load_blocks_db() {
-        var db = {}
-        var category = "";
-
-        var lines = sb2.blocks.split(/  /);
-        for (var i=0; i<lines.length; i++) {
-            var line = lines[i];
-            line = line.trim();
-
-            if (line.length == 0) continue;
-
-            var classes = [category];
-
-            // get category comment
-            var commentIndex = line.indexOf("##");
-            if (commentIndex == 0) {
-                category = line.replace(/##/g, "").trim().toLowerCase();
-                continue;
-            } else if (commentIndex > 0) {
-                var extra = line.substr(commentIndex+2).trim();
-                line = line.substr(0, commentIndex);
-                line = line.trim();
-                classes = classes.concat(extra.split(" "));
-            }
-
-            // parse block
-            var $block = render_block(line, "database");
-
-            // get arg shapes
-            var arg_shapes = [];
-            $block.children().each(function (i, arg) {
-                arg_shapes.push(get_arg_shape($(arg)));
-            });
-            
-            // get text
-            $block.children().remove();
-            var text = $block.text();
-            text = strip_block_text(text);
-
-            // add block
-            if (!(text in db)) db[text] = [];
-            var block = [classes, arg_shapes];
-            db[text].push(block);
-        }
-        
-        blocks_db = db;
-
-        // keep a reference to the blocks definition, in case it changes.
-        blocks_original = sb2.blocks;
     }
 
 
