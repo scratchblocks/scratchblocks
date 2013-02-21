@@ -58,14 +58,6 @@ CSS-style selector for the page elements that contain the scratchblocks code.
 
     scratchblocks2.parse("pre.blocks");
 
-It also accepts a dictionary with separate tag and class values, for
-compatibility with the Block Plugin:
-
-    scratchblocks2.parse({
-       containerTag: "pre",
-       containerClass: "blocks",
-    });
-
 
 # Development
 

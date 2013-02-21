@@ -131,10 +131,7 @@
 		script = script.replace(/"/g, '&quot;');
         preview.innerHTML = script;
         
-        scratchblocks2.parse({
-            containerTag: 'pre',
-            containerClass: 'blocks',
-        })
+        scratchblocks2.parse("pre.blocks");
     }
     
     function checkHash() {

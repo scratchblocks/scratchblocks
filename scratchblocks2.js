@@ -845,31 +845,13 @@ var scratchblocks2 = function ($) {
 
 
     /* Render all matching elements in page to shiny scratch blocks.
-     * Accepts a CSS-style selector as an argument, or a dictionary with
-     * tag/class values. Examples:
+     * Accepts a CSS-style selector as an argument.
      *
      *  scratchblocks2.parse("pre.blocks");
      *
-     *  scratchblocks2.parse({
-     *      containerTag: "pre",
-     *      containerClass: "blocks",
-     *  });
      */
-    sb2.parse = function (d) {
-        var selector = "";
-
-        if ($.type(d) === "string") {
-            selector = d;
-        } else if (d !== undefined) {
-            // support same args as JSO's scratchBlocksPlugin
-            if (d.containerTag !== undefined) {
-                selector += d.containerTag;
-            }
-            if (d.containerClass !== undefined) {
-                selector += "." + d.containerClass;
-            }
-        }
-        if (selector === "") {
+    sb2.parse = function (selector) {
+        if (!selector) {
             selector = "pre.blocks";
         }
 

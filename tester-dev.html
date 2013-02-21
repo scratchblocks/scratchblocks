@@ -121,12 +121,7 @@
 		script = script.replace(/>/g, '&gt;');
 		script = script.replace(/"/g, '&quot;');
         preview.innerHTML = script;
-        
-        /* Either syntax should work: */
-        /*scratchblocks2.parse({
-            containerTag: 'pre',
-            containerClass: 'blocks',
-            })*/
+
         scratchblocks2.parse("pre.blocks");
     }
     
