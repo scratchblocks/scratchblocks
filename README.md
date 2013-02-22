@@ -5,13 +5,17 @@ Render Scratch blocks code to HTML.
 Inspired by and mostly compatible with JSO's
 excellent [Block Plugin](http://wiki.scratch.mit.edu/wiki/Block_Plugin) (which
 is used on the [Scratch Forums](http://scratch.mit.edu/forums/) and [Scratch
-Wiki](http://wiki.scratch.mit.edu)). This is a complete rewrite, and includes some bugfixes and updates for Scratch 2.0.
+Wiki](http://wiki.scratch.mit.edu)). This is a complete rewrite, and includes
+some bugfixes and updates for Scratch 2.0.
 
-**scratchblocks2** is designed with an emphasis on flexibility: adding new blocks is as easy as writing the scratchblocks code itself.
+**scratchblocks2** is designed with an emphasis on flexibility: adding new
+blocks is as easy as writing the scratchblocks code itself.
 
 It follows the philosophy of the Block Plugin in that it tries to match the code you
 write as closely as possible, and doesn't check you've used the correct syntax.
 The block text is only used to find the correct category (colour).
+
+**Test it out [here](http://blob8108.github.com/scratchblocks2/)!**
 
 It's designed for Scratch 2.0, so it includes the new blocks as well as custom
 blocks. Blocks that were in Scratch 1.4 but have been removed in 2.0, or had
@@ -25,14 +29,14 @@ their text changed, will render red for *obsolete*. These include:
 * `switch to costume [costume1 v]` (renamed `switch costume to`)
 * `when clicked` (renamed `when this sprite clicked`)
 
-It also includes a few hacks, such as recognising list reporters -- just make sure
-you refer to the list explicitly somewhere:
+It also includes a few hacks, such as recognising list reporters -- just make
+sure you refer to the list explicitly somewhere:
 
     add [something] to [list v]
     say (list)
 
-_[Scratch](http://scratch.mit.edu/) is created by the Lifelong Kindergarten Group
-at the MIT Media Lab._
+_[Scratch](http://scratch.mit.edu/) is created by the Lifelong Kindergarten
+Group at the MIT Media Lab._
 
 # Usage
 
