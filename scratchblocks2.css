@@ -1,15 +1,21 @@
-/* scratchblocks2.less
-
-Copyright © 2012 Tim Radvan
-
-Requires the files:
-
-  * arrows.png
-  * flag.png
-
-in the block_images/ directory, in the same folder as this file.
-
-*/
+/*
+ * scratchblocks2
+ * http://github.com/blob8108/scratchblocks2
+ *
+ * Copyright 2013, Tim Radvan
+ * MIT Licensed
+ * http://opensource.org/licenses/MIT
+ *
+ * *****************************************************************************
+ *
+ * Requires the files:
+ *
+ *   - arrows.png
+ *   - flag.png
+ *
+ * in the block_images/ directory, in the same folder as this file.
+ *
+ */
 .box-sizing_border-box {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
