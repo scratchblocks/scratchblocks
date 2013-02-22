@@ -1,10 +1,12 @@
-/* scratchblocks2.js
+/*
+ * scratchblocks2
+ * http://github.com/blob8108/scratchblocks2
+ *
+ * Copyright 2013, Tim Radvan
+ * MIT Licensed
+ * http://opensource.org/licenses/MIT
+ */
 
-Copyright © 2012 Tim Radvan
-
-*/
-
-// TODO: only find_block on reporters
 
 var scratchblocks2 = function ($) {
     "use strict";
