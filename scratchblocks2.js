@@ -23,13 +23,13 @@ var scratchblocks2 = function ($) {
         // List of insert classes -- don't call find_block on these
         NO_LOOKUP = ["string", "dropdown", "number", "number-dropdown",
                 "color"],
-        
+
         // List of classes for get_arg_shape
         ARG_SHAPES = ["reporter", "boolean", "string", "dropdown", "number",
                 "number-dropdown",
                 // special shapes:
                 "list-dropdown", "math-function"],
-        
+
 
 
         // List of valid classes used in HTML
@@ -126,6 +126,7 @@ var scratchblocks2 = function ($) {
     function cls(name) {
         if (!is_class(name)) {
             log("Invalid class: " + name);
+            //debugger;
         }
         return name;
     }
@@ -212,7 +213,7 @@ var scratchblocks2 = function ($) {
             if (nesting.length > 0) {
                 piece += chr;
                 if (is_open_bracket(chr) && !is_lt_gt(code, i) &&
-                        nesting[nesting.length - 1] != "[") {
+                        nesting[nesting.length - 1] !== "[") {
                     nesting.push(chr);
                     matching_bracket = get_matching_bracket(chr);
 
@@ -223,7 +224,8 @@ var scratchblocks2 = function ($) {
                         piece = "";
                     } else {
                         matching_bracket = get_matching_bracket(
-                                nesting[nesting.length - 1]);
+                            nesting[nesting.length - 1]
+                        );
                     }
                 }
             } else {
@@ -276,6 +278,13 @@ var scratchblocks2 = function ($) {
     /* Strip block text, for looking up in blocks db. */
     function strip_block_text(text) {
         return text.replace(/[ ,%?:]/g, "").toLowerCase();
+    }
+
+
+    /* Get text from $block DOM element. Make sure you clone the block first. */
+    function get_block_text($block) {
+        $block.children().remove();
+        return strip_block_text($block.text());
     }
 
 
@@ -414,6 +423,15 @@ var scratchblocks2 = function ($) {
             }
         }
 
+        // HACK: scratch 1.4 "when ... clicked" block
+        if (block === undefined) {
+            if (/^when.*clicked$/.test(text)) {
+                block = blocks["whenthisspriteclicked"][0];
+            } else {
+                log(text);
+            }
+        }
+
         if (block) {
             classes = block[0];
 
@@ -439,7 +457,8 @@ var scratchblocks2 = function ($) {
             bracket = "",
             is_dropdown = false,
             pieces = [],
-            text = "";
+            text = "",
+            classes = [];
 
         if (code.trim().length === 0 && kind === 'stack') {
             return;
@@ -615,12 +634,11 @@ var scratchblocks2 = function ($) {
 
         // get category
         if (kind !== "custom-definition") {
-            var classes = [],
-                arg_classes = [],
+            var arg_classes = [],
                 info;
 
             // find block
-            if ($.inArray(kind, NO_LOOKUP) == -1 && !is_database) {
+            if ($.inArray(kind, NO_LOOKUP) === -1 && !is_database) {
                 info = find_block(text, $arg_list);
                 classes = info[0];
                 arg_classes = info[1];
@@ -631,12 +649,7 @@ var scratchblocks2 = function ($) {
                 if (category !== "") {
                     $block.addClass(cls(category));
                 } else {
-                    if (kind === "stack") {
-                        $block.addClass(cls("custom"));
-                    } else if (kind === "embedded" &&
-                            !$block.hasClass(cls("empty"))) {
-                        $block.addClass(cls("obsolete"));
-                    }
+                    $block.addClass(cls("obsolete"));
                 }
             } else {
                 $.each(classes, function (i, name) {
@@ -697,10 +710,6 @@ var scratchblocks2 = function ($) {
             $cwrap,
             $cmouth,
             one_only,
-            list_names,
-            custom_arg_names,
-            $variable,
-            var_name,
             $first,
             i;
 
@@ -812,7 +821,12 @@ var scratchblocks2 = function ($) {
 
                 } else if ($block.hasClass(cls("cend"))) {
                     if (nesting > 0) {
-                        add_cend($block);                        
+                        add_cend($block);
+
+                        if (nesting === 0 && $cwrap.hasClass("cap")) {
+                            // finished a C cap block
+                            new_script();
+                        }
                     } else {
                         $current.append($block);
                     }
@@ -820,7 +834,7 @@ var scratchblocks2 = function ($) {
                     $current.append($block);
                 }
 
-                if (one_only) {
+                if (one_only || (nesting === 0 && $block.hasClass("cap"))) {
                     new_script();
                 }
             }
@@ -829,35 +843,55 @@ var scratchblocks2 = function ($) {
         // push last script
         new_script();
 
+
+        var list_names = [],
+            custom_blocks_text = [];
+
         // HACK list reporters
-        list_names = [];
         for (i = 0; i < scripts.length; i++) {
             $script = scripts[i];
             $script.find(".list-dropdown").each(function (i, list) {
-                var name = $(list).text();
-                list_names.push(name);
+                var list_name = $(list).text();
+                list_names.push(list_name);
             });
         }
         for (i = 0; i < scripts.length; i++) {
             $script = scripts[i];
 
             // HACK custom arg reporters
-            custom_arg_names = [];
+            var custom_arg_names = [];
             $first = $script.children().first();
             if ($first.hasClass("custom-definition")) {
                 $first.find(".custom-arg").each(function (i, arg) {
                     custom_arg_names.push($(arg).text());
                 });
+
+                // store custom definitions
+                custom_blocks_text.push(
+                    get_block_text($first.find(".outline").clone())
+                );
             }
 
             // replace variable reporters
             $script.find(".variables.reporter").each(function (i, variable) {
-                $variable = $(variable);
-                var_name = $variable.text();
+                var $variable = $(variable);
+                var var_name = $variable.text();
                 if ($.inArray(var_name, custom_arg_names) > -1) {
                     $variable.removeClass("variables").addClass("custom-arg");
                 } else if ($.inArray(var_name, list_names) > -1) {
                     $variable.removeClass("variables").addClass("list");
+                }
+            });
+        }
+
+        // HACK custom stack blocks
+        for (i = 0; i < scripts.length; i++) {
+            $script = scripts[i];
+            $script.find(".obsolete.stack").each(function (i, block) {
+                $block = $(block);
+                var text = get_block_text($block.clone());
+                if ($.inArray(text, custom_blocks_text) > -1) {
+                    $block.removeClass("obsolete").addClass("custom");
                 }
             });
         }
@@ -985,6 +1019,10 @@ set instrument to (1 v)   \
 change volume by (-10)   \
 set volume to (100)%   \
 (volume)   \
+\
+\
+\
+## Events ##   \
 \
 change tempo by (20)   \
 set tempo to (60) bpm   \
@@ -1130,18 +1168,30 @@ reset timer   \
 
 // Obsolete Scratch 1.4 blocks //
 "\
-## Obsolete ##   \
+## Looks ##   \
+switch to costume [costume1 v]   \
+\
+\
+\
+## Control ##   \
 if <> ## cstart   \
 forever if <> ## cstart cap  \
-<loud?>   \
 stop script ## cap   \
 stop all ## cap   \
-switch to costume [costume1 v]   \
-when clicked   \
 \
 \
 \
-## Purple ##   \
+## Events ##   \
+when clicked ## hat   \
+\
+\
+\
+## Sensing ##   \
+<loud?>   \
+\
+\
+\
+\## Purple ##   \
 ([slider v] sensor value)   \
 <sensor [button pressed v]?>   \
 \
