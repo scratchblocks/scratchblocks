@@ -1,6 +1,6 @@
 Render Scratch blocks code to HTML.
 
-![Screenshot](http://i.imgur.com/zp9Sty7.png)
+![Screenshot](http://blob8108.github.com/scratchblocks2/screenshot.png)
 
 Inspired by and mostly compatible with JSO's
 excellent [Block Plugin](http://wiki.scratch.mit.edu/wiki/Block_Plugin) (which
