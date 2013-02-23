@@ -277,6 +277,13 @@ var scratchblocks2 = function ($) {
     function strip_block_text(text) {
         return text.replace(/[ ,%?:]/g, "").toLowerCase();
     }
+    
+
+    /* Get text from $block DOM element. Make sure you clone the block first. */
+    function get_block_text($block) {
+        $block.children().remove();
+        return strip_block_text($block.text());
+    }
 
 
     /* Parse the blocks database. */
@@ -631,12 +638,7 @@ var scratchblocks2 = function ($) {
                 if (category !== "") {
                     $block.addClass(cls(category));
                 } else {
-                    if (kind === "stack") {
-                        $block.addClass(cls("custom"));
-                    } else if (kind === "embedded" &&
-                            !$block.hasClass(cls("empty"))) {
-                        $block.addClass(cls("obsolete"));
-                    }
+                    $block.addClass(cls("obsolete"));
                 }
             } else {
                 $.each(classes, function (i, name) {
@@ -697,10 +699,6 @@ var scratchblocks2 = function ($) {
             $cwrap,
             $cmouth,
             one_only,
-            list_names,
-            custom_arg_names,
-            $variable,
-            var_name,
             $first,
             i;
 
@@ -829,35 +827,53 @@ var scratchblocks2 = function ($) {
         // push last script
         new_script();
 
+
+        var list_names = [],
+            custom_blocks_text = [];
+
         // HACK list reporters
-        list_names = [];
         for (i = 0; i < scripts.length; i++) {
             $script = scripts[i];
             $script.find(".list-dropdown").each(function (i, list) {
-                var name = $(list).text();
-                list_names.push(name);
+                var list_name = $(list).text();
+                list_names.push(list_name);
             });
         }
         for (i = 0; i < scripts.length; i++) {
             $script = scripts[i];
 
             // HACK custom arg reporters
-            custom_arg_names = [];
+            var custom_arg_names = [];
             $first = $script.children().first();
             if ($first.hasClass("custom-definition")) {
                 $first.find(".custom-arg").each(function (i, arg) {
                     custom_arg_names.push($(arg).text());
                 });
+
+                // store custom definitions
+                custom_blocks_text.push(get_block_text($first.find(".outline").clone()));
             }
 
             // replace variable reporters
             $script.find(".variables.reporter").each(function (i, variable) {
-                $variable = $(variable);
-                var_name = $variable.text();
+                var $variable = $(variable);
+                var var_name = $variable.text();
                 if ($.inArray(var_name, custom_arg_names) > -1) {
                     $variable.removeClass("variables").addClass("custom-arg");
                 } else if ($.inArray(var_name, list_names) > -1) {
                     $variable.removeClass("variables").addClass("list");
+                }
+            });
+        }
+
+        // HACK custom stack blocks
+        for (i = 0; i < scripts.length; i++) {
+            $script = scripts[i];
+            $script.find(".obsolete.stack").each(function (i, block) {
+                $block = $(block);
+                var text = get_block_text($block.clone());
+                if ($.inArray(text, custom_blocks_text) > -1) {
+                    $block.removeClass("obsolete").addClass("custom");
                 }
             });
         }
