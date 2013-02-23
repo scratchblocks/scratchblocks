@@ -198,34 +198,39 @@ var scratchblocks2 = function ($) {
     }
 
 
-
     function split_into_pieces(code) {
         var pieces = [],
             piece = "",
-            piece_bracket = "",
             matching_bracket = "",
-            nesting = 0,
+            nesting = [],
             chr,
             i;
 
         for (i = 0; i < code.length; i++) {
             chr = code[i];
-            if (nesting > 0) {
+
+            if (nesting.length > 0) {
                 piece += chr;
-                if (chr === piece_bracket && !is_lt_gt(code, i)) {
-                    nesting += 1;
+                if (is_open_bracket(chr) && !is_lt_gt(code, i) &&
+                        nesting[nesting.length - 1] != "[") {
+                    nesting.push(chr);
+                    matching_bracket = get_matching_bracket(chr);
+
                 } else if (chr === matching_bracket && !is_lt_gt(code, i)) {
-                    nesting -= 1;
-                    if (nesting === 0) {
+                    nesting.pop();
+                    if (nesting.length === 0) {
                         pieces.push(piece);
                         piece = "";
+                    } else {
+                        matching_bracket = get_matching_bracket(
+                                nesting[nesting.length - 1]);
                     }
                 }
             } else {
                 if (is_open_bracket(chr) && !is_lt_gt(code, i)) {
-                    piece_bracket = chr;
+                    nesting.push(chr);
                     matching_bracket = get_matching_bracket(chr);
-                    nesting += 1;
+
                     if (piece) {
                         pieces.push(piece);
                     }
@@ -542,7 +547,7 @@ var scratchblocks2 = function ($) {
             $block.css({
                 "background-color": code
             });
-            $block.html(" ");
+            $block.text(" ");
             return $block;
         }
 
@@ -573,14 +578,14 @@ var scratchblocks2 = function ($) {
                     if (piece[0] === "<") {
                         $arg.addClass(cls("boolean"));
                     }
-                    $arg.html(strip_brackets(piece));
+                    $arg.text(strip_brackets(piece));
                     $outline.append($arg);
                 } else {
                     $outline.append(piece);
                 }
             });
         } else if (pieces.length === 1) {
-            $block.html(code);
+            $block.text(code);
         } else {
             $.each(pieces, function (i, piece) {
                 var $arg;
@@ -685,7 +690,7 @@ var scratchblocks2 = function ($) {
         var scripts = [],
             $script,
             $current,
-            nesting,
+            nesting = 0,
             lines = code.split(/\n/),
             line,
             $block,
@@ -699,10 +704,40 @@ var scratchblocks2 = function ($) {
             $first,
             i;
 
+        function add_cend($block) {
+            $cmouth = $current;
+            $cwrap = $cmouth.parent();
+            assert($cwrap.hasClass(cls("cwrap")));
+
+            $cwrap.append($block);
+            $current = $cwrap.parent();
+            nesting -= 1;
+
+            // give $block the color of $cwrap
+            $block.removeClass(get_block_category($block));
+            $block.addClass(get_block_category($cwrap));
+
+            // check for cap blocks at end of cmouth
+            if ($cmouth.find("> :last-child").hasClass("cap")) {
+                $block.addClass("capend");
+            }
+        }
+
         function new_script() {
+            // end any c blocks
+            while (nesting > 0) {
+                var $cend = $("<div><span>end</span></div>")
+                        .addClass(cls("stack")).addClass(cls("cend"))
+                        .addClass(cls("control"));
+                add_cend($cend);
+            }
+
+            // push script
             if ($script !== undefined && $script.children().length > 0) {
                 scripts.push($script);
             }
+
+            // start new script
             $script = $("<div>").addClass(cls("script"));
             $current = $script;
             nesting = 0;
@@ -777,22 +812,7 @@ var scratchblocks2 = function ($) {
 
                 } else if ($block.hasClass(cls("cend"))) {
                     if (nesting > 0) {
-                        $cmouth = $current;
-                        $cwrap = $current.parent();
-                        assert($cwrap.hasClass(cls("cwrap")));
-
-                        $cwrap.append($block);
-                        $current = $cwrap.parent();
-                        nesting -= 1;
-
-                        // give $block the color of $cwrap
-                        $block.removeClass(get_block_category($block));
-                        $block.addClass(get_block_category($cwrap));
-
-                        // check for cap blocks at end of cmouth
-                        if ($cmouth.find("> :last-child").hasClass("cap")) {
-                            $block.addClass("capend");
-                        }
+                        add_cend($block);                        
                     } else {
                         $current.append($block);
                     }
@@ -863,7 +883,7 @@ var scratchblocks2 = function ($) {
                 code = $el.text(),
                 scripts = render(code);
 
-            $el.html("");
+            $el.text("");
             $el.addClass(cls("scratchblocks2-container"));
             $.each(scripts, function (i, $script) {
                 $el.append($script);
