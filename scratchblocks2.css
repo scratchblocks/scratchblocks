@@ -553,6 +553,9 @@
 .scratchblocks2-container .dropdown {
   border: 2px solid;
 }
+.scratchblocks2-container .stack {
+  min-width: 36px;
+}
 .scratchblocks2-container .stack,
 .scratchblocks2-container .cwrap,
 .scratchblocks2-container .cmouth {
@@ -649,7 +652,7 @@
   -webkit-border-radius: 0 4px 4px 4px;
   -moz-border-radius: 0 4px 4px 4px;
   margin-top: 15px;
-  min-width: 120px;
+  min-width: 100px;
 }
 .scratchblocks2-container .hat:before,
 .scratchblocks2-container .custom-definition:before {
@@ -657,19 +660,16 @@
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   position: absolute;
-  height: 15px;
-  width: 100px;
-  top: -15px;
+  height: 13px;
+  width: 80px;
+  top: -13px;
   left: -2px;
   background: inherit;
   border: inherit;
   border-bottom: none;
-  border-radius: 50px 50px 0 0 / 15px 15px 0 0;
-  -webkit-border-radius: 50px 50px 0 0 / 15px 15px 0 0;
-  -moz-border-radius: 50px 50px 0 0 / 15px 15px 0 0;
-}
-.scratchblocks2-container .hat.custom-definition:before,
-.scratchblocks2-container .custom-definition.custom-definition:before {
+  border-radius: 40px 40px 0 0 / 13px 13px 0 0;
+  -webkit-border-radius: 40px 40px 0 0 / 13px 13px 0 0;
+  -moz-border-radius: 40px 40px 0 0 / 13px 13px 0 0;
   border-top-width: 2px;
 }
 .scratchblocks2-container .outline {
@@ -843,6 +843,7 @@
   margin: 0 2px;
   width: 20px;
   height: 20px;
+  margin-top: -10px;
   background: url(block_images/flag.png) 0 0 no-repeat;
   background-size: contain;
 }

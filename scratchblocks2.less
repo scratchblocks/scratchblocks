@@ -268,6 +268,11 @@
         .variable-reporter, .custom-arg, .dropdown {
         border: 2px solid;
     }
+
+    .stack {
+        min-width: 36px;
+    }
+
     .stack, .cwrap, .cmouth {
         border-top-width: 1px;
 
@@ -369,23 +374,20 @@
         
         margin-top: 15px;
 
-        min-width: 120px;
+        min-width: 100px;
 
         &:before {
             content: "";
             .box-sizing_border-box;
             position: absolute;
-            height: 15px;
-            width: 100px;
-            top: -15px;
+            height: 13px;
+            width: 80px;
+            top: -13px;
             left: -2px;
             background: inherit;
             border: inherit;
             border-bottom: none;
-            .border-radius(50px 50px 0 0 e('/') 15px 15px 0 0);
-        }
-
-        &.custom-definition:before {
+            .border-radius(40px 40px 0 0 e('/') 13px 13px 0 0);
             border-top-width: 2px;
         }
     }
@@ -568,6 +570,7 @@
         margin: 0 2px;
         width: 20px;
         height: 20px;
+        margin-top: -10px;
         background: url(block_images/flag.png) 0 0 no-repeat;
         background-size: contain;
     }
