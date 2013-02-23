@@ -427,8 +427,6 @@ var scratchblocks2 = function ($) {
         if (block === undefined) {
             if (/^when.*clicked$/.test(text)) {
                 block = blocks["whenthisspriteclicked"][0];
-            } else {
-                log(text);
             }
         }
 
