@@ -23,13 +23,13 @@ var scratchblocks2 = function ($) {
         // List of insert classes -- don't call find_block on these
         NO_LOOKUP = ["string", "dropdown", "number", "number-dropdown",
                 "color"],
-        
+
         // List of classes for get_arg_shape
         ARG_SHAPES = ["reporter", "boolean", "string", "dropdown", "number",
                 "number-dropdown",
                 // special shapes:
                 "list-dropdown", "math-function"],
-        
+
 
 
         // List of valid classes used in HTML
@@ -212,7 +212,7 @@ var scratchblocks2 = function ($) {
             if (nesting.length > 0) {
                 piece += chr;
                 if (is_open_bracket(chr) && !is_lt_gt(code, i) &&
-                        nesting[nesting.length - 1] != "[") {
+                        nesting[nesting.length - 1] !== "[") {
                     nesting.push(chr);
                     matching_bracket = get_matching_bracket(chr);
 
@@ -223,7 +223,8 @@ var scratchblocks2 = function ($) {
                         piece = "";
                     } else {
                         matching_bracket = get_matching_bracket(
-                                nesting[nesting.length - 1]);
+                            nesting[nesting.length - 1]
+                        );
                     }
                 }
             } else {
@@ -277,7 +278,7 @@ var scratchblocks2 = function ($) {
     function strip_block_text(text) {
         return text.replace(/[ ,%?:]/g, "").toLowerCase();
     }
-    
+
 
     /* Get text from $block DOM element. Make sure you clone the block first. */
     function get_block_text($block) {
@@ -446,7 +447,8 @@ var scratchblocks2 = function ($) {
             bracket = "",
             is_dropdown = false,
             pieces = [],
-            text = "";
+            text = "",
+            classes = [];
 
         if (code.trim().length === 0 && kind === 'stack') {
             return;
@@ -622,12 +624,11 @@ var scratchblocks2 = function ($) {
 
         // get category
         if (kind !== "custom-definition") {
-            var classes = [],
-                arg_classes = [],
+            var arg_classes = [],
                 info;
 
             // find block
-            if ($.inArray(kind, NO_LOOKUP) == -1 && !is_database) {
+            if ($.inArray(kind, NO_LOOKUP) === -1 && !is_database) {
                 info = find_block(text, $arg_list);
                 classes = info[0];
                 arg_classes = info[1];
@@ -810,7 +811,7 @@ var scratchblocks2 = function ($) {
 
                 } else if ($block.hasClass(cls("cend"))) {
                     if (nesting > 0) {
-                        add_cend($block);                        
+                        add_cend($block);
                     } else {
                         $current.append($block);
                     }
@@ -851,7 +852,9 @@ var scratchblocks2 = function ($) {
                 });
 
                 // store custom definitions
-                custom_blocks_text.push(get_block_text($first.find(".outline").clone()));
+                custom_blocks_text.push(
+                    get_block_text($first.find(".outline").clone())
+                );
             }
 
             // replace variable reporters
