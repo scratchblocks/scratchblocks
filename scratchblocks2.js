@@ -685,7 +685,7 @@ var scratchblocks2 = function ($) {
         var scripts = [],
             $script,
             $current,
-            nesting,
+            nesting = 0,
             lines = code.split(/\n/),
             line,
             $block,
@@ -699,10 +699,40 @@ var scratchblocks2 = function ($) {
             $first,
             i;
 
+        function add_cend($block) {
+            $cmouth = $current;
+            $cwrap = $cmouth.parent();
+            assert($cwrap.hasClass(cls("cwrap")));
+
+            $cwrap.append($block);
+            $current = $cwrap.parent();
+            nesting -= 1;
+
+            // give $block the color of $cwrap
+            $block.removeClass(get_block_category($block));
+            $block.addClass(get_block_category($cwrap));
+
+            // check for cap blocks at end of cmouth
+            if ($cmouth.find("> :last-child").hasClass("cap")) {
+                $block.addClass("capend");
+            }
+        }
+
         function new_script() {
+            // end any c blocks
+            while (nesting > 0) {
+                var $cend = $("<div><span>end</span></div>")
+                        .addClass(cls("stack")).addClass(cls("cend"))
+                        .addClass(cls("control"));
+                add_cend($cend);
+            }
+
+            // push script
             if ($script !== undefined && $script.children().length > 0) {
                 scripts.push($script);
             }
+
+            // start new script
             $script = $("<div>").addClass(cls("script"));
             $current = $script;
             nesting = 0;
@@ -777,22 +807,7 @@ var scratchblocks2 = function ($) {
 
                 } else if ($block.hasClass(cls("cend"))) {
                     if (nesting > 0) {
-                        $cmouth = $current;
-                        $cwrap = $current.parent();
-                        assert($cwrap.hasClass(cls("cwrap")));
-
-                        $cwrap.append($block);
-                        $current = $cwrap.parent();
-                        nesting -= 1;
-
-                        // give $block the color of $cwrap
-                        $block.removeClass(get_block_category($block));
-                        $block.addClass(get_block_category($cwrap));
-
-                        // check for cap blocks at end of cmouth
-                        if ($cmouth.find("> :last-child").hasClass("cap")) {
-                            $block.addClass("capend");
-                        }
+                        add_cend($block);                        
                     } else {
                         $current.append($block);
                     }
