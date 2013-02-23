@@ -422,7 +422,7 @@ var scratchblocks2 = function ($) {
                 });
             }
         }
-        
+
         // HACK: scratch 1.4 "when ... clicked" block
         if (block === undefined) {
             if (/^when.*clicked$/.test(text)) {
@@ -822,6 +822,11 @@ var scratchblocks2 = function ($) {
                 } else if ($block.hasClass(cls("cend"))) {
                     if (nesting > 0) {
                         add_cend($block);
+
+                        if (nesting === 0 && $cwrap.hasClass("cap")) {
+                            // finished a C cap block
+                            new_script();
+                        }
                     } else {
                         $current.append($block);
                     }
@@ -829,7 +834,7 @@ var scratchblocks2 = function ($) {
                     $current.append($block);
                 }
 
-                if (one_only) {
+                if (one_only || (nesting === 0 && $block.hasClass("cap"))) {
                     new_script();
                 }
             }
