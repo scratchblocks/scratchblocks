@@ -126,6 +126,7 @@ var scratchblocks2 = function ($) {
     function cls(name) {
         if (!is_class(name)) {
             log("Invalid class: " + name);
+            //debugger;
         }
         return name;
     }
@@ -419,6 +420,15 @@ var scratchblocks2 = function ($) {
                         block = poss_block;
                     }
                 });
+            }
+        }
+        
+        // HACK: scratch 1.4 "when ... clicked" block
+        if (block === undefined) {
+            if (/^when.*clicked$/.test(text)) {
+                block = blocks["whenthisspriteclicked"][0];
+            } else {
+                log(text);
             }
         }
 
@@ -1005,6 +1015,10 @@ change volume by (-10)   \
 set volume to (100)%   \
 (volume)   \
 \
+\
+\
+## Events ##   \
+\
 change tempo by (20)   \
 set tempo to (60) bpm   \
 (tempo)   \
@@ -1149,18 +1163,30 @@ reset timer   \
 
 // Obsolete Scratch 1.4 blocks //
 "\
-## Obsolete ##   \
+## Looks ##   \
+switch to costume [costume1 v]   \
+\
+\
+\
+## Control ##   \
 if <> ## cstart   \
 forever if <> ## cstart cap  \
-<loud?>   \
 stop script ## cap   \
 stop all ## cap   \
-switch to costume [costume1 v]   \
-when clicked   \
 \
 \
 \
-## Purple ##   \
+## Events ##   \
+when clicked ## hat   \
+\
+\
+\
+## Sensing ##   \
+<loud?>   \
+\
+\
+\
+\## Purple ##   \
 ([slider v] sensor value)   \
 <sensor [button pressed v]?>   \
 \
