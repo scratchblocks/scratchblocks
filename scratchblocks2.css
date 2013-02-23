@@ -629,18 +629,18 @@
 .scratchblocks2-container .cap:after {
   content: none;
 }
-.scratchblocks2-container .cend.capend:before {
+.scratchblocks2-container .cwrap .cend.capend:before {
   content: none;
 }
 .scratchblocks2-container .cwrap.cap > .cend:after {
   content: none;
 }
-.scratchblocks2-container .cstart:after,
-.scratchblocks2-container .celse:after {
-  left: 27px;
+.scratchblocks2-container .cwrap .cstart:after,
+.scratchblocks2-container .cwrap .celse:after {
+  left: 26px;
 }
-.scratchblocks2-container .cend:before,
-.scratchblocks2-container .celse:before {
+.scratchblocks2-container .cwrap .cend:before,
+.scratchblocks2-container .cwrap .celse:before {
   left: 25px;
 }
 .scratchblocks2-container .hat,

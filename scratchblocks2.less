@@ -342,23 +342,25 @@
         content: none;
     }
 
-    .cend.capend:before {
-        content: none;
-    }
-
-    .cwrap.cap > .cend:after {
-        content: none;
-    }
-    
-    .cstart, .celse {
-        &:after {
-            left: 27px;
+    .cwrap {
+        .cend.capend:before {
+            content: none;
         }
-    }
 
-    .cend, .celse {
-        &:before {
-            left: 25px;
+        &.cap > .cend:after {
+            content: none;
+        }
+        
+        .cstart, .celse {
+            &:after {
+                left: 26px;
+            }
+        }
+
+        .cend, .celse {
+            &:before {
+                left: 25px;
+            }
         }
     }
 
