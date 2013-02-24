@@ -288,6 +288,67 @@ var scratchblocks2 = function ($) {
     }
 
 
+    /* Hex color #rrggb or #rgb to [r, g, b] */
+    function hex2rgb(hexStr) {
+        var hex, r, g, b;
+        assert(hexStr[0] === "#");
+        hexStr = hexStr.substring(1);
+        if (hexStr.length === 3) {
+            r = hexStr[0];
+            g = hexStr[1];
+            b = hexStr[2];
+            hexStr = r + r + g + g + b + b;
+        }
+        hex = parseInt(hexStr, 16);
+        if (hexStr.length === 6) {
+            r = (hex & 0xff0000) >> 16;
+            g = (hex & 0x00ff00) >> 8;
+            b = hex & 0x0000ff;
+        }
+        return [r, g, b];
+    }
+
+
+    function clamp(x, a, b) {
+        return Math.min(b, Math.max(x, a));
+    }
+
+
+    /* Multiply colour by scalar value. */
+    function scale_color(rgb, scale) {
+        var r = rgb[0],
+            g = rgb[1],
+            b = rgb[2];
+        r = parseInt(clamp(r * scale, 0, 255));
+        g = parseInt(clamp(g * scale, 0, 255));
+        b = parseInt(clamp(b * scale, 0, 255));
+        return [r, g, b];
+    }
+
+
+    function rgb2css(rgb) {
+        var r = rgb[0],
+            g = rgb[1],
+            b = rgb[2];
+        return "rgb(" + r + ", " + g + ", " + b + ") ";
+    }
+
+    /* Set hexColor as background color of $block */
+    function apply_block_color($block, hexColor) {
+        var rgb = hex2rgb(hexColor);
+        log(rgb);
+        var btop = rgb2css(scale_color(rgb, 1.4));
+        var bbot = rgb2css(scale_color(rgb, 0.7));
+        $block.css({
+            "background-color": rgb2css(rgb),
+            "border-top-color": btop,
+            "border-left-color": btop,
+            "border-bottom-color": bbot,
+            "border-right-color": bbot
+        });
+    }
+
+
     /* Parse the blocks database. */
     function load_blocks_db() {
         var db = {},
