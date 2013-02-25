@@ -520,10 +520,6 @@ var scratchblocks2 = function ($) {
             text = "",
             classes = [];
 
-        if (code.trim().length === 0 && shape === 'stack') {
-            return;
-        }
-
         // init vars
         if (/^database:?/.test(need_shape)) {
             is_database = true;
@@ -536,19 +532,23 @@ var scratchblocks2 = function ($) {
 
         // trim
         code = code.trim();
-        if (code.length === 0) {
+        if (code === "") {
             return;
         }
 
-        // strip brackets
-        if (is_open_bracket(code[0])) {
-            bracket = code[0];
-            code = strip_brackets(code);
-        }
+        if (need_shape === "stack" && split_into_pieces(code).length > 1) {
+            // not an insert!
+        } else {
+            // strip brackets
+            if (is_open_bracket(code[0])) {
+                bracket = code[0];
+                code = strip_brackets(code);
+            }
 
-        // trim again
-        if (bracket !== "[") {
-            code = code.trim();
+            // trim again
+            if (bracket !== "[") {
+                code = code.trim();
+            }
         }
 
         // check for custom block definition
@@ -557,8 +557,13 @@ var scratchblocks2 = function ($) {
             code = code.substr(6).trim();
         }
 
-        // split into pieces
-        pieces = split_into_pieces(code);
+        if (bracket == "[") {
+            // make sure it's an insert
+            pieces = [code];
+        } else {
+            // split into pieces
+            pieces = split_into_pieces(code);
+        }
 
         // check shape
         if (shape != "custom-definition") {
