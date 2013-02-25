@@ -509,8 +509,9 @@ var scratchblocks2 = function ($) {
 
 
     /* Render script code to DOM. */
-    function render_block(code, shape) {
+    function render_block(code, need_shape) {
         var $block = $("<div>"),
+            shape,
             is_database = false,
             category = "",
             bracket = "",
@@ -524,16 +525,20 @@ var scratchblocks2 = function ($) {
         }
 
         // init vars
-        if (/^database:?/.test(shape)) {
+        if (/^database:?/.test(need_shape)) {
             is_database = true;
-            shape = shape.substr(9);
+            need_shape = need_shape.substr(9);
         }
-        if (shape === undefined) {
-            shape = "";
+        if (need_shape === undefined) {
+            need_shape = "";
         }
+        shape = need_shape;
 
         // trim
         code = code.trim();
+        if (code.length === 0) {
+            return;
+        }
 
         // strip brackets
         if (is_open_bracket(code[0])) {
@@ -546,81 +551,92 @@ var scratchblocks2 = function ($) {
             code = code.trim();
         }
 
-        // check shape
-        switch (bracket) {
-            case "(":
-                if (/^(-?[0-9.]+( v)?)?$/.test(code)) {
-                    // number
-                    shape = "number";
-
-                    // dropdown?
-                    if (/ v$/.test(code)) {
-                        is_dropdown = true;
-                        code = code.substr(0, code.length - 2);
-                        shape = "number-dropdown";
-                    }
-                } else {
-                    // reporter (or embedded!)
-                    shape = "reporter";
-                }
-                break;
-
-            case "[":
-                if (/^#[A-Fa-f0-9]{3,6}$/.test(code)) {
-                    // color
-                    shape = "color";
-                } else {
-                    // string
-                    shape = "string";
-
-                    // dropdown?
-                    if (/ v$/.test(code)) {
-                        is_dropdown = true;
-                        code = code.substr(0, code.length - 2);
-                        shape = "dropdown";
-                    }
-                }
-                break;
-
-            case "<":
-                // boolean
-                shape = "boolean";
-                category = "operators";
-                break;
-
-            default:
-                if (/^define/.test(code.trim())) {
-                    // custom block definition
-                    shape = "custom-definition";
-                    code = code.substr(6).trim();
-                } else {
-                    // should be stack
-                    assert(shape === "stack");
-                }
-                break;
+        // check for custom block definition
+        if (/^define/.test(code)) {
+            shape = "custom-definition";
+            code = code.substr(6).trim();
         }
 
-
         // split into pieces
-        if (shape && shape !== "reporter" && shape !== "boolean" &&
-                shape !== "stack" && shape !== "custom-definition") {
-            pieces = [code]; // don't bother splitting
-        } else {
-            code = code.trim();
+        pieces = split_into_pieces(code);
 
-            pieces = split_into_pieces(code);
+        // check shape
+        if (shape != "custom-definition") {
+            if (pieces.length > 1) {
+                // block
+                switch (bracket) {
+                    case "(":
+                        shape = "embedded";
+                        break;
 
-            // check for variables
-            if (shape === "reporter") {
-                if (pieces.length === 1 &&
-                        !is_open_bracket(pieces[0][0])) {
-                    category = "variables"; // only used if we can't find_block
-                } else { // check for embedded blocks
-                    shape = "embedded";
+                    case "<":
+                        shape = "boolean";
+                        break;
+
+                    default:
+                        assert(shape === "stack");
+                        break;
+                }
+            } else {
+                // insert
+                switch (bracket) {
+                    case "(":
+                        if (/^(-?[0-9.]+( v)?)?$/.test(code)) {
+                            // number
+                            shape = "number";
+
+                            // dropdown?
+                            if (/ v$/.test(code)) {
+                                is_dropdown = true;
+                                code = code.substr(0, code.length - 2);
+                                shape = "number-dropdown";
+                            }
+                        } else {
+                            // reporter (or embedded!)
+                            shape = "reporter";
+                        }
+                        break;
+
+                    case "[":
+                        if (/^#[A-Fa-f0-9]{3,6}$/.test(code)) {
+                            // color
+                            shape = "color";
+                        } else {
+                            // string
+                            shape = "string";
+
+                            // dropdown?
+                            if (/ v$/.test(code)) {
+                                is_dropdown = true;
+                                code = code.substr(0, code.length - 2);
+                                shape = "dropdown";
+                            }
+                        }
+                        break;
+
+                    case "<":
+                        // boolean
+                        shape = "boolean";
+                        category = "operators";
+                        break;
+
+                    default:
+                        // should be stack
+                        break;
                 }
             }
         }
-        
+
+        // check for variables
+        if (shape === "reporter") {
+            if (pieces.length === 1 &&
+                    !is_open_bracket(pieces[0][0])) {
+                category = "variables"; // only used if we can't find_block
+            } else { // check for embedded blocks
+                shape = "embedded";
+            }
+        }
+
         // add shape class
         $block.addClass(cls(shape));
 
@@ -743,6 +759,8 @@ var scratchblocks2 = function ($) {
             }
         }
 
+
+        // replace images
         function replace_text_with_image(regex, image_class) {
             var html = $block.html(),
                 image = '<span class="' + image_class + '"></span>';
@@ -764,11 +782,13 @@ var scratchblocks2 = function ($) {
             }
         }
 
+
         // cend blocks: hide "end" text
         if ($block.hasClass(cls("cend"))) {
             var html = $block.html();
             $block.html("").append($("<span>").html(html));
         }
+
 
         return $block;
     }
