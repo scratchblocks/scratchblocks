@@ -288,6 +288,67 @@ var scratchblocks2 = function ($) {
     }
 
 
+    /* Hex color #rrggb or #rgb to [r, g, b] */
+    function hex2rgb(hexStr) {
+        var hex, r, g, b;
+        assert(hexStr[0] === "#");
+        hexStr = hexStr.substring(1);
+        if (hexStr.length === 3) {
+            r = hexStr[0];
+            g = hexStr[1];
+            b = hexStr[2];
+            hexStr = r + r + g + g + b + b;
+        }
+        hex = parseInt(hexStr, 16);
+        if (hexStr.length === 6) {
+            r = (hex & 0xff0000) >> 16;
+            g = (hex & 0x00ff00) >> 8;
+            b = hex & 0x0000ff;
+        }
+        return [r, g, b];
+    }
+
+
+    function clamp(x, a, b) {
+        return Math.min(b, Math.max(x, a));
+    }
+
+
+    /* Multiply colour by scalar value. */
+    function scale_color(rgb, scale) {
+        var r = rgb[0],
+            g = rgb[1],
+            b = rgb[2];
+        r = parseInt(clamp(r * scale, 0, 255));
+        g = parseInt(clamp(g * scale, 0, 255));
+        b = parseInt(clamp(b * scale, 0, 255));
+        return [r, g, b];
+    }
+
+
+    function rgb2css(rgb) {
+        var r = rgb[0],
+            g = rgb[1],
+            b = rgb[2];
+        return "rgb(" + r + ", " + g + ", " + b + ") ";
+    }
+
+    /* Set hexColor as background color of $block */
+    function apply_block_color($block, hexColor) {
+        var rgb = hex2rgb(hexColor);
+        log(rgb);
+        var btop = rgb2css(scale_color(rgb, 1.4));
+        var bbot = rgb2css(scale_color(rgb, 0.7));
+        $block.css({
+            "background-color": rgb2css(rgb),
+            "border-top-color": btop,
+            "border-left-color": btop,
+            "border-bottom-color": bbot,
+            "border-right-color": bbot
+        });
+    }
+
+
     /* Parse the blocks database. */
     function load_blocks_db() {
         var db = {},
@@ -321,7 +382,7 @@ var scratchblocks2 = function ($) {
             }
 
             // parse block
-            $block = render_block(line, "database");
+            $block = render_block(line, "database:stack");
 
             // get arg shapes
             arg_shapes = [];
@@ -448,8 +509,9 @@ var scratchblocks2 = function ($) {
 
 
     /* Render script code to DOM. */
-    function render_block(code, kind) {
+    function render_block(code, need_shape) {
         var $block = $("<div>"),
+            shape,
             is_database = false,
             category = "",
             bracket = "",
@@ -458,109 +520,140 @@ var scratchblocks2 = function ($) {
             text = "",
             classes = [];
 
-        if (code.trim().length === 0 && kind === 'stack') {
-            return;
-        }
-
         // init vars
-        if (kind === "database") {
+        if (/^database:?/.test(need_shape)) {
             is_database = true;
-            kind = "";
+            need_shape = need_shape.substr(9);
         }
-        if (kind === undefined) {
-            kind = "";
+        if (need_shape === undefined) {
+            need_shape = "";
         }
+        shape = need_shape;
 
         // trim
         code = code.trim();
-
-        // strip brackets
-        if (is_open_bracket(code[0])) {
-            bracket = code[0];
-            code = strip_brackets(code);
+        if (code === "") {
+            return;
         }
 
-        // trim again
-        if (bracket !== "[") {
-            code = code.trim();
-        }
+        if (need_shape === "stack" && split_into_pieces(code).length > 1) {
+            // not an insert!
+        } else {
+            // strip brackets
+            if (is_open_bracket(code[0])) {
+                bracket = code[0];
+                code = strip_brackets(code);
+            }
 
-        // check kind
-        if (bracket === "(" && /^(-?[0-9.]+( v)?)?$/.test(code)) {
-            kind = "number";
-        } else if (bracket === "[") {
-            kind = "string";
-
-            if (/^#[A-Fa-f0-9]{3,6}$/.test(code)) {
-                kind = "color";
+            // trim again
+            if (bracket !== "[") {
+                code = code.trim();
             }
         }
 
-        // dropdowns for [string v] and number (123 v)
-        if (kind === "number" || kind === "string") {
-            if (/ v$/.test(code)) {
-                is_dropdown = true;
-                code = code.substr(0, code.length - 2);
+        // check for custom block definition
+        if (/^define/.test(code)) {
+            shape = "custom-definition";
+            code = code.substr(6).trim();
+        }
 
-                if (kind === "string") {
-                    kind = "dropdown";
-                } else {
-                    kind = "number-dropdown";
+        if (bracket == "[") {
+            // make sure it's an insert
+            pieces = [code];
+        } else {
+            // split into pieces
+            pieces = split_into_pieces(code);
+        }
+
+        // check shape
+        if (shape != "custom-definition") {
+            if (pieces.length > 1) {
+                // block
+                switch (bracket) {
+                    case "(":
+                        shape = "embedded";
+                        break;
+
+                    case "<":
+                        shape = "boolean";
+                        break;
+
+                    default:
+                        assert(shape === "stack");
+                        break;
+                }
+            } else {
+                // insert
+                switch (bracket) {
+                    case "(":
+                        if (/^(-?[0-9.]+( v)?)?$/.test(code)) {
+                            // number
+                            shape = "number";
+
+                            // dropdown?
+                            if (/ v$/.test(code)) {
+                                is_dropdown = true;
+                                code = code.substr(0, code.length - 2);
+                                shape = "number-dropdown";
+                            }
+                        } else {
+                            // reporter (or embedded!)
+                            shape = "reporter";
+                        }
+                        break;
+
+                    case "[":
+                        if (/^#[A-Fa-f0-9]{3,6}$/.test(code)) {
+                            // color
+                            shape = "color";
+                        } else {
+                            // string
+                            shape = "string";
+
+                            // dropdown?
+                            if (/ v$/.test(code)) {
+                                is_dropdown = true;
+                                code = code.substr(0, code.length - 2);
+                                shape = "dropdown";
+                            }
+                        }
+                        break;
+
+                    case "<":
+                        // boolean
+                        shape = "boolean";
+                        category = "operators";
+                        break;
+
+                    default:
+                        // should be stack
+                        break;
                 }
             }
         }
 
-        // custom block definitions
-        if (/^define/.test(code.trim())) {
-            kind = "custom-definition";
-            code = code.substr(6).trim();
-        }
-
-        // give special classes colour
-        if (kind === "custom-definition") {
-            $block.addClass(cls("custom"));
-        }
-
-        // split into pieces
-        if (kind && kind !== "stack" && kind !== "custom-definition") {
-            pieces = [code]; // don't bother splitting
-        } else {
-            code = code.trim();
-
-            pieces = split_into_pieces(code);
-
-            // check for variables
-            if (bracket === "(" && pieces.length === 1 &&
+        // check for variables
+        if (shape === "reporter") {
+            if (pieces.length === 1 &&
                     !is_open_bracket(pieces[0][0])) {
-                kind = "reporter";
-                category = "variables";
+                category = "variables"; // only used if we can't find_block
+            } else { // check for embedded blocks
+                shape = "embedded";
             }
         }
 
-        // check for embedded blocks
-        if (bracket === "<") {
-            kind = "boolean";
-            category = "operators";
-        } else if (kind === "") {
-            kind = "embedded";
-        }
-
-        if (kind === "stack" && bracket === "(") {
-            kind = "embedded";
-        }
-
         // add shape class
-        $block.addClass(cls(kind));
+        $block.addClass(cls(shape));
 
-        // empty blocks must have content to size correctly
+        // empty blocks
         if (code.length === 0) {
-            code = " ";
+            code = " "; // must have content to size correctly
             pieces = [code];
             $block.addClass(cls("empty"));
         }
 
         // render color inputs
-        if (kind === "color") {
+        if (shape === "color") {
             $block.css({
                 "background-color": code
             });
@@ -584,7 +677,8 @@ var scratchblocks2 = function ($) {
 
         // render the pieces
         var $arg_list = [];
-        if (kind === "custom-definition") { // custom definition args
+        if (shape === "custom-definition") {
+            // custom definition args
             $block.append("define");
             var $outline = $("<div>").addClass(cls("outline"));
             $block.append($outline);
@@ -619,24 +713,29 @@ var scratchblocks2 = function ($) {
                     $block.append(piece);
                 }
 
-                // DATABASE: tag list dropdowns
-                if (is_database && piece === "[list v]") {
-                    $arg.addClass("list-dropdown");
-                }
-                // DATABASE: tag math function
-                if (is_database && piece === "[sqrt v]") {
-                    $arg.addClass("math-function");
+                // DATABASE
+                if (is_database) {
+                    // tag list dropdowns
+                    if (piece === "[list v]") {
+                        $arg.addClass("list-dropdown");
+                    }
+                    // tag math function
+                    if (piece === "[sqrt v]") {
+                        $arg.addClass("math-function");
+                    }
                 }
             });
         }
 
         // get category
-        if (kind !== "custom-definition") {
+        if (shape === "custom-definition") {
+            $block.addClass(cls("custom"));
+        } else {
             var arg_classes = [],
                 info;
 
             // find block
-            if ($.inArray(kind, NO_LOOKUP) === -1 && !is_database) {
+            if ($.inArray(shape, NO_LOOKUP) === -1 && !is_database) {
                 info = find_block(text, $arg_list);
                 classes = info[0];
                 arg_classes = info[1];
@@ -665,6 +764,8 @@ var scratchblocks2 = function ($) {
             }
         }
 
+
+        // replace images
         function replace_text_with_image(regex, image_class) {
             var html = $block.html(),
                 image = '<span class="' + image_class + '"></span>';
@@ -686,11 +787,13 @@ var scratchblocks2 = function ($) {
             }
         }
 
+
         // cend blocks: hide "end" text
         if ($block.hasClass(cls("cend"))) {
             var html = $block.html();
             $block.html("").append($("<span>").html(html));
         }
+
 
         return $block;
     }
