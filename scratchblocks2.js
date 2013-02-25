@@ -509,7 +509,7 @@ var scratchblocks2 = function ($) {
 
 
     /* Render script code to DOM. */
-    function render_block(code, kind) {
+    function render_block(code, shape) {
         var $block = $("<div>"),
             is_database = false,
             category = "",
@@ -519,17 +519,17 @@ var scratchblocks2 = function ($) {
             text = "",
             classes = [];
 
-        if (code.trim().length === 0 && kind === 'stack') {
+        if (code.trim().length === 0 && shape === 'stack') {
             return;
         }
 
         // init vars
-        if (/^database:?/.test(kind)) {
+        if (/^database:?/.test(shape)) {
             is_database = true;
-            kind = kind.substr(9);
+            shape = shape.substr(9);
         }
-        if (kind === undefined) {
-            kind = "";
+        if (shape === undefined) {
+            shape = "";
         }
 
         // trim
@@ -546,64 +546,64 @@ var scratchblocks2 = function ($) {
             code = code.trim();
         }
 
-        // check kind
+        // check shape
         switch (bracket) {
             case "(":
                 if (/^(-?[0-9.]+( v)?)?$/.test(code)) {
                     // number
-                    kind = "number";
+                    shape = "number";
 
                     // dropdown?
                     if (/ v$/.test(code)) {
                         is_dropdown = true;
                         code = code.substr(0, code.length - 2);
-                        kind = "number-dropdown";
+                        shape = "number-dropdown";
                     }
                 } else {
                     // reporter (or embedded!)
-                    kind = "reporter";
+                    shape = "reporter";
                 }
                 break;
 
             case "[":
                 if (/^#[A-Fa-f0-9]{3,6}$/.test(code)) {
                     // color
-                    kind = "color";
+                    shape = "color";
                 } else {
                     // string
-                    kind = "string";
+                    shape = "string";
 
                     // dropdown?
                     if (/ v$/.test(code)) {
                         is_dropdown = true;
                         code = code.substr(0, code.length - 2);
-                        kind = "dropdown";
+                        shape = "dropdown";
                     }
                 }
                 break;
 
             case "<":
                 // boolean
-                kind = "boolean";
+                shape = "boolean";
                 category = "operators";
                 break;
 
             default:
                 if (/^define/.test(code.trim())) {
                     // custom block definition
-                    kind = "custom-definition";
+                    shape = "custom-definition";
                     code = code.substr(6).trim();
                 } else {
                     // should be stack
-                    assert(kind === "stack");
+                    assert(shape === "stack");
                 }
                 break;
         }
 
 
         // split into pieces
-        if (kind && kind !== "reporter" && kind !== "boolean" &&
-                kind !== "stack" && kind !== "custom-definition") {
+        if (shape && shape !== "reporter" && shape !== "boolean" &&
+                shape !== "stack" && shape !== "custom-definition") {
             pieces = [code]; // don't bother splitting
         } else {
             code = code.trim();
@@ -611,18 +611,18 @@ var scratchblocks2 = function ($) {
             pieces = split_into_pieces(code);
 
             // check for variables
-            if (kind === "reporter") {
+            if (shape === "reporter") {
                 if (pieces.length === 1 &&
                         !is_open_bracket(pieces[0][0])) {
                     category = "variables"; // only used if we can't find_block
                 } else { // check for embedded blocks
-                    kind = "embedded";
+                    shape = "embedded";
                 }
             }
         }
         
         // add shape class
-        $block.addClass(cls(kind));
+        $block.addClass(cls(shape));
 
         // empty blocks
         if (code.length === 0) {
@@ -632,7 +632,7 @@ var scratchblocks2 = function ($) {
         }
 
         // render color inputs
-        if (kind === "color") {
+        if (shape === "color") {
             $block.css({
                 "background-color": code
             });
@@ -656,7 +656,7 @@ var scratchblocks2 = function ($) {
 
         // render the pieces
         var $arg_list = [];
-        if (kind === "custom-definition") {
+        if (shape === "custom-definition") {
             // custom definition args
             $block.append("define");
             var $outline = $("<div>").addClass(cls("outline"));
@@ -707,14 +707,14 @@ var scratchblocks2 = function ($) {
         }
 
         // get category
-        if (kind === "custom-definition") {
+        if (shape === "custom-definition") {
             $block.addClass(cls("custom"));
         } else {
             var arg_classes = [],
                 info;
 
             // find block
-            if ($.inArray(kind, NO_LOOKUP) === -1 && !is_database) {
+            if ($.inArray(shape, NO_LOOKUP) === -1 && !is_database) {
                 info = find_block(text, $arg_list);
                 classes = info[0];
                 arg_classes = info[1];
