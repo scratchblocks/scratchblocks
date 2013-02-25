@@ -382,7 +382,7 @@ var scratchblocks2 = function ($) {
             }
 
             // parse block
-            $block = render_block(line, "database");
+            $block = render_block(line, "database:stack");
 
             // get arg shapes
             arg_shapes = [];
@@ -524,9 +524,9 @@ var scratchblocks2 = function ($) {
         }
 
         // init vars
-        if (kind === "database") {
+        if (/^database:?/.test(kind)) {
             is_database = true;
-            kind = "";
+            kind = kind.substr(9);
         }
         if (kind === undefined) {
             kind = "";
@@ -547,43 +547,63 @@ var scratchblocks2 = function ($) {
         }
 
         // check kind
-        if (bracket === "(" && /^(-?[0-9.]+( v)?)?$/.test(code)) {
-            kind = "number";
-        } else if (bracket === "[") {
-            kind = "string";
+        switch (bracket) {
+            case "(":
+                if (/^(-?[0-9.]+( v)?)?$/.test(code)) {
+                    // number
+                    kind = "number";
 
-            if (/^#[A-Fa-f0-9]{3,6}$/.test(code)) {
-                kind = "color";
-            }
-        }
-
-        // dropdowns for [string v] and number (123 v)
-        if (kind === "number" || kind === "string") {
-            if (/ v$/.test(code)) {
-                is_dropdown = true;
-                code = code.substr(0, code.length - 2);
-
-                if (kind === "string") {
-                    kind = "dropdown";
+                    // dropdown?
+                    if (/ v$/.test(code)) {
+                        is_dropdown = true;
+                        code = code.substr(0, code.length - 2);
+                        kind = "number-dropdown";
+                    }
                 } else {
-                    kind = "number-dropdown";
+                    // reporter (or embedded!)
+                    kind = "reporter";
                 }
-            }
+                break;
+
+            case "[":
+                if (/^#[A-Fa-f0-9]{3,6}$/.test(code)) {
+                    // color
+                    kind = "color";
+                } else {
+                    // string
+                    kind = "string";
+
+                    // dropdown?
+                    if (/ v$/.test(code)) {
+                        is_dropdown = true;
+                        code = code.substr(0, code.length - 2);
+                        kind = "dropdown";
+                    }
+                }
+                break;
+
+            case "<":
+                // boolean
+                kind = "boolean";
+                category = "operators";
+                break;
+
+            default:
+                if (/^define/.test(code.trim())) {
+                    // custom block definition
+                    kind = "custom-definition";
+                    code = code.substr(6).trim();
+                } else {
+                    // should be stack
+                    assert(kind === "stack");
+                }
+                break;
         }
 
-        // custom block definitions
-        if (/^define/.test(code.trim())) {
-            kind = "custom-definition";
-            code = code.substr(6).trim();
-        }
-
-        // give special classes colour
-        if (kind === "custom-definition") {
-            $block.addClass(cls("custom"));
-        }
 
         // split into pieces
-        if (kind && kind !== "stack" && kind !== "custom-definition") {
+        if (kind && kind !== "reporter" && kind !== "boolean" &&
+                kind !== "stack" && kind !== "custom-definition") {
             pieces = [code]; // don't bother splitting
         } else {
             code = code.trim();
@@ -591,31 +611,22 @@ var scratchblocks2 = function ($) {
             pieces = split_into_pieces(code);
 
             // check for variables
-            if (bracket === "(" && pieces.length === 1 &&
-                    !is_open_bracket(pieces[0][0])) {
-                kind = "reporter";
-                category = "variables";
+            if (kind === "reporter") {
+                if (pieces.length === 1 &&
+                        !is_open_bracket(pieces[0][0])) {
+                    category = "variables"; // only used if we can't find_block
+                } else { // check for embedded blocks
+                    kind = "embedded";
+                }
             }
         }
-
-        // check for embedded blocks
-        if (bracket === "<") {
-            kind = "boolean";
-            category = "operators";
-        } else if (kind === "") {
-            kind = "embedded";
-        }
-
-        if (kind === "stack" && bracket === "(") {
-            kind = "embedded";
-        }
-
+        
         // add shape class
         $block.addClass(cls(kind));
 
-        // empty blocks must have content to size correctly
+        // empty blocks
         if (code.length === 0) {
-            code = " ";
+            code = " "; // must have content to size correctly
             pieces = [code];
             $block.addClass(cls("empty"));
         }
@@ -645,7 +656,8 @@ var scratchblocks2 = function ($) {
 
         // render the pieces
         var $arg_list = [];
-        if (kind === "custom-definition") { // custom definition args
+        if (kind === "custom-definition") {
+            // custom definition args
             $block.append("define");
             var $outline = $("<div>").addClass(cls("outline"));
             $block.append($outline);
@@ -680,19 +692,24 @@ var scratchblocks2 = function ($) {
                     $block.append(piece);
                 }
 
-                // DATABASE: tag list dropdowns
-                if (is_database && piece === "[list v]") {
-                    $arg.addClass("list-dropdown");
-                }
-                // DATABASE: tag math function
-                if (is_database && piece === "[sqrt v]") {
-                    $arg.addClass("math-function");
+                // DATABASE
+                if (is_database) {
+                    // tag list dropdowns
+                    if (piece === "[list v]") {
+                        $arg.addClass("list-dropdown");
+                    }
+                    // tag math function
+                    if (piece === "[sqrt v]") {
+                        $arg.addClass("math-function");
+                    }
                 }
             });
         }
 
         // get category
-        if (kind !== "custom-definition") {
+        if (kind === "custom-definition") {
+            $block.addClass(cls("custom"));
+        } else {
             var arg_classes = [],
                 info;
 
