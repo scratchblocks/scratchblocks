@@ -799,6 +799,14 @@ var scratchblocks2 = function ($) {
     }
 
 
+    /* Render comment to DOM element. */
+    function render_comment(text) {
+        var $comment = $("<div>").addClass(cls("comment"));
+        $comment.append($("<div>").text(text.trim()));
+        return $comment;
+    }
+
+
     /* Render script code to a list of DOM elements, one for each script. */
     function render(code) {
         var scripts = [],
@@ -810,6 +818,8 @@ var scratchblocks2 = function ($) {
             $block,
             $cwrap,
             $cmouth,
+            $comment,
+            comment_index,
             one_only,
             $first,
             i;
@@ -857,16 +867,16 @@ var scratchblocks2 = function ($) {
         for (i = 0; i < lines.length; i++) {
             line = lines[i];
 
-            // TODO: comments
-            // ignore them for now
-            if (/^\/\//.test(line.trim())) {
-                continue;
-            }
-
             // empty lines separate stacks
             if (line.trim() === "" && nesting === 0) {
                 new_script();
                 continue;
+            }
+
+            comment_index = line.indexOf("//");
+            if (comment_index > -1) {
+                $comment = render_comment(line.substr(comment_index + 2));
+                line = line.substr(0, comment_index);
             }
 
             $block = render_block(line, "stack");
@@ -938,6 +948,12 @@ var scratchblocks2 = function ($) {
                 if (one_only || (nesting === 0 && $block.hasClass("cap"))) {
                     new_script();
                 }
+
+                if ($comment) {
+                    $block.insertAfter($comment);
+                }
+            } else {
+                $current.append($comment);
             }
         }
 
