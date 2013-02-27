@@ -1206,7 +1206,7 @@ stop [all v] ## cap   \
 \
 when I start as a clone ## hat   \
 create clone of [myself v]   \
-delete this clone   \
+delete this clone ## cap   \
 \
 \
 \
