@@ -1096,7 +1096,7 @@ go back (1) layers   \
 (size)   \
 \
 # Stage-specific   \
-switch background to [backdrop1 v] and wait   \
+switch backdrop to [backdrop1 v] and wait   \
 next backdrop   \
 \
 turn video [off v]   \
