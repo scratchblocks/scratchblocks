@@ -71,6 +71,7 @@ src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     }
     #me {
         font-weight: bold;
+        font-size: 0.8em;
     }
     </style>
 </head>
@@ -98,11 +99,16 @@ the Scratch Forums and Wiki.</p>
             href="http://scratch.mit.edu/users/blob8108">~blob8108</a></div>
     
     <script type="text/javascript">
-    var DEFAULT = "define dance (speed) \n\
+    var DEFAULT = "define dance (speed) // You can now\n\
+                     // have multi-line comments!\n\
+                     // Unfortunately they will overlap\n\
+                     // The blocks below\n\
+                     // If they get too long \n\
 set [dist v] to ((speed) * (distance to [mouse-pointer v]))\n\
 repeat until ((timer) > [10])\n\
     move (dist) steps\n\
-    wait (1) secs\n\
+    wait (1) secs // But you can hover over them\n\
+                  // To see the scripts underneath.\n\
     move (() - (dist)) steps\n\
     play note (42 v) for (0.5) beats\n\
 end";
