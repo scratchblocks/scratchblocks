@@ -864,6 +864,7 @@
 }
 .scratchblocks2-container .comment.attached {
   position: relative;
+  margin-left: 0 !important;
   margin-top: 3px;
 }
 .scratchblocks2-container .comment.attached.to-hat {
