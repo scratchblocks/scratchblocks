@@ -336,7 +336,6 @@ var scratchblocks2 = function ($) {
     /* Set hexColor as background color of $block */
     function apply_block_color($block, hexColor) {
         var rgb = hex2rgb(hexColor);
-        log(rgb);
         var btop = rgb2css(scale_color(rgb, 1.4));
         var bbot = rgb2css(scale_color(rgb, 0.7));
         $block.css({
@@ -717,11 +716,11 @@ var scratchblocks2 = function ($) {
                 if (is_database) {
                     // tag list dropdowns
                     if (piece === "[list v]") {
-                        $arg.addClass("list-dropdown");
+                        $arg.addClass(cls("list-dropdown"));
                     }
                     // tag math function
                     if (piece === "[sqrt v]") {
-                        $arg.addClass("math-function");
+                        $arg.addClass(cls("math-function"));
                     }
                 }
             });
@@ -846,7 +845,7 @@ var scratchblocks2 = function ($) {
 
             // check for cap blocks at end of cmouth
             if ($cmouth.find("> :last-child").hasClass("cap")) {
-                $block.addClass("capend");
+                $block.addClass(cls("capend"));
             }
         }
 
@@ -911,6 +910,7 @@ var scratchblocks2 = function ($) {
                 one_only = false;
                 if ($block.hasClass(cls("hat")) ||
                         $block.hasClass(cls("custom-definition"))) {
+
                     new_script();
 
                     // comment
@@ -1055,9 +1055,11 @@ var scratchblocks2 = function ($) {
                 var $variable = $(variable);
                 var var_name = $variable.text();
                 if ($.inArray(var_name, custom_arg_names) > -1) {
-                    $variable.removeClass("variables").addClass("custom-arg");
+                    $variable.removeClass(cls("variables"))
+                             .addClass(cls("custom-arg"));
                 } else if ($.inArray(var_name, list_names) > -1) {
-                    $variable.removeClass("variables").addClass("list");
+                    $variable.removeClass(cls("variables"))
+                             .addClass(cls("list"));
                 }
             });
         }
@@ -1069,7 +1071,8 @@ var scratchblocks2 = function ($) {
                 $block = $(block);
                 var text = get_block_text($block.clone());
                 if ($.inArray(text, custom_blocks_text) > -1) {
-                    $block.removeClass("obsolete").addClass("custom");
+                    $block.removeClass(cls("obsolete"))
+                          .addClass(cls("custom"));
                 }
             });
         }
@@ -1173,7 +1176,7 @@ go back (1) layers   \
 (size)   \
 \
 # Stage-specific   \
-switch background to [backdrop1 v] and wait   \
+switch backdrop to [backdrop1 v] and wait   \
 next backdrop   \
 \
 turn video [off v]   \
