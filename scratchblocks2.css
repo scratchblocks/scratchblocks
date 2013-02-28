@@ -847,3 +847,41 @@
   background: url(block_images/flag.png) 0 0 no-repeat;
   background-size: contain;
 }
+.scratchblocks2-container .comment {
+  float: left;
+}
+.scratchblocks2-container .comment div {
+  margin: 4px 0 1px 1px;
+  background: #ffffd2;
+  border: 1px solid #d0d1d2;
+  color: #505050;
+  line-height: 1.25em;
+  padding: 4px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  z-index: 103;
+}
+.scratchblocks2-container .comment.attached {
+  position: relative;
+  margin-top: 3px;
+}
+.scratchblocks2-container .comment.attached.to-hat {
+  margin-top: 19px;
+}
+.scratchblocks2-container .comment.attached div {
+  position: absolute;
+  margin: 0;
+}
+.scratchblocks2-container .comment.attached div:hover {
+  background: rgba(255, 255, 210, 0.6);
+}
+.scratchblocks2-container .comment.attached:before {
+  content: "";
+  display: block;
+  float: left;
+  margin-top: 8px;
+  height: 2px;
+  width: 32px;
+  background: #ffff80;
+}
