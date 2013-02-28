@@ -18,6 +18,7 @@
  */
 
 
+// Category colours
 @control_bg: #e1a91a;
 @control_btop: #e5b53a;
 @control_bbot: #a07812;
@@ -130,15 +131,26 @@
 @variables_inset: #da7214;
 @variables_arrow: #572d08;
 
+
+// Misc
 @custom_outline: #31125c;
 @number_dropdown_arrow: #666;
 @background: #fff;
+
+
+// Comments
+@comment_bg: #ffffd2;
+@comment_bg_hover: rgba(255, 255, 210, 0.6); // #ffffd2
+@comment_border: #d0d1d2;
+@comment_join: #ffff80;
+@comment_text: #505050;
 
 
 // Z-indexes //
 @z_container: 100;
 @z_bottom_stub: 101;
 @z_cmouth: 102;
+@z_comment: 103;
 
 
 
@@ -575,5 +587,50 @@
         margin-top: -10px;
         background: url(block_images/flag.png) 0 0 no-repeat;
         background-size: contain;
+    }
+
+
+    // Comments //
+    .comment {
+        float: left;
+
+        div {
+            margin: 4px 0 1px 1px;
+            background: @comment_bg;
+            border: 1px solid @comment_border;
+            color: @comment_text;
+            line-height: 1.25em;
+            padding: 4px;
+            .border-radius(4px);
+            z-index: @z_comment;
+        }
+
+        &.attached {
+            position: relative;
+
+            margin-top: 3px;
+            &.to-hat {
+                margin-top: 19px;
+            }
+
+            div {
+                position: absolute;
+                margin: 0;
+
+                &:hover {
+                    background: @comment_bg_hover;
+                }
+            }
+
+            &:before {
+                content: "";
+                display: block;
+                float: left;
+                margin-top: 8px;
+                height: 2px;
+                width: 32px;
+                background: @comment_join;
+            }
+        }
     }
 }

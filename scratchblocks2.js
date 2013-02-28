@@ -801,8 +801,8 @@ var scratchblocks2 = function ($) {
 
     /* Render comment to DOM element. */
     function render_comment(text) {
-        var $comment = $("<div>").addClass(cls("comment"));
-        $comment.append($("<div>").text(text.trim()));
+        var $comment = $("<div>").addClass(cls("comment"))
+                .append($("<div>").text(text.trim()));
         return $comment;
     }
 
@@ -819,7 +819,8 @@ var scratchblocks2 = function ($) {
             $cwrap,
             $cmouth,
             $comment,
-            comment_index,
+            $last_comment,
+            comment_text,
             one_only,
             $first,
             i;
@@ -832,6 +833,12 @@ var scratchblocks2 = function ($) {
             $cwrap.append($block);
             $current = $cwrap.parent();
             nesting -= 1;
+
+            // comment
+            if ($comment) {
+                $cwrap.append($comment);
+                $comment = null; // don't start multi-line comment
+            }
 
             // give $block the color of $cwrap
             $block.removeClass(get_block_category($block));
@@ -861,6 +868,7 @@ var scratchblocks2 = function ($) {
             $script = $("<div>").addClass(cls("script"));
             $current = $script;
             nesting = 0;
+            $last_comment = null;
         }
         new_script();
 
@@ -873,19 +881,42 @@ var scratchblocks2 = function ($) {
                 continue;
             }
 
-            comment_index = line.indexOf("//");
-            if (comment_index > -1) {
-                $comment = render_comment(line.substr(comment_index + 2));
-                line = line.substr(0, comment_index);
+            $comment = null;
+            comment_text = null;
+            if (line.indexOf("//") > -1) {
+                comment_text = line.substr(line.indexOf("//") + 2).trim();
+                line = line.substr(0, line.indexOf("//"));
             }
 
             $block = render_block(line, "stack");
+
+            if ($block) {
+                $last_comment = null;
+            }
+
+            if (comment_text) {
+                if ($last_comment) {
+                    log(comment_text);
+                    $last_comment.children().text(
+                        $last_comment.children().text() + "\n"
+                        + comment_text
+                    );
+                } else {
+                    $comment = render_comment(comment_text);
+                }
+            }
+
 
             if ($block) {
                 one_only = false;
                 if ($block.hasClass(cls("hat")) ||
                         $block.hasClass(cls("custom-definition"))) {
                     new_script();
+
+                    // comment
+                    if ($comment) {
+                        $comment.addClass(cls("to-hat"));
+                    }
                 } else if ($block.hasClass(cls("boolean")) ||
                            $block.hasClass(cls("embedded")) ||
                            $block.hasClass(cls("reporter"))) {
@@ -893,10 +924,21 @@ var scratchblocks2 = function ($) {
                     one_only = true;
                 }
 
+                // comment
+                if ($comment) {
+                    $comment.addClass(cls("attached"));
+                }
+
                 if ($block.hasClass(cls("cstart"))) {
                     $cwrap = $("<div>").addClass(cls("cwrap"));
                     $current.append($cwrap);
                     $cwrap.append($block);
+
+                    // comment
+                    if ($comment) {
+                        $cwrap.append($comment);
+                        $comment = null; // don't start multi-line comment
+                    }
 
                     $cmouth = $("<div>").addClass(cls("cmouth"));
                     $cwrap.append($cmouth);
@@ -918,6 +960,12 @@ var scratchblocks2 = function ($) {
                         assert($cwrap.hasClass(cls("cwrap")));
 
                         $cwrap.append($block);
+
+                        // comment
+                        if ($comment) {
+                            $cwrap.append($comment);
+                            $comment = null; // don't start multi-line comment
+                        }
 
                         $cmouth = $("<div>").addClass(cls("cmouth"));
                         $cwrap.append($cmouth);
@@ -945,15 +993,28 @@ var scratchblocks2 = function ($) {
                     $current.append($block);
                 }
 
+                if ($comment) {
+                    $current.append($comment);
+                }
+
                 if (one_only || (nesting === 0 && $block.hasClass("cap"))) {
                     new_script();
                 }
 
-                if ($comment) {
-                    $block.insertAfter($comment);
-                }
             } else {
-                $current.append($comment);
+                if ($comment) {
+                    if (nesting > 0) {
+                        $current.append($comment);
+                    } else {
+                        new_script();
+                        $current.append($comment);
+                        new_script();
+                    }
+                }
+            }
+
+            if ($comment) {
+                $last_comment = $comment;
             }
         }
 
