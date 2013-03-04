@@ -1342,6 +1342,25 @@ reset timer   \
 (round ())   \
 \
 ([sqrt v] of (9))   \
+\
+\
+\
+## Purple ##   \
+when [button pressed v] ## hat   \
+<sensor [button pressed v]?>   \
+([slider v] sensor value)   \
+\
+turn motor on for (1) secs   \
+turn motor on   \
+turn motor off   \
+set motor power (100)   \
+set motor direction [this way v]   \
+\
+when distance < (20) ## hat   \
+when tilt = (1) ## hat   \
+(distance)   \
+(tilt)   \
+\
 " +
 
 
@@ -1372,10 +1391,7 @@ when clicked ## hat   \
 \
 \
 \
-\## Purple ##   \
-([slider v] sensor value)   \
-<sensor [button pressed v]?>   \
-\
+## Purple ##   \
 motor on   \
 motor off   \
 motor on for (1) seconds   \
