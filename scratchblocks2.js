@@ -556,7 +556,7 @@ var scratchblocks2 = function ($) {
             code = code.substr(6).trim();
         }
 
-        if (bracket == "[") {
+        if (bracket === "[") {
             // make sure it's an insert
             pieces = [code];
         } else {
@@ -565,7 +565,7 @@ var scratchblocks2 = function ($) {
         }
 
         // check shape
-        if (shape != "custom-definition") {
+        if (shape !== "custom-definition") {
             if (pieces.length > 1) {
                 // block
                 switch (bracket) {
