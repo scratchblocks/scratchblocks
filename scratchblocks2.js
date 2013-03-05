@@ -551,12 +551,12 @@ var scratchblocks2 = function ($) {
         }
 
         // check for custom block definition
-        if (/^define/.test(code)) {
+        if (/^define/i.test(code)) {
             shape = "custom-definition";
             code = code.substr(6).trim();
         }
 
-        if (bracket == "[") {
+        if (bracket === "[") {
             // make sure it's an insert
             pieces = [code];
         } else {
@@ -565,7 +565,7 @@ var scratchblocks2 = function ($) {
         }
 
         // check shape
-        if (shape != "custom-definition") {
+        if (shape !== "custom-definition") {
             if (pieces.length > 1) {
                 // block
                 switch (bracket) {
@@ -585,12 +585,12 @@ var scratchblocks2 = function ($) {
                 // insert
                 switch (bracket) {
                     case "(":
-                        if (/^(-?[0-9.]+( v)?)?$/.test(code)) {
+                        if (/^(-?[0-9.]+( v)?)?$/i.test(code)) {
                             // number
                             shape = "number";
 
                             // dropdown?
-                            if (/ v$/.test(code)) {
+                            if (/ v$/i.test(code)) {
                                 is_dropdown = true;
                                 code = code.substr(0, code.length - 2);
                                 shape = "number-dropdown";
@@ -610,7 +610,7 @@ var scratchblocks2 = function ($) {
                             shape = "string";
 
                             // dropdown?
-                            if (/ v$/.test(code)) {
+                            if (/ v$/i.test(code)) {
                                 is_dropdown = true;
                                 code = code.substr(0, code.length - 2);
                                 shape = "dropdown";
@@ -774,15 +774,15 @@ var scratchblocks2 = function ($) {
 
         // image: green flag
         if ($.inArray("-green-flag", classes) > -1) {
-            replace_text_with_image(/green flag|flag|gf/, "green-flag");
+            replace_text_with_image(/green flag|flag|gf/i, "green-flag");
         }
 
         // image: turn cw/ccw arrows
         if ($.inArray("-turn-arrow", classes) > -1) {
-            if (/ccw|left/.test(text)) {
-                replace_text_with_image(/ccw|left/, "arrow-ccw");
+            if (/ccw|left/i.test(text)) {
+                replace_text_with_image(/ccw|left/i, "arrow-ccw");
             } else {
-                replace_text_with_image(/cw|right/, "arrow-cw");
+                replace_text_with_image(/cw|right/i, "arrow-cw");
             }
         }
 
