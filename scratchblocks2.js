@@ -354,7 +354,7 @@ var scratchblocks2 = function ($) {
             category = "";
 
         // newlines are escaped, so split at double-space instead
-        $.each(sb2.blocks.split(/ {2}/), function (i, line) {
+        $.each(sb2.blocks.split(/ {2}|\n|\r/), function (i, line) {
             line = line.trim();
             if (line.length === 0) {
                 return; // continue
