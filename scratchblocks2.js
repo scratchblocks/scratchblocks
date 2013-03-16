@@ -829,7 +829,7 @@ var scratchblocks2 = function ($) {
             $first,
             i;
 
-        function add_cend($block) {
+        function add_cend($block, do_comment) {
             $cmouth = $current;
             $cwrap = $cmouth.parent();
             assert($cwrap.hasClass(cls("cwrap")));
@@ -837,9 +837,9 @@ var scratchblocks2 = function ($) {
             $cwrap.append($block);
             $current = $cwrap.parent();
             nesting -= 1;
-
+            
             // comment
-            if ($comment) {
+            if ($comment && do_comment) {
                 $cwrap.append($comment);
                 $comment = null; // don't start multi-line comment
             }
@@ -860,7 +860,7 @@ var scratchblocks2 = function ($) {
                 var $cend = $("<div><span>end</span></div>")
                         .addClass(cls("stack")).addClass(cls("cend"))
                         .addClass(cls("control"));
-                add_cend($cend);
+                add_cend($cend, false);
             }
 
             // push script
@@ -885,6 +885,7 @@ var scratchblocks2 = function ($) {
                 continue;
             }
 
+            // parse comment
             $comment = null;
             comment_text = null;
             if (line.indexOf("//") > -1) {
@@ -892,15 +893,16 @@ var scratchblocks2 = function ($) {
                 line = line.substr(0, line.indexOf("//"));
             }
 
+            // render block
             $block = render_block(line, "stack");
 
+            // render comment
             if ($block) {
                 $last_comment = null;
             }
 
             if (comment_text) {
                 if ($last_comment) {
-                    log(comment_text);
                     $last_comment.children().text(
                         $last_comment.children().text() + "\n"
                         + comment_text
@@ -910,7 +912,7 @@ var scratchblocks2 = function ($) {
                 }
             }
 
-
+            // append block to script
             if ($block) {
                 one_only = false;
                 if ($block.hasClass(cls("hat")) ||
@@ -985,7 +987,7 @@ var scratchblocks2 = function ($) {
 
                 } else if ($block.hasClass(cls("cend"))) {
                     if (nesting > 0) {
-                        add_cend($block);
+                        add_cend($block, true);
 
                         if (nesting === 0 && $cwrap.hasClass("cap")) {
                             // finished a C cap block
@@ -1018,6 +1020,7 @@ var scratchblocks2 = function ($) {
                 }
             }
 
+            // for multi-line comments
             if ($comment) {
                 $last_comment = $comment;
             }
