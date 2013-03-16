@@ -1215,10 +1215,6 @@ change volume by (-10)   \
 set volume to (100)%   \
 (volume)   \
 \
-\
-\
-## Events ##   \
-\
 change tempo by (20)   \
 set tempo to (60) bpm   \
 (tempo)   \
