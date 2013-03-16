@@ -43,7 +43,8 @@ var scratchblocks2 = function ($) {
             "comments": [
                 "comment",
                 "attached",
-                "to-hat"
+                "to-hat",
+                "to-reporter"
             ],
             "internal": [
                 "math-function"
@@ -837,7 +838,7 @@ var scratchblocks2 = function ($) {
             $cwrap.append($block);
             $current = $cwrap.parent();
             nesting -= 1;
-            
+
             // comment
             if ($comment && do_comment) {
                 $cwrap.append($comment);
@@ -929,6 +930,11 @@ var scratchblocks2 = function ($) {
                            $block.hasClass(cls("reporter"))) {
                     new_script();
                     one_only = true;
+
+                    // comment
+                    if ($comment) {
+                        $comment.addClass(cls("to-reporter"));
+                    }
                 }
 
                 // comment

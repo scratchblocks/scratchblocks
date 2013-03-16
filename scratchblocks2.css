@@ -865,10 +865,13 @@
 .scratchblocks2-container .comment.attached {
   position: relative;
   margin-left: 0 !important;
-  margin-top: 3px;
 }
 .scratchblocks2-container .comment.attached.to-hat {
-  margin-top: 19px;
+  margin-top: 16px;
+}
+.scratchblocks2-container .comment.attached.to-reporter {
+  float: none;
+  top: -2px;
 }
 .scratchblocks2-container .comment.attached div {
   position: absolute;
@@ -881,7 +884,7 @@
   content: "";
   display: block;
   float: left;
-  margin-top: 8px;
+  margin-top: 10px;
   height: 2px;
   width: 32px;
   background: #ffff80;
