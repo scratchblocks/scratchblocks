@@ -40,6 +40,11 @@ var scratchblocks2 = function ($) {
                 "empty",
                 "list-dropdown"
             ],
+            "comments": [
+                "comment",
+                "attached",
+                "to-hat"
+            ],
             "internal": [
                 "math-function"
             ],
