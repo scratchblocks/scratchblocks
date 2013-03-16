@@ -1324,6 +1324,7 @@ reset timer   \
 \
 (current [minute v])   \
 (days since 2000)   \
+(username)   \
 (user id)   \
 \
 \
