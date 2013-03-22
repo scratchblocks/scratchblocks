@@ -336,7 +336,7 @@
                         chosen_scripts.push(script_id);
                     } else {
                         var index = chosen_scripts.indexOf(script_id);
-                        if (index !== -1) {
+                        if (index > -1) {
                             chosen_scripts.splice(index, 1);
                         }
                     }
@@ -346,6 +346,10 @@
 
                 var key = selected_sprite + "-" + highest_script_id;
                 scripts_by_id[key] = code;
+
+                if (chosen_scripts.indexOf(key) > -1) {
+                    checkbox.prop('checked', true);
+                }
 
                 highest_script_id += 1;
             });
