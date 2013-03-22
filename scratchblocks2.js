@@ -601,6 +601,11 @@ var scratchblocks2 = function ($) {
                                 code = code.substr(0, code.length - 2);
                                 shape = "number-dropdown";
                             }
+                        } else if (/ v$/i.test(code)) {
+                            // rounded dropdowns
+                            is_dropdown = true;
+                            code = code.substr(0, code.length - 2);
+                            shape = "number-dropdown"; // not actually number
                         } else {
                             // reporter (or embedded!)
                             shape = "reporter";
