@@ -85,6 +85,16 @@
         margin-top: 0.5em;
         font-size: 0.8em;
     }
+    #bookmarklet {
+        background: #888;
+        color: #fff;
+        border-radius: 1em;
+        text-decoration: none;
+        padding: 0.125em 0.25em;
+        font-size: 0.9em;
+    }
+
+
 
     #wrap {
         position: relative;
@@ -402,6 +412,13 @@
 
         var hash = decodeURIComponent((location.href.split("#")[1] || ""));
 
+        var result = /url=([^&]*)/.exec(hash);
+        if (result) {
+            $("#project-url").attr("value", decodeURIComponent(result[1]));
+            init_fetch();
+            return;
+        }
+
         var result = /project=([0-9]+)/.exec(hash);
         if (result) {
             if (result[1] != current_id) {
@@ -467,6 +484,11 @@
 
         <a id="me"
             href="http://beta.scratch.mit.edu/users/blob8108">~blob8108</a>
+    </p>
+
+    <p>Handy bookmarklet:
+        <a id="bookmarklet"
+            href="javascript:location.href='http://blob8108.github.com/scratchblocks2/generator/#url='+encodeURIComponent(location.href);">Scratchblocks</a>
     </p>
 
     <p>
