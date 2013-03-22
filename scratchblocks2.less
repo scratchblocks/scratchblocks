@@ -27,13 +27,13 @@
 @control_inset: #cf9b17;
 @control_arrow: #533e09;
 
-@custom_bg: #531e99;
-@custom_btop: #9235c4;
-@custom_bbot: #44187d;
-@custom_itop: #44187e; 
-@custom_ibot: #683c9f;
-@custom_inset: #4c1b8c;
-@custom_arrow: #1e0a38;
+@custom_bg: #632d99;
+@custom_btop: #794aa7;
+@custom_bbot: #46206d;
+@custom_itop: #431e67;
+@custom_ibot: #70449a;
+@custom_inset: #5b298c;
+@custom_arrow: #1e0a38; // TODO
 
 @custom-arg_bg: #5947b1;
 @custom-arg_btop: #6857b8; // or #6850b2
@@ -133,7 +133,8 @@
 
 
 // Misc
-@custom_outline: #31125c;
+@custom_outline: #8257ad;
+@custom_definition_top: #8e2ec2;
 @number_dropdown_arrow: #666;
 @background: #fff;
 
@@ -186,10 +187,6 @@
         &.hat, &.hat:before, &.custom-definition, &.stack, &.boolean, &.reporter,
         &.embedded, &.variable-reporter, &.custom-arg {
             .stack-color(@category);
-        }
-
-        &.custom-definition:before {
-            border-color: ~"@{@{category}_btop}";
         }
 
         > .dropdown, > .boolean.empty, > .color {
@@ -407,21 +404,33 @@
     }
 
 
-    // Custom block definition outline //
+    // Custom block definition //
+    .custom-definition {
+        &:before {
+            border-color: @custom_definition_top;
+        }
+        padding-top: 0;
+        padding-bottom: 1px;
+    }
+    .custom-arg {
+        line-height: 10px;
+    }
     .outline {
-        padding: 3px 4px 3px 5px;
-        border: 1px solid #31125c;
+        padding: 2px 4px 2px 4px;
+        min-width: 29px; // total 37px
+        line-height: 16px;
+        border: 2px solid @custom_outline;
         margin-left: 5px;
         margin: 4px 0 4px 5px;
         position: relative;
         background: inherit;
 
         &:before {
-            top: -1px;
+            top: -2px;
         }
 
         &:after {
-            bottom: -4px;
+            bottom: -5px;
         }
 
         &:before, &:after {
