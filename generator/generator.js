@@ -302,7 +302,11 @@ var gen = function () {
                 return "["+value+" v]";
 
             case "%c":
+                value = (value >>> 0) & 0xffffff
                 var hex = parseInt(value).toString(16)
+                while (hex.length < 6) {
+                    hex = "0" + hex;
+                }
                 return "[#"+hex+"]";
 
             case "%b":
