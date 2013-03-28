@@ -287,6 +287,16 @@ var gen = function () {
         );
     }
 
+    function render_custom_definition_arg (value, shape) {
+        switch (shape.substr(0, 2)) {
+            case "%b":
+                return "<"+value+">";
+
+            default:
+                return "("+value+")";
+        }
+    }
+
     function render_insert (value, shape) {
         switch (shape.substr(0, 2)) {
             case "%n":
@@ -314,8 +324,7 @@ var gen = function () {
                     // if < > then
                     return "< >";
                 } else {
-                    // used for custom args only
-                    return "<"+value+">";
+                    return "<"+value+">"; // unused
                 }
 
             default:
@@ -343,7 +352,8 @@ var gen = function () {
     function render_block (block) {
         var out = "",
             command,
-            args;
+            args,
+            is_custom_definition = false;
 
         switch (block[0]) {
             case "readVariable":
@@ -359,6 +369,7 @@ var gen = function () {
                     flag: " "
                 }
                 args = block[2];
+                is_custom_definition = true;
                 break;
 
             case "call": // custom block
@@ -400,10 +411,14 @@ var gen = function () {
                     value = args.shift();
                 }
 
-                if (value instanceof Array) {
-                    out += render_block(value);
+                if (is_custom_definition) {
+                    out += render_custom_definition_arg(value, part);
                 } else {
-                    out += render_insert(value, part);
+                    if (value instanceof Array) {
+                        out += render_block(value);
+                    } else {
+                        out += render_insert(value, part);
+                    }
                 }
             } else {
                 out += part;
