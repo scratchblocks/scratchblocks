@@ -192,6 +192,7 @@
     .script-wrap input {
         height: 2em;
         margin-left: 1em;
+        cursor: pointer;
     }
     </style>
 
@@ -229,7 +230,7 @@
 
         $("#status").text("Fetching...");
 
-        $.get(fetch_url, function (response) {
+        $.getJSON(fetch_url, function (response) {
             $("#status").text("Loading...");
             load_project(response);
             $("#status").text("Done!");
@@ -255,7 +256,7 @@
         var sprites_list = [project] // stage
             .concat(project.children);
         
-        sprites_list = $.grep(sprites_list, function (sprite) {
+        sprites_list = $.grep(sprites_list, function (sprite, i) {
             return sprite.hasOwnProperty("objName");
         });
 
@@ -383,9 +384,6 @@
             $("#export").attr("href", null);
             $("#export").addClass("disabled");
         }
-
-        // DEBUG
-        console.log(chosen_scripts);
     }
 
     function export_code () {
@@ -449,9 +447,9 @@
         });
 
         $(document).bind("keydown", function (e) {
-            if (event.ctrlKey) {
-                console.log(event.which);
-                switch (event.which) {
+            if (e.ctrlKey) {
+                console.log(e.which);
+                switch (e.which) {
                     case 38:
                         show_sprite(selected_sprite - 1);
                         e.preventDefault();
