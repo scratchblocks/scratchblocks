@@ -790,9 +790,9 @@
 .scratchblocks2-container .custom-arg,
 .scratchblocks2-container .embedded,
 .scratchblocks2-container .boolean {
-  border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
+  border-radius: 2000px;
+  -webkit-border-radius: 2000px;
+  -moz-border-radius: 2000px;
 }
 .scratchblocks2-container .arrow-cw,
 .scratchblocks2-container .arrow-ccw {
