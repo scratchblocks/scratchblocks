@@ -768,7 +768,13 @@ var scratchblocks2 = function ($) {
                 $.each(arg_classes, function (i, name) {
                     var $arg = $arg_list[i];
                     if ($arg && name) {
-                        $arg.addClass(name);
+                        if (name === "list-dropdown" &&
+                                !$arg.hasClass("dropdown")) {
+                            debugger;
+                            // HACK - only recognise lists if they're dropdowns
+                        } else {
+                            $arg.addClass(name);
+                        }
                     }
                 });
             }
