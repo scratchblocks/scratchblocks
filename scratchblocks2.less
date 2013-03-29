@@ -405,10 +405,22 @@
 
 
     // Custom block definition //
+    @custom_definition_height: 16px;
+
     .custom-definition {
         &:before {
             border-color: @custom_definition_top;
+            border-top-width: 4px;
+            height: @custom_definition_height;
+            margin-top: -(@custom_definition_height - 3px);
+            top: -3px;
+            width: auto;
+            left: -4px;
+            right: -4px;
+            .border-radius(50% 50% 3px 3px e('/') (@custom_definition_height -
+            2px) (@custom_definition_height - 2px) 3px 3px);
         }
+        margin-top: @custom_definition_height;
         padding-top: 0;
         padding-bottom: 1px;
     }
@@ -620,6 +632,9 @@
 
             &.to-hat {
                 margin-top: 16px;
+            }
+            &.to-custom-definition {
+                margin-top: 26px;
             }
             &.to-reporter {
                 float: none;

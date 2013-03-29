@@ -631,11 +631,22 @@
   border-top-width: 2px;
 }
 .scratchblocks2-container .custom-definition {
+  margin-top: 16px;
   padding-top: 0;
   padding-bottom: 1px;
 }
 .scratchblocks2-container .custom-definition:before {
   border-color: #8e2ec2;
+  border-top-width: 4px;
+  height: 16px;
+  margin-top: -13px;
+  top: -3px;
+  width: auto;
+  left: -4px;
+  right: -4px;
+  border-radius: 50% 50% 3px 3px / 14px 14px 3px 3px;
+  -webkit-border-radius: 50% 50% 3px 3px / 14px 14px 3px 3px;
+  -moz-border-radius: 50% 50% 3px 3px / 14px 14px 3px 3px;
 }
 .scratchblocks2-container .custom-arg {
   line-height: 10px;
@@ -838,6 +849,9 @@
 }
 .scratchblocks2-container .comment.attached.to-hat {
   margin-top: 16px;
+}
+.scratchblocks2-container .comment.attached.to-custom-definition {
+  margin-top: 26px;
 }
 .scratchblocks2-container .comment.attached.to-reporter {
   float: none;
