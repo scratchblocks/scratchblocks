@@ -935,6 +935,10 @@ var scratchblocks2 = function ($) {
                     // comment
                     if ($comment) {
                         $comment.addClass(cls("to-hat"));
+
+                        if ($block.hasClass(cls("custom-definition"))) {
+                            $comment.addClass(cls("to-custom-definition"));
+                        }
                     }
                 } else if ($block.hasClass(cls("boolean")) ||
                            $block.hasClass(cls("embedded")) ||
