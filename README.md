@@ -32,19 +32,21 @@ Group at the MIT Media Lab._
 
 # Usage
 
-The quickest way is to just include this in your page before the closing
+The quickest way is to include the following HTML code in your page before the closing
 `</head>` tag:
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="//blob8108.github.com/scratchblocks2/scratchblocks2.css">
-    <script src="//blob8108.github.com/scratchblocks2/scratchblocks2.js"></script>
-    <script>
-    $(document).ready(function() {
-        scratchblocks2.parse();
-    });
-    </script>
+```html
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//blob8108.github.com/scratchblocks2/scratchblocks2.css">
+<script src="//blob8108.github.com/scratchblocks2/scratchblocks2.js"></script>
+<script>
+$(document).ready(function() {
+    scratchblocks2.parse();
+});
+</script>
+```
 
-Then include your scratchblocks code inside `<pre class="blocks">…</pre>` tags.
+Then just include your (HTML-escaped!) scratchblocks code inside `<pre class="blocks">…</pre>` tags.
 
 This uses the scripts hosted on GitHub Pages, and jQuery hosted off Google. For
 a more detailed explanation, or if you want to host the files yourself, read on.
@@ -54,18 +56,24 @@ a more detailed explanation, or if you want to host the files yourself, read on.
 
 You need to include jQuery (in the `<head>` of your page):
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+```html
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+```
 
 Then include the scratchblocks2 CSS and JS:
 
-    <link rel="stylesheet" type="text/css" href="scratchblocks2.css">
-    <script type="text/javascript" src="scratchblocks2.js"></script>
+```html
+<link rel="stylesheet" type="text/css" href="scratchblocks2.css">
+<script type="text/javascript" src="scratchblocks2.js"></script>
+```
 
 Then just call `scratchblocks2.parse` after the page has loaded, which will
 render matching page elements to shiny scratch blocks. Its sole argument is the
 CSS-style selector for the elements that contain the scratchblocks code.
 
-    scratchblocks2.parse("pre.blocks");
+```js
+scratchblocks2.parse("pre.blocks");
+```
 
 Finally, you need to put `flag.png` and `arrows.png` in the folder
 `block_images`, which is in the same folder as `scratchblocks2.css`.
