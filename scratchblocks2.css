@@ -199,7 +199,7 @@
 }
 .scratchblocks2-container .looks.stack:before,
 .scratchblocks2-container .looks.cap:before {
-  border-color: #623c99 #9a6ddc #9a6ddc #623c99;
+  border-color: #b8b8b8 #9a6ddc #9a6ddc #b8b8b8;
 }
 .scratchblocks2-container .looks.hat,
 .scratchblocks2-container .looks.hat:before,
@@ -211,13 +211,13 @@
 .scratchblocks2-container .looks.variable-reporter,
 .scratchblocks2-container .looks.custom-arg {
   background-color: #8a55d7;
-  border-color: #9a6ddc #623c99 #623c99 #9a6ddc;
+  border-color: #9a6ddc #b8b8b8 #b8b8b8 #9a6ddc;
 }
 .scratchblocks2-container .looks > .dropdown,
 .scratchblocks2-container .looks > .boolean.empty,
 .scratchblocks2-container .looks > .color {
   background: #7e4ec5;
-  border-color: #4c2f78 #9670d0 #9670d0 #4c2f78;
+  border-color: #b7b7b7 #656565 #656565 #b7b7b7;
 }
 .scratchblocks2-container .looks > .dropdown:after,
 .scratchblocks2-container .looks > .boolean.empty:after,
@@ -227,7 +227,7 @@
 .scratchblocks2-container .looks > .cmouth:before {
   background-color: #8a55d7;
   border-left-color: #9a6ddc;
-  border-right-color: #623c99;
+  border-right-color: #b8b8b8;
 }
 .scratchblocks2-container .motion.stack:before,
 .scratchblocks2-container .motion.cap:before {
@@ -484,6 +484,38 @@
   background-color: #672d79;
   border-left-color: #7c4a8b;
   border-right-color: #492056;
+}
+.scratchblocks2-container .grey.stack:before,
+.scratchblocks2-container .grey.cap:before {
+  border-color: #656565 #b7b7b7 #b7b7b7 #656565;
+}
+.scratchblocks2-container .grey.hat,
+.scratchblocks2-container .grey.hat:before,
+.scratchblocks2-container .grey.custom-definition,
+.scratchblocks2-container .grey.stack,
+.scratchblocks2-container .grey.boolean,
+.scratchblocks2-container .grey.reporter,
+.scratchblocks2-container .grey.embedded,
+.scratchblocks2-container .grey.variable-reporter,
+.scratchblocks2-container .grey.custom-arg {
+  background-color: #969696;
+  border-color: #b7b7b7 #656565 #656565 #b7b7b7;
+}
+.scratchblocks2-container .grey > .dropdown,
+.scratchblocks2-container .grey > .boolean.empty,
+.scratchblocks2-container .grey > .color {
+  background: #717171;
+  border-color: #434343 #b8b8b8 #b8b8b8 #434343;
+}
+.scratchblocks2-container .grey > .dropdown:after,
+.scratchblocks2-container .grey > .boolean.empty:after,
+.scratchblocks2-container .grey > .color:after {
+  color: #393939;
+}
+.scratchblocks2-container .grey > .cmouth:before {
+  background-color: #969696;
+  border-left-color: #b7b7b7;
+  border-right-color: #656565;
 }
 .scratchblocks2-container .script {
   margin-top: 15px;
@@ -872,4 +904,12 @@
   height: 2px;
   width: 32px;
   background: #ffff80;
+}
+.scratchblocks2-container .multi-arg {
+  padding-left: 2px;
+  font-size: 8px;
+  color: #000;
+}
+.scratchblocks2-container .multi-arg:nth-last-child(2) {
+  padding-left: 4px;
 }

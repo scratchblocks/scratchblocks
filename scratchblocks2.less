@@ -51,6 +51,14 @@
 @events_inset: #b8782c;
 @events_arrow: #4a3011;
 
+@grey_bg: #969696;
+@grey_btop: #b7b7b7;
+@grey_bbot: #656565;
+@grey_itop: #434343;
+@grey_ibot: #b8b8b8;
+@grey_inset: #717171;
+@grey_arrow: #393939;
+
 @list_bg: #cc5b22;
 @list_btop: #d26f3d;
 @list_bbot: #a74a1b;
@@ -61,9 +69,9 @@
 
 @looks_bg: #8a55d7;
 @looks_btop: #9a6ddc;
-@looks_bbot: #623c99;
-@looks_itop: #4c2f78; 
-@looks_ibot: #9670d0;
+@looks_bbot: #b8b8b8;
+@looks_itop: #b7b7b7;
+@looks_ibot: #656565;
 @looks_inset: #7e4ec5;
 @looks_arrow: #1e0a38;
 
@@ -249,6 +257,7 @@
     .category-color("variables");
     .category-color("custom-arg");
     .category-color("purple");
+    .category-color("grey");
 
 
     // Scripts are stacks of blocks //
@@ -659,6 +668,17 @@
                 width: 32px;
                 background: @comment_join;
             }
+        }
+    }
+
+
+    // Snap! multi-arg arrows
+    .multi-arg {
+        padding-left: 2px;
+        font-size: 8px;
+        color: #000;
+        &:nth-last-child(2) {
+            padding-left: 4px;
         }
     }
 }

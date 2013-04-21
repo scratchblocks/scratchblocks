@@ -13,6 +13,9 @@ var scratchblocks2 = function ($) {
 
     var sb2 = {}, // The module we export
 
+        // List of languages accepted in first comment
+        LANGUAGES = ["Snap!"],
+
         // Bracket characters
         BRACKETS = "([<)]>",
 
@@ -38,7 +41,10 @@ var scratchblocks2 = function ($) {
                 "scratchblocks2-container",
                 "script",
                 "empty",
-                "list-dropdown"
+                "list-dropdown",
+                "multi-arg",
+                "one",
+                "many"
             ],
             "comments": [
                 "comment",
@@ -87,9 +93,10 @@ var scratchblocks2 = function ($) {
                 "sensing",
                 "sound",
                 "variables",
-                "purple"  // The ([slider v] sensor value) and 
+                "purple", // The ([slider v] sensor value) and
                           // <sensor [button pressed v]?> blocks. I'm not sure
                           // what category this is supposed to be.
+                "grey", // Snap! custom blocks
             ]
         },
         all_classes,
@@ -759,12 +766,41 @@ var scratchblocks2 = function ($) {
                     $block.addClass(cls("obsolete"));
                 }
             } else {
+                // HACK multi arg classes
+                var multi_arg_type;
+                if ($.inArray("-multi-arg", classes) > -1) {
+                    multi_arg_type = "many";
+                } else if ($.inArray("-multi-arg-one", classes) > -1) {
+                    multi_arg_type = "one";
+                }
+                switch (multi_arg_type) {
+                    case "many":
+                        if ($arg_list.length === 0) {
+                            multi_arg_type = "one";
+                        }
+                        break;
+                    case "one":
+                        if ($arg_list.length > 1) {
+                            multi_arg_type = "many";
+                        }
+                        break;
+                }
+                switch (multi_arg_type) {
+                    case "many":
+                        $block.append($("<span>").html("&#x25C0;").addClass(cls("multi-arg")));
+                    case "one":
+                        $block.append($("<span>").html("&#x25B6;").addClass(cls("multi-arg")));
+                        break;
+                }
+
+                // apply block classes
                 $.each(classes, function (i, name) {
                     if (!(/^-/.test(name))) {
                         $block.addClass(cls(name));
                     }
                 });
 
+                // apply arg classes
                 $.each(arg_classes, function (i, name) {
                     var $arg = $arg_list[i];
                     if ($arg && name) {
@@ -802,7 +838,6 @@ var scratchblocks2 = function ($) {
             }
         }
 
-
         // cend blocks: hide "end" text
         if ($block.hasClass(cls("cend"))) {
             var html = $block.html();
@@ -824,7 +859,8 @@ var scratchblocks2 = function ($) {
 
     /* Render script code to a list of DOM elements, one for each script. */
     function render(code) {
-        var scripts = [],
+        var language,
+            scripts = [],
             $script,
             $current,
             nesting = 0,
@@ -902,10 +938,25 @@ var scratchblocks2 = function ($) {
             if (line.indexOf("//") > -1) {
                 comment_text = line.substr(line.indexOf("//") + 2).trim();
                 line = line.substr(0, line.indexOf("//"));
+
+                if (i === 0) {
+                    debugger;
+                    if ($.inArray(comment_text, LANGUAGES) > -1) {
+                        language = comment_text;
+                        continue;
+                    }
+                }
             }
 
             // render block
             $block = render_block(line, "stack");
+
+            // Snap! extras
+            if (language === "Snap!") {
+                if ($block.hasClass(cls("obsolete"))) {
+                    $block.removeClass(cls("obsolete")).addClass(cls("grey"));
+                }
+            }
 
             // render comment
             if ($block) {
