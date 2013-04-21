@@ -770,7 +770,6 @@ var scratchblocks2 = function ($) {
                     if ($arg && name) {
                         if (name === "list-dropdown" &&
                                 !$arg.hasClass("dropdown")) {
-                            debugger;
                             // HACK - only recognise lists if they're dropdowns
                         } else {
                             $arg.addClass(name);
@@ -1117,9 +1116,7 @@ var scratchblocks2 = function ($) {
      *
      */
     sb2.parse = function (selector) {
-        if (!selector) {
-            selector = "pre.blocks";
-        }
+        var selector = selector || "pre.blocks";
 
         // find elements
         $(selector).each(function (i, el) {
@@ -1204,7 +1201,8 @@ go back (1) layers   \
 (backdrop name)   \
 (size)   \
 \
-# Stage-specific   \
+## Stage-specific   \
+## Looks ##   \
 switch backdrop to [backdrop1 v] and wait   \
 next backdrop   \
 \
