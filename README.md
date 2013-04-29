@@ -1,6 +1,6 @@
 Render Scratch blocks code to HTML.
 
-![Screenshot](http://blob8108.github.com/scratchblocks2/screenshot.png)
+![Screenshot](http://blob8108.github.io/scratchblocks2/screenshot.png)
 
 Inspired by and mostly compatible with JSO's
 excellent [Block Plugin](http://wiki.scratch.mit.edu/wiki/Block_Plugin) (which
@@ -15,7 +15,7 @@ It follows the philosophy of the original Block Plugin in that it tries to match
 the code you write as closely as possible, and doesn't check you've used the
 correct syntax.  The block text is only used to find the correct colour.
 
-**Test it out [here](http://blob8108.github.com/scratchblocks2/)!**
+**Test it out [here](http://blob8108.github.io/scratchblocks2/)!**
 
 It's designed for Scratch 2.0 and includes all the new blocks, as well as custom
 blocks and old blocks that were in Scratch 1.4.
@@ -37,8 +37,8 @@ The quickest way is to include the following HTML code in your page before the c
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="//blob8108.github.com/scratchblocks2/scratchblocks2.css">
-<script src="//blob8108.github.com/scratchblocks2/scratchblocks2.js"></script>
+<link rel="stylesheet" type="text/css" href="//blob8108.github.io/scratchblocks2/scratchblocks2.css">
+<script src="//blob8108.github.io/scratchblocks2/scratchblocks2.js"></script>
 <script>
 $(document).ready(function() {
     scratchblocks2.parse();
