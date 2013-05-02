@@ -102,16 +102,11 @@ straight from your 2.0 projects!</p>
             href="http://scratch.mit.edu/users/blob8108">~blob8108</a></div>
     
     <script type="text/javascript">
-    var DEFAULT = "define dance (speed) // You can now\n\
-                     // have multi-line comments!\n\
-                     // Unfortunately they will overlap\n\
-                     // The blocks below\n\
-                     // If they get too long \n\
+        var DEFAULT = "define dance (speed)\n\
 set [dist v] to ((speed) * (distance to [mouse-pointer v]))\n\
 repeat until ((timer) > [10])\n\
     move (dist) steps\n\
-    wait (1) secs // But you can hover over them\n\
-                  // To see the scripts underneath.\n\
+    wait (1) secs // Pause for a moment\n\
     move (() - (dist)) steps\n\
     play note (42 v) for (0.5) beats\n\
 end";
