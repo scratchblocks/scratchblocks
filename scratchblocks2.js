@@ -1206,9 +1206,6 @@ go back (1) layers   \
 switch backdrop to [backdrop1 v] and wait   \
 next backdrop   \
 \
-turn video [off v]   \
-set video transparency to (50)%   \
-\
 (backdrop #)   \
 \
 \
@@ -1328,12 +1325,15 @@ ask [What's your name?] and wait   \
 (mouse y)   \
 \
 (loudness)   \
+\
 (video [motion v] on [this sprite v])   \
+turn video [on v]   \
+set video transparency to (50)%   \
 \
 (timer)   \
 reset timer   \
 \
-([x position v] of [Sprite1 v]   \
+([x position v] of [Sprite1 v])   \
 \
 (current [minute v])   \
 (days since 2000)   \
