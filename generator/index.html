@@ -205,24 +205,25 @@
         chosen_scripts;
 
     function asset_url (md5) {
-        return "http://beta.scratch.mit.edu/internalapi/asset/" + md5 + "/get/";
+        return "http://scratch.mit.edu/internalapi/asset/" + md5 + "/get/";
     }
     
     function id_from_url (url) {
-        if (/http:\/\/beta.scratch.mit.edu\/projects\/[0-9]+(\/(#editor|#player)?)?/
+        url = url.replace("http://beta.", "http://");
+        if (/http:\/\/scratch.mit.edu\/projects\/[0-9]+(\/(#editor|#player)?)?/
                 .test(url)) {
-            return url.substr(37).replace("/", "")
+            return url.substr(32).replace("/", "")
                 .replace(/#editor|#player/, "");
         }
     }
 
     function fetch (id) {
         $("#project-url").attr("value",
-            "http://beta.scratch.mit.edu/projects/"+id);
+            "http://scratch.mit.edu/projects/"+id);
         current_id = id;
 
         var fetch_url = "http://www.corsproxy.com/" + 
-            "beta.scratch.mit.edu/internalapi/project/" + id + "/get/";
+            "scratch.mit.edu/internalapi/project/" + id + "/get/";
 
         clear_project();
 
@@ -481,7 +482,7 @@
         articles.
 
         <a id="me"
-            href="http://beta.scratch.mit.edu/users/blob8108">~blob8108</a>
+            href="http://scratch.mit.edu/users/blob8108">~blob8108</a>
     </p>
 
     <p>Handy bookmarklet:
@@ -493,7 +494,7 @@
     <p>
         <label for="project-url">Project URL:</label>
         <input id="project-url" type="url" size="50"
-            value="http://beta.scratch.mit.edu/projects/">
+            value="http://scratch.mit.edu/projects/">
     </p>
 
     <p>
