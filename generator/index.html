@@ -12,7 +12,7 @@
       
     <style type="text/css">
     body {
-        margin: 1em;
+        margin: 0;
         padding-bottom: 2em;
         font-family: sans-serif;
     }
@@ -32,6 +32,9 @@
     }
     h1 {
         font-family: monospace;
+        font-size: 1.5em;
+        font-weight: bold;
+        margin: 0 0 0.666666666em;
     }
     a {
         text-decoration: none;
@@ -67,7 +70,54 @@
     }
 
 
+    /* Row */
+
+    #header, #wrap, #sprites-list-wrap, #intro {
+        position: absolute;
+        overflow: hidden;
+        left: 0;
+        right: 0;
+        padding: 1em;
+    }
+
+
+    /* Column */
+
+    #left-pane, #sprite-detail, #intro {
+        position: absolute;
+        overflow: hidden;
+        overflow-y: auto;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        padding: 2em;
+    }
+
+
+    /* Intro pane */
+
+    #intro {
+        z-index: 201;
+        background: #fff;
+        padding: 1em 2em;
+    }
+    .hidden {
+        display: none;
+    }
+
+
     /* Header stuff */
+
+    #header {
+        height: 7em;
+        border-bottom: 2px solid #bbb;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-shadow: 0 10px 20px #fff;
+        z-index: 202;
+        padding: 1em 2em;
+    }
+
 
     #project-url {
         width: 24em;
@@ -95,9 +145,9 @@
     }
 
 
-
     #wrap {
-        position: relative;
+        top: 7em;
+        bottom: 0;
     }
 
 
@@ -105,16 +155,25 @@
     
     #left-pane {
         width: 8em;
+        left: 0;
+    }
+    #sprites-list-wrap {
+        overflow-y: auto;
+        top: 10em;
+        bottom: 2em;
+        margin: 0 2em;
+        padding: 0;
+        border: 1px solid #888;
     }
     #sprites-list {
         font-family: "Lucida Grande", Verdana, Arial, "DejaVu Sans", sans-serif;
-        border: 1px solid #888;
         border-right: 0.5em solid #4ca6fb;
         min-height: 2em;
         margin: 0;
         padding: 0;
         list-style: none;
         cursor: default;
+        min-height: 100%;
     }
     #sprites-list > li {
         padding: 0.125em 0.5em;
@@ -140,11 +199,8 @@
     /* Right pane */
 
     #sprite-detail {
-        position: absolute;
-        left: 10.5em;
-        top: 0;
+        left: 10em;
         right: 0;
-        width: auto;
     }
     #sprite-info {
         overflow: hidden; // clearfix
@@ -171,7 +227,6 @@
         padding-top: 1em;
     }
     #scripts-list pre {
-        max-width: 32rem;
         overflow: auto;
         border: none;
         background: none;
@@ -210,6 +265,9 @@
     
     function id_from_url (url) {
         url = url.replace("http://beta.", "http://");
+        if (!/http:\/\//.test(url)) {
+            url = "http://" + url;
+        }
         if (/http:\/\/scratch.mit.edu\/projects\/[0-9]+(\/(#editor|#player)?)?/
                 .test(url)) {
             return url.substr(32).replace("/", "")
@@ -290,7 +348,10 @@
             var selected_sprite = result[1];
         }
 
+        $("#intro").addClass("hidden");
+
         show_sprite(selected_sprite);
+        update_edit_link();
 
         check_hash();
     }
@@ -308,7 +369,7 @@
         var name = sprite.objName;
 
         selected_sprite = i;
-        location.hash = "#project="+current_id+"&sprite="+i
+        location.hash = "#project="+current_id; //+"&sprite="+i
     
         // select list item
         $("#sprites-list .selected").removeClass("selected");
@@ -327,9 +388,13 @@
             $("#scripts-list").append("<p>No scripts.</p>")
         } else {
             var highest_script_id = 1;
-            var scripts = sprite.scripts.sort(function (a, b) {
+            var scripts = sprite.scripts;
+
+            /* sort by y position */
+            scripts = scripts.sort(function (a, b) {
                 return a[1] - b[1];
             });
+
             $.each(scripts, function (i, script) {
                 var code = gen.generate(script);
 
@@ -393,7 +458,7 @@
             out += scripts_by_id[id];
             out += "\n\n";
         });
-        return out;
+        return out.trim();
     }
    
     function init_fetch () {
@@ -404,6 +469,8 @@
         } else {
             $("#status").text("Invalid URL");
         }
+
+        update_edit_link();
     }
 
     function check_hash() {
@@ -435,6 +502,18 @@
         window.setTimeout(check_hash, 500);
     }
 
+    var default_edit_link;
+    function update_edit_link() {
+        if (!default_edit_link) {
+            default_edit_link = $("#edit-link").attr("href");
+        }
+        var url = $("#project-url").attr("value");
+        if (url) {
+            $("#edit-link").attr("href", url);
+        } else {
+            $("#edit-link").attr("href", default_edit_link);
+        }
+    }
 
     $(document).ready(function () {   
         $("#fetch").click(function (e) {
@@ -445,6 +524,8 @@
             if (e.which == 13) {
                 init_fetch();
             }
+
+            update_edit_link();
         });
 
         $(document).bind("keydown", function (e) {
@@ -465,6 +546,13 @@
             }
         });
 
+        $("#clear").click(function (e) {
+            $("#project-url").attr("value", "");
+            update_edit_link();
+            clear_project();
+            $("#intro").removeClass("hidden");
+        });
+
         clear_project(); // make sure we start fresh
 
         check_hash();
@@ -473,36 +561,20 @@
 </head>
 
 <body>
-    <h1>[scratchblocks] generator</h1>
-    <p>
-        Get <code>scratchblocks</code> code from your projects for pasting into
-        <a href="http://scratch.mit.edu/forums/viewtopic.php?id=90403">Scratch
-        Forum</a> posts or
-        <a href="http://wiki.scratch.mit.edu/wiki/Block_Plugin">Scratch Wiki</a>
-        articles.
+    <div id="header">
+        <h1>[scratchblocks] generator</h1>
 
-        <a id="me"
-            href="http://scratch.mit.edu/users/blob8108">~blob8108</a>
-    </p>
+        <div id="url-form">
+            <label for="project-url">Project URL:</label>
+            <input id="project-url" type="url" size="50"
+                value="http://scratch.mit.edu/projects/">
 
-    <p>Handy bookmarklet:
-        <a id="bookmarklet"
-            href="javascript:location.href='http://blob8108.github.io/scratchblocks2/generator/#url='+encodeURIComponent(location.href);">Scratchblocks</a>
-        <i>(just drag to your bookmarks bar — use on any 2.0 project)</i>
-    </p>
-
-    <p>
-        <label for="project-url">Project URL:</label>
-        <input id="project-url" type="url" size="50"
-            value="http://scratch.mit.edu/projects/">
-    </p>
-
-    <p>
-        <button id="fetch">Fetch</button>
-        <b id="status"></b>
-    </p>
-
-    <hr>
+            <a id="clear" href="#">clear</a>
+            <button id="fetch">Fetch</button>
+            <a id="edit-link" href="http://scratch.mit.edu/mystuff/">edit→</a>
+            <b id="status"></b>
+        </div>
+    </div>
  
     <div id="wrap">
         <div id="left-pane">
@@ -512,8 +584,31 @@
             <p>
                 <a class="button" id="export">Get Code</a>
             </p>
-            <ul id="sprites-list"></ul>
+            <div id="sprites-list-wrap"><ul id="sprites-list"></ul></div>
         </div>
+
+        <div id="intro">
+            <p>
+                Get <code>scratchblocks</code> code from your projects for pasting into
+                <a href="http://scratch.mit.edu/forums/viewtopic.php?id=90403">Scratch
+                Forum</a> posts or
+                <a href="http://wiki.scratch.mit.edu/wiki/Block_Plugin">Scratch Wiki</a>
+                articles.
+
+            </p>
+
+            <p>Handy bookmarklet:
+                <a id="bookmarklet"
+                    href="javascript:location.href='http://blob8108.github.io/scratchblocks2/generator/#url='+encodeURIComponent(location.href);">Scratchblocks</a>
+                <i>(just drag to your bookmarks bar — use on any 2.0 project)</i>
+            </p>
+
+            <p>
+                <a id="me"
+                    href="http://scratch.mit.edu/users/blob8108">~blob8108</a>
+            </p>
+        </div>
+
         <div id="sprite-detail">
             <div id="sprite-info">
                 <div id="costume-preview"><img></div>
