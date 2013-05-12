@@ -1395,6 +1395,10 @@ when tilt = (1) ## hat   \
 ## Looks ##   \
 switch to costume [costume1 v]   \
 \
+switch to background [background1 v]   \
+next background   \
+(background #)   \
+\
 \
 \
 ## Control ##   \
