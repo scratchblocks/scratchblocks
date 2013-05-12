@@ -25,8 +25,9 @@ var scratchblocks2 = function ($) {
                 "color"],
 
         // List of classes for get_arg_shape
-        ARG_SHAPES = ["reporter", "boolean", "string", "dropdown", "number",
-                "number-dropdown",
+        ARG_SHAPES = ["reporter", "embedded", "boolean", "string", "dropdown",
+                "number", "number-dropdown",
+
                 // special shapes:
                 "list-dropdown", "math-function"],
 
@@ -473,9 +474,11 @@ var scratchblocks2 = function ($) {
 
                             } else if (
                                 // allow reporters in number/string inserts
-                                !(arg_shape === "reporter" && (
-                                    need_args[j] === "number" ||
-                                    need_args[j] === "string"
+                                !((arg_shape === "reporter" ||
+                                   arg_shape === "embedded"
+                                 ) && (
+                                   need_args[j] === "number" ||
+                                   need_args[j] === "string"
                                 ))
                             ) {
                                 fits = false;
