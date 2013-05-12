@@ -18,7 +18,7 @@ var scratchblocks2 = function ($) {
 
         // Valid arguments to "of" dropdown, for resolving ambiguous situations
         MATH_FUNCTIONS = ["abs", "floor", "ceiling", "sqrt", "sin", "cos",
-                "tan", "asin", "acos", "atan", "ln", "log", "e ^", "10 ^"],
+                "tan", "asin", "acos", "atan", "ln", "log", "e^", "10^"],
 
         // List of insert classes -- don't call find_block on these
         NO_LOOKUP = ["string", "dropdown", "number", "number-dropdown",
@@ -271,6 +271,7 @@ var scratchblocks2 = function ($) {
 
     /* Return the shape class for the given insert. */
     function get_arg_shape($arg) {
+        if (!$arg) return "";
         var arg_shape;
         $.each(ARG_SHAPES, function (i, shape) {
             if ($arg.hasClass(cls(shape))) {
@@ -462,8 +463,9 @@ var scratchblocks2 = function ($) {
                         if (arg_shape !== need_args[j]) {
                             if (need_args[j] === "math-function") {
                                 // check is valid math function
-                                if ($.inArray($arg.text(), MATH_FUNCTIONS)
-                                        === -1) {
+                                var func =  $arg.text().replace(/[ ]/g, "")
+                                        .toLowerCase();
+                                if ($.inArray(func, MATH_FUNCTIONS) === -1) {
                                     // can't find the argument!
                                     fits = false;
                                     break;
