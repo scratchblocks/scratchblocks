@@ -677,6 +677,7 @@ var scratchblocks2 = function ($) {
         }
 
         // RENDARRR //
+
         function is_block(piece) {
             return piece.length > 1 && (
                 is_open_bracket(piece[0]) || is_close_bracket(piece[0])
@@ -745,6 +746,9 @@ var scratchblocks2 = function ($) {
         // get category
         if (shape === "custom-definition") {
             $block.addClass(cls("custom"));
+        } else if (shape === "number" || shape === "string" ||
+                shape === "dropdown" || shape == "number-dropdown") {
+            // don't add category to inserts
         } else {
             var arg_classes = [],
                 info;
