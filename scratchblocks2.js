@@ -21,7 +21,7 @@ var scratchblocks2 = function ($) {
                 "tan", "asin", "acos", "atan", "ln", "log", "e^", "10^"],
 
         // List of insert classes -- don't call find_block on these
-        NO_LOOKUP = ["string", "dropdown", "number", "number-dropdown",
+        DATA_INSERTS = ["string", "dropdown", "number", "number-dropdown",
                 "color"],
 
         // List of classes for get_arg_shape
@@ -30,7 +30,6 @@ var scratchblocks2 = function ($) {
 
                 // special shapes:
                 "list-dropdown", "math-function"],
-
 
 
         // List of valid classes used in HTML
@@ -746,15 +745,14 @@ var scratchblocks2 = function ($) {
         // get category
         if (shape === "custom-definition") {
             $block.addClass(cls("custom"));
-        } else if (shape === "number" || shape === "string" ||
-                shape === "dropdown" || shape == "number-dropdown") {
+        } else if ($.inArray(shape, DATA_INSERTS) > -1) {
             // don't add category to inserts
         } else {
             var arg_classes = [],
                 info;
 
             // find block
-            if ($.inArray(shape, NO_LOOKUP) === -1 && !is_database) {
+            if (!is_database) {
                 info = find_block(text, $arg_list);
                 classes = info[0];
                 arg_classes = info[1];
@@ -790,6 +788,7 @@ var scratchblocks2 = function ($) {
 
 
         // replace images
+
         function replace_text_with_image(regex, image_class) {
             var html = $block.html(),
                 image = '<span class="' + image_class + '"></span>';
@@ -816,6 +815,15 @@ var scratchblocks2 = function ($) {
         if ($block.hasClass(cls("cend"))) {
             var html = $block.html();
             $block.html("").append($("<span>").html(html));
+        }
+
+
+        // put free-floating inserts inside a stack block
+        if (need_shape === "stack" && $.inArray(shape, DATA_INSERTS) > -1) {
+            var $insert = $block;
+            $block = $("<div>").addClass(cls("stack"))
+                               .addClass(cls("obsolete"))
+                               .append($insert);
         }
 
 
