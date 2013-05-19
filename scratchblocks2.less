@@ -206,9 +206,12 @@
                 border-right-color: ~"@{@{category}_bbot}";
             }
         }
+
+        &.hat:before {
+            border-right-color: ~"@{@{category}_btop}";
+        }
     }
 }
-
 
 .scratchblocks2-container {
     font-family: "Lucida Grande", Verdana, Arial, "DejaVu Sans", sans-serif;
@@ -217,7 +220,7 @@
     font-size: 10px;
     line-height: 10px;
     margin: 10px 0;
-    
+
     &:after {
         content: "";
         display: block;
@@ -230,7 +233,6 @@
     display: block;
 
     z-index: @z_container;
-
 
 
 
@@ -301,7 +303,7 @@
     } 
     
     .stack, .outline {
-        .border-radius(4px);
+        .border-radius(5px);
     }
 
 
@@ -381,7 +383,7 @@
 
         padding: 4px;
 
-        .border-radius(0 4px 4px 4px);
+        .border-radius(0 5px 5px 5px);
         
         margin-top: 15px;
 
@@ -396,7 +398,8 @@
             top: -13px;
             left: -2px;
             background: inherit;
-            border: inherit;
+            border-width: inherit;
+            border-style: inherit;
             border-bottom: none;
             .border-radius(40px 40px 0 0 e('/') 13px 13px 0 0);
             border-top-width: 2px;
@@ -408,6 +411,8 @@
     @custom_definition_height: 16px;
 
     .custom-definition {
+        .border-radius(0 0 5px 5px);
+
         &:before {
             border-color: @custom_definition_top;
             border-top-width: 4px;
