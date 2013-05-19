@@ -169,6 +169,12 @@ var scratchblocks2 = function ($) {
             return false;
         }
 
+        // HACK: "when distance < (20)" block
+        log([code.substr(0, index)])
+        if (/^whendistance$/i.test(strip_block_text(code.substr(0, index)))) {
+            return true; // don't parse as boolean
+        }
+
         for (i = index + 1; i < code.length; i++) {
             chr = code[i];
             if (is_open_bracket(chr)) {
@@ -222,7 +228,6 @@ var scratchblocks2 = function ($) {
                         nesting[nesting.length - 1] !== "[") {
                     nesting.push(chr);
                     matching_bracket = get_matching_bracket(chr);
-
                 } else if (chr === matching_bracket && !is_lt_gt(code, i)) {
                     nesting.pop();
                     if (nesting.length === 0) {
