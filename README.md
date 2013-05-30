@@ -30,6 +30,14 @@ _[Scratch](http://scratch.mit.edu/) is created by the Lifelong Kindergarten
 Group at the MIT Media Lab._
 
 
+# Credits
+
+* Plugin by blob8108
+* Inspired by JSO's [Block Plugin](http://wiki.scratch.mit.edu/wiki/Block_Plugin)
+* Thanks to [ehermann](http://github.com/ehermann) for Brazilian Portuguese
+  block translation
+
+
 # Usage
 
 The quickest way is to include the following HTML code in your page before the closing
