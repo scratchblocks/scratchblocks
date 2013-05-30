@@ -1,1 +1,921 @@
-lessc: ENOENT, open '/Users/tim/Dropbox/Code/blocksplugin/scratchblocks2/scratchblocks2.less'
+/*
+ * scratchblocks2
+ * http://github.com/blob8108/scratchblocks2
+ *
+ * Copyright 2013, Tim Radvan
+ * MIT Licensed
+ * http://opensource.org/licenses/MIT
+ *
+ * *****************************************************************************
+ *
+ * Requires the files:
+ *
+ *   - arrows.png
+ *   - flag.png
+ *
+ * in the block_images/ directory, in the same folder as this file.
+ *
+ */
+.box-sizing_border-box {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.scratchblocks2-container {
+  font-family: "Lucida Grande", Verdana, Arial, "DejaVu Sans", sans-serif;
+  font-weight: bold;
+  color: white;
+  font-size: 10px;
+  line-height: 10px;
+  margin: 10px 0;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  display: block;
+  z-index: 100;
+}
+.scratchblocks2-container:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.scratchblocks2-container .obsolete.stack:before,
+.scratchblocks2-container .obsolete.cap:before {
+  border-color: #971c1c #da4646 #da4646 #971c1c;
+}
+.scratchblocks2-container .obsolete.hat,
+.scratchblocks2-container .obsolete.hat:before,
+.scratchblocks2-container .obsolete.custom-definition,
+.scratchblocks2-container .obsolete.stack,
+.scratchblocks2-container .obsolete.boolean,
+.scratchblocks2-container .obsolete.reporter,
+.scratchblocks2-container .obsolete.embedded,
+.scratchblocks2-container .obsolete.variable-reporter,
+.scratchblocks2-container .obsolete.custom-arg {
+  background-color: #d42828;
+  border-color: #da4646 #971c1c #971c1c #da4646;
+}
+.scratchblocks2-container .obsolete > .dropdown,
+.scratchblocks2-container .obsolete > .boolean.empty,
+.scratchblocks2-container .obsolete > .color {
+  background: #c32525;
+  border-color: #96191c #ec2e34 #ec2e34 #96191c;
+}
+.scratchblocks2-container .obsolete > .dropdown:after,
+.scratchblocks2-container .obsolete > .boolean.empty:after,
+.scratchblocks2-container .obsolete > .color:after {
+  color: #5c0b0d;
+}
+.scratchblocks2-container .obsolete > .cmouth:before {
+  background-color: #d42828;
+  border-left-color: #da4646;
+  border-right-color: #971c1c;
+}
+.scratchblocks2-container .obsolete.hat:before {
+  border-right-color: #da4646;
+}
+.scratchblocks2-container .control.stack:before,
+.scratchblocks2-container .control.cap:before {
+  border-color: #a07812 #e5b53a #e5b53a #a07812;
+}
+.scratchblocks2-container .control.hat,
+.scratchblocks2-container .control.hat:before,
+.scratchblocks2-container .control.custom-definition,
+.scratchblocks2-container .control.stack,
+.scratchblocks2-container .control.boolean,
+.scratchblocks2-container .control.reporter,
+.scratchblocks2-container .control.embedded,
+.scratchblocks2-container .control.variable-reporter,
+.scratchblocks2-container .control.custom-arg {
+  background-color: #e1a91a;
+  border-color: #e5b53a #a07812 #a07812 #e5b53a;
+}
+.scratchblocks2-container .control > .dropdown,
+.scratchblocks2-container .control > .boolean.empty,
+.scratchblocks2-container .control > .color {
+  background: #cf9b17;
+  border-color: #7e5e0e #d4a631 #d4a631 #7e5e0e;
+}
+.scratchblocks2-container .control > .dropdown:after,
+.scratchblocks2-container .control > .boolean.empty:after,
+.scratchblocks2-container .control > .color:after {
+  color: #533e09;
+}
+.scratchblocks2-container .control > .cmouth:before {
+  background-color: #e1a91a;
+  border-left-color: #e5b53a;
+  border-right-color: #a07812;
+}
+.scratchblocks2-container .control.hat:before {
+  border-right-color: #e5b53a;
+}
+.scratchblocks2-container .custom.stack:before,
+.scratchblocks2-container .custom.cap:before {
+  border-color: #46206d #794aa7 #794aa7 #46206d;
+}
+.scratchblocks2-container .custom.hat,
+.scratchblocks2-container .custom.hat:before,
+.scratchblocks2-container .custom.custom-definition,
+.scratchblocks2-container .custom.stack,
+.scratchblocks2-container .custom.boolean,
+.scratchblocks2-container .custom.reporter,
+.scratchblocks2-container .custom.embedded,
+.scratchblocks2-container .custom.variable-reporter,
+.scratchblocks2-container .custom.custom-arg {
+  background-color: #632d99;
+  border-color: #794aa7 #46206d #46206d #794aa7;
+}
+.scratchblocks2-container .custom > .dropdown,
+.scratchblocks2-container .custom > .boolean.empty,
+.scratchblocks2-container .custom > .color {
+  background: #5b298c;
+  border-color: #431e67 #70449a #70449a #431e67;
+}
+.scratchblocks2-container .custom > .dropdown:after,
+.scratchblocks2-container .custom > .boolean.empty:after,
+.scratchblocks2-container .custom > .color:after {
+  color: #1e0a38;
+}
+.scratchblocks2-container .custom > .cmouth:before {
+  background-color: #632d99;
+  border-left-color: #794aa7;
+  border-right-color: #46206d;
+}
+.scratchblocks2-container .custom.hat:before {
+  border-right-color: #794aa7;
+}
+.scratchblocks2-container .events.stack:before,
+.scratchblocks2-container .events.cap:before {
+  border-color: #8e5d22 #cf944d #cf944d #8e5d22;
+}
+.scratchblocks2-container .events.hat,
+.scratchblocks2-container .events.hat:before,
+.scratchblocks2-container .events.custom-definition,
+.scratchblocks2-container .events.stack,
+.scratchblocks2-container .events.boolean,
+.scratchblocks2-container .events.reporter,
+.scratchblocks2-container .events.embedded,
+.scratchblocks2-container .events.variable-reporter,
+.scratchblocks2-container .events.custom-arg {
+  background-color: #c88330;
+  border-color: #cf944d #8e5d22 #8e5d22 #cf944d;
+}
+.scratchblocks2-container .events > .dropdown,
+.scratchblocks2-container .events > .boolean.empty,
+.scratchblocks2-container .events > .color {
+  background: #b8782c;
+  border-color: #70491a #c59254 #c59254 #70491a;
+}
+.scratchblocks2-container .events > .dropdown:after,
+.scratchblocks2-container .events > .boolean.empty:after,
+.scratchblocks2-container .events > .color:after {
+  color: #4a3011;
+}
+.scratchblocks2-container .events > .cmouth:before {
+  background-color: #c88330;
+  border-left-color: #cf944d;
+  border-right-color: #8e5d22;
+}
+.scratchblocks2-container .events.hat:before {
+  border-right-color: #cf944d;
+}
+.scratchblocks2-container .list.stack:before,
+.scratchblocks2-container .list.cap:before {
+  border-color: #a74a1b #d26f3d #d26f3d #a74a1b;
+}
+.scratchblocks2-container .list.hat,
+.scratchblocks2-container .list.hat:before,
+.scratchblocks2-container .list.custom-definition,
+.scratchblocks2-container .list.stack,
+.scratchblocks2-container .list.boolean,
+.scratchblocks2-container .list.reporter,
+.scratchblocks2-container .list.embedded,
+.scratchblocks2-container .list.variable-reporter,
+.scratchblocks2-container .list.custom-arg {
+  background-color: #cc5b22;
+  border-color: #d26f3d #a74a1b #a74a1b #d26f3d;
+}
+.scratchblocks2-container .list > .dropdown,
+.scratchblocks2-container .list > .boolean.empty,
+.scratchblocks2-container .list > .color {
+  background: #bb531f;
+  border-color: #7e3814 #c86e3f #c86e3f #7e3814;
+}
+.scratchblocks2-container .list > .dropdown:after,
+.scratchblocks2-container .list > .boolean.empty:after,
+.scratchblocks2-container .list > .color:after {
+  color: #4b210c;
+}
+.scratchblocks2-container .list > .cmouth:before {
+  background-color: #cc5b22;
+  border-left-color: #d26f3d;
+  border-right-color: #a74a1b;
+}
+.scratchblocks2-container .list.hat:before {
+  border-right-color: #d26f3d;
+}
+.scratchblocks2-container .looks.stack:before,
+.scratchblocks2-container .looks.cap:before {
+  border-color: #623c99 #9a6ddc #9a6ddc #623c99;
+}
+.scratchblocks2-container .looks.hat,
+.scratchblocks2-container .looks.hat:before,
+.scratchblocks2-container .looks.custom-definition,
+.scratchblocks2-container .looks.stack,
+.scratchblocks2-container .looks.boolean,
+.scratchblocks2-container .looks.reporter,
+.scratchblocks2-container .looks.embedded,
+.scratchblocks2-container .looks.variable-reporter,
+.scratchblocks2-container .looks.custom-arg {
+  background-color: #8a55d7;
+  border-color: #9a6ddc #623c99 #623c99 #9a6ddc;
+}
+.scratchblocks2-container .looks > .dropdown,
+.scratchblocks2-container .looks > .boolean.empty,
+.scratchblocks2-container .looks > .color {
+  background: #7e4ec5;
+  border-color: #4c2f78 #9670d0 #9670d0 #4c2f78;
+}
+.scratchblocks2-container .looks > .dropdown:after,
+.scratchblocks2-container .looks > .boolean.empty:after,
+.scratchblocks2-container .looks > .color:after {
+  color: #1e0a38;
+}
+.scratchblocks2-container .looks > .cmouth:before {
+  background-color: #8a55d7;
+  border-left-color: #9a6ddc;
+  border-right-color: #623c99;
+}
+.scratchblocks2-container .looks.hat:before {
+  border-right-color: #9a6ddc;
+}
+.scratchblocks2-container .motion.stack:before,
+.scratchblocks2-container .motion.cap:before {
+  border-color: #344d97 #6380da #6380da #344d97;
+}
+.scratchblocks2-container .motion.hat,
+.scratchblocks2-container .motion.hat:before,
+.scratchblocks2-container .motion.custom-definition,
+.scratchblocks2-container .motion.stack,
+.scratchblocks2-container .motion.boolean,
+.scratchblocks2-container .motion.reporter,
+.scratchblocks2-container .motion.embedded,
+.scratchblocks2-container .motion.variable-reporter,
+.scratchblocks2-container .motion.custom-arg {
+  background-color: #4a6cd4;
+  border-color: #6380da #344d97 #344d97 #6380da;
+}
+.scratchblocks2-container .motion > .dropdown,
+.scratchblocks2-container .motion > .boolean.empty,
+.scratchblocks2-container .motion > .color {
+  background: #4463c3;
+  border-color: #293c76 #6781ce #6781ce #293c76;
+}
+.scratchblocks2-container .motion > .dropdown:after,
+.scratchblocks2-container .motion > .boolean.empty:after,
+.scratchblocks2-container .motion > .color:after {
+  color: #1b274e;
+}
+.scratchblocks2-container .motion > .cmouth:before {
+  background-color: #4a6cd4;
+  border-left-color: #6380da;
+  border-right-color: #344d97;
+}
+.scratchblocks2-container .motion.hat:before {
+  border-right-color: #6380da;
+}
+.scratchblocks2-container .operators.stack:before,
+.scratchblocks2-container .operators.cap:before {
+  border-color: #488f0e #a7ce87 #a7ce87 #488f0e;
+}
+.scratchblocks2-container .operators.hat,
+.scratchblocks2-container .operators.hat:before,
+.scratchblocks2-container .operators.custom-definition,
+.scratchblocks2-container .operators.stack,
+.scratchblocks2-container .operators.boolean,
+.scratchblocks2-container .operators.reporter,
+.scratchblocks2-container .operators.embedded,
+.scratchblocks2-container .operators.variable-reporter,
+.scratchblocks2-container .operators.custom-arg {
+  background-color: #5cb712;
+  border-color: #a7ce87 #488f0e #488f0e #a7ce87;
+}
+.scratchblocks2-container .operators > .dropdown,
+.scratchblocks2-container .operators > .boolean.empty,
+.scratchblocks2-container .operators > .color {
+  background: #54a810;
+  border-color: #336609 #74b83d #74b83d #336609;
+}
+.scratchblocks2-container .operators > .dropdown:after,
+.scratchblocks2-container .operators > .boolean.empty:after,
+.scratchblocks2-container .operators > .color:after {
+  color: #214306;
+}
+.scratchblocks2-container .operators > .cmouth:before {
+  background-color: #5cb712;
+  border-left-color: #a7ce87;
+  border-right-color: #488f0e;
+}
+.scratchblocks2-container .operators.hat:before {
+  border-right-color: #a7ce87;
+}
+.scratchblocks2-container .pen.stack:before,
+.scratchblocks2-container .pen.cap:before {
+  border-color: #0a6e4d #30a880 #30a880 #0a6e4d;
+}
+.scratchblocks2-container .pen.hat,
+.scratchblocks2-container .pen.hat:before,
+.scratchblocks2-container .pen.custom-definition,
+.scratchblocks2-container .pen.stack,
+.scratchblocks2-container .pen.boolean,
+.scratchblocks2-container .pen.reporter,
+.scratchblocks2-container .pen.embedded,
+.scratchblocks2-container .pen.variable-reporter,
+.scratchblocks2-container .pen.custom-arg {
+  background-color: #0e9a6c;
+  border-color: #30a880 #0a6e4d #0a6e4d #30a880;
+}
+.scratchblocks2-container .pen > .dropdown,
+.scratchblocks2-container .pen > .boolean.empty,
+.scratchblocks2-container .pen > .color {
+  background: none;
+  border-color: #395b3f #62785b #62785b #395b3f;
+}
+.scratchblocks2-container .pen > .dropdown:after,
+.scratchblocks2-container .pen > .boolean.empty:after,
+.scratchblocks2-container .pen > .color:after {
+  color: none;
+}
+.scratchblocks2-container .pen > .cmouth:before {
+  background-color: #0e9a6c;
+  border-left-color: #30a880;
+  border-right-color: #0a6e4d;
+}
+.scratchblocks2-container .pen.hat:before {
+  border-right-color: #30a880;
+}
+.scratchblocks2-container .sensing.stack:before,
+.scratchblocks2-container .sensing.cap:before {
+  border-color: #1f75a1 #49b1e6 #49b1e6 #1f75a1;
+}
+.scratchblocks2-container .sensing.hat,
+.scratchblocks2-container .sensing.hat:before,
+.scratchblocks2-container .sensing.custom-definition,
+.scratchblocks2-container .sensing.stack,
+.scratchblocks2-container .sensing.boolean,
+.scratchblocks2-container .sensing.reporter,
+.scratchblocks2-container .sensing.embedded,
+.scratchblocks2-container .sensing.variable-reporter,
+.scratchblocks2-container .sensing.custom-arg {
+  background-color: #2ca5e2;
+  border-color: #49b1e6 #1f75a1 #1f75a1 #49b1e6;
+}
+.scratchblocks2-container .sensing > .dropdown,
+.scratchblocks2-container .sensing > .boolean.empty,
+.scratchblocks2-container .sensing > .color {
+  background: #2897cf;
+  border-color: #185c7e #51abd8 #51abd8 #185c7e;
+}
+.scratchblocks2-container .sensing > .dropdown:after,
+.scratchblocks2-container .sensing > .boolean.empty:after,
+.scratchblocks2-container .sensing > .color:after {
+  color: #103c53;
+}
+.scratchblocks2-container .sensing > .cmouth:before {
+  background-color: #2ca5e2;
+  border-left-color: #49b1e6;
+  border-right-color: #1f75a1;
+}
+.scratchblocks2-container .sensing.hat:before {
+  border-right-color: #49b1e6;
+}
+.scratchblocks2-container .sound.stack:before,
+.scratchblocks2-container .sound.cap:before {
+  border-color: #852f8b #c45ccb #c45ccb #852f8b;
+}
+.scratchblocks2-container .sound.hat,
+.scratchblocks2-container .sound.hat:before,
+.scratchblocks2-container .sound.custom-definition,
+.scratchblocks2-container .sound.stack,
+.scratchblocks2-container .sound.boolean,
+.scratchblocks2-container .sound.reporter,
+.scratchblocks2-container .sound.embedded,
+.scratchblocks2-container .sound.variable-reporter,
+.scratchblocks2-container .sound.custom-arg {
+  background-color: #bb42c3;
+  border-color: #c45ccb #852f8b #852f8b #c45ccb;
+}
+.scratchblocks2-container .sound > .dropdown,
+.scratchblocks2-container .sound > .boolean.empty,
+.scratchblocks2-container .sound > .color {
+  background: #ac3cb3;
+  border-color: #68246d #bc61c1 #bc61c1 #68246d;
+}
+.scratchblocks2-container .sound > .dropdown:after,
+.scratchblocks2-container .sound > .boolean.empty:after,
+.scratchblocks2-container .sound > .color:after {
+  color: #451848;
+}
+.scratchblocks2-container .sound > .cmouth:before {
+  background-color: #bb42c3;
+  border-left-color: #c45ccb;
+  border-right-color: #852f8b;
+}
+.scratchblocks2-container .sound.hat:before {
+  border-right-color: #c45ccb;
+}
+.scratchblocks2-container .variables.stack:before,
+.scratchblocks2-container .variables.cap:before {
+  border-color: #c36612 #f08d33 #f08d33 #c36612;
+}
+.scratchblocks2-container .variables.hat,
+.scratchblocks2-container .variables.hat:before,
+.scratchblocks2-container .variables.custom-definition,
+.scratchblocks2-container .variables.stack,
+.scratchblocks2-container .variables.boolean,
+.scratchblocks2-container .variables.reporter,
+.scratchblocks2-container .variables.embedded,
+.scratchblocks2-container .variables.variable-reporter,
+.scratchblocks2-container .variables.custom-arg {
+  background-color: #ee7d16;
+  border-color: #f08d33 #c36612 #c36612 #f08d33;
+}
+.scratchblocks2-container .variables > .dropdown,
+.scratchblocks2-container .variables > .boolean.empty,
+.scratchblocks2-container .variables > .color {
+  background: #da7214;
+  border-color: #934d0d #e48836 #e48836 #934d0d;
+}
+.scratchblocks2-container .variables > .dropdown:after,
+.scratchblocks2-container .variables > .boolean.empty:after,
+.scratchblocks2-container .variables > .color:after {
+  color: #572d08;
+}
+.scratchblocks2-container .variables > .cmouth:before {
+  background-color: #ee7d16;
+  border-left-color: #f08d33;
+  border-right-color: #c36612;
+}
+.scratchblocks2-container .variables.hat:before {
+  border-right-color: #f08d33;
+}
+.scratchblocks2-container .custom-arg.stack:before,
+.scratchblocks2-container .custom-arg.cap:before {
+  border-color: #423584 #6857b8 #6857b8 #423584;
+}
+.scratchblocks2-container .custom-arg.hat,
+.scratchblocks2-container .custom-arg.hat:before,
+.scratchblocks2-container .custom-arg.custom-definition,
+.scratchblocks2-container .custom-arg.stack,
+.scratchblocks2-container .custom-arg.boolean,
+.scratchblocks2-container .custom-arg.reporter,
+.scratchblocks2-container .custom-arg.embedded,
+.scratchblocks2-container .custom-arg.variable-reporter,
+.scratchblocks2-container .custom-arg.custom-arg {
+  background-color: #5947b1;
+  border-color: #6857b8 #423584 #423584 #6857b8;
+}
+.scratchblocks2-container .custom-arg > .dropdown,
+.scratchblocks2-container .custom-arg > .boolean.empty,
+.scratchblocks2-container .custom-arg > .color {
+  background: none;
+  border-color: none none none none;
+}
+.scratchblocks2-container .custom-arg > .dropdown:after,
+.scratchblocks2-container .custom-arg > .boolean.empty:after,
+.scratchblocks2-container .custom-arg > .color:after {
+  color: none;
+}
+.scratchblocks2-container .custom-arg > .cmouth:before {
+  background-color: #5947b1;
+  border-left-color: #6857b8;
+  border-right-color: #423584;
+}
+.scratchblocks2-container .custom-arg.hat:before {
+  border-right-color: #6857b8;
+}
+.scratchblocks2-container .purple.stack:before,
+.scratchblocks2-container .purple.cap:before {
+  border-color: #492056 #7c4a8b #7c4a8b #492056;
+}
+.scratchblocks2-container .purple.hat,
+.scratchblocks2-container .purple.hat:before,
+.scratchblocks2-container .purple.custom-definition,
+.scratchblocks2-container .purple.stack,
+.scratchblocks2-container .purple.boolean,
+.scratchblocks2-container .purple.reporter,
+.scratchblocks2-container .purple.embedded,
+.scratchblocks2-container .purple.variable-reporter,
+.scratchblocks2-container .purple.custom-arg {
+  background-color: #672d79;
+  border-color: #7c4a8b #492056 #492056 #7c4a8b;
+}
+.scratchblocks2-container .purple > .dropdown,
+.scratchblocks2-container .purple > .boolean.empty,
+.scratchblocks2-container .purple > .color {
+  background: #5e296f;
+  border-color: #391843 #7d528a #7d528a #391843;
+}
+.scratchblocks2-container .purple > .dropdown:after,
+.scratchblocks2-container .purple > .boolean.empty:after,
+.scratchblocks2-container .purple > .color:after {
+  color: #25102c;
+}
+.scratchblocks2-container .purple > .cmouth:before {
+  background-color: #672d79;
+  border-left-color: #7c4a8b;
+  border-right-color: #492056;
+}
+.scratchblocks2-container .purple.hat:before {
+  border-right-color: #7c4a8b;
+}
+.scratchblocks2-container .script {
+  margin-top: 15px;
+  display: block;
+  float: none;
+}
+.scratchblocks2-container .script:first-child {
+  margin-top: 0;
+}
+.scratchblocks2-container .script:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.scratchblocks2-container div {
+  display: inline-block;
+}
+.scratchblocks2-container .hat,
+.scratchblocks2-container .custom-definition,
+.scratchblocks2-container .stack,
+.scratchblocks2-container .boolean,
+.scratchblocks2-container .reporter,
+.scratchblocks2-container .variable-reporter,
+.scratchblocks2-container .custom-arg,
+.scratchblocks2-container .dropdown {
+  border: 2px solid;
+}
+.scratchblocks2-container .stack {
+  min-width: 36px;
+}
+.scratchblocks2-container .stack,
+.scratchblocks2-container .cwrap,
+.scratchblocks2-container .cmouth {
+  border-top-width: 1px;
+  float: left;
+  clear: both;
+}
+.scratchblocks2-container .stack,
+.scratchblocks2-container .hat,
+.scratchblocks2-container .custom-definition {
+  padding: 2px 4px;
+  min-height: 16px;
+  line-height: 16px;
+}
+.scratchblocks2-container .stack  > *,
+.scratchblocks2-container .hat  > *,
+.scratchblocks2-container .custom-definition  > * {
+  line-height: 10px;
+}
+.scratchblocks2-container .stack,
+.scratchblocks2-container .outline {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+.scratchblocks2-container .stack,
+.scratchblocks2-container .hat,
+.scratchblocks2-container .cap,
+.scratchblocks2-container .custom-definition {
+  position: relative;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.scratchblocks2-container .stack:before,
+.scratchblocks2-container .cap:before {
+  content: "";
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  position: absolute;
+  left: 11px;
+  width: 15px;
+  height: 4px;
+  border: inherit;
+  border-top: none;
+  border-width: 1px;
+  background: #ffffff;
+  border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  top: -1px;
+}
+.scratchblocks2-container .stack:after,
+.scratchblocks2-container .hat:after,
+.scratchblocks2-container .custom-definition:after {
+  content: "";
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  position: absolute;
+  left: 12px;
+  width: 13px;
+  height: 5px;
+  border: inherit;
+  border-top: none;
+  background: inherit;
+  border-radius: 0 0 3px 3px;
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  bottom: -5px;
+  z-index: 101;
+}
+.scratchblocks2-container .cap:after {
+  content: none;
+}
+.scratchblocks2-container .cwrap .cend.capend:before {
+  content: none;
+}
+.scratchblocks2-container .cwrap.cap > .cend:after {
+  content: none;
+}
+.scratchblocks2-container .cwrap .cstart:after,
+.scratchblocks2-container .cwrap .celse:after {
+  left: 26px;
+}
+.scratchblocks2-container .cwrap .cend:before,
+.scratchblocks2-container .cwrap .celse:before {
+  left: 25px;
+}
+.scratchblocks2-container .hat,
+.scratchblocks2-container .custom-definition {
+  position: relative;
+  float: left;
+  padding: 4px;
+  border-radius: 0 5px 5px 5px;
+  -webkit-border-radius: 0 5px 5px 5px;
+  -moz-border-radius: 0 5px 5px 5px;
+  margin-top: 15px;
+  min-width: 100px;
+}
+.scratchblocks2-container .hat:before,
+.scratchblocks2-container .custom-definition:before {
+  content: "";
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  position: absolute;
+  height: 13px;
+  width: 80px;
+  top: -13px;
+  left: -2px;
+  background: inherit;
+  border-width: inherit;
+  border-style: inherit;
+  border-bottom: none;
+  border-radius: 40px 40px 0 0 / 13px 13px 0 0;
+  -webkit-border-radius: 40px 40px 0 0 / 13px 13px 0 0;
+  -moz-border-radius: 40px 40px 0 0 / 13px 13px 0 0;
+  border-top-width: 2px;
+}
+.scratchblocks2-container .custom-definition {
+  border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  margin-top: 16px;
+  padding-top: 0;
+  padding-bottom: 1px;
+}
+.scratchblocks2-container .custom-definition:before {
+  border-color: #8e2ec2;
+  border-top-width: 4px;
+  height: 16px;
+  margin-top: -13px;
+  top: -3px;
+  width: auto;
+  left: -4px;
+  right: -4px;
+  border-radius: 50% 50% 3px 3px / 14px 14px 3px 3px;
+  -webkit-border-radius: 50% 50% 3px 3px / 14px 14px 3px 3px;
+  -moz-border-radius: 50% 50% 3px 3px / 14px 14px 3px 3px;
+}
+.scratchblocks2-container .custom-arg {
+  line-height: 10px;
+}
+.scratchblocks2-container .outline {
+  padding: 2px 4px 2px 4px;
+  min-width: 29px;
+  line-height: 16px;
+  border: 2px solid #8257ad;
+  margin-left: 5px;
+  margin: 4px 0 4px 5px;
+  position: relative;
+  background: inherit;
+}
+.scratchblocks2-container .outline:before {
+  top: -2px;
+}
+.scratchblocks2-container .outline:after {
+  bottom: -5px;
+}
+.scratchblocks2-container .outline:before,
+.scratchblocks2-container .outline:after {
+  content: "";
+  position: absolute;
+  left: 11px;
+  width: 13px;
+  height: 3px;
+  border: inherit;
+  border-top: none;
+  background: inherit;
+  border-radius: 0 0 4px 4px;
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+}
+.scratchblocks2-container .cwrap {
+  display: block;
+}
+.scratchblocks2-container .cwrap .cstart {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border-radius: 4px 4px 4px 0;
+  -webkit-border-radius: 4px 4px 4px 0;
+  -moz-border-radius: 4px 4px 4px 0;
+  min-width: 60px;
+}
+.scratchblocks2-container .cwrap .cmouth {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  display: block;
+  position: relative;
+}
+.scratchblocks2-container .cwrap .cmouth:empty {
+  content: " ";
+  min-height: 12px;
+}
+.scratchblocks2-container .cwrap .cmouth:before {
+  content: "";
+  display: block;
+  position: absolute;
+  border-style: solid;
+  border-width: 0 2px 0 2px;
+  width: 10px;
+  height: 100%;
+  margin: -2px 0 0;
+  padding: 2px 0 1px;
+  z-index: 102;
+}
+.scratchblocks2-container .cwrap .cmouth > div {
+  margin-left: 14px;
+}
+.scratchblocks2-container .cwrap .celse {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  min-width: 60px;
+  position: relative;
+  border-radius: 0 4px 4px 0;
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+}
+.scratchblocks2-container .cwrap .cend {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 8px;
+  min-width: 60px;
+  border-radius: 0 4px 4px 4px;
+  -webkit-border-radius: 0 4px 4px 4px;
+  -moz-border-radius: 0 4px 4px 4px;
+}
+.scratchblocks2-container .cwrap .cend span {
+  display: none;
+}
+.scratchblocks2-container .color {
+  border: 1px solid;
+  width: 11px;
+  height: 11px;
+  padding: 0;
+}
+.scratchblocks2-container .number,
+.scratchblocks2-container .number-dropdown,
+.scratchblocks2-container .string,
+.scratchblocks2-container .dropdown {
+  font-weight: normal;
+}
+.scratchblocks2-container .number,
+.scratchblocks2-container .number-dropdown,
+.scratchblocks2-container .string {
+  background: #fff;
+  color: #000;
+  border: 1px solid #a59e97;
+  border-color: #777 #fff #fff #777;
+  padding: 1px 4px;
+}
+.scratchblocks2-container .string {
+  padding: 2px;
+}
+.scratchblocks2-container .number,
+.scratchblocks2-container .number-dropdown {
+  border-radius: 10px;
+}
+.scratchblocks2-container .dropdown,
+.scratchblocks2-container .string {
+  border-style: solid;
+  border-width: 1px;
+}
+.scratchblocks2-container .dropdown {
+  padding: 1px 2px;
+}
+.scratchblocks2-container .dropdown:after,
+.scratchblocks2-container .number-dropdown:after {
+  content: "▼";
+  font-size: 8px;
+  padding: 0 0 0 4px;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+}
+.scratchblocks2-container .number-dropdown:after {
+  color: #666666;
+  padding-left: 2px;
+}
+.scratchblocks2-container .embedded,
+.scratchblocks2-container .boolean {
+  border: 2px solid;
+  padding: 2px 4px;
+}
+.scratchblocks2-container .reporter,
+.scratchblocks2-container .custom-arg {
+  padding: 3px 6px;
+  border-width: 2px;
+}
+.scratchblocks2-container .reporter,
+.scratchblocks2-container .custom-arg,
+.scratchblocks2-container .embedded,
+.scratchblocks2-container .boolean {
+  border-radius: 2000px;
+  -webkit-border-radius: 2000px;
+  -moz-border-radius: 2000px;
+}
+.scratchblocks2-container .arrow-cw,
+.scratchblocks2-container .arrow-ccw {
+  display: inline-block;
+  padding: 0;
+  vertical-align: middle;
+  width: 16px;
+  height: 13px;
+  background: url(block_images/arrows.png) 0 0 no-repeat;
+}
+.scratchblocks2-container .arrow-ccw {
+  background-position: 0 -13px;
+}
+.scratchblocks2-container .green-flag {
+  display: inline-block;
+  padding: 0;
+  vertical-align: bottom;
+  margin: 0 2px;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  background: url(block_images/flag.png) 0 0 no-repeat;
+  background-size: contain;
+}
+.scratchblocks2-container .comment {
+  float: left;
+}
+.scratchblocks2-container .comment div {
+  margin: 4px 0 1px 1px;
+  background: #ffffd2;
+  border: 1px solid #d0d1d2;
+  color: #505050;
+  line-height: 1.25em;
+  padding: 4px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  z-index: 103;
+}
+.scratchblocks2-container .comment.attached {
+  position: relative;
+  margin-left: 0 !important;
+}
+.scratchblocks2-container .comment.attached.to-hat {
+  margin-top: 16px;
+}
+.scratchblocks2-container .comment.attached.to-custom-definition {
+  margin-top: 26px;
+}
+.scratchblocks2-container .comment.attached.to-reporter {
+  float: none;
+  top: -2px;
+}
+.scratchblocks2-container .comment.attached div {
+  position: absolute;
+  margin: 0;
+}
+.scratchblocks2-container .comment.attached div:hover {
+  background: rgba(255, 255, 210, 0.6);
+}
+.scratchblocks2-container .comment.attached:before {
+  content: "";
+  display: block;
+  float: left;
+  margin-top: 10px;
+  height: 2px;
+  width: 32px;
+  background: #ffff80;
+}
