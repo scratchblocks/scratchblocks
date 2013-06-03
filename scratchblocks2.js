@@ -259,7 +259,6 @@ var scratchblocks2 = function ($) {
         }
 
         // HACK: "when distance < (20)" block
-        log([code.substr(0, index)])
         if (/^whendistance$/i.test(strip_block_text(code.substr(0, index)))) {
             return true; // don't parse as boolean
         }
