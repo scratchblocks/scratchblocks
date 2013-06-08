@@ -380,7 +380,9 @@
 
         // preview image
         var costume = sprite.costumes[sprite.currentCostumeIndex];
-        $("#costume-preview img").attr("src", asset_url(costume.baseLayerMD5));
+        if (costume && costume.baseLayerMD5) {
+            $("#costume-preview img").attr("src", asset_url(costume.baseLayerMD5));
+        }
 
         // scripts
         $("#scripts-list").empty();
