@@ -379,6 +379,7 @@ var scratchblocks2 = function ($) {
     function strip_block_text(text) {
         var map = diacritics_removal_map;
         text = text.replace(/[ ,%?:]/g, "").toLowerCase();
+        text = text.replace("\u00DF", "ss");
         for(var i=0; i<map.length; i++) {
             text = text.replace(map[i].letters, map[i].base);
         }
