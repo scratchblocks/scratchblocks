@@ -12,9 +12,7 @@
     <script type="text/javascript">
         less = {
             env: "development", // or "production"
-            fileAsync: false,   // load imports async when in a page under 
-                                // a file protocol
-            poll: 1000,          // when in watch mode, time in ms between polls
+            poll: 1000, // when in watch mode, time in ms between polls
             dumpLineNumbers: "all", // or "mediaQuery" or "all"
         };
     </script>
@@ -39,6 +37,30 @@
             $("#tester-status").html("LESS is now watching the file for \
                 changes: update the file on disk, and the styles will automatically \
                 reload here.");
+
+            // Load the blocks...
+            $("#tester-status").after('<p id="blocks-status">Loading blocks...');
+
+            var fnames = [
+                'blocks.txt',
+                'blocks_de.txt',
+                'blocks_pt_BR.txt'
+            ]
+            var block_files = fnames.length;
+
+            $.each(fnames, function (i, fname) {
+                $.get(fname, function (content) {
+                    scratchblocks2.blocks += "\n" + content;
+                    console.log('dev.html: Loaded '+fname);
+                    refresh();
+                    block_files -= 1;
+                    if (block_files === 0) $("#blocks-status").html('Loaded blocks.');
+                }).error(function () {
+                    console.log('dev.html: Error loading '+fname);
+                    $("#blocks-status").after('<p>Error loading '+fname)
+                                       .css({ color: 'red' });
+                });
+            });
         }
     });
     </script>
@@ -106,7 +128,9 @@
 
 <body>
     <h1>[scratchblocks]: dev</h1>
-    <p id="tester-status">You need to serve this page from a local web server.</p>
+
+    <p id="tester-status">You need to serve this page from a local web server.
+    </p>
 
     <textarea id="code"></textarea>
     
