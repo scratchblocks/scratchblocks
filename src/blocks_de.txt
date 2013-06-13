@@ -1,0 +1,285 @@
+/* The list of blocks, in scratchblocks format.
+ *
+ * Special values:
+    [list v] -- used to identify list dropdowns
+    [sqrt v] -- identifies math function, in the ([sqrt v] of ()) block
+ *
+ */
+
+## Motion ##
+gehe (10)er-Schritt
+drehe dich im Uhrzeigersinn um (15) Grad ## -turn-arrow
+drehe dich rechts um (15) Grad ## -turn-arrow
+drehe dich gegen den Uhrzeigersinn um (15) Grad ## -turn-arrow
+drehe dich links um (15) Grad ## -turn-arrow
+
+setze Richtung auf (90 v)
+drehe dich zu [ v]
+
+gehe zu x: (0) y: (0)
+gehe zu [mouse-pointer v]
+gleite in (1) sek. zu x: (0) y: (0)
+
+ändere x um (10)
+setze x auf (0)
+ändere y um (10)
+setze y auf (0)
+
+pralle vom Rand ab
+
+setzte Drehtyp auf [left-right v]
+
+(x-Position)
+(y-Position)
+(Richtung)
+
+
+
+## Looks ##
+sage [Hello!] für (2) Sek.
+sage [Hello!]
+denke [Hmm...] für (2) Sek.
+denke [Hmm...]
+
+zeige dich
+verstecke dich
+
+wechsle zu Kostüm [costume1 v]
+nächstes Kostüm
+wechsle zu Bühnenbild [backdrop1 v]
+
+ändere [color v]-Effekt um (25)
+setze [color v]-Effekt to (0)
+schalte Grafikeffekte aus
+
+ändere Größe um (10)
+setze Größe auf (100)%
+
+komme nach vorn
+gehe (1) Ebenen nach hinten
+
+(Kostümnummer)
+(Bühnenbildname)
+(Größe)
+
+## Stage-specific
+## Looks ##
+wechsle zu Bühnenbild [backdrop1 v] und warte
+nächstes Bühnenbild
+
+(Bühnenbildnummer)
+
+
+
+## Sound ##
+spiele Klang [pop v]
+spiele Klang [pop v] ganz
+stoppe alle Klänge
+
+spiele Schlagwerk (1 v) für (0.2) Schläge
+pausiere (0.2) Schläge
+
+spiele Ton (60 v) für (0.5) Schläge
+setze Instrument auf (1 v)
+
+ändere Lautstärke um (-10)
+setze Lautstärke auf (100)%
+(Lautstärke)
+
+ändere Tempo um (20)
+setze Tempo auf (60) Schläge/Minute
+(Tempo)
+
+
+
+## Pen ##
+wische Malspuren weg
+
+hinterlasse Abdruck
+
+schalte Stift ein
+schalte Stift aus
+
+setze Stiftfarbe auf [#f0f]
+ändere Stiftfarbe um (10)
+setze Stiftfarbe auf (0)
+
+ändere Farbstärke um (10)
+setze Farbstärke auf (50)
+
+ändere Stiftdicke um (1)
+setze Stiftdicke auf (1)
+
+
+
+## Variables ##
+setze [var v] auf [0]
+ändere [var v] um (1)
+zeige Variable [var v]
+verstecke Variable [var v]
+
+
+
+## List ##
+füge [thing] zu [list v]
+
+entferne (1 v) aus [list v]
+füge [thing] als (1 v) in [list v] ein
+ersetze (1 v) Element von [list v] durch [thing]
+
+(Element (1 v) von [list v])
+(Länge von [list v])
+<[list v] enthält [thing]>
+
+zeige Liste [list v]
+verstecke Liste [list v]
+
+
+
+## Events ##
+Wenn gf angeklickt ## hat -green-flag
+Wenn grüne Flagge angeklickt ## hat -green-flag
+Wenn Flagge angeklickt ## hat -green-flag
+Wenn Taste [space v] gedrückt ## hat
+Wenn dieses Objekt angeklickt ## hat
+Wenn das Bühnenbild zu [backdrop1 v] ## hat
+
+Wenn [loudness v] > (10) ## hat
+
+Wenn ich [message1 v] empfange ## hat
+sende [message1 v] an alle
+sende [message1 v] an alle und warte
+
+
+
+## Control ##
+warte (1) Sek.
+
+wiederhole (10) mal ## cstart
+wiederhole fortlaufend ## cstart cap
+falls <> dann ## ifblock cstart
+sonst ## celse
+ende ## cend
+warte bis <>
+wiederhole bis <> ## cstart  
+
+stoppe [all v] ## cap
+
+Wenn ich als Klon entstehe ## hat
+erzeuge Klon von [myself v]
+lösche diesen Klon ## cap
+
+
+
+## Sensing ##
+<wird [ v] berührt?>
+<wird Farbe [#f0f] berührt?>
+<Farbe [#f0f] berührt [#f0f]?>
+(Entfernung von [ v])
+
+Frage [What's your name?] und warte
+(Antwort)
+
+<Taste [space v] gedrückt?>
+<Maustaste gedrückt?>
+(Maus x-Position)
+(Maus y-Position)
+
+(Lautstärke)
+
+(Video [motion v] auf [this sprite v])
+schalte Video [on v]
+setze Video-Transparenz auf (50)%
+
+(Stoppuhr)
+setze Stoppuhr zurück
+
+([x-Position v] von [Sprite1 v])
+
+([minute v] im Moment)
+(Tage seit 2000)
+(Benutzername)
+(user id)
+
+
+
+## Operators ##
+(() + ())
+(() - ())
+(() * ())
+(() / ())
+
+(Zufallszahl von (1) bis (10))
+
+<[] < []>
+<[] = []>
+<[] > []>
+
+<<> und <>>
+<<> oder <>>
+<nicht <>>
+
+(verbinde [hello ] [world])
+(Zeichen (1) von [world])
+(Länge von [world])
+
+(() mod ())
+(() gerundet)
+
+([Wurzel v] von (9))
+
+
+
+## Purple ##
+Wenn [button pressed v] ## hat
+<Sensor [button pressed v]?>
+(Wert von Sensor [slider v])
+
+schalte Motor für (1) Sekunden an
+schalte Motor an
+schalte Motor aus
+setze Motorkraft auf (100)
+setze Motorrichtung auf [this way v]
+
+Wenn Abstand < (20) ## hat
+Wenn Neigung = (1) ## hat
+(Abstand)
+(Neigung)
+
+
+
+// Obsolete Scratch 1.4 blocks //
+
+## Looks ##
+ziehe Kostüm [costume1 v] an
+
+wechsle zum Hintergrund [background1 v]
+nächster Hintergrund
+(Hintergrund Nr.)
+
+
+
+## Control ##
+falls <> ## cstart
+wiederhole fortlaufend falls <> ## cstart cap  
+stoppe dieses Skript ## cap
+stoppe alles ## cap
+
+
+
+## Events ##
+Wenn angeklickt ## hat
+
+
+
+## Sensing ##
+<laut?>
+
+
+
+## Purple ##
+schalte Motor an
+schalte Motor aus
+schalte Motor für (1) Sekunden an
+setze Motorkraft auf (100)
+setze Motorrichtung auf [this way v]
