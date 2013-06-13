@@ -94,27 +94,3 @@ In summary, your directory layout should look something like this:
     scratchblocks2.css
     scratchblocks2.js
 
-
-# Development
-
-scratchblocks2 uses [jQuery](http://jquery.com/) and the
-[LESS](http://lesscss.org/) CSS preprocessor. Use the client-side version of
-LESS for development, and compile it using `lessc` when committing (the file
-`tester-dev.html` is set up to automatically watch the LESS file for changes).
-
-Pull requests welcome.
-
-How the parser works:
-
-* splits the code into lines
-* splits each line into *pieces*, where a piece is either text `"point in
-  direction"` or an insert `[mouse-pointer v]`
-* builds DOM elements using jQuery's `$("<div>")` syntax
-* calls the render function recursively to render the inserts
-* looks up the block's text in a database to get its color (category), using the
-  type of the inserts to resolve multiple matches
-
-The block database used for the categories is parsed from
-`scratchblocks2.blocks`, which is a simple list of blocks in the scratchblocks
-format itself. Modifying the value at runtime should cause the blocks database
-to automatically update.
