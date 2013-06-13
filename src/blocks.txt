@@ -1,3 +1,10 @@
+// The list of blocks, in scratchblocks format.
+//
+// Special values:
+//  [list v] -- used to identify list dropdowns
+//  [sqrt v] -- identifies math function, in the ([sqrt v] of ()) block
+//
+
 ## Motion ##
 move (10) steps
 turn cw (15) degrees ## -turn-arrow
@@ -240,7 +247,7 @@ when tilt = (1) ## hat
 
 
 
-## Obsolete Scratch 1.4 blocks
+// Obsolete Scratch 1.4 blocks
 
 
 ## Looks ##
