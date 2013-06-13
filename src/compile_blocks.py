@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-"""Compile JS by adding block definitions from blocks*.txt. Dumps output to
-stdout.
+"""Compile JS by adding block definitions from blocks*.txt, and extra JS from
+diacritics.js. Dumps output to stdout.
 
 """
 
@@ -30,3 +30,5 @@ js = open(relpath("scratchblocks2.js")).read()
 js = js.replace('scratchblocks2.blocks = "";',
                 'scratchblocks2.blocks = %s;' % json.dumps(blocks))
 print js
+
+print open(relpath("diacritics.js")).read()
