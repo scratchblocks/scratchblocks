@@ -18,13 +18,28 @@
             dumpLineNumbers: "all", // or "mediaQuery" or "all"
         };
     </script>
-    <script type="text/javascript" src="less.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.3.3/less.min.js"></script>
+
     <script type="text/javascript">
     $(document).ready(function() {
-        less.watch();
-        $("#tester-status").append("<br><br> LESS is now watching the file for \
-            changes: update the file on disk, and the styles will automatically \
-            reload here.");
+        $("#tester-status").css({ color: 'red' });
+
+        if (/file:\/\//.test(window.location)) {
+            // Warn we need localhost
+            $("#tester-status").css({ color: 'red' });
+
+        } else {
+            // In case of error
+            $("#tester-status").html("Couldn't load less.js");
+
+            less.watch();
+
+            // Success!
+            $("#tester-status").css({ color: '' });
+            $("#tester-status").html("LESS is now watching the file for \
+                changes: update the file on disk, and the styles will automatically \
+                reload here.");
+        }
     });
     </script>
     
@@ -91,8 +106,7 @@
 
 <body>
     <h1>[scratchblocks]: dev</h1>
-    <p id="tester-status">Drop <a href="http://lesscss.org/">less.js</a> into the same directory as this file.
-    You may need to serve this page from a local web server.</p>
+    <p id="tester-status">You need to serve this page from a local web server.</p>
 
     <textarea id="code"></textarea>
     
