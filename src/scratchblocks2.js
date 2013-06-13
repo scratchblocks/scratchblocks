@@ -1,3 +1,5 @@
+/*jslint bitwise: true, continue: true, plusplus: true, regexp: true, unparam: true, vars: true, browser: true, devel: true, indent: 4, maxerr: 100, maxlen: 80 */
+
 /*
  * scratchblocks2
  * http://github.com/blob8108/scratchblocks2
@@ -178,7 +180,8 @@ var scratchblocks2 = function ($) {
             chr = code[i];
             if (is_open_bracket(chr)) {
                 break; // might be an innocuous lt/gt!
-            } else if (chr !== " ") {
+            }
+            if (chr !== " ") {
                 return false; // something else => it's a bracket
             }
         }
@@ -187,7 +190,8 @@ var scratchblocks2 = function ($) {
             chr = code[i];
             if (is_close_bracket(chr)) {
                 break; // must be an innocuous lt/gt!
-            } else if (chr !== " ") {
+            }
+            if (chr !== " ") {
                 return false; // something else => it's a bracket
             }
         }
@@ -275,7 +279,9 @@ var scratchblocks2 = function ($) {
 
     /* Return the shape class for the given insert. */
     function get_arg_shape($arg) {
-        if (!$arg) return "";
+        if (!$arg) {
+            return "";
+        }
         var arg_shape;
         $.each(ARG_SHAPES, function (i, shape) {
             if ($arg.hasClass(cls(shape))) {
@@ -288,10 +294,11 @@ var scratchblocks2 = function ($) {
 
     /* Strip block text, for looking up in blocks db. */
     function strip_block_text(text) {
-        var map = diacritics_removal_map;
+        var map = diacritics_removal_map,
+            i;
         text = text.replace(/[ ,%?:]/g, "").toLowerCase();
         text = text.replace("\u00DF", "ss");
-        for(var i=0; i<map.length; i++) {
+        for (i = 0; i < map.length; i++) {
             text = text.replace(map[i].letters, map[i].base);
         }
         return text;
@@ -336,9 +343,9 @@ var scratchblocks2 = function ($) {
         var r = rgb[0],
             g = rgb[1],
             b = rgb[2];
-        r = parseInt(clamp(r * scale, 0, 255));
-        g = parseInt(clamp(g * scale, 0, 255));
-        b = parseInt(clamp(b * scale, 0, 255));
+        r = Math.round(clamp(r * scale, 0, 255));
+        g = Math.round(clamp(g * scale, 0, 255));
+        b = Math.round(clamp(b * scale, 0, 255));
         return [r, g, b];
     }
 
@@ -414,12 +421,16 @@ var scratchblocks2 = function ($) {
             // add block
             block = [classes, arg_shapes];
             if (db[text] === undefined) {
+                if (text == "") debugger;
                 db[text] = [];
             }
             db[text].push(block);
         });
 
         blocks_db = db;
+
+        // DEBUG
+        sb2.blocks_db = blocks_db;
 
         // keep a reference to the blocks definition, in case it changes.
         blocks_original = sb2.blocks;
@@ -473,7 +484,7 @@ var scratchblocks2 = function ($) {
                         if (arg_shape !== need_args[j]) {
                             if (need_args[j] === "math-function") {
                                 // check is valid math function
-                                var func =  $arg.text().replace(/[ ]/g, "")
+                                var func = $arg.text().replace(/[ ]/g, "")
                                         .toLowerCase();
                                 if ($.inArray(func, MATH_FUNCTIONS) === -1) {
                                     // can't find the argument!
@@ -942,8 +953,7 @@ var scratchblocks2 = function ($) {
             if (comment_text) {
                 if ($last_comment) {
                     $last_comment.children().text(
-                        $last_comment.children().text() + "\n"
-                        + comment_text
+                        $last_comment.children().text() + "\n" + comment_text
                     );
                 } else {
                     $comment = render_comment(comment_text);
@@ -1143,7 +1153,7 @@ var scratchblocks2 = function ($) {
      *
      */
     sb2.parse = function (selector) {
-        var selector = selector || "pre.blocks";
+        selector = selector || "pre.blocks";
 
         // find elements
         $(selector).each(function (i, el) {
@@ -1157,7 +1167,8 @@ var scratchblocks2 = function ($) {
                 $el.append($script);
             });
         });
-    }
+    };
+
 
     return sb2; // export the module
 }(jQuery);
