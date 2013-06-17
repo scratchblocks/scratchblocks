@@ -928,10 +928,6 @@ var scratchblocks2 = function ($) {
         for (i = 0; i < lines.length; i++) {
             line = lines[i];
 
-            if (!line) {
-                continue;
-            }
-
             // empty lines separate stacks
             if (line.trim() === "" && nesting === 0) {
                 new_script();
