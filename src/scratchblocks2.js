@@ -928,6 +928,10 @@ var scratchblocks2 = function ($) {
         for (i = 0; i < lines.length; i++) {
             line = lines[i];
 
+            if (!line) {
+                continue;
+            }
+
             // empty lines separate stacks
             if (line.trim() === "" && nesting === 0) {
                 new_script();
@@ -1158,7 +1162,8 @@ var scratchblocks2 = function ($) {
         // find elements
         $(selector).each(function (i, el) {
             var $el = $(el),
-                code = $el.text(),
+                code = $('<pre>' +
+                    $el.html().replace(/<br>\s?|\n/ig, '\n') + '</pre>').text(),
                 scripts = render(code);
 
             $el.text("");
