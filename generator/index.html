@@ -1,623 +1,612 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf8">
-    <title>[scratchblocks] generator</title>
-
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script> 
-
-    <link rel="stylesheet" type="text/css" href="../scratchblocks2.css">
-    <script type="text/javascript" src="../scratchblocks2.js"></script>
-    <script type="text/javascript" src="generator.js"></script>
-      
-    <style type="text/css">
-    body {
-        margin: 0;
-        padding-bottom: 2em;
-        font-family: sans-serif;
-    }
-    input, button {
-        font-size: 1em;
-        font-family: inherit;
-    }
-    textarea {
-        font-size: 1em;
-        margin-bottom: 1em;
-        min-width: 30em;
-        min-height: 15em;
-    }
-    label {
-        font-weight: bold;
-        cursor: pointer;
-    }
-    h1 {
-        font-family: monospace;
-        font-size: 1.5em;
-        font-weight: bold;
-        margin: 0 0 0.666666666em;
-    }
-    a {
-        text-decoration: none;
-        color: #118;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-    button, .button {
-        display: inline-block;
-        font-size: 1.25em;
-        margin-bottom: 1em;
-        padding: 2px 4px;
-        color: black;
-        border: 1px solid #444;
-        background: #ccc;
-        box-shadow: 0 1px 1px #888;
-        cursor: default;
-    }
-    .button.disabled {
-        color: #aaa;
-    }
-    a:active, button:active, .button.disabled {
-        position: relative;
-        top: 1px;
-        box-shadow: none;
-    }
-    .button, .button:hover {
-        text-decoration: none;
-    }
-    hr {
-        border: 1px solid #bbb;
-    }
-
-
-    /* Row */
-
-    #header, #wrap, #sprites-list-wrap, #intro {
-        position: absolute;
-        overflow: hidden;
-        left: 0;
-        right: 0;
-        padding: 1em;
-    }
-
-
-    /* Column */
-
-    #left-pane, #sprite-detail, #intro {
-        position: absolute;
-        overflow: hidden;
-        overflow-y: auto;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        padding: 2em;
-    }
-
-
-    /* Intro pane */
-
-    #intro {
-        z-index: 201;
-        background: #fff;
-        padding: 1em 2em;
-    }
-    .hidden {
-        display: none;
-    }
-
-
-    /* Header stuff */
-
-    #header {
-        height: 7em;
-        border-bottom: 2px solid #bbb;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-shadow: 0 10px 20px #fff;
-        z-index: 202;
-        padding: 1em 2em;
-    }
-
-
-    #project-url {
-        width: 24em;
-    }
-    #fetch {
-        margin: 0;
-    }
-    #status {
-        display: inline-block;
-        margin-left: 0.5em;
-    }
-    #me {
-        color: black;
-        font-weight: bold;
-        margin-top: 0.5em;
-        font-size: 0.8em;
-    }
-    #bookmarklet {
-        background: #888;
-        color: #fff;
-        border-radius: 1em;
-        text-decoration: none;
-        padding: 0.125em 0.25em;
-        font-size: 0.9em;
-    }
-
-
-    #wrap {
-        top: 7em;
-        bottom: 0;
-    }
-
-
-    /* Left pane */
-    
-    #left-pane {
-        width: 8em;
-        left: 0;
-    }
-    #sprites-list-wrap {
-        overflow-y: auto;
-        top: 10em;
-        bottom: 2em;
-        margin: 0 2em;
-        padding: 0;
-        border: 1px solid #888;
-    }
-    #sprites-list {
-        font-family: "Lucida Grande", Verdana, Arial, "DejaVu Sans", sans-serif;
-        border-right: 0.5em solid #4ca6fb;
-        min-height: 2em;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        cursor: default;
-        min-height: 100%;
-    }
-    #sprites-list > li {
-        padding: 0.125em 0.5em;
-        border-bottom: 1px solid #eee;
-    }
-    #sprites-list > li.selected {
-        background: #4ca6fb;
-    }
-
-
-    #chosen-scripts-info {
-    }
-    #num-chosen-scripts {
-        font-size: 2em;
-        float: left;
-        margin-right: 0.25em;
-    }
-    #export {
-        clear: both;
-    }
-
-
-    /* Right pane */
-
-    #sprite-detail {
-        left: 10em;
-        right: 0;
-    }
-    #sprite-info {
-        overflow: hidden; // clearfix
-    }
-
-
-    #sprite-name {
-        float: left;
-        font-size: 1.5em;
-        margin: 0 1.2222222em;
-    }
-    #costume-preview {
-        float: left;
-        width: 6em;
-        height: 6em;
-        border: 1px solid #888;
-    }
-    #costume-preview img {
-        width: 100%;
-    }
-
-
-    #scripts-list {
-        padding-top: 1em;
-    }
-    #scripts-list pre {
-        overflow: auto;
-        border: none;
-        background: none;
-        margin: 0;
-        padding: 3px 0 2rem 2px;
-    }
-    .script-wrap {
-        position: relative;
-    }
-    .script-wrap label {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 200;
-        width: 4em;
-        height: 4em;
-    }
-    .script-wrap input {
-        height: 2em;
-        margin-left: 1em;
-        cursor: pointer;
-    }
-    </style>
-
-    <script type="text/javascript">
-    var current_id,
-        selected_sprite,
-        sprites,
-        fetching = false,
-        scripts_by_id,
-        chosen_scripts;
-
-    function asset_url (md5) {
-        return "http://scratch.mit.edu/internalapi/asset/" + md5 + "/get/";
-    }
-    
-    function id_from_url (url) {
-        url = url.replace("http://beta.", "http://");
-        if (!/http:\/\//.test(url)) {
-            url = "http://" + url;
-        }
-        if (/http:\/\/scratch.mit.edu\/projects\/[0-9]+(\/(#editor|#player)?)?/
-                .test(url)) {
-            return url.substr(32).replace("/", "")
-                .replace(/#editor|#player/, "");
-        }
-    }
-
-    function fetch (id) {
-        $("#project-url").attr("value",
-            "http://scratch.mit.edu/projects/"+id);
-        current_id = id;
-
-        var fetch_url = "http://www.corsproxy.com/" + 
-            "scratch.mit.edu/internalapi/project/" + id + "/get/";
-
-        clear_project();
-
-        fetching = true;
-
-        $("#status").text("Fetching...");
-
-        $.getJSON(fetch_url, function (response) {
-            $("#status").text("Loading...");
-            load_project(response);
-            $("#status").text("Done!");
-            fetching = false;
-            window.project = response; // DEBUG
-        }).error(function (e) {
-            $("#status").text("Error: "+e.statusText);
-            fetching = false;
-            check_hash();
-        });
-    }
-
-    function clear_project () {
-        $("#sprites-list").empty();
-        $("#sprite-name").empty();
-        $("#costume-preview img").attr("src", "");
-        $("#scripts-list").empty();
-        $("#export").addClass("disabled");
-        $("#export").attr("href", "");
-    }
-
-    function load_project (project) {
-        var sprites_list = [project] // stage
-            .concat(project.children);
-        
-        sprites_list = $.grep(sprites_list, function (sprite, i) {
-            return sprite.hasOwnProperty("objName");
-        });
-
-        // clear stuff
-        sprites = {};
-        scripts_by_id = {};
-        chosen_scripts = [];
-        chosen_scripts_updated();
-
-        $.each(sprites_list, function (i, sprite) {
-            var name = sprite.objName;
-            $("#sprites-list").append(
-                $("<li>")
-                    .text(name)
-                    .attr("id", "sprite-"+i)
-                    .click(function () {
-                        show_sprite(i);
-                    })
-            );
-
-            sprites[i] = sprite;
-        });
-
-        
-        selected_sprite = 0;
-
-        var hash = decodeURIComponent((location.href.split("#")[1] || ""));
-        var result = /sprite=([0-9]+)/.exec(hash);
-        if (result) {
-            var selected_sprite = result[1];
-        }
-
-        $("#intro").addClass("hidden");
-
-        show_sprite(selected_sprite);
-        update_edit_link();
-
-        check_hash();
-    }
-
-    function show_sprite (i) {
-        if (!sprites || !i in sprites) {
-            return;
-        }
-
-        var sprite = sprites[i];
-        if (!sprite) {
-            return;
-        }
-
-        var name = sprite.objName;
-
-        selected_sprite = i;
-        location.hash = "#project="+current_id; //+"&sprite="+i
-    
-        // select list item
-        $("#sprites-list .selected").removeClass("selected");
-        $("#sprite-"+i).addClass("selected");
-
-        // title
-        $("#sprite-name").text(name);
-
-        // preview image
-        var costume = sprite.costumes[sprite.currentCostumeIndex];
-        if (costume && costume.baseLayerMD5) {
-            $("#costume-preview img").attr("src", asset_url(costume.baseLayerMD5));
-        }
-
-        // scripts
-        $("#scripts-list").empty();
-        if (!sprite.scripts) {
-            $("#scripts-list").append("<p>No scripts.</p>")
-        } else {
-            var highest_script_id = 1;
-            var scripts = sprite.scripts;
-
-            /* sort by y position */
-            scripts = scripts.sort(function (a, b) {
-                return a[1] - b[1];
-            });
-
-            $.each(scripts, function (i, script) {
-                var code = gen.generate(script);
-
-                $script_wrap = $("<div class=script-wrap>");
-                $("#scripts-list").append($script_wrap);
-
-                $script_wrap.append($("<pre class=blocks>").text(code));
-
-                var id = "script-"+ highest_script_id;
-                var checkbox = $("<input type=checkbox id="+id+">");
-                checkbox.change(function (e) {
-                    var script_id = selected_sprite + "-" +
-                            $(this).attr("id").substr(7);
-
-                    if ($(this).is(":checked")) {
-                        chosen_scripts.push(script_id);
-                    } else {
-                        var index = chosen_scripts.indexOf(script_id);
-                        if (index > -1) {
-                            chosen_scripts.splice(index, 1);
-                        }
-                    }
-                    chosen_scripts_updated();
-                });
-                $script_wrap.append($("<label for="+id+">").append(checkbox));
-
-                var key = selected_sprite + "-" + highest_script_id;
-                scripts_by_id[key] = code;
-
-                if (chosen_scripts.indexOf(key) > -1) {
-                    checkbox.prop('checked', true);
-                }
-
-                highest_script_id += 1;
-            });
-        }
-
-        scratchblocks2.parse();
-
-        // DEBUG
-        window.sprite = sprite;
-    }
-
-    function chosen_scripts_updated () {
-        $("#num-chosen-scripts").text(chosen_scripts.length);
-        if (chosen_scripts.length) {
-            var code = export_code();
-            var url = "http://blob8108.github.io/scratchblocks2/#";
-            url += encodeURIComponent(code);
-            $("#export").attr("href", url);
-            $("#export").removeClass("disabled");
-        } else {
-            $("#export").attr("href", null);
-            $("#export").addClass("disabled");
-        }
-    }
-
-    function export_code () {
-        out = "";
-        $.each(chosen_scripts, function (i, id) {
-            out += scripts_by_id[id];
-            out += "\n\n";
-        });
-        return out.trim();
-    }
-   
-    function init_fetch () {
-        var id = id_from_url($("#project-url").attr("value"));
-        if (id) {
-            location.hash = "#project="+id;
-            fetch(id);
-        } else {
-            $("#status").text("Invalid URL");
-        }
-
-        update_edit_link();
-    }
-
-    function check_hash() {
-        if (fetching) return;
-
-        var hash = decodeURIComponent((location.href.split("#")[1] || ""));
-
-        var result = /url=([^&]*)/.exec(hash);
-        if (result) {
-            $("#project-url").attr("value", decodeURIComponent(result[1]));
-            init_fetch();
-            return;
-        }
-
-        var result = /project=([0-9]+)/.exec(hash);
-        if (result) {
-            if (result[1] != current_id) {
-                fetch(result[1]);
-            }
-        }
-
-        var result = /sprite=([0-9]+)/.exec(hash);
-        if (result) {
-            if (result[1] != selected_sprite) {
-                show_sprite(result[1]);
-            }
-        }
-
-        window.setTimeout(check_hash, 500);
-    }
-
-    var default_edit_link;
-    function update_edit_link() {
-        if (!default_edit_link) {
-            default_edit_link = $("#edit-link").attr("href");
-        }
-        var url = $("#project-url").attr("value");
-        if (url) {
-            $("#edit-link").attr("href", url);
-        } else {
-            $("#edit-link").attr("href", default_edit_link);
-        }
-    }
-
-    $(document).ready(function () {   
-        $("#fetch").click(function (e) {
-            init_fetch();
-        });
-
-        $("#project-url").keypress(function (e) {
-            if (e.which == 13) {
-                init_fetch();
-            }
-
-            update_edit_link();
-        });
-
-        $(document).bind("keydown", function (e) {
-            if (e.ctrlKey) {
-                console.log(e.which);
-                switch (e.which) {
-                    case 38:
-                        show_sprite(selected_sprite - 1);
-                        e.preventDefault();
-                        return false;
-
-                    case 40:
-                        show_sprite(selected_sprite + 1);
-                        e.preventDefault();
-                        return false;
-                }
-
-            }
-        });
-
-        $("#clear").click(function (e) {
-            $("#project-url").attr("value", "");
-            update_edit_link();
-            clear_project();
-            $("#intro").removeClass("hidden");
-        });
-
-        clear_project(); // make sure we start fresh
-
-        check_hash();
+<meta charset="utf8">
+<title>[scratchblocks] generator</title>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js">
+</script> 
+
+<link rel="stylesheet" href="../scratchblocks2.css">
+<script src="../scratchblocks2.js"></script>
+<script src="generator.js"></script>
+  
+<style>
+body {
+  margin: 0;
+  padding-bottom: 2em;
+  font-family: sans-serif;
+}
+input, button {
+  font-size: 1em;
+  font-family: inherit;
+}
+textarea {
+  font-size: 1em;
+  margin-bottom: 1em;
+  min-width: 30em;
+  min-height: 15em;
+}
+label {
+  font-weight: bold;
+  cursor: pointer;
+}
+h1 {
+  font-family: monospace;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0 0 0.666666666em;
+}
+a {
+  text-decoration: none;
+  color: #118;
+}
+a:hover {
+  text-decoration: underline;
+}
+button, .button {
+  display: inline-block;
+  font-size: 1.25em;
+  margin-bottom: 1em;
+  padding: 2px 4px;
+  color: black;
+  border: 1px solid #444;
+  background: #ccc;
+  box-shadow: 0 1px 1px #888;
+  cursor: default;
+}
+.button.disabled {
+  color: #aaa;
+}
+a:active, button:active, .button.disabled {
+  position: relative;
+  top: 1px;
+  box-shadow: none;
+}
+.button, .button:hover {
+  text-decoration: none;
+}
+hr {
+  border: 1px solid #bbb;
+}
+
+
+/* Row */
+
+#header, #wrap, #sprites-list-wrap, #intro {
+  position: absolute;
+  overflow: hidden;
+  left: 0;
+  right: 0;
+  padding: 1em;
+}
+
+
+/* Column */
+
+#left-pane, #sprite-detail, #intro {
+  position: absolute;
+  overflow: hidden;
+  overflow-y: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 2em;
+}
+
+
+/* Intro pane */
+
+#intro {
+  z-index: 201;
+  background: #fff;
+  padding: 1em 2em;
+}
+.hidden {
+  display: none;
+}
+
+
+/* Header stuff */
+
+#header {
+  height: 7em;
+  border-bottom: 2px solid #bbb;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-shadow: 0 10px 20px #fff;
+  z-index: 202;
+  padding: 1em 2em;
+}
+
+
+#project-url {
+  width: 24em;
+}
+#fetch {
+  margin: 0;
+}
+#status {
+  display: inline-block;
+  margin-left: 0.5em;
+}
+#me {
+  color: black;
+  font-weight: bold;
+  margin-top: 0.5em;
+  font-size: 0.8em;
+}
+#bookmarklet {
+  background: #888;
+  color: #fff;
+  border-radius: 1em;
+  text-decoration: none;
+  padding: 0.125em 0.25em;
+  font-size: 0.9em;
+}
+
+
+#wrap {
+  top: 7em;
+  bottom: 0;
+}
+
+
+/* Left pane */
+
+#left-pane {
+  width: 8em;
+  left: 0;
+}
+#sprites-list-wrap {
+  overflow-y: auto;
+  top: 10em;
+  bottom: 2em;
+  margin: 0 2em;
+  padding: 0;
+  border: 1px solid #888;
+}
+#sprites-list {
+  font-family: "Lucida Grande", Verdana, Arial, "DejaVu Sans", sans-serif;
+  border-right: 0.5em solid #4ca6fb;
+  min-height: 2em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  cursor: default;
+  min-height: 100%;
+}
+#sprites-list > li {
+  padding: 0.125em 0.5em;
+  border-bottom: 1px solid #eee;
+}
+#sprites-list > li.selected {
+  background: #4ca6fb;
+}
+
+
+#chosen-scripts-info {
+}
+#num-chosen-scripts {
+  font-size: 2em;
+  float: left;
+  margin-right: 0.25em;
+}
+#export {
+  clear: both;
+}
+
+
+/* Right pane */
+
+#sprite-detail {
+  left: 10em;
+  right: 0;
+}
+#sprite-info {
+  overflow: hidden; // clearfix
+}
+
+
+#sprite-name {
+  float: left;
+  font-size: 1.5em;
+  margin: 0 1.2222222em;
+}
+#costume-preview {
+  float: left;
+  width: 6em;
+  height: 6em;
+  border: 1px solid #888;
+}
+#costume-preview img {
+  width: 100%;
+}
+
+
+#scripts-list {
+  padding-top: 1em;
+}
+#scripts-list pre {
+  overflow: auto;
+  border: none;
+  background: none;
+  margin: 0;
+  padding: 3px 0 2rem 2px;
+}
+.script-wrap {
+  position: relative;
+}
+.script-wrap label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  width: 4em;
+  height: 4em;
+}
+.script-wrap input {
+  height: 2em;
+  margin-left: 1em;
+  cursor: pointer;
+}
+</style>
+
+<script>
+var current_id,
+  selected_sprite,
+  sprites,
+  fetching = false,
+  scripts_by_id,
+  chosen_scripts;
+
+function asset_url (md5) {
+  return "http://scratch.mit.edu/internalapi/asset/" + md5 + "/get/";
+}
+
+function id_from_url (url) {
+  url = url.replace("http://beta.", "http://");
+  if (!/http:\/\//.test(url)) {
+    url = "http://" + url;
+  }
+  if (/http:\/\/scratch.mit.edu\/projects\/[0-9]+(\/(#editor|#player)?)?/
+      .test(url)) {
+    return url.substr(32).replace("/", "")
+      .replace(/#editor|#player/, "");
+  }
+}
+
+function fetch (id) {
+  $("#project-url").attr("value",
+    "http://scratch.mit.edu/projects/"+id);
+  current_id = id;
+
+  var fetch_url = "http://www.corsproxy.com/" + 
+    "scratch.mit.edu/internalapi/project/" + id + "/get/";
+
+  clear_project();
+
+  fetching = true;
+
+  $("#status").text("Fetching...");
+
+  $.getJSON(fetch_url, function (response) {
+    $("#status").text("Loading...");
+    load_project(response);
+    $("#status").text("Done!");
+    fetching = false;
+    window.project = response; // DEBUG
+  }).error(function (e) {
+    $("#status").text("Error: "+e.statusText);
+    fetching = false;
+    check_hash();
+  });
+}
+
+function clear_project () {
+  $("#sprites-list").empty();
+  $("#sprite-name").empty();
+  $("#costume-preview img").attr("src", "");
+  $("#scripts-list").empty();
+  $("#export").addClass("disabled");
+  $("#export").attr("href", "");
+}
+
+function load_project (project) {
+  var sprites_list = [project] // stage
+    .concat(project.children);
+  
+  sprites_list = $.grep(sprites_list, function (sprite, i) {
+    return sprite.hasOwnProperty("objName");
+  });
+
+  // clear stuff
+  sprites = {};
+  scripts_by_id = {};
+  chosen_scripts = [];
+  chosen_scripts_updated();
+
+  $.each(sprites_list, function (i, sprite) {
+    var name = sprite.objName;
+    $("#sprites-list").append(
+      $("<li>")
+        .text(name)
+        .attr("id", "sprite-"+i)
+        .click(function () {
+          show_sprite(i);
+        })
+    );
+
+    sprites[i] = sprite;
+  });
+
+  
+  selected_sprite = 0;
+
+  var hash = decodeURIComponent((location.href.split("#")[1] || ""));
+  var result = /sprite=([0-9]+)/.exec(hash);
+  if (result) {
+    var selected_sprite = result[1];
+  }
+
+  $("#intro").addClass("hidden");
+
+  show_sprite(selected_sprite);
+  update_edit_link();
+
+  check_hash();
+}
+
+function show_sprite (i) {
+  if (!sprites || !i in sprites) {
+    return;
+  }
+
+  var sprite = sprites[i];
+  if (!sprite) {
+    return;
+  }
+
+  var name = sprite.objName;
+
+  selected_sprite = i;
+  location.hash = "#project="+current_id; //+"&sprite="+i
+
+  // select list item
+  $("#sprites-list .selected").removeClass("selected");
+  $("#sprite-"+i).addClass("selected");
+
+  // title
+  $("#sprite-name").text(name);
+
+  // preview image
+  var costume = sprite.costumes[sprite.currentCostumeIndex];
+  if (costume && costume.baseLayerMD5) {
+    $("#costume-preview img").attr("src", asset_url(costume.baseLayerMD5));
+  }
+
+  // scripts
+  $("#scripts-list").empty();
+  if (!sprite.scripts) {
+    $("#scripts-list").append("<p>No scripts.</p>")
+  } else {
+    var highest_script_id = 1;
+    var scripts = sprite.scripts;
+
+    /* sort by y position */
+    scripts = scripts.sort(function (a, b) {
+      return a[1] - b[1];
     });
-    </script>
-</head>
 
-<body>
-    <div id="header">
-        <h1>[scratchblocks] generator</h1>
+    $.each(scripts, function (i, script) {
+      var code = gen.generate(script);
 
-        <div id="url-form">
-            <label for="project-url">Project URL:</label>
-            <input id="project-url" type="url" size="50"
-                value="http://scratch.mit.edu/projects/">
+      $script_wrap = $("<div class=script-wrap>");
+      $("#scripts-list").append($script_wrap);
 
-            <a id="clear" href="#">clear</a>
-            <button id="fetch">Fetch</button>
-            <a id="edit-link" href="http://scratch.mit.edu/mystuff/">edit→</a>
-            <b id="status"></b>
-        </div>
+      $script_wrap.append($("<pre class=blocks>").text(code));
+
+      var id = "script-"+ highest_script_id;
+      var checkbox = $("<input type=checkbox id="+id+">");
+      checkbox.change(function (e) {
+        var script_id = selected_sprite + "-" +
+            $(this).attr("id").substr(7);
+
+        if ($(this).is(":checked")) {
+          chosen_scripts.push(script_id);
+        } else {
+          var index = chosen_scripts.indexOf(script_id);
+          if (index > -1) {
+            chosen_scripts.splice(index, 1);
+          }
+        }
+        chosen_scripts_updated();
+      });
+      $script_wrap.append($("<label for="+id+">").append(checkbox));
+
+      var key = selected_sprite + "-" + highest_script_id;
+      scripts_by_id[key] = code;
+
+      if (chosen_scripts.indexOf(key) > -1) {
+        checkbox.prop('checked', true);
+      }
+
+      highest_script_id += 1;
+    });
+  }
+
+  scratchblocks2.parse();
+
+  // DEBUG
+  window.sprite = sprite;
+}
+
+function chosen_scripts_updated () {
+  $("#num-chosen-scripts").text(chosen_scripts.length);
+  if (chosen_scripts.length) {
+    var code = export_code();
+    var url = "http://blob8108.github.io/scratchblocks2/#";
+    url += encodeURIComponent(code);
+    $("#export").attr("href", url);
+    $("#export").removeClass("disabled");
+  } else {
+    $("#export").attr("href", null);
+    $("#export").addClass("disabled");
+  }
+}
+
+function export_code () {
+  out = "";
+  $.each(chosen_scripts, function (i, id) {
+    out += scripts_by_id[id];
+    out += "\n\n";
+  });
+  return out.trim();
+}
+
+function init_fetch () {
+  var id = id_from_url($("#project-url").attr("value"));
+  if (id) {
+    location.hash = "#project="+id;
+    fetch(id);
+  } else {
+    $("#status").text("Invalid URL");
+  }
+
+  update_edit_link();
+}
+
+function check_hash() {
+  if (fetching) return;
+
+  var hash = decodeURIComponent((location.href.split("#")[1] || ""));
+
+  var result = /url=([^&]*)/.exec(hash);
+  if (result) {
+    $("#project-url").attr("value", decodeURIComponent(result[1]));
+    init_fetch();
+    return;
+  }
+
+  var result = /project=([0-9]+)/.exec(hash);
+  if (result) {
+    if (result[1] != current_id) {
+      fetch(result[1]);
+    }
+  }
+
+  var result = /sprite=([0-9]+)/.exec(hash);
+  if (result) {
+    if (result[1] != selected_sprite) {
+      show_sprite(result[1]);
+    }
+  }
+
+  window.setTimeout(check_hash, 500);
+}
+
+var default_edit_link;
+function update_edit_link() {
+  if (!default_edit_link) {
+    default_edit_link = $("#edit-link").attr("href");
+  }
+  var url = $("#project-url").attr("value");
+  if (url) {
+    $("#edit-link").attr("href", url);
+  } else {
+    $("#edit-link").attr("href", default_edit_link);
+  }
+}
+
+$(document).ready(function () {   
+  $("#fetch").click(function (e) {
+    init_fetch();
+  });
+
+  $("#project-url").keypress(function (e) {
+    if (e.which == 13) {
+      init_fetch();
+    }
+
+    update_edit_link();
+  });
+
+  $(document).bind("keydown", function (e) {
+    if (e.ctrlKey) {
+      console.log(e.which);
+      switch (e.which) {
+        case 38:
+          show_sprite(selected_sprite - 1);
+          e.preventDefault();
+          return false;
+
+        case 40:
+          show_sprite(selected_sprite + 1);
+          e.preventDefault();
+          return false;
+      }
+
+    }
+  });
+
+  $("#clear").click(function (e) {
+    $("#project-url").attr("value", "");
+    update_edit_link();
+    clear_project();
+    $("#intro").removeClass("hidden");
+  });
+
+  clear_project(); // make sure we start fresh
+
+  check_hash();
+});
+</script>
+
+
+
+<div id="header">
+  <h1>[scratchblocks] generator</h1>
+
+  <div id="url-form">
+    <label for="project-url">Project URL:</label>
+    <input id="project-url" type="url" size="50"
+      value="http://scratch.mit.edu/projects/">
+
+    <a id="clear" href="#">clear</a>
+    <button id="fetch">Fetch</button>
+    <a id="edit-link" href="http://scratch.mit.edu/mystuff/">edit→</a>
+    <b id="status"></b>
+  </div>
+</div>
+
+<div id="wrap">
+  <div id="left-pane">
+    <p><b><span id="num-chosen-scripts">0</span> scripts selected</b>
+    <p><a class="button" id="export">Get Code</a>
+    </p>
+    <div id="sprites-list-wrap"><ul id="sprites-list"></ul></div>
+  </div>
+
+  <div id="intro">
+    <p> Get <code>scratchblocks</code> code from your projects for pasting into
+    <a href="http://scratch.mit.edu/forums/viewtopic.php?id=90403">Scratch
+    Forum</a> posts or <a href="http://wiki.scratch.mit.edu/wiki/Block_Plugin">
+    Scratch Wiki</a> articles.
+
+    <p>Handy bookmarklet: <a id="bookmarklet"
+      href="javascript:location.href='http://blob8108.github.io/scratchblocks2/generator/#url='+encodeURIComponent(location.href);">Scratchblocks</a>
+    <i>(just drag to your bookmarks bar — use on any 2.0 project)</i>
+
+    <p><a id="me" href="http://scratch.mit.edu/users/blob8108">~blob8108</a>
+
+    </p>
+  </div>
+
+  <div id="sprite-detail">
+    <div id="sprite-info">
+      <div id="costume-preview"><img></div>
+      <h2 id="sprite-name"></h2>
     </div>
- 
-    <div id="wrap">
-        <div id="left-pane">
-            <p>
-                <b><span id="num-chosen-scripts">0</span> scripts selected</b>
-            </p>
-            <p>
-                <a class="button" id="export">Get Code</a>
-            </p>
-            <div id="sprites-list-wrap"><ul id="sprites-list"></ul></div>
-        </div>
-
-        <div id="intro">
-            <p>
-                Get <code>scratchblocks</code> code from your projects for pasting into
-                <a href="http://scratch.mit.edu/forums/viewtopic.php?id=90403">Scratch
-                Forum</a> posts or
-                <a href="http://wiki.scratch.mit.edu/wiki/Block_Plugin">Scratch Wiki</a>
-                articles.
-
-            </p>
-
-            <p>Handy bookmarklet:
-                <a id="bookmarklet"
-                    href="javascript:location.href='http://blob8108.github.io/scratchblocks2/generator/#url='+encodeURIComponent(location.href);">Scratchblocks</a>
-                <i>(just drag to your bookmarks bar — use on any 2.0 project)</i>
-            </p>
-
-            <p>
-                <a id="me"
-                    href="http://scratch.mit.edu/users/blob8108">~blob8108</a>
-            </p>
-        </div>
-
-        <div id="sprite-detail">
-            <div id="sprite-info">
-                <div id="costume-preview"><img></div>
-                <h2 id="sprite-name"></h2>
-            </div>
-            <div id="scripts-list"></div>
-        </div>
-    </div>
+    <div id="scripts-list"></div>
+  </div>
+</div>
 </body>
 </html>
