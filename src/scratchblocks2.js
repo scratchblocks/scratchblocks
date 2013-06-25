@@ -1031,6 +1031,12 @@ var scratchblocks2 = function ($) {
                             $comment = null; // don't start multi-line comment
                         }
 
+                        // check for cap blocks at end of cmouth
+                        $cmouth = $cwrap.find("."+cls("cmouth"))
+                        if ($cmouth.find("> :last-child").hasClass("cap")) {
+                            $block.addClass(cls("capend"));
+                        }
+
                         $cmouth = $("<div>").addClass(cls("cmouth"));
                         $cwrap.append($cmouth);
                         $current = $cmouth;

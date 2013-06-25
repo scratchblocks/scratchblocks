@@ -354,8 +354,10 @@
     }
 
     .cwrap {
-        .cend.capend:before {
-            content: none;
+        .cend, .celse {
+            &.capend:before {
+                content: none;
+            }
         }
 
         &.cap > .cend:after {

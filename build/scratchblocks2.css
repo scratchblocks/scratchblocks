@@ -629,7 +629,8 @@
 .scratchblocks2-container .cap:after {
   content: none;
 }
-.scratchblocks2-container .cwrap .cend.capend:before {
+.scratchblocks2-container .cwrap .cend.capend:before,
+.scratchblocks2-container .cwrap .celse.capend:before {
   content: none;
 }
 .scratchblocks2-container .cwrap.cap > .cend:after {
