@@ -553,6 +553,9 @@
 .scratchblocks2-container .dropdown {
   border: 2px solid;
 }
+.scratchblocks2-container .boolean.empty {
+  padding: 1px 10px;
+}
 .scratchblocks2-container .stack {
   min-width: 36px;
 }

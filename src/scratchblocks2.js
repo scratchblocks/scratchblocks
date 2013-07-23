@@ -517,7 +517,9 @@ var scratchblocks2 = function ($) {
         // HACK: scratch 1.4 "when ... clicked" block
         if (block === undefined) {
             if (/^when.*clicked$/.test(text)) {
-                block = blocks["whenthisspriteclicked"][0];
+                if (blocks["whenthisspriteclicked"]) {
+                    block = blocks["whenthisspriteclicked"][0];
+                }
             }
         }
 
