@@ -354,8 +354,8 @@ function load_project (project) {
 
   check_hash();
 
-  ga.push(['_trackPageview',
-           location.pathname + location.search + location.hash]);
+  _gaq.push(['_trackPageview',
+             location.pathname + location.search + location.hash]);
 }
 
 function show_sprite (i) {

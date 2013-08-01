@@ -149,8 +149,8 @@ function refresh () {
 
   scratchblocks2.parse("pre.blocks");
 
-  ga.push(['_trackPageview',
-           location.pathname + location.search + location.hash]);
+  _gaq.push(['_trackPageview',
+             location.pathname + location.search + location.hash]);
 }
 
 function checkHash() {
