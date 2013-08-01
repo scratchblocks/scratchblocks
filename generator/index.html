@@ -3,12 +3,12 @@
 <title>[scratchblocks] generator</title>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js">
-</script> 
+</script>
 
 <link rel="stylesheet" href="../scratchblocks2.css">
 <script src="../scratchblocks2.js"></script>
 <script src="generator.js"></script>
-  
+
 <style>
 body {
   margin: 0;
@@ -279,7 +279,7 @@ function fetch (id) {
     "http://scratch.mit.edu/projects/"+id);
   current_id = id;
 
-  var fetch_url = "http://www.corsproxy.com/" + 
+  var fetch_url = "http://www.corsproxy.com/" +
     "scratch.mit.edu/internalapi/project/" + id + "/get/";
 
   clear_project();
@@ -313,7 +313,7 @@ function clear_project () {
 function load_project (project) {
   var sprites_list = [project] // stage
     .concat(project.children);
-  
+
   sprites_list = $.grep(sprites_list, function (sprite, i) {
     return sprite.hasOwnProperty("objName");
   });
@@ -338,7 +338,7 @@ function load_project (project) {
     sprites[i] = sprite;
   });
 
-  
+
   selected_sprite = 0;
 
   var hash = decodeURIComponent((location.href.split("#")[1] || ""));
@@ -353,6 +353,9 @@ function load_project (project) {
   update_edit_link();
 
   check_hash();
+
+  ga.push(['_trackPageview',
+           location.pathname + location.search + location.hash]);
 }
 
 function show_sprite (i) {
@@ -516,7 +519,7 @@ function update_edit_link() {
   }
 }
 
-$(document).ready(function () {   
+$(document).ready(function () {
   $("#fetch").click(function (e) {
     init_fetch();
   });
