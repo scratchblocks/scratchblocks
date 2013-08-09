@@ -1166,14 +1166,16 @@ var scratchblocks2 = function ($) {
         // find elements
         $(selector).each(function (i, el) {
             var $el = $(el),
+                $container = $('<div>'),
                 code = $('<pre>' +
                     $el.html().replace(/<br>\s?|\n/ig, '\n') + '</pre>').text(),
                 scripts = render(code);
 
             $el.text("");
-            $el.addClass(cls("scratchblocks2-container"));
+            $el.append($container);
+            $container.addClass(cls("scratchblocks2-container")),
             $.each(scripts, function (i, $script) {
-                $el.append($script);
+                $container.append($script);
             });
         });
     };
