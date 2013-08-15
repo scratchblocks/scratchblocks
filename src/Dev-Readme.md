@@ -9,7 +9,7 @@ You need a Unix system.
 * Install [npm](http://npmjs.org/), the [node](http://nodejs.org) package
   manager.
 
-* Install the [LESS](http://lesscss.org/) CSS preprocessor:
+* Install the [LESS](http://lesscss.org/) CSS preprocessor: **UPDATE: you need version 1.3, not the latest version.**
 
         $ npm install less
 
