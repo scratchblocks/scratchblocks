@@ -1,0 +1,8 @@
+turn cw (15) degrees
+turn right (15) degrees
+turn ccw (15) degrees
+turn left (15) degrees
+
+when gf clicked
+when green flag clicked
+when flag clicked
