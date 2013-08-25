@@ -422,7 +422,6 @@ var scratchblocks2 = function ($) {
             // add block
             block = [classes, arg_shapes];
             if (db[text] === undefined) {
-                if (text == "") debugger;
                 db[text] = [];
             }
             db[text].push(block);
@@ -450,6 +449,44 @@ var scratchblocks2 = function ($) {
     }
 
 
+    /* Return true if given $arg fits into insert of given shape. */
+    function arg_fits_shape($arg, insert_shape) {
+        var arg_shape = get_arg_shape($arg);
+
+        if (!$arg) {
+            return false;
+        }
+
+        if (arg_shape === insert_shape) {
+            return true;
+        }
+
+        if ($.inArray(arg_shape, ["reporter", "embedded"]) !== -1) {
+            arg_shape = "block";
+        }
+
+        switch (insert_shape) {
+            case "math-function":
+                // check is valid math function
+                var func = $arg.text().replace(/[ ]/g, "")
+                        .toLowerCase();
+                return $.inArray(func, MATH_FUNCTIONS) !== -1;
+
+            case "dropdown":
+                return arg_shape == "block";
+
+            case "number":
+                return $.inArray(arg_shape, ["block", "string"]) !== -1;
+
+            case "string":
+                return $.inArray(arg_shape, ["block", "number"]) !== -1;
+
+            default:
+                return false;
+        }
+    }
+
+
     /* Return [classes, arg_shapes] for a block, given its text. Uses args as
      * hints. */
     function find_block(text, $arg_list) {
@@ -466,45 +503,18 @@ var scratchblocks2 = function ($) {
 
         // get block for text
         if (poss_blocks !== undefined) {
-            block = poss_blocks[0];
-
             if (poss_blocks.length > 1) {
                 // choose based on args
                 $.each(poss_blocks, function (i, poss_block) {
                     var category = poss_block[0][0],
                         need_args = poss_block[1],
                         fits = true,
-                        $arg,
-                        arg_shape,
                         j;
 
                     for (j = 0; j < need_args.length; j++) {
-                        $arg = $arg_list[j];
-                        arg_shape = get_arg_shape($arg);
-
-                        if (arg_shape !== need_args[j]) {
-                            if (need_args[j] === "math-function") {
-                                // check is valid math function
-                                var func = $arg.text().replace(/[ ]/g, "")
-                                        .toLowerCase();
-                                if ($.inArray(func, MATH_FUNCTIONS) === -1) {
-                                    // can't find the argument!
-                                    fits = false;
-                                    break;
-                                }
-
-                            } else if (
-                                // allow reporters in number/string inserts
-                                !((arg_shape === "reporter" ||
-                                   arg_shape === "embedded"
-                                 ) && (
-                                   need_args[j] === "number" ||
-                                   need_args[j] === "string"
-                                ))
-                            ) {
-                                fits = false;
-                                break;
-                            }
+                        if (!arg_fits_shape($arg_list[j], need_args[j])) {
+                            fits = false;
+                            break;
                         }
                     }
 
@@ -512,6 +522,10 @@ var scratchblocks2 = function ($) {
                         block = poss_block;
                     }
                 });
+            }
+
+            if (block === undefined) {
+                block = poss_blocks[0]; // In case none of them fit properly
             }
         }
 
@@ -1174,7 +1188,7 @@ var scratchblocks2 = function ($) {
 
             $el.text("");
             $el.append($container);
-            $container.addClass(cls("scratchblocks2-container")),
+            $container.addClass(cls("scratchblocks2-container"));
             $.each(scripts, function (i, $script) {
                 $container.append($script);
             });

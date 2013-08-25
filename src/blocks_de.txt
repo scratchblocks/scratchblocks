@@ -225,7 +225,7 @@ setze Stoppuhr zurück
 (() mod ())
 (() gerundet)
 
-([Wurzel v] von (9))
+([sqrt v] von (9))
 
 
 

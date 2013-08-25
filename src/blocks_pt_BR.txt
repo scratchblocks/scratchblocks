@@ -141,7 +141,7 @@ esconde variável [var v]
 ## List ##
 adiciona [thing] a [list v]
 
-apaga (1 v) de[list v]
+apaga (1 v) de [list v]
 insere [thing] na posição (1 v) da lista [list v]
 insere [thing] em (1 v) de [list v]
 substitui o item (1 v) da lista [list v] por [thing]
@@ -254,7 +254,7 @@ zere o temporizador
 (resto de() por())
 (arredonde ())
 
-([raiz quadrada v] of (9))
+([sqrt v] of (9))
 
 
 
