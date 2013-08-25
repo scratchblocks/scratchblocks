@@ -27,6 +27,7 @@
   font-size: 10px;
   line-height: 10px;
   margin: 10px 0;
+  padding-left: 2px;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   display: block;
@@ -526,6 +527,41 @@
 }
 .scratchblocks2-container .purple.hat:before {
   border-right-color: #7c4a8b;
+}
+.scratchblocks2-container .grey.stack:before,
+.scratchblocks2-container .grey.cap:before {
+  border-color: #656565 #b7b7b7 #b7b7b7 #656565;
+}
+.scratchblocks2-container .grey.hat,
+.scratchblocks2-container .grey.hat:before,
+.scratchblocks2-container .grey.custom-definition,
+.scratchblocks2-container .grey.stack,
+.scratchblocks2-container .grey.boolean,
+.scratchblocks2-container .grey.reporter,
+.scratchblocks2-container .grey.embedded,
+.scratchblocks2-container .grey.variable-reporter,
+.scratchblocks2-container .grey.custom-arg {
+  background-color: #969696;
+  border-color: #b7b7b7 #656565 #656565 #b7b7b7;
+}
+.scratchblocks2-container .grey > .dropdown,
+.scratchblocks2-container .grey > .boolean.empty,
+.scratchblocks2-container .grey > .color {
+  background: #717171;
+  border-color: #434343 #b8b8b8 #b8b8b8 #434343;
+}
+.scratchblocks2-container .grey > .dropdown:after,
+.scratchblocks2-container .grey > .boolean.empty:after,
+.scratchblocks2-container .grey > .color:after {
+  color: #393939;
+}
+.scratchblocks2-container .grey > .cmouth:before {
+  background-color: #969696;
+  border-left-color: #b7b7b7;
+  border-right-color: #656565;
+}
+.scratchblocks2-container .grey.hat:before {
+  border-right-color: #b7b7b7;
 }
 .scratchblocks2-container .script {
   margin-top: 15px;

@@ -89,9 +89,10 @@ var scratchblocks2 = function ($) {
                 "sensing",
                 "sound",
                 "variables",
-                "purple"  // The ([slider v] sensor value) and
+                "purple", // The ([slider v] sensor value) and
                           // <sensor [button pressed v]?> blocks. I'm not sure
                           // what category this is supposed to be.
+                "grey",
             ]
         },
         all_classes,
