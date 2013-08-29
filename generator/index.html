@@ -251,6 +251,8 @@ hr {
 </style>
 
 <script>
+var ga;
+
 var current_id,
   selected_sprite,
   sprites,
@@ -298,6 +300,10 @@ function fetch (id) {
     $("#status").text("Error: "+e.statusText);
     fetching = false;
     check_hash();
+  });
+
+  ga('send', 'event', 'fetch', 'fetch', {
+    'dimension2': code.value,
   });
 }
 

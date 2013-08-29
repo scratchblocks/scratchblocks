@@ -107,6 +107,8 @@ straight from your 2.0 projects!
     href="http://scratch.mit.edu/users/blob8108">~blob8108</a></div>
 
 <script>
+var ga;
+
 var DEFAULT = "define dance (speed)\n\
   set [dist v] to ((speed) * (distance to [mouse-pointer v]))\n\
   repeat until ((timer) > [10])\n\
@@ -148,6 +150,12 @@ function refresh () {
   preview.innerHTML = script;
 
   scratchblocks2.parse("pre.blocks");
+
+  if (ga !== undefined) {
+    ga('send', 'event', 'render', 'render', {
+      'dimension1': code.value,
+    });
+  }
 }
 
 function checkHash() {
@@ -161,8 +169,12 @@ function checkHash() {
 code.value = decodeURIComponent((location.href.split("#")[1] || ""));
 checkHash();
 
-
-document.getElementById('render').onmousedown = refresh;
+document.getElementById('render').onmousedown = function () {
+  refresh();
+  if (ga !== undefined) {
+    ga('send', 'event', 'button', 'click', 'Render button');
+  }
+}
 code.onkeyup = refresh;
 code.onblur = refresh;
 code.oncopy = code.onpaste = function(e) {
@@ -192,6 +204,5 @@ refresh();
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
   ga('create', 'UA-42663022-1', 'blob8108.github.io');
-  ga('send', 'pageview', window.location.pathname + window.location.search +
-    window.location.hash);
+  ga('send', 'pageview');
 </script>
