@@ -2,20 +2,23 @@ Render Scratch blocks code to HTML.
 
 ![Screenshot](http://blob8108.github.io/scratchblocks2/screenshot.png)
 
-**Test it out [here](http://blob8108.github.io/scratchblocks2/)!**
+**Test it [here](http://blob8108.github.io/scratchblocks2/)!**
 
 ---
 
-**scratchblocks2** is used on the [Scratch
-Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) to write Scratch scripts in wiki
-articles.
-
-It's inspired by and compatible with the block plugin by JSO that was used on
-the old [Scratch Forums](http://scratch.mit.edu/discuss/). This is a complete
-rewrite for Scratch 2.0.
+**scratchblocks2** is used to write Scratch scripts on the [Scratch
+Forums](http://scratch.mit.edu/discuss/topic/14772/) and [Scratch
+Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin).
 
 It's designed with an emphasis on flexibility: adding new blocks is as easy as
 writing the scratchblocks code itself.
+
+## Syntax
+
+It's inspired by the block plugin by JSO that was used on
+the old [Scratch Forums](http://scratch.mit.edu/discuss/). It's a complete
+rewrite for Scratch 2.0, but it still uses the same syntax (with some minor
+additions).
 
 It follows the philosophy of the original Block Plugin in that it tries to match
 the code you write as closely as possible, and doesn't check you've used the
@@ -27,8 +30,8 @@ sure you refer to the list explicitly somewhere:
     add [something] to [list v]
     say (list)
 
-_[Scratch](http://scratch.mit.edu/) is created by the Lifelong Kindergarten
-Group at the MIT Media Lab._
+For the full guide to the syntax, see [the
+wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
 
 
 # Usage
