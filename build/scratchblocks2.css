@@ -27,7 +27,7 @@
   font-size: 10px;
   line-height: 10px;
   margin: 10px 0;
-  padding-left: 2px;
+  padding: 0 2px;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   display: block;
@@ -590,7 +590,9 @@
   border: 2px solid;
 }
 .scratchblocks2-container .boolean.empty {
-  padding: 1px 10px;
+  height: 12px;
+  width: 23px;
+  padding: 0;
 }
 .scratchblocks2-container .stack {
   min-width: 36px;
@@ -958,4 +960,43 @@
   height: 2px;
   width: 32px;
   background: #ffff80;
+}
+.scratchblocks2-container.inline-block {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding-bottom: 5px;
+}
+.scratchblocks2-container.inline-block .script {
+  display: inline-block;
+}
+.scratchblocks2-container.inline-block .boolean {
+  vertical-align: middle;
+}
+.scratchblocks2-container.inline-block .string {
+  min-width: 3px;
+  min-height: 10px;
+}
+.scratchblocks2-container.inline-block .number {
+  min-width: 3px;
+  min-height: 10px;
+}
+.scratchblocks2-container.inline-block .color {
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
+.scratchblocks2-container.inline-block .outline {
+  min-height: 16px;
+  vertical-align: middle;
+  margin-top: -2px;
+}
+.scratchblocks2-container.inline-block * {
+  float: none;
+}
+.scratchblocks2-container.inline-block .script > .stack {
+  margin-top: 2px;
+}
+.scratchblocks2-container.inline-block .hat,
+.scratchblocks2-container.inline-block .custom-definition {
+  margin-bottom: 14px;
 }

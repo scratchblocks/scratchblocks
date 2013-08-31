@@ -228,7 +228,7 @@
     font-size: 10px;
     line-height: 10px;
     margin: 10px 0;
-    padding-left: 2px; // for custom block hats
+    padding: 0 2px; // for custom block hats
 
     &:after {
         content: "";
@@ -291,7 +291,9 @@
     }
 
     .boolean.empty {
-        padding: 1px 10px;
+        height: 12px;
+        width: 23px;
+        padding: 0;
     }
 
     .stack {
@@ -680,6 +682,59 @@
                 width: 32px;
                 background: @comment_join;
             }
+        }
+    }
+
+
+    // Inline blocks //
+    &.inline-block {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        padding-bottom: 5px;
+
+        .script {
+            display: inline-block;
+        }
+
+        .string, .number {
+        }
+
+        .boolean {
+            vertical-align: middle;
+        }
+
+        .string {
+            min-width: 3px;
+            min-height: 10px;
+        }
+
+        .number {
+            min-width: 3px;
+            min-height: 10px;
+        }
+
+        .color {
+            vertical-align: middle;
+            margin-bottom: 2px;
+        }
+
+        .outline {
+            min-height: 16px;
+            vertical-align: middle;
+            margin-top: -2px;
+        }
+
+        * {
+            float: none;
+        }
+
+        // Try to make text same level
+        .script > .stack {
+            margin-top: 2px;
+        }
+        .hat, .custom-definition {
+            margin-bottom: 14px;
         }
     }
 }

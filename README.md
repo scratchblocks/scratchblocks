@@ -72,6 +72,20 @@ In summary, your directory layout should look something like this:
     scratchblocks2.css
     scratchblocks2.js
 
+## Inline blocks
+
+To use blocks inside a paragraph...
+
+```html
+I'm rather fond of the <code class="b">stamp</code> block in Scratch.
+```
+
+...make a separate call to `parse` using the `inline` argument.
+
+```js
+scratchblocks2.parse("code.blocks", {inline: true});
+```
+
 
 # Credits
 

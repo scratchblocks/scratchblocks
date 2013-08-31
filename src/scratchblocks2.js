@@ -38,6 +38,7 @@ var scratchblocks2 = function ($) {
         CLASSES = {
             "misc": [
                 "scratchblocks2-container",
+                "inline-block",
                 "script",
                 "empty",
                 "list-dropdown"
@@ -749,7 +750,11 @@ var scratchblocks2 = function ($) {
                 }
             });
         } else if (pieces.length === 1) {
-            $block.text(code);
+            if (code == " ") {
+                $block.html("&nbsp;");
+            } else {
+                $block.text(code);
+            }
         } else {
             $.each(pieces, function (i, piece) {
                 var $arg;
@@ -809,6 +814,10 @@ var scratchblocks2 = function ($) {
                         $block.addClass(cls(name));
                     }
                 });
+
+                if ($.inArray("hat", classes) > -1) {
+                    $block.removeClass(cls("stack"));
+                }
 
                 $.each(arg_classes, function (i, name) {
                     var $arg = $arg_list[i];
@@ -1175,20 +1184,33 @@ var scratchblocks2 = function ($) {
      *  scratchblocks2.parse("pre.blocks");
      *
      */
-    sb2.parse = function (selector) {
+    sb2.parse = function (selector, options) {
         selector = selector || "pre.blocks";
+        options = options || {
+            inline: false,
+        }
 
         // find elements
         $(selector).each(function (i, el) {
             var $el = $(el),
                 $container = $('<div>'),
-                code = $('<pre>' +
-                    $el.html().replace(/<br>\s?|\n/ig, '\n') + '</pre>').text(),
-                scripts = render(code);
+                code,
+                scripts,
+                html = $el.html();
+
+            html = html.replace(/<br>\s?|\n|\r\n|\r/ig, '\n');
+            code = $('<pre>' + html + '</pre>').text();
+            if (options.inline) {
+                code = code.replace('\n', '');
+            }
+            scripts = render(code);
 
             $el.text("");
             $el.append($container);
             $container.addClass(cls("scratchblocks2-container"));
+            if (options.inline) {
+                $container.addClass(cls("inline-block"));
+            }
             $.each(scripts, function (i, $script) {
                 $container.append($script);
             });
