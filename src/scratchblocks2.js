@@ -746,7 +746,7 @@ var scratchblocks2 = function ($) {
                     $arg.text(strip_brackets(piece));
                     $outline.append($arg);
                 } else {
-                    $outline.append(piece);
+                    $outline.append(document.createTextNode(piece));
                 }
             });
         } else if (pieces.length === 1) {
@@ -768,7 +768,7 @@ var scratchblocks2 = function ($) {
                     $block.append($arg);
                     $arg_list.push($arg);
                 } else {
-                    $block.append(piece);
+                    $block.append(document.createTextNode(piece));
                 }
 
                 // DATABASE
