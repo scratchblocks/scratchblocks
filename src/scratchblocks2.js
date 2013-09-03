@@ -1090,7 +1090,14 @@ var scratchblocks2 = function ($) {
                 }
 
                 if ($comment) {
-                    $current.append($comment);
+                    if (/^category=[a-z]+$/i.test(comment_text)) {
+                        var category = comment_text.substr(9);
+                        if ($.inArray(category, CLASSES.category) > -1) {
+                            $block.addClass(cls(category));
+                        }
+                    } else {
+                        $current.append($comment);
+                    }
                 }
 
                 if (one_only || (nesting === 0 && $block.hasClass("cap"))) {
