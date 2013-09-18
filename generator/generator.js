@@ -1,3 +1,12 @@
+/*
+ * scratchblocks2 generator
+ * http://blob8108.github.io/scratchblocks2/generator/
+ *
+ * Copyright 2013, Tim Radvan
+ * @license MIT
+ * http://opensource.org/licenses/MIT
+ */
+
 var SET_VAR = "setVar:to:";
 var CHANGE_VAR = "changeVar:by:";
 
