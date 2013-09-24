@@ -590,9 +590,43 @@
   border: 2px solid;
 }
 .scratchblocks2-container .boolean.empty {
+  width: 16px;
   height: 12px;
-  width: 23px;
   padding: 0;
+  position: relative;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  margin-left: 9px;
+  margin-right: 8px;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+.scratchblocks2-container .boolean.empty:before,
+.scratchblocks2-container .boolean.empty:after {
+  display: block;
+  content: "";
+  width: 9px;
+  height: 9px;
+  background: inherit;
+  border: inherit;
+  border-width: 2px;
+  position: absolute;
+  top: 0;
+  z-index: 0;
+}
+.scratchblocks2-container .boolean.empty:before {
+  left: -6px;
+  top: 0.8px;
+  -webkit-transform: rotate(45deg);
+  border-top: none;
+  border-right: none;
+}
+.scratchblocks2-container .boolean.empty:after {
+  right: -6px;
+  -webkit-transform: rotate(-45deg);
+  border-top: none;
+  border-left: none;
 }
 .scratchblocks2-container .stack {
   min-width: 36px;
