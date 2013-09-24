@@ -311,12 +311,19 @@
         margin-right: 8px;
         border-left-width: 0;
         border-right-width: 0;
+    }
 
-        &:before, &:after {
+    .boolean {
+        position: relative;
+        margin-left: 9px;
+        margin-right: 8px;
+        border-left-width: 0;
+        border-right-width: 0;
+
+        .langle, .rangle {
             display: block;
-            content: "";
             width: 11px;
-            height: 11px;
+            height: calc(~"70.710678119% + 2px");
             background: inherit;
             border: inherit;
             border-width: 2px;
@@ -325,16 +332,16 @@
             z-index: 0;
         }
 
-        &:before {
-            left: -6px;
+        .langle {
+            left: -6px; // TODO
             top: 0.8px;
             .rotate(45deg);
             border-top: none;
             border-right: none;
         }
 
-        &:after {
-            right: -6px;
+        .rangle {
+            right: -6px; // TODO
             .rotate(-45deg);
             border-top: none;
             border-left: none;
@@ -641,7 +648,7 @@
     }
 
     // Rounded shapes //
-    .reporter, .custom-arg, .embedded, .boolean {
+    .reporter, .custom-arg, .embedded {
         .border-radius(2000px);
     }
     

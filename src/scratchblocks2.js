@@ -834,6 +834,15 @@ var scratchblocks2 = function ($) {
         }
 
 
+        // boolean angles
+        if (shape === "boolean") {
+            $block.prepend(
+                $(document.createElement("span")).addClass("langle"));
+            $block.append(
+                $(document.createElement("span")).addClass("rangle"));
+        }
+
+
         // replace images
 
         function replace_text_with_image(regex, image_class) {
@@ -1240,3 +1249,11 @@ var scratchblocks2 = function ($) {
  *
  */
 scratchblocks2.blocks = "";
+
+
+
+/*
+$(".langle, .rangle").each(function (i, el) { $(el).width($(el).height()); })
+
+$(".cend").each(function (i, el) { $(el).width($(el).parent().find(".cstart").width() + 11) })
+*/
