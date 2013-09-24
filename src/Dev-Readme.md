@@ -9,9 +9,9 @@ You need a Unix system.
 * Install [npm](http://npmjs.org/), the [node](http://nodejs.org) package
   manager.
 
-* Install the [LESS](http://lesscss.org/) CSS preprocessor: **UPDATE: you need version 1.3, not the latest version.**
+* Install the [LESS](http://lesscss.org/) CSS preprocessor, **version 1.3**:
 
-        $ npm install less
+        $ npm install less@1.3
 
     You should now have the `lessc` command installed:
 
@@ -20,7 +20,7 @@ You need a Unix system.
 
 * Install [UglifyJS2](http://github.com/mishoo/UglifyJS2):
 
-        $ npm install uglify-js -g
+        $ npm install uglify-js
 
 
 ## Developing
