@@ -382,7 +382,7 @@ var scratchblocks2 = function ($) {
         // newlines are escaped, so split at double-space instead
         $.each(sb2.blocks.split(/ {2}|\n|\r/), function (i, line) {
             line = line.trim();
-            if (line.length === 0) {
+            if (line.length === 0 || line.indexOf("//") === 0) {
                 return; // continue
             }
 
