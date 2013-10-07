@@ -9,6 +9,72 @@
  * http://opensource.org/licenses/MIT
  */
 
+/*
+ * The following classes are used:
+ *
+ * Categories:
+ *
+ *     scratchblocks2-container
+ *     inline-block
+ *     script
+ *     empty
+ *     list-dropdown
+ *
+ * Comments:
+ *
+ *     comment
+ *     attached
+ *     to-hat
+ *     to-reporter
+ *
+ * Internal use only:
+ *
+ *     math-function
+ *
+ * Shapes:
+ *
+ *     hat
+ *     cap
+ *     stack
+ *     embedded
+ *     reporter
+ *     boolean
+ *     string
+ *     dropdown
+ *     number
+ *     number-dropdown
+ *     color
+ *     custom-definition
+ *     custom-arg
+ *     outline
+ *
+ *     cstart
+ *     cmouth
+ *     cwrap
+ *     celse
+ *     cend
+ *     ifblock
+ *     capend
+ *
+ * Categories (colour):
+ *
+ *     obsolete
+ *
+ *     control
+ *     custom
+ *     events
+ *     list
+ *     looks
+ *     motion
+ *     operators
+ *     pen
+ *     sensing
+ *     sound
+ *     variables
+ *     purple -- Sensor blocks
+ *     grey -- for the ". . ." ellipsis block
+ *
+ */
 
 var scratchblocks2 = function ($) {
     "use strict";
@@ -33,71 +99,6 @@ var scratchblocks2 = function ($) {
                 // special shapes:
                 "list-dropdown", "math-function"],
 
-
-        // List of valid classes used in HTML
-        CLASSES = {
-            "misc": [
-                "scratchblocks2-container",
-                "inline-block",
-                "script",
-                "empty",
-                "list-dropdown"
-            ],
-            "comments": [
-                "comment",
-                "attached",
-                "to-hat",
-                "to-reporter"
-            ],
-            "internal": [
-                "math-function"
-            ],
-            "shape": [
-                "hat",
-                "cap",
-                "stack",
-                "embedded",
-                "reporter",
-                "boolean",
-                "string",
-                "dropdown",
-                "number",
-                "number-dropdown",
-                "color",
-                "custom-definition",
-                "custom-arg",
-                "outline",
-
-                "cstart",
-                "cmouth",
-                "cwrap",
-                "celse",
-                "cend",
-                "ifblock",
-                "capend"
-            ],
-            "category": [
-                "obsolete",
-
-                "control",
-                "custom",
-                "events",
-                "list",
-                "looks",
-                "motion",
-                "operators",
-                "pen",
-                "sensing",
-                "sound",
-                "variables",
-                "purple", // The ([slider v] sensor value) and
-                          // <sensor [button pressed v]?> blocks. I'm not sure
-                          // what category this is supposed to be.
-                "grey",
-            ]
-        },
-        all_classes,
-
         // The list of blocks
         blocks_db,
 
@@ -105,54 +106,22 @@ var scratchblocks2 = function ($) {
         blocks_original;
 
 
-    function log(message) {
-        if (window.console !== undefined) {
-            window.console.log(message);
-        }
-    }
-
-
     function assert(bool) {
-        if (!bool) {
-            log("Assertion failed!");
-            //debugger;
-        }
+        if (!bool) throw "Assertion failed!";
     }
 
-
-    /* is class name in class list? */
-    function is_class(name) {
-        if (all_classes === undefined) {
-            all_classes = [];
-            $.each(CLASSES, function (i, classes_group) {
-                all_classes = all_classes.concat(classes_group);
-            });
-        }
-        return ($.inArray(name, all_classes) > -1);
-    }
-
-
-    /* helper function for class name prefixes */
-    function cls(name) {
-        if (!is_class(name)) {
-            log("Invalid class: " + name);
-            //debugger;
-        }
-        return name;
-    }
-
-    /* Bracket helpers */
     function is_open_bracket(chr) {
         var bracket_index = BRACKETS.indexOf(chr);
         return (-1 < bracket_index && bracket_index < 3);
     }
+
     function is_close_bracket(chr) {
         return (2 < BRACKETS.indexOf(chr));
     }
+
     function get_matching_bracket(chr) {
         return BRACKETS[BRACKETS.indexOf(chr) + 3];
     }
-
 
     /* Stop lt/gt signs between open/close brackets being seen as open/close
      * brackets. Makes sure booleans are parsed properly.
@@ -202,7 +171,6 @@ var scratchblocks2 = function ($) {
         return true;
     }
 
-
     /* Strip one level of surrounding <([ brackets from scratchblocks code */
     function strip_brackets(code) {
         if (is_open_bracket(code[0])) {
@@ -215,7 +183,10 @@ var scratchblocks2 = function ($) {
         return code;
     }
 
-
+    /* Split the block code into text and insert pieces.
+     *
+     * Inserts start with a bracket.
+     */
     function split_into_pieces(code) {
         var pieces = [],
             piece = "",
@@ -266,18 +237,16 @@ var scratchblocks2 = function ($) {
         return pieces;
     }
 
-
     /* Return the category class for the given block. */
     function get_block_category($block) {
         var block_category;
         $.each(CLASSES.category, function (i, category) {
-            if ($block.hasClass(cls(category))) {
+            if ($block.hasClass(category)) {
                 block_category = category;
             }
         });
         return block_category;
     }
-
 
     /* Return the shape class for the given insert. */
     function get_arg_shape($arg) {
@@ -286,13 +255,12 @@ var scratchblocks2 = function ($) {
         }
         var arg_shape;
         $.each(ARG_SHAPES, function (i, shape) {
-            if ($arg.hasClass(cls(shape))) {
+            if ($arg.hasClass(shape)) {
                 arg_shape = shape;
             }
         });
         return arg_shape;
     }
-
 
     /* Strip block text, for looking up in blocks db. */
     function strip_block_text(text) {
@@ -306,73 +274,11 @@ var scratchblocks2 = function ($) {
         return text;
     }
 
-
     /* Get text from $block DOM element. Make sure you clone the block first. */
     function get_block_text($block) {
         $block.children().remove();
         return strip_block_text($block.text());
     }
-
-
-    /* Hex color #rrggb or #rgb to [r, g, b] */
-    function hex2rgb(hexStr) {
-        var hex, r, g, b;
-        assert(hexStr[0] === "#");
-        hexStr = hexStr.substring(1);
-        if (hexStr.length === 3) {
-            r = hexStr[0];
-            g = hexStr[1];
-            b = hexStr[2];
-            hexStr = r + r + g + g + b + b;
-        }
-        hex = parseInt(hexStr, 16);
-        if (hexStr.length === 6) {
-            r = (hex & 0xff0000) >> 16;
-            g = (hex & 0x00ff00) >> 8;
-            b = hex & 0x0000ff;
-        }
-        return [r, g, b];
-    }
-
-
-    function clamp(x, a, b) {
-        return Math.min(b, Math.max(x, a));
-    }
-
-
-    /* Multiply colour by scalar value. */
-    function scale_color(rgb, scale) {
-        var r = rgb[0],
-            g = rgb[1],
-            b = rgb[2];
-        r = Math.round(clamp(r * scale, 0, 255));
-        g = Math.round(clamp(g * scale, 0, 255));
-        b = Math.round(clamp(b * scale, 0, 255));
-        return [r, g, b];
-    }
-
-
-    function rgb2css(rgb) {
-        var r = rgb[0],
-            g = rgb[1],
-            b = rgb[2];
-        return "rgb(" + r + ", " + g + ", " + b + ") ";
-    }
-
-    /* Set hexColor as background color of $block */
-    function apply_block_color($block, hexColor) {
-        var rgb = hex2rgb(hexColor);
-        var btop = rgb2css(scale_color(rgb, 1.4));
-        var bbot = rgb2css(scale_color(rgb, 0.7));
-        $block.css({
-            "background-color": rgb2css(rgb),
-            "border-top-color": btop,
-            "border-left-color": btop,
-            "border-bottom-color": bbot,
-            "border-right-color": bbot
-        });
-    }
-
 
     /* Parse the blocks database. */
     function load_blocks_db() {
@@ -437,18 +343,15 @@ var scratchblocks2 = function ($) {
         blocks_original = sb2.blocks;
     }
 
-
     /* Return the blocks database, loading it first if needed. */
     function get_blocks_db() {
         if (blocks_original === undefined ||
                 blocks_original !== sb2.blocks) {
             // blocks code has changed, parse it again!
             load_blocks_db();
-            log("Parsed blocks db.");
         }
         return blocks_db;
     }
-
 
     /* Return true if given $arg fits into insert of given shape. */
     function arg_fits_shape($arg, insert_shape) {
@@ -486,7 +389,6 @@ var scratchblocks2 = function ($) {
                 return false;
         }
     }
-
 
     /* Return [classes, arg_shapes] for a block, given its text. Uses args as
      * hints. */
@@ -554,7 +456,6 @@ var scratchblocks2 = function ($) {
 
         return [classes, arg_classes];
     }
-
 
     /* Render script code to DOM. */
     function render_block(code, need_shape) {
@@ -696,13 +597,13 @@ var scratchblocks2 = function ($) {
         }
 
         // add shape class
-        $block.addClass(cls(shape));
+        $block.addClass(shape);
 
         // empty blocks
         if (code.length === 0) {
             code = " "; // must have content to size correctly
             pieces = [code];
-            $block.addClass(cls("empty"));
+            $block.addClass("empty");
         }
 
         // render color inputs
@@ -734,14 +635,14 @@ var scratchblocks2 = function ($) {
         if (shape === "custom-definition") {
             // custom definition args
             $block.append("define");
-            var $outline = $("<div>").addClass(cls("outline"));
+            var $outline = $("<div>").addClass("outline");
             $block.append($outline);
 
             $.each(pieces, function (i, piece) {
                 if (is_block(piece)) {
-                    var $arg = $("<div>").addClass(cls("custom-arg"));
+                    var $arg = $("<div>").addClass("custom-arg");
                     if (piece[0] === "<") {
-                        $arg.addClass(cls("boolean"));
+                        $arg.addClass("boolean");
                     }
                     $arg.text(strip_brackets(piece));
                     $outline.append($arg);
@@ -775,11 +676,11 @@ var scratchblocks2 = function ($) {
                 if (is_database) {
                     // tag list dropdowns
                     if (piece === "[list v]") {
-                        $arg.addClass(cls("list-dropdown"));
+                        $arg.addClass("list-dropdown");
                     }
                     // tag math function
                     if (piece === "[sqrt v]") {
-                        $arg.addClass(cls("math-function"));
+                        $arg.addClass("math-function");
                     }
                 }
             });
@@ -787,7 +688,7 @@ var scratchblocks2 = function ($) {
 
         // get category
         if (shape === "custom-definition") {
-            $block.addClass(cls("custom"));
+            $block.addClass("custom");
         } else if ($.inArray(shape, DATA_INSERTS) > -1) {
             // don't add category to inserts
         } else {
@@ -804,19 +705,19 @@ var scratchblocks2 = function ($) {
             if (classes.length === 0) {
                 // can't find the block!
                 if (category !== "") {
-                    $block.addClass(cls(category));
+                    $block.addClass(category);
                 } else {
-                    $block.addClass(cls("obsolete"));
+                    $block.addClass("obsolete");
                 }
             } else {
                 $.each(classes, function (i, name) {
                     if (!(/^-/.test(name))) {
-                        $block.addClass(cls(name));
+                        $block.addClass(name);
                     }
                 });
 
                 if ($.inArray("hat", classes) > -1) {
-                    $block.removeClass(cls("stack"));
+                    $block.removeClass("stack");
                 }
 
                 $.each(arg_classes, function (i, name) {
@@ -859,7 +760,7 @@ var scratchblocks2 = function ($) {
 
 
         // cend blocks: hide "end" text
-        if ($block.hasClass(cls("cend"))) {
+        if ($block.hasClass("cend")) {
             var html = $block.html();
             $block.html("").append($("<span>").html(html));
         }
@@ -868,8 +769,8 @@ var scratchblocks2 = function ($) {
         // put free-floating inserts inside a stack block
         if (need_shape === "stack" && $.inArray(shape, DATA_INSERTS) > -1) {
             var $insert = $block;
-            $block = $("<div>").addClass(cls("stack"))
-                               .addClass(cls("obsolete"))
+            $block = $("<div>").addClass("stack")
+                               .addClass("obsolete")
                                .append($insert);
         }
 
@@ -877,14 +778,12 @@ var scratchblocks2 = function ($) {
         return $block;
     }
 
-
     /* Render comment to DOM element. */
     function render_comment(text) {
-        var $comment = $("<div>").addClass(cls("comment"))
+        var $comment = $("<div>").addClass("comment")
                 .append($("<div>").text(text.trim()));
         return $comment;
     }
-
 
     /* Render script code to a list of DOM elements, one for each script. */
     function render(code) {
@@ -907,7 +806,7 @@ var scratchblocks2 = function ($) {
         function add_cend($block, do_comment) {
             $cmouth = $current;
             $cwrap = $cmouth.parent();
-            assert($cwrap.hasClass(cls("cwrap")));
+            assert($cwrap.hasClass("cwrap"));
 
             $cwrap.append($block);
             $current = $cwrap.parent();
@@ -925,7 +824,7 @@ var scratchblocks2 = function ($) {
 
             // check for cap blocks at end of cmouth
             if ($cmouth.find("> :last-child").hasClass("cap")) {
-                $block.addClass(cls("capend"));
+                $block.addClass("capend");
             }
         }
 
@@ -933,8 +832,8 @@ var scratchblocks2 = function ($) {
             // end any c blocks
             while (nesting > 0) {
                 var $cend = $("<div><span>end</span></div>")
-                        .addClass(cls("stack")).addClass(cls("cend"))
-                        .addClass(cls("control"));
+                        .addClass("stack").addClass("cend")
+                        .addClass("control");
                 add_cend($cend, false);
             }
 
@@ -944,7 +843,7 @@ var scratchblocks2 = function ($) {
             }
 
             // start new script
-            $script = $("<div>").addClass(cls("script"));
+            $script = $("<div>").addClass("script");
             $current = $script;
             nesting = 0;
             $last_comment = null;
@@ -989,38 +888,38 @@ var scratchblocks2 = function ($) {
             // append block to script
             if ($block) {
                 one_only = false;
-                if ($block.hasClass(cls("hat")) ||
-                        $block.hasClass(cls("custom-definition"))) {
+                if ($block.hasClass("hat") ||
+                        $block.hasClass("custom-definition")) {
 
                     new_script();
 
                     // comment
                     if ($comment) {
-                        $comment.addClass(cls("to-hat"));
+                        $comment.addClass("to-hat");
 
-                        if ($block.hasClass(cls("custom-definition"))) {
-                            $comment.addClass(cls("to-custom-definition"));
+                        if ($block.hasClass("custom-definition")) {
+                            $comment.addClass("to-custom-definition");
                         }
                     }
-                } else if ($block.hasClass(cls("boolean")) ||
-                           $block.hasClass(cls("embedded")) ||
-                           $block.hasClass(cls("reporter"))) {
+                } else if ($block.hasClass("boolean") ||
+                           $block.hasClass("embedded") ||
+                           $block.hasClass("reporter")) {
                     new_script();
                     one_only = true;
 
                     // comment
                     if ($comment) {
-                        $comment.addClass(cls("to-reporter"));
+                        $comment.addClass("to-reporter");
                     }
                 }
 
                 // comment
                 if ($comment) {
-                    $comment.addClass(cls("attached"));
+                    $comment.addClass("attached");
                 }
 
-                if ($block.hasClass(cls("cstart"))) {
-                    $cwrap = $("<div>").addClass(cls("cwrap"));
+                if ($block.hasClass("cstart")) {
+                    $cwrap = $("<div>").addClass("cwrap");
                     $current.append($cwrap);
                     $cwrap.append($block);
 
@@ -1030,24 +929,24 @@ var scratchblocks2 = function ($) {
                         $comment = null; // don't start multi-line comment
                     }
 
-                    $cmouth = $("<div>").addClass(cls("cmouth"));
+                    $cmouth = $("<div>").addClass("cmouth");
                     $cwrap.append($cmouth);
                     $current = $cmouth;
 
                     // give $cwrap the color of $block
                     $cwrap.addClass(get_block_category($block));
 
-                    if ($block.hasClass(cls("cap"))) {
-                        $cwrap.addClass(cls("cap"));
-                        $block.removeClass(cls("cap"));
+                    if ($block.hasClass("cap")) {
+                        $cwrap.addClass("cap");
+                        $block.removeClass("cap");
                     }
 
                     nesting += 1;
 
-                } else if ($block.hasClass(cls("celse"))) {
+                } else if ($block.hasClass("celse")) {
                     if (nesting > 0) {
                         $cwrap = $current.parent();
-                        assert($cwrap.hasClass(cls("cwrap")));
+                        assert($cwrap.hasClass("cwrap"));
 
                         $cwrap.append($block);
 
@@ -1058,12 +957,12 @@ var scratchblocks2 = function ($) {
                         }
 
                         // check for cap blocks at end of cmouth
-                        $cmouth = $cwrap.find("."+cls("cmouth"))
+                        $cmouth = $cwrap.find("."+"cmouth")
                         if ($cmouth.find("> :last-child").hasClass("cap")) {
-                            $block.addClass(cls("capend"));
+                            $block.addClass("capend");
                         }
 
-                        $cmouth = $("<div>").addClass(cls("cmouth"));
+                        $cmouth = $("<div>").addClass("cmouth");
                         $cwrap.append($cmouth);
                         $current = $cmouth;
 
@@ -1074,7 +973,7 @@ var scratchblocks2 = function ($) {
                         $current.append($block);
                     }
 
-                } else if ($block.hasClass(cls("cend"))) {
+                } else if ($block.hasClass("cend")) {
                     if (nesting > 0) {
                         add_cend($block, true);
 
@@ -1093,7 +992,7 @@ var scratchblocks2 = function ($) {
                     if (/^category=[a-z]+$/i.test(comment_text)) {
                         var category = comment_text.substr(9);
                         if ($.inArray(category, CLASSES.category) > -1) {
-                            $block.addClass(cls(category));
+                            $block.addClass(category);
                         }
                     } else {
                         $current.append($comment);
@@ -1159,11 +1058,11 @@ var scratchblocks2 = function ($) {
                 var $variable = $(variable);
                 var var_name = $variable.text();
                 if ($.inArray(var_name, custom_arg_names) > -1) {
-                    $variable.removeClass(cls("variables"))
-                             .addClass(cls("custom-arg"));
+                    $variable.removeClass("variables")
+                             .addClass("custom-arg");
                 } else if ($.inArray(var_name, list_names) > -1) {
-                    $variable.removeClass(cls("variables"))
-                             .addClass(cls("list"));
+                    $variable.removeClass("variables")
+                             .addClass("list");
                 }
             });
         }
@@ -1175,15 +1074,14 @@ var scratchblocks2 = function ($) {
                 $block = $(block);
                 var text = get_block_text($block.clone());
                 if ($.inArray(text, custom_blocks_text) > -1) {
-                    $block.removeClass(cls("obsolete"))
-                          .addClass(cls("custom"));
+                    $block.removeClass("obsolete")
+                          .addClass("custom");
                 }
             });
         }
 
         return scripts;
     }
-
 
     /* Render all matching elements in page to shiny scratch blocks.
      * Accepts a CSS-style selector as an argument.
@@ -1214,9 +1112,9 @@ var scratchblocks2 = function ($) {
 
             $el.text("");
             $el.append($container);
-            $container.addClass(cls("scratchblocks2-container"));
+            $container.addClass("scratchblocks2-container");
             if (options.inline) {
-                $container.addClass(cls("inline-block"));
+                $container.addClass("inline-block");
             }
             $.each(scripts, function (i, $script) {
                 $container.append($script);
