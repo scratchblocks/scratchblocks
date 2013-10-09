@@ -6,8 +6,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
 
 <link rel="stylesheet/less" href="scratchblocks2.less">
-<script src="scratchblocks2.js"></script>
 <script src="diacritics.js"></script>
+<script src="scratchblocks2.js"></script>
 
 <script> 
   less = {
@@ -37,30 +37,6 @@ $(document).ready(function() {
     $("#tester-status").css({ color: '' });
     $("#tester-status").html("LESS is now watching the file for changes: \
       update the file on disk, and the styles will automatically reload here.");
-
-    // Load the blocks...
-    $("#tester-status").after('<p id="blocks-status">Loading blocks...');
-
-    var fnames = [
-      'blocks.txt',
-      'blocks_de.txt',
-      'blocks_pt_BR.txt'
-    ]
-    var block_files = fnames.length;
-
-    $.each(fnames, function (i, fname) {
-      $.get(fname, function (content) {
-        scratchblocks2.blocks += "\n" + content;
-        console.log('dev.html: Loaded '+fname);
-        refresh();
-        block_files -= 1;
-        if (block_files === 0) $("#blocks-status").html('Loaded blocks.');
-      }).error(function () {
-        console.log('dev.html: Error loading '+fname);
-        $("#blocks-status").after('<p>Error loading '+fname)
-                           .css({ color: 'red' });
-      });
-    });
   }
 });
 </script>

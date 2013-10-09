@@ -16,9 +16,9 @@
  * in the block_images/ directory, in the same folder as this file.
  *
  */
-.box-sizing_border-box {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
+.box-sizing_content-box {
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
 }
 .scratchblocks2-container {
   font-family: "Lucida Grande", Verdana, Arial, "DejaVu Sans", sans-serif;
@@ -32,6 +32,12 @@
   -ms-text-size-adjust: 100%;
   display: block;
   z-index: 100;
+}
+.scratchblocks2-container *,
+.scratchblocks2-container *:before,
+.scratchblocks2-container *:after {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 .scratchblocks2-container:after {
   content: "";
@@ -590,8 +596,8 @@
   border: 2px solid;
 }
 .scratchblocks2-container .boolean.empty {
-  height: 12px;
-  width: 23px;
+  height: 16px;
+  width: 27px;
   padding: 0;
 }
 .scratchblocks2-container .stack {
@@ -611,9 +617,9 @@
   min-height: 16px;
   line-height: 16px;
 }
-.scratchblocks2-container .stack  > *,
-.scratchblocks2-container .hat  > *,
-.scratchblocks2-container .custom-definition  > * {
+.scratchblocks2-container .stack > *,
+.scratchblocks2-container .hat > *,
+.scratchblocks2-container .custom-definition > * {
   line-height: 10px;
 }
 .scratchblocks2-container .stack,
@@ -627,14 +633,10 @@
 .scratchblocks2-container .cap,
 .scratchblocks2-container .custom-definition {
   position: relative;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
 }
 .scratchblocks2-container .stack:before,
 .scratchblocks2-container .cap:before {
   content: "";
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
   position: absolute;
   left: 11px;
   width: 15px;
@@ -643,17 +645,15 @@
   border-top: none;
   border-width: 1px;
   background: #ffffff;
-  border-radius: 0 0 5px 5px;
-  -webkit-border-radius: 0 0 5px 5px;
-  -moz-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 4px 4px;
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
   top: -1px;
 }
 .scratchblocks2-container .stack:after,
 .scratchblocks2-container .hat:after,
 .scratchblocks2-container .custom-definition:after {
   content: "";
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
   position: absolute;
   left: 12px;
   width: 13px;
@@ -699,8 +699,6 @@
 .scratchblocks2-container .hat:before,
 .scratchblocks2-container .custom-definition:before {
   content: "";
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
   position: absolute;
   height: 13px;
   width: 80px;
@@ -719,22 +717,22 @@
   border-radius: 0 0 5px 5px;
   -webkit-border-radius: 0 0 5px 5px;
   -moz-border-radius: 0 0 5px 5px;
-  margin-top: 16px;
+  margin-top: 18px;
   padding-top: 0;
-  padding-bottom: 1px;
+  padding-bottom: 2px;
 }
 .scratchblocks2-container .custom-definition:before {
   border-color: #8e2ec2;
   border-top-width: 4px;
-  height: 16px;
-  margin-top: -13px;
+  height: 18px;
+  margin-top: -15px;
   top: -3px;
   width: auto;
   left: -4px;
   right: -4px;
-  border-radius: 50% 50% 3px 3px / 14px 14px 3px 3px;
-  -webkit-border-radius: 50% 50% 3px 3px / 14px 14px 3px 3px;
-  -moz-border-radius: 50% 50% 3px 3px / 14px 14px 3px 3px;
+  border-radius: 50% 50% 3px 3px / 16px 16px 3px 3px;
+  -webkit-border-radius: 50% 50% 3px 3px / 16px 16px 3px 3px;
+  -moz-border-radius: 50% 50% 3px 3px / 16px 16px 3px 3px;
 }
 .scratchblocks2-container .custom-arg {
   line-height: 10px;
@@ -760,8 +758,8 @@
   content: "";
   position: absolute;
   left: 11px;
-  width: 13px;
-  height: 3px;
+  width: 15px;
+  height: 5px;
   border: inherit;
   border-top: none;
   background: inherit;
@@ -773,16 +771,12 @@
   display: block;
 }
 .scratchblocks2-container .cwrap .cstart {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
   border-radius: 4px 4px 4px 0;
   -webkit-border-radius: 4px 4px 4px 0;
   -moz-border-radius: 4px 4px 4px 0;
   min-width: 60px;
 }
 .scratchblocks2-container .cwrap .cmouth {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
   display: block;
   position: relative;
 }
@@ -791,6 +785,8 @@
   min-height: 12px;
 }
 .scratchblocks2-container .cwrap .cmouth:before {
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
   content: "";
   display: block;
   position: absolute;
@@ -806,8 +802,6 @@
   margin-left: 14px;
 }
 .scratchblocks2-container .cwrap .celse {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
   min-width: 60px;
   position: relative;
   border-radius: 0 4px 4px 0;
@@ -815,8 +809,6 @@
   -moz-border-radius: 0 4px 4px 0;
 }
 .scratchblocks2-container .cwrap .cend {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
   height: 8px;
   min-width: 60px;
   border-radius: 0 4px 4px 4px;
