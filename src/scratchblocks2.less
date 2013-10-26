@@ -19,6 +19,17 @@
 
 
 // Category colours
+
+/*
+    bg:    background colour for entire block
+    btop:  top border for entire block
+    bbot:  bottom border for entire block
+    itop:  top border for inserts (eg. dropdown menus)
+    ibot:  bottom border for inserts (eg. dropdown menus)
+    inset: background colour for dropdown menus
+    arrow: colour of the "▼" dropdown arrow
+*/
+
 @control_bg: #e1a91a;
 @control_btop: #e5b53a;
 @control_bbot: #a07812;
@@ -50,6 +61,14 @@
 @events_ibot: #c59254;
 @events_inset: #b8782c;
 @events_arrow: #4a3011;
+
+@extension_bg: #4b4a60;
+@extension_btop: #646376;
+@extension_bbot: #353444;
+@extension_itop: #2a2935;
+@extension_ibot: #686778;
+@extension_inset: #454458;
+@extension_arrow: #1b1b23;
 
 @grey_bg: #969696;
 @grey_btop: #b7b7b7;
@@ -106,14 +125,6 @@
 @pen_ibot: #62785b; // TODO
 @pen_inset: none;   // TODO
 @pen_arrow: none;   // TODO
-
-@purple_bg: #672d79;
-@purple_btop: #7c4a8b;
-@purple_bbot: #492056;
-@purple_itop: #391843;
-@purple_ibot: #7d528a;
-@purple_inset: #5e296f;
-@purple_arrow: #25102c;
 
 @sensing_bg: #2ca5e2;
 @sensing_btop: #49b1e6;
@@ -192,7 +203,7 @@
             }
         }
 
-        &.hat, &.hat:before, &.custom-definition, &.stack, &.boolean, &.reporter,
+        &.hat, &.hat:before, &.define-hat, &.stack, &.boolean, &.reporter,
         &.embedded, &.variable-reporter, &.custom-arg {
             .stack-color(@category);
         }
@@ -264,7 +275,7 @@
     .category-color("sound");
     .category-color("variables");
     .category-color("custom-arg");
-    .category-color("purple");
+    .category-color("extension");
     .category-color("grey");
 
 
@@ -290,7 +301,7 @@
         display: inline-block;
     }
 
-    .hat, .custom-definition, .stack, .boolean, .reporter,
+    .hat, .define-hat, .stack, .boolean, .reporter,
         .variable-reporter, .custom-arg, .dropdown {
         border: 2px solid;
     }
@@ -299,6 +310,7 @@
         height: 16px;
         width: 27px;
         padding: 0;
+        vertical-align: middle;
     }
 
     .stack {
@@ -312,7 +324,7 @@
         clear: both;
     }
 
-    .stack, .hat, .custom-definition {
+    .stack, .hat, .define-hat {
         padding: 2px 4px;
 
         // vertically centred min height
@@ -329,7 +341,7 @@
 
 
     // Puzzle pieces //
-    .stack, .hat, .cap, .custom-definition {
+    .stack, .hat, .cap, .define-hat {
         position: relative;
     }
 
@@ -350,7 +362,7 @@
         }
     }
 
-    .stack, .hat, .custom-definition {
+    .stack, .hat, .define-hat {
         &:after {
             content: "";
             position: absolute;
@@ -397,7 +409,7 @@
 
 
     // Hat block shapes //
-    .hat, .custom-definition {
+    .hat, .define-hat {
         position: relative;
         float: left;
 
@@ -429,7 +441,7 @@
     // Custom block definition //
     @custom_definition_height: 18px;
 
-    .custom-definition {
+    .define-hat {
         .border-radius(0 0 5px 5px);
 
         &:before {
@@ -460,6 +472,7 @@
         margin: 4px 0 4px 5px;
         position: relative;
         background: inherit;
+        .box-sizing_content-box;
 
         &:before {
             top: -2px;
@@ -544,6 +557,7 @@
         width: 11px;
         height: 11px;
         padding: 0;
+        .box-sizing_content-box;
     }
 
     .number, .number-dropdown, .string, .dropdown {
@@ -654,7 +668,7 @@
             &.to-hat {
                 margin-top: 16px;
             }
-            &.to-custom-definition {
+            &.to-define-hat {
                 margin-top: 26px;
             }
             &.to-reporter {
@@ -731,7 +745,7 @@
         .script > .stack {
             margin-top: 2px;
         }
-        .hat, .custom-definition {
+        .hat, .define-hat {
             margin-bottom: 14px;
         }
     }
