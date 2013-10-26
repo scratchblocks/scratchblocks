@@ -1,0 +1,2432 @@
+// All the scripts from my "Roads" project. ~blob8108
+
+when green flag clicked
+set [Level_index v] to [1]
+broadcast [Hide Cars v]
+clear graphic effects
+
+
+when green flag clicked
+clear
+wait (0) secs
+wait (0) secs
+if <not<(_done logo)=[1]>>
+	broadcast [blob8108 v] and wait
+end
+broadcast [Previews v]
+
+
+set [Levels v] to [0]
+delete (all v) of [Tiles v]
+delete (all v) of [Tile Surroundings.1 v]
+delete (all v) of [Tile Surroundings.2 v]
+delete (all v) of [Tile Switches v]
+delete (all v) of [Level Names v]
+broadcast [Previews v]
+
+
+when [c v] key pressed
+reset timer
+wait until <<(timer) > [3]> or <not<key [c v] pressed?>>>
+if <<(timer) > [3]> and <key [c v] pressed?>>
+	broadcast [New Level v] and wait
+end
+
+
+when [0 v] key pressed
+set [Selected v] to [0]
+
+
+when [1 v] key pressed
+set [Selected v] to [1]
+
+
+when [2 v] key pressed
+set [Selected v] to [2]
+
+
+when [3 v] key pressed
+set [Selected v] to [3]
+
+
+when [4 v] key pressed
+set [Selected v] to [4]
+
+
+when [r v] key pressed
+broadcast [Refresh All v]
+
+
+when I receive [Reset Vehicles v]
+wait (0.2) secs
+broadcast [Drive v]
+
+
+when green flag clicked
+set [processing v] to [0]
+hide
+set [Selected v] to [1]
+
+
+when I receive [Stop v]
+set [processing v] to [1]
+hide
+
+
+when I receive [Start v]
+set [processing v] to [0]
+wait until <not<mouse down?>>
+clear graphic effects
+repeat until <<(processing)=[1]> or <(Previewing)=[1]>>
+	if <<<(mouse x) > [-240]> and <(mouse x) < [240]>> and <<(mouse y) > [-180]> and <(mouse y) < [156]>>>
+		go to x:(((mouse x) - ((mouse x) mod (24))) + (12)) y:(((mouse y) - (((mouse y) + (12)) mod (24))) + (12))
+		set [ghost v] effect to (50)
+		show
+		if <<mouse down?> or <key [space v] pressed?>>
+			set [x v] to (round ((((x position) - (12)) / (24)) + (10)))
+			set [y v] to (((y position) / (24)) + (7))
+			hide
+			set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+			set [Current Type v] to (item (tile_index) of [Tiles v])
+			if <key [space v] pressed?>
+				set [Build Type v] to [0]
+			else
+				if <<<(Current Type)=[1]> and <(Selected)=[2]>> or <<(Current Type)=[2]> and <(Selected)=[1]>>>
+					set [Build Type v] to [3]
+				else
+					set [Build Type v] to (Selected)
+					if <(Selected) > [2]>
+						change [Build Type v] by (1)
+					end
+				end
+			end
+			switch to costume [blank v]
+			set [ghost v] effect to (0)
+			stamp
+			if <not<(Current Type)=(Build Type)>>
+				replace item (tile_index) of [Tiles v] with (Build Type)
+			else
+				replace item (tile_index) of [Tile Switches v] with (((item (tile_index) of [Tile Switches v]) mod (2)) + (1))
+				broadcast [Update Tile Surroundings v] and wait
+			end
+			if <(Build Type) > [0]>
+				if <(Build Type) > [3]>
+					if <(Build Type)=[4]>
+						switch to costume ((36) + (pick random (0) to (1)))
+						stamp
+					else
+						if <(Build Type)=[5]>
+							switch to costume ((38) + (pick random (1) to (16)))
+							set [Surroundings v] to (item ((tile_index) - (20)) of [Tile Surroundings.1 v])
+							stamp
+						else
+						end
+					end
+				end
+				if <<(Build Type)=[1]> or <(Build Type)=[3]>>
+					set [Surroundings v] to (item (tile_index) of [Tile Surroundings.1 v])
+					switch to costume ((((1) - (1)) * (17)) + ((Surroundings) + (1)))
+					stamp
+				end
+				if <<(Build Type)=[2]> or <(Build Type)=[3]>>
+					set [Surroundings v] to (item (tile_index) of [Tile Surroundings.2 v])
+					if <<<(Surroundings)=[8]> or <(Surroundings)=[12]>> or <<(Surroundings)=[14]> or <(Surroundings)=[15]>>>
+						set [brightness v] effect to (50)
+						switch to costume ((((2) - (1)) * (17)) + ((Surroundings) + (1)))
+						stamp
+						set [brightness v] effect to (0)
+						set [switch v] to (item (tile_index) of [Tile Switches v])
+						if <<<(Surroundings)=[8]> and <(switch)=[1]>> or <<(Surroundings)=[12]> and <(switch)=[2]>>>
+							switch to costume [ul1 v]
+						end
+						if <<<(Surroundings)=[8]> and <(switch)=[2]>> or <<(Surroundings)=[15]> and <(switch)=[1]>>>
+							switch to costume [ld1 v]
+						end
+						if <<<(Surroundings)=[12]> and <(switch)=[1]>> or <<(Surroundings)=[14]> and <(switch)=[2]>>>
+							switch to costume [ur1 v]
+						end
+						if <<<(Surroundings)=[14]> and <(switch)=[1]>> or <<(Surroundings)=[15]> and <(switch)=[2]>>>
+							switch to costume [dr1 v]
+						end
+						stamp
+					else
+						switch to costume ((((2) - (1)) * (17)) + ((Surroundings) + (1)))
+						stamp
+					end
+				end
+			end
+			if <not<(Current Type)=(Build Type)>>
+				if <<(Current Type) > [0]> and <(Current Type) < [4]>>
+					set [Build Modifier v] to [-1]
+					if <<(Current Type)=[1]> or <(Current Type)=[3]>>
+						broadcast [Rebuild Surroundings 1.Road v] and wait
+					end
+					if <<(Current Type)=[2]> or <(Current Type)=[3]>>
+						broadcast [Rebuild Surroundings 2.Rails v] and wait
+					end
+				end
+				if <<(Build Type) > [0]> and <(Build Type) < [4]>>
+					set [Build Modifier v] to [1]
+					if <<(Build Type)=[1]> or <(Build Type)=[3]>>
+						broadcast [Rebuild Surroundings 1.Road v] and wait
+					end
+					if <<(Build Type)=[2]> or <(Build Type)=[3]>>
+						broadcast [Rebuild Surroundings 2.Rails v] and wait
+					end
+				end
+				if <<(Current Type)=[5]> or <<<(Current Type) > [0]> and <(Current Type) < [4]>> or <<(Build Type) > [0]> and <(Build Type) < [4]>>>>
+					broadcast [Restamp neighbours v] and wait
+				end
+			end
+			if <(Build Type)=[5]>
+				set [Surroundings v] to (item ((tile_index) - (20)) of [Tile Surroundings.1 v])
+				if <<<(item ((tile_index) - (20)) of [Tiles v])=[1]> or <(item ((tile_index) - (20)) of [Tiles v])=[3]>> and <<<(Surroundings)=[3]> or <(Surroundings)=[9]>> or <<(Surroundings)=[11]> or <(Surroundings)=[15]>>>>
+					switch to costume [drive v]
+					stamp
+				end
+			end
+			if <(Build Type)=[3]>
+				set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+				set [Surroundings.1 v] to (item (tile_index) of [Tile Surroundings.1 v])
+				set [Surroundings.2 v] to (item (tile_index) of [Tile Surroundings.2 v])
+				if <<<(Surroundings.1)=[6]> and <(Surroundings.2)=[11]>> or <<(Surroundings.1)=[11]> and <(Surroundings.2)=[6]>>>
+					broadcast [Stamp Crossing v] and wait
+				end
+			end
+			set [nx v] to (x)
+			set [ny v] to (y)
+			repeat until <<not<<(nx)=(x)> and <(ny)=(y)>>> or <not<mouse down?>>>
+				go to x:(((mouse x) - ((mouse x) mod (24))) + (12)) y:(((mouse y) - (((mouse y) + (12)) mod (24))) + (12))
+				set [nx v] to ((((x position) - (12)) / (24)) + (10))
+				set [ny v] to (((y position) / (24)) + (7))
+			end
+		else
+			if <(Selected)=[4]>
+				switch to costume [house1 v]
+			else
+				if <(Selected)=[3]>
+					switch to costume [tree v]
+				else
+					switch to costume (((Selected) * (17)) + (1))
+				end
+			end
+		end
+	else
+		hide
+	end
+end
+
+
+when I receive [Restamp neighbours v]
+clear graphic effects
+change [x v] by (1)
+if <<<(x) > [-1]> and <(y) > [-1]>> and <<(x) < [20]> and <(y) < [14]>>>
+	set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		go to x:((((x) - (10)) * (24)) + (12)) y:(((y) - (7)) * (24))
+		switch to costume [blank v]
+		stamp
+		broadcast [Stamp v] and wait
+		if <<(Type)=[1]> and <(item ((tile_index) + (20)) of [Tiles v])=[5]>>
+			set [Surroundings v] to (item (tile_index) of [Tile Surroundings.1 v])
+			if <<<(Surroundings)=[3]> or <(Surroundings)=[9]>> or <<(Surroundings)=[11]> or <(Surroundings)=[15]>>>
+				change y by (24)
+				switch to costume [drive v]
+				stamp
+			end
+		end
+	end
+end
+change [x v] by (-2)
+if <<<(x) > [-1]> and <(y) > [-1]>> and <<(x) < [20]> and <(y) < [14]>>>
+	set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		go to x:((((x) - (10)) * (24)) + (12)) y:(((y) - (7)) * (24))
+		switch to costume [blank v]
+		stamp
+		broadcast [Stamp v] and wait
+		if <<(Type)=[1]> and <(item ((tile_index) + (20)) of [Tiles v])=[5]>>
+			set [Surroundings v] to (item (tile_index) of [Tile Surroundings.1 v])
+			if <<<(Surroundings)=[3]> or <(Surroundings)=[9]>> or <<(Surroundings)=[11]> or <(Surroundings)=[15]>>>
+				change y by (24)
+				switch to costume [drive v]
+				stamp
+			end
+		end
+	end
+end
+change [x v] by (1)
+change [y v] by (1)
+if <<<(x) > [-1]> and <(y) > [-1]>> and <<(x) < [20]> and <(y) < [14]>>>
+	set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		go to x:((((x) - (10)) * (24)) + (12)) y:(((y) - (7)) * (24))
+		switch to costume [blank v]
+		stamp
+		broadcast [Stamp v] and wait
+		if <<(Type)=[1]> and <(item ((tile_index) + (20)) of [Tiles v])=[5]>>
+			set [Surroundings v] to (item (tile_index) of [Tile Surroundings.1 v])
+			if <<<(Surroundings)=[3]> or <(Surroundings)=[9]>> or <<(Surroundings)=[11]> or <(Surroundings)=[15]>>>
+				change y by (24)
+				switch to costume [drive v]
+				stamp
+			end
+		end
+	end
+end
+change [y v] by (-2)
+if <<<(x) > [-1]> and <(y) > [-1]>> and <<(x) < [20]> and <(y) < [14]>>>
+	set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		go to x:((((x) - (10)) * (24)) + (12)) y:(((y) - (7)) * (24))
+		switch to costume [blank v]
+		stamp
+		broadcast [Stamp v] and wait
+		if <<(Type)=[1]> and <(item ((tile_index) + (20)) of [Tiles v])=[5]>>
+			set [Surroundings v] to (item (tile_index) of [Tile Surroundings.1 v])
+			if <<<(Surroundings)=[3]> or <(Surroundings)=[9]>> or <<(Surroundings)=[11]> or <(Surroundings)=[15]>>>
+				change y by (24)
+				switch to costume [drive v]
+				stamp
+			end
+		end
+	end
+end
+
+
+when I receive [Rebuild Surroundings 1.Road v]
+change [x v] by (1)
+if <<<(x) > [-1]> and <(y) > [-1]>> and <<(x) < [20]> and <(y) < [14]>>>
+	set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+	set [Type v] to (item (tile_index) of [Tiles v])
+	set [Surroundings v] to (item (tile_index) of [Tile Surroundings.1 v])
+	change [Surroundings v] by ((2) * (Build Modifier))
+	replace item (tile_index) of [Tile Surroundings.1 v] with (Surroundings)
+end
+change [x v] by (-2)
+if <<<(x) > [-1]> and <(y) > [-1]>> and <<(x) < [20]> and <(y) < [14]>>>
+	set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+	set [Type v] to (item (tile_index) of [Tiles v])
+	set [Surroundings v] to (item (tile_index) of [Tile Surroundings.1 v])
+	change [Surroundings v] by ((8) * (Build Modifier))
+	replace item (tile_index) of [Tile Surroundings.1 v] with (Surroundings)
+end
+change [x v] by (1)
+change [y v] by (1)
+if <<<(x) > [-1]> and <(y) > [-1]>> and <<(x) < [20]> and <(y) < [14]>>>
+	set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+	set [Type v] to (item (tile_index) of [Tiles v])
+	set [Surroundings v] to (item (tile_index) of [Tile Surroundings.1 v])
+	change [Surroundings v] by ((4) * (Build Modifier))
+	replace item (tile_index) of [Tile Surroundings.1 v] with (Surroundings)
+end
+change [y v] by (-2)
+if <<<(x) > [-1]> and <(y) > [-1]>> and <<(x) < [20]> and <(y) < [14]>>>
+	set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+	set [Type v] to (item (tile_index) of [Tiles v])
+	set [Surroundings v] to (item (tile_index) of [Tile Surroundings.1 v])
+	change [Surroundings v] by ((1) * (Build Modifier))
+	replace item (tile_index) of [Tile Surroundings.1 v] with (Surroundings)
+end
+change [y v] by (1)
+
+
+when I receive [Rebuild Surroundings 2.Rails v]
+change [x v] by (1)
+if <<<(x) > [-1]> and <(y) > [-1]>> and <<(x) < [20]> and <(y) < [14]>>>
+	set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+	set [Type v] to (item (tile_index) of [Tiles v])
+	set [Surroundings v] to (item (tile_index) of [Tile Surroundings.2 v])
+	change [Surroundings v] by ((2) * (Build Modifier))
+	replace item (tile_index) of [Tile Surroundings.2 v] with (Surroundings)
+end
+change [x v] by (-2)
+if <<<(x) > [-1]> and <(y) > [-1]>> and <<(x) < [20]> and <(y) < [14]>>>
+	set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+	set [Type v] to (item (tile_index) of [Tiles v])
+	set [Surroundings v] to (item (tile_index) of [Tile Surroundings.2 v])
+	change [Surroundings v] by ((8) * (Build Modifier))
+	replace item (tile_index) of [Tile Surroundings.2 v] with (Surroundings)
+end
+change [x v] by (1)
+change [y v] by (1)
+if <<<(x) > [-1]> and <(y) > [-1]>> and <<(x) < [20]> and <(y) < [14]>>>
+	set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+	set [Type v] to (item (tile_index) of [Tiles v])
+	set [Surroundings v] to (item (tile_index) of [Tile Surroundings.2 v])
+	change [Surroundings v] by ((4) * (Build Modifier))
+	replace item (tile_index) of [Tile Surroundings.2 v] with (Surroundings)
+end
+change [y v] by (-2)
+if <<<(x) > [-1]> and <(y) > [-1]>> and <<(x) < [20]> and <(y) < [14]>>>
+	set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+	set [Type v] to (item (tile_index) of [Tiles v])
+	set [Surroundings v] to (item (tile_index) of [Tile Surroundings.2 v])
+	change [Surroundings v] by ((1) * (Build Modifier))
+	replace item (tile_index) of [Tile Surroundings.2 v] with (Surroundings)
+end
+change [y v] by (1)
+
+
+when I receive [Update Tile Surroundings v]
+set [Surroundings.1 v] to [1]
+set [Surroundings.2 v] to [1]
+set [tx v] to ((x) + (0))
+set [ty v] to ((y) + (1))
+if <<<(tx) > [-1]> and <(ty) > [-1]>> and <<(tx) < [20]> and <(ty) < [14]>>>
+	set [tile v] to (item ((round ((tx) + ((ty) * (20)))) + (Level_index)) of [Tiles v])
+	if <<(tile)=[1]> or <(tile)=[3]>>
+		change [Surroundings.1 v] by (1)
+	end
+	if <<(tile)=[2]> or <(tile)=[3]>>
+		change [Surroundings.2 v] by (1)
+	end
+end
+set [tx v] to ((x) + (-1))
+set [ty v] to ((y) + (0))
+if <<<(tx) > [-1]> and <(ty) > [-1]>> and <<(tx) < [20]> and <(ty) < [14]>>>
+	set [tile v] to (item ((round ((tx) + ((ty) * (20)))) + (Level_index)) of [Tiles v])
+	if <<(tile)=[1]> or <(tile)=[3]>>
+		change [Surroundings.1 v] by (2)
+	end
+	if <<(tile)=[2]> or <(tile)=[3]>>
+		change [Surroundings.2 v] by (2)
+	end
+end
+set [tx v] to ((x) + (0))
+set [ty v] to ((y) + (-1))
+if <<<(tx) > [-1]> and <(ty) > [-1]>> and <<(tx) < [20]> and <(ty) < [14]>>>
+	set [tile v] to (item ((round ((tx) + ((ty) * (20)))) + (Level_index)) of [Tiles v])
+	if <<(tile)=[1]> or <(tile)=[3]>>
+		change [Surroundings.1 v] by (4)
+	end
+	if <<(tile)=[2]> or <(tile)=[3]>>
+		change [Surroundings.2 v] by (4)
+	end
+end
+set [tx v] to ((x) + (1))
+set [ty v] to ((y) + (0))
+if <<<(tx) > [-1]> and <(ty) > [-1]>> and <<(tx) < [20]> and <(ty) < [14]>>>
+	set [tile v] to (item ((round ((tx) + ((ty) * (20)))) + (Level_index)) of [Tiles v])
+	if <<(tile)=[1]> or <(tile)=[3]>>
+		change [Surroundings.1 v] by (8)
+	end
+	if <<(tile)=[2]> or <(tile)=[3]>>
+		change [Surroundings.2 v] by (8)
+	end
+end
+replace item (tile_index) of [Tile Surroundings.1 v] with (Surroundings.1)
+replace item (tile_index) of [Tile Surroundings.2 v] with (Surroundings.2)
+
+
+when I receive [_update surroundings v]
+set [Surroundings v] to [1]
+set [tx v] to ((x) + (0))
+set [ty v] to ((y) + (1))
+if <<<(tx) > [-1]> and <(ty) > [-1]>> and <<(tx) < [20]> and <(ty) < [14]>>>
+	set [tile v] to (item ((round ((tx) + ((ty) * (20)))) + (Level_index)) of [Tiles v])
+	if <<(tile)=(Type)> or <(tile)=[3]>>
+		change [Surroundings v] by (1)
+	end
+end
+set [tx v] to ((x) + (-1))
+set [ty v] to ((y) + (0))
+if <<<(tx) > [-1]> and <(ty) > [-1]>> and <<(tx) < [20]> and <(ty) < [14]>>>
+	set [tile v] to (item ((round ((tx) + ((ty) * (20)))) + (Level_index)) of [Tiles v])
+	if <<(tile)=(Type)> or <(tile)=[3]>>
+		change [Surroundings v] by (2)
+	end
+end
+set [tx v] to ((x) + (0))
+set [ty v] to ((y) + (-1))
+if <<<(tx) > [-1]> and <(ty) > [-1]>> and <<(tx) < [20]> and <(ty) < [14]>>>
+	set [tile v] to (item ((round ((tx) + ((ty) * (20)))) + (Level_index)) of [Tiles v])
+	if <<(tile)=(Type)> or <(tile)=[3]>>
+		change [Surroundings v] by (4)
+	end
+end
+set [tx v] to ((x) + (1))
+set [ty v] to ((y) + (0))
+if <<<(tx) > [-1]> and <(ty) > [-1]>> and <<(tx) < [20]> and <(ty) < [14]>>>
+	set [tile v] to (item ((round ((tx) + ((ty) * (20)))) + (Level_index)) of [Tiles v])
+	if <<(tile)=(Type)> or <(tile)=[3]>>
+		change [Surroundings v] by (8)
+	end
+end
+if <(Type)=[1]>
+	replace item (tile_index) of [Tile Surroundings.1 v] with (Surroundings)
+end
+if <(Type)=[2]>
+	replace item (tile_index) of [Tile Surroundings.2 v] with (Surroundings)
+end
+
+
+when I receive [Stamp v]
+clear graphic effects
+if <(Type) > [3]>
+	if <(Type)=[4]>
+		switch to costume ((36) + (pick random (0) to (1)))
+		stamp
+	else
+		if <(Type)=[5]>
+			switch to costume ((38) + (pick random (1) to (16)))
+			set [Surroundings v] to (item ((tile_index) - (20)) of [Tile Surroundings.1 v])
+			stamp
+			if <<<(item ((tile_index) - (20)) of [Tiles v])=[1]> or <(item ((tile_index) - (20)) of [Tiles v])=[3]>> and <<<(Surroundings)=[3]> or <(Surroundings)=[9]>> or <<(Surroundings)=[11]> or <(Surroundings)=[15]>>>>
+				switch to costume [drive v]
+				stamp
+			end
+		else
+		end
+	end
+else
+	set [Surroundings.1 v] to (item (tile_index) of [Tile Surroundings.1 v])
+	set [Surroundings.2 v] to (item (tile_index) of [Tile Surroundings.2 v])
+	if <<(Type)=[3]> and <<<(Surroundings.1)=[6]> and <(Surroundings.2)=[11]>> or <<(Surroundings.1)=[11]> and <(Surroundings.2)=[6]>>>>
+		broadcast [Stamp Crossing v] and wait
+	else
+		if <<(Type)=[1]> or <(Type)=[3]>>
+			switch to costume ((((1) - (1)) * (17)) + ((Surroundings.1) + (1)))
+			stamp
+		end
+		if <<(Type)=[2]> or <(Type)=[3]>>
+			if <<<(Surroundings.2)=[8]> or <(Surroundings.2)=[12]>> or <<(Surroundings.2)=[14]> or <(Surroundings.2)=[15]>>>
+				set [brightness v] effect to (50)
+				switch to costume ((((2) - (1)) * (17)) + ((Surroundings.2) + (1)))
+				stamp
+				set [brightness v] effect to (0)
+				set [switch v] to (item (tile_index) of [Tile Switches v])
+				if <<<(Surroundings.2)=[8]> and <(switch)=[1]>> or <<(Surroundings.2)=[12]> and <(switch)=[2]>>>
+					switch to costume [ul1 v]
+				end
+				if <<<(Surroundings.2)=[8]> and <(switch)=[2]>> or <<(Surroundings.2)=[15]> and <(switch)=[1]>>>
+					switch to costume [ld1 v]
+				end
+				if <<<(Surroundings.2)=[12]> and <(switch)=[1]>> or <<(Surroundings.2)=[14]> and <(switch)=[2]>>>
+					switch to costume [ur1 v]
+				end
+				if <<<(Surroundings.2)=[14]> and <(switch)=[1]>> or <<(Surroundings.2)=[15]> and <(switch)=[2]>>>
+					switch to costume [dr1 v]
+				end
+				stamp
+			else
+				switch to costume ((((2) - (1)) * (17)) + ((Surroundings.2) + (1)))
+				stamp
+			end
+		end
+	end
+end
+
+
+when I receive [Generate Code v]
+delete (all v) of [Code v]
+set [processing v] to [1]
+broadcast [Thinking v]
+set [_Code v] to []
+set [Level_index v] to ((((Level) - (1)) * (280)) + (1))
+set [tile_index v] to (Level_index)
+repeat (94)
+	set [Byte v] to [0]
+	repeat (3)
+		set [Byte v] to ((Byte) / (4))
+		set [Type v] to (item (tile_index) of [Tiles v])
+		if <(Type) > [3]>
+			set [Type v] to [0]
+		end
+		change [Byte v] by (Type)
+		change [tile_index v] by (1)
+	end
+	set [Byte v] to (round ((Byte) * (16)))
+	set [_Code v] to (join (_Code) (item ((Byte) + (1)) of [base64 v]))
+end
+add (_Code) to [Code v]
+set [processing v] to [0]
+broadcast [Export instructions v] and wait
+
+
+when I receive [Import Code v]
+hide
+ask [Import level — paste code here:] and wait
+if <not<(answer)=[]>>
+	set [processing v] to [1]
+	broadcast [Thinking v]
+	broadcast [_new v] and wait
+	change [Levels v] by (1)
+	add [Imported] to [Level Names v]
+	set [_Code v] to (answer)
+	set [i v] to [1]
+	set [tile_index2 v] to (Level_index)
+	repeat (length of (_Code))
+		set [Char v] to (letter (i) of (_Code))
+		if <[base64 v] contains (Char)>
+			set [Byte v] to [0]
+			repeat until <(item ((Byte) + (1)) of [base64 search v])=(Char)>
+				change [Byte v] by (1)
+			end
+			if <[uppercase v] contains (Char)>
+				change [Byte v] by (26)
+			end
+			repeat (3)
+				set [Type v] to ((Byte) mod (4))
+				set [tile_index v] to (tile_index2)
+				replace item (tile_index) of [Tiles v] with (Type)
+				set [Build Modifier v] to [1]
+				change [tile_index2 v] by (1)
+				change [Byte v] by ((0) - (Type))
+				set [Byte v] to ((Byte) / (4))
+			end
+		else
+			set [processing v] to [0]
+			stop script
+		end
+		change [i v] by (1)
+	end
+	set [Build Modifier v] to [1]
+	set [y v] to [0]
+	repeat (14)
+		set [x v] to [0]
+		repeat (20)
+			set [tile_index v] to (((x) + ((y) * (20))) + (Level_index))
+			broadcast [Update Tile Surroundings v] and wait
+			change [x v] by (1)
+		end
+		change [y v] by (1)
+	end
+	set [processing v] to [0]
+end
+
+
+when green flag clicked
+forever
+	set [reverse x v] to (((tile_index) - (Level_index)) mod (20))
+	set [reverse y v] to ((((tile_index) - (Level_index)) - (reverse x)) / (20))
+end
+
+
+when I receive [Load Level v]
+set [Level_index v] to ((((Level) - (1)) * (280)) + (1))
+broadcast [Refresh All v]
+
+
+when I receive [New Level v]
+set [processing v] to [1]
+broadcast [Hide Cars v]
+clear
+broadcast [_new v] and wait
+set [processing v] to [0]
+set [Build Modifier v] to [1]
+set [x v] to [9]
+set [y v] to [6]
+replace item (((x) + ((y) * (20))) + (Level_index)) of [Tiles v] with [1]
+broadcast [Rebuild Surroundings 1.Road v] and wait
+change [x v] by (1)
+replace item (((x) + ((y) * (20))) + (Level_index)) of [Tiles v] with [1]
+broadcast [Rebuild Surroundings 1.Road v] and wait
+change [y v] by (1)
+replace item (((10) + ((7) * (20))) + (Level_index)) of [Tiles v] with [2]
+broadcast [Rebuild Surroundings 2.Rails v] and wait
+change [x v] by (-1)
+replace item (((9) + ((7) * (20))) + (Level_index)) of [Tiles v] with [2]
+broadcast [Rebuild Surroundings 2.Rails v] and wait
+change [Levels v] by (1)
+add (join [Level ] (Levels)) to [Level Names v]
+wait (0.2) secs
+broadcast [Refresh All v]
+
+
+when I receive [_new v]
+set [Level_index v] to ((length of [Tiles v]) + (1))
+repeat ((14) * (20))
+    add ([Fill With v] of [newmap v]) to [Tiles v]
+    add [1] to [Tile Switches v]
+    add [1] to [Tile Surroundings.1 v]
+    add [1] to [Tile Surroundings.2 v]
+end
+
+
+switch to costume [r1 v]
+go to x:(-12) y:(0)
+stamp
+switch to costume [l1 v]
+go to x:(12) y:(0)
+stamp
+switch to costume [r v]
+go to x:(-12) y:(-24)
+stamp
+switch to costume [l v]
+go to x:(12) y:(-24)
+stamp
+broadcast [Start v]
+broadcast [Reset Vehicles v]
+
+
+when I receive [Refresh All v]
+set [processing v] to [1]
+broadcast [Hide Cars v]
+hide
+clear graphic effects
+clear
+broadcast [SuperClear v]
+wait (0) secs
+wait (0) secs
+set [y v] to [0]
+set y to (-168)
+set [tile_index v] to (Level_index)
+repeat (14)
+	set [x v] to [0]
+	set x to (-228)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	set [Type v] to (item (tile_index) of [Tiles v])
+	if <(Type) > [0]>
+		broadcast [Stamp v] and wait
+	end
+	change [tile_index v] by (1)
+	change [x v] by (1)
+	change x by (24)
+	change [y v] by (1)
+	change y by (24)
+end
+set [processing v] to [0]
+broadcast [Start v]
+broadcast [Reset Vehicles v]
+
+
+when green flag clicked
+hide
+set [processing v] to [0]
+
+
+when I receive [Previews v]
+hide
+
+
+when I receive [Start v]
+hide
+
+
+when I receive [Stamp Crossing v]
+wait until <(processing)=[0]>
+go to [placer v]
+if <([Surroundings.1 v] of [placer v])=[6]>
+	switch to costume [6,11: v]
+	stamp
+	set [gate dir v] to [1]
+else
+	switch to costume [11,6: v]
+	stamp
+	set [gate dir v] to [0]
+end
+set [gate dir v] to (((gate dir) + (item ([tile_index v] of [placer v]) of [Tile Switches v])) mod (2))
+if <(gate dir)=[1]>
+	switch to costume [lr v]
+else
+	switch to costume [ud v]
+end
+stamp
+
+
+when I receive [Crossing Request v]
+if <(processing)=[0]>
+	set [processing v] to [1]
+	broadcast [_crossing request v]
+end
+
+
+when I receive [_crossing request v]
+set [tx v] to (crossing.tx)
+set [ty v] to (crossing.ty)
+set [request type v] to (crossing.requestType)
+go to x:((((tx) - (10)) * (24)) + (12)) y:(((ty) - (7)) * (24))
+set [t i v] to (((tx) + ((ty) * (20))) + (Level_index))
+if <not<(item (t i) of [Tiles v])=[3]>>
+	set [processing v] to [0]
+	stop script
+end
+if <<(item (t i) of [Tile Surroundings.1 v])=[6]> and <(item (t i) of [Tile Surroundings.2 v])=[11]>>
+	switch to costume [6,11: v]
+	stamp
+	set [gate dir v] to [1]
+else
+	if <<(item (t i) of [Tile Surroundings.1 v])=[11]> and <(item (t i) of [Tile Surroundings.2 v])=[6]>>
+		switch to costume [11,6: v]
+		stamp
+		set [gate dir v] to [0]
+	else
+		set [processing v] to [0]
+		stop script
+	end
+end
+set [gate dir v] to (((gate dir) + (request type)) mod (2))
+if <(gate dir)=[1]>
+	switch to costume [ud v]
+	show
+	repeat (4)
+		wait (0.05) secs
+		switch to costume ((costume #) - (1))
+	end
+else
+	switch to costume [lr v]
+	show
+	repeat (4)
+		wait (0.05) secs
+		next costume
+	end
+end
+stamp
+hide
+replace item (t i) of [Tile Switches v] with (request type)
+wait (0.2) secs
+set [processing v] to [0]
+
+
+when green flag clicked
+hide
+
+
+when I receive [Hide Cars v]
+hide
+
+
+when I receive [Start v]
+show
+forever
+	go to x:(0) y:(-24)
+	go back (100) layers
+end
+
+
+when I receive [SuperClear v]
+hide
+
+
+when green flag clicked
+hide
+
+
+when I receive [SuperClear v]
+hide
+switch to costume [clearer v]
+stamp
+switch to costume [trainstn v]
+
+
+when I receive [Start v]
+switch to costume [trainstn v]
+show
+forever
+	go to x:(0) y:(0)
+	go back (100) layers
+end
+
+
+when green flag clicked
+go to x:(-235) y:(170)
+forever
+	if <(Previewing)=[1]>
+		switch to costume [Previewing v]
+	else
+		switch to costume [selected v]
+	end
+end
+
+
+when green flag clicked
+forever
+	switch to costume ((Selected) + (1))
+end
+
+
+when green flag clicked
+go to x:(-150) y:(169)
+forever
+	if <(Previewing)=[1]>
+		hide
+	else
+		show
+		if <<<(mouse y) > [156]> and <(mouse y) < [180]>> and <(mouse x) < [50]>>
+			set [brightness v] effect to (10)
+			if <mouse down?>
+				set [brightness v] effect to (0)
+				if <<(mouse x) > [-150]> and <(mouse x) < [-40]>>
+					set [Selected v] to ((((mouse x) + (150)) - (((mouse x) + (150)) mod (22))) / (22))
+				else
+					set [Selected v] to (((Selected) + (1)) mod (5))
+				end
+				wait until <not<mouse down?>>
+			end
+		else
+			set [brightness v] effect to (-5)
+		end
+	end
+end
+
+
+when green flag clicked
+forever
+	go to x:(((Selected) * (21)) - (150)) y:(169)
+end
+
+
+when green flag clicked
+forever
+	if <(Previewing)=[1]>
+		hide
+	else
+		show
+	end
+end
+
+
+when green flag clicked
+forever
+	if <(Previewing)=[1]>
+		hide
+	else
+		show
+		go to x:(-36) y:(170)
+		switch to costume ((Selected) + (1))
+		if <<<(mouse y) > [156]> and <(mouse y) < [180]>> and <(mouse x) < [50]>>
+			set [brightness v] effect to (-5)
+		else
+			set [brightness v] effect to (-50)
+		end
+	end
+end
+
+
+when green flag clicked
+go to x:(105) y:(170)
+forever
+	switch to costume [maps v]
+	if <(Previewing)=[1]>
+		switch to costume [maps_hover v]
+		set [brightness v] effect to (-50)
+		wait until <not<(Previewing)=[1]>>
+		if <not<<<(mouse y) > [156]> and <(mouse y) < [180]>> and <<(mouse x) > [55]> and <(mouse x) < [122]>>>>
+			switch to costume [maps v]
+			repeat (20)
+				change [brightness v] effect by (2.5)
+			end
+		end
+	end
+	if <<([processing v] of [placer v])=[0]> and <<<(mouse y) > [156]> and <(mouse y) < [180]>> and <<(mouse x) > [55]> and <(mouse x) < [122]>>>>
+		switch to costume [maps_hover v]
+		set [brightness v] effect to (-50)
+		if <mouse down?>
+			say []
+			set [brightness v] effect to (0)
+			wait until <not<mouse down?>>
+			set [brightness v] effect to (-50)
+			broadcast [Previews v]
+			wait until <(Previewing)=[1]>
+			wait until <(Previewing)=[0]>
+			if <not<<<(mouse y) > [156]> and <(mouse y) < [180]>> and <<(mouse x) > [55]> and <(mouse x) < [122]>>>>
+				switch to costume [maps v]
+				repeat (20)
+					change [brightness v] effect by (2.5)
+				end
+			end
+		end
+	else
+		say []
+		switch to costume [maps v]
+		set [brightness v] effect to (0)
+	end
+end
+
+
+say (join [Current: ] (item (Level) of [Level Names v]))
+
+
+when green flag clicked
+go to x:(165) y:(170)
+forever
+	switch to costume [Offline v]
+	if <<<([processing v] of [placer v])=[0]> and <(Previewing)=[0]>> and <<<(mouse y) > [156]> and <(mouse y) < [180]>> and <<(mouse x) > [122]> and <(mouse x) < [180]>>>>
+		switch to costume [help_hover v]
+		if <(Previewing)=[0]>
+			set [brightness v] effect to (-50)
+			if <mouse down?>
+				set [brightness v] effect to (0)
+				wait until <not<mouse down?>>
+				set [brightness v] effect to (-50)
+				broadcast [Instructions v] and wait
+				if <not<<<(mouse y) > [156]> and <(mouse y) < [180]>> and <<(mouse x) > [122]> and <(mouse x) < [180]>>>>
+					switch to costume [help v]
+					repeat (20)
+						change [brightness v] effect by (2.5)
+					end
+				end
+			end
+		end
+	else
+		switch to costume [help v]
+		set [brightness v] effect to (0)
+	end
+end
+
+
+when green flag clicked
+set [isOnline v] to [1]
+if <(join (yourself) [])=[a ScratchSpriteMorph()]>
+	set [isOnline v] to [0]
+end
+
+
+when green flag clicked
+wait (0.5) secs
+go to x:(235) y:(170)
+switch to costume ((isOnline) + (1))
+
+
+when green flag clicked
+go to x:(0) y:(0)
+hide
+
+
+broadcast [_instructions v] and wait
+
+
+when green flag clicked
+forever
+	go to front
+end
+
+
+when I receive [Instructions v]
+broadcast [Stop v]
+clear graphic effects
+set [ghost v] effect to (100)
+set [pixelate v] effect to (100)
+show
+repeat (20)
+	change [pixelate v] effect by (-5)
+	change [ghost v] effect by (-4)
+end
+broadcast [_instructions v] and wait
+
+
+when I receive [_instructions v]
+clear graphic effects
+set [ghost v] effect to (20)
+show
+wait until <not<mouse down?>>
+wait until <mouse down?>
+repeat (20)
+	change [pixelate v] effect by (5)
+	change [ghost v] effect by (4)
+end
+hide
+broadcast [Start v]
+wait (0) secs
+broadcast [Drive v]
+
+
+when green flag clicked
+go to x:(0) y:(0)
+hide
+
+
+when I receive [New Level v]
+
+
+wait until <([processing v] of [placer v])=[1]>
+set [color v] effect to (130)
+set [brightness v] effect to (50)
+switch to costume [building v]
+show
+wait until <([processing v] of [placer v])=[0]>
+hide
+
+
+when I receive [New Level v]
+
+
+wait until <([processing v] of [placer v])=[1]>
+set [color v] effect to (130)
+set [brightness v] effect to (50)
+repeat until <([processing v] of [placer v])=[0]>
+	go to front
+	set size to (150)%
+	repeat (2)
+		wait (0.25) secs
+		set [brightness v] effect to (0)
+		wait (0.25) secs
+		set [brightness v] effect to (85)
+		change size by (50)
+	end
+	wait (0.25) secs
+	set [brightness v] effect to (0)
+	wait (0.25) secs
+	set [brightness v] effect to (85)
+end
+
+
+when I receive [Refresh All v]
+wait until <([processing v] of [placer v])=[1]>
+set [color v] effect to (130)
+set [brightness v] effect to (50)
+switch to costume [building v]
+show
+wait until <([processing v] of [placer v])=[0]>
+hide
+
+
+when I receive [Refresh All v]
+wait until <([processing v] of [placer v])=[1]>
+set [color v] effect to (130)
+set [brightness v] effect to (50)
+repeat until <([processing v] of [placer v])=[0]>
+	go to front
+	set size to (150)%
+	repeat (2)
+		wait (0.25) secs
+		set [brightness v] effect to (0)
+		wait (0.25) secs
+		set [brightness v] effect to (85)
+		change size by (50)
+	end
+	wait (0.25) secs
+	set [brightness v] effect to (0)
+	wait (0.25) secs
+	set [brightness v] effect to (85)
+end
+
+
+when I receive [Thinking v]
+wait until <([processing v] of [placer v])=[1]>
+set [color v] effect to (115)
+set [brightness v] effect to (100)
+switch to costume [thinking v]
+show
+wait until <([processing v] of [placer v])=[0]>
+hide
+
+
+when I receive [Thinking v]
+wait until <([processing v] of [placer v])=[1]>
+set [color v] effect to (115)
+set [brightness v] effect to (100)
+repeat until <([processing v] of [placer v])=[0]>
+	go to front
+	set size to (150)%
+	repeat (2)
+		wait (0.25) secs
+		set [brightness v] effect to (0)
+		wait (0.25) secs
+		set [brightness v] effect to (100)
+		change size by (50)
+	end
+	wait (0.25) secs
+	set [brightness v] effect to (0)
+	wait (0.25) secs
+	set [brightness v] effect to (100)
+end
+
+
+when I receive [Delete Level v]
+wait until <([processing v] of [asker v])=[1]>
+set [color v] effect to (199)
+set [brightness v] effect to (90)
+switch to costume [destroying v]
+show
+wait until <([processing v] of [asker v])=[0]>
+hide
+
+
+when I receive [Delete Level v]
+wait until <([processing v] of [asker v])=[1]>
+set [color v] effect to (199)
+set [brightness v] effect to (90)
+switch to costume [destroying v]
+show
+repeat until <([processing v] of [asker v])=[0]>
+	go to front
+	set size to (150)%
+	repeat (2)
+		wait (0.25) secs
+		set [brightness v] effect to (0)
+		wait (0.25) secs
+		set [brightness v] effect to (100)
+		change size by (50)
+	end
+	wait (0.25) secs
+	set [brightness v] effect to (0)
+	wait (0.25) secs
+	set [brightness v] effect to (100)
+end
+
+
+when I receive [Drive v]
+set [train v] to (join [train] [2])
+repeat until <([processing v] of [placer v])=[1]>
+	set [d v] to (((direction) + (45)) mod (360))
+	if <<<(d) < [15]> or <(d) > [345]>> or <<(d) > [165]> and <(d) < [195]>>>
+		switch to costume [top v]
+	else
+		if <(d) < [180]>
+			if <<(d) < [40]> or <(d) > [140]>>
+				switch to costume [normal1 v]
+			else
+				switch to costume [normal v]
+			end
+		else
+			if <<(d) < [220]> or <(d) > [320]>>
+				switch to costume [flipped1 v]
+			else
+				switch to costume [flipped v]
+			end
+		end
+	end
+end
+
+
+when I receive [Hide Cars v]
+hide
+clear graphic effects
+wait (1.2) secs
+hide
+clear graphic effects
+
+
+when I receive [train2.next v]
+change [tx v] by ([sin v] of (next dir))
+change [ty v] by ([cos v] of (next dir))
+set [next dir v] to ((next dir) mod (360))
+set [Choices v] to [0]
+set [_choices v] to [0]
+set [d i v] to [0]
+set [_tx v] to (round (tx))
+set [_ty v] to (round (ty))
+set [_ti v] to (((_tx) + ((_ty) * (20))) + (Level_index))
+if <<(item (_ti) of [Tiles v])=[3]> and <<<(item (_ti) of [Tile Surroundings.1 v])=[6]> and <(item (_ti) of [Tile Surroundings.2 v])=[11]>> or <<(item (_ti) of [Tile Surroundings.1 v])=[11]> and <(item (_ti) of [Tile Surroundings.2 v])=[6]>>>>
+	set [Choices v] to [0]
+	if <not<(item (_ti) of [Tile Switches v])=[2]>>
+		set [crossing.tx v] to (_tx)
+		set [crossing.ty v] to (_ty)
+		set [crossing.requestType v] to [2]
+		broadcast [Crossing Request v]
+		stop script
+	end
+end
+repeat (4)
+	change [d i v] by (1)
+	replace item (d i) of [Directions v] with [0]
+	set [_current tx v] to (round ((_tx) + ([sin v] of (next dir))))
+	set [_current ty v] to (round ((_ty) + ([cos v] of (next dir))))
+	if <<<(_current tx) > [-1]> and <(_current ty) > [-1]>> and <<(_current tx) < [20]> and <(_current ty) < [14]>>>
+		set [tile v] to (item (((_current tx) + ((_current ty) * (20))) + (Level_index)) of [Tiles v])
+		if <<(tile)=[2]> or <(tile)=[3]>>
+			change [_choices v] by (1)
+			replace item (d i) of [Directions v] with [1]
+		end
+	end
+	change [next dir v] by (90)
+end
+set [Choices v] to (_choices)
+
+
+when I receive [Reset Vehicles v]
+set [ready v] to [0]
+hide
+go to x:(0) y:(0)
+point in direction (-90 v)
+set [ghost v] effect to (100)
+set [color v] effect to (60)
+wait (1) secs
+show
+go to front
+repeat (2)
+	repeat (25)
+		change [ghost v] effect by (-2)
+	end
+	wait (0.5) secs
+	repeat (25)
+		change [ghost v] effect by (2)
+	end
+	wait (0.5) secs
+end
+repeat (10)
+	change [ghost v] effect by (-10)
+end
+set [ready v] to [1]
+
+
+when I receive [Drive v]
+wait until <(ready)=[1]>
+show
+set [ghost v] effect to (0)
+go to front
+set [Choices v] to [0]
+repeat until <([processing v] of [placer v])=[1]>
+	point in direction (((direction) + (45)) - (((direction) + (45)) mod (90)))
+	set [nx v] to ((x position) + (([sin v] of (direction)) * (12)))
+	set [ny v] to ((y position) + (([cos v] of (direction)) * (12)))
+	set [tx v] to ((((nx) - (12)) / (24)) + (10))
+	set [ty v] to (((ny) / (24)) + (7))
+	if <(Choices)=[0]>
+		set [next dir v] to (direction)
+		change [tx v] by ((0) - ([sin v] of (direction)))
+		change [ty v] by ((0) - ([cos v] of (direction)))
+		broadcast (join (train) [.next]) and wait
+		set [tx v] to ((((nx) - (12)) / (24)) + (10))
+		set [ty v] to (((ny) / (24)) + (7))
+	end
+	if <(Choices)=[4]>
+		set [Choice v] to [1]
+	else
+		if <<(Choices)=[1]> and <(item (3 v) of [Directions v])=[1]>>
+			set [Choice v] to [3]
+		else
+			change [Choices v] by (-1)
+			if <(Choices)=[1]>
+				if <(item (1 v) of [Directions v])=[1]>
+					set [Choice v] to [1]
+				else
+					if <(item (2 v) of [Directions v])=[1]>
+						set [Choice v] to [2]
+					else
+						set [Choice v] to [4]
+					end
+				end
+			else
+				if <(Choices)=[2]>
+					if <(item (round (((tx) + ((ty) * (20))) + (Level_index))) of [Tile Switches v])=[1]>
+						if <(item (1 v) of [Directions v])=[0]>
+							set [Choice v] to [4]
+						else
+							if <(item (2 v) of [Directions v])=[0]>
+								set [Choice v] to [1]
+							else
+								set [Choice v] to [2]
+							end
+						end
+					else
+						if <(item (1 v) of [Directions v])=[0]>
+							set [Choice v] to [2]
+						else
+							if <(item (2 v) of [Directions v])=[0]>
+								set [Choice v] to [4]
+							else
+								set [Choice v] to [1]
+							end
+						end
+					end
+				else
+					set [Choice v] to [0]
+				end
+			end
+		end
+	end
+	if <<<(item (_ti) of [Tiles v])=[3]> and <not<(item (_ti) of [Tile Switches v])=[2]>>> and <<<(item (_ti) of [Tile Surroundings.1 v])=[6]> and <(item (_ti) of [Tile Surroundings.2 v])=[11]>> or <<(item (_ti) of [Tile Surroundings.1 v])=[11]> and <(item (_ti) of [Tile Surroundings.2 v])=[6]>>>>
+		set [crossing.tx v] to (_tx)
+		set [crossing.ty v] to (_ty)
+		set [crossing.requestType v] to [2]
+		broadcast [Crossing Request v]
+		set [Choice v] to [0]
+	else
+		if <(Choice)=[1]>
+			set [next dir v] to (direction)
+			broadcast (join (train) [.next])
+			repeat (24)
+				move (1) steps
+			end
+		end
+		if <(Choice)=[2]>
+			set [next dir v] to ((direction) + (90))
+			broadcast (join (train) [.next])
+			set [rx v] to ((x position) + (([sin v] of ((direction) + (90))) * (12)))
+			set [ry v] to ((y position) + (([cos v] of ((direction) + (90))) * (12)))
+			repeat (18)
+				turn cw (5) degrees
+				go to x:((rx) + (([sin v] of ((direction) - (90))) * (12))) y:((([cos v] of ((direction) - (90))) * (12)) + (ry))
+			end
+		end
+		if <(Choice)=[3]>
+			set [next dir v] to ((direction) + (180))
+			repeat (16)
+				move (0.5) steps
+			end
+			turn cw (180) degrees
+			if <(((direction) + (45)) mod (360)) < [180]>
+				switch to costume [normal v]
+			else
+				switch to costume [flipped v]
+			end
+			broadcast (join (train) [.next]) and wait
+			repeat (16)
+				move (0.5) steps
+			end
+		end
+		if <(Choice)=[4]>
+			set [next dir v] to ((direction) - (90))
+			broadcast (join (train) [.next])
+			set [rx v] to ((x position) + (([sin v] of ((direction) - (90))) * (12)))
+			set [ry v] to ((y position) + (([cos v] of ((direction) - (90))) * (12)))
+			repeat (18)
+				turn ccw (5) degrees
+				go to x:((rx) + (([sin v] of ((direction) + (90))) * (12))) y:((([cos v] of ((direction) + (90))) * (12)) + (ry))
+			end
+		end
+	end
+	if <(Choice)=[0]>
+		set [Choices v] to [0]
+	end
+end
+
+
+go to x:(((x position) - ((x position) mod (24))) + (12)) y:(((y position) - (((y position) + (12)) mod (24))) + (12))
+point in direction (((direction) + (45)) - (((direction) + (45)) mod (90)))
+move (12) steps
+
+
+when I receive [Drive v]
+set [car v] to (join [car] [2])
+repeat until <([processing v] of [placer v])=[1]>
+	set [d v] to (((direction) + (45)) mod (360))
+	if <(d) < [180]>
+		switch to costume [normal v]
+	else
+		switch to costume [flipped v]
+	end
+end
+
+
+when I receive [Hide Cars v]
+hide
+clear graphic effects
+set [Choice v] to [0]
+
+
+when I receive [car2.next v]
+change [tx v] by ([sin v] of (next dir))
+change [ty v] by ([cos v] of (next dir))
+set [next dir v] to ((next dir) mod (360))
+set [Choices v] to [0]
+set [_choices v] to [0]
+set [d i v] to [0]
+set [_tx v] to (round (tx))
+set [_ty v] to (round (ty))
+set [_ti v] to (((_tx) + ((_ty) * (20))) + (Level_index))
+if <<(item (_ti) of [Tiles v])=[3]> and <<<(item (_ti) of [Tile Surroundings.1 v])=[6]> and <(item (_ti) of [Tile Surroundings.2 v])=[11]>> or <<(item (_ti) of [Tile Surroundings.1 v])=[11]> and <(item (_ti) of [Tile Surroundings.2 v])=[6]>>>>
+	if <not<(item (_ti) of [Tile Switches v])=[1]>>
+		set [Choices v] to [0]
+		replace item (1 v) of [Directions v] with [0]
+		replace item (2 v) of [Directions v] with [0]
+		replace item (3 v) of [Directions v] with [0]
+		replace item (4 v) of [Directions v] with [0]
+		set [crossing.tx v] to (_tx)
+		set [crossing.ty v] to (_ty)
+		set [crossing.requestType v] to [1]
+		broadcast [Crossing Request v]
+		stop script
+	end
+end
+repeat (4)
+	change [d i v] by (1)
+	replace item (d i) of [Directions v] with [0]
+	set [_current tx v] to (round ((_tx) + ([sin v] of (next dir))))
+	set [_current ty v] to (round ((_ty) + ([cos v] of (next dir))))
+	if <<<(_current tx) > [-1]> and <(_current ty) > [-1]>> and <<(_current tx) < [20]> and <(_current ty) < [14]>>>
+		set [tile v] to (item (((_current tx) + ((_current ty) * (20))) + (Level_index)) of [Tiles v])
+		if <<(tile)=[1]> or <(tile)=[3]>>
+			change [_choices v] by (1)
+			replace item (d i) of [Directions v] with [1]
+			if <not<(d i)=[3]>>
+				set [_choice v] to (d i)
+			end
+		end
+	end
+	change [next dir v] by (90)
+end
+set [Choices v] to (_choices)
+
+
+when I receive [Reset Vehicles v]
+set [ready v] to [0]
+go to x:(4) y:(-28)
+point in direction (-90 v)
+set [color v] effect to (110)
+show
+go to front
+set [ghost v] effect to (100)
+repeat (10)
+	change [ghost v] effect by (-10)
+end
+set [ready v] to [1]
+
+
+when I receive [Drive v]
+wait until <(ready)=[1]>
+show
+set [ghost v] effect to (0)
+go to front
+set [Choices v] to [0]
+repeat until <([processing v] of [placer v])=[1]>
+	point in direction (round (((direction) + (45)) - (((direction) + (45)) mod (90))))
+	set [nx v] to ((x position) + ((([sin v] of (direction)) * (16)) + (([sin v] of ((direction) + (90))) * (4))))
+	set [ny v] to ((y position) + ((([cos v] of (direction)) * (16)) + (([cos v] of ((direction) + (90))) * (4))))
+	set [tx v] to ((((nx) - (12)) / (24)) + (10))
+	set [ty v] to (((ny) / (24)) + (7))
+	if <(Choices)=[0]>
+		set [next dir v] to (direction)
+		change [tx v] by ((0) - ([sin v] of (direction)))
+		change [ty v] by ((0) - ([cos v] of (direction)))
+		broadcast (join (car) [.next]) and wait
+		set [tx v] to ((((nx) - (12)) / (24)) + (10))
+		set [ty v] to (((ny) / (24)) + (7))
+	end
+	if <<(Choices)=[1]> and <(item (3 v) of [Directions v])=[1]>>
+		set [Choice v] to [3]
+	else
+		if <(item (3 v) of [Directions v])=[1]>
+			change [Choices v] by (-1)
+		end
+		if <(Choices)=[1]>
+			set [Choice v] to (_choice)
+		else
+			set [Choice v] to []
+			repeat until <<not<(Choice)=[]>> or <(Choices)=[0]>>
+				if <key [w v] pressed?>
+					set [Choice v] to ((0) - (direction))
+				end
+				if <key [d v] pressed?>
+					set [Choice v] to ((90) - (direction))
+				end
+				if <key [s v] pressed?>
+					set [Choice v] to ((180) - (direction))
+				end
+				if <key [a v] pressed?>
+					set [Choice v] to ((270) - (direction))
+				end
+				if <not<(Choice)=[]>>
+					set [Choice v] to ((round ((((Choice) + (0)) mod (360)) / (90))) + (1))
+					if <(item (Choice) of [Directions v])=[0]>
+						set [Choice v] to []
+					end
+				end
+			end
+			if <(Choices)=[]>
+				set [Choice v] to [0]
+			end
+		end
+	end
+	if <<<(item (_ti) of [Tiles v])=[3]> and <not<(item (_ti) of [Tile Switches v])=[1]>>> and <<<(item (_ti) of [Tile Surroundings.1 v])=[6]> and <(item (_ti) of [Tile Surroundings.2 v])=[11]>> or <<(item (_ti) of [Tile Surroundings.1 v])=[11]> and <(item (_ti) of [Tile Surroundings.2 v])=[6]>>>>
+		set [crossing.tx v] to (_tx)
+		set [crossing.ty v] to (_ty)
+		set [crossing.requestType v] to [1]
+		broadcast [Crossing Request v]
+		set [Choice v] to [0]
+	else
+		if <(Choice)=[1]>
+			set [next dir v] to (direction)
+			broadcast (join (car) [.next])
+			repeat (24)
+				move (1) steps
+			end
+		end
+		if <(Choice)=[2]>
+			set [next dir v] to ((direction) + (90))
+			broadcast (join (car) [.next])
+			repeat (8)
+				move (1) steps
+			end
+			set [rx v] to ((x position) + (([sin v] of ((direction) + (90))) * (12)))
+			set [ry v] to ((y position) + (([cos v] of ((direction) + (90))) * (12)))
+			repeat (18)
+				turn cw (5) degrees
+				go to x:((rx) + (([sin v] of ((direction) - (90))) * (12))) y:((([cos v] of ((direction) - (90))) * (12)) + (ry))
+			end
+		end
+		if <(Choice)=[3]>
+			set [next dir v] to ((direction) + (180))
+			broadcast (join (car) [.next])
+			repeat (16)
+				move (1) steps
+			end
+			set [rx v] to ((x position) + (([sin v] of ((direction) + (90))) * (4)))
+			set [ry v] to ((y position) + (([cos v] of ((direction) + (90))) * (4)))
+			repeat (18)
+				turn cw (10) degrees
+				go to x:((rx) + (([sin v] of ((direction) - (90))) * (4))) y:((([cos v] of ((direction) - (90))) * (4)) + (ry))
+			end
+			repeat (8)
+				move (1) steps
+			end
+		end
+		if <(Choice)=[4]>
+			set [next dir v] to ((direction) - (90))
+			broadcast (join (car) [.next])
+			repeat (8)
+				move (1) steps
+			end
+			set [rx v] to ((x position) + (([sin v] of ((direction) - (90))) * (4)))
+			set [ry v] to ((y position) + (([cos v] of ((direction) - (90))) * (4)))
+			repeat (9)
+				turn ccw (10) degrees
+				go to x:((rx) + (([sin v] of ((direction) + (90))) * (4))) y:((([cos v] of ((direction) + (90))) * (4)) + (ry))
+			end
+		end
+	end
+	if <(Choice)=[0]>
+		set [Choices v] to [0]
+	end
+end
+
+
+clear graphic effects
+go to x:(-88) y:(-112)
+point in direction (0 v)
+repeat (4)
+	move (1) steps
+end
+repeat (4)
+	move (1) steps
+	change [ghost v] effect by (25)
+end
+wait (1) secs
+go to x:(-80) y:(-102)
+point in direction (180 v)
+repeat (4)
+	move (1) steps
+	change [ghost v] effect by (-25)
+end
+repeat (4)
+	move (1) steps
+end
+
+
+when green flag clicked
+hide
+
+
+when I receive [Drive v]
+set [car v] to (join [car] [2])
+set [ghost v] effect to (25)
+forever
+	go to x:(((([tx v] of (car)) - (10)) * (24)) + (12)) y:((([ty v] of (car)) - (7)) * (24))
+	if <<([Choice v] of (car))=[]> and <([Choices v] of (car)) > [1]>>
+		show
+	else
+		hide
+	end
+end
+
+
+when green flag clicked
+hide
+set [processing v] to [0]
+
+
+when I receive [Previews v]
+set [Previewing v] to [1]
+set [processing v] to [1]
+clear
+hide
+broadcast [Hide Cars v]
+broadcast [SuperClear v] and wait
+broadcast [Stop v] and wait
+set [level v] to [1]
+set y to (141)
+repeat (5)
+	set x to (-230)
+	if <((level) - (1)) < (Levels)>
+		change [level v] by (1)
+	else
+		switch to costume [add v]
+		stamp
+		broadcast [Draw Previews v]
+		stop script
+	end
+	switch to costume [drawing v]
+	stamp
+	change x by (80)
+	if <((level) - (1)) < (Levels)>
+		change [level v] by (1)
+	else
+		switch to costume [add v]
+		stamp
+		broadcast [Draw Previews v]
+		stop script
+	end
+	switch to costume [drawing v]
+	stamp
+	change x by (80)
+	if <((level) - (1)) < (Levels)>
+		change [level v] by (1)
+	else
+		switch to costume [add v]
+		stamp
+		broadcast [Draw Previews v]
+		stop script
+	end
+	switch to costume [drawing v]
+	stamp
+	change x by (80)
+	if <((level) - (1)) < (Levels)>
+		change [level v] by (1)
+	else
+		switch to costume [add v]
+		stamp
+		broadcast [Draw Previews v]
+		stop script
+	end
+	switch to costume [drawing v]
+	stamp
+	change x by (80)
+	if <((level) - (1)) < (Levels)>
+		change [level v] by (1)
+	else
+		switch to costume [add v]
+		stamp
+		broadcast [Draw Previews v]
+		stop script
+	end
+	switch to costume [drawing v]
+	stamp
+	change x by (80)
+	if <((level) - (1)) < (Levels)>
+		change [level v] by (1)
+	else
+		switch to costume [add v]
+		stamp
+		broadcast [Draw Previews v]
+		stop script
+	end
+	switch to costume [drawing v]
+	stamp
+	change x by (80)
+	change y by (-62)
+end
+
+
+when I receive [Draw Previews v]
+set [level v] to [1]
+set [tile_index v] to [1]
+set y to (141)
+repeat (5)
+	set x to (-230)
+	repeat (6)
+		if <(Previewing)=[0]>
+			set [processing v] to [0]
+			stop script
+		end
+		if <((level) - (1)) < (Levels)>
+			change [level v] by (1)
+		else
+			set [processing v] to [0]
+			stop script
+		end
+		change x by (1)
+		change y by (-41)
+		repeat (14)
+            repeat (20)
+                switch to costume ((item (tile_index) of [Tiles v]) + (1))
+                stamp
+                change x by (3)
+                change [tile_index v] by (1)
+            end
+			
+			change x by (-60)
+			change y by (3)
+		end
+		change x by (-1)
+		change y by (-1)
+		change x by (80)
+	end
+	change y by (-62)
+end
+set [processing v] to [0]
+
+
+when green flag clicked
+hide
+set [visible v] to [0]
+set [ghost v] to [0]
+
+
+when I receive [Previews v]
+set [Previewing v] to [1]
+repeat until <(Previewing)=[0]>
+	wait until <([blocking v] of [prvtool v])=[0]>
+	if <<<(mouse y) > [-159]> and <(mouse y) < [151]>> and <<(mouse x) > [-240]> and <(mouse x) < [240]>>>
+		go to x:(((mouse x) - ((mouse x) mod (80))) + (10)) y:(((mouse y) - (((mouse y) + (35)) mod (62))) + (51))
+		set [selected level v] to ((((((x position) - (10)) / (80)) + (3)) + ((6) * ((2) - (((y position) - (16)) / (62))))) + (1))
+		if <((selected level) - (2)) < (Levels)>
+			if <(selected level) > (Levels)>
+				switch to costume [gloss-new v]
+			else
+				switch to costume [gloss v]
+			end
+			set [ghost v] effect to (100)
+			set [ghost v] to [100]
+			show
+			if <touching [mouse-pointer v]?>
+				set [visible v] to [1]
+				repeat until <not<touching [mouse-pointer v]?>>
+					say (item (selected level) of [Level Names v])
+					if <([blocking v] of [prvtool v])=[1]>
+						say []
+						wait until <<([blocking v] of [prvtool v])=[0]> or <(Previewing)=[0]>>
+						if <(Previewing)=[0]>
+							set [visible v] to [0]
+							hide
+							stop script
+						end
+					end
+					if <mouse down?>
+						say []
+						switch to costume [outline v]
+						wait until <not<mouse down?>>
+						switch to costume [gloss v]
+						if <<touching [mouse-pointer v]?> and <(mouse x) < ((x position) + (48))>>
+							set [visible v] to [0]
+							hide
+							set [Level v] to (selected level)
+							if <(selected level) > (Levels)>
+								broadcast [New Level - Choose v] and wait
+							else
+								set [Previewing v] to [0]
+								wait until <([processing v] of [prv v])=[0]>
+								broadcast [Load Level v]
+								set [visible v] to [0]
+								stop script
+							end
+						end
+					end
+				end
+				say []
+				set [visible v] to [0]
+			end
+		else
+			hide
+			set [visible v] to [0]
+		end
+	else
+		hide
+		set [visible v] to [0]
+	end
+end
+hide
+
+
+when I receive [Previews v]
+set [Previewing v] to [1]
+repeat until <(Previewing)=[0]>
+	if <(visible)=[1]>
+		show
+		if <(ghost) > [50]>
+			change [ghost v] effect by (-10)
+			change [ghost v] by (-10)
+		end
+	else
+		hide
+		if <(ghost) < [100]>
+			change [ghost v] effect by (10)
+			change [ghost v] by (10)
+		end
+	end
+end
+
+
+wait until <(visible)=[1]>
+set [ghost v] effect to (100)
+repeat (5)
+end
+wait until <(visible)=[0]>
+repeat (5)
+	change [ghost v] effect by (10)
+end
+
+
+when green flag clicked
+hide
+clear graphic effects
+set [blocking v] to [0]
+
+
+when I receive [Previews v]
+set [Previewing v] to [1]
+set [blocking v] to [0]
+repeat until <(Previewing)=[0]>
+	wait until <(blocking)=[0]>
+	go to [prvhvr v]
+	if <<([visible v] of [prvhvr v])=[1]> and <(([selected level v] of [prvhvr v]) - (1)) < (Levels)>>
+		if <<(mouse x) > (([x position v] of [prvhvr v]) + (48))> and <(mouse y) < (([y position v] of [prvhvr v]) - (8))>>
+			set [y v] to ((([y position v] of [prvhvr v]) - (8)) - (mouse y))
+			switch to costume ((((y) - ((y) mod (11))) / (11)) + (2))
+			if <mouse down?>
+				set [blocking v] to [1]
+				set [selected_level v] to ([selected level v] of [prvhvr v])
+				change y by (-1)
+				wait until <not<mouse down?>>
+				change y by (1)
+				if <(costume #)=[2]>
+					switch to costume [tools1 v]
+					broadcast [Delete Level - Prompt v] and wait
+				end
+				if <(costume #)=[3]>
+					switch to costume [tools1 v]
+					broadcast [Rename Level v] and wait
+				end
+				if <(costume #)=[4]>
+					set [Level v] to (selected_level)
+					switch to costume [tools1 v]
+					broadcast [Export v] and wait
+				end
+				set [blocking v] to [0]
+			end
+		else
+			switch to costume [tools1 v]
+		end
+	end
+end
+
+
+when I receive [Previews v]
+set [Previewing v] to [1]
+repeat until <(Previewing)=[0]>
+	if <<([visible v] of [prvhvr v])=[1]> and <(([selected level v] of [prvhvr v]) - (1)) < (Levels)>>
+		show
+		if <(ghost) > [0]>
+			change [ghost v] effect by (-10)
+			change [ghost v] by (-10)
+		end
+	else
+		hide
+		if <(ghost) < [100]>
+			change [ghost v] effect by (10)
+			change [ghost v] by (10)
+		end
+	end
+end
+hide
+
+
+when I receive [New Level - Choose v]
+set [blocking v] to [1]
+
+
+when I receive [Import Level Prompt v]
+set [blocking v] to [1]
+broadcast [Import Code v] and wait
+set [blocking v] to [0]
+broadcast [Previews v]
+
+
+when I receive [Continue Previewing v]
+set [blocking v] to [0]
+
+
+when green flag clicked
+hide
+
+
+when I receive [Rename Level v]
+hide
+set [selected_level v] to ([selected_level v] of [prvtool v])
+ask (join [Rename "] (join (item (selected_level) of [Level Names v]) [":])) and wait
+if <not<(answer)=[]>>
+	replace item (selected_level) of [Level Names v] with (answer)
+end
+
+
+when I receive [Delete Level - Prompt v]
+hide
+set [selected_level v] to ([selected_level v] of [prvtool v])
+ask (join [DELETE "] (join (item ([selected_level v] of [prvtool v]) of [Level Names v]) [" — are you sure? Type "delete" to confirm...])) and wait
+if <(answer)=[delete]>
+	broadcast [Delete Level v] and wait
+	broadcast [Previews v]
+end
+
+
+when I receive [Delete Level v]
+set [processing v] to [1]
+set [tile_index v] to ((((selected_level) - (1)) * (280)) + (1))
+set [selected_level v] to [0]
+repeat (14)
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+	delete (tile_index) of [Tiles v]
+	delete (tile_index) of [Tile Switches v]
+	delete (tile_index) of [Tile Surroundings.1 v]
+	delete (tile_index) of [Tile Surroundings.2 v]
+end
+delete ([selected_level v] of [prvtool v]) of [Level Names v]
+change [Levels v] by (-1)
+set [processing v] to [0]
+
+
+when green flag clicked
+hide
+clear graphic effects
+
+
+when I receive [New Level - Choose v]
+go to x:(0) y:(0)
+clear graphic effects
+show
+set [Fill With v] to [0]
+forever
+	if <touching [mouse-pointer v]?>
+		if <<(mouse y) > [-8]> and <(mouse y) < [30]>>
+			switch to costume [blank v]
+		else
+			if <<(mouse y) > [-54]> and <(mouse y) < [-16]>>
+				switch to costume [trees v]
+			else
+				switch to costume [newmap v]
+			end
+		end
+		if <(costume #) > [1]>
+			if <mouse down?>
+				set y to (-2)
+				wait until <not<<mouse down?> and <touching [mouse-pointer v]?>>>
+				set y to (0)
+				if <touching [mouse-pointer v]?>
+					set [Previewing v] to [0]
+					wait until <([processing v] of [prv v])=[0]>
+					if <(costume #)=[2]>
+						set [Fill With v] to [0]
+					end
+					if <(costume #)=[3]>
+						set [Fill With v] to [4]
+					end
+					broadcast [New Level v]
+					repeat (10)
+						change [ghost v] effect by (10)
+					end
+					hide
+					stop script
+				end
+				wait until <not<mouse down?>>
+			end
+		end
+	else
+		switch to costume [newmap v]
+		if <mouse down?>
+			set [brightness v] effect to (-5)
+			wait until <not<mouse down?>>
+			set [brightness v] effect to (0)
+			broadcast [Continue Previewing v]
+			repeat (10)
+				change [ghost v] effect by (10)
+			end
+			hide
+			stop script
+		end
+	end
+end
+
+
+broadcast [Previews v]
+
+
+when green flag clicked
+hide
+
+
+when I receive [Previews v]
+go to x:(222) y:(-162)
+set [ghost v] effect to (100)
+switch to costume [load v]
+show
+repeat (10)
+	change [ghost v] effect by (-10)
+end
+repeat until <(Previewing)=[0]>
+	wait until <<([blocking v] of [prvtool v])=[0]> or <(Previewing)=[0]>>
+	if <<([abs v] of ((mouse x) - (x position))) < [12]> and <([abs v] of ((mouse y) - (y position))) < [12]>>
+		switch to costume [loadhover v]
+		if <mouse down?>
+			change y by (-1)
+			wait until <not<mouse down?>>
+			change y by (1)
+			if <(isOnline)=[1]>
+				broadcast [Download to import warning v] and wait
+			end
+			broadcast [Import Level Prompt v] and wait
+		end
+	else
+		switch to costume [load v]
+	end
+end
+hide
+
+
+when green flag clicked
+hide
+
+
+when I receive [Export v]
+if <(isOnline)=[1]>
+	broadcast [Must Download to export v] and wait
+else
+	broadcast [Generate Code v] and wait
+end
+
+
+when I receive [Export instructions v]
+set [shown v] to [1]
+switch to costume [export1 v]
+go to x:(-240) y:(180)
+show
+go to front
+wait until <mouse down?>
+wait (1) secs
+switch to costume [export2 v]
+wait until <(shown)=[0]>
+
+
+when [export v] clicked
+hide
+set [shown v] to [0]
+
+
+when I receive [Must Download to export v]
+switch to costume [downloadtoexport v]
+go to x:(0) y:(0)
+clear graphic effects
+set [ghost v] effect to (100)
+set [pixelate v] effect to (100)
+show
+repeat (20)
+	change [pixelate v] effect by (-5)
+	change [ghost v] effect by (-4)
+end
+wait until <mouse down?>
+repeat (20)
+	change [pixelate v] effect by (5)
+	change [ghost v] effect by (4)
+end
+hide
+
+
+when I receive [Download to import warning v]
+switch to costume [downloadtoimport v]
+go to x:(0) y:(0)
+clear graphic effects
+set [ghost v] effect to (100)
+set [pixelate v] effect to (100)
+show
+repeat (20)
+	change [pixelate v] effect by (-5)
+	change [ghost v] effect by (-4)
+end
+wait until <mouse down?>
+repeat (20)
+	change [pixelate v] effect by (5)
+	change [ghost v] effect by (4)
+end
+hide
+
+
+when green flag clicked
+hide
+
+
+when I receive [blob8108 v]
+reset timer
+go to x:(0) y:(-360)
+show
+go to front
+repeat until <(timer) > [.3]>
+	set y to ((([cos v] of ((timer) * (600))) * (-180)) - (180))
+end
+set y to (0)
+wait until <(timer) > [1.6]>
+repeat until <(timer) > [1.9]>
+	set y to ((([cos v] of (((timer) - (1.6)) * (600))) * (180)) - (180))
+end
+hide
+
+
+when green flag clicked
+hide
+
+
+when I receive [blob8108 v]
+show
+set [ghost v] effect to (100)
+go to x:(0) y:(-360)
+wait (0) secs
+go to front
+repeat until <(timer) > [.3]>
+	set [y v] to ((([cos v] of ((timer) * (600))) * (-180)) - (180))
+	set y to (y)
+	if <(y) < [-60]>
+		set [ghost v] effect to ((-60) - (y))
+	else
+		set [ghost v] effect to (0)
+	end
+	go to front
+end
+set y to (0)
+wait (0.1) secs
+repeat until <(timer) > [.6]>
+	set x to (([sin v] of (((timer) - (0.4)) * ((90) / (0.2)))) * (15))
+end
+wait (0.2) secs
+repeat until <(timer) > [1.2]>
+	set [t v] to (((timer) - (0.8)) * ((90) / (0.4)))
+	set x to (((([sin v] of (t)) * ([sin v] of (t))) * (-15)) + ((([cos v] of (t)) * ([cos v] of (t))) * (15)))
+end
+wait (0.2) secs
+repeat until <(timer) > [1.6]>
+	set x to (([sin v] of (((1.6) - (timer)) * ((90) / (0.2)))) * (-15))
+end
+repeat until <(timer) > [1.9]>
+	set [y v] to ((([cos v] of (((timer) - (1.6)) * (600))) * (180)) - (180))
+	set y to (y)
+	if <(y) < [-60]>
+		set [ghost v] effect to ((-60) - (y))
+	else
+		set [ghost v] effect to (0)
+	end
+end
+hide
+
+
+when green flag clicked
+hide
+
+
+when I receive [blob8108 v]
+go to x:(0) y:(0)
+set [ghost v] effect to (0)
+show
+wait (0) secs
+go to front
+go back (3) layers
+wait until <(timer) > [1.9]>
+repeat (10)
+	change [ghost v] effect by (10)
+end
+hide
+set [_done logo v] to [1]
+
+
+when green flag clicked
+hide
+go to x:(0) y:(0)
+
+
+when [thumbnail v] clicked
+hide
+
+
+show // before uploading
+go to front
+broadcast [Hide Cars v]
+set [_done logo v] to [0]

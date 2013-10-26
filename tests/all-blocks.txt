@@ -1,16 +1,10 @@
-// The list of blocks, in scratchblocks format.
-//
-// Special values:
-// [list v] -- used to identify list dropdowns
-// [sqrt v] -- identifies math function, in the ([sqrt v] of ()) block
-//
+// Motion
 
-## Motion ##
 move (10) steps
-turn cw (15) degrees ## -turn-arrow
-turn right (15) degrees ## -turn-arrow
-turn ccw (15) degrees ## -turn-arrow
-turn left (15) degrees ## -turn-arrow
+turn cw (15) degrees 
+turn right (15) degrees 
+turn ccw (15) degrees 
+turn left (15) degrees 
 
 point in direction (90 v)
 point towards [ v]
@@ -34,7 +28,8 @@ set rotation style [left-right v]
 
 
 
-## Looks ##
+// Looks
+
 say [Hello!] for (2) secs
 say [Hello!]
 think [Hmm...] for (2) secs
@@ -61,8 +56,8 @@ go back (1) layers
 (backdrop name)
 (size)
 
-## Stage-specific
-## Looks ##
+// (Stage-specific)
+
 switch backdrop to [backdrop1 v] and wait
 next backdrop
 
@@ -70,7 +65,8 @@ next backdrop
 
 
 
-## Sound ##
+// Sound
+
 play sound [pop v]
 play sound [pop v] until done
 stop all sounds
@@ -91,7 +87,8 @@ set tempo to (60) bpm
 
 
 
-## Pen ##
+// Pen
+
 clear
 
 stamp
@@ -111,7 +108,8 @@ set pen size to (1)
 
 
 
-## Variables ##
+// Variables
+
 set [var v] to [0]
 change [var v] by (1)
 show variable [var v]
@@ -119,7 +117,8 @@ hide variable [var v]
 
 
 
-## List ##
+// List
+
 add [thing] to [list v]
 
 delete (1 v) of [list v]
@@ -135,42 +134,55 @@ hide list [list v]
 
 
 
-## Events ##
-when gf clicked ## hat -green-flag
-when green flag clicked ## hat -green-flag
-when flag clicked ## hat -green-flag
-when [space v] key pressed ## hat
-when this sprite clicked ## hat
-when backdrop switches to [backdrop1 v] ## hat
+// Events
 
-when [loudness v] > (10) ## hat
+when gf clicked 
+when green flag clicked 
+when flag clicked 
+when [space v] key pressed 
+when this sprite clicked 
+when backdrop switches to [backdrop1 v] 
 
-when I receive [message1 v] ## hat
+when [loudness v] > (10) 
+
+when I receive [message1 v] 
 broadcast [message1 v]
 broadcast [message1 v] and wait
 
 
 
-## Control ##
+// Control
+
 wait (1) secs
 
-repeat (10) ## cstart
-forever ## cstart cap
-if <> then ## ifblock cstart
-else ## celse
-end ## cend
+repeat (10) 
+end
+
+forever 
+end
+
+if <> then
+end
+
+if <> then 
+else 
+end 
+
 wait until <>
-repeat until <> ## cstart
 
-stop [all v] ## cap
+repeat until <> 
+end
 
-when I start as a clone ## hat
+stop [all v] 
+
+when I start as a clone 
 create clone of [myself v]
-delete this clone ## cap
+delete this clone 
 
 
 
-## Sensing ##
+// Sensing
+
 <touching [ v]?>
 <touching color [#f0f]?>
 <color [#f0f] is touching?>
@@ -202,7 +214,8 @@ reset timer
 
 
 
-## Operators ##
+// Operators
+
 (() + ())
 (() - ())
 (() * ())
@@ -229,9 +242,10 @@ reset timer
 
 
 
-## Purple ##
-when [button pressed v] ## hat
-<sensor [button pressed v]?>
+// Extension
+
+when [button pressed v]
+<sensor [button pressed v] ?>
 ([slider v] sensor value)
 
 turn motor on for (1) secs
@@ -240,17 +254,19 @@ turn motor off
 set motor power (100)
 set motor direction [this way v]
 
-when distance < (20) ## hat
-when tilt = (1) ## hat
+when distance < (20) 
+when tilt = (1) 
 (distance)
 (tilt)
 
 
+//
 
-// Obsolete Scratch 1.4 blocks
+// Obsolete Scratch 1.4 blocks:
 
 
-## Looks ##
+// Looks
+
 switch to costume [costume1 v]
 
 switch to background [background1 v]
@@ -259,25 +275,33 @@ next background
 
 
 
-## Control ##
-if <> ## cstart
-forever if <> ## cstart cap
-stop script ## cap
-stop all ## cap
+// Control
+
+if <>
+end
+
+forever if <>
+end
+
+stop script
+stop all
 
 
 
-## Events ##
-when clicked ## hat
+// Events
+
+when Sprite1 clicked
 
 
 
-## Sensing ##
+// Sensing
+
 <loud?>
 
 
 
-## Purple ##
+// Extension
+
 motor on
 motor off
 motor on for (1) seconds
@@ -286,6 +310,7 @@ motor direction [this way v]
 
 
 
-## Grey ##
+// Grey
+
 ...
 …
