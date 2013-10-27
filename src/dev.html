@@ -9,7 +9,7 @@
 <script src="diacritics.js"></script>
 <script src="scratchblocks2.js"></script>
 
-<script> 
+<script>
   less = {
     env: "development", // or "production"
     poll: 1000, // when in watch mode, time in ms between polls
@@ -122,27 +122,28 @@ if(typeof(String.prototype.trim) === "undefined") {
 
 code = document.getElementById('code');
 preview = document.getElementById('preview');
-link_url = document.getElementById('link-url');
-link_url_label = document.getElementById('link-url-label');
 
 var oldHash;
 
-function refresh () {
+function refresh (e) {
   script = code.value;
-  
+
   script = script.replace(/\[\/?scratchblocks\]/gi, '');  // Scratch Forums
   script = script.replace(/<\/?scratchblocks>/gi, '');  // Scratch Wiki
   script = script.replace(/^position\:[0-9\., ]+/i, '');  // Kurt
   script = script.trim();
-  
+
   location.hash = '#'+encodeURIComponent(script);
   oldHash = location.hash;
-  
-  script = script.replace(/&/g, '&amp;');
-  script = script.replace(/</g, '&lt;');
-  script = script.replace(/>/g, '&gt;');
-  script = script.replace(/"/g, '&quot;');
-  preview.innerHTML = script;
+
+  // empty preview
+  var child;
+  while (child = preview.lastChild) {
+    preview.removeChild(child);
+  }
+
+  // add script
+  preview.appendChild(document.createTextNode(script))
 
   scratchblocks2.parse("pre.blocks");
 }
@@ -151,20 +152,15 @@ function checkHash() {
   if (oldHash != location.hash) {
     code.value = decodeURIComponent((location.href.split("#")[1] || ""));
     refresh();
-  }  
+  }
   window.setTimeout(checkHash, 1000);
 }
 
-code.value = decodeURIComponent((location.href.split("#")[1] || ""));
 checkHash();
 
-  
 document.getElementById('render').onmousedown = refresh;
 code.onkeyup = refresh;
-code.onblur = refresh;
 code.oncopy = code.onpaste = function(e) {
   window.setTimeout(refresh, 100);
 }
-
-refresh();
 </script>
