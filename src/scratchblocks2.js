@@ -107,7 +107,6 @@ var scratchblocks2 = function ($) {
     var strings = sb2.strings = {
         images: {},
 
-        click: [],
         define: [],
         ignorelt: [],
         math: [],
@@ -130,8 +129,6 @@ var scratchblocks2 = function ($) {
             "flag": "green-flag",
             "green flag": "green-flag",
         },
-
-        click: ["when_clicked"],
 
         define: ["define"],
 
@@ -306,8 +303,6 @@ var scratchblocks2 = function ($) {
         ["broadcast_", []],
         ["broadcast_andwait", []],
 
-        ["when***clicked", ["hat"]],
-
 
 
         ["control"],
@@ -471,7 +466,6 @@ var scratchblocks2 = function ($) {
         language.blocks = block_spec_by_id;
 
         // add stuff to strings
-        strings.click = strings.click.concat(language.click);
         strings.define = strings.define.concat(language.define);
         strings.math = strings.math.concat(language.math);
         strings.osis = strings.osis.concat(language.osis);
@@ -533,16 +527,6 @@ var scratchblocks2 = function ($) {
                         return info;
                     }
                 }
-            }
-        }
-
-        // when «Sprite1» clicked block
-        for (var i=0; i<strings.click.length; i++) {
-            var parts = strings.click[i].split("_");
-            if (text.startsWith(parts[0]) && text.endsWith(parts[1])) {
-                var info = block_info_by_id["whenthisspriteclicked"];
-                info.text = text;
-                return info;
             }
         }
     }
