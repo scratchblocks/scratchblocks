@@ -145,7 +145,7 @@ var scratchblocks2 = function ($) {
 
     var block_info_by_id = sb2.block_info_by_id = {};
     var blockid_by_text = {};
-    var blockids = []; // Used by load_language
+    var blockids = sb2.blockids = []; // Used by load_language
     var block_images_by_text = {};
 
     var english_blocks = [
@@ -299,7 +299,7 @@ var scratchblocks2 = function ($) {
 
         ["when_>_", ["hat"]],
 
-        ["whenIreceive_", ["hat"]],
+        ["whenireceive_", ["hat"]],
         ["broadcast_", []],
         ["broadcast_andwait", []],
 
@@ -336,7 +336,7 @@ var scratchblocks2 = function ($) {
 
         ["touching_?", []],
         ["touchingcolor_?", []],
-        ["color_istouching?", []],
+        ["color_istouching_?", []],
         ["distanceto_", []],
 
         ["ask_andwait", []],
@@ -361,7 +361,6 @@ var scratchblocks2 = function ($) {
         ["current_", []],
         ["dayssince2000", []],
         ["username", []],
-        ["userid", []],
 
         // Scratch 1.4
 
@@ -507,7 +506,7 @@ var scratchblocks2 = function ($) {
         var minitext = minify_spec(text);
         if (minitext in blockid_by_text) {
             var blockid = blockid_by_text[minitext];
-            var info = block_info_by_id[blockid];
+            var info = clone(block_info_by_id[blockid]);
             info.text = text;
             if (info.hack) info.hack(info, args);
             return info;
@@ -519,7 +518,7 @@ var scratchblocks2 = function ($) {
                 var new_text = text.replace(image_text, "@"),
                     blockid = blockid_by_text[minify_spec(new_text)];
                 if (blockid in block_info_by_id) {
-                    var info = block_info_by_id[blockid],
+                    var info = clone(block_info_by_id[blockid]),
                         image = strings.images[image_text];
                     if ($.inArray("@"+image, info.flags) > -1) {
                         info.text = new_text;
@@ -529,6 +528,16 @@ var scratchblocks2 = function ($) {
                 }
             }
         }
+    }
+
+    // Utility function that copies a dictionary.
+
+    function clone(dict) {
+        var result = {};
+        for (var key in dict) {
+            result[key] = dict[key];
+        }
+        return result;
     }
 
     // Text minifying functions normalise block text before lookups.
