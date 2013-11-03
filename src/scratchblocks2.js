@@ -557,8 +557,8 @@ var scratchblocks2 = function ($) {
         // Cap block unless argument is "other scripts in sprite"
         if (!args.length) return;
         var what = minify(strip_brackets(args[0]).replace(/ v$/, ""));
-        info.flags = ($.inArray(what, strings.osis) > -1) ? []
-                                                          : ["cap"];
+        info.shape = ($.inArray(what, strings.osis) > -1) ? null
+                                                          : "cap";
     }
 
     // Define function for getting block info by text.

@@ -1,0 +1,8 @@
+// cap
+
+stop [all v]
+stop [this sprite v]
+
+// stack
+
+stop [other scripts in sprite v]
