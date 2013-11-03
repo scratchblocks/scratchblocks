@@ -145,100 +145,101 @@ var scratchblocks2 = function ($) {
 
     var block_info_by_id = sb2.block_info_by_id = {};
     var blockid_by_text = {};
-    var blockids = sb2.blockids = []; // Used by load_language
+    var blockids = sb2._blockids = []; // Used by load_language
+                // ^ Exposed for translation purposes.
     var block_images_by_text = {};
 
     var english_blocks = [
         ["motion"],
 
-        ["move_steps", []],
-        ["turn@_degrees", ["@arrow-ccw", "@arrow-cw"]],
+        ["move _ steps", []],
+        ["turn @ _ degrees", ["@arrow-ccw", "@arrow-cw"]],
 
-        ["pointindirection_", []],
-        ["pointtowards_", []],
+        ["point in direction _", []],
+        ["point towards _", []],
 
-        ["gotox:_y:_", []],
-        ["goto_", []],
-        ["glide_secstox:_y:_", []],
+        ["go to x:_ y:_", []],
+        ["go to _", []],
+        ["glide _ secs to x:_ y:_", []],
 
-        ["changexby_", []],
-        ["setxto_", []],
-        ["changeyby_", []],
-        ["setyto_", []],
+        ["change x by _", []],
+        ["set x to _", []],
+        ["change y by _", []],
+        ["set y to _", []],
 
-        ["ifonedge,bounce", []],
+        ["if on edge, bounce", []],
 
-        ["setrotationstyle_", []],
+        ["set rotation style _", []],
 
-        ["xposition", []],
-        ["yposition", []],
+        ["x position", []],
+        ["y position", []],
         ["direction", []],
 
 
 
         ["looks"],
 
-        ["say_for_secs", []],
-        ["say_", []],
-        ["think_for_secs", []],
-        ["think_", []],
+        ["say _ for _ secs", []],
+        ["say _", []],
+        ["think _ for _ secs", []],
+        ["think _", []],
 
         ["show", []],
         ["hide", []],
 
-        ["switchcostumeto_", []],
-        ["nextcostume", []],
-        ["switchbackdropto_", []],
+        ["switch costume to _", []],
+        ["next costume", []],
+        ["switch backdrop to _", []],
 
-        ["change_effectby_", []],
-        ["set_effectto_", []],
-        ["cleargraphiceffects", []],
+        ["change _ effect by _", []],
+        ["set _ effect to _", []],
+        ["clear graphic effects", []],
 
-        ["changesizeby_", []],
-        ["setsizeto_%", []],
+        ["change size by _", []],
+        ["set size to _%", []],
 
-        ["gotofront", []],
-        ["goback_layers", []],
+        ["go to front", []],
+        ["go back _ layers", []],
 
-        ["costume#", []],
-        ["backdropname", []],
+        ["costume #", []],
+        ["backdrop name", []],
         ["size", []],
 
         // Stage-specific
 
-        ["switchbackdropto_andwait", []],
-        ["nextbackdrop", []],
+        ["switch backdrop to _ and wait", []],
+        ["next backdrop", []],
 
-        ["backdrop#", []],
+        ["backdrop #", []],
 
         // Scratch 1.4
 
-        ["switchtocostume_", []],
+        ["switch to costume _", []],
 
-        ["switchtobackground_", []],
-        ["nextbackground", []],
-        ["background#", []],
+        ["switch to background _", []],
+        ["next background", []],
+        ["background #", []],
 
 
 
         ["sound"],
 
-        ["playsound_", []],
-        ["playsound_untildone", []],
-        ["stopallsounds", []],
+        ["play sound _", []],
+        ["play sound _ until done", []],
+        ["stop all sounds", []],
 
-        ["playdrum_for_beats", []],
-        ["restfor_beats", []],
+        ["play drum _ for _ beats", []],
+        ["rest for _ beats", []],
 
-        ["playnote_for_beats", []],
-        ["setinstrumentto_", []],
+        ["play note _ for _ beats", []],
+        ["set instrument to _", []],
 
-        ["changevolumeby_", []],
-        ["setvolumeto_%", []],
+        ["change volume by _", []],
+        ["set volume to _%", []],
         ["volume", []],
 
-        ["changetempoby_", []],
-        ["settempoto_bpm", []],
+        ["change tempo by _", []],
+        ["set tempo to _ bpm", []],
         ["tempo", []],
 
 
@@ -249,117 +250,117 @@ var scratchblocks2 = function ($) {
 
         ["stamp", []],
 
-        ["pendown", []],
-        ["penup", []],
+        ["pen down", []],
+        ["pen up", []],
 
-        ["setpencolorto_", []],
-        ["changepencolorby_", []],
-        ["setpencolorto_", []],
+        ["set pen color to _", []],
+        ["change pen color by _", []],
+        ["set pen color to _", []],
 
-        ["changepenshadeby_", []],
-        ["setpenshadeto_", []],
+        ["change pen shade by _", []],
+        ["set pen shade to _", []],
 
-        ["changepensizeby_", []],
-        ["setpensizeto_", []],
+        ["change pen size by _", []],
+        ["set pen size to _", []],
 
 
 
         ["variables"],
 
-        ["set_to_", []],
-        ["change_by_", []],
-        ["showvariable_", []],
-        ["hidevariable_", []],
+        ["set _ to _", []],
+        ["change _ by _", []],
+        ["show variable _", []],
+        ["hide variable _", []],
 
 
 
         ["list"],
 
-        ["add_to_", []],
+        ["add _ to _", []],
 
-        ["delete_of_", []],
-        ["insert_at_of_", []],
-        ["replaceitem_of_with_", []],
+        ["delete _ of _", []],
+        ["insert _ at _ of _", []],
+        ["replace item _ of _ with _", []],
 
-        ["item_of_", []],
-        ["lengthof_", []],
-        ["_contains_", []],
+        ["item _ of _", []],
+        ["length of _", []],
+        ["_ contains _", []],
 
-        ["showlist_", []],
-        ["hidelist_", []],
+        ["show list _", []],
+        ["hide list _", []],
 
 
 
         ["events"],
 
-        ["when@clicked", ["hat", "@green-flag"]],
-        ["when_keypressed", ["hat"]],
-        ["whenthisspriteclicked", ["hat"]],
-        ["whenbackdropswitchesto_", ["hat"]],
+        ["when @ clicked", ["hat", "@green-flag"]],
+        ["when _ key pressed", ["hat"]],
+        ["when this sprite clicked", ["hat"]],
+        ["when backdrop switches to _", ["hat"]],
 
-        ["when_>_", ["hat"]],
+        ["when _ > _", ["hat"]],
 
-        ["whenireceive_", ["hat"]],
-        ["broadcast_", []],
-        ["broadcast_andwait", []],
+        ["when I receive _", ["hat"]],
+        ["broadcast _", []],
+        ["broadcast _ and wait", []],
 
 
 
         ["control"],
 
-        ["wait_secs", []],
+        ["wait _ secs", []],
 
-        ["repeat_", ["cstart"]],
+        ["repeat _", ["cstart"]],
         ["forever", ["cstart", "cap"]],
-        ["if_then", ["cstart"]],
+        ["if _ then", ["cstart"]],
         ["else", ["celse"]],
         ["end", ["cend"]],
-        ["waituntil_", []],
-        ["repeatuntil_", ["cstart"]],
+        ["wait until _", []],
+        ["repeat until _", ["cstart"]],
 
-        ["stop_", ["cap"]],
+        ["stop _", ["cap"]],
 
-        ["whenistartasaclone", ["hat"]],
-        ["createcloneof_", []],
-        ["deletethisclone", ["cap"]],
+        ["when I start as a clone", ["hat"]],
+        ["create clone of _", []],
+        ["delete this clone", ["cap"]],
 
         // Scratch 1.4
 
-        ["if_", ["cstart"]],
-        ["foreverif_", ["cstart", "cap"]],
-        ["stopscript", ["cap"]],
-        ["stopall", ["cap"]],
+        ["if _", ["cstart"]],
+        ["forever if _", ["cstart", "cap"]],
+        ["stop script", ["cap"]],
+        ["stop all", ["cap"]],
 
 
 
         ["sensing"],
 
-        ["touching_?", []],
-        ["touchingcolor_?", []],
-        ["color_istouching_?", []],
-        ["distanceto_", []],
+        ["touching _?", []],
+        ["touching color _?", []],
+        ["color _ is touching _?", []],
+        ["distance to _", []],
 
-        ["ask_andwait", []],
+        ["ask _ and wait", []],
         ["answer", []],
 
-        ["key_pressed?", []],
-        ["mousedown?", []],
-        ["mousex", []],
-        ["mousey", []],
+        ["key _ pressed?", []],
+        ["mouse down?", []],
+        ["mouse x", []],
+        ["mouse y", []],
 
         ["loudness", []],
 
-        ["video_on_", []],
-        ["turnvideo_", []],
-        ["setvideotransparencyto_%", []],
+        ["video _ on _", []],
+        ["turn video _", []],
+        ["set video transparency to _%", []],
 
         ["timer", []],
-        ["resettimer", []],
+        ["reset timer", []],
 
-        ["_of_", []],
+        ["_ of _", []],
 
-        ["current_", []],
-        ["dayssince2000", []],
+        ["current _", []],
+        ["days since 2000", []],
         ["username", []],
 
         // Scratch 1.4
@@ -370,56 +371,56 @@ var scratchblocks2 = function ($) {
 
         ["operators"],
 
-        ["_+_", []],
-        ["_-_", []],
-        ["_*_", []],
-        ["_/_", []],
+        ["_ + _", []],
+        ["_ - _", []],
+        ["_ * _", []],
+        ["_ / _", []],
 
-        ["pickrandom_to_", []],
+        ["pick random _ to _", []],
 
-        ["_<_", []],
-        ["_=_", []],
-        ["_>_", []],
+        ["_ < _", []],
+        ["_ = _", []],
+        ["_ > _", []],
 
-        ["_and_", []],
-        ["_or_", []],
-        ["not_", []],
+        ["_ and _", []],
+        ["_ or _", []],
+        ["not _", []],
 
-        ["join__", []],
-        ["letter_of_", []],
-        ["lengthof_", []],
+        ["join _ _", []],
+        ["letter _ of _", []],
+        ["length of _", []],
 
-        ["_mod_", []],
-        ["round_", []],
+        ["_ mod _", []],
+        ["round _", []],
 
-        ["_of_", []],
+        ["_ of _", []],
 
 
 
         ["extension"],
 
-        ["when_", ["hat"]],
-        ["sensor_?", []],
-        ["_sensorvalue", []],
+        ["when _", ["hat"]],
+        ["sensor _?", []],
+        ["_ sensor value", []],
 
-        ["turnmotoronfor_secs", []],
-        ["turnmotoron", []],
-        ["turnmotoroff", []],
-        ["setmotorpower_", []],
-        ["setmotordirection_", []],
+        ["turn motor on for _ secs", []],
+        ["turn motor on", []],
+        ["turn motor off", []],
+        ["set motor power _", []],
+        ["set motor direction _", []],
 
-        ["whendistance<_", ["hat"]],
-        ["whentilt=_", ["hat"]],
+        ["when distance < _", ["hat"]],
+        ["when tilt = _", ["hat"]],
         ["distance", []],
         ["tilt", []],
 
         // Scratch 1.4
 
-        ["motoron", []],
-        ["motoroff", []],
-        ["motoronfor_seconds", []],
-        ["motorpower_", []],
-        ["motordirection_", []],
+        ["motor on", []],
+        ["motor off", []],
+        ["motor on for _ seconds", []],
+        ["motor power _", []],
+        ["motor direction _", []],
 
 
 
@@ -476,7 +477,7 @@ var scratchblocks2 = function ($) {
 
     // Hacks for certain blocks.
 
-    block_info_by_id["_of_"].hack = function (info, args) {
+    block_info_by_id["_ of _"].hack = function (info, args) {
         // Operators if math function, otherwise sensing "attribute of" block
         if (!args.length) return;
         var func = minify(strip_brackets(args[0]).replace(/ v$/, ""));
@@ -484,14 +485,14 @@ var scratchblocks2 = function ($) {
                                                              : "sensing";
     }
 
-    block_info_by_id["lengthof_"].hack = function (info, args) {
+    block_info_by_id["length of _"].hack = function (info, args) {
         // List block if dropdown, otherwise operators
         if (!args.length) return;
         info.category = (/^\[.* v\]$/.test(args[0])) ? "list"
                                                      : "operators";
     }
 
-    block_info_by_id["stop_"].hack = function (info, args) {
+    block_info_by_id["stop _"].hack = function (info, args) {
         // Cap block unless argument is "other scripts in sprite"
         if (!args.length) return;
         var what = minify(strip_brackets(args[0]).replace(/ v$/, ""));
