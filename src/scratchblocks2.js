@@ -1,5 +1,3 @@
-/*jslint bitwise: true, continue: true, plusplus: true, regexp: true, unparam: true, vars: true, browser: true, devel: true, indent: 4, maxerr: 100, maxlen: 80 */
-
 /*
  * scratchblocks2
  * http://github.com/blob8108/scratchblocks2
@@ -100,18 +98,51 @@ var scratchblocks2 = function ($) {
         if (!bool) throw "Assertion failed!";
     }
 
-    var sb2 = {}; // The module we export
+    var sb2 = {}; // The module we export.
 
     // First, initialise the blocks database.
 
+    /*
+     * We need to store info such as category and shape for each block.
+     *
+     * This can be indexed in two ways:
+     *
+     *  - by the text input to the parser, minus the insert parts
+     *
+     *      (eg. "say [Hi!] for (3) secs" is minifed to "sayforsecs", which we
+     *           then look up in the database
+     *
+     *  - by a language code & blockid
+     *
+     *      (eg. "de" & "say _ for _ secs")
+     *
+     *      This is used by external add-ons for translating between languages,
+     *      and won't get used internally.
+     *
+     * Some definitions:
+     *
+     *  - spec: The spec for the block, with underscores representing inserts.
+     *          May be translated.
+     *          eg. "sage _ für _ Sek."
+     *
+     *  - blockid: the English spec.
+     *          eg. "say _ for _ secs"
+     *
+     */
+
     var strings = sb2.strings = {
-        images: {},
+        aliases: {},
 
         define: [],
         ignorelt: [],
         math: [],
         osis: [],
     };
+
+    var languages = sb2.languages = {};
+    var block_info_by_id = sb2.block_info_by_id = {};
+    var block_by_text = {};
+    var blockids = []; // Used by load_language
 
     // Build the English blocks.
 
@@ -120,40 +151,35 @@ var scratchblocks2 = function ($) {
 
         blocks: [], // These are defined just below
 
-        images: {
-            "left": "arrow-ccw",
-            "ccw": "arrow-ccw",
-            "right": "arrow-cw",
-            "cw": "arrow-cw",
-            "gf": "green-flag",
-            "flag": "green-flag",
-            "green flag": "green-flag",
+        aliases: {
+            "turn left _ degrees": "turn @arrow-ccw _ degrees",
+            "turn ccw _ degrees": "turn @arrow-ccw _ degrees",
+            "turn right _ degrees": "turn @arrow-cw _ degrees",
+            "turn cw _ degrees": "turn @arrow-cw _ degrees",
+            "when gf clicked": "when @green-flag clicked",
+            "when flag clicked": "when @green-flag clicked",
+            "when green flag clicked": "when @green-flag clicked",
         },
 
         define: ["define"],
 
         // For ignoring the lt sign in the "when distance < _" block
-        ignorelt: ["whendistance"],
+        ignorelt: ["when distance"],
 
         // Valid arguments to "of" dropdown, for resolving ambiguous situations
-        math: ["abs", "floor", "ceiling", "sqrt", "sin", "cos",
-               "tan", "asin", "acos", "atan", "ln", "log", "e^", "10^"],
+        math: ["abs", "floor", "ceiling", "sqrt", "sin", "cos", "tan", "asin",
+               "acos", "atan", "ln", "log", "e ^", "10 ^"],
 
         // For detecting the "stop" cap / stack block
-        osis: ["otherscriptsinsprite"],
+        osis: ["other scripts in sprite"],
     };
-
-    var block_info_by_id = sb2.block_info_by_id = {};
-    var blockid_by_text = {};
-    var blockids = sb2._blockids = []; // Used by load_language
-                // ^ Exposed for translation purposes.
-    var block_images_by_text = {};
 
     var english_blocks = [
         ["motion"],
 
         ["move _ steps", []],
-        ["turn @ _ degrees", ["@arrow-ccw", "@arrow-cw"]],
+        ["turn @arrow-ccw _ degrees", []],
+        ["turn @arrow-cw _ degrees", []],
 
         ["point in direction _", []],
         ["point towards _", []],
@@ -293,7 +319,7 @@ var scratchblocks2 = function ($) {
 
         ["events"],
 
-        ["when @ clicked", ["hat", "@green-flag"]],
+        ["when @green-flag clicked", ["hat"]],
         ["when _ key pressed", ["hat"]],
         ["when this sprite clicked", ["hat"]],
         ["when backdrop switches to _", ["hat"]],
@@ -430,20 +456,33 @@ var scratchblocks2 = function ($) {
         ["…", []],
     ];
 
+    // The blockids are the same as english block text, so we build the blockid
+    // list at the same time.
+
     var category = null;
     for (var i=0; i<english_blocks.length; i++) {
-        if (english_blocks[i].length === 1) {
+        if (english_blocks[i].length === 1) { // [category]
             category = english_blocks[i][0];
-        } else {
+        } else {                              // [block id, [list of flags]]
             var block_and_flags = english_blocks[i],
                 spec = block_and_flags[0], flags = block_and_flags[1];
             english.blocks.push(spec);
-            blockids.push(spec);
-            block_info_by_id[spec] = {
+
+            blockids.push(spec); // Other languages will just provide a list of
+                                 // translations, which is matched up with this
+                                 // list.
+
+            // Now store shape/category info.
+            var info = {
                 blockid: spec,
                 category: category,
                 flags: flags,
             };
+            var image_match = /@([-A-z]+)/.exec(spec);
+            if (image_match) {
+                info.image_replacement = image_match[1];
+            }
+            block_info_by_id[spec] = info;
         }
     }
 
@@ -460,20 +499,41 @@ var scratchblocks2 = function ($) {
         for (var i=0; i<language.blocks.length; i++) {
             var spec = language.blocks[i],
                 blockid = blockids[i];
-            blockid_by_text[minify_spec(spec)] = blockid;
+            spec = spec.replace(/@[-A-z]+/, "@"); // remove images
             block_spec_by_id[blockid] = spec;
+
+            // Add block to the text lookup dict.
+            block_by_text[minify_spec(spec)] = {
+                blockid: blockid,
+                lang: iso_code,
+            };
         }
         language.blocks = block_spec_by_id;
 
-        // add stuff to strings
-        strings.define = strings.define.concat(language.define);
-        strings.math = strings.math.concat(language.math);
-        strings.osis = strings.osis.concat(language.osis);
-        strings.ignorelt = strings.ignorelt.concat(language.ignorelt);
-        for (var text in language.images) {
-            strings.images[text] = language.images[text];
+        // add aliases (for images)
+        for (var text in language.aliases) {
+            strings.aliases[text] = language.aliases[text];
+
+            // Add alias to the text lookup dict.
+            block_by_text[minify_spec(text)] = {
+                blockid: language.aliases[text],
+                lang: iso_code,
+            };
         }
+
+        // add stuff to strings
+        for (var key in strings) {
+            if (strings[key].constructor === Array) {
+                for (i=0; i<language[key].length; i++) {
+                    strings[key].push(minify(language[key][i]));
+                }
+            }
+        }
+
+        languages[iso_code] = language;
     }
+
+    sb2.load_language = load_language;
 
     // Hacks for certain blocks.
 
@@ -502,32 +562,19 @@ var scratchblocks2 = function ($) {
 
     // Define function for getting block info by text.
 
-    function find_block(text, args) {
-        // Simple lookup.
-        var minitext = minify_spec(text);
-        if (minitext in blockid_by_text) {
-            var blockid = blockid_by_text[minitext];
+    function find_block(spec, args) {
+        var minitext = minify_spec(spec);
+        if (minitext in block_by_text) {
+            var lang_and_id = block_by_text[minitext];
+            var blockid = lang_and_id.blockid;
             var info = clone(block_info_by_id[blockid]);
-            info.text = text;
+            if (info.image_replacement) {
+                info.spec = languages[lang_and_id.lang].blocks[blockid];
+            } else {
+                info.spec = spec;
+            }
             if (info.hack) info.hack(info, args);
             return info;
-        }
-
-        // Use image replacements.
-        for (var image_text in strings.images) {
-            if (text.indexOf(image_text) > -1) {
-                var new_text = text.replace(image_text, "@"),
-                    blockid = blockid_by_text[minify_spec(new_text)];
-                if (blockid in block_info_by_id) {
-                    var info = clone(block_info_by_id[blockid]),
-                        image = strings.images[image_text];
-                    if ($.inArray("@"+image, info.flags) > -1) {
-                        info.text = new_text;
-                        info.image_replacement = image;
-                        return info;
-                    }
-                }
-            }
         }
     }
 
@@ -553,7 +600,7 @@ var scratchblocks2 = function ($) {
     }
 
     function minify(text) {
-        text = text.replace(/[ \t,%?:]/g, "").toLowerCase();
+        text = text.replace(/[ \t.,%?:]/g, "").toLowerCase();
         if (window.diacritics_removal_map) text = remove_diacritics(text);
         return text;
     }
@@ -996,7 +1043,6 @@ var scratchblocks2 = function ($) {
 
         // insert?
         if (!isablock) {
-            //if (shape !== "string") code = code.trim();
             return {
                 shape: shape,
                 pieces: [code],
@@ -1011,15 +1057,15 @@ var scratchblocks2 = function ($) {
         }
 
         // filter out block text & args
-        var text = "";
+        var spec = "";
         var args = [];
         for (var i=0; i<pieces.length; i++) {
             var piece = pieces[i];
             if (is_block(piece)) {
                 args.push(piece);
-                text += "_";
+                spec += "_";
             } else {
-                text += piece;
+                spec += piece;
             }
         }
 
@@ -1039,18 +1085,18 @@ var scratchblocks2 = function ($) {
         }
 
         // get category & related block info
-        var info = find_block(text, args);
+        var info = find_block(spec, args);
 
         if (info) {
             // rebuild pieces in case text has changed
             var pieces = [];
-            var text_parts = info.text.split(/([_@])/);
+            var text_parts = info.spec.split(/([_@])/);
             for (var i=0; i<text_parts.length; i++) {
                 var part = text_parts[i];
-                if (part === "_") part = args.shift();
+                if (part === "_") part = args.shift() || "";
                 if (part.length) pieces.push(part);
             }
-            delete info.text;
+            delete info.spec;
             delete info.args;
             info.pieces = pieces;
             if (!info.shape) info.shape = shape;
