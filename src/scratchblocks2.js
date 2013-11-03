@@ -86,10 +86,6 @@ String.prototype.contains = function(substring) {
     return this.indexOf(substring) !== -1;
 };
 
-/*Array.prototype.contains = function (thing) {
-    return this.indexOf(thing) !== -1;
-}*/
-
 
 var scratchblocks2 = function ($) {
     "use strict";
@@ -99,6 +95,10 @@ var scratchblocks2 = function ($) {
     }
 
     var sb2 = {}; // The module we export.
+
+
+
+    /*** Database ***/
 
     // First, initialise the blocks database.
 
@@ -503,7 +503,8 @@ var scratchblocks2 = function ($) {
             block_spec_by_id[blockid] = spec;
 
             // Add block to the text lookup dict.
-            block_by_text[minify_spec(spec)] = {
+            var minispec = minify_spec(spec);
+            if (minispec) block_by_text[minispec] = {
                 blockid: blockid,
                 lang: iso_code,
             };
@@ -600,9 +601,10 @@ var scratchblocks2 = function ($) {
     }
 
     function minify(text) {
-        text = text.replace(/[ \t.,%?:]/g, "").toLowerCase();
-        if (window.diacritics_removal_map) text = remove_diacritics(text);
-        return text;
+        var minitext = text.replace(/[ \t.,%?:]/g, "").toLowerCase();
+        if (window.diacritics_removal_map) minitext = remove_diacritics(minitext);
+        if (!minitext && text.replace(" ", "") === "...") minitext = "...";
+        return minitext;
     }
 
     function minify_spec(text) {
@@ -611,9 +613,310 @@ var scratchblocks2 = function ($) {
 
 
 
-    /*** Parser ***/
+    /*** Parse block ***/
 
     var BRACKETS = "([<)]>";
+
+    // Various bracket-related utilities...
+
+    function is_open_bracket(chr) {
+        var bracket_index = BRACKETS.indexOf(chr);
+        return (-1 < bracket_index && bracket_index < 3);
+    }
+
+    function is_close_bracket(chr) {
+        return (2 < BRACKETS.indexOf(chr));
+    }
+
+    function get_matching_bracket(chr) {
+        return BRACKETS[BRACKETS.indexOf(chr) + 3];
+    }
+
+    // Strip one level of brackets from around a piece.
+
+    function strip_brackets(code) {
+        if (is_open_bracket(code[0])) {
+            var bracket = code[0];
+            if (code[code.length - 1] === get_matching_bracket(bracket)) {
+                code = code.substr(0, code.length - 1);
+            }
+            code = code.substr(1);
+        }
+        return code;
+    }
+
+    // Split the block code into text and inserts based on brackets.
+
+    function split_into_pieces(code) {
+        var pieces = [],
+            piece = "",
+            matching_bracket = "",
+            nesting = [];
+
+        for (var i = 0; i < code.length; i++) {
+            var chr = code[i];
+
+            if (nesting.length > 0) {
+                piece += chr;
+                if (is_open_bracket(chr) && !is_lt_gt(code, i) &&
+                        nesting[nesting.length - 1] !== "[") {
+                    nesting.push(chr);
+                    matching_bracket = get_matching_bracket(chr);
+                } else if (chr === matching_bracket && !is_lt_gt(code, i)) {
+                    nesting.pop();
+                    if (nesting.length === 0) {
+                        pieces.push(piece);
+                        piece = "";
+                    } else {
+                        matching_bracket = get_matching_bracket(
+                            nesting[nesting.length - 1]
+                        );
+                    }
+                }
+            } else {
+                if (is_open_bracket(chr) && !is_lt_gt(code, i)) {
+                    nesting.push(chr);
+                    matching_bracket = get_matching_bracket(chr);
+
+                    if (piece) {
+                        pieces.push(piece);
+                    }
+                    piece = "";
+                }
+                piece += chr;
+            }
+        }
+        if (piece) pieces.push(piece); // last piece
+        return pieces;
+    }
+
+    // A piece is a block if it starts with a bracket.
+
+    function is_block(piece) {
+        return piece.length > 1 && is_open_bracket(piece[0]);
+    }
+
+    // Take block code and return block info object.
+    // Called recursively on inserts.
+
+    function parse_block(code) {
+        code = code.trim();
+
+        var bracket;
+        if (is_open_bracket(code.charAt(0))) {
+            bracket = code.charAt(0);
+            code = strip_brackets(code);
+        }
+
+        var pieces = split_into_pieces(code);
+
+        var shape, isablock;
+        if (pieces.length > 1 && bracket !== "[") {
+            shape = get_block_shape(bracket);
+            isablock = true;
+        } else {
+            shape = get_insert_shape(bracket, code);
+            isablock = $.inArray(shape, ["reporter", "boolean", "stack"]) > -1;
+            if (shape.contains("dropdown")) {
+                code = code.substr(0, code.length - 2);
+            }
+        }
+
+        // insert?
+        if (!isablock) {
+            return {
+                shape: shape,
+                pieces: [code],
+            };
+            // TODO put free-floating inserts inside a stack block
+        }
+
+        // trim ends
+        if (pieces.length) {
+            pieces[0] = pieces[0].replace(/^ +/, "");
+            pieces[pieces.length-1] = pieces[pieces.length-1].replace(/ +$/, "");
+        }
+
+        // filter out block text & args
+        var spec = "";
+        var args = [];
+        for (var i=0; i<pieces.length; i++) {
+            var piece = pieces[i];
+            if (is_block(piece)) {
+                args.push(piece);
+                spec += "_";
+            } else {
+                spec += piece;
+            }
+        }
+
+        // define hat?
+        for (var i=0; i<strings.define.length; i++) {;;
+            var define_text = strings.define[i];
+            if (pieces[0] && pieces[0].startsWith(define_text)) {
+                pieces[0] = pieces[0].slice(define_text.length)
+                                     .replace(/^ +/, "");
+                return {
+                    shape: "define-hat",
+                    category: "custom",
+                    define_text: define_text,
+                    pieces: pieces,
+                };
+            }
+        }
+
+        // get category & related block info
+        var info = find_block(spec, args);
+
+        if (info) {
+            // rebuild pieces in case text has changed
+            var pieces = [];
+            var text_parts = info.spec.split(/([_@])/);
+            for (var i=0; i<text_parts.length; i++) {
+                var part = text_parts[i];
+                if (part === "_") part = args.shift() || "";
+                if (part.length) pieces.push(part);
+            }
+            delete info.spec;
+            delete info.args;
+            info.pieces = pieces;
+            if (!info.shape) info.shape = shape;
+            if ($.inArray("cend", info.flags) > -1) info.pieces = [""];
+            return info;
+        }
+
+        // unknown block
+        return {
+            shape: shape,
+            category: (shape === "reporter") ? "variables" : "obsolete",
+            pieces: pieces,
+        };
+    }
+
+    // Functions to get shape from code.
+
+    function get_block_shape(bracket) {
+        switch (bracket) {
+            case "(": return "embedded";
+            case "<": return "boolean";
+            default:  return "stack";
+        }
+    }
+
+    function get_insert_shape(bracket, code) {
+        switch (bracket) {
+            case "(":
+                if (/^(-?[0-9.]+( v)?)?$/i.test(code)) {
+                    if (code.endsWith(" v")) {
+                        return "number-dropdown";
+                    } else {
+                        return "number";
+                    }
+                } else if (code.endsWith(" v")) {
+                    // rounded dropdowns (not actually number)
+                    return "number-dropdown";
+                } else {
+                    // reporter (or embedded! TODO remove this comment)
+                    return "reporter";
+                }
+            case "[":
+                if (/^#[A-Fa-f0-9]{3,6}$/.test(code)) {
+                    return "color";
+                } else {
+                    if (code.endsWith(" v")) {
+                        return "dropdown";
+                    } else {
+                        return "string";
+                    }
+                }
+            case "<":
+                return "boolean";
+            default:
+                return "stack";
+        }
+    }
+
+    function get_custom_arg_shape(bracket) {
+        switch (bracket) {
+            case "<": return "boolean";
+            default:  return "reporter";
+        }
+    }
+
+    // Check whether angle brackets are supposed to be lt/gt blocks.
+
+    /*
+     * We need a way to parse eg.
+     *
+     *      if <[6] < [3]> then
+     *
+     *  Obviously the central "<" should be ignored by split_into_pieces.
+     *
+     *  In addition, we need to handle blocks containing a lt symbol:
+     *
+     *      when distance < (30)
+     *
+     *  We do this by matching against `strings.ignorelt`.
+     */
+
+    // Returns true if it's lt/gt, false if it's an open/close bracket.
+
+    function is_lt_gt(code, index) {
+        var chr, i;
+
+        if ((code[index] !== "<" && code[index] !== ">") ||
+                index === code.length || index === 0) {
+            return false;
+        }
+
+        // hat block containing lt symbol?
+        for (var i=0; i<strings.ignorelt.length; i++) {
+            var when_dist = strings.ignorelt[i];
+            if (minify(code.substr(0, index)).startsWith(when_dist)) {
+                return true; // don't parse as a boolean
+            }
+        }
+
+        // look for open brackets ahead
+        for (i = index + 1; i < code.length; i++) {
+            chr = code[i];
+            if (is_open_bracket(chr)) {
+                break; // might be an innocuous lt/gt!
+            }
+            if (chr !== " ") {
+                return false; // something else => it's a bracket
+            }
+        }
+
+        // look for close brackets behind
+        for (i = index - 1; i > -1; i--) {
+            chr = code[i];
+            if (is_close_bracket(chr)) {
+                break; // must be an innocuous lt/gt!
+            }
+            if (chr !== " ") {
+                return false; // something else => it's a bracket
+            }
+        }
+
+        // we found a close bracket behind and an open bracket ahead, eg:
+        //      ) < [
+        return true; // it's an lt/gt block!
+    }
+
+
+
+    /*** Parse scripts ***/
+
+    // Take scratchblocks text and turn it into useful objects.
+
+    function parse_scripts(code) {
+        return [];
+    }
+
+
+
+    /*** Render ***/
 
     /* Render all matching elements in page to shiny scratch blocks.
      * Accepts a CSS-style selector as an argument.
@@ -964,154 +1267,6 @@ var scratchblocks2 = function ($) {
         return $comment;
     }
 
-    function is_block(piece) {
-        return piece.length > 1 && (
-            is_open_bracket(piece[0]) || is_close_bracket(piece[0])
-        );
-    }
-
-    function get_block_shape(bracket) {
-        switch (bracket) {
-            case "(": return "embedded";
-            case "<": return "boolean";
-            default:  return "stack";
-        }
-    }
-
-    function get_insert_shape(bracket, code) {
-        switch (bracket) {
-            case "(":
-                if (/^(-?[0-9.]+( v)?)?$/i.test(code)) {
-                    if (code.endsWith(" v")) {
-                        return "number-dropdown";
-                    } else {
-                        return "number";
-                    }
-                } else if (code.endsWith(" v")) {
-                    // rounded dropdowns (not actually number)
-                    return "number-dropdown";
-                } else {
-                    // reporter (or embedded! TODO remove this comment)
-                    return "reporter";
-                }
-            case "[":
-                if (/^#[A-Fa-f0-9]{3,6}$/.test(code)) {
-                    return "color";
-                } else {
-                    if (code.endsWith(" v")) {
-                        return "dropdown";
-                    } else {
-                        return "string";
-                    }
-                }
-            case "<":
-                return "boolean";
-            default:
-                return "stack";
-        }
-    }
-
-    function get_custom_arg_shape(bracket) {
-        switch (bracket) {
-            case "<": return "boolean";
-            default:  return "reporter";
-        }
-    }
-
-    function parse_block(code) {
-        code = code.trim();
-
-        var bracket;
-        if (is_open_bracket(code.charAt(0))) {
-            bracket = code.charAt(0);
-            code = strip_brackets(code);
-        }
-
-        var pieces = split_into_pieces(code);
-
-        var shape, isablock;
-        if (pieces.length > 1 && bracket !== "[") {
-            shape = get_block_shape(bracket);
-            isablock = true;
-        } else {
-            shape = get_insert_shape(bracket, code);
-            isablock = $.inArray(shape, ["reporter", "boolean", "stack"]) > -1;
-            if (shape.contains("dropdown")) {
-                code = code.substr(0, code.length - 2);
-            }
-        }
-
-        // insert?
-        if (!isablock) {
-            return {
-                shape: shape,
-                pieces: [code],
-            };
-            // TODO put free-floating inserts inside a stack block
-        }
-
-        // trim ends
-        if (pieces.length) {
-            pieces[0] = pieces[0].replace(/^ +/, "");
-            pieces[pieces.length-1] = pieces[pieces.length-1].replace(/ +$/, "");
-        }
-
-        // filter out block text & args
-        var spec = "";
-        var args = [];
-        for (var i=0; i<pieces.length; i++) {
-            var piece = pieces[i];
-            if (is_block(piece)) {
-                args.push(piece);
-                spec += "_";
-            } else {
-                spec += piece;
-            }
-        }
-
-        // define hat?
-        for (var i=0; i<strings.define.length; i++) {;;
-            var define_text = strings.define[i];
-            if (pieces[0] && pieces[0].startsWith(define_text)) {
-                pieces[0] = pieces[0].slice(define_text.length)
-                                     .replace(/^ +/, "");
-                return {
-                    shape: "define-hat",
-                    category: "custom",
-                    define_text: define_text,
-                    pieces: pieces,
-                };
-            }
-        }
-
-        // get category & related block info
-        var info = find_block(spec, args);
-
-        if (info) {
-            // rebuild pieces in case text has changed
-            var pieces = [];
-            var text_parts = info.spec.split(/([_@])/);
-            for (var i=0; i<text_parts.length; i++) {
-                var part = text_parts[i];
-                if (part === "_") part = args.shift() || "";
-                if (part.length) pieces.push(part);
-            }
-            delete info.spec;
-            delete info.args;
-            info.pieces = pieces;
-            if (!info.shape) info.shape = shape;
-            if ($.inArray("cend", info.flags) > -1) info.pieces = [""];
-            return info;
-        }
-
-        // unknown block
-        return {
-            shape: shape,
-            category: (shape === "reporter") ? "variables" : "obsolete",
-            pieces: pieces,
-        };
-    }
-
     function render_block(code) {
         if (!code) return;
 
@@ -1186,136 +1341,6 @@ var scratchblocks2 = function ($) {
         }
 
         return $block;
-    }
-
-    /* Split the block code into text and insert pieces.
-     *
-     * Inserts start with a bracket.
-     */
-    function split_into_pieces(code) {
-        var pieces = [],
-            piece = "",
-            matching_bracket = "",
-            nesting = [],
-            chr,
-            i;
-
-        for (i = 0; i < code.length; i++) {
-            chr = code[i];
-
-            if (nesting.length > 0) {
-                piece += chr;
-                if (is_open_bracket(chr) && !is_lt_gt(code, i) &&
-                        nesting[nesting.length - 1] !== "[") {
-                    nesting.push(chr);
-                    matching_bracket = get_matching_bracket(chr);
-                } else if (chr === matching_bracket && !is_lt_gt(code, i)) {
-                    nesting.pop();
-                    if (nesting.length === 0) {
-                        pieces.push(piece);
-                        piece = "";
-                    } else {
-                        matching_bracket = get_matching_bracket(
-                            nesting[nesting.length - 1]
-                        );
-                    }
-                }
-            } else {
-                if (is_open_bracket(chr) && !is_lt_gt(code, i)) {
-                    nesting.push(chr);
-                    matching_bracket = get_matching_bracket(chr);
-
-                    if (piece) {
-                        pieces.push(piece);
-                    }
-                    piece = "";
-                }
-                piece += chr;
-            }
-        }
-
-        // last piece
-        if (piece) {
-            pieces.push(piece);
-        }
-
-        return pieces;
-    }
-
-    /* Strip one level of surrounding <([ brackets from scratchblocks code */
-    function strip_brackets(code) {
-        if (is_open_bracket(code[0])) {
-            var bracket = code[0];
-            if (code[code.length - 1] === get_matching_bracket(bracket)) {
-                code = code.substr(0, code.length - 1);
-            }
-            code = code.substr(1);
-        }
-        return code;
-    }
-
-    function is_open_bracket(chr) {
-        var bracket_index = BRACKETS.indexOf(chr);
-        return (-1 < bracket_index && bracket_index < 3);
-    }
-
-    function is_close_bracket(chr) {
-        return (2 < BRACKETS.indexOf(chr));
-    }
-
-    function get_matching_bracket(chr) {
-        return BRACKETS[BRACKETS.indexOf(chr) + 3];
-    }
-
-    /* Stop lt/gt signs between open/close brackets being seen as open/close
-     * brackets. Makes sure booleans are parsed properly.
-     *
-     * Returns true if it's lt/gt, as there is a close bracket behind and an
-     * open bracket ahead:
-     *      ) < [
-     *
-     * Returns false otherwise, if it's an open/close bracket itself:
-     *      <(      ...etc
-     */
-    function is_lt_gt(code, index) {
-        var chr, i;
-
-        if ((code[index] !== "<" && code[index] !== ">") ||
-                index === code.length ||
-                index === 0) {
-            return false;
-        }
-
-        // HACK: "when distance < _)" block
-        for (var i=0; i<strings.ignorelt.length; i++) {
-            var when_dist = strings.ignorelt[i];
-            if (minify(code.substr(0, index)).startsWith(when_dist)) {
-                return true; // don't parse as a boolean
-            }
-        }
-
-        for (i = index + 1; i < code.length; i++) {
-            chr = code[i];
-            if (is_open_bracket(chr)) {
-                break; // might be an innocuous lt/gt!
-            }
-            if (chr !== " ") {
-                return false; // something else => it's a bracket
-            }
-        }
-
-        for (i = index - 1; i > -1; i--) {
-            chr = code[i];
-            if (is_close_bracket(chr)) {
-                break; // must be an innocuous lt/gt!
-            }
-            if (chr !== " ") {
-                return false; // something else => it's a bracket
-            }
-        }
-
-        // it's an lt/gt sign!
-        return true;
     }
 
     /* Return the category class for the given block. */
