@@ -136,12 +136,6 @@ hr {
   display: inline-block;
   margin-left: 0.5em;
 }
-#me {
-  color: black;
-  font-weight: bold;
-  margin-top: 0.5em;
-  font-size: 0.8em;
-}
 #bookmarklet {
   background: #888;
   color: #fff;
@@ -304,10 +298,12 @@ function fetch (id) {
     $("#status").text("Done!");
     fetching = false;
     window.project = response; // DEBUG
+    $("#project-url").blur();
   }).error(function (e) {
     $("#status").text("Error: "+e.statusText);
     fetching = false;
     check_hash();
+    $("#project-url").focus();
   });
 
   ga('send', 'event', 'fetch', 'fetch', {
@@ -365,6 +361,7 @@ function load_project (project) {
 
   show_sprite(selected_sprite);
   update_edit_link();
+
 
   check_hash();
 }
@@ -477,6 +474,8 @@ function export_code () {
 }
 
 function init_fetch () {
+  $("#project-url").blur();
+
   var id = id_from_url($("#project-url").attr("value"));
   if (id) {
     location.hash = "#project="+id;
@@ -568,6 +567,8 @@ $(document).ready(function () {
     $("#intro").removeClass("hidden");
   });
 
+  $("#project-url").focus().val($("#project-url").val()); // set cursor to end
+
   clear_project(); // make sure we start fresh
 
   check_hash();
@@ -606,8 +607,6 @@ $(document).ready(function () {
     <p>Handy bookmarklet: <a id="bookmarklet"
       href="javascript:location.href='http://blob8108.github.io/scratchblocks2/generator/#url='+encodeURIComponent(location.href);">Scratchblocks</a>
     <i>(just drag to your bookmarks bar — use on any 2.0 project)</i>
-
-    <p><a id="me" href="http://scratch.mit.edu/users/blob8108">~blob8108</a>
 
     </p>
   </div>
