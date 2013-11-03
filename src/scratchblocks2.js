@@ -140,7 +140,7 @@ var scratchblocks2 = function ($) {
     };
 
     var languages = sb2.languages = {};
-    var block_info_by_id = sb2.block_info_by_id = {};
+    var block_info_by_id = {};
     var block_by_text = {};
     var blockids = []; // Used by load_language
 
@@ -476,12 +476,26 @@ var scratchblocks2 = function ($) {
             var info = {
                 blockid: spec,
                 category: category,
-                flags: flags,
             };
+
+            while (flags.length) {
+                var flag = flags.pop();
+                switch (flag) {
+                    case "hat":
+                    case "cap":
+                        info.shape = flag;
+                        break;
+                    default:
+                        assert(!info.flag);
+                        info.flag = flag;
+                }
+            }
+
             var image_match = /@([-A-z]+)/.exec(spec);
             if (image_match) {
                 info.image_replacement = image_match[1];
             }
+
             block_info_by_id[spec] = info;
         }
     }
@@ -781,7 +795,7 @@ var scratchblocks2 = function ($) {
             delete info.args;
             info.pieces = pieces;
             if (!info.shape) info.shape = shape;
-            if ($.inArray("cend", info.flags) > -1) info.pieces = [""];
+            if (info.flag === "cend") info.pieces = [""];
             return info;
         }
 
@@ -1098,6 +1112,7 @@ var scratchblocks2 = function ($) {
                     $cwrap = $("<div>").addClass("cwrap");
                     $current.append($cwrap);
                     $cwrap.append($block);
+                    $block.addClass("stack");
 
                     // comment
                     if ($comment) {
@@ -1276,13 +1291,9 @@ var scratchblocks2 = function ($) {
         var $block = $("<div>");
         $block.addClass(info.shape);
         $block.addClass(info.category);
-        if (info.flags) {
-            for (var i=0; i<info.flags.length; i++) { // TODO
-                $block.addClass(info.flags[i]);
-            }
-        }
-        $block.category = info.category; // TODO
-        $block.shape = info.shape; // TODO
+        if (info.flag) $block.addClass(info.flag); // TODO remove
+        $block.category = info.category; // TODO remove
+        $block.shape = info.shape; // TODO remove
 
         // color inserts
         if (info.shape === "color") {

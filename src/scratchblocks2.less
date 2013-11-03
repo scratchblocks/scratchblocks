@@ -203,8 +203,8 @@
             }
         }
 
-        &.hat, &.hat:before, &.define-hat, &.stack, &.boolean, &.reporter,
-        &.embedded, &.variable-reporter, &.custom-arg {
+        &.hat, &.hat:before, &.define-hat, &.stack, &.cap, &.boolean,
+        &.reporter, &.embedded, &.variable-reporter, &.custom-arg {
             .stack-color(@category);
         }
 
@@ -301,8 +301,8 @@
         display: inline-block;
     }
 
-    .hat, .define-hat, .stack, .boolean, .reporter,
-        .variable-reporter, .custom-arg, .dropdown {
+    .hat, .define-hat, .stack, .cap, .boolean, .reporter, .variable-reporter,
+    .custom-arg, .dropdown {
         border: 2px solid;
     }
 
@@ -313,18 +313,18 @@
         vertical-align: middle;
     }
 
-    .stack {
+    .stack, .cap {
         min-width: 36px;
     }
 
-    .stack, .cwrap, .cmouth {
+    .stack, .cap, .cwrap, .cmouth {
         border-top-width: 1px;
 
         float: left;
         clear: both;
     }
 
-    .stack, .hat, .define-hat {
+    .stack, .cap, .hat, .define-hat {
         padding: 2px 4px;
 
         // vertically centred min height
@@ -335,13 +335,13 @@
         }
     } 
     
-    .stack, .outline {
+    .stack, .cap, .outline {
         .border-radius(5px);
     }
 
 
     // Puzzle pieces //
-    .stack, .hat, .cap, .define-hat {
+    .stack, .cap, .hat, .define-hat {
         position: relative;
     }
 
