@@ -711,9 +711,8 @@ var scratchblocks2 = function ($) {
     }
 
     // Take block code and return block info object.
-    // Called recursively on inserts.
 
-    function parse_block(code) {
+    function identify_block(code) {
         code = code.trim();
 
         var bracket;
@@ -742,7 +741,6 @@ var scratchblocks2 = function ($) {
                 shape: shape,
                 pieces: [code],
             };
-            // TODO put free-floating inserts inside a stack block
         }
 
         // trim ends
@@ -788,8 +786,10 @@ var scratchblocks2 = function ($) {
             var text_parts = info.spec.split(/([_@])/);
             for (var i=0; i<text_parts.length; i++) {
                 var part = text_parts[i];
-                if (part === "_") part = args.shift() || "";
-                if (part.length) pieces.push(part);
+                if (part === "_") {
+                    part = parse_block(args.shift() || "");
+                }
+                if (part) pieces.push(part);
             }
             delete info.spec;
             delete info.args;
@@ -805,6 +805,31 @@ var scratchblocks2 = function ($) {
             category: (shape === "reporter") ? "variables" : "obsolete",
             pieces: pieces,
         };
+    }
+
+    function parse_block(code) {
+        // comment
+        var comment;
+        var comment_match = /^(.*[^:])?\/\/(.*)$/.exec(code);
+        if (comment_match) {
+            code = comment_match[1];
+            comment = comment_match[2];
+        }
+
+        // parse block
+        var info = identify_block(code);
+        if (comment) info.comment = comment;
+
+        // parse arguments
+        var pieces = [];
+        for (var i=0; i<info.pieces.length; i++) {
+            var part = info.pieces[i];
+            if (is_block(part)) part = parse_block(part);
+            pieces.push(part);
+        }
+        info.pieces = pieces;
+
+        return info;
     }
 
     // Functions to get shape from code.
@@ -1058,7 +1083,7 @@ var scratchblocks2 = function ($) {
             }
 
             // render block
-            $block = render_block(line, "stack");
+            $block = render_block(parse_block(line), "stack");
 
             // render comment
             if ($block) {
@@ -1282,10 +1307,8 @@ var scratchblocks2 = function ($) {
         return $comment;
     }
 
-    function render_block(code) {
+    function render_block(info) {
         if (!code) return;
-
-        var info = parse_block(code);
 
         // make DOM element
         var $block = $("<div>");
@@ -1339,7 +1362,7 @@ var scratchblocks2 = function ($) {
         // output text segments & args
         for (var i=0; i<info.pieces.length; i++) {
             var piece = info.pieces[i];
-            if (is_block(piece)) {
+            if (typeof piece === "object") {
                 $block.append(render_block(piece));
             } else if (piece === "@" && info.image_replacement) {
                 var $image = $("<span>")
