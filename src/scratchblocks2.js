@@ -667,7 +667,7 @@ var scratchblocks2 = function ($) {
             matching_bracket = "",
             nesting = [];
 
-        for (var i = 0; i < code.length; i++) {
+        for (var i=0; i<code.length; i++) {
             var chr = code[i];
 
             if (nesting.length > 0) {
@@ -723,6 +723,19 @@ var scratchblocks2 = function ($) {
 
         var pieces = split_into_pieces(code);
 
+        var comment;
+        if (pieces.length) {
+            var i = pieces.length - 1;
+            if (!is_block(pieces[i])) {
+                var comment_match = /^(.*[^:])?\/\/(.*)$/.exec(pieces[i]);
+                if (comment_match) {
+                    pieces[i] = (comment_match[1] || "").trimRight();
+                    if (!pieces[i]) pieces.splice(i, 1);
+                    comment = comment_match[2];
+                }
+            }
+        }
+
         var shape, isablock;
         if (pieces.length > 1 && bracket !== "[") {
             shape = get_block_shape(bracket);
@@ -740,6 +753,7 @@ var scratchblocks2 = function ($) {
             return {
                 shape: shape,
                 pieces: [code],
+                comment: comment,
             };
         }
 
@@ -773,6 +787,7 @@ var scratchblocks2 = function ($) {
                     category: "custom",
                     define_text: define_text,
                     pieces: pieces,
+                    comment: comment,
                 };
             }
         }
@@ -796,6 +811,7 @@ var scratchblocks2 = function ($) {
             info.pieces = pieces;
             if (!info.shape) info.shape = shape;
             if (info.flag === "cend") info.pieces = [""];
+            info.comment = comment;
             return info;
         }
 
@@ -804,21 +820,31 @@ var scratchblocks2 = function ($) {
             shape: shape,
             category: (shape === "reporter") ? "variables" : "obsolete",
             pieces: pieces,
+            comment: comment,
         };
     }
 
     function parse_block(code) {
-        // comment
-        var comment;
-        var comment_match = /^(.*[^:])?\/\/(.*)$/.exec(code);
-        if (comment_match) {
-            code = comment_match[1];
-            comment = comment_match[2];
-        }
-
         // parse block
         var info = identify_block(code);
-        if (comment) info.comment = comment;
+
+        // category hack
+        var comment_hacks;
+        if (info.comment) {
+            var match = /(^| )category=([a-z]+)($| )/.exec(info.comment);
+            if (match) {
+                info.category = match[2];
+                info.comment = info.comment.replace(match[0], " ").trim();
+                hacked_category = true;
+            }
+        }
+
+        // reporters can't have comments
+        if (!comment_hacks && info.comment && $.inArray(info.shape, ["hat",
+                "cap", "stack", "define-hat"]) === -1) {
+            info.pieces.push("//" + info.comment);
+            info.comment = "";
+        }
 
         // parse arguments
         var pieces = [];
@@ -1074,16 +1100,12 @@ var scratchblocks2 = function ($) {
                 continue;
             }
 
-            // parse comment
-            $comment = null;
-            comment_text = null;
-            if (line.indexOf("//") > -1) {
-                comment_text = line.substr(line.indexOf("//") + 2).trim();
-                line = line.substr(0, line.indexOf("//"));
-            }
-
             // render block
-            $block = render_block(parse_block(line), "stack");
+            var info = parse_block(line);
+            $block = render_block(info, "stack");
+
+            $comment = null;
+            comment_text = info.comment;
 
             // render comment
             if ($block) {
@@ -1206,13 +1228,7 @@ var scratchblocks2 = function ($) {
                 }
 
                 if ($comment) {
-                    if (/^category=[a-z]+$/i.test(comment_text)) {
-                        var category = comment_text.substr(9);
-                        // TODO if ($.inArray(category, CLASSES.category) > -1) {
-                        $block.addClass(category);
-                    } else {
-                        $current.append($comment);
-                    }
+                    $current.append($comment);
                 }
 
                 if (one_only || (nesting === 0 && $block.hasClass("cap"))) {
