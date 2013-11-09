@@ -454,6 +454,7 @@ var scratchblocks2 = function ($) {
 
         ["...", []],
         ["…", []],
+        ["_", []],
     ];
 
     // The blockids are the same as english block text, so we build the blockid
@@ -518,7 +519,7 @@ var scratchblocks2 = function ($) {
 
             // Add block to the text lookup dict.
             var minispec = minify_spec(spec);
-            if (minispec) block_by_text[minispec] = {
+            if (minispec || spec === "_") block_by_text[minispec] = {
                 blockid: blockid,
                 lang: iso_code,
             };
