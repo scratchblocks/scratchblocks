@@ -699,6 +699,13 @@ var scratchblocks2 = function ($) {
                     piece = "";
                 }
                 piece += chr;
+
+                // handle comments
+                if (/(^|[^:])\/\/$/.test(piece)) {
+                    pieces.push(piece.slice(0, piece.length - 2));
+                    pieces.push("//" + code.substr(i + 1));
+                    return pieces;
+                }
             }
         }
         if (piece) pieces.push(piece); // last piece
@@ -727,13 +734,8 @@ var scratchblocks2 = function ($) {
         var comment;
         if (pieces.length) {
             var i = pieces.length - 1;
-            if (!is_block(pieces[i])) {
-                var comment_match = /^(.*[^:])?\/\/(.*)$/.exec(pieces[i]);
-                if (comment_match) {
-                    pieces[i] = (comment_match[1] || "").trimRight();
-                    if (!pieces[i]) pieces.splice(i, 1);
-                    comment = comment_match[2];
-                }
+            if (pieces[i].startsWith("//")) {
+                comment = pieces.pop().substr(2);
             }
         }
 
@@ -751,17 +753,17 @@ var scratchblocks2 = function ($) {
 
         // insert?
         if (!isablock) {
+            // rebuild code
+            var code = "";
+            for (var i=0; i<pieces.length; i++) {
+                code += pieces[i];
+            }
+
             return {
                 shape: shape,
                 pieces: [code],
                 comment: comment,
             };
-        }
-
-        // trim ends
-        if (pieces.length) {
-            pieces[0] = pieces[0].replace(/^ +/, "");
-            pieces[pieces.length-1] = pieces[pieces.length-1].replace(/ +$/, "");
         }
 
         // filter out block text & args
@@ -803,7 +805,7 @@ var scratchblocks2 = function ($) {
             for (var i=0; i<text_parts.length; i++) {
                 var part = text_parts[i];
                 if (part === "_") {
-                    part = parse_block(args.shift() || "");
+                    part = args.shift() || "";
                 }
                 if (part) pieces.push(part);
             }
@@ -836,15 +838,24 @@ var scratchblocks2 = function ($) {
             if (match) {
                 info.category = match[2];
                 info.comment = info.comment.replace(match[0], " ").trim();
-                hacked_category = true;
+                comment_hacks = true;
             }
         }
 
         // reporters can't have comments
         if (!comment_hacks && info.comment && $.inArray(info.shape, ["hat",
                 "cap", "stack", "define-hat"]) === -1) {
-            info.pieces.push("//" + info.comment);
+            info.pieces.push("//" + info.comment); // TODO this sucks, because
+                                                   // it's too late to
+                                                   // find_block at this point
             info.comment = "";
+        }
+
+        // trim ends
+        if (info.pieces.length) {
+            info.pieces[0] = info.pieces[0].replace(/^ +/, "");
+            info.pieces[info.pieces.length-1] =
+                info.pieces[info.pieces.length-1].replace(/ +$/, "");
         }
 
         // parse arguments
