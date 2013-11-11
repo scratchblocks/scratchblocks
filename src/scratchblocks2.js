@@ -720,15 +720,7 @@ var scratchblocks2 = function ($) {
 
     // Take block code and return block info object.
 
-    function identify_block(code) {
-        code = code.trim();
-
-        var bracket;
-        if (is_open_bracket(code.charAt(0))) {
-            bracket = code.charAt(0);
-            code = strip_brackets(code);
-        }
-
+    function identify_block(code, bracket) {
         var pieces = split_into_pieces(code);
 
         var comment;
@@ -736,6 +728,12 @@ var scratchblocks2 = function ($) {
             var i = pieces.length - 1;
             if (pieces[i].startsWith("//")) {
                 comment = pieces.pop().substr(2);
+
+                // rebuild code
+                var code = "";
+                for (var i=0; i<pieces.length; i++) {
+                    code += pieces[i];
+                }
             }
         }
 
@@ -753,17 +751,32 @@ var scratchblocks2 = function ($) {
 
         // insert?
         if (!isablock) {
-            // rebuild code
-            var code = "";
-            for (var i=0; i<pieces.length; i++) {
-                code += pieces[i];
-            }
-
             return {
                 shape: shape,
                 pieces: [code],
                 comment: comment,
             };
+        }
+
+        // trim ends
+        if (pieces.length) {
+            pieces[0] = pieces[0].trimLeft(" ");
+            pieces[pieces.length-1] = pieces[pieces.length-1].trimRight(" ");
+        }
+
+        // define hat?
+        for (var i=0; i<strings.define.length; i++) {;;
+            var define_text = strings.define[i];
+            if (pieces[0] && pieces[0].startsWith(define_text)) {
+                pieces[0] = pieces[0].slice(define_text.length).trimLeft(" ");
+                return {
+                    shape: "define-hat",
+                    category: "custom",
+                    define_text: define_text,
+                    pieces: pieces,
+                    comment: comment,
+                };
+            }
         }
 
         // filter out block text & args
@@ -779,24 +792,8 @@ var scratchblocks2 = function ($) {
             }
         }
 
-        // define hat?
-        for (var i=0; i<strings.define.length; i++) {;;
-            var define_text = strings.define[i];
-            if (pieces[0] && pieces[0].startsWith(define_text)) {
-                pieces[0] = pieces[0].slice(define_text.length)
-                                     .replace(/^ +/, "");
-                return {
-                    shape: "define-hat",
-                    category: "custom",
-                    define_text: define_text,
-                    pieces: pieces,
-                    comment: comment,
-                };
-            }
-        }
-
         // get category & related block info
-        var info = find_block(spec, args);
+        if (spec) var info = find_block(spec, args);
 
         if (info) {
             // rebuild pieces in case text has changed
@@ -827,9 +824,19 @@ var scratchblocks2 = function ($) {
         };
     }
 
-    function parse_block(code) {
+    function parse_block(code, bracket) {
         // parse block
-        var info = identify_block(code);
+        var info = identify_block(code, bracket);
+
+        // special-case standalone reporters.
+        if (info.blockid === "_" && !bracket && info.pieces.length) {
+            code = info.pieces[0];
+            var reporter_bracket = code.charAt(0);
+            var comment = info.comment;
+            code = strip_brackets(code);
+            info = parse_block(code, reporter_bracket);
+            info.comment = comment;
+        }
 
         // category hack
         var comment_hacks;
@@ -843,26 +850,22 @@ var scratchblocks2 = function ($) {
         }
 
         // reporters can't have comments
-        if (!comment_hacks && info.comment && $.inArray(info.shape, ["hat",
-                "cap", "stack", "define-hat"]) === -1) {
-            info.pieces.push("//" + info.comment); // TODO this sucks, because
+        if (info.comment && bracket && !comment_hacks) {
+            info.pieces.push(" //" + info.comment); // TODO this sucks, because
                                                    // it's too late to
                                                    // find_block at this point
             info.comment = "";
-        }
-
-        // trim ends
-        if (info.pieces.length) {
-            info.pieces[0] = info.pieces[0].replace(/^ +/, "");
-            info.pieces[info.pieces.length-1] =
-                info.pieces[info.pieces.length-1].replace(/ +$/, "");
         }
 
         // parse arguments
         var pieces = [];
         for (var i=0; i<info.pieces.length; i++) {
             var part = info.pieces[i];
-            if (is_block(part)) part = parse_block(part);
+            if (is_block(part)) {
+                var arg_bracket = part.charAt(0);
+                part = strip_brackets(part);
+                part = parse_block(part, arg_bracket);
+            }
             pieces.push(part);
         }
         info.pieces = pieces;
@@ -1113,7 +1116,7 @@ var scratchblocks2 = function ($) {
             }
 
             // render block
-            var info = parse_block(line);
+            var info = parse_block(line.trim());
             $block = render_block(info, "stack");
 
             $comment = null;
