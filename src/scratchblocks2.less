@@ -384,6 +384,15 @@
     }
 
     .cwrap {
+        &.cap {
+            border: 0;
+            padding: 0;
+            background: none;
+            & > * {
+                line-height: 16px;
+            }
+        }
+
         .cend, .celse {
             &.capend:before {
                 content: none;
