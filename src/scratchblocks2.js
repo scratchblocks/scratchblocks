@@ -452,9 +452,8 @@ var scratchblocks2 = function ($) {
 
         ["grey"],
 
-        ["...", []],
         ["…", []],
-        ["_", []],
+        ["...", []],
     ];
 
     // The blockids are the same as english block text, so we build the blockid
@@ -587,12 +586,17 @@ var scratchblocks2 = function ($) {
             if (info.image_replacement) {
                 info.spec = languages[lang_and_id.lang].blocks[blockid];
             } else {
+                if (minitext === "...") spec = "…";
                 info.spec = spec;
             }
             if (info.hack) info.hack(info, args);
             return info;
         }
+        if (spec.replace(/ /g, "") === "...") return find_block("...");
+        if (spec === "_") return {blockid: "_", spec: "_"};
     }
+
+    sb2.find_block = find_block;
 
     // Utility function that copies a dictionary.
 
@@ -699,13 +703,6 @@ var scratchblocks2 = function ($) {
                     piece = "";
                 }
                 piece += chr;
-
-                // handle comments
-                if (/(^|[^:])\/\/$/.test(piece)) {
-                    pieces.push(piece.slice(0, piece.length - 2));
-                    pieces.push("//" + code.substr(i + 1));
-                    return pieces;
-                }
             }
         }
         if (piece) pieces.push(piece); // last piece
@@ -720,23 +717,15 @@ var scratchblocks2 = function ($) {
 
     // Take block code and return block info object.
 
-    function identify_block(code, bracket) {
+    function parse_block(code, bracket) {
+        // strip brackets
+        var bracket = code.charAt(0);
+        code = strip_brackets(code);
+
+        // split into text segments and inserts
         var pieces = split_into_pieces(code);
 
-        var comment;
-        if (pieces.length) {
-            var i = pieces.length - 1;
-            if (pieces[i].startsWith("//")) {
-                comment = pieces.pop().substr(2);
-
-                // rebuild code
-                var code = "";
-                for (var i=0; i<pieces.length; i++) {
-                    code += pieces[i];
-                }
-            }
-        }
-
+        // get shape
         var shape, isablock;
         if (pieces.length > 1 && bracket !== "[") {
             shape = get_block_shape(bracket);
@@ -754,7 +743,6 @@ var scratchblocks2 = function ($) {
             return {
                 shape: shape,
                 pieces: [code],
-                comment: comment,
             };
         }
 
@@ -774,7 +762,6 @@ var scratchblocks2 = function ($) {
                     category: "custom",
                     define_text: define_text,
                     pieces: pieces,
-                    comment: comment,
                 };
             }
         }
@@ -792,84 +779,87 @@ var scratchblocks2 = function ($) {
             }
         }
 
+        // override attrs?
+        var overrides;
+        var match = /^(.*)::([A-z ]*)$/.exec(spec);
+        if (match) {
+            spec = match[1].trimRight();
+            overrides = match[2].trim().split(" ");
+        }
+
         // get category & related block info
         if (spec) var info = find_block(spec, args);
 
         if (info) {
-            // rebuild pieces in case text has changed
-            var pieces = [];
-            var text_parts = info.spec.split(/([_@])/);
-            for (var i=0; i<text_parts.length; i++) {
-                var part = text_parts[i];
-                if (part === "_") {
-                    part = args.shift() || "";
-                }
-                if (part) pieces.push(part);
-            }
-            delete info.spec;
-            delete info.args;
-            info.pieces = pieces;
             if (!info.shape) info.shape = shape;
-            if (info.flag === "cend") info.pieces = [""];
-            info.comment = comment;
-            return info;
+            if (info.flag === "cend") info.spec = "";
+        } else {
+            // unknown block
+            info = {
+                shape: shape,
+                category: (shape === "reporter") ? "variables" : "obsolete",
+                spec: spec,
+                args: args,
+                overrides: overrides,
+            };
         }
 
-        // unknown block
-        return {
-            shape: shape,
-            category: (shape === "reporter") ? "variables" : "obsolete",
-            pieces: pieces,
-            comment: comment,
-        };
+        if (overrides) {
+            if (overrides.length > 0) info.category = overrides[0];
+            if (overrides.length > 1) info.shape = overrides[1];
+        }
+
+        // rebuild pieces in case text has changed
+        var pieces = [];
+        var text_parts = info.spec.split(/([_@])/);
+        for (var i=0; i<text_parts.length; i++) {
+            var part = text_parts[i];
+            if (part === "_") {
+                var arg = args.shift();
+                part = (arg === undefined) ? "_" : parse_block(arg);
+                /* If there are no args left, then the underscore must really
+                 * be an underscore and not an insert.
+                 *
+                 * This only becomes a problem if the code contains
+                 * underscores followed by inserts.
+                 */
+            }
+            if (part) pieces.push(part);
+        }
+        delete info.spec;
+        delete info.args;
+        info.pieces = pieces;
+        return info;
     }
 
-    function parse_block(code, bracket) {
-        // parse block
-        var info = identify_block(code, bracket);
+    // Return block info object for line, including comment.
 
-        // special-case standalone reporters.
-        if (info.blockid === "_" && !bracket && info.pieces.length) {
-            code = info.pieces[0];
-            var reporter_bracket = code.charAt(0);
-            var comment = info.comment;
-            code = strip_brackets(code);
-            info = parse_block(code, reporter_bracket);
-            info.comment = comment;
+    function parse_line(line) {
+        line = line.trim();
+
+        // comments
+        var comment;
+
+        var i = line.indexOf("//");
+        if (i !== -1 && line[i-1] !== ":") {
+            comment = line.slice(i+2);
+            line    = line.slice(0, i);
+
+            // free-floating comment?
+            if (!line.trim()) return {blockid: "//", comment: comment};
         }
 
-        // category hack
-        var comment_hacks;
-        if (info.comment) {
-            var match = /(^| )category=([a-z]+)($| )/.exec(info.comment);
+        var info = parse_block(line);
+
+        // category hack -- TODO deprecated
+        if (comment) {
+            var match = /(^| )category=([a-z]+)($| )/.exec(comment);
             if (match) {
                 info.category = match[2];
-                info.comment = info.comment.replace(match[0], " ").trim();
-                comment_hacks = true;
             }
         }
 
-        // reporters can't have comments
-        if (info.comment && bracket && !comment_hacks) {
-            info.pieces.push(" //" + info.comment); // TODO this sucks, because
-                                                   // it's too late to
-                                                   // find_block at this point
-            info.comment = "";
-        }
-
-        // parse arguments
-        var pieces = [];
-        for (var i=0; i<info.pieces.length; i++) {
-            var part = info.pieces[i];
-            if (is_block(part)) {
-                var arg_bracket = part.charAt(0);
-                part = strip_brackets(part);
-                part = parse_block(part, arg_bracket);
-            }
-            pieces.push(part);
-        }
-        info.pieces = pieces;
-
+        info.comment = comment;
         return info;
     }
 
@@ -1116,8 +1106,8 @@ var scratchblocks2 = function ($) {
             }
 
             // render block
-            var info = parse_block(line.trim());
-            $block = render_block(info, "stack");
+            var info = parse_line(line);
+            if (info.blockid !== "//") $block = render_block(info, "stack");
 
             $comment = null;
             comment_text = info.comment;
