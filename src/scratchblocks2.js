@@ -593,7 +593,7 @@ var scratchblocks2 = function ($) {
             return info;
         }
         if (spec.replace(/ /g, "") === "...") return find_block("...");
-        if (spec === "_") return {blockid: "_", spec: "_"};
+        if (spec === "_") return {blockid: "_", spec: "_", category: "grey"};
     }
 
     // Utility function that copies a dictionary.
