@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<title>test: [scratchblocks]</title>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+
+<link rel="stylesheet" href="scratchblocks2.css">
+<script src="scratchblocks2.js"></script>
+
+<style>
+h1 {
+  font-family: monospace;
+}
+a {
+  text-decoration: none;
+  color: #22f;
+}
+a:hover {
+  text-decoration: underline;
+}
+body {
+  margin: 1em;
+  font-family: sans-serif;
+}
+input, button {
+  font-size: 1em;
+  font-family: inherit;
+}
+textarea {
+  font-size: 1em;
+  margin-bottom: 1em;
+  min-width: 30em;
+  min-height: 15em;
+}
+button {
+  display: block;
+  font-size: 1.25em;
+  margin-bottom: 1em;
+  border: 1px solid #444;
+  background: #ccc;
+  box-shadow: 0 1px 1px #888;
+}
+a:active, button:active {
+  position: relative;
+  top: 1px;
+  box-shadow: none;
+}
+#preview {
+  margin: 1em;
+}
+#link-url {
+  width: auto;
+  min-width: 40em;
+  cursor: text;
+}
+label {
+  font-weight: bold;
+  cursor: pointer;
+}
+#footer {
+  text-align: right;
+  padding: 1em;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 60000;
+}
+#footer a {
+  color: black;
+}
+#me {
+  font-weight: bold;
+}
+</style>
+
+
+
+<h1>[scratchblocks]: test</h1>
+
+<p>Test page for the compiled version of scratchblocks2.</p>
+
+<textarea id="code"></textarea>
+
+<button id="render">Render</button>
+
+<pre id="preview" class="blocks"></pre>
+
+<script>
+if(typeof(String.prototype.trim) === "undefined") {
+  String.prototype.trim = function() {
+    return String(this).replace(/^\s+|\s+$/g, '');
+  };
+}
+
+code = document.getElementById('code');
+preview = document.getElementById('preview');
+
+var oldHash;
+
+function refresh () {
+  script = code.value;
+
+  script = script.replace(/\[\/?scratchblocks\]/gi, '');  // Scratch Forums
+  script = script.replace(/<\/?scratchblocks>/gi, '');  // Scratch Wiki
+  script = script.replace(/^position\:[0-9\., ]+/i, '');  // Kurt
+  script = script.trim();
+
+  location.hash = '#'+encodeURIComponent(script);
+  oldHash = location.hash;
+
+  // empty preview
+  var child;
+  while (child = preview.lastChild) {
+    preview.removeChild(child);
+  }
+
+  // add script
+  preview.appendChild(document.createTextNode(script))
+
+  scratchblocks2.parse("pre.blocks");
+}
+
+function checkHash() {
+  if (oldHash != location.hash) {
+    code.value = decodeURIComponent((location.href.split("#")[1] || ""));
+    refresh();
+  }
+  window.setTimeout(checkHash, 1000);
+}
+
+checkHash();
+
+document.getElementById('render').onmousedown = refresh;
+code.onkeyup = refresh;
+code.onblur = refresh;
+code.oncopy = code.onpaste = function(e) {
+  window.setTimeout(refresh, 100);
+}
+</script>
+
