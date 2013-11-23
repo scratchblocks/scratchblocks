@@ -305,7 +305,7 @@
     }
 
     .hat, .define-hat, .stack, .cap, .boolean, .reporter, .variable-reporter,
-    .custom-arg, .dropdown {
+    .dropdown {
         border: 2px solid;
     }
 
@@ -471,9 +471,10 @@
         margin-top: @custom_definition_height;
         padding-top: 0;
         padding-bottom: 2px;
-    }
-    .custom-arg {
-        line-height: 10px;
+
+        .reporter, .boolean {
+            line-height: 10px;
+        }
     }
     .outline {
         padding: 2px 4px 2px 4px;
@@ -621,13 +622,13 @@
         padding: 2px 4px;
     }
 
-    .reporter, .custom-arg {
+    .reporter {
         padding: 3px 6px;
         border-width: 2px;
     }
 
     // Rounded shapes //
-    .reporter, .custom-arg, .embedded, .boolean {
+    .reporter, .embedded, .boolean {
         .border-radius(2000px);
     }
     

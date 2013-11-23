@@ -713,10 +713,24 @@ var scratchblocks2 = function ($) {
 
     // Take block code and return block info object.
 
-    function parse_block(code, bracket) {
+    function parse_block(code, mode) {
         // strip brackets
         var bracket = code.charAt(0);
         code = strip_brackets(code);
+
+        // define hat?
+        for (var i=0; i<strings.define.length; i++) {;;
+            var define_text = strings.define[i];
+            if (code.startsWith(define_text)) {
+                code = code.slice(define_text.length);
+
+                return {
+                    shape: "define-hat",
+                    category: "custom",
+                    pieces: [define_text, parse_block(code, "define-hat")],
+                }
+            }
+        }
 
         // split into text segments and inserts
         var pieces = split_into_pieces(code);
@@ -746,20 +760,6 @@ var scratchblocks2 = function ($) {
         if (pieces.length) {
             pieces[0] = pieces[0].trimLeft(" ");
             pieces[pieces.length-1] = pieces[pieces.length-1].trimRight(" ");
-        }
-
-        // define hat?
-        for (var i=0; i<strings.define.length; i++) {;;
-            var define_text = strings.define[i];
-            if (pieces[0] && pieces[0].startsWith(define_text)) {
-                pieces[0] = pieces[0].slice(define_text.length).trimLeft(" ");
-                return {
-                    shape: "define-hat",
-                    category: "custom",
-                    define_text: define_text,
-                    pieces: pieces,
-                };
-            }
         }
 
         // filter out block text & args
@@ -798,6 +798,14 @@ var scratchblocks2 = function ($) {
                 args: args,
                 overrides: overrides,
             };
+
+            if (mode === "define-hat") {
+                if (shape === "stack") {
+                    info.shape = "outline";
+                } else {
+                    info.category = "custom-arg";
+                }
+            }
         }
 
         if (overrides) {
@@ -819,7 +827,7 @@ var scratchblocks2 = function ($) {
             var part = text_parts[i];
             if (part === "_") {
                 var arg = args.shift();
-                part = (arg === undefined) ? "_" : parse_block(arg);
+                part = (arg === undefined) ? "_" : parse_block(arg, mode);
                 /* If there are no args left, then the underscore must really
                  * be an underscore and not an insert.
                  *
@@ -1202,34 +1210,6 @@ var scratchblocks2 = function ($) {
         if (info.shape === "color") {
             $block.css({"background-color": info.pieces[0]});
             $block.text(" ");
-            return $block;
-        }
-
-        // define hat?
-        if (info.shape === "define-hat") {
-            // "define"
-            $block.append(document.createTextNode(info.define_text));
-
-            // stack block outline
-            var $outline = $("<div>").addClass("outline");
-            $block.append($outline);
-
-            for (var i=0; i<info.pieces.length; i++) {
-                var piece = info.pieces[i];
-                if (is_block(piece)) {
-                    var $arg = $("<div>");
-                    var shape = get_custom_arg_shape(piece.charAt(0));
-                    $arg.addClass(shape);
-                    $arg.addClass("custom-arg");
-                    piece = strip_brackets(piece);
-                    $arg.text(piece);
-                    $outline.append($arg);
-                } else {
-                    if (!piece) piece = " ";
-                    $outline.append(document.createTextNode(piece));
-                }
-            }
-
             return $block;
         }
 
