@@ -1000,17 +1000,25 @@ var scratchblocks2 = function ($) {
         function new_script() {
             if (nesting[0].length) {
                 while (nesting.length > 1) {
-                    // pop the innermost script off the stack
-                    nesting.pop(); // cmouth contents
-                    var cwrap_contents = nesting.pop();
-                    cwrap_contents.push({blockid: "end", category: "control",
-                            flag: "cend", shape: "stack", pieces: []}
-                    );
+                    do_cend({blockid: "end", category: "control",
+                            flag: "cend", shape: "stack", pieces: []});
                 }
                 scripts.push(nesting[0]);
                 nesting = [[]];
             }
             current_script = nesting[nesting.length - 1];
+        }
+
+        function do_cend(info) {
+            // pop the innermost script off the stack
+            var cmouth = nesting.pop(); // cmouth contents
+            if (cmouth.length && cmouth[cmouth.length - 1].shape == "cap") {
+                // last block is a cap block
+                info.flag += " capend";
+            }
+            var cwrap = nesting.pop();
+            info.category = cwrap[0].category; // category of c block
+            cwrap.push(info);
         }
 
         for (i=0; i<lines.length; i++) {
@@ -1071,10 +1079,11 @@ var scratchblocks2 = function ($) {
                         break;
                     }
                     nesting.pop(); // old cmouth contents
-                    var cwrap_contents = nesting[nesting.length - 1];
-                    cwrap_contents.push(info);
+                    var cwrap = nesting[nesting.length - 1]; // cwrap contents
+                    info.category = cwrap[0].category; // category of c block
+                    cwrap.push(info);
                     var cmouth = {type: "cmouth", contents: []};
-                    cwrap_contents.push(cmouth);
+                    cwrap.push(cmouth);
                     nesting.push(cmouth.contents);
                     break;
 
@@ -1083,12 +1092,7 @@ var scratchblocks2 = function ($) {
                         current_script.push(info);
                         break;
                     }
-                    // pop the innermost script off the stack
-                    nesting.pop(); // cmouth contents
-                    var cwrap_contents = nesting.pop();
-                    // get the correct category
-                    info.category = cwrap_contents[0].category;
-                    cwrap_contents.push(info);
+                    do_cend(info);
                     break;
 
                 case "reporter":
