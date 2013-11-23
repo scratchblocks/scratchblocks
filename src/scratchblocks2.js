@@ -596,8 +596,6 @@ var scratchblocks2 = function ($) {
         if (spec === "_") return {blockid: "_", spec: "_"};
     }
 
-    sb2.find_block = find_block;
-
     // Utility function that copies a dictionary.
 
     function clone(dict) {
@@ -806,7 +804,14 @@ var scratchblocks2 = function ($) {
 
         if (overrides) {
             if (overrides.length > 0) info.category = overrides[0];
-            if (overrides.length > 1) info.shape = overrides[1];
+            if (overrides.length > 1) {
+                if ($.inArray(overrides[1], ["cstart", "celse",
+                                             "cend"]) > -1) {
+                    info.flag = overrides[1];
+                } else {
+                    info.shape = overrides[1];
+                }
+            }
         }
 
         // rebuild pieces in case text has changed
@@ -846,7 +851,8 @@ var scratchblocks2 = function ($) {
             line    = line.slice(0, i);
 
             // free-floating comment?
-            if (!line.trim()) return {blockid: "//", comment: comment};
+            if (!line.trim()) return {blockid: "//", comment: comment,
+                                      pieces: []};
         }
 
         var info = parse_block(line);
@@ -981,7 +987,119 @@ var scratchblocks2 = function ($) {
     // Take scratchblocks text and turn it into useful objects.
 
     function parse_scripts(code) {
-        return [];
+        var scripts = [];
+        var nesting = [[]];
+        var lines = code.trim().split("\n");
+
+        function new_script() {
+            if (nesting[0].length) {
+                while (nesting.length > 1) {
+                    // pop the innermost script off the stack
+                    nesting.pop(); // cmouth contents
+                    var cwrap_contents = nesting.pop();
+                    cwrap_contents.push({blockid: "end", category: "control",
+                            flag: "cend", shape: "stack", pieces: []}
+                    );
+                }
+                scripts.push(nesting[0]);
+                nesting = [[]];
+            }
+            current_script = nesting[nesting.length - 1];
+        }
+
+        for (i=0; i<lines.length; i++) {
+            var line = lines[i].trim();
+
+            if (!line) {
+                if (nesting.length <= 1) new_script();
+                continue;
+            }
+
+            var current_script = nesting[nesting.length - 1];
+
+            var info = parse_line(lines[i]);
+
+            if (!info.pieces.length && info.comment) {
+                // TODO multi-line comments
+                new_script();
+                current_script.push(info);
+                new_script();
+                continue;
+            }
+
+            if (!info.category) { // cheap test for inserts.
+                // Put free-floating inserts in their own stack block.
+                info = {blockid: "_", category: "obsolete", shape: "stack",
+                        pieces: [info]};
+            }
+
+            switch (info.flag || info.shape) {
+                case "hat":
+                    new_script();
+                    current_script.push(info);
+                    break;
+
+                case "cap":
+                    current_script.push(info);
+                    new_script();
+                    break;
+
+                case "cstart":
+                    var cwrap = {
+                        type: "cwrap",
+                        shape: info.shape,
+                        contents: [info],
+                        category: info.category
+                    };
+                    info.shape = "stack";
+                    current_script.push(cwrap);
+                    nesting.push(cwrap.contents);
+                    var cmouth = {type: "cmouth", contents: []};
+                    cwrap.contents.push(cmouth);
+                    nesting.push(cmouth.contents);
+                    break;
+
+                case "celse":
+                    if (nesting.length <= 1) {
+                        current_script.push(info);
+                        break;
+                    }
+                    nesting.pop(); // old cmouth contents
+                    var cwrap_contents = nesting[nesting.length - 1];
+                    cwrap_contents.push(info);
+                    var cmouth = {type: "cmouth", contents: []};
+                    cwrap_contents.push(cmouth);
+                    nesting.push(cmouth.contents);
+                    break;
+
+                case "cend":
+                    if (nesting.length <= 1) {
+                        current_script.push(info);
+                        break;
+                    }
+                    // pop the innermost script off the stack
+                    nesting.pop(); // cmouth contents
+                    var cwrap_contents = nesting.pop();
+                    // get the correct category
+                    info.category = cwrap_contents[0].category;
+                    cwrap_contents.push(info);
+                    break;
+
+                case "reporter":
+                case "boolean":
+                case "embedded":
+                    // put free-floating reporters in a new script
+                    new_script();
+                    current_script.push(info);
+                    new_script();
+                    break;
+
+                default:
+                    current_script.push(info);
+            }
+        }
+        new_script();
+        return scripts;
     }
 
 
@@ -993,6 +1111,7 @@ var scratchblocks2 = function ($) {
      *
      *  scratchblocks2.parse("pre.blocks");
      *
+     * (This should really be called "render_all"...)
      */
     sb2.parse = function (selector, options) {
         selector = selector || "pre.blocks";
@@ -1013,7 +1132,8 @@ var scratchblocks2 = function ($) {
             if (options.inline) {
                 code = code.replace('\n', '');
             }
-            scripts = render(code);
+
+            var scripts = parse_scripts(code);
 
             $el.text("");
             $el.append($container);
@@ -1022,309 +1142,48 @@ var scratchblocks2 = function ($) {
                 $container.addClass("inline-block");
             }
             for (var i=0; i<scripts.length; i++) {
-                var $script = scripts[i];
+                var $script = render_stack(scripts[i]).addClass("script");
                 $container.append($script);
             }
         });
     };
 
-    /* Render script code to a list of DOM elements, one for each script. */
-    function render(code) {
-        var scripts = [],
-            $script,
-            $current,
-            nesting = 0,
-            lines = code.split(/\n/),
-            line,
-            $block,
-            $cwrap,
-            $cmouth,
-            $comment,
-            $last_comment,
-            comment_text,
-            one_only,
-            $first,
-            i;
-
-        function add_cend($block, do_comment) {
-            $cmouth = $current;
-            $cwrap = $cmouth.parent();
-            assert($cwrap.hasClass("cwrap"));
-
-            $cwrap.append($block);
-            $current = $cwrap.parent();
-            nesting -= 1;
-
-            // comment
-            if ($comment && do_comment) {
-                $cwrap.append($comment);
-                $comment = null; // don't start multi-line comment
-            }
-
-            // give $block the color of $cwrap
-            $block.removeClass(get_block_category($block));
-            $block.addClass(get_block_category($cwrap));
-
-            // check for cap blocks at end of cmouth
-            if ($cmouth.find("> :last-child").hasClass("cap")) {
-                $block.addClass("capend");
+    function render_stack(script) {
+        var $script = $(document.createElement("div"));
+        for (var i=0; i<script.length; i++) {
+            var info = script[i];
+            $script.append(render_stack_item(info));
+            if (info.comment) {
+                $script.append(render_comment(info));
             }
         }
-
-        function new_script() {
-            // end any c blocks
-            while (nesting > 0) {
-                var $cend = $("<div><span>end</span></div>")
-                        .addClass("stack").addClass("cend")
-                        .addClass("control");
-                $cend.category = "control";
-                add_cend($cend, false);
-            }
-
-            // push script
-            if ($script !== undefined && $script.children().length > 0) {
-                scripts.push($script);
-            }
-
-            // start new script
-            $script = $("<div>").addClass("script");
-            $current = $script;
-            nesting = 0;
-            $last_comment = null;
-        }
-        new_script();
-
-        for (i = 0; i < lines.length; i++) {
-            line = lines[i];
-
-            if (line.trim() === "") {
-                // empty lines separate stacks
-                if (nesting === 0) {
-                    new_script();
-                }
-                continue;
-            }
-
-            // render block
-            var info = parse_line(line);
-            if (info.blockid !== "//") $block = render_block(info, "stack");
-
-            $comment = null;
-            comment_text = info.comment;
-
-            // render comment
-            if ($block) {
-                $last_comment = null;
-            }
-
-            if (comment_text) {
-                if ($last_comment) {
-                    $last_comment.children().text(
-                        $last_comment.children().text() + "\n" + comment_text
-                    );
-                } else {
-                    $comment = render_comment(comment_text);
-                }
-            }
-
-            // append block to script
-            if ($block) {
-                one_only = false;
-                if ($block.hasClass("hat") ||
-                        $block.hasClass("define-hat")) {
-
-                    new_script();
-
-                    // comment
-                    if ($comment) {
-                        $comment.addClass("to-hat");
-
-                        if ($block.hasClass("define-hat")) {
-                            $comment.addClass("to-define-hat");
-                        }
-                    }
-                } else if ($block.hasClass("boolean") ||
-                           $block.hasClass("embedded") ||
-                           $block.hasClass("reporter")) {
-                    new_script();
-                    one_only = true;
-
-                    // comment
-                    if ($comment) {
-                        $comment.addClass("to-reporter");
-                    }
-                }
-
-                // comment
-                if ($comment) {
-                    $comment.addClass("attached");
-                }
-
-                if ($block.hasClass("cstart")) {
-                    $cwrap = $("<div>").addClass("cwrap");
-                    $current.append($cwrap);
-                    $cwrap.append($block);
-                    $block.addClass("stack");
-
-                    // comment
-                    if ($comment) {
-                        $cwrap.append($comment);
-                        $comment = null; // don't start multi-line comment
-                    }
-
-                    $cmouth = $("<div>").addClass("cmouth");
-                    $cwrap.append($cmouth);
-                    $current = $cmouth;
-
-                    // give $cwrap the color of $block
-                    $cwrap.addClass(get_block_category($block));
-                    $cwrap.category = get_block_category($block); // TODO
-
-                    if ($block.hasClass("cap")) {
-                        $cwrap.addClass("cap");
-                        $block.removeClass("cap");
-                    }
-
-                    nesting += 1;
-
-                } else if ($block.hasClass("celse")) {
-                    if (nesting > 0) {
-                        $cwrap = $current.parent();
-                        assert($cwrap.hasClass("cwrap"));
-
-                        $cwrap.append($block);
-
-                        // comment
-                        if ($comment) {
-                            $cwrap.append($comment);
-                            $comment = null; // don't start multi-line comment
-                        }
-
-                        // check for cap blocks at end of cmouth
-                        $cmouth = $cwrap.find("."+"cmouth")
-                        if ($cmouth.find("> :last-child").hasClass("cap")) {
-                            $block.addClass("capend");
-                        }
-
-                        $cmouth = $("<div>").addClass("cmouth");
-                        $cwrap.append($cmouth);
-                        $current = $cmouth;
-
-                        // give $block the color of $cwrap
-                        $block.removeClass(get_block_category($block));
-                        $block.addClass(get_block_category($cwrap));
-                    } else {
-                        $current.append($block);
-                    }
-
-                } else if ($block.hasClass("cend")) {
-                    if (nesting > 0) {
-                        add_cend($block, true);
-
-                        if (nesting === 0 && $cwrap.hasClass("cap")) {
-                            // finished a C cap block
-                            new_script();
-                        }
-                    } else {
-                        $current.append($block);
-                    }
-                } else {
-                    $current.append($block);
-                }
-
-                if ($comment) {
-                    $current.append($comment);
-                }
-
-                if (one_only || (nesting === 0 && $block.hasClass("cap"))) {
-                    new_script();
-                }
-
-            } else {
-                if ($comment) {
-                    if (nesting > 0) {
-                        $current.append($comment);
-                    } else {
-                        new_script();
-                        $current.append($comment);
-                        new_script();
-                    }
-                }
-            }
-
-            // for multi-line comments
-            if ($comment) {
-                $last_comment = $comment;
-            }
-        }
-
-        // push last script
-        new_script();
-
-
-        var list_names = [],
-            custom_blocks_text = [];
-
-        // HACK list reporters
-        for (i = 0; i < scripts.length; i++) {
-            $script = scripts[i];
-            $script.find(".list-dropdown").each(function (i, list) {
-                var list_name = $(list).text();
-                list_names.push(list_name);
-            });
-        }
-        for (i = 0; i < scripts.length; i++) {
-            $script = scripts[i];
-
-            // HACK custom arg reporters
-            var custom_arg_names = [];
-            $first = $script.children().first();
-            if ($first.hasClass("define-hat")) {
-                $first.find(".custom-arg").each(function (i, arg) {
-                    custom_arg_names.push($(arg).text());
-                });
-
-                // store custom definitions
-                custom_blocks_text.push(
-                    get_block_text($first.find(".outline").clone())
-                );
-            }
-
-            // replace variable reporters
-            $script.find(".variables.reporter").each(function (i, variable) {
-                var $variable = $(variable);
-                var var_name = $variable.text();
-                if ($.inArray(var_name, custom_arg_names) > -1) {
-                    $variable.removeClass("variables")
-                             .addClass("custom-arg");
-                } else if ($.inArray(var_name, list_names) > -1) {
-                    $variable.removeClass("variables")
-                             .addClass("list");
-                }
-            });
-        }
-
-        // HACK custom stack blocks
-        for (i = 0; i < scripts.length; i++) {
-            $script = scripts[i];
-            $script.find(".obsolete.stack").each(function (i, block) {
-                $block = $(block);
-                var text = get_block_text($block.clone());
-                if ($.inArray(text, custom_blocks_text) > -1) {
-                    $block.removeClass("obsolete")
-                          .addClass("custom");
-                }
-            });
-        }
-
-        return scripts;
+        return $script;
     }
 
-    /* Render comment to DOM element. */
-    function render_comment(text) {
+    function render_stack_item(info) {
+        switch (info.type) {
+            case "cwrap":
+                var $cwrap = render_stack(info.contents).addClass("cwrap")
+                                .addClass(info.category);
+                if (info.shape === "cap") $cwrap.addClass(info.shape)
+                return $cwrap;
+
+            case "cmouth":
+                return render_stack(info.contents).addClass("cmouth");
+
+            default:
+                return render_block(info);
+        }
+    }
+
+    function render_comment(info) {
         var $comment = $(document.createElement("div")).addClass("comment")
                 .append($(document.createElement("div"))
-                .append(document.createTextNode(text.trim())));
+                .append(document.createTextNode(info.comment.trim())));
+        if (info.shape) {
+            $comment.addClass("attached");
+            $comment.addClass("to-" + info.shape);
+        }
         return $comment;
     }
 

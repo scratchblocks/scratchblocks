@@ -16,6 +16,15 @@
  * in the block_images/ directory, in the same folder as this file.
  *
  */
+/*
+    bg:    background colour for entire block
+    btop:  top border for entire block
+    bbot:  bottom border for entire block
+    itop:  top border for inserts (eg. dropdown menus)
+    ibot:  bottom border for inserts (eg. dropdown menus)
+    inset: background colour for dropdown menus
+    arrow: colour of the "▼" dropdown arrow
+*/
 .box-sizing_content-box {
   box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -50,8 +59,9 @@
 }
 .scratchblocks2-container .obsolete.hat,
 .scratchblocks2-container .obsolete.hat:before,
-.scratchblocks2-container .obsolete.custom-definition,
+.scratchblocks2-container .obsolete.define-hat,
 .scratchblocks2-container .obsolete.stack,
+.scratchblocks2-container .obsolete.cap,
 .scratchblocks2-container .obsolete.boolean,
 .scratchblocks2-container .obsolete.reporter,
 .scratchblocks2-container .obsolete.embedded,
@@ -85,8 +95,9 @@
 }
 .scratchblocks2-container .control.hat,
 .scratchblocks2-container .control.hat:before,
-.scratchblocks2-container .control.custom-definition,
+.scratchblocks2-container .control.define-hat,
 .scratchblocks2-container .control.stack,
+.scratchblocks2-container .control.cap,
 .scratchblocks2-container .control.boolean,
 .scratchblocks2-container .control.reporter,
 .scratchblocks2-container .control.embedded,
@@ -120,8 +131,9 @@
 }
 .scratchblocks2-container .custom.hat,
 .scratchblocks2-container .custom.hat:before,
-.scratchblocks2-container .custom.custom-definition,
+.scratchblocks2-container .custom.define-hat,
 .scratchblocks2-container .custom.stack,
+.scratchblocks2-container .custom.cap,
 .scratchblocks2-container .custom.boolean,
 .scratchblocks2-container .custom.reporter,
 .scratchblocks2-container .custom.embedded,
@@ -155,8 +167,9 @@
 }
 .scratchblocks2-container .events.hat,
 .scratchblocks2-container .events.hat:before,
-.scratchblocks2-container .events.custom-definition,
+.scratchblocks2-container .events.define-hat,
 .scratchblocks2-container .events.stack,
+.scratchblocks2-container .events.cap,
 .scratchblocks2-container .events.boolean,
 .scratchblocks2-container .events.reporter,
 .scratchblocks2-container .events.embedded,
@@ -190,8 +203,9 @@
 }
 .scratchblocks2-container .list.hat,
 .scratchblocks2-container .list.hat:before,
-.scratchblocks2-container .list.custom-definition,
+.scratchblocks2-container .list.define-hat,
 .scratchblocks2-container .list.stack,
+.scratchblocks2-container .list.cap,
 .scratchblocks2-container .list.boolean,
 .scratchblocks2-container .list.reporter,
 .scratchblocks2-container .list.embedded,
@@ -225,8 +239,9 @@
 }
 .scratchblocks2-container .looks.hat,
 .scratchblocks2-container .looks.hat:before,
-.scratchblocks2-container .looks.custom-definition,
+.scratchblocks2-container .looks.define-hat,
 .scratchblocks2-container .looks.stack,
+.scratchblocks2-container .looks.cap,
 .scratchblocks2-container .looks.boolean,
 .scratchblocks2-container .looks.reporter,
 .scratchblocks2-container .looks.embedded,
@@ -260,8 +275,9 @@
 }
 .scratchblocks2-container .motion.hat,
 .scratchblocks2-container .motion.hat:before,
-.scratchblocks2-container .motion.custom-definition,
+.scratchblocks2-container .motion.define-hat,
 .scratchblocks2-container .motion.stack,
+.scratchblocks2-container .motion.cap,
 .scratchblocks2-container .motion.boolean,
 .scratchblocks2-container .motion.reporter,
 .scratchblocks2-container .motion.embedded,
@@ -295,8 +311,9 @@
 }
 .scratchblocks2-container .operators.hat,
 .scratchblocks2-container .operators.hat:before,
-.scratchblocks2-container .operators.custom-definition,
+.scratchblocks2-container .operators.define-hat,
 .scratchblocks2-container .operators.stack,
+.scratchblocks2-container .operators.cap,
 .scratchblocks2-container .operators.boolean,
 .scratchblocks2-container .operators.reporter,
 .scratchblocks2-container .operators.embedded,
@@ -330,8 +347,9 @@
 }
 .scratchblocks2-container .pen.hat,
 .scratchblocks2-container .pen.hat:before,
-.scratchblocks2-container .pen.custom-definition,
+.scratchblocks2-container .pen.define-hat,
 .scratchblocks2-container .pen.stack,
+.scratchblocks2-container .pen.cap,
 .scratchblocks2-container .pen.boolean,
 .scratchblocks2-container .pen.reporter,
 .scratchblocks2-container .pen.embedded,
@@ -365,8 +383,9 @@
 }
 .scratchblocks2-container .sensing.hat,
 .scratchblocks2-container .sensing.hat:before,
-.scratchblocks2-container .sensing.custom-definition,
+.scratchblocks2-container .sensing.define-hat,
 .scratchblocks2-container .sensing.stack,
+.scratchblocks2-container .sensing.cap,
 .scratchblocks2-container .sensing.boolean,
 .scratchblocks2-container .sensing.reporter,
 .scratchblocks2-container .sensing.embedded,
@@ -400,8 +419,9 @@
 }
 .scratchblocks2-container .sound.hat,
 .scratchblocks2-container .sound.hat:before,
-.scratchblocks2-container .sound.custom-definition,
+.scratchblocks2-container .sound.define-hat,
 .scratchblocks2-container .sound.stack,
+.scratchblocks2-container .sound.cap,
 .scratchblocks2-container .sound.boolean,
 .scratchblocks2-container .sound.reporter,
 .scratchblocks2-container .sound.embedded,
@@ -435,8 +455,9 @@
 }
 .scratchblocks2-container .variables.hat,
 .scratchblocks2-container .variables.hat:before,
-.scratchblocks2-container .variables.custom-definition,
+.scratchblocks2-container .variables.define-hat,
 .scratchblocks2-container .variables.stack,
+.scratchblocks2-container .variables.cap,
 .scratchblocks2-container .variables.boolean,
 .scratchblocks2-container .variables.reporter,
 .scratchblocks2-container .variables.embedded,
@@ -470,8 +491,9 @@
 }
 .scratchblocks2-container .custom-arg.hat,
 .scratchblocks2-container .custom-arg.hat:before,
-.scratchblocks2-container .custom-arg.custom-definition,
+.scratchblocks2-container .custom-arg.define-hat,
 .scratchblocks2-container .custom-arg.stack,
+.scratchblocks2-container .custom-arg.cap,
 .scratchblocks2-container .custom-arg.boolean,
 .scratchblocks2-container .custom-arg.reporter,
 .scratchblocks2-container .custom-arg.embedded,
@@ -499,40 +521,41 @@
 .scratchblocks2-container .custom-arg.hat:before {
   border-right-color: #6857b8;
 }
-.scratchblocks2-container .purple.stack:before,
-.scratchblocks2-container .purple.cap:before {
-  border-color: #492056 #7c4a8b #7c4a8b #492056;
+.scratchblocks2-container .extension.stack:before,
+.scratchblocks2-container .extension.cap:before {
+  border-color: #353444 #646376 #646376 #353444;
 }
-.scratchblocks2-container .purple.hat,
-.scratchblocks2-container .purple.hat:before,
-.scratchblocks2-container .purple.custom-definition,
-.scratchblocks2-container .purple.stack,
-.scratchblocks2-container .purple.boolean,
-.scratchblocks2-container .purple.reporter,
-.scratchblocks2-container .purple.embedded,
-.scratchblocks2-container .purple.variable-reporter,
-.scratchblocks2-container .purple.custom-arg {
-  background-color: #672d79;
-  border-color: #7c4a8b #492056 #492056 #7c4a8b;
+.scratchblocks2-container .extension.hat,
+.scratchblocks2-container .extension.hat:before,
+.scratchblocks2-container .extension.define-hat,
+.scratchblocks2-container .extension.stack,
+.scratchblocks2-container .extension.cap,
+.scratchblocks2-container .extension.boolean,
+.scratchblocks2-container .extension.reporter,
+.scratchblocks2-container .extension.embedded,
+.scratchblocks2-container .extension.variable-reporter,
+.scratchblocks2-container .extension.custom-arg {
+  background-color: #4b4a60;
+  border-color: #646376 #353444 #353444 #646376;
 }
-.scratchblocks2-container .purple > .dropdown,
-.scratchblocks2-container .purple > .boolean.empty,
-.scratchblocks2-container .purple > .color {
-  background: #5e296f;
-  border-color: #391843 #7d528a #7d528a #391843;
+.scratchblocks2-container .extension > .dropdown,
+.scratchblocks2-container .extension > .boolean.empty,
+.scratchblocks2-container .extension > .color {
+  background: #454458;
+  border-color: #2a2935 #686778 #686778 #2a2935;
 }
-.scratchblocks2-container .purple > .dropdown:after,
-.scratchblocks2-container .purple > .boolean.empty:after,
-.scratchblocks2-container .purple > .color:after {
-  color: #25102c;
+.scratchblocks2-container .extension > .dropdown:after,
+.scratchblocks2-container .extension > .boolean.empty:after,
+.scratchblocks2-container .extension > .color:after {
+  color: #1b1b23;
 }
-.scratchblocks2-container .purple > .cmouth:before {
-  background-color: #672d79;
-  border-left-color: #7c4a8b;
-  border-right-color: #492056;
+.scratchblocks2-container .extension > .cmouth:before {
+  background-color: #4b4a60;
+  border-left-color: #646376;
+  border-right-color: #353444;
 }
-.scratchblocks2-container .purple.hat:before {
-  border-right-color: #7c4a8b;
+.scratchblocks2-container .extension.hat:before {
+  border-right-color: #646376;
 }
 .scratchblocks2-container .grey.stack:before,
 .scratchblocks2-container .grey.cap:before {
@@ -540,8 +563,9 @@
 }
 .scratchblocks2-container .grey.hat,
 .scratchblocks2-container .grey.hat:before,
-.scratchblocks2-container .grey.custom-definition,
+.scratchblocks2-container .grey.define-hat,
 .scratchblocks2-container .grey.stack,
+.scratchblocks2-container .grey.cap,
 .scratchblocks2-container .grey.boolean,
 .scratchblocks2-container .grey.reporter,
 .scratchblocks2-container .grey.embedded,
@@ -586,8 +610,9 @@
   display: inline-block;
 }
 .scratchblocks2-container .hat,
-.scratchblocks2-container .custom-definition,
+.scratchblocks2-container .define-hat,
 .scratchblocks2-container .stack,
+.scratchblocks2-container .cap,
 .scratchblocks2-container .boolean,
 .scratchblocks2-container .reporter,
 .scratchblocks2-container .variable-reporter,
@@ -599,11 +624,14 @@
   height: 16px;
   width: 27px;
   padding: 0;
+  vertical-align: middle;
 }
-.scratchblocks2-container .stack {
+.scratchblocks2-container .stack,
+.scratchblocks2-container .cap {
   min-width: 36px;
 }
 .scratchblocks2-container .stack,
+.scratchblocks2-container .cap,
 .scratchblocks2-container .cwrap,
 .scratchblocks2-container .cmouth {
   border-top-width: 1px;
@@ -611,27 +639,30 @@
   clear: both;
 }
 .scratchblocks2-container .stack,
+.scratchblocks2-container .cap,
 .scratchblocks2-container .hat,
-.scratchblocks2-container .custom-definition {
+.scratchblocks2-container .define-hat {
   padding: 2px 4px;
   min-height: 16px;
   line-height: 16px;
 }
 .scratchblocks2-container .stack > *,
+.scratchblocks2-container .cap > *,
 .scratchblocks2-container .hat > *,
-.scratchblocks2-container .custom-definition > * {
+.scratchblocks2-container .define-hat > * {
   line-height: 10px;
 }
 .scratchblocks2-container .stack,
+.scratchblocks2-container .cap,
 .scratchblocks2-container .outline {
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
 }
 .scratchblocks2-container .stack,
-.scratchblocks2-container .hat,
 .scratchblocks2-container .cap,
-.scratchblocks2-container .custom-definition {
+.scratchblocks2-container .hat,
+.scratchblocks2-container .define-hat {
   position: relative;
 }
 .scratchblocks2-container .stack:before,
@@ -652,7 +683,7 @@
 }
 .scratchblocks2-container .stack:after,
 .scratchblocks2-container .hat:after,
-.scratchblocks2-container .custom-definition:after {
+.scratchblocks2-container .define-hat:after {
   content: "";
   position: absolute;
   left: 12px;
@@ -670,6 +701,14 @@
 .scratchblocks2-container .cap:after {
   content: none;
 }
+.scratchblocks2-container .cwrap.cap {
+  border: 0;
+  padding: 0;
+  background: none;
+}
+.scratchblocks2-container .cwrap.cap > * {
+  line-height: 16px;
+}
 .scratchblocks2-container .cwrap .cend.capend:before,
 .scratchblocks2-container .cwrap .celse.capend:before {
   content: none;
@@ -686,7 +725,7 @@
   left: 25px;
 }
 .scratchblocks2-container .hat,
-.scratchblocks2-container .custom-definition {
+.scratchblocks2-container .define-hat {
   position: relative;
   float: left;
   padding: 4px;
@@ -697,7 +736,7 @@
   min-width: 100px;
 }
 .scratchblocks2-container .hat:before,
-.scratchblocks2-container .custom-definition:before {
+.scratchblocks2-container .define-hat:before {
   content: "";
   position: absolute;
   height: 13px;
@@ -713,7 +752,7 @@
   -moz-border-radius: 40px 40px 0 0 / 13px 13px 0 0;
   border-top-width: 2px;
 }
-.scratchblocks2-container .custom-definition {
+.scratchblocks2-container .define-hat {
   border-radius: 0 0 5px 5px;
   -webkit-border-radius: 0 0 5px 5px;
   -moz-border-radius: 0 0 5px 5px;
@@ -721,7 +760,7 @@
   padding-top: 0;
   padding-bottom: 2px;
 }
-.scratchblocks2-container .custom-definition:before {
+.scratchblocks2-container .define-hat:before {
   border-color: #8e2ec2;
   border-top-width: 4px;
   height: 18px;
@@ -746,6 +785,8 @@
   margin: 4px 0 4px 5px;
   position: relative;
   background: inherit;
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
 }
 .scratchblocks2-container .outline:before {
   top: -2px;
@@ -823,6 +864,8 @@
   width: 11px;
   height: 11px;
   padding: 0;
+  box-sizing: content-box;
+  -moz-box-sizing: content-box;
 }
 .scratchblocks2-container .number,
 .scratchblocks2-container .number-dropdown,
@@ -930,7 +973,7 @@
 .scratchblocks2-container .comment.attached.to-hat {
   margin-top: 16px;
 }
-.scratchblocks2-container .comment.attached.to-custom-definition {
+.scratchblocks2-container .comment.attached.to-define-hat {
   margin-top: 26px;
 }
 .scratchblocks2-container .comment.attached.to-reporter {
@@ -989,6 +1032,6 @@
   margin-top: 2px;
 }
 .scratchblocks2-container.inline-block .hat,
-.scratchblocks2-container.inline-block .custom-definition {
+.scratchblocks2-container.inline-block .define-hat {
   margin-bottom: 14px;
 }
