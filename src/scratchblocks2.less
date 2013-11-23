@@ -166,6 +166,9 @@
 @comment_text: #505050;
 
 
+// Variadic arrows
+@variadic_arrow: #000;
+
 // Z-indexes //
 @z_container: 100;
 @z_bottom_stub: 101;
@@ -756,6 +759,15 @@
         }
         .hat, .define-hat {
             margin-bottom: 14px;
+        }
+    }
+
+    // Variadic arrows
+    .arrow {
+        font-size: 8px;
+        color: @variadic_arrow;
+        &:nth-last-child(2) {
+            padding-left: 2px;
         }
     }
 }

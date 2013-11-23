@@ -618,7 +618,7 @@ var scratchblocks2 = function ($) {
     }
 
     function minify(text) {
-        var minitext = text.replace(/[ \t.,%?:]/g, "").toLowerCase();
+        var minitext = text.replace(/[ \t.,%?:▶◀▸◂]/g, "").toLowerCase();
         if (window.diacritics_removal_map) minitext = remove_diacritics(minitext);
         if (!minitext && text.replace(" ", "") === "...") minitext = "...";
         return minitext;
@@ -695,9 +695,7 @@ var scratchblocks2 = function ($) {
                     nesting.push(chr);
                     matching_bracket = get_matching_bracket(chr);
 
-                    if (piece) {
-                        pieces.push(piece);
-                    }
+                    if (piece) pieces.push(piece);
                     piece = "";
                 }
                 piece += chr;
@@ -816,7 +814,7 @@ var scratchblocks2 = function ($) {
 
         // rebuild pieces in case text has changed
         var pieces = [];
-        var text_parts = info.spec.split(/([_@])/);
+        var text_parts = info.spec.split(/([_@▶◀▸◂])/);
         for (var i=0; i<text_parts.length; i++) {
             var part = text_parts[i];
             if (part === "_") {
@@ -1250,6 +1248,10 @@ var scratchblocks2 = function ($) {
                 var $image = $("<span>")
                 $image.addClass(info.image_replacement);
                 $block.append($image);
+            } else if (/[▶◀▸◂]/.test(piece)) {
+                $block.append(
+                    $(document.createElement("span")).addClass("arrow")
+                        .append(document.createTextNode(piece)));
             } else {
                 if (!piece) piece = " ";
                 $block.append(document.createTextNode(piece));
