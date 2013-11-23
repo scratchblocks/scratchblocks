@@ -1041,7 +1041,7 @@ var scratchblocks2 = function ($) {
 
                 case "cap":
                     current_script.push(info);
-                    new_script();
+                    if (nesting.length <= 1) new_script();
                     break;
 
                 case "cstart":
