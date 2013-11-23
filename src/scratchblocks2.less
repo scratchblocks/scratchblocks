@@ -207,7 +207,8 @@
         }
 
         &.cmouth:before, &.hat, &.hat:before, &.define-hat, &.stack, &.cap,
-        &.boolean, &.reporter, &.embedded, &.variable-reporter, &.custom-arg {
+        &.boolean, &.reporter, &.embedded, &.variable-reporter, &.custom-arg,
+        &.outline {
             .stack-color(@category);
         }
 
@@ -303,6 +304,15 @@
     .category-color("extension");
     .category-color("grey");
 
+    .script * {
+        background: red;
+    }
+    .stack, .reporter, .embedded, .hat, .define-hat, .boolean {
+        background-color: @obsolete_bg;
+        border-color: @obsolete_btop @obsolete_bbot
+                      @obsolete_bbot @obsolete_btop;
+    }
+
     // Scripts are stacks of blocks //
     .script {
         margin-top: 15px;
@@ -325,8 +335,7 @@
         display: inline-block;
     }
 
-    .hat, .define-hat, .stack, .cap, .boolean, .reporter, .variable-reporter,
-    .dropdown {
+    .hat, .define-hat, .stack, .cap, .boolean, .reporter, .dropdown {
         border: 2px solid;
     }
 
@@ -495,11 +504,12 @@
         padding: 2px 4px 2px 4px;
         min-width: 29px; // total 37px
         line-height: 16px;
+        min-height: 16px;
         border: 2px solid @custom_outline;
         margin-left: 5px;
         margin: 4px 0 4px 5px;
         position: relative;
-        background: inherit;
+        background: @custom_bg;
         .box-sizing_content-box;
 
         &:before {
@@ -527,6 +537,7 @@
     // C Blocks //
     @cleft_padding: 14px;
     .cwrap {
+        background: @background;
         display: block;
 
         .cstart {
@@ -535,6 +546,7 @@
         }
 
         .cmouth {
+            background: @background;
             display: block;
             position: relative;
 
@@ -676,6 +688,8 @@
 
     // Comments //
     .comment {
+        background: @background;
+
         div {
             margin: 4px 0 1px 1px;
             background: @comment_bg;

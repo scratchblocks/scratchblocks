@@ -76,7 +76,8 @@
 .sb2 .obsolete.reporter,
 .sb2 .obsolete.embedded,
 .sb2 .obsolete.variable-reporter,
-.sb2 .obsolete.custom-arg {
+.sb2 .obsolete.custom-arg,
+.sb2 .obsolete.outline {
   background-color: #d42828;
   border-color: #da4646 #971c1c #971c1c #da4646;
 }
@@ -130,7 +131,8 @@
 .sb2 .control.reporter,
 .sb2 .control.embedded,
 .sb2 .control.variable-reporter,
-.sb2 .control.custom-arg {
+.sb2 .control.custom-arg,
+.sb2 .control.outline {
   background-color: #e1a91a;
   border-color: #e5b53a #a07812 #a07812 #e5b53a;
 }
@@ -184,7 +186,8 @@
 .sb2 .custom.reporter,
 .sb2 .custom.embedded,
 .sb2 .custom.variable-reporter,
-.sb2 .custom.custom-arg {
+.sb2 .custom.custom-arg,
+.sb2 .custom.outline {
   background-color: #632d99;
   border-color: #794aa7 #46206d #46206d #794aa7;
 }
@@ -238,7 +241,8 @@
 .sb2 .events.reporter,
 .sb2 .events.embedded,
 .sb2 .events.variable-reporter,
-.sb2 .events.custom-arg {
+.sb2 .events.custom-arg,
+.sb2 .events.outline {
   background-color: #c88330;
   border-color: #cf944d #8e5d22 #8e5d22 #cf944d;
 }
@@ -292,7 +296,8 @@
 .sb2 .list.reporter,
 .sb2 .list.embedded,
 .sb2 .list.variable-reporter,
-.sb2 .list.custom-arg {
+.sb2 .list.custom-arg,
+.sb2 .list.outline {
   background-color: #cc5b22;
   border-color: #d26f3d #a74a1b #a74a1b #d26f3d;
 }
@@ -346,7 +351,8 @@
 .sb2 .looks.reporter,
 .sb2 .looks.embedded,
 .sb2 .looks.variable-reporter,
-.sb2 .looks.custom-arg {
+.sb2 .looks.custom-arg,
+.sb2 .looks.outline {
   background-color: #8a55d7;
   border-color: #9a6ddc #623c99 #623c99 #9a6ddc;
 }
@@ -400,7 +406,8 @@
 .sb2 .motion.reporter,
 .sb2 .motion.embedded,
 .sb2 .motion.variable-reporter,
-.sb2 .motion.custom-arg {
+.sb2 .motion.custom-arg,
+.sb2 .motion.outline {
   background-color: #4a6cd4;
   border-color: #6380da #344d97 #344d97 #6380da;
 }
@@ -454,7 +461,8 @@
 .sb2 .operators.reporter,
 .sb2 .operators.embedded,
 .sb2 .operators.variable-reporter,
-.sb2 .operators.custom-arg {
+.sb2 .operators.custom-arg,
+.sb2 .operators.outline {
   background-color: #5cb712;
   border-color: #a7ce87 #488f0e #488f0e #a7ce87;
 }
@@ -508,7 +516,8 @@
 .sb2 .pen.reporter,
 .sb2 .pen.embedded,
 .sb2 .pen.variable-reporter,
-.sb2 .pen.custom-arg {
+.sb2 .pen.custom-arg,
+.sb2 .pen.outline {
   background-color: #0e9a6c;
   border-color: #30a880 #0a6e4d #0a6e4d #30a880;
 }
@@ -562,7 +571,8 @@
 .sb2 .sensing.reporter,
 .sb2 .sensing.embedded,
 .sb2 .sensing.variable-reporter,
-.sb2 .sensing.custom-arg {
+.sb2 .sensing.custom-arg,
+.sb2 .sensing.outline {
   background-color: #2ca5e2;
   border-color: #49b1e6 #1f75a1 #1f75a1 #49b1e6;
 }
@@ -616,7 +626,8 @@
 .sb2 .sound.reporter,
 .sb2 .sound.embedded,
 .sb2 .sound.variable-reporter,
-.sb2 .sound.custom-arg {
+.sb2 .sound.custom-arg,
+.sb2 .sound.outline {
   background-color: #bb42c3;
   border-color: #c45ccb #852f8b #852f8b #c45ccb;
 }
@@ -670,7 +681,8 @@
 .sb2 .variables.reporter,
 .sb2 .variables.embedded,
 .sb2 .variables.variable-reporter,
-.sb2 .variables.custom-arg {
+.sb2 .variables.custom-arg,
+.sb2 .variables.outline {
   background-color: #ee7d16;
   border-color: #f08d33 #c36612 #c36612 #f08d33;
 }
@@ -724,7 +736,8 @@
 .sb2 .custom-arg.reporter,
 .sb2 .custom-arg.embedded,
 .sb2 .custom-arg.variable-reporter,
-.sb2 .custom-arg.custom-arg {
+.sb2 .custom-arg.custom-arg,
+.sb2 .custom-arg.outline {
   background-color: #5947b1;
   border-color: #6857b8 #423584 #423584 #6857b8;
 }
@@ -778,7 +791,8 @@
 .sb2 .extension.reporter,
 .sb2 .extension.embedded,
 .sb2 .extension.variable-reporter,
-.sb2 .extension.custom-arg {
+.sb2 .extension.custom-arg,
+.sb2 .extension.outline {
   background-color: #4b4a60;
   border-color: #646376 #353444 #353444 #646376;
 }
@@ -832,7 +846,8 @@
 .sb2 .grey.reporter,
 .sb2 .grey.embedded,
 .sb2 .grey.variable-reporter,
-.sb2 .grey.custom-arg {
+.sb2 .grey.custom-arg,
+.sb2 .grey.outline {
   background-color: #969696;
   border-color: #b7b7b7 #656565 #656565 #b7b7b7;
 }
@@ -863,6 +878,18 @@
 .sb2 .grey.cmouth > .stack:before {
   background: #ffffff;
 }
+.sb2 .script * {
+  background: red;
+}
+.sb2 .stack,
+.sb2 .reporter,
+.sb2 .embedded,
+.sb2 .hat,
+.sb2 .define-hat,
+.sb2 .boolean {
+  background-color: #d42828;
+  border-color: #da4646 #971c1c #971c1c #da4646;
+}
 .sb2 .script {
   margin-top: 15px;
   display: block;
@@ -885,7 +912,6 @@
 .sb2 .cap,
 .sb2 .boolean,
 .sb2 .reporter,
-.sb2 .variable-reporter,
 .sb2 .dropdown {
   border: 2px solid;
 }
@@ -1045,11 +1071,12 @@
   padding: 2px 4px 2px 4px;
   min-width: 29px;
   line-height: 16px;
+  min-height: 16px;
   border: 2px solid #8257ad;
   margin-left: 5px;
   margin: 4px 0 4px 5px;
   position: relative;
-  background: inherit;
+  background: #632d99;
   box-sizing: content-box;
   -moz-box-sizing: content-box;
 }
@@ -1074,6 +1101,7 @@
   -moz-border-radius: 0 0 4px 4px;
 }
 .sb2 .cwrap {
+  background: #ffffff;
   display: block;
 }
 .sb2 .cwrap .cstart {
@@ -1083,6 +1111,7 @@
   min-width: 60px;
 }
 .sb2 .cwrap .cmouth {
+  background: #ffffff;
   display: block;
   position: relative;
 }
@@ -1213,6 +1242,9 @@
   margin-top: -10px;
   background: url(block_images/flag.png) 0 0 no-repeat;
   background-size: contain;
+}
+.sb2 .comment {
+  background: #ffffff;
 }
 .sb2 .comment div {
   margin: 4px 0 1px 1px;

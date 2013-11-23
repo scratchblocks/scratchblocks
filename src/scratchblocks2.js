@@ -778,10 +778,11 @@ var scratchblocks2 = function ($) {
 
         // override attrs?
         var overrides;
-        var match = /^(.*)::([A-z ]*)$/.exec(spec);
+        var match = /^(.*)::([A-z\- ]*)$/.exec(spec);
         if (match) {
             spec = match[1].trimRight();
             overrides = match[2].trim().split(" ");
+            while (overrides[overrides.length - 1] === "") overrides.pop();
         }
 
         // get category & related block info
@@ -803,6 +804,7 @@ var scratchblocks2 = function ($) {
             if (mode === "define-hat") {
                 if (shape === "stack") {
                     info.shape = "outline";
+                    if (info.category === "obsolete") info.category = "";
                 } else {
                     info.category = "custom-arg";
                 }
