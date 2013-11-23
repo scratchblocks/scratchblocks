@@ -12,7 +12,7 @@
  *
  * Categories:
  *
- *     scratchblocks2-container
+ *     sb2
  *     inline-block
  *     script
  *     empty
@@ -593,7 +593,8 @@ var scratchblocks2 = function ($) {
             return info;
         }
         if (spec.replace(/ /g, "") === "...") return find_block("...");
-        if (spec === "_") return {blockid: "_", spec: "_", category: "grey"};
+        if (spec.replace(/[ ▶◀▸◂]/g, "") === "_")
+                return {blockid: "_", spec: spec, category: "grey"};
     }
 
     // Utility function that copies a dictionary.
@@ -632,21 +633,21 @@ var scratchblocks2 = function ($) {
 
     /*** Parse block ***/
 
-    var BRACKETS = "([<)]>";
+    var BRACKETS = "([<{)]>}";
 
     // Various bracket-related utilities...
 
     function is_open_bracket(chr) {
         var bracket_index = BRACKETS.indexOf(chr);
-        return (-1 < bracket_index && bracket_index < 3);
+        return (-1 < bracket_index && bracket_index < 4);
     }
 
     function is_close_bracket(chr) {
-        return (2 < BRACKETS.indexOf(chr));
+        return (3 < BRACKETS.indexOf(chr));
     }
 
     function get_matching_bracket(chr) {
-        return BRACKETS[BRACKETS.indexOf(chr) + 3];
+        return BRACKETS[BRACKETS.indexOf(chr) + 4];
     }
 
     // Strip one level of brackets from around a piece.
@@ -828,6 +829,9 @@ var scratchblocks2 = function ($) {
             if (part === "_") {
                 var arg = args.shift();
                 part = (arg === undefined) ? "_" : parse_block(arg, mode);
+                if (info.blockid === "_") {
+                    part.is_ringed = true;
+                }
                 /* If there are no args left, then the underscore must really
                  * be an underscore and not an insert.
                  *
@@ -854,7 +858,7 @@ var scratchblocks2 = function ($) {
         var i = line.indexOf("//");
         if (i !== -1 && line[i-1] !== ":") {
             comment = line.slice(i+2);
-            line    = line.slice(0, i);
+            line    = line.slice(0, i).trim();
 
             // free-floating comment?
             if (!line.trim()) return {blockid: "//", comment: comment,
@@ -881,7 +885,7 @@ var scratchblocks2 = function ($) {
         switch (bracket) {
             case "(": return "embedded";
             case "<": return "boolean";
-            default:  return "stack";
+            case "{": default: return "stack";
         }
     }
 
@@ -1063,12 +1067,12 @@ var scratchblocks2 = function ($) {
                         type: "cwrap",
                         shape: info.shape,
                         contents: [info],
-                        category: info.category
                     };
                     info.shape = "stack";
                     current_script.push(cwrap);
                     nesting.push(cwrap.contents);
-                    var cmouth = {type: "cmouth", contents: []};
+                    var cmouth = {type: "cmouth", contents: [],
+                                  category: info.category};
                     cwrap.contents.push(cmouth);
                     nesting.push(cmouth.contents);
                     break;
@@ -1082,7 +1086,8 @@ var scratchblocks2 = function ($) {
                     var cwrap = nesting[nesting.length - 1]; // cwrap contents
                     info.category = cwrap[0].category; // category of c block
                     cwrap.push(info);
-                    var cmouth = {type: "cmouth", contents: []};
+                    var cmouth = {type: "cmouth", contents: [],
+                                  category: cwrap[0].category};
                     cwrap.push(cmouth);
                     nesting.push(cmouth.contents);
                     break;
@@ -1149,7 +1154,7 @@ var scratchblocks2 = function ($) {
 
             $el.text("");
             $el.append($container);
-            $container.addClass("scratchblocks2-container");
+            $container.addClass("sb2");
             if (options.inline) {
                 $container.addClass("inline-block");
             }
@@ -1181,7 +1186,8 @@ var scratchblocks2 = function ($) {
                 return $cwrap;
 
             case "cmouth":
-                return render_stack(info.contents).addClass("cmouth");
+                return render_stack(info.contents).addClass("cmouth")
+                                .addClass(info.category);
 
             default:
                 return render_block(info);
@@ -1203,24 +1209,33 @@ var scratchblocks2 = function ($) {
         if (!code) return;
 
         // make DOM element
-        var $block = $("<div>");
+        var $block = $(document.createElement("div"));
         $block.addClass(info.shape);
         $block.addClass(info.category);
         if (info.flag) $block.addClass(info.flag); // TODO remove
         $block.category = info.category; // TODO remove
         $block.shape = info.shape; // TODO remove
 
-        // color inserts
+        // color insert?
         if (info.shape === "color") {
             $block.css({"background-color": info.pieces[0]});
             $block.text(" ");
             return $block;
         }
 
+        // ringify?
+        var $ring;
+        if (info.is_ringed) {
+            $ring = $(document.createElement("div")).addClass("ring")
+                               .addClass(info.shape).append($block);
+        }
+        if (info.blockid === "_") $block.addClass("ring-outer");
+
         // empty?
-        if (!info.pieces.length) {
+        if (!info.pieces.length && info.flag !== "cend") {
             $block.addClass("empty");
-            return $block;
+            $block.removeClass("obsolete");
+            return $ring || $block;
         }
 
         // output text segments & args
@@ -1242,7 +1257,7 @@ var scratchblocks2 = function ($) {
             }
         }
 
-        return $block;
+        return $ring || $block;
     }
 
     /* Return the category class for the given block. */
