@@ -86,7 +86,7 @@ I'm rather fond of the <code class="b">stamp</code> block in Scratch.
 ...make a separate call to `parse` using the `inline` argument.
 
 ```js
-scratchblocks2.parse("code.blocks", {inline: true});
+scratchblocks2.parse("code.b", {inline: true});
 ```
 
 
@@ -94,6 +94,5 @@ scratchblocks2.parse("code.blocks", {inline: true});
 
 * Plugin by blob8108
 * Inspired by JSO's [Block Plugin](http://wiki.scratch.mit.edu/wiki/Block_Plugin)
-* German block translation by [joooni](http://scratch.mit.edu/users/joooni/)
-* Brazilian Portugese block translation by [ehermann](http://github.com/ehermann)
-
+* Help with translation code from [joooni](http://scratch.mit.edu/users/joooni/)
+* Block translations from the [Scratch translation server](http://translate.scratch.mit.edu/)
