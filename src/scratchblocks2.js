@@ -1102,6 +1102,8 @@ var scratchblocks2 = function ($) {
         return scripts;
     }
 
+    sb2.parse_scripts = parse_scripts;
+
 
 
     /*** Render ***/
