@@ -874,6 +874,7 @@ var scratchblocks2 = function ($) {
             var match = /(^| )category=([a-z]+)($| )/.exec(comment);
             if (match) {
                 info.category = match[2];
+                comment = comment.replace(match[0], " ").trim();
             }
         }
 
