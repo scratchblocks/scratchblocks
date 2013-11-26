@@ -1231,7 +1231,9 @@ var scratchblocks2 = function ($) {
             $ring = $(document.createElement("div")).addClass("ring")
                                .addClass(info.shape).append($block);
         }
-        if (info.blockid === "_") $block.addClass("ring-outer");
+        if (info.blockid === "_" && info.category === "grey") {
+            $block.addClass("ring-outer");
+        }
 
         // empty?
         if (!info.pieces.length && info.flag !== "cend") {
