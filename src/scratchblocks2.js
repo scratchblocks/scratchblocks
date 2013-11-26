@@ -98,6 +98,18 @@ var scratchblocks2 = function ($) {
 
 
 
+    // List of classes we're allowed to override.
+
+    var override_categories = ["motion", "looks", "sound", "pen",
+        "variables", "list", "events", "control", "sensing",
+        "operators", "custom", "custom-arg", "extension", "grey",
+        "obsolete"];
+    var override_flags = ["cstart", "celse", "cend"];
+    var override_shapes = ["hat", "cap", "stack", "embedded",
+        "boolean", "reporter", "string"];
+
+
+
     /*** Database ***/
 
     // First, initialise the blocks database.
@@ -814,17 +826,18 @@ var scratchblocks2 = function ($) {
                 category: (shape === "reporter") ? "variables" : "obsolete",
                 spec: spec,
                 args: args,
-                overrides: overrides,
             };
         }
 
         if (overrides) {
-            if (overrides.length > 0) info.category = overrides[0];
+            if (overrides.length > 0 && $.inArray(overrides[0],
+                                                  override_categories) > -1) {
+                info.category = overrides[0];
+            }
             if (overrides.length > 1) {
-                if ($.inArray(overrides[1], ["cstart", "celse",
-                                             "cend"]) > -1) {
+                if ($.inArray(overrides[1], override_flags) > -1) {
                     info.flag = overrides[1];
-                } else {
+                } else if ($.inArray(overrides[1], override_shapes) > -1) {
                     info.shape = overrides[1];
                 }
             }
@@ -880,10 +893,10 @@ var scratchblocks2 = function ($) {
 
         var info = parse_block(line);
 
-        // category hack -- TODO deprecated
+        // category hack (DEPRECATED)
         if (comment && info.shape !== "define-hat") {
             var match = /(^| )category=([a-z]+)($| )/.exec(comment);
-            if (match) {
+            if (match && $.inArray(match[2], override_categories) > -1) {
                 info.category = match[2];
                 comment = comment.replace(match[0], " ").trim();
             }
