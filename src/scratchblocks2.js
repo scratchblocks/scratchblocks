@@ -872,7 +872,7 @@ var scratchblocks2 = function ($) {
         var info = parse_block(line);
 
         // category hack -- TODO deprecated
-        if (comment) {
+        if (comment && info.shape !== "define-hat") {
             var match = /(^| )category=([a-z]+)($| )/.exec(comment);
             if (match) {
                 info.category = match[2];
@@ -880,6 +880,7 @@ var scratchblocks2 = function ($) {
             }
         }
 
+        if (comment !== undefined && !comment.trim()) comment = undefined;
         info.comment = comment;
         return info;
     }
@@ -1042,7 +1043,7 @@ var scratchblocks2 = function ($) {
 
             var info = parse_line(lines[i]);
 
-            if (!info.pieces.length && info.comment) {
+            if (!info.pieces.length && info.comment !== undefined) {
                 // TODO multi-line comments
                 new_script();
                 current_script.push(info);
@@ -1058,6 +1059,7 @@ var scratchblocks2 = function ($) {
 
             switch (info.flag || info.shape) {
                 case "hat":
+                case "define-hat":
                     new_script();
                     current_script.push(info);
                     break;
@@ -1175,7 +1177,7 @@ var scratchblocks2 = function ($) {
         for (var i=0; i<script.length; i++) {
             var info = script[i];
             $script.append(render_stack_item(info));
-            if (info.comment) {
+            if (info.comment !== undefined) {
                 $script.append(render_comment(info));
             }
         }
@@ -1202,7 +1204,7 @@ var scratchblocks2 = function ($) {
     function render_comment(info) {
         var $comment = $(document.createElement("div")).addClass("comment")
                 .append($(document.createElement("div"))
-                .append(document.createTextNode(info.comment.trim())));
+                .append(document.createTextNode(info.comment.trim() || " ")));
         if (info.shape) {
             $comment.addClass("attached");
             $comment.addClass("to-" + info.shape);
