@@ -722,7 +722,7 @@ var scratchblocks2 = function ($) {
         // define hat?
         for (var i=0; i<strings.define.length; i++) {;;
             var define_text = strings.define[i];
-            if (code.startsWith(define_text)) {
+            if (code.startsWith(define_text+" ")) {
                 code = code.slice(define_text.length);
 
                 return {
