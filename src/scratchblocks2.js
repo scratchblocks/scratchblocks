@@ -719,24 +719,38 @@ var scratchblocks2 = function ($) {
         var bracket = code.charAt(0);
         code = strip_brackets(code);
 
+        // split into text segments and inserts
+        var pieces = split_into_pieces(code);
+
         // define hat?
         for (var i=0; i<strings.define.length; i++) {;;
             var define_text = strings.define[i];
-            if (code.startsWith(define_text)) {
-                var define_hat = code.slice(define_text.length);
-                if (!define_hat || define_hat.startsWith(" ")) {
-                    return {
-                        shape: "define-hat",
-                        category: "custom",
-                        pieces: [define_text,
-                                 parse_block(define_hat, "define-hat")],
+            if (code === define_text || (pieces[0] &&
+                    pieces[0].startsWith(define_text+" "))) {
+                pieces[0] = pieces[0].slice(define_text.length).trimLeft(" ");
+
+                for (var i=0; i<pieces.length; i++) {
+                    var piece = pieces[i];
+                    if (is_block(piece)) {
+                        piece = {
+                            shape: get_custom_arg_shape(piece.charAt(0)),
+                            category: "custom-arg",
+                            pieces: [strip_brackets(piece)],
+                        };
                     }
+                    pieces[i] = piece;
                 }
+
+                return {
+                    shape: "define-hat",
+                    category: "custom",
+                    pieces: [define_text, {
+                        shape: "outline",
+                        pieces: pieces,
+                    }],
+                };
             }
         }
-
-        // split into text segments and inserts
-        var pieces = split_into_pieces(code);
 
         // get shape
         var shape, isablock;
@@ -802,15 +816,6 @@ var scratchblocks2 = function ($) {
                 args: args,
                 overrides: overrides,
             };
-
-            if (mode === "define-hat") {
-                if (shape === "stack") {
-                    info.shape = "outline";
-                    if (info.category === "obsolete") info.category = "";
-                } else {
-                    info.category = "custom-arg";
-                }
-            }
         }
 
         if (overrides) {
@@ -832,16 +837,20 @@ var scratchblocks2 = function ($) {
             var part = text_parts[i];
             if (part === "_") {
                 var arg = args.shift();
-                part = (arg === undefined) ? "_" : parse_block(arg, mode);
+                if (arg === undefined) {
+                    part = "_";
+                    /* If there are no args left, then the underscore must really
+                     * be an underscore and not an insert.
+                     *
+                     * This only becomes a problem if the code contains
+                     * underscores followed by inserts.
+                     */
+                } else {
+                    part = parse_block(arg);
+                }
                 if (info.blockid === "_") {
                     part.is_ringed = true;
                 }
-                /* If there are no args left, then the underscore must really
-                 * be an underscore and not an insert.
-                 *
-                 * This only becomes a problem if the code contains
-                 * underscores followed by inserts.
-                 */
             }
             if (part) pieces.push(part);
         }
