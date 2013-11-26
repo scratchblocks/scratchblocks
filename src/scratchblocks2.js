@@ -722,13 +722,15 @@ var scratchblocks2 = function ($) {
         // define hat?
         for (var i=0; i<strings.define.length; i++) {;;
             var define_text = strings.define[i];
-            if (code.startsWith(define_text+" ")) {
-                code = code.slice(define_text.length);
-
-                return {
-                    shape: "define-hat",
-                    category: "custom",
-                    pieces: [define_text, parse_block(code, "define-hat")],
+            if (code.startsWith(define_text)) {
+                var define_hat = code.slice(define_text.length);
+                if (!define_hat || define_hat.startsWith(" ")) {
+                    return {
+                        shape: "define-hat",
+                        category: "custom",
+                        pieces: [define_text,
+                                 parse_block(define_hat, "define-hat")],
+                    }
                 }
             }
         }
