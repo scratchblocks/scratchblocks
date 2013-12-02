@@ -721,7 +721,7 @@ var scratchblocks2 = function ($) {
     // A piece is a block if it starts with a bracket.
 
     function is_block(piece) {
-        return piece.length > 1 && is_open_bracket(piece[0]);
+        return piece && is_open_bracket(piece[0]);
     }
 
     // Take block code and return block info object.
