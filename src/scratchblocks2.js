@@ -1119,7 +1119,12 @@ var scratchblocks2 = function ($) {
                         current_script.push(info);
                         break;
                     }
-                    nesting.pop(); // old cmouth contents
+                    var cmouth = nesting.pop(); // old cmouth contents
+                    if (cmouth.length
+                            && cmouth[cmouth.length - 1].shape == "cap") {
+                        // last block is a cap block
+                        info.flag += " capend";
+                    }
                     var cwrap = nesting[nesting.length - 1]; // cwrap contents
                     info.category = cwrap[0].category; // category of c block
                     cwrap.push(info);
