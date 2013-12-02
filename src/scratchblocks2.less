@@ -222,13 +222,6 @@
             }
         }
 
-        /*
-        .stack.empty {
-            border-color: ~"@{@{category}_btop}" ~"@{@{category}_bbot}"
-                  ~"@{@{category}_bbot}" ~"@{@{category}_btop}";
-        }
-        */
-
         // Rings
 
         > .ring {
@@ -812,6 +805,7 @@
     .grey > .ring {
         > .stack.empty, > .boolean.empty {
             background: @background;
+            border: none;
         }
     }
 
@@ -843,6 +837,7 @@
 
     // Variadic arrows
     .arrow {
+        background: none;
         font-size: 8px;
         color: @variadic_arrow;
         &:nth-last-child(2) {

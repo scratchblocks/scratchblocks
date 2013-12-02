@@ -893,6 +893,12 @@ var scratchblocks2 = function ($) {
 
         var info = parse_block(line);
 
+        if (!info.category) { // cheap test for inserts.
+            // Put free-floating inserts in their own stack block.
+            info = {blockid: "_", category: "obsolete", shape: "stack",
+                    pieces: [info]};
+        }
+
         // category hack (DEPRECATED)
         if (comment && info.shape !== "define-hat") {
             var match = /(^| )category=([a-z]+)($| )/.exec(comment);
@@ -1073,12 +1079,6 @@ var scratchblocks2 = function ($) {
                 continue;
             }
 
-            if (!info.category) { // cheap test for inserts.
-                // Put free-floating inserts in their own stack block.
-                info = {blockid: "_", category: "obsolete", shape: "stack",
-                        pieces: [info]};
-            }
-
             switch (info.flag || info.shape) {
                 case "hat":
                 case "define-hat":
@@ -1241,9 +1241,7 @@ var scratchblocks2 = function ($) {
         var $block = $(document.createElement("div"));
         $block.addClass(info.shape);
         $block.addClass(info.category);
-        if (info.flag) $block.addClass(info.flag); // TODO remove
-        $block.category = info.category; // TODO remove
-        $block.shape = info.shape; // TODO remove
+        if (info.flag) $block.addClass(info.flag);
 
         // color insert?
         if (info.shape === "color") {
@@ -1265,7 +1263,6 @@ var scratchblocks2 = function ($) {
         // empty?
         if (!info.pieces.length && info.flag !== "cend") {
             $block.addClass("empty");
-            $block.removeClass("obsolete");
             return $ring || $block;
         }
 
@@ -1289,33 +1286,6 @@ var scratchblocks2 = function ($) {
         }
 
         return $ring || $block;
-    }
-
-    /* Return the category class for the given block. */
-    function get_block_category($block) {
-        var CATEGORIES = ["obsolete", "control", "custom", "events", "list",
-            "looks", "motion", "operators", "pen", "sensing", "sound",
-            "variables", "extension", "grey"];
-        for (var i=0; i<CATEGORIES.length; i++) {
-            if ($block.hasClass(CATEGORIES[i])) {
-                return CATEGORIES[i];
-            }
-        }
-        return $block.category; // TODO
-    }
-
-    /* Return the shape class for the given insert. */
-    function get_arg_shape($arg) {
-        if (!$arg) {
-            return "";
-        }
-        return $arg.shape; // TODO
-    }
-
-    /* Get text from $block DOM element. Make sure you clone the block first. */
-    function get_block_text($block) {
-        $block.children().remove();
-        return minify($block.text());
     }
 
     return sb2; // export the module
