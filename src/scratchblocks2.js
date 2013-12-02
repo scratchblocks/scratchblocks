@@ -724,10 +724,13 @@ var scratchblocks2 = function ($) {
 
     // Take block code and return block info object.
 
-    function parse_block(code, mode) {
+    function parse_block(code, dont_strip_brackets) {
         // strip brackets
-        var bracket = code.charAt(0);
-        code = strip_brackets(code);
+        var bracket;
+        if (!dont_strip_brackets) {
+            bracket = code.charAt(0);
+            code = strip_brackets(code);
+        }
 
         // split into text segments and inserts
         var pieces = split_into_pieces(code);
@@ -888,12 +891,20 @@ var scratchblocks2 = function ($) {
                                       pieces: []};
         }
 
-        var info = parse_block(line);
+        var info;
+        if (is_open_bracket(line.charAt(0))
+                && split_into_pieces(line).length === 1) {
+            // reporter
+            info = parse_block(line); // don't strip brackets
 
-        if (!info.category) { // cheap test for inserts.
-            // Put free-floating inserts in their own stack block.
-            info = {blockid: "_", category: "obsolete", shape: "stack",
-                    pieces: [info]};
+            if (!info.category) { // cheap test for inserts.
+                // Put free-floating inserts in their own stack block.
+                info = {blockid: "_", category: "obsolete", shape: "stack",
+                        pieces: [info]};
+            }
+        } else {
+            // normal stack block
+            info = parse_block(line, true); // true = don't strip brackets
         }
 
         // category hack (DEPRECATED)
