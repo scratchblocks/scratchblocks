@@ -1,0 +1,21 @@
+run ((create clone :: control) ▶ :: grey) :: control
+
+(() :: grey ring)
+(<> :: grey ring)
+({} :: grey ring)
+({stamp} :: grey ring)
+
+say (http:// [snap.berkeley.edu] :: sensing)
+
+((6) × (7) :: operators)
+
+(join [hello ] [world] ◀ ▶ :: operators)
+
+script variables ((foo) :: grey) ((bar) :: grey) ▶ :: grey
+
+(all but first of (list) :: list)
+
+warp :: grey cstart
+  move (10) steps
+end
+report [Done!] :: control cap

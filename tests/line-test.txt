@@ -1,0 +1,15 @@
+// reporters
+(variable)
+<loud?>
+
+// inserts -> stack block
+[cheesecake]
+(3.12)
+(menu v)
+[dropdown v]
+
+// stacks
+stamp
+say [hi]
+[thing] (123) (variable)
+[attribute v] of [Stage v]
