@@ -799,12 +799,27 @@
     }
 
     .grey > .ring-inner {
-        > .empty {
-            &.stack, &.boolean, &.reporter {
+        > .empty, > .number {
+            &.stack, &.boolean, &.reporter, &.number {
+                // .number is a cheap hack because `()` = a number
                 background: @background;
-                border: none;
+                border-color: @background;
                 min-width: 27px;
+                &:before {
+                    background: @background;
+                    border-color: @background;
+                }
             }
+
+            &.stack {
+                min-width: 36px;
+                height: 10px;
+
+                &:after {
+                    content: none;
+                }
+            }
+
         }
 
         &:after {
@@ -816,6 +831,7 @@
         vertical-align: middle;
         padding: 0;
         float: none;
+        border-radius: 7px;
 
         > * {
             line-height: 16px;
@@ -825,10 +841,8 @@
             z-index: 1;
             left: 14px;
             width: 13px;
-            height: 5px;
-        }
-        &:after {
-            content: none;
+            height: 4px;
+            border-radius: 0 0 3px 3px;
         }
     }
 
