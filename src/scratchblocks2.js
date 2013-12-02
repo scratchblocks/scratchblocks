@@ -104,7 +104,7 @@ var scratchblocks2 = function ($) {
         "variables", "list", "events", "control", "sensing",
         "operators", "custom", "custom-arg", "extension", "grey",
         "obsolete"];
-    var override_flags = ["cstart", "celse", "cend"];
+    var override_flags = ["cstart", "celse", "cend", "ring"];
     var override_shapes = ["hat", "cap", "stack", "embedded",
         "boolean", "reporter", "string"];
 
@@ -605,8 +605,6 @@ var scratchblocks2 = function ($) {
             return info;
         }
         if (spec.replace(/ /g, "") === "...") return find_block("...");
-        if (spec.replace(/[ ▶◀▸◂]/g, "") === "_")
-                return {blockid: "_", spec: spec, category: "grey"};
     }
 
     // Utility function that copies a dictionary.
@@ -860,9 +858,8 @@ var scratchblocks2 = function ($) {
                      */
                 } else {
                     part = parse_block(arg);
-                }
-                if (info.blockid === "_") {
-                    part.is_ringed = true;
+
+                    if (info.flag === "ring") part.is_ringed = true;
                 }
             }
             if (part) pieces.push(part);
@@ -1132,6 +1129,7 @@ var scratchblocks2 = function ($) {
                 case "reporter":
                 case "boolean":
                 case "embedded":
+                case "ring":
                     // put free-floating reporters in a new script
                     new_script();
                     current_script.push(info);
@@ -1253,11 +1251,11 @@ var scratchblocks2 = function ($) {
         // ringify?
         var $ring;
         if (info.is_ringed) {
-            $ring = $(document.createElement("div")).addClass("ring")
+            $ring = $(document.createElement("div")).addClass("ring-inner")
                                .addClass(info.shape).append($block);
         }
-        if (info.blockid === "_" && info.category === "grey") {
-            $block.addClass("ring-outer");
+        if (info.flag === "ring") {
+            $block.addClass("ring");
         }
 
         // empty?

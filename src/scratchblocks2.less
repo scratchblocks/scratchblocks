@@ -224,7 +224,7 @@
 
         // Rings
 
-        > .ring {
+        > .ring-inner {
             background-color: @background;
             border-color: ~"@{@{category}_bbot}" ~"@{@{category}_btop}"
                           ~"@{@{category}_btop}" ~"@{@{category}_bbot}";
@@ -240,7 +240,7 @@
         }
 
         // Remove white top stub from stack blocks in rings...
-        > .ring:before {
+        > .ring-inner:before {
             background: ~"@{@{category}_bg}";
         }
 
@@ -341,11 +341,6 @@
         border: 2px solid;
     }
 
-    .stack, .cap {
-        min-width: 36px;
-        min-height: 23px;
-    }
-
     .stack, .cap, .cwrap, .cmouth {
         border-top-width: 1px;
     }
@@ -359,6 +354,11 @@
         & > * {
             line-height: 10px;
         }
+    }
+
+    .stack, .cap {
+        min-width: 36px;
+        min-height: 23px;
     }
 
     .stack, .cap, .outline {
@@ -798,18 +798,21 @@
         vertical-align: middle;
     }
 
-    .stack.empty:after {
-        content: none;
-    }
+    .grey > .ring-inner {
+        > .empty {
+            &.stack, &.boolean, &.reporter {
+                background: @background;
+                border: none;
+                min-width: 27px;
+            }
+        }
 
-    .grey > .ring {
-        > .stack.empty, > .boolean.empty {
-            background: @background;
-            border: none;
+        &:after {
+            content: none;
         }
     }
 
-    .ring {
+    .ring-inner {
         vertical-align: middle;
         padding: 0;
         float: none;
@@ -829,7 +832,7 @@
         }
     }
 
-    .ring-outer {
+    .ring {
         vertical-align: middle;
         border-radius: 11px;
         padding: 1px;
