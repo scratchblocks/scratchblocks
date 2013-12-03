@@ -106,7 +106,7 @@ var scratchblocks2 = function ($) {
         "obsolete"];
     var override_flags = ["cstart", "celse", "cend", "ring"];
     var override_shapes = ["hat", "cap", "stack", "embedded",
-        "boolean", "reporter", "string"];
+        "boolean", "reporter"];
 
 
 

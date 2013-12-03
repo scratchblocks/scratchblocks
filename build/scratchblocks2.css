@@ -1251,11 +1251,13 @@
   border-radius: 7px;
 }
 .sb2 .ring-inner.reporter,
-.sb2 .ring-inner.boolean {
+.sb2 .ring-inner.boolean,
+.sb2 .ring-inner.embedded {
   border-radius: 15px;
 }
 .sb2 .ring-inner.reporter > *,
-.sb2 .ring-inner.boolean > * {
+.sb2 .ring-inner.boolean > *,
+.sb2 .ring-inner.embedded > * {
   border-radius: 13px;
 }
 .sb2 .ring-inner > * {
