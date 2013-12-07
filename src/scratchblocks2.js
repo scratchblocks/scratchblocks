@@ -1132,7 +1132,8 @@ var scratchblocks2 = function ($) {
 
             var info = parse_line(lines[i], context);
 
-            if (!info.pieces.length && info.comment !== undefined) {
+            if (!info.pieces.length && info.comment !== undefined
+                    && nesting.length <= 1) {
                 // TODO multi-line comments
                 new_script();
                 current_script.push(info);
