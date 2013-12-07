@@ -722,6 +722,22 @@ var scratchblocks2 = function ($) {
         return piece && is_open_bracket(piece[0]);
     }
 
+    // Function for filtering pieces to get block text & args
+    function filter_pieces(pieces) {
+        var spec = "";
+        var args = [];
+        for (var i=0; i<pieces.length; i++) {
+            var piece = pieces[i];
+            if (is_block(piece) || typeof piece === "object") {
+                args.push(piece);
+                spec += "_";
+            } else {
+                spec += piece;
+            }
+        }
+        return {spec: spec, args: args};
+    }
+
     // Take block code and return block info object.
 
     function parse_block(code, dont_strip_brackets) {
@@ -793,17 +809,9 @@ var scratchblocks2 = function ($) {
         }
 
         // filter out block text & args
-        var spec = "";
-        var args = [];
-        for (var i=0; i<pieces.length; i++) {
-            var piece = pieces[i];
-            if (is_block(piece)) {
-                args.push(piece);
-                spec += "_";
-            } else {
-                spec += piece;
-            }
-        }
+        var filtered = filter_pieces(pieces);
+        var spec = filtered.spec;
+        var args = filtered.args;
 
         // override attrs?
         var overrides;
@@ -875,7 +883,7 @@ var scratchblocks2 = function ($) {
 
     // Return block info object for line, including comment.
 
-    function parse_line(line) {
+    function parse_line(line, context) {
         line = line.trim();
 
         // comments
@@ -914,6 +922,49 @@ var scratchblocks2 = function ($) {
                 info.category = match[2];
                 comment = comment.replace(match[0], " ").trim();
             }
+        }
+
+        // For recognising custom blocks
+        if (info.shape === "define-hat") {
+            var pieces = info.pieces[1].pieces;
+            var minispec = minify_spec(filter_pieces(pieces).spec);
+            context.define_hats.push(minispec);
+        }
+        if (info.shape === "stack" && info.category === "obsolete") {
+            var minispec = minify_spec(filter_pieces(info.pieces).spec);
+            console.log(minispec);
+            if (!(minispec in context.obsolete_blocks)) {
+                context.obsolete_blocks[minispec] = [];
+            }
+            context.obsolete_blocks[minispec].push(info);
+        }
+
+        // For recognising list reporters
+        var list_blocks = {
+            "add _ to _": 1,
+            "delete _ of _": 1,
+            "insert _ at _ of _": 2,
+            "replace item _ of _ with _": 1,
+            "item _ of _": 1,
+            "length of _": 0,
+            "_ contains _": 0,
+            "show list _": 0,
+            "hide list _": 0,
+        };
+        if (info.blockid in list_blocks) {
+            var index = list_blocks[info.blockid];
+            var args = filter_pieces(info.pieces).args;
+            var arg = args[index];
+            if (arg && arg.shape === "dropdown") {
+                context.lists.push(arg.pieces[0]);
+            }
+        }
+        if (info.shape === "reporter" && info.category === "variables") {
+            var name = info.pieces[0];
+            if (!(name in context.variable_reporters)) {
+                context.variable_reporters[name] = [];
+            }
+            context.variable_reporters[name].push(info);
         }
 
         if (comment !== undefined && !comment.trim()) comment = undefined;
@@ -1039,6 +1090,8 @@ var scratchblocks2 = function ($) {
     // Take scratchblocks text and turn it into useful objects.
 
     function parse_scripts(code) {
+        var context = {obsolete_blocks: {}, define_hats: [],
+                       variable_reporters: {}, lists: []};
         var scripts = [];
         var nesting = [[]];
         var lines = code.trim().split("\n");
@@ -1077,7 +1130,7 @@ var scratchblocks2 = function ($) {
 
             var current_script = nesting[nesting.length - 1];
 
-            var info = parse_line(lines[i]);
+            var info = parse_line(lines[i], context);
 
             if (!info.pieces.length && info.comment !== undefined) {
                 // TODO multi-line comments
@@ -1157,6 +1210,27 @@ var scratchblocks2 = function ($) {
             }
         }
         new_script();
+
+        // Recognise custom blocks
+        for (var i=0; i<context.define_hats.length; i++) {
+            var minispec = context.define_hats[i];
+            var custom_blocks = context.obsolete_blocks[minispec];
+            if (!custom_blocks) continue;
+            for (var j=0; j<custom_blocks.length; j++) {
+                custom_blocks[j].category = "custom";
+            }
+        }
+
+        // Recognise list reporters
+        for (var i=0; i<context.lists.length; i++) {
+            var name = context.lists[i];
+            var list_reporters = context.variable_reporters[name];
+            if (!list_reporters) continue;
+            for (var j=0; j<list_reporters.length; j++) {
+                list_reporters[j].category = "list";
+            }
+        }
+
         return scripts;
     }
 
