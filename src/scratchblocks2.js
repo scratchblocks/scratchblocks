@@ -932,7 +932,6 @@ var scratchblocks2 = function ($) {
         }
         if (info.shape === "stack" && info.category === "obsolete") {
             var minispec = minify_spec(filter_pieces(info.pieces).spec);
-            console.log(minispec);
             if (!(minispec in context.obsolete_blocks)) {
                 context.obsolete_blocks[minispec] = [];
             }
