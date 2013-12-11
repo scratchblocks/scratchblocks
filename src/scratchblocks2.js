@@ -456,7 +456,7 @@ var scratchblocks2 = function ($) {
 
         ["motor on", []],
         ["motor off", []],
-        ["motor on for _ seconds", []],
+        ["motor on for _ secs", []],
         ["motor power _", []],
         ["motor direction _", []],
 
