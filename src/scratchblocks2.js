@@ -152,7 +152,7 @@ var scratchblocks2 = function ($) {
     };
 
     var languages = sb2.languages = {};
-    var block_info_by_id = {};
+    var block_info_by_id = sb2.block_info_by_id = {};
     var block_by_text = {};
     var blockids = []; // Used by load_language
 
@@ -160,8 +160,6 @@ var scratchblocks2 = function ($) {
 
     var english = {
         code: "en",
-
-        blocks: [], // These are defined just below
 
         aliases: {
             "turn left _ degrees": "turn @arrow-ccw _ degrees",
@@ -184,6 +182,8 @@ var scratchblocks2 = function ($) {
 
         // For detecting the "stop" cap / stack block
         osis: ["other scripts in sprite"],
+
+        blocks: [], // These are defined just below
     };
 
     var english_blocks = [
@@ -517,6 +517,8 @@ var scratchblocks2 = function ($) {
     load_language(english);
 
     function load_language(language) {
+        language = clone(language);
+
         var iso_code = language.code;
         delete language.code;
 
@@ -530,7 +532,7 @@ var scratchblocks2 = function ($) {
 
             // Add block to the text lookup dict.
             var minispec = minify_spec(spec);
-            if (minispec || spec === "_") block_by_text[minispec] = {
+            if (minispec) block_by_text[minispec] = {
                 blockid: blockid,
                 lang: iso_code,
             };
@@ -559,8 +561,18 @@ var scratchblocks2 = function ($) {
 
         languages[iso_code] = language;
     }
-
     sb2.load_language = load_language;
+
+    // Store initial state.
+    var _init_strings = clone(strings);
+    var _init_languages = clone(languages);
+    var _init_block_by_text = clone(block_by_text);
+
+    sb2.reset_languages = function(language) {
+        sb2.strings = strings = clone(_init_strings);
+        sb2.languages = languages = clone(_init_languages);
+        block_by_text = clone(_init_block_by_text);
+    }
 
     // Hacks for certain blocks.
 
@@ -607,14 +619,20 @@ var scratchblocks2 = function ($) {
         if (spec.replace(/ /g, "") === "...") return find_block("...");
     }
 
-    // Utility function that copies a dictionary.
+    // Utility function that deep clones dictionaries/lists.
 
-    function clone(dict) {
-        var result = {};
-        for (var key in dict) {
-            result[key] = dict[key];
+    function clone(val) {
+        if (val.constructor == Array) {
+            return val.map(clone);
+        } else if (typeof val == "object") {
+            var result = {}
+            for (var key in val) {
+                result[clone(key)] = clone(val[key]);
+            }
+            return result;
+        } else {
+            return val;
         }
-        return result;
     }
 
     // Text minifying functions normalise block text before lookups.

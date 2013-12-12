@@ -8,6 +8,7 @@
 <link rel="stylesheet/less" href="scratchblocks2.less">
 <script src="diacritics.js"></script>
 <script src="scratchblocks2.js"></script>
+<script src="translations.js"></script>
 
 <script>
   less = {
@@ -68,7 +69,7 @@ textarea {
   min-height: 5em; /* DEBUG 15em;*/
 }
 button {
-  display: block;
+  display: inline-block;
   font-size: 1.25em;
   margin-bottom: 1em;
   border: 1px solid #444;
@@ -109,7 +110,32 @@ a {
 
 <textarea id="code"></textarea>
 
-<button id="render">Render</button>
+<div>
+  <button id="render">Render</button>
+
+  <select id="choose-lang">
+    <option>Choose extra language...
+    <option value="de"> Deutsch (German)
+    <option value="es"> Español (Spanish)
+    <option value="fr"> Français (French)
+    <option value="zh_CN"> 中文 (Simplified Chinese)
+    <option value="pl"> Polski (Polish) *
+    <option value="ja"> 日本語 (Japanese) *
+    <option value="nl"> Nederlands (Dutch)
+    <option value="pt"> Português (Portugese)
+    <option value="it"> Italiano (Italian)
+    <option value="he"> עברית (Hebrew)
+    <option value="ko"> 한국어 (Korean) *
+    <option value="nb">Norsk (Norwegian Bokmål) **
+    <option value="tr">Türkçe (Turkish) *
+    <option value="el"> Ελληνικά (Greek) *
+    <option value="ru"> Pусский (Russian) *
+    <option value="ca"> Català (Catalan) *
+    <option value="id">Indonesia (Indonesian) *
+  </select>
+
+  <small>(* = language is missing some blocks)</small>
+</div>
 
 <pre id="preview" class="blocks"></pre>
 
@@ -153,14 +179,24 @@ function checkHash() {
     code.value = decodeURIComponent((location.href.split("#")[1] || ""));
     refresh();
   }
-  window.setTimeout(checkHash, 1000);
 }
 
 checkHash();
+window.setInterval(checkHash, 1000);
 
 document.getElementById('render').onmousedown = refresh;
 code.onkeyup = refresh;
 code.oncopy = code.onpaste = function(e) {
   window.setTimeout(refresh, 100);
 }
+
+var choose_lang = document.getElementById("choose-lang");
+choose_lang.onchange = function (e) {
+  var lang = choose_lang.value;
+  scratchblocks2.reset_languages();
+  var lang_dict = scratchblocks2._translations[lang];
+  if (lang_dict) scratchblocks2.load_language(lang_dict)
+  refresh();
+};
+choose_lang.value = "Choose extra language...";
 </script>
