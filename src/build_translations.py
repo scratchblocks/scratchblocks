@@ -23,6 +23,7 @@ LANGUAGES = ["ar", "an", "hy", "ast", "eu", "bn_IN", "nb", "bg", "zh_CN",
 
 BLACKLIST = set(["or"])
 
+# ISO Codes for all the language forums.
 LANGUAGES = ['de', 'es', 'fr', 'zh_CN', 'pl', 'ja', 'nl' , 'pt', 'it', 'he',
              'ko', 'nb', 'tr', 'el', 'ru', 'ca', 'id']
 
