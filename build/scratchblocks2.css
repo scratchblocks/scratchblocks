@@ -93,7 +93,7 @@
 .sb2 .obsolete.hat:before {
   border-right-color: #da4646;
 }
-.sb2 .obsolete > .ring-inner:before {
+.sb2 .obsolete > .stack:before {
   background: #d42828;
 }
 .sb2 .obsolete.cmouth > .stack:before {
@@ -139,7 +139,7 @@
 .sb2 .control.hat:before {
   border-right-color: #e5b53a;
 }
-.sb2 .control > .ring-inner:before {
+.sb2 .control > .stack:before {
   background: #e1a91a;
 }
 .sb2 .control.cmouth > .stack:before {
@@ -185,7 +185,7 @@
 .sb2 .custom.hat:before {
   border-right-color: #794aa7;
 }
-.sb2 .custom > .ring-inner:before {
+.sb2 .custom > .stack:before {
   background: #632d99;
 }
 .sb2 .custom.cmouth > .stack:before {
@@ -231,7 +231,7 @@
 .sb2 .events.hat:before {
   border-right-color: #cf944d;
 }
-.sb2 .events > .ring-inner:before {
+.sb2 .events > .stack:before {
   background: #c88330;
 }
 .sb2 .events.cmouth > .stack:before {
@@ -277,7 +277,7 @@
 .sb2 .list.hat:before {
   border-right-color: #d26f3d;
 }
-.sb2 .list > .ring-inner:before {
+.sb2 .list > .stack:before {
   background: #cc5b22;
 }
 .sb2 .list.cmouth > .stack:before {
@@ -323,7 +323,7 @@
 .sb2 .looks.hat:before {
   border-right-color: #9a6ddc;
 }
-.sb2 .looks > .ring-inner:before {
+.sb2 .looks > .stack:before {
   background: #8a55d7;
 }
 .sb2 .looks.cmouth > .stack:before {
@@ -369,7 +369,7 @@
 .sb2 .motion.hat:before {
   border-right-color: #6380da;
 }
-.sb2 .motion > .ring-inner:before {
+.sb2 .motion > .stack:before {
   background: #4a6cd4;
 }
 .sb2 .motion.cmouth > .stack:before {
@@ -415,7 +415,7 @@
 .sb2 .operators.hat:before {
   border-right-color: #a7ce87;
 }
-.sb2 .operators > .ring-inner:before {
+.sb2 .operators > .stack:before {
   background: #5cb712;
 }
 .sb2 .operators.cmouth > .stack:before {
@@ -461,7 +461,7 @@
 .sb2 .pen.hat:before {
   border-right-color: #30a880;
 }
-.sb2 .pen > .ring-inner:before {
+.sb2 .pen > .stack:before {
   background: #0e9a6c;
 }
 .sb2 .pen.cmouth > .stack:before {
@@ -507,7 +507,7 @@
 .sb2 .sensing.hat:before {
   border-right-color: #49b1e6;
 }
-.sb2 .sensing > .ring-inner:before {
+.sb2 .sensing > .stack:before {
   background: #2ca5e2;
 }
 .sb2 .sensing.cmouth > .stack:before {
@@ -553,7 +553,7 @@
 .sb2 .sound.hat:before {
   border-right-color: #c45ccb;
 }
-.sb2 .sound > .ring-inner:before {
+.sb2 .sound > .stack:before {
   background: #bb42c3;
 }
 .sb2 .sound.cmouth > .stack:before {
@@ -599,7 +599,7 @@
 .sb2 .variables.hat:before {
   border-right-color: #f08d33;
 }
-.sb2 .variables > .ring-inner:before {
+.sb2 .variables > .stack:before {
   background: #ee7d16;
 }
 .sb2 .variables.cmouth > .stack:before {
@@ -645,7 +645,7 @@
 .sb2 .custom-arg.hat:before {
   border-right-color: #6857b8;
 }
-.sb2 .custom-arg > .ring-inner:before {
+.sb2 .custom-arg > .stack:before {
   background: #5947b1;
 }
 .sb2 .custom-arg.cmouth > .stack:before {
@@ -691,7 +691,7 @@
 .sb2 .extension.hat:before {
   border-right-color: #646376;
 }
-.sb2 .extension > .ring-inner:before {
+.sb2 .extension > .stack:before {
   background: #4b4a60;
 }
 .sb2 .extension.cmouth > .stack:before {
@@ -737,7 +737,7 @@
 .sb2 .grey.hat:before {
   border-right-color: #b7b7b7;
 }
-.sb2 .grey > .ring-inner:before {
+.sb2 .grey > .stack:before {
   background: #969696;
 }
 .sb2 .grey.cmouth > .stack:before {
@@ -1019,7 +1019,7 @@
   -moz-border-radius: 0 4px 4px 0;
 }
 .sb2 .cwrap .cend {
-  height: 8px;
+  min-height: 16px;
   min-width: 60px;
   border-radius: 0 4px 4px 4px;
   -webkit-border-radius: 0 4px 4px 4px;
