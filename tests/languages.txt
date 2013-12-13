@@ -1,0 +1,18 @@
+when gf clicked
+move (10) steps
+
+wenn die grune flagge angeklickt
+gehe (10) er-Schritt
+drehe dich nach rechts um (15) Grad
+
+al presionar bandera verde
+por siempre
+girar a la izquierda (7) grados
+girar a la derecha (11) grados
+fin
+
+点击绿旗时
+转动CCW (15)度
+转动CW (15)度
+如果 <声音响亮？> 那么
+结束
