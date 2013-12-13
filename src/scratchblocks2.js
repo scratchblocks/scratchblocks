@@ -51,6 +51,9 @@
  *     cwrap  |- Only used in the CSS code
  *     capend |
  *
+ *     ring
+ *     ring-inner
+ *
  * Categories (colour):
  *
  *     motion
@@ -882,7 +885,6 @@ var scratchblocks2 = function ($) {
                      */
                 } else {
                     part = parse_block(arg, context);
-                    if (info.flag === "ring") part.is_ringed = true;
                 }
             }
             if (part) pieces.push(part);
@@ -901,6 +903,16 @@ var scratchblocks2 = function ($) {
                     info.flag = overrides[1];
                 } else if ($.inArray(overrides[1], override_shapes) > -1) {
                     info.shape = overrides[1];
+                }
+            }
+
+            // Tag ring-inner pieces
+            if (info.flag === "ring") {
+                for (var i=0; i<info.pieces.length; i++) {
+                    var part = info.pieces[i];
+                    if (typeof part == "object") {
+                        part.is_ringed = true;
+                    }
                 }
             }
         } else {
