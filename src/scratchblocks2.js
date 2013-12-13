@@ -758,7 +758,7 @@ var scratchblocks2 = function ($) {
 
     // Take block code and return block info object.
 
-    function parse_block(code, dont_strip_brackets) {
+    function parse_block(code, context, dont_strip_brackets) {
         // strip brackets
         var bracket;
         if (!dont_strip_brackets) {
@@ -782,7 +782,7 @@ var scratchblocks2 = function ($) {
                         piece = {
                             shape: get_custom_arg_shape(piece.charAt(0)),
                             category: "custom-arg",
-                            pieces: [strip_brackets(piece)],
+                            pieces: [strip_brackets(piece).trim()],
                         };
                     }
                     pieces[i] = piece;
@@ -854,7 +854,42 @@ var scratchblocks2 = function ($) {
                 spec: spec,
                 args: args,
             };
+
+            // For recognising list reporters & custom args
+            if (info.shape === "reporter") {
+                var name = info.spec;
+                if (!(name in context.variable_reporters)) {
+                    context.variable_reporters[name] = [];
+                }
+                context.variable_reporters[name].push(info);
+            }
         }
+
+        // rebuild pieces in case text has changed
+        var pieces = [];
+        var text_parts = info.spec.split(/([_@▶◀▸◂])/);
+        for (var i=0; i<text_parts.length; i++) {
+            var part = text_parts[i];
+            if (part === "_") {
+                var arg = args.shift();
+                if (arg === undefined) {
+                    part = "_";
+                    /* If there are no args left, then the underscore must
+                     * really be an underscore and not an insert.
+                     *
+                     * This only becomes a problem if the code contains
+                     * underscores followed by inserts.
+                     */
+                } else {
+                    part = parse_block(arg, context);
+                    if (info.flag === "ring") part.is_ringed = true;
+                }
+            }
+            if (part) pieces.push(part);
+        }
+        delete info.spec;
+        delete info.args;
+        info.pieces = pieces;
 
         if (overrides) {
             if (overrides.length > 0 && $.inArray(overrides[0],
@@ -868,34 +903,29 @@ var scratchblocks2 = function ($) {
                     info.shape = overrides[1];
                 }
             }
-        }
-
-        // rebuild pieces in case text has changed
-        var pieces = [];
-        var text_parts = info.spec.split(/([_@▶◀▸◂])/);
-        for (var i=0; i<text_parts.length; i++) {
-            var part = text_parts[i];
-            if (part === "_") {
-                var arg = args.shift();
-                if (arg === undefined) {
-                    part = "_";
-                    /* If there are no args left, then the underscore must really
-                     * be an underscore and not an insert.
-                     *
-                     * This only becomes a problem if the code contains
-                     * underscores followed by inserts.
-                     */
-                } else {
-                    part = parse_block(arg);
-
-                    if (info.flag === "ring") part.is_ringed = true;
+        } else {
+            // For recognising list reporters
+            var list_block_name = {
+                "add _ to _": 1,
+                "delete _ of _": 1,
+                "insert _ at _ of _": 2,
+                "replace item _ of _ with _": 1,
+                "item _ of _": 1,
+                "length of _": 0,
+                "_ contains _": 0,
+                "show list _": 0,
+                "hide list _": 0,
+            };
+            if (info.blockid in list_block_name) {
+                var index = list_block_name[info.blockid];
+                var args = filter_pieces(info.pieces).args;
+                var arg = args[index];
+                if (arg && arg.shape === "dropdown") {
+                    context.lists.push(arg.pieces[0]);
                 }
             }
-            if (part) pieces.push(part);
         }
-        delete info.spec;
-        delete info.args;
-        info.pieces = pieces;
+
         return info;
     }
 
@@ -921,7 +951,7 @@ var scratchblocks2 = function ($) {
         if (is_open_bracket(line.charAt(0))
                 && split_into_pieces(line).length === 1) {
             // reporter
-            info = parse_block(line); // don't strip brackets
+            info = parse_block(line, context); // don't strip brackets
 
             if (!info.category) { // cheap test for inserts.
                 // Put free-floating inserts in their own stack block.
@@ -930,7 +960,8 @@ var scratchblocks2 = function ($) {
             }
         } else {
             // normal stack block
-            info = parse_block(line, true); // true = don't strip brackets
+            info = parse_block(line, context, true);
+                                           // true = don't strip brackets
         }
 
         // category hack (DEPRECATED)
@@ -942,11 +973,15 @@ var scratchblocks2 = function ($) {
             }
         }
 
-        // For recognising custom blocks
+        // For recognising custom blocks and their arguments
         if (info.shape === "define-hat") {
             var pieces = info.pieces[1].pieces;
-            var minispec = minify_spec(filter_pieces(pieces).spec);
+            var filtered = filter_pieces(pieces);
+            var minispec = minify_spec(filtered.spec);
             context.define_hats.push(minispec);
+            for (var i=0; i<filtered.args.length; i++) {
+                context.custom_args.push(filtered.args[i].pieces[0]);
+            }
         }
         if (info.shape === "stack" && info.category === "obsolete") {
             var minispec = minify_spec(filter_pieces(info.pieces).spec);
@@ -954,34 +989,6 @@ var scratchblocks2 = function ($) {
                 context.obsolete_blocks[minispec] = [];
             }
             context.obsolete_blocks[minispec].push(info);
-        }
-
-        // For recognising list reporters
-        var list_blocks = {
-            "add _ to _": 1,
-            "delete _ of _": 1,
-            "insert _ at _ of _": 2,
-            "replace item _ of _ with _": 1,
-            "item _ of _": 1,
-            "length of _": 0,
-            "_ contains _": 0,
-            "show list _": 0,
-            "hide list _": 0,
-        };
-        if (info.blockid in list_blocks) {
-            var index = list_blocks[info.blockid];
-            var args = filter_pieces(info.pieces).args;
-            var arg = args[index];
-            if (arg && arg.shape === "dropdown") {
-                context.lists.push(arg.pieces[0]);
-            }
-        }
-        if (info.shape === "reporter" && info.category === "variables") {
-            var name = info.pieces[0];
-            if (!(name in context.variable_reporters)) {
-                context.variable_reporters[name] = [];
-            }
-            context.variable_reporters[name].push(info);
         }
 
         if (comment !== undefined && !comment.trim()) comment = undefined;
@@ -1107,7 +1114,7 @@ var scratchblocks2 = function ($) {
     // Take scratchblocks text and turn it into useful objects.
 
     function parse_scripts(code) {
-        var context = {obsolete_blocks: {}, define_hats: [],
+        var context = {obsolete_blocks: {}, define_hats: [], custom_args: [],
                        variable_reporters: {}, lists: []};
         var scripts = [];
         var nesting = [[]];
@@ -1246,6 +1253,16 @@ var scratchblocks2 = function ($) {
             if (!list_reporters) continue;
             for (var j=0; j<list_reporters.length; j++) {
                 list_reporters[j].category = "list";
+            }
+        }
+
+        // Recognise custom args
+        for (var i=0; i<context.custom_args.length; i++) {
+            var name = context.custom_args[i];
+            var custom_args = context.variable_reporters[name];
+            if (!custom_args) continue;
+            for (var j=0; j<custom_args.length; j++) {
+                custom_args[j].category = "custom-arg";
             }
         }
 
