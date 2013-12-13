@@ -138,7 +138,7 @@ for lang in LANGUAGES:
     language = {
         'code': lang,
         'aliases': aliases,
-        'define': blocks['define'],
+        'define': [blocks['define']],
         'ignorelt': [when_distance],
         'math': map(editor.get, ["abs", "floor", "ceiling", "sqrt", "sin", 
                                  "cos", "tan", "asin", "acos", "atan", "ln",

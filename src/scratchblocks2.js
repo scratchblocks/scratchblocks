@@ -772,8 +772,8 @@ var scratchblocks2 = function ($) {
         // define hat?
         for (var i=0; i<strings.define.length; i++) {;;
             var define_text = strings.define[i];
-            if (code === define_text || (pieces[0] &&
-                    pieces[0].startsWith(define_text+" "))) {
+            if (code.toLowerCase() === define_text || (pieces[0] &&
+                    pieces[0].toLowerCase().startsWith(define_text+" "))) {
                 pieces[0] = pieces[0].slice(define_text.length).trimLeft(" ");
 
                 for (var i=0; i<pieces.length; i++) {
@@ -791,7 +791,7 @@ var scratchblocks2 = function ($) {
                 return {
                     shape: "define-hat",
                     category: "custom",
-                    pieces: [define_text, {
+                    pieces: [code.slice(0, define_text.length), {
                         shape: "outline",
                         pieces: pieces,
                     }],
