@@ -6,7 +6,8 @@ import codecs
 import json
 import re
 
-import requests
+import urllib2
+from urllib2 import urlopen
 
 from extra_strings import extra_strings
 
@@ -66,8 +67,13 @@ def fetch_po(lang, project):
     filename = (lang if project == "scratch1.4" else project)
     url = "http://translate.scratch.mit.edu/{lang}/{proj}/{name}.po/download/"
     url = url.format(lang=lang, proj=project, name=filename)
-    r = requests.get(url)
-    return r.content.decode("utf-8")
+    try:
+        return urlopen(url).read().decode("utf-8")
+    except urllib2.HTTPError, e:
+        if e.code == 404:
+            print "HTTP 404 not found:", url
+            return ""
+        raise
 
 language_translations = {}
 
