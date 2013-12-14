@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<title>inline dev : [scratchblocks]</title>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+
+<link rel="stylesheet/less" href="scratchblocks2.less">
+<script src="diacritics.js"></script>
+<script src="scratchblocks2.js"></script>
+
+<script>
+  less = {
+    env: "development", // or "production"
+    poll: 1000, // when in watch mode, time in ms between polls
+    dumpLineNumbers: "all", // or "mediaQuery" or "all"
+    rootpath: "../build/"
+  };
+</script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.3.3/less.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  $("#tester-status").css({ color: 'red' });
+
+  if (/file:\/\//.test(window.location)) {
+    // Warn we need localhost
+    $("#tester-status").css({ color: 'red' });
+
+  } else {
+    // In case of error
+    $("#tester-status").html("Couldn't load less.js");
+
+    less.watch();
+
+    // Success!
+    $("#tester-status").css({ color: '' });
+    $("#tester-status").html("LESS is now watching the file for changes: \
+      update the file on disk, and the styles will automatically reload here.");
+  }
+});
+</script>
+
+<style>
+h1 {
+  font-family: monospace;
+}
+a {
+  text-decoration: none;
+  color: #22f;
+}
+a:hover {
+  text-decoration: underline;
+}
+body {
+  margin: 1em;
+  margin-bottom: 100%;
+  font-family: sans-serif;
+}
+input, button {
+  font-size: 1em;
+  font-family: inherit;
+}
+textarea {
+  font-size: 1em;
+  margin-bottom: 1em;
+  min-width: 30em;
+  min-height: 5em; /* DEBUG 15em;*/
+}
+button {
+  display: block;
+  font-size: 1.25em;
+  margin-bottom: 1em;
+  border: 1px solid #444;
+  background: #ccc;
+  box-shadow: 0 1px 1px #888;
+}
+a:active, button:active {
+  position: relative;
+  top: 1px;
+  box-shadow: none;
+}
+#preview {
+  /*margin: 1em;*/
+}
+#link-url {
+  width: auto;
+  min-width: 40em;
+  cursor: text;
+}
+label {
+  font-weight: bold;
+  cursor: pointer;
+}
+#me {
+  font-weight: bold;
+}
+
+a {
+  color: black; /* distracting links */
+}
+</style>
+
+
+
+<h1>[scratchblocks]: dev</h1>
+
+<p id="tester-status">You need to serve this page from a local web server.</p>
+
+<textarea id="code"></textarea>
+
+<button id="render">Render</button>
+
+This is a sentence preceding the most interesting statement in this paragraph.
+This paragraph contains a <code id="preview" class="b"></code> block, oh yes
+it does. I'm very fond of this block; it's always been my friend.
+
+<script>
+if(typeof(String.prototype.trim) === "undefined") {
+  String.prototype.trim = function() {
+    return String(this).replace(/^\s+|\s+$/g, '');
+  };
+}
+
+code = document.getElementById('code');
+preview = document.getElementById('preview');
+
+var oldHash;
+
+function refresh (e) {
+  script = code.value;
+
+  script = script.replace(/\[\/?scratchblocks\]/gi, '');  // Scratch Forums
+  script = script.replace(/<\/?scratchblocks>/gi, '');  // Scratch Wiki
+  script = script.replace(/^position\:[0-9\., ]+/i, '');  // Kurt
+  script = script.trim();
+
+  location.hash = '#'+encodeURIComponent(script);
+  oldHash = location.hash;
+
+  // empty preview
+  var child;
+  while (child = preview.lastChild) {
+    preview.removeChild(child);
+  }
+
+  // add script
+  preview.appendChild(document.createTextNode(script))
+
+  scratchblocks2.parse("code.b", {inline: true});
+}
+
+function checkHash() {
+  if (oldHash != location.hash) {
+    code.value = decodeURIComponent((location.href.split("#")[1] || ""));
+    refresh();
+  }
+  window.setTimeout(checkHash, 1000);
+}
+
+checkHash();
+
+document.getElementById('render').onmousedown = refresh;
+code.onkeyup = refresh;
+code.oncopy = code.onpaste = function(e) {
+  window.setTimeout(refresh, 100);
+}
+</script>
