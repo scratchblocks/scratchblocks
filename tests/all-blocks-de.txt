@@ -1,16 +1,11 @@
-// The list of blocks, in scratchblocks format.
-//
-// Special values:
-// [list v] -- used to identify list dropdowns
-// [sqrt v] -- identifies math function, in the ([sqrt v] of ()) block
-//
-
-## Motion ##
+// Motion
 gehe (10)er-Schritt
-drehe dich im Uhrzeigersinn um (15) Grad ## -turn-arrow
-drehe dich rechts um (15) Grad ## -turn-arrow
-drehe dich gegen den Uhrzeigersinn um (15) Grad ## -turn-arrow
-drehe dich links um (15) Grad ## -turn-arrow
+drehe dich nach rechts um (15) Grad
+drehe dich nach links um (15) Grad
+
+// no longer supported -- should they be?
+drehe dich im Uhrzeigersinn um (15) Grad
+drehe dich gegen den Uhrzeigersinn um (15) Grad //
 
 setze Richtung auf (90 v)
 drehe dich zu [ v]
@@ -26,7 +21,7 @@ setze y auf (0)
 
 pralle vom Rand ab
 
-setzte Drehtyp auf [left-right v]
+setze Drehtyp auf [left-right v]
 
 (x-Position)
 (y-Position)
@@ -34,7 +29,7 @@ setzte Drehtyp auf [left-right v]
 
 
 
-## Looks ##
+// Looks
 sage [Hello!] für (2) Sek.
 sage [Hello!]
 denke [Hmm...] für (2) Sek.
@@ -48,7 +43,7 @@ nächstes Kostüm
 wechsle zu Bühnenbild [backdrop1 v]
 
 ändere [color v]-Effekt um (25)
-setze [color v]-Effekt to (0)
+setze [color v]-Effekt auf (0)
 schalte Grafikeffekte aus
 
 ändere Größe um (10)
@@ -61,8 +56,8 @@ gehe (1) Ebenen nach hinten
 (Bühnenbildname)
 (Größe)
 
-## Stage-specific
-## Looks ##
+// Stage-specific
+// Looks
 wechsle zu Bühnenbild [backdrop1 v] und warte
 nächstes Bühnenbild
 
@@ -70,12 +65,12 @@ nächstes Bühnenbild
 
 
 
-## Sound ##
+// Sound
 spiele Klang [pop v]
 spiele Klang [pop v] ganz
 stoppe alle Klänge
 
-spiele Schlagwerk (1 v) für (0.2) Schläge
+spiele Schlaginstrument (1 v) für (0.2) Schläge
 pausiere (0.2) Schläge
 
 spiele Ton (60 v) für (0.5) Schläge
@@ -83,15 +78,15 @@ setze Instrument auf (1 v)
 
 ändere Lautstärke um (-10)
 setze Lautstärke auf (100)%
-(Lautstärke)
+(Lautstärke :: sound)
 
 ändere Tempo um (20)
-setze Tempo auf (60) Schläge/Minute
+setze Tempo auf (60) Schläge/Min.
 (Tempo)
 
 
 
-## Pen ##
+// Pen
 wische Malspuren weg
 
 hinterlasse Abdruck
@@ -111,7 +106,7 @@ setze Stiftdicke auf (1)
 
 
 
-## Variables ##
+// Variables
 setze [var v] auf [0]
 ändere [var v] um (1)
 zeige Variable [var v]
@@ -119,10 +114,10 @@ verstecke Variable [var v]
 
 
 
-## List ##
-füge [thing] zu [list v]
+// List
+füge [thing] zu [list v] hinzu
 
-entferne (1 v) aus [list v]
+lösche (1 v) aus [list v]
 füge [thing] als (1 v) in [list v] ein
 ersetze (1 v) Element von [list v] durch [thing]
 
@@ -135,42 +130,58 @@ verstecke Liste [list v]
 
 
 
-## Events ##
-Wenn gf angeklickt ## hat -green-flag
-Wenn grüne Flagge angeklickt ## hat -green-flag
-Wenn Flagge angeklickt ## hat -green-flag
-Wenn Taste [space v] gedrückt ## hat
-Wenn dieses Objekt angeklickt ## hat
-Wenn das Bühnenbild zu [backdrop1 v] ## hat
+// Events
+Wenn die grüne Flagge angeklickt
+Wenn Taste [space v] gedrückt
+Wenn ich angeklickt werde
+Wenn das Bühnenbild zu [backdrop1 v] wechselt
 
-Wenn [loudness v] > (10) ## hat
+Wenn [loudness v] > (10)
 
-Wenn ich [message1 v] empfange ## hat
+Wenn ich [message1 v] empfange
 sende [message1 v] an alle
 sende [message1 v] an alle und warte
 
+// should these aliases be supported, too?
+Wenn gf angeklickt
+Wenn grüne Flagge angeklickt
+Wenn Flagge angeklickt
 
 
-## Control ##
+// Control
 warte (1) Sek.
 
-wiederhole (10) mal ## cstart
-wiederhole fortlaufend ## cstart cap
-falls <> dann ## ifblock cstart
-sonst ## celse
-ende ## cend
+wiederhole (10) mal
+ende
+
+wiederhole fortlaufend
+ende
+
+falls <> dann
+ende
+
+falls <> dann
+sonst
+ende
+
 warte bis <>
-wiederhole bis <> ## cstart
 
-stoppe [all v] ## cap
+wiederhole bis <>
+ende
 
-Wenn ich als Klon entstehe ## hat
-erzeuge Klon von [myself v]
-lösche diesen Klon ## cap
+stoppe [alles v]
+
+stoppe [dieses Skript v]
+
+stoppe [andere Skripte der Figur v]
+
+Wenn ich als Klon entstehe
+erzeuge Klon von [mir selbst v]
+lösche diesen Klon
 
 
 
-## Sensing ##
+// Sensing
 <wird [ v] berührt?>
 <wird Farbe [#f0f] berührt?>
 <Farbe [#f0f] berührt [#f0f]?>
@@ -202,7 +213,7 @@ setze Stoppuhr zurück
 
 
 
-## Operators ##
+// Operators
 (() + ())
 (() - ())
 (() * ())
@@ -225,12 +236,12 @@ setze Stoppuhr zurück
 (() mod ())
 (() gerundet)
 
-([sqrt v] von (9))
+([Wurzel v] von (9))
 
 
 
-## Purple ##
-Wenn [button pressed v] ## hat
+// Purple
+Wenn [button pressed v]
 <Sensor [button pressed v]?>
 (Wert von Sensor [slider v])
 
@@ -240,8 +251,8 @@ schalte Motor aus
 setze Motorkraft auf (100)
 setze Motorrichtung auf [this way v]
 
-Wenn Abstand < (20) ## hat
-Wenn Neigung = (1) ## hat
+Wenn Abstand < (20)
+Wenn Neigung = (1)
 (Abstand)
 (Neigung)
 
@@ -249,7 +260,7 @@ Wenn Neigung = (1) ## hat
 
 // Obsolete Scratch 1.4 blocks //
 
-## Looks ##
+// Looks
 ziehe Kostüm [costume1 v] an
 
 wechsle zum Hintergrund [background1 v]
@@ -258,25 +269,29 @@ nächster Hintergrund
 
 
 
-## Control ##
-falls <> ## cstart
-wiederhole fortlaufend falls <> ## cstart cap
-stoppe dieses Skript ## cap
-stoppe alles ## cap
+// Control
+falls <>
+ende
+
+wiederhole fortlaufend falls <>
+ende
+
+stoppe dieses Skript
+stoppe alles
 
 
 
-## Events ##
-Wenn angeklickt ## hat
+// Events
+Wenn angeklickt
 
 
 
-## Sensing ##
+// Sensing
 <laut?>
 
 
 
-## Purple ##
+// Purple
 schalte Motor an
 schalte Motor aus
 schalte Motor für (1) Sekunden an
