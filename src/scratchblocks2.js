@@ -613,7 +613,7 @@ var scratchblocks2 = function ($) {
             if (info.image_replacement) {
                 info.spec = languages[lang_and_id.lang].blocks[blockid];
             } else {
-                if (minitext === "...") spec = "…";
+                if (minitext === "..." || minitext === "…") spec = ". . .";
                 info.spec = spec;
             }
             if (info.hack) info.hack(info, args);
