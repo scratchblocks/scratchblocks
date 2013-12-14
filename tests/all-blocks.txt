@@ -173,7 +173,17 @@ wait until <>
 repeat until <> 
 end
 
+// caps!
+
 stop [all v] 
+
+stop [this script v]
+
+// stack
+
+stop [other scripts in sprite v]
+
+stop [other scripts in stage v]
 
 when I start as a clone 
 create clone of [myself v]

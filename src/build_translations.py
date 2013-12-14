@@ -149,7 +149,7 @@ for lang in LANGUAGES:
         'math': map(editor.get, ["abs", "floor", "ceiling", "sqrt", "sin", 
                                  "cos", "tan", "asin", "acos", "atan", "ln",
                                  "log", "e ^", "10 ^"]),
-        'osis': editor['other scripts in sprite'],
+        'osis': [editor['other scripts in sprite']],
         
         'blocks': blocks_list,
     }

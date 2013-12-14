@@ -184,7 +184,7 @@ var scratchblocks2 = function ($) {
                "acos", "atan", "ln", "log", "e ^", "10 ^"],
 
         // For detecting the "stop" cap / stack block
-        osis: ["other scripts in sprite"],
+        osis: ["other scripts in sprite", "other scripts in stage"],
 
         blocks: [], // These are defined just below
     };
