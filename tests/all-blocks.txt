@@ -304,7 +304,7 @@ when Sprite1 clicked
 
 motor on
 motor off
-motor on for (1) seconds
+motor on for (1) secs
 motor power (100)
 motor direction [this way v]
 
