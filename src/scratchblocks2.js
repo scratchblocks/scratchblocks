@@ -557,7 +557,9 @@ var scratchblocks2 = function ($) {
         for (var key in strings) {
             if (strings[key].constructor === Array) {
                 for (i=0; i<language[key].length; i++) {
-                    strings[key].push(minify(language[key][i]));
+                    if (language[key][i]) {
+                        strings[key].push(minify(language[key][i]));
+                    }
                 }
             }
         }
@@ -625,6 +627,7 @@ var scratchblocks2 = function ($) {
     // Utility function that deep clones dictionaries/lists.
 
     function clone(val) {
+        if (val == null) return val;
         if (val.constructor == Array) {
             return val.map(clone);
         } else if (typeof val == "object") {

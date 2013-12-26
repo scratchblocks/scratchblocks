@@ -888,10 +888,13 @@
 .sb2 .cwrap > .celse:before {
   left: 25px;
 }
+.sb2 .script > .hat,
+.sb2 .script > .define-hat {
+  float: left;
+}
 .sb2 .hat,
 .sb2 .define-hat {
   position: relative;
-  float: left;
   padding: 4px;
   border-radius: 0 5px 5px 5px;
   -webkit-border-radius: 0 5px 5px 5px;
