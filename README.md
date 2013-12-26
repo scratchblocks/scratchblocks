@@ -10,9 +10,6 @@ Render Scratch blocks code to HTML.
 Forums](http://scratch.mit.edu/discuss/topic/14772/) and [Scratch
 Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin).
 
-It's designed with an emphasis on flexibility: adding new blocks is as easy as
-writing the scratchblocks code itself.
-
 ## Syntax
 
 It's inspired by the block plugin by JSO that was used on
