@@ -847,6 +847,7 @@ var scratchblocks2 = function ($) {
             spec = match[1].trimRight();
             overrides = match[2].trim().split(/\s+/);
             while (overrides[overrides.length - 1] === "") overrides.pop();
+            if (!overrides.length) overrides = undefined;
         }
 
         // get category & related block info
@@ -874,7 +875,7 @@ var scratchblocks2 = function ($) {
             }
         }
 
-        // rebuild pieces in case text has changed
+        // rebuild pieces (in case text has changed) and parse arguments
         var pieces = [];
         var text_parts = info.spec.split(/([_@▶◀▸◂])/);
         for (var i=0; i<text_parts.length; i++) {
@@ -900,15 +901,14 @@ var scratchblocks2 = function ($) {
         info.pieces = pieces;
 
         if (overrides) {
-            if (overrides.length > 0 && $.inArray(overrides[0],
-                                                  override_categories) > -1) {
-                info.category = overrides[0];
-            }
-            if (overrides.length > 1) {
-                if ($.inArray(overrides[1], override_flags) > -1) {
-                    info.flag = overrides[1];
+            for (var i=0; i<overrides.length; i++) {
+                var value = overrides[i];
+                if ($.inArray(value, override_categories) > -1) {
+                    info.category = value;
+                } else if ($.inArray(value, override_flags) > -1) {
+                    info.flag = value;
                 } else if ($.inArray(overrides[1], override_shapes) > -1) {
-                    info.shape = overrides[1];
+                    info.shape = value;
                 }
             }
 
