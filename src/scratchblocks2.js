@@ -34,6 +34,9 @@
  *     boolean            |
  *
  *     reporter           |- This one's kinda weird.
+ *                           "embedded" and "reporter" should really be the
+ *                           same thing, but are separate due to some
+ *                           implementation detail that I don't even remember.
  *
  *     string             |
  *     dropdown           |
