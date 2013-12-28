@@ -907,7 +907,7 @@ var scratchblocks2 = function ($) {
                     info.category = value;
                 } else if ($.inArray(value, override_flags) > -1) {
                     info.flag = value;
-                } else if ($.inArray(overrides[1], override_shapes) > -1) {
+                } else if ($.inArray(value, override_shapes) > -1) {
                     info.shape = value;
                 }
             }
