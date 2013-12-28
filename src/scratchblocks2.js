@@ -845,7 +845,7 @@ var scratchblocks2 = function ($) {
         var match = /^(.*)::([A-z\- ]*)$/.exec(spec);
         if (match) {
             spec = match[1].trimRight();
-            overrides = match[2].trim().split(" ");
+            overrides = match[2].trim().split(/\s+/);
             while (overrides[overrides.length - 1] === "") overrides.pop();
         }
 
