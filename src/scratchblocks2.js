@@ -1041,7 +1041,7 @@ var scratchblocks2 = function ($) {
                     return "reporter";
                 }
             case "[":
-                if (/^#[A-Fa-f0-9]{3,6}$/.test(code)) {
+                if (/^#[a-f0-9]{3}([a-f0-9]{3})?$/i.test(code)) {
                     return "color";
                 } else {
                     if (code.endsWith(" v")) {
