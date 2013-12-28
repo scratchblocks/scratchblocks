@@ -1027,7 +1027,7 @@ var scratchblocks2 = function ($) {
     function get_insert_shape(bracket, code) {
         switch (bracket) {
             case "(":
-                if (/^(-?[0-9.]+( v)?)?$/i.test(code)) {
+                if (/^([0-9e.-]+( v)?)?$/i.test(code)) {
                     if (code.endsWith(" v")) {
                         return "number-dropdown";
                     } else {
