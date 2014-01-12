@@ -113,15 +113,23 @@ for lang in LANGUAGES:
     else:
         when_distance = None
 
-    extra = extra_strings.get(lang, {})
+    end_block = None
+    extra_aliases = extra_strings.get(lang, {})
+    for translated_text, english_text in extra_aliases.items():
+        if english_text == "end":
+            end_block = translated_text
+            del extra_aliases[translated_text]
+    for english_text in need_aliases:
+        if english_text not in extra_aliases.values():
+            print "%s is missing alias: %s" % (lang, english_text)
 
     blocks_list = []
     for blockid in english_blocks:
         if blockid in blocks:
             translation = blocks[blockid]
         elif blockid == "end":
-            if blockid in extra:
-                translation = extra[blockid]
+            if end_block:
+                translation = end_block
             else:
                 translation = ""
                 print "%s is missing extra: end" % lang
@@ -134,16 +142,9 @@ for lang in LANGUAGES:
 
         blocks_list.append(translation)
 
-    aliases = {}
-    for alias in need_aliases:
-        if alias in extra:
-            aliases[extra[alias]] = alias
-        else:
-            print "%s is missing alias: %s" % (lang, alias)
-
     language = {
         'code': lang,
-        'aliases': aliases,
+        'aliases': extra_aliases,
         'define': [blocks['define']],
         'ignorelt': [when_distance],
         'math': map(editor.get, ["abs", "floor", "ceiling", "sqrt", "sin", 

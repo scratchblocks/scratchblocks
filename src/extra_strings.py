@@ -12,75 +12,72 @@ translate.scratch.mit.edu:
 
 """
 
-extra_strings_defns = {
+extra_strings = {
 
-    None: [
-        "turn @arrow-ccw _ degrees",
-        "turn @arrow-cw _ degrees",
-        "when @green-flag clicked",
-        "end",
-    ],
+    "de": { # German
+        "drehe dich nach links um _ Grad": "turn @arrow-ccw _ degrees",
+        "drehe dich nach rechts um _ Grad": "turn @arrow-cw _ degrees",
+        "Wenn die grüne Flagge angeklickt": "when @green-flag clicked",
+        "Ende": "end",
+    },
 
-    "de": [ # German
-        "drehe dich nach links um _ Grad",
-        "drehe dich nach rechts um _ Grad",
-        "Wenn die grüne Flagge angeklickt",
-        "Ende",
-    ],
+    "pt": { # Portugese
+        "gira para a esquerda _ º": "turn @arrow-ccw _ degrees",
+        "gira para a direita _ º": "turn @arrow-cw _ degrees",
+        "Quando alguém clicar na bandeira verde": "when @green-flag clicked",
+        "fim": "end",
+    },
 
-    "pt": [ # Portugese
-        "gira para a esquerda _ º",
-        "gira para a direita _ º",
-        "Quando alguém clicar na bandeira verde",
-        "fim",
-    ],
+    "it": { # Italian
+        "ruota in senso antiorario di _ gradi": "turn @arrow-ccw _ degrees",
+        "ruota in senso orario di _ gradi": "turn @arrow-cw _ degrees",
+        "quando si clicca sulla bandiera verde": "when @green-flag clicked",
+        "fine": "end",
+    },
 
-    "it": [ # Italian
-        "ruota in senso antiorario di _ gradi",
-        "ruota in senso orario di _ gradi",
-        "quando si clicca sulla bandiera verde",
-        "fine",
-    ],
+    "fr": { # French
+        "tourner gauche de _ degrés": "turn @arrow-ccw _ degrees",
+        "tourner droite de _ degrés": "turn @arrow-cw _ degrees",
+        "quand le drapeau vert pressé": "when @green-flag clicked",
+        "fin": "end",
+    },
 
-    "fr": [ # French
-        "tourner gauche de _ degrés",
-        "tourner droite de​ ​_ degrés",
-        "quand le drapeau vert pressé",
-        "fin",
-    ],
+    "es": { # Spanish
+        "girar a la izquierda _ grados": "turn @arrow-ccw _ degrees",
+        "girar a la derecha _ grados": "turn @arrow-cw _ degrees",
+        "al presionar bandera verde": "when @green-flag clicked",
+        "fin": "end",
+    },
 
-    "es": [ # Spanish
-        "girar a la izquierda _ grados",
-        "girar a la derecha _ grados",
-        "al presionar bandera verde",
-        "fin",
-    ],
+    "nl": { # Dutch
+        "draai _ graden naar links": "turn @arrow-ccw _ degrees",
+        "draai _ graden naar rechts": "turn @arrow-cw _ degrees",
+        "wanneer groene vlag wordt aangeklikt": "when @green-flag clicked",
+        "einde": "end",
+    },
 
-    "nl": [ # Dutch
-        "draai _ graden naar links",
-        "draai _ graden naar rechts",
-        "wanneer groene vlag wordt aangeklikt",
-        "einde",
-    ],
+    "zh_CN": { # Chinese (simplified)
+        "左转 _ 度": "turn @arrow-ccw _ degrees",
+        "右转 _ 度": "turn @arrow-cw _ degrees",
+        "转动CCW _ 度": "turn @arrow-ccw _ degrees",
+        "转动CW _ 度": "turn @arrow-cw _ degrees",
+        "点击绿旗时": "when @green-flag clicked",
+        "结束": "end",
+    },
 
-    "zh_CN": [ # Chinese (simplified)
-        "转动CCW _度",
-        "转动CW _度",
-        "点击绿旗时",
-        "结束",
-    ],
+    "he": { # Hebrew
+        "הסתובב שמאל _ מעלות": "turn @arrow-ccw _ degrees",
+        "הסתובב ימינה _ מעלות": "turn @arrow-cw _ degrees",
+        "כאשר לוחצים על דגל ירוק": "when @green-flag clicked",
+        "סוף": "end",
+    },
 
-    "he": [ # Hebrew
-        "הסתובב שמאל _ מעלות",
-        "הסתובב ימינה _ מעלות",
-        "כאשר לוחצים על דגל ירוק",
-        "סוף",
-    ],
+    "pl": { # Polish
+        "obróć w lewo o _ stopni": "turn @arrow-ccw _ degrees",
+        "obróć w prawo o _ stopni": "turn @arrow-cw _ degrees",
+        "kiedy kliknięto zieloną flagę": "when @green-flag clicked",
+        "koniec": "end",
+    },
 
 }
-
-extra_strings = {}
-for (lang, defn) in extra_strings_defns.items():
-    if lang is None: continue
-    extra_strings[lang] = dict(zip(extra_strings_defns[None], defn))
 

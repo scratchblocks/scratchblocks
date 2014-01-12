@@ -1,9 +1,13 @@
 when gf clicked
 move (10) steps
 
+// German
+
 wenn die grune flagge angeklickt
 gehe (10) er-Schritt
 drehe dich nach rechts um (15) Grad
+
+// Spanish
 
 al presionar bandera verde
 por siempre
@@ -11,8 +15,18 @@ girar a la izquierda (7) grados
 girar a la derecha (11) grados
 fin
 
+// Chinese
+
 点击绿旗时
 转动CCW (15)度
 转动CW (15)度
 如果 <声音响亮？> 那么
 结束
+
+// Polish
+
+kiedy kliknięto zieloną flagę
+obróć w lewo o (10) stopni
+obróć w prawo o (10) stopni
+forever
+koniec
