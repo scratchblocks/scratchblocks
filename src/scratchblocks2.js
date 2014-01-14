@@ -537,7 +537,7 @@ var scratchblocks2 = function ($) {
             block_spec_by_id[blockid] = spec;
 
             // Add block to the text lookup dict.
-            var minispec = minify_spec(spec);
+            var minispec = minify(normalize_spec(spec));
             if (minispec) block_by_text[minispec] = {
                 blockid: blockid,
                 lang: iso_code,
@@ -550,7 +550,8 @@ var scratchblocks2 = function ($) {
             strings.aliases[text] = language.aliases[text];
 
             // Add alias to the text lookup dict.
-            block_by_text[minify_spec(text)] = {
+            var minispec = minify(normalize_spec(text));
+            block_by_text[minispec] = {
                 blockid: language.aliases[text],
                 lang: iso_code,
             };
@@ -588,6 +589,7 @@ var scratchblocks2 = function ($) {
         // Operators if math function, otherwise sensing "attribute of" block
         if (!args.length) return;
         var func = minify(strip_brackets(args[0]).replace(/ v$/, ""));
+        if (func == "e^") func = "e ^";
         info.category = ($.inArray(func, strings.math) > -1) ? "operators"
                                                              : "sensing";
     }
@@ -610,7 +612,7 @@ var scratchblocks2 = function ($) {
     // Define function for getting block info by text.
 
     function find_block(spec, args) {
-        var minitext = minify_spec(spec);
+        var minitext = minify(spec);
         if (minitext in block_by_text) {
             var lang_and_id = block_by_text[minitext];
             var blockid = lang_and_id.blockid;
@@ -618,7 +620,7 @@ var scratchblocks2 = function ($) {
             if (info.image_replacement) {
                 info.spec = languages[lang_and_id.lang].blocks[blockid];
             } else {
-                if (minitext === "..." || minitext === "…") spec = ". . .";
+                if (spec === "..." || spec === "…") spec = ". . .";
                 info.spec = spec;
             }
             if (info.hack) info.hack(info, args);
@@ -656,17 +658,20 @@ var scratchblocks2 = function ($) {
     }
 
     function minify(text) {
-        var minitext = text.replace(/[ \t.,%?:▶◀▸◂]/g, "").toLowerCase();
-        if (window.diacritics_removal_map) minitext = remove_diacritics(minitext);
+        var minitext = text.replace(/[.,%?:▶◀▸◂]/g, "").toLowerCase()
+                           .replace(/[ \t]+/g, " ").trim();
+        if (window.diacritics_removal_map) {
+            minitext = remove_diacritics(minitext);
+        }
         if (!minitext && text.replace(" ", "") === "...") minitext = "...";
         return minitext;
     }
 
-    function minify_spec(text) {
-        return minify(text).replace(/_/g, "");
+    // Insert padding around arguments in spec
+
+    function normalize_spec(spec) {
+        return spec.replace(/([^ ])_/g, "$1 _").replace(/_([^ ])/g, "_ $1");
     }
-
-
 
     /*** Parse block ***/
 
@@ -762,7 +767,7 @@ var scratchblocks2 = function ($) {
                 spec += piece;
             }
         }
-        return {spec: spec, args: args};
+        return {spec: normalize_spec(spec), args: args};
     }
 
     // Take block code and return block info object.
@@ -859,6 +864,7 @@ var scratchblocks2 = function ($) {
         } else {
             // unknown block
             info = {
+                blockid: spec,
                 shape: shape,
                 category: (shape === "reporter") ? "variables" : "obsolete",
                 spec: spec,
@@ -995,14 +1001,14 @@ var scratchblocks2 = function ($) {
         if (info.shape === "define-hat") {
             var pieces = info.pieces[1].pieces;
             var filtered = filter_pieces(pieces);
-            var minispec = minify_spec(filtered.spec);
+            var minispec = minify(filtered.spec);
             context.define_hats.push(minispec);
             for (var i=0; i<filtered.args.length; i++) {
                 context.custom_args.push(filtered.args[i].pieces[0]);
             }
         }
         if (info.shape === "stack" && info.category === "obsolete") {
-            var minispec = minify_spec(filter_pieces(info.pieces).spec);
+            var minispec = minify(filter_pieces(info.pieces).spec);
             if (!(minispec in context.obsolete_blocks)) {
                 context.obsolete_blocks[minispec] = [];
             }

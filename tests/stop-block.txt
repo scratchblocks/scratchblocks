@@ -3,6 +3,10 @@
 stop [all v]
 stop [this sprite v]
 
+stop [otherscriptsinsprite v]
+
 // stack
 
 stop [other scripts in sprite v]
+
+stop [other   scripts in     sprite v]

@@ -119,7 +119,7 @@ füge [thing] zu [list v] hinzu
 
 lösche (1 v) aus [list v]
 füge [thing] als (1 v) in [list v] ein
-ersetze (1 v) Element von [list v] durch [thing]
+ersetze Element (1 v) von [list v] durch [thing]
 
 (Element (1 v) von [list v])
 (Länge von [list v])
@@ -258,7 +258,7 @@ Wenn Neigung = (1)
 
 
 
-// Obsolete Scratch 1.4 blocks //
+// Obsolete Scratch 1.4 blocks
 
 // Looks
 ziehe Kostüm [costume1 v] an
