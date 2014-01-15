@@ -79,5 +79,42 @@ extra_strings = {
         "koniec": "end",
     },
 
+    "nb": { # Norwegian
+        "vend venstre _ grader": "turn @arrow-ccw _ degrees",
+        "vend høyre _ grader": "turn @arrow-cw _ degrees",
+        "når grønt flagg klikkes": "when @green-flag clicked",
+        "slutt": "end",
+    },
+
+    "ru": { # Russian
+        "повернуть влево на _ градусов": "turn @arrow-ccw _ degrees",
+        "овернуть вправо на _ градусов": "turn @arrow-cw _ degrees",
+        "когда щелкнут по зелёному флагу": "when @green-flag clicked",
+        "конец": "end",
+    },
+
+    "ca": { # Catalan
+        "gira a l'esquerra _ graus": "turn @arrow-ccw _ degrees",
+        "gira a la dreta _ graus": "turn @arrow-cw _ degrees",
+        "quan la bandera verda es premi": "when @green-flag clicked",
+        "fi": "end",
+    },
+
+    "tr": { # Turkish
+        "_ derece sola dön": "turn @arrow-ccw _ degrees",
+        "_ derece sağa dön": "turn @arrow-cw _ degrees",
+        "_ derece saatin tersi yönde dön": "turn @arrow-ccw _ degrees",
+        "_ derece saat yönünde dön": "turn @arrow-cw _ degrees",
+        "yeşil bayrak tıklandığında": "when @green-flag clicked",
+        "son": "end",
+    },
+
+    "": { # template
+        "": "turn @arrow-ccw _ degrees",
+        "": "turn @arrow-cw _ degrees",
+        "": "when @green-flag clicked",
+        "": "end",
+    },
+
 }
 
