@@ -195,7 +195,7 @@ delete this clone
 
 <touching [ v]?>
 <touching color [#f0f]?>
-<color [#f0f] is touching?>
+<color [#f0f] is touching [#0f0]?>
 (distance to [ v])
 
 ask [What's your name?] and wait
