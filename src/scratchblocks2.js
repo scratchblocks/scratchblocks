@@ -1382,7 +1382,7 @@ var scratchblocks2 = function ($) {
     }
 
     function render_block(info) {
-        if (!code) return;
+        if (!info) return;
 
         // make DOM element
         var $block = $(document.createElement("div"));
