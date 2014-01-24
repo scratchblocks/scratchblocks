@@ -92,6 +92,15 @@ String.prototype.contains = function(substring) {
     return this.indexOf(substring) !== -1;
 };
 
+String.prototype.trimLeft = function() {
+    return this.replace(/^\s+/, "");
+}
+
+String.prototype.trimRight = function() {
+    return this.replace(/\s+$/, "");
+}
+
+
 
 var scratchblocks2 = function ($) {
     "use strict";
@@ -788,7 +797,7 @@ var scratchblocks2 = function ($) {
             var define_text = strings.define[i];
             if (code.toLowerCase() === define_text || (pieces[0] &&
                     pieces[0].toLowerCase().startsWith(define_text+" "))) {
-                pieces[0] = pieces[0].slice(define_text.length).trimLeft(" ");
+                pieces[0] = pieces[0].slice(define_text.length).trimLeft();
 
                 for (var i=0; i<pieces.length; i++) {
                     var piece = pieces[i];
@@ -836,8 +845,8 @@ var scratchblocks2 = function ($) {
 
         // trim ends
         if (pieces.length) {
-            pieces[0] = pieces[0].trimLeft(" ");
-            pieces[pieces.length-1] = pieces[pieces.length-1].trimRight(" ");
+            pieces[0] = pieces[0].trimLeft();
+            pieces[pieces.length-1] = pieces[pieces.length-1].trimRight();
         }
 
         // filter out block text & args
