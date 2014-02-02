@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="scratchblocks2.css">
 <script src="scratchblocks2.js"></script>
+<script src="translations.js"></script>
 
 <style>
 textarea, #link-url, #preview {
@@ -96,6 +97,30 @@ from your 2.0 projects.
 <div>
   <button id="render">Render</button>
   <button id="clear">Clear</button>
+
+  <select id="choose-lang">
+    <option>Choose extra language...
+    <option value="de"> Deutsch (German)
+    <option value="es"> Español (Spanish)
+    <option value="fr"> Français (French)
+    <option value="zh_CN"> 中文 (Simplified Chinese)
+    <option value="pl"> Polski (Polish)
+    <option value="ja"> 日本語 (Japanese) *
+    <option value="nl"> Nederlands (Dutch)
+    <option value="pt"> Português (Portugese)
+    <option value="it"> Italiano (Italian)
+    <option value="he"> עברית (Hebrew)
+    <option value="ko"> 한국어 (Korean) *
+    <option value="nb">Norsk (Norwegian Bokmål) †
+    <option value="tr">Türkçe (Turkish)
+    <option value="el"> Ελληνικά (Greek)
+    <option value="ru"> Pусский (Russian)
+    <option value="ca"> Català (Catalan)
+    <option value="id">Indonesia (Indonesian) *
+  </select>
+
+  <small>(* = language is missing some blocks,
+          † = language doesn't have Scratch 1.4 blocks)</small>
 </div>
 
 <div id="link">
@@ -197,6 +222,18 @@ link_url.onclick = link_url.onfocus = link_url_label.onclick = function(e) {
     return false;
   };
 }
+</script>
+
+<script>
+var choose_lang = document.getElementById("choose-lang");
+choose_lang.onchange = function (e) {
+  var lang = choose_lang.value;
+  scratchblocks2.reset_languages();
+  var lang_dict = scratchblocks2._translations[lang];
+  if (lang_dict) scratchblocks2.load_language(lang_dict)
+  refresh();
+};
+choose_lang.value = "Choose extra language...";
 </script>
 
 <script>
