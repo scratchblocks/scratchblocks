@@ -109,6 +109,15 @@ extra_strings = {
         "son": "end",
     },
 
+    "el": { # Greek
+        "στρίψε αριστερά _ μοίρες": "turn @arrow-ccw _ degrees",
+        "στρίψε αριστερόστροφα _ μοίρες": "turn @arrow-ccw _ degrees",
+        "στρίψε δεξιά _ μοίρες": "turn @arrow-cw _ degrees",
+        "στρίψε δεξιόστροφα _ μοίρες": "turn @arrow-cw _ degrees",
+        "Όταν στην πράσινη σημαία γίνει κλικ": "when @green-flag clicked",
+        "τέλος": "end",
+    },
+
     "": { # template
         "": "turn @arrow-ccw _ degrees",
         "": "turn @arrow-cw _ degrees",
