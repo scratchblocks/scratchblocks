@@ -99,7 +99,7 @@ from your 2.0 projects.
   <button id="clear">Clear</button>
 
   <select id="choose-lang">
-    <option>Choose extra language...
+    <option value="">Choose extra language...
     <option value="de"> Deutsch (German)
     <option value="es"> Español (Spanish)
     <option value="fr"> Français (French)
@@ -137,8 +137,7 @@ var DEFAULT = "define dance (speed)\n\
   set [dist v] to ((speed) * (distance to [mouse-pointer v]))\n\
   repeat until ((timer) > [10])\n\
   play note (42 v) for (0.5) beats\n\
-  move (dist) steps\n\
-  wait (1) secs // Pause for a moment\n\
+  move (dist) steps // Forward a bit \n\
 end";
 
 if(typeof(String.prototype.trim) === "undefined") {
@@ -162,7 +161,12 @@ function refresh () {
   script = script.replace(/^position\:[0-9\., ]+/i, '');  // Kurt
   script = script.trim();
 
-  location.hash = '#'+encodeURIComponent(script);
+  if (choose_lang.value) {
+    location.hash = ('#?lang=' + encodeURIComponent(choose_lang.value) +
+                     '&script='+encodeURIComponent(script));
+  } else {
+    location.hash = '#'+encodeURIComponent(script);
+  }
   oldHash = location.hash;
   link_url.value = location;
 
@@ -180,17 +184,38 @@ function refresh () {
   if (ga !== undefined) {
     ga('send', 'event', 'render', 'render');
   }
+
+  console.log("refreshed");
 }
 
 function checkHash() {
   if (oldHash != location.hash) {
-    code.value = decodeURIComponent((location.href.split("#")[1] || DEFAULT));
+    var hash = location.href.split('#')[1] || DEFAULT;
+    if (/^\?/.test(hash)) {
+      parts = hash.slice(1).split('&');
+      parts.forEach(function(part) {
+        var match = /^(.*)=(.*)$/.exec(part);
+        if (!match) return;
+        var key = decodeURIComponent(match[1]);
+        var value = decodeURIComponent(match[2]);
+        console.log(value);
+        switch (key) {
+          case "lang":
+            choose_lang.value = value;
+            break;
+          case "script":
+            code.value = value;
+            break;
+        }
+      });
+      choose_lang.onchange();
+    } else {
+      code.value = decodeURIComponent(hash);
+    }
     refresh();
   }
-  window.setTimeout(checkHash, 1000);
+  window.setTimeout(checkHash, 200);
 }
-
-checkHash();
 
 document.getElementById('render').onclick = function () {
   if (ga !== undefined) {
@@ -222,18 +247,19 @@ link_url.onclick = link_url.onfocus = link_url_label.onclick = function(e) {
     return false;
   };
 }
-</script>
 
-<script>
 var choose_lang = document.getElementById("choose-lang");
 choose_lang.onchange = function (e) {
   var lang = choose_lang.value;
   scratchblocks2.reset_languages();
   var lang_dict = scratchblocks2._translations[lang];
   if (lang_dict) scratchblocks2.load_language(lang_dict)
-  refresh();
+  refresh(lang);
 };
-choose_lang.value = "Choose extra language...";
+choose_lang.value = "";
+
+checkHash();
+
 </script>
 
 <script>
