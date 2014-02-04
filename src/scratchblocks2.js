@@ -892,7 +892,8 @@ var scratchblocks2 = function ($) {
 
         // rebuild pieces (in case text has changed) and parse arguments
         var pieces = [];
-        var text_parts = info.spec.split(/([_@▶◀▸◂])/);
+        var text_parts = info.spec.split((info.blockid === "_ + _")
+                                         ? /([_@▶◀▸◂])/ : /([_@▶◀▸◂+])/);
         for (var i=0; i<text_parts.length; i++) {
             var part = text_parts[i];
             if (part === "_") {
@@ -1431,7 +1432,7 @@ var scratchblocks2 = function ($) {
                 var $image = $("<span>")
                 $image.addClass(info.image_replacement);
                 $block.append($image);
-            } else if (/[▶◀▸◂]/.test(piece)) {
+            } else if (/^[▶◀▸◂+]$/.test(piece)) {
                 $block.append(
                     $(document.createElement("span")).addClass("arrow")
                         .append(document.createTextNode(piece)));
