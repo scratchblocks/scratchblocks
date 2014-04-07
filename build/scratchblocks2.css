@@ -1090,6 +1090,8 @@
 .sb2 .reporter {
   padding: 3px 6px;
   border-width: 2px;
+  min-width: 16px;
+  min-height: 20px;
 }
 .sb2 .reporter,
 .sb2 .embedded,
@@ -1188,16 +1190,18 @@
   margin-top: -2px;
 }
 .sb2 .boolean,
-.sb2 .reporter {
+.sb2 .reporter,
+.sb2 .number,
+.sb2 .string {
   vertical-align: middle;
 }
 .sb2 .string {
-  min-width: 3px;
-  min-height: 10px;
+  min-width: 8px;
+  min-height: 16px;
 }
 .sb2 .number {
-  min-width: 3px;
-  min-height: 10px;
+  min-width: 14px;
+  min-height: 14px;
 }
 .sb2 .color {
   vertical-align: middle;

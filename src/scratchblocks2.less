@@ -655,6 +655,8 @@
     .reporter {
         padding: 3px 6px;
         border-width: 2px;
+        min-width: 16px;
+        min-height: 20px;
     }
 
     // Rounded shapes //
@@ -768,21 +770,18 @@
         }
     }
 
-    .string, .number {
-    }
-
-    .boolean, .reporter {
+    .boolean, .reporter, .number, .string {
         vertical-align: middle;
     }
 
     .string {
-        min-width: 3px;
-        min-height: 10px;
+        min-width: 8px;
+        min-height: 16px;
     }
 
     .number {
-        min-width: 3px;
-        min-height: 10px;
+        min-width: 14px;
+        min-height: 14px;
     }
 
     .color {
