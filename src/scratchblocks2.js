@@ -199,6 +199,21 @@ var scratchblocks2 = function ($) {
         osis: ["other scripts in sprite", "other scripts in stage"],
 
         blocks: [], // These are defined just below
+
+        palette: {
+            "Control": "Control",
+            "Data": "Data",
+            "Events": "Events",
+            "Looks": "Looks",
+            "More Blocks": "More Blocks",
+            "Motion": "Motion",
+            "Operators": "Operators",
+            "Pen": "Pen",
+            "Sensing": "Sensing",
+            "Sound": "Sound",
+            "List": "Lists",
+            "Variables": "Variables",
+        },
     };
 
     var english_blocks = [

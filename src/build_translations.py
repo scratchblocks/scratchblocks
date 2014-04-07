@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 
 import codecs
 import json
+import os
 import re
 
 import urllib2
@@ -64,11 +65,19 @@ def parse_po(content):
     return translations
 
 def fetch_po(lang, project):
-    filename = (lang if project == "scratch1.4" else project)
+    filename = os.path.join("_cache", "{lang}-{project}.po".format(**vars()))
+    if not os.path.exists("_cache"):
+        os.mkdir("_cache")
+    if os.path.exists(filename):
+        return open(filename).read().decode("utf-8")
+    name = (lang if project == "scratch1.4" else project)
     url = "http://translate.scratch.mit.edu/{lang}/{proj}/{name}.po/download/"
-    url = url.format(lang=lang, proj=project, name=filename)
+    url = url.format(proj=project, **vars())
+    print "GETing {url}".format(**vars())
     try:
-        return urlopen(url).read().decode("utf-8")
+        data = urlopen(url).read()
+        open(filename, "w").write(data)
+        return data.decode("utf-8")
     except urllib2.HTTPError, e:
         if e.code == 404:
             print "HTTP 404 not found:", url
@@ -114,7 +123,7 @@ for lang in LANGUAGES:
         when_distance = None
 
     end_block = None
-    extra_aliases = extra_strings.get(lang, {})
+    extra_aliases = extra_strings.get(lang, {}).copy()
     for translated_text, english_text in extra_aliases.items():
         if english_text == "end":
             end_block = translated_text
@@ -142,6 +151,13 @@ for lang in LANGUAGES:
 
         blocks_list.append(translation)
 
+    palette = dict((x, blocks.get(x) or editor.get(x)) for x in [
+        "Motion", "Looks", "Sound", "Pen", "Data", "variables", "variable",
+        "lists", "list", "Events", "Control", "Sensing", "Operators",
+        "More Blocks",
+    ])
+    palette['Tips'] = editor.get('Tips')
+
     language = {
         'code': lang,
         'aliases': extra_aliases,
@@ -150,8 +166,8 @@ for lang in LANGUAGES:
         'math': map(editor.get, ["abs", "floor", "ceiling", "sqrt", "sin", 
                                  "cos", "tan", "asin", "acos", "atan", "ln",
                                  "log", "e ^", "10 ^"]),
+        'palette': palette,
         'osis': [editor['other scripts in sprite']],
-        
         'blocks': blocks_list,
     }
     language_translations[lang] = language
