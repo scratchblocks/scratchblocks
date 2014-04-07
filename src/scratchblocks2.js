@@ -638,6 +638,8 @@ var scratchblocks2 = function ($) {
         if (spec.replace(/ /g, "") === "...") return find_block("...");
     }
 
+    sb2.find_block = find_block;
+
     // Utility function that deep clones dictionaries/lists.
 
     function clone(val) {
