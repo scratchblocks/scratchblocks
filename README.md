@@ -2,13 +2,17 @@ Render Scratch blocks code to HTML.
 
 ![Screenshot](http://blob8108.github.io/scratchblocks2/screenshot.png)
 
-**Test it [here](http://blob8108.github.io/scratchblocks2/)!**
+**[Try it out!](http://blob8108.github.io/scratchblocks2/)**
 
 ---
 
-**scratchblocks2** is used to write Scratch scripts on the [Scratch
-Forums](http://scratch.mit.edu/discuss/topic/14772/) and [Scratch
-Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin).
+**scratchblocks2** is used to write Scratch scripts:
+
+- in [Scratch Forum](http://scratch.mit.edu/discuss/topic/14772/) posts
+- in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles _(using [the MediaWiki plugin](https://github.com/blob8108/mw-ScratchBlocks2))_
+- in the [Code Club](codeclub.org.uk) project guides _(using [pandoc_scratchblocks](https://github.com/CodeClub/pandoc_scratchblocks); see [CodeClub/lesson_format](https://github.com/CodeClub/lesson_format))_
+
+It's MIT licensed, so you can use it in your projects. But email me afterward; I'd love to hear about it :)
 
 ## Syntax
 
@@ -21,15 +25,16 @@ It follows the philosophy of the original Block Plugin in that it tries to match
 the code you write as closely as possible, and doesn't check you've used the
 correct syntax. The block text is only used to find the correct colour.
 
-It also includes a few hacks, such as recognising list reporters -- just make
-sure you refer to the list explicitly somewhere:
-
-    add [something] to [list v]
-    say (list)
-
 For the full guide to the syntax, see [the
 wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
 
+## Translation
+
+The version of [`translations.js`](https://github.com/blob8108/scratchblocks2/blob/master/src/translations.js) in this repo is designed for the Scratch Forums, so it supports [all the languages there](http://scratch.mit.edu/discuss/#category_head_6).
+
+However, it _can_ be made to accept any of the languages that Scratch supports. You just need to modify and run [`build_translations.py`](https://github.com/blob8108/scratchblocks2/blob/master/src/build_translations.py) yourself, which will fetch language files from the [Scratch translation server](http://translate.scratch.mit.edu).
+
+scratchblocks2 also requires some [additional words](https://github.com/blob8108/scratchblocks2/blob/master/src/extra_strings.py) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
 
 # Usage
 
