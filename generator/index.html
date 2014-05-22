@@ -204,7 +204,7 @@ hr {
   right: 0;
 }
 #sprite-info {
-  overflow: hidden; // clearfix
+  overflow: hidden; /* clearfix */
 }
 
 
@@ -263,7 +263,7 @@ var current_id,
   chosen_scripts;
 
 function asset_url (md5) {
-  return "http://scratch.mit.edu/internalapi/asset/" + md5 + "/get/";
+  return "http://projects.scratch.mit.edu/internalapi/asset/" + md5 + "/get/";
 }
 
 function id_from_url (url) {
@@ -283,8 +283,7 @@ function fetch (id) {
     "http://scratch.mit.edu/projects/"+id);
   current_id = id;
 
-  var fetch_url = "http://www.corsproxy.com/" +
-    "scratch.mit.edu/internalapi/project/" + id + "/get/";
+  var fetch_url = "http://projects.scratch.mit.edu/internalapi/project/" + id + "/get/";
 
   clear_project();
 
@@ -293,6 +292,7 @@ function fetch (id) {
   $("#status").text("Fetching...");
 
   $.getJSON(fetch_url, function (response) {
+
     $("#status").text("Loading...");
     load_project(response);
     $("#status").text("Done!");
@@ -304,10 +304,6 @@ function fetch (id) {
     fetching = false;
     check_hash();
     $("#project-url").focus();
-  });
-
-  ga('send', 'event', 'fetch', 'fetch', {
-    'dimension2': code.value,
   });
 }
 
