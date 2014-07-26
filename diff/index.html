@@ -1,0 +1,467 @@
+<!doctype html>
+
+<meta charset=utf8>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<title>ScratchDiff</title>
+
+<link rel=stylesheet href="../scratchblocks2.css">
+
+<style>
+body {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  line-height: 1.2;
+  max-width: 46em;
+  padding: 0;
+  margin: 0 auto;
+}
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+h1 p {
+  font-size: 1rem;
+  font-weight: 300;
+  display: inline-block;
+  color: #666;
+}
+
+input, button {
+  font: inherit;
+  display: inline-block;
+}
+input {
+  font-weight: 300;
+  border: 1px solid #aaa;
+  padding: 2px 4px;
+  width: 16em;
+  font-size: 1.125em;
+  margin-right: 0.5em;
+  color: #686868;
+  background: none;
+  border: none;
+  outline: none;
+  margin-left: -4px;
+}
+input:focus {
+  background: rgba(255, 255, 255, 0.5);
+  color: black;
+}
+button {
+  font-weight: 500;
+  border: 1px solid #aaa;
+  background: #f0f0f0;
+  border-bottom-width: 3px;
+  position: relative;
+  top: -2px;
+  left: -2px;
+  vertical-align: middle;
+  /*-webkit-appearance: none;
+  outline: none;*/
+}
+button:hover {
+  /*background: #f8f8f8;*/
+}
+button:focus {
+  /*box-shadow: 0 0 1px rgba(0, 0, 255, 0.5);*/
+}
+button:active, button.pressed {
+  border-bottom-width: 1px;
+  border-top-width: 2px;
+  background: #e0e0e0;
+  baseline: 2px;
+}
+
+@media (min-width: 48em) { 
+  #left {
+    display: inline-block;
+  }
+}
+
+#right { margin-bottom: 4px; }
+@media (min-width: 28em) { 
+  #right {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+}
+
+#left, #right {
+  position: relative;
+}
+.progress {
+  background: #cde;
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 0;
+  width: 0;
+  z-index: -1;
+  opacity: 0;
+}
+.progress.animated {
+  -webkit-transition: opacity 500ms linear, width 200ms ease-out;
+}
+.progress.on {
+  opacity: 1;
+}
+
+.error .progress {
+  background: #ecc;
+  opacity: 1;
+}
+
+#header {
+  padding: 1em;
+  border-bottom: 2px solid #ccc;
+}
+
+#changes {
+  padding: 1em;
+}
+</style>
+
+
+<div id=header>
+  <h1>ScratchDiff
+    <p>Compare a project with its remix.</p>
+  </h1>
+
+  <div id=form>
+    <div id=left>
+      <div class="progress animated"></div>
+      <input value=scratch.mit.edu/projects/17088932>
+    </div>
+    <div id=right>
+      <div class=progress></div>
+      <input value=scratch.mit.edu/projects/25062650>
+    </div>
+    <button id=compare-button>Compare!</button>
+  </div>
+</div>
+
+<div id=changes>
+  <div class=sprite>
+    <div class=blocks>
+    </div>
+
+    <div class=images>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="../scratchblocks2.js"></script>
+<script src="../generator/generator.js"></script>
+<script src="difflib.js"></script>
+
+<script>
+function el(tagName, className, textContent, children) {
+  if (className === undefined) { className = tagName; tagName = 'div'; }
+  var el = document.createElement(tagName);
+  if (className) el.className = className;
+  if (textContent) el.textContent = textContent + '\u200c';
+  (children || []).forEach(function(child) {
+    el.appendChild(child);
+  });
+  return el;
+}
+
+var compareButton = document.getElementById('compare-button');
+
+function checkEnterKey(event) {
+  if (event.keyCode === 13) {
+    go();
+
+    if (event.target === compareButton) {
+      compareButton.classList.add('pressed');
+      window.setTimeout(function() {
+        compareButton.classList.remove('pressed');
+      }, 200);
+    }
+  }
+}
+compareButton.addEventListener('keydown', checkEnterKey);
+compareButton.addEventListener('click', go);
+
+var Task = function(size) {
+  this.size = size | 0;
+  this.frac = 0.0;
+};
+
+var Input = function(el) {
+  this.el = el;
+  this.input = el.querySelector('input');
+  this.progressBar = el.querySelector('.progress');
+
+  this.input.addEventListener('keydown', checkEnterKey);
+
+  var myself = this;
+  this.input.addEventListener('input', function(event) {
+    myself.fixValue();
+  });
+
+  this.tasks = [];
+};
+
+Input.prototype.getValue = function() {
+  return this.input.value.replace(/[^0-9]+/g, '');
+};
+
+Input.prototype.fixValue = function() {
+  var selStart = this.selectionStart;
+  var selEnd = this.selectionEnd;
+  this.input.value = "scratch.mit.edu/projects/" + this.getValue();
+  this.selectionStart = selStart;
+  this.selectionEnd = selEnd;
+};
+
+Input.prototype.setProgress = function(frac) {
+  var fullWidth = this.input.offsetWidth;
+  var actualFrac = frac * 0.95 + 0.05;
+  this.progressBar.style.width = (frac * fullWidth) + 'px';
+};
+
+Input.prototype.updateProgress = function(frac) {
+  var totalSize = 0;
+  var totalComplete = 0.0;
+  this.tasks.forEach(function(task) {
+    totalSize += task.size;
+    totalComplete += task.size * task.frac;
+  });
+  var frac = totalComplete / totalSize;
+  this.setProgress(frac);
+};
+
+Input.prototype.get = function(url, cb) {
+  var req = new XMLHttpRequest();
+
+  var task = new Task(5000); // arbitrary number 'cos we don't know any better
+  this.tasks.push(task);
+  var myself = this;
+  req.addEventListener('progress', function(event) {
+    if (event.lengthComputable) {
+      task.frac = event.loaded / event.total;
+      task.size = event.total;
+      myself.updateProgress();
+    }
+  });
+  this.updateProgress();
+
+  req.addEventListener('load', function(event) {
+    task.frac = 1.0;
+    myself.updateProgress();
+    cb(req.responseText);
+  });
+
+  var failed = function(event) {
+    myself.error();
+    cb(null);
+  };
+  req.addEventListener('error', failed);
+  req.addEventListener('abort', failed);
+
+  req.open('GET', url, true);
+  req.send();
+};
+
+Input.prototype.error = function() {
+  this.el.classList.add('error');
+};
+
+Input.prototype.fetch = function(cb) {
+  this.input.classList.remove('error');
+  this.tasks = [];
+
+  this.fixValue();
+  this.input.blur();
+  this.setProgress(0.05);
+  this.progressBar.classList.remove('animated');
+  window.setTimeout(function() {
+    myself.progressBar.classList.add('on');
+    myself.progressBar.classList.add('animated');
+  }, 10);
+  var id = this.getValue();
+  var url = "http://projects.scratch.mit.edu/internalapi/project/" + id + "/get/";
+
+  var myself = this;
+  this.get(url, function(data) {
+    if (!data) return;
+    try {
+      var project = JSON.parse(data);
+    } catch (e) {
+      myself.error();
+      cb(null);
+      return;
+    }
+    var assets = [];
+    var remaining = [];
+    project.children.concat([project]).forEach(function(obj) {
+      if (obj.costumes) {
+        obj.costumes.forEach(function(costume) {
+          var md5 = costume.baseLayerMD5;
+          var url = "http://cdn.scratch.mit.edu/internalapi/asset/" + md5 + "/get/";
+          myself.get(url, function(data) {
+            assets[md5] = data;
+            var index = remaining.indexOf(md5);
+            remaining.splice(index, 1);
+            if (!remaining.length) {
+              myself.progressBar.classList.remove('on');
+              cb(project, assets);
+            }
+          });
+          remaining.push(md5);
+        });
+      }
+    });
+  });
+};
+
+var leftInput = new Input(document.getElementById('left'));
+var rightInput = new Input(document.getElementById('right'));
+var changes = document.getElementById('changes');
+
+function go(event) {
+  right.blur();
+
+  changes.innerHTML = '';
+  changes.textContent = 'Fetching…'
+
+  fetchBoth(function(left, right) {
+    changes.textContent = 'Comparing…'
+
+    // DEBUG
+    window.left = left;
+    window.right = right;
+
+    var result = compare(left, right);
+    changes.innerHTML = '';
+    result.forEach(function(r) {
+      changes.appendChild(r);
+    });
+    scratchblocks2.parse('.blocks');
+  });
+}
+
+function fetchBoth(cb) {
+  var left = null;
+  var right = null;
+  leftInput.fetch(function(project) {
+    left = project;
+    if (right) cb(left, right);
+  });
+  rightInput.fetch(function(project) {
+    right = project;
+    if (left) cb(left, right);
+  });
+};
+
+function compare(left, right) {
+  var result = [];
+
+  var spriteEl = el('sprite');
+  result.push(spriteEl);
+  var scriptsEl = el('scripts');
+  spriteEl.appendChild(scriptsEl);
+  
+  function dump(scripts) {
+    var scriptTexts = scripts.map(gen.generate);
+    var text = scriptTexts.sort().join('\n\n');
+    return ('\n\n' + text + '\n\n').split('\n');
+  }
+
+  var leftText = dump(left.children[0].scripts);
+  var rightText = dump(right.children[0].scripts);
+
+  var sm = new difflib.SequenceMatcher(leftText, rightText);
+
+  var ops = [];
+  sm.get_opcodes().forEach(function(opcode) {
+    var type = opcode[0],
+        lStart = opcode[1],
+        lEnd = opcode[2],
+        rStart = opcode[3],
+        rEnd = opcode[4];
+    if (type === 'replace') {
+      ops.push({
+        type: 'delete',
+        text: leftText.slice(lStart, lEnd).join('\n'),
+      });
+      ops.push({
+        type: 'insert',
+        text: rightText.srice(lStart, lEnd).join('\n'),
+      });
+    } else {
+      ops.push({
+        type: type,
+        text: (leftText.slice(lStart, lEnd).join('\n') ||
+               rightText.slice(rStart, rEnd).join('\n')),
+      });
+    }
+  });
+
+  // Remove redundant scripts
+  ops.forEach(function(op) {
+    if (op.type === 'equal') {
+      var scripts = op.text.split('\n\n');
+      if (scripts.length > 2) {
+        op.text = [scripts[0], '…', scripts[scripts.length -1]].join('\n\n');
+      }
+    }
+  });
+
+  window.ops = ops; // DEBUG
+
+  var scriptText = '';
+  ops.forEach(function(op) {
+    var text = op.text;
+    switch (op.type) {
+      case 'insert':
+        text = text.split('\n').map(function(line) {
+          return line + ' :: insert';
+        }).join('\n');
+        break;
+      case 'delete':
+        text = text.split('\n').map(function(line) {
+          return line + ' :: delete';
+        }).join('\n');
+        break;
+      default:
+        text = text.split('\n').map(function(line) {
+          return line + ' :: transparent';
+        }).join('\n');
+        break;
+    }
+    scriptText += text + '\n';
+  });
+  scriptsEl.appendChild(el('div', 'blocks', scriptText.trim()));
+  console.log(scriptText);
+
+  var op;
+  switch (op) {
+    case 'equal':
+      return;
+    case 'replace':
+      return;
+    case 'delete':
+      return;
+  }
+
+  return result;
+}
+
+function compareScripts() {
+}
+
+</script>
