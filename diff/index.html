@@ -6,7 +6,7 @@
 
 <title>ScratchDiff</title>
 
-<link rel=stylesheet href="../scratchblocks2.css">
+<link rel=stylesheet href="scratchblocks2.css">
 
 <style>
 body {
@@ -15,6 +15,7 @@ body {
   max-width: 46em;
   padding: 0;
   margin: 0 auto;
+  padding-bottom: 2em;
 }
 * {
   box-sizing: border-box;
@@ -26,6 +27,7 @@ h1 {
   padding: 0;
 }
 h1 p {
+  padding-left: 0.5em;
   font-size: 1rem;
   font-weight: 300;
   display: inline-block;
@@ -106,7 +108,7 @@ button:active, button.pressed {
   opacity: 0;
 }
 .progress.animated {
-  transition: opacity 500ms linear, width 200ms ease-out;
+  transition: opacity 500ms linear, width 150ms ease-out;
 }
 .progress.on {
   opacity: 1;
@@ -117,9 +119,14 @@ button:active, button.pressed {
   opacity: 1;
 }
 
+.content.error {
+  font-size: 1.5em;
+  font-weight: 300;
+}
+
 #header {
   padding: 1em;
-  border-bottom: 2px solid #888;
+  border-bottom: 2px solid #666;
   margin-bottom: 1em;
 }
 
@@ -131,27 +138,106 @@ h2 {
   font-size: 1.25em;
   border-bottom: 1px solid #ccc;
 }
+h2.insert:before,
+h2.delete:before {
+  position: absolute;
+  top: 0.25em;
+  bottom: 0.25em;
+  left: 0;
+  width: 4px;
+  content: "";
+}
+h2.insert:before {
+  background: #0c1;
+}
+h2.delete:before {
+  background: #f00;
+}
 h3 {
   font-weight: 600;
   font-size: 1em;
 }
+h2, h3 {
+  cursor: pointer;
+  position: relative;
+}
 h2, h3, .content {
   padding: 0.25em 1em;
-  position: relative;
-  cursor: pointer;
 }
 .disclosure-triangle {
   display: inline-block;
   font-size: 0.5em;
   position: absolute;
-  left: 0;
-  width: 1rem;
+  left: 4px;
+  width: 12px;
   text-align: center;
   line-height: 1.2rem;
   transition: transform 100ms linear;
 }
 .disclosure-triangle.closed {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
   transform: rotate(-90deg);
+}
+.closeable.closed {
+  display: none;
+}
+
+.media {
+  overflow: auto;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  padding: 2px;
+}
+.media img, .media .play-button {
+  background: #eee;
+  max-width: 80px;
+  max-height: 80px;
+  border: 1px solid #ccc;
+  float: left;
+}
+.media .name {
+  margin-top: 8px;
+  margin-left: 100px;
+}
+.play-button {
+  width: 80px;
+  height: 32px;
+  text-align: center;
+  border: 1px solid #ccc;
+  content: "▶";
+  padding: 8px;
+}
+.media.insert {
+ box-shadow: 0 0 8px #0c1;
+}
+.media.delete {
+  box-shadow: 0 0 8px #f00;
+  z-index: 104;
+}
+
+.hint {
+  font-size: 0.8em;
+}
+.hint .insert {
+  color: #0c1;
+}
+.hint .delete {
+  color: #f00;
+}
+
+.footer {
+  margin-top: 1.5rem;
+  border-top: 1px solid #ccc;
+  padding-top: 0.5rem;
+  color: #ccc;
+  font-size: 0.8em;
+  font-weight: 400;
+  text-align: right;
+}
+.footer a {
+  text-decoration: none;
+  color: inherit;
 }
 </style>
 
@@ -183,7 +269,7 @@ h2, h3, .content {
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="../scratchblocks2.js"></script>
+<script src="scratchblocks2.js"></script>
 <script src="../generator/generator.js"></script>
 <script src="difflib.js"></script>
 
@@ -208,14 +294,18 @@ function makeSection(big, text) {
   var section = el('closeable');
   heading.addEventListener('click', function() {
     triangle.classList.toggle('closed');
-    $(section).slideToggle();
-    //section.classList.toggle('closed');
+    section.classList.toggle('closed');
   });
   if (!big) {
     var content = el('content');
     section.appendChild(content);
   }
-  return { heading: heading, section: section, content: content || section };
+  return {
+    heading: heading,
+    triangle: triangle,
+    section: section,
+    content: content || section,
+  };
 }
 
 var compareButton = document.getElementById('compare-button');
@@ -250,6 +340,7 @@ var Input = function(el) {
   var myself = this;
   this.input.addEventListener('input', function(event) {
     myself.fixValue();
+    updateHash();
   });
 
   this.tasks = [];
@@ -262,15 +353,21 @@ Input.prototype.getValue = function() {
 Input.prototype.fixValue = function() {
   var selStart = this.selectionStart;
   var selEnd = this.selectionEnd;
-  this.input.value = "scratch.mit.edu/projects/" + this.getValue();
+  this.setValue(this.getValue());
   this.selectionStart = selStart;
   this.selectionEnd = selEnd;
 };
 
+Input.prototype.setValue = function(value) {
+  value = value.replace(/[^0-9]+/g, '');
+  var newValue = "scratch.mit.edu/projects/" + value;
+  if (this.input.value !== newValue) this.input.value = newValue;
+}
+
 Input.prototype.setProgress = function(frac) {
   var fullWidth = this.input.offsetWidth;
-  var actualFrac = frac * 0.95 + 0.05;
-  this.progressBar.style.width = (frac * fullWidth) + 'px';
+  var actualFrac = (frac * 0.95) + 0.05;
+  this.progressBar.style.width = (actualFrac * fullWidth) + 'px';
 };
 
 Input.prototype.updateProgress = function(frac) {
@@ -284,13 +381,13 @@ Input.prototype.updateProgress = function(frac) {
   this.setProgress(frac);
 };
 
-Input.prototype.get = function(url, cb) {
-  var req = new XMLHttpRequest();
+Input.prototype.get = function(url, type, cb) {
+  var xhr = new XMLHttpRequest();
 
-  var task = new Task(5000); // arbitrary number 'cos we don't know any better
+  var task = new Task(5000); // arbitrary number, 'cos we don't know any better
   this.tasks.push(task);
   var myself = this;
-  req.addEventListener('progress', function(event) {
+  xhr.addEventListener('progress', function(event) {
     if (event.lengthComputable) {
       task.frac = event.loaded / event.total;
       task.size = event.total;
@@ -299,22 +396,23 @@ Input.prototype.get = function(url, cb) {
   });
   this.updateProgress();
 
-  req.addEventListener('load', function(event) {
+  xhr.addEventListener('load', function(event) {
     task.frac = 1.0;
     myself.updateProgress();
-    cb(req.responseText);
+    cb(xhr.response);
   });
 
   var failed = function(event) {
+    console.log(event);
     myself.error();
     cb(null);
-    event.preventDefault();
   };
-  req.addEventListener('error', failed);
-  req.addEventListener('abort', failed);
+  xhr.addEventListener('error', failed);
+  xhr.addEventListener('abort', failed);
 
-  req.open('GET', url, true);
-  req.send();
+  xhr.open('GET', url, true);
+  xhr.responseType = type;
+  xhr.send();
 };
 
 Input.prototype.error = function() {
@@ -322,7 +420,7 @@ Input.prototype.error = function() {
 };
 
 Input.prototype.fetch = function(cb) {
-  this.input.classList.remove('error');
+  this.el.classList.remove('error');
   this.tasks = [];
 
   this.fixValue();
@@ -337,13 +435,16 @@ Input.prototype.fetch = function(cb) {
   var url = "http://projects.scratch.mit.edu/internalapi/project/" + id + "/get/";
 
   var myself = this;
-  this.get(url, function(data) {
-    if (!data) return;
+  this.get(url, '', function(data) {
+    if (!data) {
+      cb(null, {});
+      return;
+    }
     try {
       var project = JSON.parse(data);
     } catch (e) {
       myself.error();
-      cb(null);
+      cb(null, {});
       return;
     }
     var assets = [];
@@ -352,13 +453,13 @@ Input.prototype.fetch = function(cb) {
       if (obj.costumes) {
         obj.costumes.forEach(function(costume) {
           var md5 = costume.baseLayerMD5;
-          var url = "http://cdn.scratch.mit.edu/internalapi/asset/" + md5 + "/get/";
-          myself.get(url, function(data) {
+          var url = assetURL(md5);
+          myself.get(url, 'blob', function(data) {
             assets[md5] = data;
             var index = remaining.indexOf(md5);
             remaining.splice(index, 1);
             if (!remaining.length) {
-              setInterval(function() {
+              window.setInterval(function() {
                 myself.progressBar.classList.remove('on');
               }, 500);
               cb(project, assets);
@@ -371,9 +472,31 @@ Input.prototype.fetch = function(cb) {
   });
 };
 
+function assetURL(md5) {
+  return "http://cdn.scratch.mit.edu/internalapi/asset/" + md5 + "/get/";
+}
+
 var leftInput = new Input(document.getElementById('left'));
 var rightInput = new Input(document.getElementById('right'));
 var changes = document.getElementById('changes');
+
+function updateHash() {
+  window.location.hash = leftInput.getValue() + '+' + rightInput.getValue();
+}
+function readHash() {
+  var hash = window.location.hash;
+  if (hash) {
+    var parts = hash.split('+');
+    if (parts.length == 2) {
+      leftInput.setValue(parts[0]);
+      rightInput.setValue(parts[1]);
+    }
+  }
+  updateHash();
+}
+readHash();
+if (leftInput.getValue() && rightInput.getValue()) go();
+window.setInterval(readHash, 500);
 
 function go(event) {
   compareButton.blur();
@@ -382,36 +505,53 @@ function go(event) {
   var status = el('div', 'content', 'Fetching…');
   changes.appendChild(status);
 
-  fetchBoth(function(left, right) {
+  fetchBoth(function(left, right, assets) {
     status.textContent = 'Comparing…'
+
+    if (left === null || right === null) {
+      status.textContent = 'Whoops! Something went wrong.';
+      status.classList.add('error');
+      return;
+    }
 
     // DEBUG
     window.left = left;
     window.right = right;
 
-    var result = compare(left, right);
-    changes.innerHTML = '';
+    var result = compare(left, right, assets);
+    changes.innerHTML = '<div class="content hint">Additions highlighted <span class=insert>green</span>, removals highlighted <span class=delete>red</span>.';
     result.forEach(function(r) {
       changes.appendChild(r);
     });
+
+    var footer = el('div', 'footer');
+    footer.innerHTML = 'Uses <a href="//github.com/cemerick/jsdifflib">jsdifflib</a>';
+    changes.appendChild(footer);
     scratchblocks2.parse('.blocks');
   });
 }
 
 function fetchBoth(cb) {
-  var left = null;
-  var right = null;
-  leftInput.fetch(function(project) {
+  var left;
+  var right;
+  var bothAssets = {};
+  leftInput.fetch(function(project, assets) {
     left = project;
-    if (right) cb(left, right);
+    Object.keys(assets).forEach(function(md5) {
+      bothAssets[md5] = assets[md5];
+    });
+    if (right !== undefined) cb(left, right, bothAssets);
   });
-  rightInput.fetch(function(project) {
+  rightInput.fetch(function(project, assets) {
     right = project;
-    if (left) cb(left, right);
+    Object.keys(assets).forEach(function(md5) {
+      bothAssets[md5] = assets[md5];
+    });
+    if (left !== undefined) cb(left, right, bothAssets);
   });
 };
 
-function compare(left, right) {
+function compare(left, right, assets) {
   var result = [];
 
   function getSprites(project) {
@@ -437,54 +577,121 @@ function compare(left, right) {
     var section = s.section;
     result.push(s.heading);
     result.push(s.section);
+    var different = false;
 
     var leftObj = leftSprites[name];
     var rightObj = rightSprites[name];
 
-    var costumes = compareMedia('costumes', leftObj, rightObj);
+    if (!leftObj) {
+      s.heading.classList.add('insert');
+    } else if (!rightObj) {
+      s.heading.classList.add('delete');
+    } 
+
+    var costumes = compareMedia('costumes', leftObj, rightObj, assets);
     if (costumes) {
-      var s = makeSection(false, 'Costumes');
-      var costumes = s.content;
-      result.push(s.heading);
-      result.push(s.section);
+      var b = makeSection(false, 'Costumes');
+      b.content.appendChild(costumes);
+      s.content.appendChild(b.heading);
+      s.content.appendChild(b.section);
+      different = true;
     }
 
-    var sounds = compareMedia('sounds', leftObj, rightObj);
+    var sounds = compareMedia('sounds', leftObj, rightObj, assets);
     if (sounds) {
-      var s = makeSection(false, 'Sounds');
-      s.content.appendChild(sounds);
-      result.push(s.heading);
-      result.push(s.section);
+      var b = makeSection(false, 'Sounds');
+      b.content.appendChild(sounds);
+      s.content.appendChild(b.heading);
+      s.content.appendChild(b.section);
+      different = true;
     }
 
     var blocks = compareScripts(leftObj, rightObj);
     if (blocks) {
-      var s = makeSection(false, 'Scripts');
-      s.content.appendChild(blocks);
-      result.push(s.heading);
-      result.push(s.section);
+      var b = makeSection(false, 'Scripts');
+      b.content.appendChild(blocks);
+      s.content.appendChild(b.heading);
+      s.content.appendChild(b.section);
+      different = true;
+    }
+
+    if (!different) {
+      s.heading.removeChild(s.triangle);
     }
   });
 
   return result;
 }
 
-function compareMedia() {
+function compareMedia(kind, leftChild, rightChild, assets) {
+  function dump(child) {
+    if (!child || !child[kind]) return [];
+    return child[kind].map(function(media) {
+      return {
+        md5: media.md5 || media.baseLayerMD5,
+        name: media.costumeName || media.soundName,
+      };
+    });
+  }
+
+  var leftSeq = dump(leftChild);
+  var rightSeq = dump(rightChild);
+
+  var result = el('div', kind);
+
+  var ops = diff(leftSeq, rightSeq);
+  if (!ops.length) return;
+  if (ops.length === 1 && ops[0].type == 'equal') return;
+
+  ops.forEach(function(op) {
+    console.log(op);
+    op.range.forEach(function(media) {
+      if (kind === 'costumes') {
+        var icon = el('img', null);
+        icon.src = URL.createObjectURL(assets[media.md5]);
+      } else if (kind === 'sounds') {
+        var icon = el('div', 'play-button', '▶');
+        icon.addEventListener('click', function(event) {
+          console.log(assets[media.md5]);
+        });
+      }
+      var link = el('a', null);
+      link.href = assetURL(media.md5);
+      link.appendChild(icon);
+
+      result.appendChild(el('div', op.type + ' media', null, [
+        link,
+        el('div', 'name', media.name),
+      ]));
+    });
+  });
+
+  return result;
+  //if (result.children) return result;
 }
 
 function compareScripts(leftChild, rightChild) {
-  function dump(scripts) {
-    var scriptTexts = scripts.map(gen.generate);
+  function dump(child) {
+    if (!child || !child.scripts) return [];
+    var scriptTexts = child.scripts.map(gen.generate);
     var text = scriptTexts.sort().join('\n\n');
     return ('\n\n' + text + '\n\n').split('\n');
   }
 
-  var leftText = dump(leftChild.scripts || []);
-  var rightText = dump(rightChild.scripts || []);
+  var leftText = dump(leftChild);
+  var rightText = dump(rightChild);
 
   var sm = new difflib.SequenceMatcher(leftText, rightText);
 
-  var ops = [];
+  var ops = diff(leftText, rightText).map(function(op) {
+    return {
+      type: op.type,
+      text: op.range.join('\n'),
+    }
+  });
+
+  /*
+    var ops = [];
   sm.get_opcodes().forEach(function(opcode) {
     var type = opcode[0],
         lStart = opcode[1],
@@ -508,6 +715,7 @@ function compareScripts(leftChild, rightChild) {
       });
     }
   });
+  */
 
   // Remove redundant scripts
   ops.forEach(function(op) {
@@ -542,8 +750,49 @@ function compareScripts(leftChild, rightChild) {
     scriptText += text + '\n';
   });
   scriptText = scriptText.trim();
-  if (!scriptText || scriptText === '…') return;
+  if (scriptText === '' || scriptText === ':: transparent' ||
+      scriptText === '… :: transparent') return;
   return el('div', 'blocks', scriptText);
+}
+
+function diff(left, right) {
+  var sm = new difflib.SequenceMatcher(left, right);
+
+  var ops = [];
+  sm.get_opcodes().forEach(function(opcode) {
+    var type = opcode[0],
+        lStart = opcode[1],
+        lEnd = opcode[2],
+        rStart = opcode[3],
+        rEnd = opcode[4];
+    switch (type) {
+      case 'replace':
+        ops.push({
+          type: 'delete',
+          range: left.slice(lStart, lEnd),
+        });
+        ops.push({
+          type: 'insert',
+          range: right.slice(rStart, rEnd),
+        });
+        break;
+      case 'delete':
+        ops.push({
+          type: type,
+          range: left.slice(lStart, lEnd),
+        });
+        break;
+      case 'insert':
+      case 'equal':
+        ops.push({
+          type: type,
+          range: right.slice(rStart, rEnd),
+        });
+        break;
+    }
+  });
+
+  return ops;
 }
 
 </script>
