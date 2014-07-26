@@ -106,7 +106,7 @@ button:active, button.pressed {
   opacity: 0;
 }
 .progress.animated {
-  -webkit-transition: opacity 500ms linear, width 200ms ease-out;
+  transition: opacity 500ms linear, width 200ms ease-out;
 }
 .progress.on {
   opacity: 1;
@@ -119,11 +119,39 @@ button:active, button.pressed {
 
 #header {
   padding: 1em;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid #888;
+  margin-bottom: 1em;
 }
 
 #changes {
-  padding: 1em;
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 1.25em;
+  border-bottom: 1px solid #ccc;
+}
+h3 {
+  font-weight: 600;
+  font-size: 1em;
+}
+h2, h3, .content {
+  padding: 0.25em 1em;
+  position: relative;
+  cursor: pointer;
+}
+.disclosure-triangle {
+  display: inline-block;
+  font-size: 0.5em;
+  position: absolute;
+  left: 0;
+  width: 1rem;
+  text-align: center;
+  line-height: 1.2rem;
+  transition: transform 100ms linear;
+}
+.disclosure-triangle.closed {
+  transform: rotate(-90deg);
 }
 </style>
 
@@ -147,13 +175,6 @@ button:active, button.pressed {
 </div>
 
 <div id=changes>
-  <div class=sprite>
-    <div class=blocks>
-    </div>
-
-    <div class=images>
-    </div>
-  </div>
 </div>
 
 
@@ -171,11 +192,30 @@ function el(tagName, className, textContent, children) {
   if (className === undefined) { className = tagName; tagName = 'div'; }
   var el = document.createElement(tagName);
   if (className) el.className = className;
-  if (textContent) el.textContent = textContent + '\u200c';
+  if (textContent) el.textContent = textContent;
   (children || []).forEach(function(child) {
     el.appendChild(child);
   });
   return el;
+}
+
+function makeSection(big, text) {
+  var triangle = el('span', 'disclosure-triangle', '▼');
+  var heading = el(big ? 'h2' : 'h3', null, null, [
+    triangle,
+    document.createTextNode(text),
+  ]);
+  var section = el('closeable');
+  heading.addEventListener('click', function() {
+    triangle.classList.toggle('closed');
+    $(section).slideToggle();
+    //section.classList.toggle('closed');
+  });
+  if (!big) {
+    var content = el('content');
+    section.appendChild(content);
+  }
+  return { heading: heading, section: section, content: content || section };
 }
 
 var compareButton = document.getElementById('compare-button');
@@ -268,6 +308,7 @@ Input.prototype.get = function(url, cb) {
   var failed = function(event) {
     myself.error();
     cb(null);
+    event.preventDefault();
   };
   req.addEventListener('error', failed);
   req.addEventListener('abort', failed);
@@ -317,7 +358,9 @@ Input.prototype.fetch = function(cb) {
             var index = remaining.indexOf(md5);
             remaining.splice(index, 1);
             if (!remaining.length) {
-              myself.progressBar.classList.remove('on');
+              setInterval(function() {
+                myself.progressBar.classList.remove('on');
+              }, 500);
               cb(project, assets);
             }
           });
@@ -333,13 +376,14 @@ var rightInput = new Input(document.getElementById('right'));
 var changes = document.getElementById('changes');
 
 function go(event) {
-  right.blur();
+  compareButton.blur();
 
   changes.innerHTML = '';
-  changes.textContent = 'Fetching…'
+  var status = el('div', 'content', 'Fetching…');
+  changes.appendChild(status);
 
   fetchBoth(function(left, right) {
-    changes.textContent = 'Comparing…'
+    status.textContent = 'Comparing…'
 
     // DEBUG
     window.left = left;
@@ -370,19 +414,73 @@ function fetchBoth(cb) {
 function compare(left, right) {
   var result = [];
 
-  var spriteEl = el('sprite');
-  result.push(spriteEl);
-  var scriptsEl = el('scripts');
-  spriteEl.appendChild(scriptsEl);
-  
+  function getSprites(project) {
+    var sprites = {};
+    sprites['Stage'] = project;
+    project.children.forEach(function(child) {
+      if (child.objName && child.scripts) {
+        sprites[child.objName] = child;
+      }
+    });
+    return sprites;
+  }
+  var leftSprites = getSprites(left);
+  var rightSprites = getSprites(right);
+
+  var spriteNames = Object.keys(leftSprites);
+  Object.keys(rightSprites).forEach(function(name) {
+    if (spriteNames.indexOf(name) === -1) spriteNames.push(name);
+  });
+
+  spriteNames.forEach(function(name) {
+    var s = makeSection(true, name);
+    var section = s.section;
+    result.push(s.heading);
+    result.push(s.section);
+
+    var leftObj = leftSprites[name];
+    var rightObj = rightSprites[name];
+
+    var costumes = compareMedia('costumes', leftObj, rightObj);
+    if (costumes) {
+      var s = makeSection(false, 'Costumes');
+      var costumes = s.content;
+      result.push(s.heading);
+      result.push(s.section);
+    }
+
+    var sounds = compareMedia('sounds', leftObj, rightObj);
+    if (sounds) {
+      var s = makeSection(false, 'Sounds');
+      s.content.appendChild(sounds);
+      result.push(s.heading);
+      result.push(s.section);
+    }
+
+    var blocks = compareScripts(leftObj, rightObj);
+    if (blocks) {
+      var s = makeSection(false, 'Scripts');
+      s.content.appendChild(blocks);
+      result.push(s.heading);
+      result.push(s.section);
+    }
+  });
+
+  return result;
+}
+
+function compareMedia() {
+}
+
+function compareScripts(leftChild, rightChild) {
   function dump(scripts) {
     var scriptTexts = scripts.map(gen.generate);
     var text = scriptTexts.sort().join('\n\n');
     return ('\n\n' + text + '\n\n').split('\n');
   }
 
-  var leftText = dump(left.children[0].scripts);
-  var rightText = dump(right.children[0].scripts);
+  var leftText = dump(leftChild.scripts || []);
+  var rightText = dump(rightChild.scripts || []);
 
   var sm = new difflib.SequenceMatcher(leftText, rightText);
 
@@ -400,7 +498,7 @@ function compare(left, right) {
       });
       ops.push({
         type: 'insert',
-        text: rightText.srice(lStart, lEnd).join('\n'),
+        text: rightText.slice(lStart, lEnd).join('\n'),
       });
     } else {
       ops.push({
@@ -421,8 +519,6 @@ function compare(left, right) {
     }
   });
 
-  window.ops = ops; // DEBUG
-
   var scriptText = '';
   ops.forEach(function(op) {
     var text = op.text;
@@ -439,29 +535,15 @@ function compare(left, right) {
         break;
       default:
         text = text.split('\n').map(function(line) {
-          return line + ' :: transparent';
+          return line ? line + ' :: transparent' : '';
         }).join('\n');
         break;
     }
     scriptText += text + '\n';
   });
-  scriptsEl.appendChild(el('div', 'blocks', scriptText.trim()));
-  console.log(scriptText);
-
-  var op;
-  switch (op) {
-    case 'equal':
-      return;
-    case 'replace':
-      return;
-    case 'delete':
-      return;
-  }
-
-  return result;
-}
-
-function compareScripts() {
+  scriptText = scriptText.trim();
+  if (!scriptText || scriptText === '…') return;
+  return el('div', 'blocks', scriptText);
 }
 
 </script>
