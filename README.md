@@ -10,7 +10,7 @@ Render Scratch blocks code to HTML.
 
 - in [Scratch Forum](http://scratch.mit.edu/discuss/topic/14772/) posts
 - in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles _(using [the MediaWiki plugin](https://github.com/blob8108/mw-ScratchBlocks2))_
-- in the [Code Club](codeclub.org.uk) project guides _(using [pandoc_scratchblocks](https://github.com/CodeClub/pandoc_scratchblocks); see [CodeClub/lesson_format](https://github.com/CodeClub/lesson_format))_
+- in the [Code Club](https://www.codeclub.org.uk) project guides _(using [pandoc_scratchblocks](https://github.com/CodeClub/pandoc_scratchblocks); see [CodeClub/lesson_format](https://github.com/CodeClub/lesson_format))_
 
 It's MIT licensed, so you can use it in your projects. But email me afterward; I'd love to hear about it :)
 
