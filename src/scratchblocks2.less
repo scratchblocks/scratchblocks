@@ -21,6 +21,9 @@
 @background: #fff;
 @text: #000;
 
+@border: #888;
+@arrow: #888;
+
 
 // Category colours
 
@@ -156,22 +159,21 @@
 
 
 // Misc
-@custom_outline: #8257ad;
-@custom_definition_top: #8e2ec2;
+@custom_outline: @border;
+@custom_definition_top: @border;
 @number_dropdown_arrow: #666;
-@background: #fff;
 
 
 // Comments
-@comment_bg: #ffffd2;
-@comment_bg_hover: rgba(255, 255, 210, 0.6); // #ffffd2
+@comment_bg: @background;
+@comment_bg_hover: @background;
 @comment_border: #d0d1d2;
-@comment_join: #ffff80;
+@comment_join: @comment_border;
 @comment_text: #505050;
 
 
 // Variadic arrows
-@variadic_arrow: #000;
+@variadic_arrow: @arrow;
 
 // Z-indexes //
 @z_container: 100;
@@ -194,9 +196,8 @@
 
 
 .stack-color(@category) {
-    background-color: ~"@{@{category}_bg}";
-    border-color: ~"@{@{category}_btop}" ~"@{@{category}_bbot}"
-                  ~"@{@{category}_bbot}" ~"@{@{category}_btop}";
+    background-color: @background;
+    border-color: @border;
 }
 
 
@@ -205,8 +206,7 @@
     (~".@{category}") {
         &.stack, &.cap {
             &:before {
-                border-color: ~"@{@{category}_bbot}" ~"@{@{category}_btop}"
-                              ~"@{@{category}_btop}" ~"@{@{category}_bbot}";
+                border-color: @border;
             }
         }
 
@@ -217,12 +217,11 @@
         }
 
         > .dropdown, > .boolean.empty, > .color {
-            background: ~"@{@{category}_inset}";
-            border-color: ~"@{@{category}_itop}" ~"@{@{category}_ibot}"
-                          ~"@{@{category}_ibot}" ~"@{@{category}_itop}";
+            background: @background;
+            border-color: @border;
 
             &:after {
-                color: ~"@{@{category}_arrow}";
+                color: @number_dropdown_arrow;
             }
         }
 
@@ -230,22 +229,20 @@
 
         > .ring-inner {
             background-color: @background;
-            border-color: ~"@{@{category}_bbot}" ~"@{@{category}_btop}"
-                          ~"@{@{category}_btop}" ~"@{@{category}_bbot}";
+            border-color: @border;
             &:before {
-                border-color: ~"@{@{category}_btop}" ~"@{@{category}_bbot}"
-                              ~"@{@{category}_bbot}" ~"@{@{category}_btop}";
+                border-color: @border;
             }
         }
 
 
         &.hat:before {
-            border-right-color: ~"@{@{category}_btop}";
+            border-right-color: @border;
         }
 
         // Remove white top stub from stack blocks in rings...
         > .stack:before {
-            background: ~"@{@{category}_bg}";
+            background: @background;
         }
 
         // ...but reset it to white inside C block mouths
@@ -305,9 +302,8 @@
         background: red;
     }
     .stack, .reporter, .embedded, .hat, .define-hat, .boolean {
-        background-color: @obsolete_bg;
-        border-color: @obsolete_btop @obsolete_bbot
-                      @obsolete_bbot @obsolete_btop;
+        background-color: @background;
+        border-color: @border;
     }
 
     // Scripts are stacks of blocks //
@@ -487,7 +483,7 @@
         .border-radius(0 0 5px 5px);
 
         &:before {
-            border-color: @custom_definition_top;
+            border-color: @border;
             border-top-width: 4px;
             height: @custom_definition_height;
             margin-top: -(@custom_definition_height - 3px);
@@ -515,7 +511,7 @@
         margin-left: 5px;
         margin: 4px 0 4px 5px;
         position: relative;
-        background: @custom_bg;
+        background: @background;
         vertical-align: middle;
         .box-sizing_content-box;
 
@@ -612,11 +608,10 @@
     }
 
     .number, .number-dropdown, .string {
-        background: #fff;
-        color: #000;
+        background: @background;
+        color: @text;
         border: 1px solid #a59e97;
-        border-color: #777 #fff #fff #777;
-        // box-shadow: 1px 1px 1px #8f958a inset;
+        border-color: @border;
         padding: 1px 4px;
     }
 
@@ -676,11 +671,14 @@
         vertical-align: middle;
         width: 16px;
         height: 13px;
-        background: url(block_images/arrows.png) 0 0 no-repeat;
+        background: @background;
 
         & > span {
-            display: none;
+            background: @background;
+            color: @arrow;
+            font-size: 16px;
         }
+
     }
     .arrow-ccw {
         background-position: 0 -13px;
