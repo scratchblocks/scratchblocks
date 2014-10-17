@@ -216,6 +216,11 @@ var scratchblocks2 = function ($) {
         },
     };
 
+    var image_text = {
+        "arrow-cw": "↻",
+        "arrow-ccw": "↺",
+    };
+
     var english_blocks = [
         ["motion"],
 
@@ -1448,6 +1453,9 @@ var scratchblocks2 = function ($) {
             } else if (piece === "@" && info.image_replacement) {
                 var $image = $("<span>")
                 $image.addClass(info.image_replacement);
+                var $span = $("<span>")
+                $span.text(image_text[info.image_replacement]);
+                $image.append($span);
                 $block.append($image);
             } else if (/^[▶◀▸◂+]$/.test(piece)) {
                 $block.append(

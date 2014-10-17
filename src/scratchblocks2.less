@@ -18,6 +18,10 @@
  */
 
 
+@background: #fff;
+@text: #fff;
+
+
 // Category colours
 
 /*
@@ -254,7 +258,7 @@
 .sb2 {
     font-family: "Lucida Grande", Verdana, Arial, "DejaVu Sans", sans-serif;
     font-weight: bold;
-    color: white;
+    color: @text;
     font-size: 10px;
     line-height: 10px;
     margin: 10px 0;
@@ -673,6 +677,10 @@
         width: 16px;
         height: 13px;
         background: url(block_images/arrows.png) 0 0 no-repeat;
+
+        & > span {
+            display: none;
+        }
     }
     .arrow-ccw {
         background-position: 0 -13px;
