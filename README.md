@@ -47,7 +47,7 @@ For a more detailed explanation, or if you want to host the files yourself, read
 You need to include jQuery (in the `<head>` of your page):
 
 ```html
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+<script src="//code.jquery.com/jquery-2.1.1.js"></script>
 ```
 
 Then include the scratchblocks2 CSS and JS:
