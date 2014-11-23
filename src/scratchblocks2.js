@@ -472,20 +472,34 @@ var scratchblocks2 = function ($) {
 
         ["extension"],
 
+        // PicoBoard
+
         ["when _", ["hat"]],
+        ["when _ _ _", ["hat"]],
         ["sensor _?", []],
         ["_ sensor value", []],
+
+        // LEGO WeDo
+
+        ["turn _ on for _ secs", []],
+        ["turn _ on", []],
+        ["turn _ off", []],
+        ["set _ power _", []],
+        ["set _ direction _", []],
+        ["when distance _ _", ["hat"]],
+        ["when tilt _ _", ["hat"]],
+        ["distance", []],
+        ["tilt", []],
+
+        // LEGO WeDo (old)
 
         ["turn motor on for _ secs", []],
         ["turn motor on", []],
         ["turn motor off", []],
         ["set motor power _", []],
         ["set motor direction _", []],
-
         ["when distance < _", ["hat"]],
         ["when tilt = _", ["hat"]],
-        ["distance", []],
-        ["tilt", []],
 
         // Scratch 1.4
 

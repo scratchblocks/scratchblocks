@@ -252,22 +252,34 @@ reset timer
 
 
 
-// Extension
+// PicoBoard
 
 when [button pressed v]
+when [slider v] [> v] (50)
 <sensor [button pressed v] ?>
 ([slider v] sensor value)
+
+// Lego WeDo
+
+turn [motor v] on for (1) secs
+turn [motor v] on
+turn [motor v] off
+set [motor v] power (100)
+set [motor v] direction [this way v]
+when distance [< v] (20)
+when tilt [= v] (1)
+(distance)
+(tilt)
+
+// Lego WeDo (old)
 
 turn motor on for (1) secs
 turn motor on
 turn motor off
 set motor power (100)
 set motor direction [this way v]
-
-when distance < (20) 
-when tilt = (1) 
-(distance)
-(tilt)
+when distance < (20)
+when tilt = (1)
 
 
 //
