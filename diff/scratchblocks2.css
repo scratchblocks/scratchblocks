@@ -772,7 +772,8 @@
 .sb2 .cwrap,
 .sb2 .cwrap > *,
 .sb2 .cmouth,
-.sb2 .cmouth > * {
+.sb2 .cmouth > *,
+.sb2 .section > * {
   float: left;
   clear: both;
 }
@@ -1290,4 +1291,51 @@
 }
 .sb2 .arrow:nth-last-child(2) {
   padding-left: 2px;
+}
+.sb2 .section {
+  background: none;
+  position: relative;
+}
+.sb2 .section.wraps {
+  opacity: 1;
+}
+.sb2 .section.insert > * {
+  box-shadow: 0 0 8px #0c1;
+  z-index: 104;
+}
+.sb2 .section.delete > * {
+  box-shadow: 0 0 8px #f00;
+  z-index: 104;
+}
+.sb2 .section.running > * {
+  box-shadow: 0 0 8px #ebe21C;
+  z-index: 104;
+}
+.sb2 .section.insert:before,
+.sb2 .section.delete:before {
+  position: absolute;
+  width: 6px;
+  left: -10px;
+  top: 0;
+  bottom: 0;
+  content: "";
+  z-index: 104;
+}
+.sb2 .section.insert:before {
+  background: #00a00f;
+}
+.sb2 .section.delete:before {
+  background: #c0000f;
+}
+.sb2 .section.insert .section.insert > * {
+    box-shadow: none;
+}
+.sb2 .section.insert .section.insert:before {
+    display: none;
+}
+.sb2 .section.delete .section.delete > * {
+    box-shadow: none;
+}
+.sb2 .section.delete .section.delete:before {
+    display: none;
 }
