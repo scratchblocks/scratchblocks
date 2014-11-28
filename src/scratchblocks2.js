@@ -633,6 +633,7 @@ var scratchblocks2 = function ($) {
         if (!args.length) return;
         var func = minify(strip_brackets(args[0]).replace(/ v$/, ""));
         if (func == "e^") func = "e ^";
+        if (func == "10^") func = "10 ^";
         info.category = ($.inArray(func, strings.math) > -1) ? "operators"
                                                              : "sensing";
     }
