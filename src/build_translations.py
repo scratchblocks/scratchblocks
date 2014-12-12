@@ -58,8 +58,7 @@ def parse_po(content):
             msg_id = line[6:].strip().strip('"')
         elif line.startswith("msgstr "):
             msg_str = line[7:].strip().strip('"')
-            if msg_str:
-                assert msg_id
+            if msg_str and msg_id is not None:
                 translations[msg_id] = msg_str
                 msg_id = None
     return translations
@@ -117,7 +116,7 @@ for lang in LANGUAGES:
 
     editor = parse_po(fetch_po(lang, "editor"))
 
-    if "<" in blocks["when distance < _"]:
+    if " < _" in blocks.get("when distance < _", []):
         when_distance, _ = blocks["when distance < _"].split(" < _")
     else:
         when_distance = None
@@ -161,13 +160,13 @@ for lang in LANGUAGES:
     language = {
         'code': lang,
         'aliases': extra_aliases,
-        'define': [blocks['define']],
+        'define': [blocks.get('define', '')],
         'ignorelt': [when_distance],
         'math': map(editor.get, ["abs", "floor", "ceiling", "sqrt", "sin", 
                                  "cos", "tan", "asin", "acos", "atan", "ln",
                                  "log", "e ^", "10 ^"]),
         'palette': palette,
-        'osis': [editor['other scripts in sprite']],
+        'osis': [editor.get('other scripts in sprite', '')],
         'blocks': blocks_list,
     }
     language_translations[lang] = language
