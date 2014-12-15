@@ -276,18 +276,35 @@ var gen = function () {
 
     var commands = {}
 
-    $.each(BLOCKS, function (i, blockspec) {
-        var block = {
-            text: blockspec[0],
-            flag: blockspec[1],
-            category_id: blockspec[2],
-            command: blockspec[3],
-            defaults: blockspec.slice(4)
-        }
-        block.parts = parse_block_parts(block.text);
-        commands[block.command] = block;
-    });
- 
+    gen.gen_commands = function (translations) {
+        $.each(BLOCKS, function (i, blockspec) {
+            var block = {
+                text: translate_blocktext(blockspec[0], translations),
+                flag: blockspec[1],
+                category_id: blockspec[2],
+                command: blockspec[3],
+                defaults: blockspec.slice(4)
+            }
+            block.parts = parse_block_parts(block.text);
+            commands[block.command] = block;
+        });
+    }
+    gen.gen_commands();
+
+    function translate_blocktext (block_text, translations) {
+        if (translations === undefined) return block_text;
+
+        var min_block = block_text.replace(/(%.(?:\.[A-z]+)?)/g, '_');
+        min_block = min_block.replace('@greenFlag', '@green-flag');
+        min_block = min_block.replace('@turnLeft', '@arrow-ccw');
+        min_block = min_block.replace('@turnRight', '@arrow-cw');
+
+        if (!(min_block in translations.blocks) || translations.blocks[min_block] === '') return block_text;
+
+        var translated_block = translations.blocks[min_block];
+        var args = block_text.match(/(%.(?:\.[A-z]+)?)/g);
+        return translated_block.replace(/_/g, function() { return args.shift(); });
+    }
 
     function parse_block_parts (block_text) {
         return $.grep(

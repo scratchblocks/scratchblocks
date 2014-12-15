@@ -15,6 +15,7 @@ http://opensource.org/licenses/MIT
 
 <link rel="stylesheet" href="../scratchblocks2.css">
 <script src="../scratchblocks2.js"></script>
+<script src="../translations-all.js"></script>
 <script src="generator.js"></script>
 
 <style>
@@ -260,6 +261,7 @@ var current_id,
   sprites,
   fetching = false,
   scripts_by_id,
+  oldHash = '',
   chosen_scripts;
 
 function asset_url (md5) {
@@ -328,7 +330,7 @@ function load_project (project) {
   sprites = {};
   scripts_by_id = {};
   chosen_scripts = [];
-  chosen_scripts_updated();
+  chosen_scripts_or_lang_updated();
 
   $.each(sprites_list, function (i, sprite) {
     var name = sprite.objName;
@@ -375,7 +377,11 @@ function show_sprite (i) {
   var name = sprite.objName;
 
   selected_sprite = i;
-  location.hash = "#project="+current_id; //+"&sprite="+i
+  var hash = "#project=" + current_id; //+"&sprite="+i
+  if (choose_lang.value != "en") {
+    hash += "&lang=" + encodeURIComponent(choose_lang.value);
+  }
+  location.hash = hash;
 
   // select list item
   $("#sprites-list .selected").removeClass("selected");
@@ -425,7 +431,7 @@ function show_sprite (i) {
             chosen_scripts.splice(index, 1);
           }
         }
-        chosen_scripts_updated();
+        chosen_scripts_or_lang_updated();
       });
       $script_wrap.append($("<label for="+id+">").append(checkbox));
 
@@ -446,11 +452,12 @@ function show_sprite (i) {
   window.sprite = sprite;
 }
 
-function chosen_scripts_updated () {
+function chosen_scripts_or_lang_updated () {
   $("#num-chosen-scripts").text(chosen_scripts.length);
   if (chosen_scripts.length) {
     var code = export_code();
     var url = "http://blob8108.github.io/scratchblocks2/#";
+    if (choose_lang.value != 'en') url += "?lang=" + choose_lang.value + "&script=";
     url += encodeURIComponent(code);
     $("#export").attr("href", url);
     $("#export").removeClass("disabled");
@@ -474,7 +481,11 @@ function init_fetch () {
 
   var id = id_from_url($("#project-url").attr("value"));
   if (id) {
-    location.hash = "#project="+id;
+    var hash = "#project=" + id;
+    if (choose_lang.value != "en") {
+      hash += "&lang=" + encodeURIComponent(choose_lang.value);
+    }
+    location.hash = hash;
     fetch(id);
   } else {
     $("#status").text("Invalid URL");
@@ -484,29 +495,37 @@ function init_fetch () {
 }
 
 function check_hash() {
-  if (fetching) return;
+  if (!fetching && oldHash != location.hash) {
+    oldHash = location.hash;
+    var hash = location.href.split("#")[1] || "";
 
-  var hash = decodeURIComponent((location.href.split("#")[1] || ""));
-
-  var result = /url=([^&]*)/.exec(hash);
-  if (result) {
-    $("#project-url").attr("value", decodeURIComponent(result[1]));
-    init_fetch();
-    return;
-  }
-
-  var result = /project=([0-9]+)/.exec(hash);
-  if (result) {
-    if (result[1] != current_id) {
-      fetch(result[1]);
-    }
-  }
-
-  var result = /sprite=([0-9]+)/.exec(hash);
-  if (result) {
-    if (result[1] != selected_sprite) {
-      show_sprite(result[1]);
-    }
+    parts = hash.split("&");
+    parts.forEach(function(part) {
+      var match = /^(.*)=(.*)$/.exec(part);
+      if (!match) return;
+      var key = decodeURIComponent(match[1]);
+      var value = decodeURIComponent(match[2]);
+      switch (key) {
+        case "lang":
+          choose_lang.value = value;
+          choose_lang.onchange();
+          break;
+        case "url":
+          $("#project-url").attr("value", value);
+          init_fetch();
+          break;
+        case "project":
+          if (/^[0-9]+$/.test(value) && value != current_id) {
+            fetch(value);
+          }
+          break;
+        case "sprite":
+          if (/^[0-9]+$/.test(value) && value != selected_sprite) {
+            show_sprite(value);
+          }
+          break;
+      }
+    });
   }
 
   window.setTimeout(check_hash, 500);
@@ -526,6 +545,24 @@ function update_edit_link() {
 }
 
 $(document).ready(function () {
+  choose_lang = document.getElementById("choose-lang");
+  choose_lang.onchange = function (e) {
+    if (chosen_scripts) {
+      chosen_scripts_or_lang_updated();
+    }
+    var lang = choose_lang.value;
+    var lang_dict = scratchblocks2._translations[lang];
+    if (lang_dict) {
+      scratchblocks2.load_language(lang_dict);
+      gen.gen_commands(scratchblocks2.languages[lang]);
+    } else {
+      gen.gen_commands();
+    }
+
+    show_sprite(selected_sprite);
+  };
+  choose_lang.value = "en";
+
   $("#fetch").click(function (e) {
     init_fetch();
   });
@@ -608,6 +645,94 @@ $(document).ready(function () {
   </div>
 
   <div id="sprite-detail">
+    <div>
+      <select id="choose-lang">
+        <option value="en"> English
+        <option value="de"> Deutsch (German)
+        <option value="es"> Español (Spanish)
+        <option value="fr"> Français (French)
+        <option value="zh_CN"> 中文 (Simplified Chinese)
+        <option value="pl"> Polski (Polish)
+        <option value="ja"> 日本語 (Japanese)
+        <option value="nl"> Nederlands (Dutch)
+        <option value="pt"> Português (Portugese)
+        <option value="it"> Italiano (Italian)
+        <option value="he"> עברית (Hebrew)
+        <option value="ko"> 한국어 (Korean)
+        <option value="nb">Norsk (Norwegian Bokmål) †
+        <option value="tr">Türkçe (Turkish)
+        <option value="el"> Ελληνικά (Greek)
+        <option value="ru"> Pусский (Russian)
+        <option value="ca"> Català (Catalan)
+        <option value="id">Indonesia (Indonesian)
+        <option>———
+        <option value="an"> Aragonés (Aragonese)
+        <option value="ar"> العربية (Arabic)
+        <option value="ast"> Asturianu (Asturian) †
+        <option value="bg"> Български (Bulgarian)
+        <option value="bn_IN"> বাংলা (Bengali) †
+        <option value="cs"> Čeština (Czech)
+        <option value="cy"> Cymraeg (Welsh)
+        <option value="da"> Dansk (Danish)
+        <option value="eo"> Esperanto (Esperanto)
+        <option value="et"> Eesti (Estonian)
+        <option value="eu"> Euskara (Basque)
+        <option value="fa"> فارسی (Persian) *
+        <option value="fi"> Suomi (Finnish)
+        <option value="fil"> Filipino (Filipino) *
+        <option value="fo"> Føroyskt (Faroese) *
+        <option value="fr_CA"> Français Canadien (Canadian French) *
+        <option value="ga"> Gaeilge (Irish) †
+        <option value="gl"> Galego (Galician)
+        <option value="hch"> Wixárika (Huichol) *
+        <option value="hi"> हिन्दी (Hindi)
+        <option value="hr"> Hrvatski (Croatian)
+        <option value="ht"> Kreyòl ayisyen (Haitian) *
+        <option value="hu"> Magyar (Hungarian)
+        <option value="hy"> Հայերեն (Armenian)
+        <option value="is"> Íslenska (Icelandic)
+        <option value="ja_HIRA"> にほんご (Japanese Hiragana)
+        <option value="kk"> Қазақша (Kazakh) *
+        <option value="km"> ភាសាខ្មែរ (Khmer) *
+        <option value="kn"> ಕನ್ನಡ (Kannada)
+        <option value="ku"> Kurdî / كوردی (Kurdish) *
+        <option value="ky"> Кыргызча (Kyrgyz) †
+        <option value="la"> Latina (Latin) *
+        <option value="lt"> Lietuvių (Lithuanian)
+        <option value="lv"> Latviešu (Latvian) †
+        <option value="maz"> Jñatjo (Mazahua) *
+        <option value="mk"> Македонски (Macedonian)
+        <option value="ml"> മലയാളം (Malayalam) *
+        <option value="mn"> Монгол (Mongolian) *
+        <option value="mr"> मराठी (Marathi) *
+        <option value="ms"> Bahasa Melayu (Malay) *
+        <option value="my"> ဗမာစာ (Burmese)
+        <option value="nah"> Nāhuatl (Nahuatl) *
+        <option value="ne"> नेपाली (Nepali) *
+        <option value="nn"> Nynorsk (Norwegian Nynorsk) †
+        <option value="no"> Norsk (Norwegian)
+        <option value="os"> Иронау (Ossetian) †
+        <option value="ote"> Hñähñu (Mezquital Otomi) *
+        <option value="oto"> Hñähñu (Otomi) *
+        <option value="pap"> Idoma-Nòmber (Idoma) *
+        <option value="pt_BR"> Português brasileiro (Brazilian Portuguese)
+        <option value="ro"> Română (Romanian)
+        <option value="rw"> Ikinyarwanda (Kinyarwanda) *
+        <option value="sk"> Slovenčina (Slovak)
+        <option value="sl"> Slovenščina (Slovene)
+        <option value="sr"> Српски / Srpski (Serbian)
+        <option value="sv"> Svenska (Swedish)
+        <option value="sw"> Kiswahili (Swahili) *
+        <option value="ta"> தமிழ் (Tamil) †
+        <option value="th"> ไทย (Thai) *
+        <option value="tzm"> Tamaziġt (Tamazight) †
+        <option value="ug"> ئۇيغۇر تىلى (Uyghur) *
+        <option value="uk"> Українська (Ukrainian)
+        <option value="vi"> Tiếng Việt (Vietnamese)
+        <option value="zh_TW"> 正體中文 (Traditional Chinese)
+      </select>
+    </div>
+
     <div id="sprite-info">
       <div id="costume-preview"><img></div>
       <h2 id="sprite-name"></h2>
