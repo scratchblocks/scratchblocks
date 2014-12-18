@@ -71,7 +71,7 @@ def fetch_po(lang, project):
     if os.path.exists(filename):
         return open(filename).read().decode("utf-8")
     name = (lang if project == "scratch1.4" else project)
-    url = "http://translate.scratch.mit.edu/{lang}/{proj}/{name}.po/download/"
+    url = "http://translate.scratch.mit.edu/download/{lang}/{proj}/{name}.po"
     url = url.format(proj=project, **vars())
     print "GETing {url}".format(**vars())
     try:
