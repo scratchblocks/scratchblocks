@@ -369,6 +369,7 @@ var scratchblocks2 = function ($) {
         ["when @green-flag clicked", ["hat"]],
         ["when _ key pressed", ["hat"]],
         ["when this sprite clicked", ["hat"]],
+        ["when Stage clicked", ["hat"]],
         ["when backdrop switches to _", ["hat"]],
 
         ["when _ > _", ["hat"]],
