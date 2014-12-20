@@ -134,6 +134,20 @@ for lang in LANGUAGES:
         if english_text not in extra_aliases.values():
             print "%s is missing alias: %s" % (lang, english_text)
 
+        image_pat = re.compile(r'@(arrow-c?cw|green-flag)')
+        m = image_pat.search(english_text)
+        unicode_images = {
+            'green-flag': '⚑',
+            'arrow-cw': '↻',
+            'arrow-ccw': '↺',
+        }
+        symbol = unicode_images[m.group(1)]
+        key = image_pat.sub('@', english_text)
+        if key in blocks:
+            translation = blocks[key]
+            translation = translation.replace('@', symbol)
+            extra_aliases[translation] = english_text
+
     blocks_list = []
     for blockid in english_blocks:
         if blockid in blocks:

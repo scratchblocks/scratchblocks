@@ -179,11 +179,14 @@ var scratchblocks2 = function ($) {
         aliases: {
             "turn left _ degrees": "turn @arrow-ccw _ degrees",
             "turn ccw _ degrees": "turn @arrow-ccw _ degrees",
+            "turn ↺ _ degrees": "turn @arrow-ccw _ degrees",
             "turn right _ degrees": "turn @arrow-cw _ degrees",
             "turn cw _ degrees": "turn @arrow-cw _ degrees",
+            "turn ↻ _ degrees": "turn @arrow-cw _ degrees",
             "when gf clicked": "when @green-flag clicked",
             "when flag clicked": "when @green-flag clicked",
             "when green flag clicked": "when @green-flag clicked",
+            "when ⚑ clicked": "when @green-flag clicked",
         },
 
         define: ["define"],
@@ -200,7 +203,7 @@ var scratchblocks2 = function ($) {
 
         blocks: [], // These are defined just below
 
-        palette: {
+        palette: { // Currently unused
             "Control": "Control",
             "Data": "Data",
             "Events": "Events",

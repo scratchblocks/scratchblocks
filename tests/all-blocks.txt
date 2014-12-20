@@ -3,8 +3,10 @@
 move (10) steps
 turn cw (15) degrees 
 turn right (15) degrees 
+turn ↻ (15) degrees 
 turn ccw (15) degrees 
 turn left (15) degrees 
+turn ↺ (15) degrees 
 
 point in direction (90 v)
 point towards [ v]
@@ -139,6 +141,7 @@ hide list [list v]
 when gf clicked 
 when green flag clicked 
 when flag clicked 
+when ⚑ clicked
 when [space v] key pressed 
 when this sprite clicked 
 when backdrop switches to [backdrop1 v] 

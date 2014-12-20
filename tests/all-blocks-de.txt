@@ -1,7 +1,9 @@
 // Motion
 gehe (10)er-Schritt
 drehe dich nach rechts um (15) Grad
+drehe dich ↺ um (10) Grad
 drehe dich nach links um (15) Grad
+drehe dich ↻ um (10) Grad
 
 // no longer supported -- should they be?
 drehe dich im Uhrzeigersinn um (15) Grad
@@ -132,6 +134,7 @@ verstecke Liste [list v]
 
 // Events
 Wenn die grüne Flagge angeklickt
+Wenn ⚑ angeklickt
 Wenn Taste [space v] gedrückt
 Wenn ich angeklickt werde
 Wenn das Bühnenbild zu [backdrop1 v] wechselt
