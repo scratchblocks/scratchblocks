@@ -137,12 +137,7 @@ from your 2.0 projects.
 <script>
 var ga;
 
-var DEFAULT = "define dance (speed)\n\
-  set [dist v] to ((speed) * (distance to [mouse-pointer v]))\n\
-  repeat until ((timer) > [10])\n\
-  play note (42 v) for (0.5) beats\n\
-  move (dist) steps // Forward a bit \n\
-end";
+var DEFAULT = "";
 
 if(typeof(String.prototype.trim) === "undefined") {
   String.prototype.trim = function() {
