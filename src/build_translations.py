@@ -32,7 +32,7 @@ FORUM_LANGS = ['de', 'es', 'fr', 'zh_CN', 'pl', 'ja', 'nl' , 'pt', 'it',
 #LANGUAGES = ALL_LANGS
 LANGUAGES = FORUM_LANGS
 
-INSERT_RE = re.compile(r'(%.(?:\.[A-z]+)?)')
+INSERT_RE = re.compile(r'(%[A-Za-z](?:\.[A-Za-z]+)?)')
 PICTURE_RE = re.compile(r'@[A-Za-z-]+')
 JUNK_RE = re.compile(r'[ \t,\%?:]')
 
