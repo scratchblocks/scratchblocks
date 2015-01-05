@@ -92,6 +92,11 @@ scratchblocks2.parse("code.b", {inline: true});
 ```
 
 
+# Development
+
+See [`src/Dev-Readme.md`](https://github.com/blob8108/scratchblocks2/blob/master/src/Dev-Readme.md).
+
+
 # Credits
 
 * Plugin by blob8108
