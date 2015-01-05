@@ -166,6 +166,9 @@ var scratchblocks2 = function ($) {
         osis: [],
     };
 
+    // languages that should be displayed right to left
+    var rtl_languages = ['ar', 'fa', 'he'];
+
     var languages = sb2.languages = {};
     var block_info_by_id = sb2.block_info_by_id = {};
     var block_by_text = {};
@@ -665,6 +668,7 @@ var scratchblocks2 = function ($) {
             var lang_and_id = block_by_text[minitext];
             var blockid = lang_and_id.blockid;
             var info = clone(block_info_by_id[blockid]);
+            info.lang = lang_and_id.lang;
             if (info.image_replacement) {
                 info.spec = languages[lang_and_id.lang].blocks[blockid];
             } else {
@@ -917,6 +921,7 @@ var scratchblocks2 = function ($) {
                 blockid: spec,
                 shape: shape,
                 category: (shape === "reporter") ? "variables" : "obsolete",
+                lang: "en",
                 spec: spec,
                 args: args,
             };
@@ -1440,6 +1445,10 @@ var scratchblocks2 = function ($) {
         $block.addClass(info.shape);
         $block.addClass(info.category);
         if (info.flag) $block.addClass(info.flag);
+
+        if (rtl_languages.indexOf(info.lang) !== -1) {
+            $block.addClass("rtl");
+        }
 
         // color insert?
         if (info.shape === "color") {
