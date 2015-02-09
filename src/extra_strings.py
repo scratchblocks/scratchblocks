@@ -88,8 +88,8 @@ extra_strings = {
 
     "ru": { # Russian
         "повернуть влево на _ градусов": "turn @arrow-ccw _ degrees",
-        "овернуть вправо на _ градусов": "turn @arrow-cw _ degrees",
-        "когда щелкнут по зелёному флагу": "when @green-flag clicked",
+        "повернуть вправо на _ градусов": "turn @arrow-cw _ degrees",
+        "когда щёлкнут по зелёному флагу": "when @green-flag clicked",
         "конец": "end",
     },
 
