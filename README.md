@@ -1,8 +1,8 @@
 Render Scratch blocks code to HTML.
 
-![Screenshot](http://blob8108.github.io/scratchblocks2/screenshot.png)
+![Screenshot](http://scratchblocks.github.io/screenshot.png)
 
-**[Try it out!](http://blob8108.github.io/scratchblocks2/)**
+**[Try it out!](http://scratchblocks.github.io/)**
 
 ---
 
