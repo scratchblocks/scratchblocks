@@ -113,9 +113,8 @@ for lang in LANGUAGES:
     if lang in BLACKLIST: continue
     print lang
 
-    blocks = parse_po(fetch_po(lang, "scratch1.4"))
-    blocks.update(parse_po(fetch_po(lang, "blocks")))
-    blocks = minify_blocks(blocks) 
+    blocks = minify_blocks(parse_po(fetch_po(lang, "scratch1.4")))
+    blocks.update(minify_blocks(parse_po(fetch_po(lang, "blocks"))))
 
     editor = parse_po(fetch_po(lang, "editor"))
 
