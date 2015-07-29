@@ -80,28 +80,36 @@
  *
  */
 
-String.prototype.startsWith = function(prefix) {
-    return this.indexOf(prefix) === 0;
-};
+(function (root, factory) {
+    if (typeof define === "function" && define.amd) {
+        define(['diacritics'], factory);
+    } else if (typeof exports === "object") {
+        module.exports = factory(require('./diacritics.js'));
+    } else {
+        root.scratchblocks2 = factory(root.diacritics_removal_map || null);
+    }
+}(this, function (diacritics_removal_map) {
 
-String.prototype.endsWith = function(suffix) {
-    return this.indexOf(suffix, this.length - suffix.length) !== -1;
-};
+    String.prototype.startsWith = function(prefix) {
+      return this.indexOf(prefix) === 0;
+    };
 
-String.prototype.contains = function(substring) {
-    return this.indexOf(substring) !== -1;
-};
+    String.prototype.endsWith = function(suffix) {
+      return this.indexOf(suffix, this.length - suffix.length) !== -1;
+    };
 
-String.prototype.trimLeft = function() {
-    return this.replace(/^\s+/, "");
-}
+    String.prototype.contains = function(substring) {
+      return this.indexOf(substring) !== -1;
+    };
 
-String.prototype.trimRight = function() {
-    return this.replace(/\s+$/, "");
-}
+    String.prototype.trimLeft = function() {
+      return this.replace(/^\s+/, "");
+    }
 
+    String.prototype.trimRight = function() {
+      return this.replace(/\s+$/, "");
+    }
 
-var scratchblocks2 = function () {
     "use strict";
 
     function assert(bool) {
@@ -709,7 +717,7 @@ var scratchblocks2 = function () {
     function minify(text) {
         var minitext = text.replace(/[.,%?:▶◀▸◂]/g, "").toLowerCase()
                            .replace(/[ \t]+/g, " ").trim();
-        if (window.diacritics_removal_map) {
+        if (diacritics_removal_map) {
             minitext = remove_diacritics(minitext);
         }
         if (!minitext && text.replace(" ", "") === "...") minitext = "...";
@@ -1500,4 +1508,4 @@ var scratchblocks2 = function () {
     }
 
     return sb2; // export the module
-}();
+}));
