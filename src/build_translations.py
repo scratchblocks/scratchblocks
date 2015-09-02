@@ -6,6 +6,7 @@ import codecs
 import json
 import os
 import re
+import sys
 
 import urllib2
 from urllib2 import urlopen
@@ -29,8 +30,19 @@ BLACKLIST = set(["or"])
 FORUM_LANGS = ['de', 'es', 'fr', 'zh_CN', 'pl', 'ja', 'nl' , 'pt', 'it',
                'he', 'ko', 'nb', 'tr', 'el', 'ru', 'ca', 'id']
 
-#LANGUAGES = ALL_LANGS
-LANGUAGES = FORUM_LANGS
+langs = "forum"
+if len(sys.argv) > 1:
+    if sys.argv[1] == "--help":
+        print("\nA tool for combining and minifying scratch translations.")
+        print("\n  Usage: python build_translations.py [--help] [all]")
+        exit()
+    if sys.argv[1] == "all":
+        langs = "all"
+
+if langs == "all":
+    LANGUAGES = ALL_LANGS
+else:
+    LANGUAGES = FORUM_LANGS
 
 INSERT_RE = re.compile(r'(%[A-Za-z](?:\.[A-Za-z]+)?)')
 PICTURE_RE = re.compile(r'@[A-Za-z-]+')
@@ -209,5 +221,9 @@ for lang, translations in language_translations.items():
 data = "scratchblocks2._translations = "
 data += json.dumps(language_translations, ensure_ascii=False)
 data += ";"
-open("translations.js", "wb").write(data.encode("utf-8"))
-print "Wrote translations.js"
+if langs == 'all':
+    filename = "translations-all.js"
+else:
+    filename = "translations.js"
+open(filename, "wb").write(data.encode("utf-8"))
+print "Wrote %s" % filename
