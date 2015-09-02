@@ -121,6 +121,19 @@ need_aliases = [
     "when @green-flag clicked",
 ]
 
+dropdown_values = ["A connected", "all", "all around", "all motors",
+    "B connected", "brightness", "button pressed", "C connected", "color",
+    "costume name", "D connected", "date", "day of week", "don't rotate",
+    "down arrow", "edge", "everything", "fisheye", "ghost", "hour",
+    "left arrow", "left-right", "light", "lights", "minute", "month",
+    "mosaic", "motion", "motor", "motor A", "motor B", "mouse-pointer",
+    "myself", "not =", "off", "on", "on-flipped", "other scripts in sprite",
+    "pixelate", "previous backdrop", "resistance-A", "resistance-B",
+    "resistance-C", "resistance-D", "reverse", "right arrow", "second",
+    "slider", "sound", "space", "Stage", "that way", "this script",
+    "this sprite", "this way", "up arrow", "video motion", "whirl", "year"
+]
+
 for lang in LANGUAGES:
     if lang in BLACKLIST: continue
     print lang
@@ -197,6 +210,8 @@ for lang in LANGUAGES:
         'osis': [editor.get('other scripts in sprite', '')],
         'blocks': blocks_list,
     }
+    if langs == 'all':
+        language["dropdowns"] = [blocks.get(x) or editor.get(x, '') for x in dropdown_values]
     language_translations[lang] = language
 
 block_ids = []
