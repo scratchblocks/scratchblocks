@@ -54,6 +54,18 @@ Code Club use their own [lesson_format](https://github.com/CodeClub/lesson_forma
 
 This would probably be a good way to write a Scratch book.
 
+## Markdown
+
+By using [codeclub_lesson_builder](https://github.com/arve0/codeclub_lesson_builder) you can include scratch code directly in markdown codeblocks like this:
+
+<pre>```blocks
+when flag clicked
+go to x:(-50) y:(0)
+```
+</pre>
+
+The markdown builds to HTML and PDF.
+
 ## HTML
 
 ### A simple example
