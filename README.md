@@ -6,7 +6,7 @@ Render Scratch blocks code to HTML.
 
 ---
 
-**scratchblocks2** is used to write Scratch scripts:
+**scratchblocks** is used to write Scratch scripts:
 
 - in [Scratch Forum](http://scratch.mit.edu/discuss/topic/14772/) posts
 - in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles 
@@ -31,7 +31,7 @@ wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
 
 ## Languages
 
-The version of [`translations.js`](https://github.com/blob8108/scratchblocks2/blob/master/src/translations.js) in this repo is designed for the Scratch Forums, so it supports [all the languages there](http://scratch.mit.edu/discuss/#category_head_6).
+The version of [`translations.js`](https://github.com/tjvr/scratchblocks/blob/master/src/translations.js) in this repo is designed for the Scratch Forums, so it supports [all the languages there](http://scratch.mit.edu/discuss/#category_head_6).
 
 However, the plugin _can_ be made to accept any of the languages that Scratch supports. You just need to run:
 
@@ -41,13 +41,13 @@ python build_translations.py all
 
 …which will fetch language files from the [Scratch translation server](http://translate.scratch.mit.edu).
 
-scratchblocks2 also requires some [additional words](https://github.com/blob8108/scratchblocks2/blob/master/src/extra_strings.py) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
+scratchblocks also requires some [additional words](https://github.com/tjvr/scratchblocks/blob/master/src/extra_strings.py) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
 
 # Usage
 
 ## MediaWiki
 
-Use [the MediaWiki plugin](https://github.com/blob8108/mw-ScratchBlocks2). This is what the [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) uses.
+Use [the MediaWiki plugin](https://github.com/tjvr/wiki-scratchblocks). This is what the [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) uses.
 
 It doesn't support other languages yet. Sorry about that.
 
@@ -78,7 +78,7 @@ The markdown builds to HTML and PDF.
 ### A simple example
 
 Have a look at the [example HTML
-file](http://github.com/blob8108/scratchblocks2/blob/master/example.html),
+file](http://github.com/tjvr/scratchblocks/blob/master/example.html),
 which includes scratchblocks from GitHub Pages and jQuery from Google's CDN.
 
 If you want to host the files yourself, read on.
@@ -91,14 +91,14 @@ You need to include jQuery (in the `<head>` of your page):
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
 ```
 
-Then include the scratchblocks2 CSS and JS:
+Then include the scratchblocks CSS and JS:
 
 ```html
 <link rel="stylesheet" href="scratchblocks2.css">
 <script src="scratchblocks2.js"></script>
 ```
 
-Then just call `scratchblocks2.parse` after the page has loaded, which will
+Then just call `ncratchblocks2.parse` after the page has loaded, which will
 render matching page elements to shiny scratch blocks. Its sole argument is the
 CSS-style selector for the elements that contain the scratchblocks code. It
 uses `pre.blocks` by default.
@@ -135,12 +135,15 @@ scratchblocks2.parse("code.b", {inline: true});
 
 # Development
 
-See [`src/Dev-Readme.md`](https://github.com/blob8108/scratchblocks2/blob/master/src/Dev-Readme.md).
+See [`src/Dev-Readme.md`](https://github.com/tjvr/scratchblocks/blob/master/src/Dev-Readme.md).
 
 
 # Credits
 
-* Plugin by blob8108
+Many, many thanks to the [contributors](https://github.com/tjvr/scratchblocks/graphs/contributors)!
+
+* Authored by [tjvr](https://github.com/tjvr)
 * Inspired by JSO's [Block Plugin](http://wiki.scratch.mit.edu/wiki/Block_Plugin_\(1.4\))
 * Help with translation code from [joooni](http://scratch.mit.edu/users/joooni/)
 * Block translations from the [Scratch translation server](http://translate.scratch.mit.edu/)
+

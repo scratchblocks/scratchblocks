@@ -1,6 +1,6 @@
 /*
- * scratchblocks2
- * http://github.com/blob8108/scratchblocks2
+ * scratchblocks
+ * http://scratchblocks.github.io/
  *
  * Copyright 2013, Tim Radvan
  * @license MIT
