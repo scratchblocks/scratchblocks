@@ -6,21 +6,22 @@ You need a Unix system.
 
 * Install [Python](http://python.org/).
 
+  * Run a local server when developing:
+
+        $ python2 -m SimpleHTTPServer 8000
+
+  * Open dev page: <http://localhost:8000/src/dev.html>
+
 * Install [npm](http://npmjs.org/), the [node](http://nodejs.org) package
   manager.
 
-* Install the [LESS](http://lesscss.org/) CSS preprocessor, **version 1.3**:
+  * Install dependencies:
 
-        $ npm install less@1.3
+        $ npm install
 
-    You should now have the `lessc` command installed:
+  * Build output:
 
-        $ lessc
-        lessc: no input files
-
-* Install [UglifyJS2](http://github.com/mishoo/UglifyJS2):
-
-        $ npm install uglify-js
+        $ npm run build
 
 
 ## Developing
@@ -42,7 +43,7 @@ The source is found under `src/`. Use `src/dev.html` for testing the code.
 
 * `diacritics.js` -- contains the diacritic removal map. Added to the final JS file by `src/compile_blocks.py`.
 
-Before committing your changes, run `src/compile.sh` to compile the project into `build/`. Use `build/test.html` to check it still works.
+Before committing your changes, run `npm run build` to compile the project into `build/`. Use `build/test.html` to check it still works.
 
 
 ## Internals

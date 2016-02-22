@@ -9,8 +9,8 @@ Render Scratch blocks code to HTML.
 **scratchblocks2** is used to write Scratch scripts:
 
 - in [Scratch Forum](http://scratch.mit.edu/discuss/topic/14772/) posts
-- in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles _(using [the MediaWiki plugin](https://github.com/blob8108/mw-ScratchBlocks2))_
-- in the [Code Club](https://www.codeclub.org.uk) project guides _(using [pandoc_scratchblocks](https://github.com/CodeClub/pandoc_scratchblocks); see [CodeClub/lesson_format](https://github.com/CodeClub/lesson_format))_
+- in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles 
+- in the [Code Club](https://www.codeclub.org.uk) project guides
 
 It's MIT licensed, so you can use it in your projects. But email me afterward; I'd love to hear about it :)
 
@@ -28,21 +28,55 @@ correct syntax. The block text is only used to find the correct colour.
 For the full guide to the syntax, see [the
 wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
 
-## Translation
+## Languages
 
 The version of [`translations.js`](https://github.com/blob8108/scratchblocks2/blob/master/src/translations.js) in this repo is designed for the Scratch Forums, so it supports [all the languages there](http://scratch.mit.edu/discuss/#category_head_6).
 
-However, it _can_ be made to accept any of the languages that Scratch supports. You just need to modify and run [`build_translations.py`](https://github.com/blob8108/scratchblocks2/blob/master/src/build_translations.py) yourself, which will fetch language files from the [Scratch translation server](http://translate.scratch.mit.edu).
+However, the plugin _can_ be made to accept any of the languages that Scratch supports. You just need to modify and run [`build_translations.py`](https://github.com/blob8108/scratchblocks2/blob/master/src/build_translations.py) yourself, which will fetch language files from the [Scratch translation server](http://translate.scratch.mit.edu).
 
 scratchblocks2 also requires some [additional words](https://github.com/blob8108/scratchblocks2/blob/master/src/extra_strings.py) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
 
 # Usage
 
-If you just want the code, have a look at the [example HTML
-file](http://github.com/blob8108/scratchblocks2/blob/master/example.html),
-which uses the scripts hosted on GitHub Pages, and jQuery hosted off Google.
+## MediaWiki
 
-For a more detailed explanation, or if you want to host the files yourself, read on.
+Use [the MediaWiki plugin](https://github.com/blob8108/mw-ScratchBlocks2). This is what the [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) uses.
+
+It doesn't support other languages yet. Sorry about that.
+
+## WordPress
+
+I found [a WordPress plugin](https://github.com/tkc49/scratchblocks-for-wp). It might work for you; I haven't tried it.
+
+## Pandoc
+
+Code Club use their own [lesson_format](https://github.com/CodeClub/lesson_format) tool to generate the PDF versions of their project guides. It uses the [pandoc_scratchblocks](https://github.com/CodeClub/pandoc_scratchblocks) plugin they wrote to make pictures of Scratch scripts.
+
+This would probably be a good way to write a Scratch book.
+
+## Markdown
+
+By using [codeclub_lesson_builder](https://github.com/arve0/codeclub_lesson_builder) you can include scratch code directly in markdown codeblocks like this:
+
+<pre>```blocks
+when flag clicked
+go to x:(-50) y:(0)
+```
+</pre>
+
+The markdown builds to HTML and PDF.
+
+## HTML
+
+### A simple example
+
+Have a look at the [example HTML
+file](http://github.com/blob8108/scratchblocks2/blob/master/example.html),
+which includes scratchblocks from GitHub Pages and jQuery from Google's CDN.
+
+If you want to host the files yourself, read on.
+
+### In more detail
 
 You need to include jQuery (in the `<head>` of your page):
 
@@ -77,7 +111,7 @@ In summary, your directory layout should look something like this:
     scratchblocks2.css
     scratchblocks2.js
 
-## Inline blocks
+### Inline blocks
 
 To use blocks inside a paragraph...
 
