@@ -1043,6 +1043,7 @@
 .sb2 .number-dropdown,
 .sb2 .string,
 .sb2 .dropdown {
+  direction: ltr;
   font-weight: normal;
 }
 .sb2 .number,
@@ -1294,4 +1295,7 @@
 }
 .sb2 .arrow:nth-last-child(2) {
   padding-left: 2px;
+}
+.sb2 .rtl {
+  direction: rtl;
 }
