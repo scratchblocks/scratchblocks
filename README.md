@@ -33,7 +33,13 @@ wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
 
 The version of [`translations.js`](https://github.com/blob8108/scratchblocks2/blob/master/src/translations.js) in this repo is designed for the Scratch Forums, so it supports [all the languages there](http://scratch.mit.edu/discuss/#category_head_6).
 
-However, the plugin _can_ be made to accept any of the languages that Scratch supports. You just need to modify and run [`build_translations.py`](https://github.com/blob8108/scratchblocks2/blob/master/src/build_translations.py) yourself, which will fetch language files from the [Scratch translation server](http://translate.scratch.mit.edu).
+However, the plugin _can_ be made to accept any of the languages that Scratch supports. You just need to run:
+
+```
+python build_translations.py all
+```
+
+…which will fetch language files from the [Scratch translation server](http://translate.scratch.mit.edu).
 
 scratchblocks2 also requires some [additional words](https://github.com/blob8108/scratchblocks2/blob/master/src/extra_strings.py) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
 
