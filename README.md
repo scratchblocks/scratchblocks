@@ -49,7 +49,8 @@ scratchblocks also requires some [additional words](https://github.com/tjvr/scra
 
 Use [the MediaWiki plugin](https://github.com/tjvr/wiki-scratchblocks). This is what the [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) uses.
 
-It doesn't support other languages yet. Sorry about that.
+It doesn't support other languages yet. Sorry about that. (But the [German
+Scratch wiki](http://scratch-dach.info/) people seem to be working on this.)
 
 ## WordPress
 
