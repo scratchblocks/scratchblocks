@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/tjvr/scratchblocks/issues"
   },
-  "homepage": "https://github.com/tjvr/scratchblocks#readme",
+  "homepage": "https://scratchblocks.github.io/",
   "devDependencies": {
     "less": "=1.3.3",
     "uglify-js": "^2.6.1"

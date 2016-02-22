@@ -8,13 +8,9 @@ You need a Unix system.
 
   * Run a local server when developing:
 
-        $ python -m SimpleHTTPServer 8000
+        $ python2 -m SimpleHTTPServer 8000
 
-  * Open dev page:
-
-        http://localhost:8000/src/dev.html
-
-
+  * Open dev page: <http://localhost:8000/src/dev.html>
 
 * Install [npm](http://npmjs.org/), the [node](http://nodejs.org) package
   manager.
