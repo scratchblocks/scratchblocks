@@ -10,9 +10,9 @@ maintained by the Scratch Team. Please remember developing this isn't our job!
 
 When **reporting an issue**, please do the following:
 
-* Read [the syntax guide](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax)
-* Use code examples and links to <http://scratchblocks.github.io/>, where relevant
-* Provide screenshots/comparison with Scratch, where relevant
+* Read [the **syntax guide**](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax)
+* Use **code examples** and links to <http://scratchblocks.github.io/>, where relevant
+* Provide **screenshots**/comparison with Scratch, where relevant
 
 ---
 
