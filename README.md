@@ -12,7 +12,8 @@ Render Scratch blocks code to HTML.
 - in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles 
 - in the [Code Club](https://www.codeclub.org.uk) project guides
 
-It's MIT licensed, so you can use it in your projects. But email me afterward; I'd love to hear about it :)
+It's MIT licensed, so you can use it in your projects. (But do send me a link
+[on Twitter](http://twitter.com/blob8108)!)
 
 ## Syntax
 
