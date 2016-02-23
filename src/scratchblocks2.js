@@ -1392,6 +1392,9 @@ var scratchblocks2 = function ($) {
             }
             for (var i=0; i<scripts.length; i++) {
                 var $script = render_stack(scripts[i]).addClass("script");
+                if (options.postRenderScript) {
+                    options.postRenderScript(scripts[i], $script);
+                }
                 $container.append($script);
             }
         });
