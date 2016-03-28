@@ -9,24 +9,35 @@ text {
   font-size: 10px;
 }
 
-.variable {
-  fill: #ee7d16;
-}
-.motion {
-  fill: #f00;
-}
-.looks {
-  fill: #5cb712;
-}
+.obsolete { fill: #d42828; }
+.motion { fill: #4a6cd4; }
+.looks { fill: #8a55d7; }
+.sound { fill: #bb42c3; }
+.pen { fill: #0e9a6c;  }
+.events { fill: #c88330; }
+.control { fill: #e1a91a; }
+.sensing { fill: #2ca5e2; }
+.operators { fill: #5cb712; }
+.variables { fill: #ee7d16; }
+.list { fill: #cc5b22 }
+.custom { fill: #632d99; }
+.parameter { fill: #5947b1; }
+.extension { fill: #4b4a60; }
 
 .bevel {
   filter: url(#bevelFilter);
 }
+.input {
+  filter: url(#inputBevelFilter);
+}
 
+.number,
 .string {
   fill: #fff;
 }
 .literal {
   fill: #000;
+  font-weight: normal;
+  font-size: 9px;
 }
 

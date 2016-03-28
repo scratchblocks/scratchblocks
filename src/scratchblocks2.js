@@ -1480,12 +1480,12 @@ var scratchblocks2 = function () {
     }));
   }
 
-  function text(x, y, content) {
-    var text = el('text', {
+  function text(x, y, content, props) {
+    var text = el('text', extend(props, {
       x: x,
       y: y,
       textContent: content,
-    });
+    }));
     return text;
   }
 
@@ -1507,9 +1507,23 @@ var scratchblocks2 = function () {
 
   /* shapes */
 
+  function rect(w, h, props) {
+    return el('rect', extend(props, {
+      x: 0,
+      y: 0,
+      width: w,
+      height: h,
+    }));
+  }
+
+  function arc(p1, p2, rx, ry) {
+    var r = p2.y - p1.y;
+    return ["L", p1.x, p1.y, "A", rx, ry, 0, 0, 1, p2.x, p2.y].join(" ");
+  }
+
   function cornerArc(p1, p2) {
     var r = p2.y - p1.y;
-    return ["L", p1.x, p1.y, "A", r, r, 0, 0, 1, p2.x, p2.y].join(" ");
+    return arc(p1, p2, r, r);
   }
 
   function roundedRect(w, h, props) {
@@ -1539,6 +1553,107 @@ var scratchblocks2 = function () {
     }));
   }
 
+
+  // cmd
+  // some constants that I copy-pasted from BlockShape.as
+  var RectShape = 1;
+  var BooleanShape = 2;
+  var NumberShape = 3;
+  var CmdShape = 4;
+  var FinalCmdShape = 5;
+  var CmdOutlineShape = 6;
+  var HatShape = 7;
+  var ProcHatShape = 8;
+  // C-shaped blocks
+  var LoopShape = 9;
+  var FinalLoopShape = 10;
+  // E-shaped blocks
+  var IfElseShape = 11;
+  // Geometry
+  var NotchDepth = 3;
+  var EmptySubstackH = 12;
+  var SubstackInset = 15;
+
+  var CornerInset = 3;
+  var InnerCornerInset = 2;
+  var BottomBarH = 16; // height of the bottom bar of a C or E block
+  var DividerH = 18; // height of the divider bar in an E block
+  var NotchL1 = 13;
+  var NotchL2 = NotchL1 + NotchDepth;
+  var NotchR1 = NotchL2 + 8;
+  var NotchR2 = NotchR1 + NotchDepth;
+
+  function getTop(w) {
+    return ["M", 0, CornerInset,
+      "L", CornerInset, 0,
+      "L", NotchL1, 0,
+      "L", NotchL2, NotchDepth,
+      "L", NotchR1, NotchDepth,
+      "L", NotchR2, 0,
+      "L", w - CornerInset, 0,
+      "L", w, CornerInset
+    ].join(" ");
+  }
+
+  function getRightAndBottom(w, bottomY, hasNotch, inset) {
+    if (typeof inset === "undefined") {
+      inset = 0;
+    }
+    var arr = ["L", w, bottomY - CornerInset,
+      "L", w - CornerInset, bottomY
+    ];
+    if (hasNotch) {
+      arr = arr.concat([
+        "L", inset + NotchR2, bottomY,
+        "L", inset + NotchR1, bottomY + NotchDepth,
+        "L", inset + NotchL2, bottomY + NotchDepth,
+        "L", inset + NotchL1, bottomY
+      ]);
+    }
+    if (inset > 0) {
+      arr = arr.concat([
+        "L", inset + InnerCornerInset, bottomY,
+        "L", inset, bottomY + InnerCornerInset
+      ])
+    } else {
+      arr = arr.concat([
+        "L", inset + CornerInset, bottomY,
+        "L", 0, bottomY - CornerInset
+      ]);
+    }
+    return arr.join(" ");
+  }
+
+  function stackRect(w, h, props) {
+    return path(extend(props, {
+      path: [
+        getTop(w),
+        getRightAndBottom(w, h, true, 0),
+      ],
+    }));
+  }
+
+  function capRect(w, h, props) {
+    return path(extend(props, {
+      path: [
+        getTop(w),
+        getRightAndBottom(w, h, false, 0),
+      ],
+    }));
+  }
+
+  function hatRect(w, h, props) {
+    return path(extend(props, {
+      path: [
+        "M", 0, 12,
+        arc(P(0, 12), P(80, 10), 80, 40),
+        "L", w - CornerInset, 10, "L", w, 10 + CornerInset,
+        getRightAndBottom(w, h, true),
+      ],
+    }));
+  }
+
+
   /* definitions */
 
   var cssContent;
@@ -1554,9 +1669,9 @@ var scratchblocks2 = function () {
     return style;
   }
 
-  function bevelFilter() {
+  function bevelFilter(id, dd) {
     var filter = el('filter', {
-      id: 'bevelFilter',
+      id: id,
       x0: '-50%',
       y0: '-50%',
       width: '200%',
@@ -1601,7 +1716,7 @@ var scratchblocks2 = function () {
 
     var blur = blur(1, 'SourceAlpha');
     var hlDiff = comp('arithmetic',
-                      offset(1, 1, blur),
+                      offset(+dd, +dd, blur),
                       'SourceAlpha', { k2: -1, k3: 1, });
 
     var withGlow = comp('over',
@@ -1612,7 +1727,7 @@ var scratchblocks2 = function () {
                         'SourceGraphic');
 
     var shadowDiff = comp('arithmetic',
-                          offset(-1, -1, blur),
+                          offset(-dd, -dd, blur),
                           'SourceAlpha', { k2: -1, k3: 1, });
 
     comp('over',
@@ -1666,8 +1781,10 @@ var scratchblocks2 = function () {
 
   /* Label */
 
-  var Label = function(value) {
-    this.el = text(0, 10, value);
+  var Label = function(value, cls) {
+    this.el = text(0, 10, value, {
+      class: cls || '',
+    });
     measure(this.el, function(bbox) {
       this.width = (bbox.width + 0.5) | 0;
       this.height = (bbox.height + 0.5) | 0;
@@ -1686,24 +1803,40 @@ var scratchblocks2 = function () {
     this.shape = shape;
     this.value = value;
 
-    this.label = new Label(value);
+    this.label = new Label(value, 'literal');
     this.x = 0;
   };
 
   Input.prototype.draw = function(x, y) {
     var label = this.label.draw();
+    var lw = this.label.width;
+    var lh = this.label.height;
 
-    this.width = this.label.width + 4;
-    this.height = this.label.height + 3;
+    switch (this.shape) {
+      case 'number':
+        var w = Math.max(14, lw + 6);
+        var h = 14;
+        var el = roundedRect(w, h);
+        var lx = 5;
+        var ly = 0;
+        break;
 
-    var radius = this.height / 2;
+      case 'string':
+        var w = Math.max(0, lw + 6);
+        var h = 14;
+        var lx = 4;
+        var ly = 1;
+        var el = rect(w, h);
+        break;
+    }
+    this.width = w;
+    this.height = h;
+
     return group([
-      roundedRect(this.width, this.height, {
-        class: 'string',
+      setProps(el, {
+        class: [this.shape, 'input'].join(' '),
       }),
-      setProps(translate(2, 2, label), {
-        class: 'literal',
-      }),
+      translate(lx, 1, label),
     ]);
   };
 
@@ -1729,19 +1862,19 @@ var scratchblocks2 = function () {
   };
 
   Block.prototype.drawSelf = function(w, h) {
-    return roundedRect(w, h, {
-      class: 'variable bevel',
-    });
-
-    return path({
-      class: 'variable bevel',
-      path: [
-        "M", P(0, 0),
-        "L", P(w, 0),
-        "L", P(w, h),
-        "L", P(0, h),
-        "Z"
-      ]
+    var func = {
+      stack: stackRect,
+      cap: capRect,
+      reporter: roundedRect,
+      boolean: pointedRect,
+      hat: hatRect,
+      // 'c-block': TODO
+      // 'c-block cap': TODO
+      // 'if-block': TODO
+    }[this.info.shape];
+    if (!func) throw "no shape func: " + this.info.shape;
+    return func(w, h, {
+      class: [this.info.category, 'bevel'].join(' '),
     });
   };
 
@@ -1753,23 +1886,31 @@ var scratchblocks2 = function () {
     for (var i=0; i<this.children.length; i++) {
       var child = this.children[i];
       objects.push(child.draw());
-      if (x) x += 2;
+
+      if (x) x += 4;
+      if (i === 1) x = 24; // TODO
       child.x = x;
       x += child.width;
       h = Math.max(h, child.height);
     }
 
-    var pv = 2;
+    var pv = 4;
     this.height = Math.max(10, h + 2 * pv);
-    var ph = 4;
+    var ph = 6;
     this.width = x + 2 * ph;
+
+    var pt = 0;
+    if (this.info.shape === 'hat') {
+      pt = 12;
+    }
 
     for (var i=0; i<this.children.length; i++) {
       var child = this.children[i];
       var o = objects[i];
-      translate(ph + child.x, (this.height - child.height) / 2, o);
+      translate(ph + child.x, pt + (this.height - child.height) / 2, o);
     }
 
+    this.height += pt;
     objects.splice(0, 0, this.drawSelf(this.width, this.height));
 
     return group(objects);
@@ -1799,6 +1940,10 @@ var scratchblocks2 = function () {
   };
 
   Block.fromAST = function(block) {
+    if (block.type === 'cwrap') {
+      block = block.contents[0];
+      // TODO
+    }
     var info = {
       // spec: spec,
       // parts: spec.split(inputPat),
@@ -1840,6 +1985,9 @@ var scratchblocks2 = function () {
       this.width = Math.max(this.width, block.width);
     }
     this.height = y;
+    if (!/cap/.test(block.shape)) {
+      this.height += NotchDepth;
+    }
     return group(children);
   };
 
@@ -1877,9 +2025,11 @@ var scratchblocks2 = function () {
     var defs = el('defs');
     svg.appendChild(defs);
     defs.appendChild(makeStyle());
-    defs.appendChild(bevelFilter());
-    svg.appendChild(group(elements));
+    defs.appendChild(bevelFilter('bevelFilter', +1));
+    defs.appendChild(bevelFilter('inputBevelFilter', -1));
     window.svg = svg; // DEBUG
+
+    svg.appendChild(group(elements));
     return svg;
   }
 

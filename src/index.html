@@ -10,6 +10,33 @@
 
 <link rel=stylesheet href="blockpix2.css" id="blockpix-style"></style>
 
+<style>
+#preview, #preview:before {
+  position: relative;
+  min-width: 200px;
+  min-height: 100px;
+}
+.cmp #preview:before,
+.diff #preview:before {
+  position: absolute;
+  display: block;
+  content: "";
+  background: url(screenshot.png) no-repeat;
+}
+.cmp.diff #preview:before {
+  -webkit-filter: invert(100%) opacity(50%);
+}
+.diff #preview:before {
+  -webkit-filter: opacity(50%);
+}
+.cmp img {
+  display: none;
+}
+body {
+  background: #dddede;
+}
+</style>
+
 <!---------------------------------------------------------------------------->
 
 <h1>
@@ -251,6 +278,16 @@ function updatedFromHash() {
 }
 
 updatedFromHash();
+
+</script>
+
+<script>
+function showDiff(e) {
+  document.body.classList[e.ctrlKey ? 'add' : 'remove']('cmp');
+  document.body.classList[e.altKey  ? 'add' : 'remove']('diff');
+}
+document.addEventListener('keydown', showDiff);
+document.addEventListener('keyup', showDiff);
 
 </script>
 
