@@ -1383,15 +1383,15 @@ var scratchblocks2 = function () {
       }
 
       var scripts = parse_scripts(code);
-      var svg = scriptsToSVG(scripts);
+      scriptsToSVG(scripts, function(svg) {
+        var container = document.createElement('div');
+        container.classList.add("sb");
+        if (options.inline) container.classList.add('sb-inline');
+        container.appendChild(svg);
 
-      var container = document.createElement('div');
-      container.classList.add("sb");
-      if (options.inline) container.classList.add('sb-inline');
-      container.appendChild(svg);
-
-      el.innerHTML = '';
-      el.appendChild(container);
+        el.innerHTML = '';
+        el.appendChild(container);
+      });
     }
   };
 
@@ -1725,50 +1725,22 @@ var scratchblocks2 = function () {
     o.draw();
   }
 
-  function makeMeasuring() {
-    var measuring = newSVG(1, 1);
-    measuring.classList.add('sb-measure');
-    measuring.style.visibility = 'hidden';
-    document.body.appendChild(measuring);
-
-    // var defs = el('defs');
-    // measuring.appendChild(defs);
-    // defs.appendChild(makeStyle());
-
-    return measuring;
-  }
-  var measuring = makeMeasuring();
-
-  var toMeasure = [];
-  function measure(el, cb) {
-    measuring.appendChild(el);
-    toMeasure.push(function() {
-      cb(el.getBBox());
-      measuring.removeChild(el);
-    });
-  }
-  function measureAll() {
-    for (var i=0; i<toMeasure.length; i++) {
-      var func = toMeasure[i]
-      func();
-    }
-    toMeasure = [];
-  }
-
-
   /* Label */
 
   var Label = function(value, cls) {
     this.el = text(0, 10, value, {
       class: cls || '',
     });
-    measure(this.el, function(bbox) {
-      this.width = (bbox.width + 0.5) | 0;
-      this.height = (bbox.height + 0.5) | 0;
-    }.bind(this));
+    this.width = null;
+    if (value === "") {
+      this.width = 0;
+    } else if (value === " ") {
+      this.width = 4.15625;
+    } else {
+      Label.measure(this);
+    }
+    this.height = 10;
     this.x = 0;
-
-    this.value = value; // DEBUG
   };
 
   Label.prototype.draw = function() {
@@ -1777,6 +1749,42 @@ var scratchblocks2 = function () {
 
   Label.prototype.toString = function() {
     return this.value; // DEBUG
+  };
+
+  Label.measuring = null;
+  Label.toMeasure = [];
+
+  Label.startMeasuring = function() {
+    Label.measuring = newSVG(1, 1);
+    Label.measuring.classList.add('sb-measure');
+    Label.measuring.style.visibility = 'hidden';
+    document.body.appendChild(Label.measuring);
+
+    var defs = el('defs');
+    Label.measuring.appendChild(defs);
+    defs.appendChild(makeStyle());
+  };
+  Label.measure = function(label) {
+    Label.measuring.appendChild(label.el);
+    Label.toMeasure.push(label);
+  };
+  Label.endMeasuring = function(cb) {
+    var measuring = Label.measuring;
+    var toMeasure = Label.toMeasure;
+    Label.measuring = null;
+    Label.toMeasure = [];
+
+    setTimeout(Label.measureAll.bind(null, measuring, toMeasure, cb), 0);
+    //Label.measureAll(measuring, toMeasure, cb);
+  };
+  Label.measureAll = function(measuring, toMeasure, cb) {
+    for (var i=0; i<toMeasure.length; i++) {
+      var label = toMeasure[i];
+      var bbox = label.el.getBBox();
+      label.width = (bbox.width + 0.5) | 0;
+    }
+    document.body.removeChild(measuring);
+    cb();
   };
 
 
@@ -2072,7 +2080,9 @@ var scratchblocks2 = function () {
   /*****************************************************************************/
 
 
-  function scriptsToSVG(results) {
+  function scriptsToSVG(results, cb) {
+    Label.startMeasuring();
+
     // walk AST
     var scripts = [];
     for (var i=0; i<results.length; i++) {
@@ -2080,8 +2090,10 @@ var scratchblocks2 = function () {
     }
 
     // measure strings
-    measureAll();
+    Label.endMeasuring(drawScripts.bind(null, scripts, cb));
+  }
 
+  function drawScripts(scripts, cb) {
     // render each script
     var width = 0;
     var height = 0;
@@ -2104,9 +2116,8 @@ var scratchblocks2 = function () {
     window.svg = svg; // DEBUG
 
     svg.appendChild(group(elements));
-    return svg;
+    cb(svg);
   }
-
 
   function exportXML(svg) {
     return new XMLSerializer().serializeToString(svg);
