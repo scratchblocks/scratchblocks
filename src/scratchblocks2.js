@@ -1396,27 +1396,6 @@ var scratchblocks2 = function () {
   };
 
 
-  function el(name, props) {
-    var el = document.createElementNS("http://www.w3.org/2000/svg", name);
-    setProps(el, props);
-    return el;
-  }
-
-  function setProps(el, props) {
-    for (var key in props) {
-      if (props[key] !== null && props.hasOwnProperty(key)) {
-        el.setAttributeNS(null, key, ''+props[key]);
-      }
-    }
-    return el;
-  }
-
-  var xml = new DOMParser().parseFromString('<xml></xml>',  "application/xml")
-
-  function cdata(content) {
-    return xml.createCDATASection(content);
-  }
-
   function extend(src, dest) {
     src = src || {};
     for (var key in src) {
@@ -1426,6 +1405,42 @@ var scratchblocks2 = function () {
     }
     return dest;
   }
+
+  var xml = new DOMParser().parseFromString('<xml></xml>',  "application/xml")
+  function cdata(content) {
+    return xml.createCDATASection(content);
+  }
+
+  function el(name, props) {
+    var el = document.createElementNS("http://www.w3.org/2000/svg", name);
+    setProps(el, props);
+    return el;
+  }
+
+  var directProps = {
+    textContent: true,
+  };
+  function setProps(el, props) {
+    for (var key in props) {
+      var value = '' + props[key];
+      if (directProps[key]) {
+        el[key] = value;
+      } else if (props[key] !== null && props.hasOwnProperty(key)) {
+        el.setAttributeNS(null, key, value);
+      }
+    }
+    return el;
+  }
+
+  function newSVG(width, height) {
+    return el('svg', {
+      version: "1.1",
+      width: width,
+      height: height,
+    });
+  }
+
+
 
   var Point = function Point(x, y) {
     this.x = x;
@@ -1440,20 +1455,7 @@ var scratchblocks2 = function () {
   };
 
 
-  function curve(p1, p2, roundness) {
-    if (!roundness) {
-      roundness = 0.42;
-    }
-    // Compute the Bezier control point by following an orthogonal vector from the midpoint
-    // of the line between p1 and p2 scaled by roundness * dist(p1, p2). The default roundness
-    // approximates a circular arc. Negative roundness gives a concave curve.
 
-    var midX = (p1.x + p2.x) / 2.0;
-    var midY = (p1.y + p2.y) / 2.0;
-    var cx = midX + (roundness * (p2.y - p1.y));
-    var cy = midY - (roundness * (p2.x - p1.x));
-    return ["L", p1.x, p1.y, "Q", cx, cy, p2.x, p2.y].join(" ");
-  }
 
 
 
@@ -1470,6 +1472,27 @@ var scratchblocks2 = function () {
         return p.constructor === Point ? [p.x, p.y].join(" ") : p;
       }).join(" "),
     }));
+  }
+
+  function text(x, y, content) {
+    var text = el('text', {
+      x: x,
+      y: y,
+      textContent: content,
+    });
+    return text;
+  }
+
+
+
+
+  function roundedCorner(p1, p2) {
+    var roundness = 0.42;
+    var midX = (p1.x + p2.x) / 2.0;
+    var midY = (p1.y + p2.y) / 2.0;
+    var cx = midX + (roundness * (p2.y - p1.y));
+    var cy = midY - (roundness * (p2.x - p1.x));
+    return ["L", p1.x, p1.y, "Q", cx, cy, p2.x, p2.y].join(" ");
   }
 
   function bevelFilter() {
@@ -1551,6 +1574,23 @@ var scratchblocks2 = function () {
   }
 
 
+
+
+
+  var Shape = function(el, width, height) {
+    this.el = el;
+    this.width = width;
+    this.height = height;
+  };
+
+
+
+  var measuring = newSVG(1, 1);
+  measuring.style.visibility = 'hidden';
+  document.body.appendChild(measuring);
+
+
+
   var cssContent;
   var request = new XMLHttpRequest();
   request.open('GET', 'blockpix.css', false);
@@ -1560,11 +1600,7 @@ var scratchblocks2 = function () {
   }
 
   function scriptsToSVG(scripts) {
-    var svg = el('svg', {
-      version: "1.1",
-      width: 300,
-      height: 200,
-    });
+    var svg = newSVG(300, 200);
     window.svg = svg;
 
     var defs = el('defs');
@@ -1580,10 +1616,10 @@ var scratchblocks2 = function () {
       class: 'variable bevel',
       path: [
         "M", P(10, 0),
-        curve(P(190, 0), P(200, 10)),
-        curve(P(200, 10), P(190, 20)),
-        curve(P(10, 20), P(0, 10)),
-        curve(P(0, 10), P(10, 0)),
+        roundedCorner(P(190, 0), P(200, 10)),
+        roundedCorner(P(200, 10), P(190, 20)),
+        roundedCorner(P(10, 20), P(0, 10)),
+        roundedCorner(P(0, 10), P(10, 0)),
         "Z"
       ],
     }));
@@ -1595,6 +1631,23 @@ var scratchblocks2 = function () {
         P(0, 200),
         P(100, 150),
       ],
+    }));
+
+    var label = text(10, 20, "Hello there! filial safflower");
+    window.label = label;
+    svg.appendChild(label);
+
+    var bbox = label.getBBox();
+    console.log(bbox);
+    console.log(label.getBoundingClientRect());
+    console.log(label.getComputedTextLength());
+    svg.appendChild(el('rect', {
+      x: 10,
+      y: 20 - bbox.height,
+      width: bbox.width,
+      height: bbox.height,
+      fill: 'transparent',
+      stroke: '#f00',
     }));
 
     return svg;

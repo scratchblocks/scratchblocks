@@ -1,4 +1,14 @@
 
+
+
+
+text {
+  font-family: Lucida Grande, Verdana, Arial, DejaVu Sans, sans-serif;
+  font-weight: bold;
+  fill: #fff;
+  font-size: 10px;
+}
+
 .variable {
   fill: #ee7d16;
 }
