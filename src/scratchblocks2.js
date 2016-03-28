@@ -1727,7 +1727,7 @@ var scratchblocks2 = function () {
     }
 
     var s = inset ? -1 : 1;
-    var blur = blur(1.5, 'SourceAlpha');
+    var blur = blur(1, 'SourceAlpha');
 
     merge([
       'SourceGraphic',
