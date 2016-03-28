@@ -36,11 +36,13 @@ text {
   fill: #fff;
 }
 .dropdown {
-  fill: #fff;
 }
 .literal {
-  fill: #000;
   font-weight: normal;
   font-size: 9px;
+}
+.number-literal,
+.string-literal {
+  fill: #000;
 }
 

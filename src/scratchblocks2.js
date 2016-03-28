@@ -1531,10 +1531,8 @@ var scratchblocks2 = function () {
     return path(extend(props, {
       path: [
         "M", P(r, 0),
-        cornerArc(P(w - r, 0), P(w, r)),
-        cornerArc(P(w, r), P(w - r, h)),
-        cornerArc(P(r, h), P(0, r)),
-        cornerArc(P(0, r), P(r, 0)),
+        arc(P(w - r, 0), P(w - r, h), r, r),
+        arc(P(r, h), P(r, 0), r, r),
         "Z"
       ],
     }));
@@ -1809,7 +1807,7 @@ var scratchblocks2 = function () {
     this.shape = shape;
     this.value = value;
 
-    this.label = new Label(value, 'literal');
+    this.label = new Label(value, ['literal', this.shape+'-literal'].join(' '));
     this.x = 0;
   };
 
@@ -1848,7 +1846,7 @@ var scratchblocks2 = function () {
 
     return group([
       setProps(el, {
-        class: [this.shape, 'input', parent.info.category+this.shape].join(' '),
+        class: [this.shape, 'input', parent.info.category].join(' '),
       }),
       translate(lx, 1, label),
     ]);
