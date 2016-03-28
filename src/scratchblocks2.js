@@ -1669,8 +1669,8 @@ var scratchblocks2 = function () {
   var Label = function(value) {
     this.el = text(0, 10, value);
     measure(this.el, function(bbox) {
-      this.width = Math.round(bbox.width);
-      this.height = Math.round(bbox.height);
+      this.width = (bbox.width + 0.5) | 0;
+      this.height = (bbox.height + 0.5) | 0;
     }.bind(this));
     this.x = 0;
   };
