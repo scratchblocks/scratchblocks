@@ -239,18 +239,15 @@ function objUpdated() {
   }
   // TODO: don't spam history on every keypress!
 
-
-  // render code
-  var preview = document.getElementById('preview');
-  preview.innerHTML = "";
-  var textNode = document.createTextNode(obj.script);
-  preview.appendChild(textNode);
-
   scratchblocks2.reset_languages();
   // TODO fix this stuff
   // var langDict = scratchblocks2._translations[obj.lang];
   // if (langDict) scratchblocks2.load_language(langDict);
-  var results = scratchblocks2.parse('pre.blocks');
+
+  scratchblocks2.render(obj.script, function(svg) {
+    preview.innerHTML = "";
+    preview.appendChild(svg);
+  });
 
   // update language dropdown
   var isIncomplete = incompleteLangs.indexOf(obj.lang) > -1;

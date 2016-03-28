@@ -1395,6 +1395,11 @@ var scratchblocks2 = function () {
     }
   };
 
+  sb2.render = function(code, cb) {
+    var scripts = parse_scripts(code);
+    scriptsToSVG(scripts, cb);
+  };
+
 
   /* utils */
 
