@@ -1457,6 +1457,17 @@ var scratchblocks2 = function () {
     return el;
   }
 
+  function withChildren(el, children) {
+    for (var i=0; i<children.length; i++) {
+      el.appendChild(children[i]);
+    }
+    return el;
+  }
+
+  function group(children) {
+    return withChildren(el('g'), children);
+  }
+
   function newSVG(width, height) {
     return el('svg', {
       version: "1.1",
@@ -1487,14 +1498,6 @@ var scratchblocks2 = function () {
       textContent: content,
     }));
     return text;
-  }
-
-  function group(children) {
-    var group = el('g');
-    for (var i=0; i<children.length; i++) {
-      group.appendChild(children[i]);
-    }
-    return group;
   }
 
   function translate(dx, dy, el) {
@@ -1678,7 +1681,8 @@ var scratchblocks2 = function () {
 
     var highestId = 0;
     function fe(name, props) {
-      var id = [name, '-', ++highestId].join('');
+      var shortName = name.toLowerCase().replace(/gaussian|osite/, '');
+      var id = [shortName, '-', ++highestId].join('');
       filter.appendChild(el("fe" + name, extend(props, {
         result: id,
       })));
@@ -1714,27 +1718,28 @@ var scratchblocks2 = function () {
         stdDeviation: [dev, dev].join(' '),
       });
     }
+    function merge(children) {
+      filter.appendChild(withChildren(el('feMerge'), children.map(function(name) {
+        return el('feMergeNode', {
+          in: name,
+        });
+      })));
+    }
 
     var s = inset ? -1 : 1;
     var blur = blur(1.5, 'SourceAlpha');
-    var hlDiff = subtract('SourceAlpha', offset(+s, +s, blur));
 
-    var withGlow = comp('over',
-                        comp('in',
-                             flood('#fff', 0.2, hlDiff),
-                             hlDiff
-                        ),
-                        'SourceGraphic');
-
-    var shadowDiff = subtract('SourceAlpha', offset(-s, -s, blur));
-
-    comp('over',
-         comp('in',
-              flood('#000', 0.7, shadowDiff),
-              shadowDiff
-         ),
-         withGlow
-    );
+    merge([
+      'SourceGraphic',
+      comp('in',
+           flood('#fff', 0.2),
+           subtract('SourceAlpha', offset(+s, +s, blur))
+      ),
+      comp('in',
+           flood('#000', 0.7),
+           subtract('SourceAlpha', offset(-s, -s, blur))
+      ),
+    ]);
 
     return filter;
   }
