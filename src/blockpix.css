@@ -35,6 +35,9 @@ text {
 .string {
   fill: #fff;
 }
+.dropdown {
+  fill: #fff;
+}
 .literal {
   fill: #000;
   font-weight: normal;

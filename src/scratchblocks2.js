@@ -1790,10 +1790,16 @@ var scratchblocks2 = function () {
       this.height = (bbox.height + 0.5) | 0;
     }.bind(this));
     this.x = 0;
+
+    this.value = value; // DEBUG
   };
 
   Label.prototype.draw = function() {
     return this.el;
+  };
+
+  Label.prototype.toString = function() {
+    return this.value; // DEBUG
   };
 
 
@@ -1807,7 +1813,7 @@ var scratchblocks2 = function () {
     this.x = 0;
   };
 
-  Input.prototype.draw = function(x, y) {
+  Input.prototype.draw = function(parent) {
     var label = this.label.draw();
     var lw = this.label.width;
     var lh = this.label.height;
@@ -1828,13 +1834,21 @@ var scratchblocks2 = function () {
         var ly = 1;
         var el = rect(w, h);
         break;
+
+      case 'dropdown':
+        var w = Math.max(0, lw + 16);
+        var h = 14;
+        var lx = 4;
+        var ly = 1;
+        var el = rect(w, h);
+        break;
     }
     this.width = w;
     this.height = h;
 
     return group([
       setProps(el, {
-        class: [this.shape, 'input'].join(' '),
+        class: [this.shape, 'input', parent.info.category+this.shape].join(' '),
       }),
       translate(lx, 1, label),
     ]);
@@ -1858,7 +1872,43 @@ var scratchblocks2 = function () {
     this.info = info;
     this.children = children;
 
+    var shape = this.info.shape;
+    this.isHat = shape === 'hat';
+    this.hasPuzzle = shape === 'stack' || shape === 'hat';
+    this.isFinal = /cap/.test(shape);
+    this.isCommand = shape === 'stack' || shape === 'cap';
+    this.isReporter = shape === 'boolean' || shape === 'reporter' || shape === 'embedded';
+    this.isBoolean = shape === 'boolean';
+    this.hasScript = /block/.test(shape);
+
     this.x = 0;
+  };
+
+  Block.padding = {
+    c: [4, 6, 2],
+    f: [4, 6, 2],
+    r: [3, 4, 1],
+    b: [3, 4, 2],
+    h: [3, 6, 2]
+  };
+  Block.partPadding = 4;
+  Block.lineSpacing = 2;
+  Block.scriptPadding = 15;
+  Block.blockOffsetY = 1;
+
+  Block.prototype.minDistance = function(part) {
+    if (this.isBoolean) {
+      return (
+        part.isBlock && part._type === 'r' && !part.hasScript ? this.paddingX + part.height/4 | 0 :
+        part._type !== 'b' ? this.paddingX + part.height/2 | 0 :
+        0);
+    }
+    if (this.isReporter) {
+      return (
+        part.isArg && (part._type === 'd' || part._type === 'n') || part.isReporter && !part.hasScript ? 0 :
+        (part.height)/2 | 0);
+    }
+    return 0;
   };
 
   Block.prototype.drawSelf = function(w, h) {
@@ -1866,6 +1916,7 @@ var scratchblocks2 = function () {
       stack: stackRect,
       cap: capRect,
       reporter: roundedRect,
+      embedded: roundedRect,
       boolean: pointedRect,
       hat: hatRect,
       // 'c-block': TODO
@@ -1880,12 +1931,12 @@ var scratchblocks2 = function () {
 
   Block.prototype.draw = function() {
     var x = 0;
-    var h = 0;
+    var h = 16;
+    var minWidth = this.isCommand ? 39 : 0;
 
-    var objects = [];
     for (var i=0; i<this.children.length; i++) {
       var child = this.children[i];
-      objects.push(child.draw());
+      child.el = child.draw(this);
 
       if (x) {
         if (child.constructor === Input && x < 24) {
@@ -1896,26 +1947,39 @@ var scratchblocks2 = function () {
       }
       child.x = x;
       x += child.width;
-      h = Math.max(h, child.height);
+      if (child.constructor === Block) {
+        h = Math.max(h, child.height);
+      }
     }
 
-    var pv = 4;
-    this.height = Math.max(22, h + 2 * pv);
-    var ph = 6;
-    this.width = Math.max(39, x + 2 * ph);
-
-    var pt = 0;
-    if (this.info.shape === 'hat') {
-      pt = 12;
+    switch (this.info.shape) {
+      case 'hat':
+        var pt = 12, px = 6, pb = 2;
+        break;
+      case 'reporter':
+      case 'embedded':
+        var pt = 3, px = 4, pb = 1;
+        px = 9;
+        break;
+      case 'boolean':
+        var pt = 3, px = 4, pb = 2;
+        px = 12;
+        break;
+      default:
+        var pt = 4, px = 6, pb = 2;
     }
 
+    this.height = h + pt + pb;
+    this.width = Math.max(minWidth, x + 2 * px);
+
+    var objects = [];
     for (var i=0; i<this.children.length; i++) {
       var child = this.children[i];
-      var o = objects[i];
-      translate(ph + child.x, pt + (this.height - child.height) / 2, o);
+      var y = pt + (h - child.height - 2) / 2;
+      translate(px + child.x, y, child.el);
+      objects.push(child.el);
     }
 
-    this.height += pt;
     objects.splice(0, 0, this.drawSelf(this.width, this.height));
 
     return group(objects);
@@ -1963,6 +2027,7 @@ var scratchblocks2 = function () {
       switch (piece.shape) {
         case 'number':
         case 'string':
+        case 'dropdown':
           return Input.fromAST(piece);
         // if (piece.shape === 'cwrap')  // TODO
         default:
