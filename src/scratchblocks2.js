@@ -102,7 +102,7 @@ String.prototype.trimRight = function() {
 
 
 
-var scratchblocks2 = function () {
+var scratchblocks = function () {
   "use strict";
 
   function assert(bool) {
@@ -1193,7 +1193,7 @@ var scratchblocks2 = function () {
 
   // Take scratchblocks text and turn it into useful objects.
 
-  function parse_scripts(code) {
+  function parse(code) {
     var context = {obsolete_blocks: {}, define_hats: [], custom_args: [],
         variable_reporters: {}, lists: []};
     var scripts = [];
@@ -1349,56 +1349,7 @@ var scratchblocks2 = function () {
     return scripts;
   }
 
-  sb2.parse_scripts = parse_scripts;
-
-
-
-  /*** Render ***/
-
-  /* Render all matching elements in page to shiny scratch blocks.
-   * Accepts a CSS-style selector as an argument.
-   *
-   *  scratchblocks2.parse("pre.blocks");
-   *
-   * (This should really be called "render_all"...)
-   */
-  sb2.parse = function (selector, options) {
-    selector = selector || "pre.blocks";
-    options = options || {
-      inline: false,
-    }
-
-    // find elements
-    var results = document.querySelectorAll(selector);
-    for (var i=0; i<results.length; i++) {
-      var el = results[i];
-
-      var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/ig, '\n');
-      var pre = document.createElement('pre');
-      pre.innerHTML = html;
-      var code = pre.textContent;
-
-      if (options.inline) {
-        code = code.replace('\n', '');
-      }
-
-      var scripts = parse_scripts(code);
-      scriptsToSVG(scripts, function(svg) {
-        var container = document.createElement('div');
-        container.classList.add("sb");
-        if (options.inline) container.classList.add('sb-inline');
-        container.appendChild(svg);
-
-        el.innerHTML = '';
-        el.appendChild(container);
-      });
-    }
-  };
-
-  sb2.render = function(code, cb) {
-    var scripts = parse_scripts(code);
-    scriptsToSVG(scripts, cb);
-  };
+  /*****************************************************************************/
 
 
   /* utils */
@@ -1967,7 +1918,6 @@ var scratchblocks2 = function () {
   };
 
 
-
   /* Block */
 
   var Block = function(info, children) {
@@ -2167,7 +2117,7 @@ var scratchblocks2 = function () {
   /*****************************************************************************/
 
 
-  function scriptsToSVG(results, cb) {
+  function render(results, cb) {
     Label.startMeasuring();
 
     // walk AST
@@ -2208,10 +2158,60 @@ var scratchblocks2 = function () {
     cb(svg);
   }
 
-  function exportXML(svg) {
+  function exportSVG(svg) {
     return new XMLSerializer().serializeToString(svg);
   }
 
 
-  return sb2; // export the module
+  /*** Render ***/
+
+  /* Render all matching elements in page to shiny scratch blocks.
+   * Accepts a CSS selector as an argument.
+   *
+   *  scratchblocks.renderMatching("pre.blocks");
+   *
+   * Like the old 'scratchblocks2.parse().
+   */
+  var renderMatching = function (selector, options) {
+    selector = selector || "pre.blocks";
+    options = options || {
+      inline: false,
+    }
+
+    // find elements
+    var results = document.querySelectorAll(selector);
+    for (var i=0; i<results.length; i++) {
+      var el = results[i];
+
+      var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/ig, '\n');
+      var pre = document.createElement('pre');
+      pre.innerHTML = html;
+      var code = pre.textContent;
+
+      if (options.inline) {
+        code = code.replace('\n', '');
+      }
+
+      var scripts = parse(code);
+      scriptsToSVG(scripts, function(svg) {
+        var container = document.createElement('div');
+        container.classList.add("sb");
+        if (options.inline) container.classList.add('sb-inline');
+        container.appendChild(svg);
+
+        el.innerHTML = '';
+        el.appendChild(container);
+      });
+    }
+  };
+
+
+
+  return {
+    parse: parse,
+    render: render,
+    renderMatching: renderMatching,
+    exportSVG: exportSVG,
+  };
+
 }();

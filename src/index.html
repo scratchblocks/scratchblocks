@@ -239,12 +239,12 @@ function objUpdated() {
   }
   // TODO: don't spam history on every keypress!
 
-  scratchblocks2.reset_languages();
   // TODO fix this stuff
+  // scratchblocks.reset_languages();
   // var langDict = scratchblocks2._translations[obj.lang];
   // if (langDict) scratchblocks2.load_language(langDict);
 
-  scratchblocks2.render(obj.script, function(svg) {
+  scratchblocks.render(scratchblocks.parse(obj.script), function(svg) {
     preview.innerHTML = "";
     preview.appendChild(svg);
   });
