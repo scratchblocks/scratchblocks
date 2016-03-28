@@ -1,0 +1,15 @@
+
+.variable {
+  fill: #ee7d16;
+}
+.motion {
+  fill: #f00;
+}
+.looks {
+  fill: #5cb712;
+}
+
+.bevel {
+  filter: url(#bevelFilter);
+}
+

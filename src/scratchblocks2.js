@@ -1395,9 +1395,215 @@ var scratchblocks2 = function () {
     }
   };
 
-  function scriptsToSVG() {
-    return document.createElement('svg');
+
+  function el(name, props) {
+    var el = document.createElementNS("http://www.w3.org/2000/svg", name);
+    setProps(el, props);
+    return el;
   }
+
+  function setProps(el, props) {
+    for (var key in props) {
+      if (props[key] !== null && props.hasOwnProperty(key)) {
+        el.setAttributeNS(null, key, ''+props[key]);
+      }
+    }
+    return el;
+  }
+
+  var xml = new DOMParser().parseFromString('<xml></xml>',  "application/xml")
+
+  function cdata(content) {
+    return xml.createCDATASection(content);
+  }
+
+  function extend(src, dest) {
+    src = src || {};
+    for (var key in src) {
+      if (src.hasOwnProperty(key) && !dest.hasOwnProperty(key)) {
+        dest[key] = src[key];
+      }
+    }
+    return dest;
+  }
+
+  var Point = function Point(x, y) {
+    this.x = x;
+    this.y = y;
+    // TODO round points
+  };
+  Point.prototype.toString = function() {
+    return [this.x, this.y].join(",");
+  };
+  var P = function(x, y) {
+    return new Point(x, y);
+  };
+
+
+  function curve(p1, p2, roundness) {
+    if (!roundness) {
+      roundness = 0.42;
+    }
+    // Compute the Bezier control point by following an orthogonal vector from the midpoint
+    // of the line between p1 and p2 scaled by roundness * dist(p1, p2). The default roundness
+    // approximates a circular arc. Negative roundness gives a concave curve.
+
+    var midX = (p1.x + p2.x) / 2.0;
+    var midY = (p1.y + p2.y) / 2.0;
+    var cx = midX + (roundness * (p2.y - p1.y));
+    var cy = midY - (roundness * (p2.x - p1.x));
+    return ["L", p1.x, p1.y, "Q", cx, cy, p2.x, p2.y].join(" ");
+  }
+
+
+
+  function polygon(props) {
+    return el('polygon', extend(props, {
+      points: props.points.join(" "),
+    }));
+  }
+
+  function path(props) {
+    return el('path', extend(props, {
+      path: null,
+      d: props.path.map(function(p) {
+        return p.constructor === Point ? [p.x, p.y].join(" ") : p;
+      }).join(" "),
+    }));
+  }
+
+  function bevelFilter() {
+    var filter = el('filter', {
+      id: 'bevelFilter',
+      x0: '-50%',
+      y0: '-50%',
+      width: '200%',
+      height: '200%',
+    });
+
+    var highestId = 0;
+    function fe(name, props) {
+      var id = 'out' + ++highestId;
+      filter.appendChild(el("fe" + name, extend(props, {
+        result: id,
+      })));
+      return id;
+    }
+    function comp(op, in1, in2, props) {
+      return fe('Composite', extend(props, {
+        operator: op,
+        in: in1,
+        in2: in2,
+      }));
+    }
+    function offset(dx, dy, in1) {
+      return fe('Offset', {
+        in: in1,
+        dx: dx,
+        dy: dy,
+      });
+    }
+    function flood(color, opacity, in1) {
+      return fe('Flood', {
+        in: in1,
+        'flood-color': color,
+        'flood-opacity': opacity,
+      });
+    }
+    function blur(dev, in1) {
+      return fe('GaussianBlur', {
+        'in': 'SourceAlpha',
+        stdDeviation: '1 1',
+      });
+    }
+
+    var blur = blur(1, 'SourceAlpha');
+    var hlDiff = comp('arithmetic',
+                      offset(1, 1, blur),
+                      'SourceAlpha', {
+      k2: -1,
+      k3: 1,
+    });
+
+    var withGlow = comp('over',
+                        comp('in',
+                             flood('#fff', 0.2, hlDiff),
+                             hlDiff
+                        ),
+                        'SourceGraphic');
+
+    var shadowDiff = comp('arithmetic',
+                          offset(-1, -1, blur),
+                          'SourceAlpha', {
+      k2: -1,
+      k3: 1,
+    });
+
+    comp('over',
+         comp('in',
+              flood('#000', 0.7, shadowDiff),
+              shadowDiff
+         ),
+         withGlow
+    );
+
+    return filter;
+  }
+
+
+  var cssContent;
+  var request = new XMLHttpRequest();
+  request.open('GET', 'blockpix.css', false);
+  request.send(null);
+  if (request.status === 200) {
+    cssContent = request.responseText;
+  }
+
+  function scriptsToSVG(scripts) {
+    var svg = el('svg', {
+      version: "1.1",
+      width: 300,
+      height: 200,
+    });
+    window.svg = svg;
+
+    var defs = el('defs');
+    svg.appendChild(defs);
+
+    defs.appendChild(bevelFilter());
+
+    var style = el('style');
+    defs.appendChild(style);
+    style.appendChild(cdata(cssContent));
+
+    svg.appendChild(path({
+      class: 'variable bevel',
+      path: [
+        "M", P(10, 0),
+        curve(P(190, 0), P(200, 10)),
+        curve(P(200, 10), P(190, 20)),
+        curve(P(10, 20), P(0, 10)),
+        curve(P(0, 10), P(10, 0)),
+        "Z"
+      ],
+    }));
+
+    svg.appendChild(polygon({
+      class: 'looks bevel',
+      points: [
+        P(0, 100),
+        P(0, 200),
+        P(100, 150),
+      ],
+    }));
+
+    return svg;
+  }
+
+  function exportXML(svg) {
+    return new XMLSerializer().serializeToString(svg);
+  }
+
 
   return sb2; // export the module
 }();
