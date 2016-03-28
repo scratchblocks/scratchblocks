@@ -1667,7 +1667,7 @@ var scratchblocks2 = function () {
     return style;
   }
 
-  function bevelFilter(id, dd) {
+  function bevelFilter(id, inset) {
     var filter = el('filter', {
       id: id,
       x0: '-50%',
@@ -1678,7 +1678,7 @@ var scratchblocks2 = function () {
 
     var highestId = 0;
     function fe(name, props) {
-      var id = 'out' + ++highestId;
+      var id = [name, '-', ++highestId].join('');
       filter.appendChild(el("fe" + name, extend(props, {
         result: id,
       })));
@@ -1690,6 +1690,9 @@ var scratchblocks2 = function () {
         in: in1,
         in2: in2,
       }));
+    }
+    function subtract(in1, in2) {
+      return comp('arithmetic', in1, in2, { k2: +1, k3: -1 });
     }
     function offset(dx, dy, in1) {
       return fe('Offset', {
@@ -1708,14 +1711,13 @@ var scratchblocks2 = function () {
     function blur(dev, in1) {
       return fe('GaussianBlur', {
         'in': 'SourceAlpha',
-        stdDeviation: '1 1',
+        stdDeviation: [dev, dev].join(' '),
       });
     }
 
-    var blur = blur(1, 'SourceAlpha');
-    var hlDiff = comp('arithmetic',
-                      offset(+dd, +dd, blur),
-                      'SourceAlpha', { k2: -1, k3: 1, });
+    var s = inset ? -1 : 1;
+    var blur = blur(1.5, 'SourceAlpha');
+    var hlDiff = subtract('SourceAlpha', offset(+s, +s, blur));
 
     var withGlow = comp('over',
                         comp('in',
@@ -1724,9 +1726,7 @@ var scratchblocks2 = function () {
                         ),
                         'SourceGraphic');
 
-    var shadowDiff = comp('arithmetic',
-                          offset(-dd, -dd, blur),
-                          'SourceAlpha', { k2: -1, k3: 1, });
+    var shadowDiff = subtract('SourceAlpha', offset(-s, -s, blur));
 
     comp('over',
          comp('in',
@@ -2093,8 +2093,8 @@ var scratchblocks2 = function () {
     var defs = el('defs');
     svg.appendChild(defs);
     defs.appendChild(makeStyle());
-    defs.appendChild(bevelFilter('bevelFilter', +1));
-    defs.appendChild(bevelFilter('inputBevelFilter', -1));
+    defs.appendChild(bevelFilter('bevelFilter', false));
+    defs.appendChild(bevelFilter('inputBevelFilter', true));
     window.svg = svg; // DEBUG
 
     svg.appendChild(group(elements));
