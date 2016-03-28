@@ -1652,12 +1652,12 @@ var scratchblocks2 = function () {
     });
 
     var highestId = 0;
-    function fe(name, props) {
+    function fe(name, props, children) {
       var shortName = name.toLowerCase().replace(/gaussian|osite/, '');
       var id = [shortName, '-', ++highestId].join('');
-      filter.appendChild(el("fe" + name, extend(props, {
+      filter.appendChild(withChildren(el("fe" + name, extend(props, {
         result: id,
-      })));
+      })), children || []));
       return id;
     }
     function comp(op, in1, in2, props) {
@@ -1691,25 +1691,27 @@ var scratchblocks2 = function () {
       });
     }
     function merge(children) {
-      filter.appendChild(withChildren(el('feMerge'), children.map(function(name) {
+      fe('Merge', {}, children.map(function(name) {
         return el('feMergeNode', {
           in: name,
         });
-      })));
+      }));
     }
 
+    var alpha = 'SourceAlpha';
+
     var s = inset ? -1 : 1;
-    var blur = blur(1, 'SourceAlpha');
+    var blur = blur(1, alpha);
 
     merge([
       'SourceGraphic',
       comp('in',
            flood('#fff', 0.15),
-           subtract('SourceAlpha', offset(+s, +s, blur))
+           subtract(alpha, offset(+s, +s, blur))
       ),
       comp('in',
            flood('#000', 0.7),
-           subtract('SourceAlpha', offset(-s, -s, blur))
+           subtract(alpha, offset(-s, -s, blur))
       ),
     ]);
 
