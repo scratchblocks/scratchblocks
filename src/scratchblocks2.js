@@ -1396,6 +1396,8 @@ var scratchblocks2 = function () {
   };
 
 
+  /* utils */
+
   function extend(src, dest) {
     src = src || {};
     for (var key in src) {
@@ -1405,6 +1407,30 @@ var scratchblocks2 = function () {
     }
     return dest;
   }
+
+  var Point = function Point(x, y) {
+    this.x = x;
+    this.y = y;
+    // TODO round points
+  };
+  Point.prototype.toString = function() {
+    return [this.x, this.y].join(",");
+  };
+  var P = function(x, y) {
+    return new Point(x, y);
+  };
+
+  var Box = function(x, y, width, height) {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+  };
+  var B = function(x, y, w, h) {
+    return new Box(x, y, w, h);
+  };
+
+  /* for constucting SVGs */
 
   var xml = new DOMParser().parseFromString('<xml></xml>',  "application/xml")
   function cdata(content) {
@@ -1440,25 +1466,6 @@ var scratchblocks2 = function () {
     });
   }
 
-
-
-  var Point = function Point(x, y) {
-    this.x = x;
-    this.y = y;
-    // TODO round points
-  };
-  Point.prototype.toString = function() {
-    return [this.x, this.y].join(",");
-  };
-  var P = function(x, y) {
-    return new Point(x, y);
-  };
-
-
-
-
-
-
   function polygon(props) {
     return el('polygon', extend(props, {
       points: props.points.join(" "),
@@ -1483,8 +1490,23 @@ var scratchblocks2 = function () {
     return text;
   }
 
+  function group(children) {
+    var group = el('g');
+    for (var i=0; i<children.length; i++) {
+      group.appendChild(children[i]);
+    }
+    return group;
+  }
+
+  function translate(dx, dy, el) {
+    setProps(el, {
+      transform: ['translate(', dx, ' ', dy, ')'].join(''),
+    });
+    return el;
+  }
 
 
+  /* shapes */
 
   function roundedCorner(p1, p2) {
     var roundness = 0.42;
@@ -1493,6 +1515,22 @@ var scratchblocks2 = function () {
     var cx = midX + (roundness * (p2.y - p1.y));
     var cy = midY - (roundness * (p2.x - p1.x));
     return ["L", p1.x, p1.y, "Q", cx, cy, p2.x, p2.y].join(" ");
+  }
+
+
+  /* definitions */
+
+  var cssContent;
+  var request = new XMLHttpRequest();
+  request.open('GET', 'blockpix.css', false);
+  request.send(null);
+  if (request.status === 200) {
+    cssContent = request.responseText;
+  }
+  function makeStyle() {
+    var style = el('style');
+    style.appendChild(cdata(cssContent));
+    return style;
   }
 
   function bevelFilter() {
@@ -1543,10 +1581,7 @@ var scratchblocks2 = function () {
     var blur = blur(1, 'SourceAlpha');
     var hlDiff = comp('arithmetic',
                       offset(1, 1, blur),
-                      'SourceAlpha', {
-      k2: -1,
-      k3: 1,
-    });
+                      'SourceAlpha', { k2: -1, k3: 1, });
 
     var withGlow = comp('over',
                         comp('in',
@@ -1557,10 +1592,7 @@ var scratchblocks2 = function () {
 
     var shadowDiff = comp('arithmetic',
                           offset(-1, -1, blur),
-                          'SourceAlpha', {
-      k2: -1,
-      k3: 1,
-    });
+                          'SourceAlpha', { k2: -1, k3: 1, });
 
     comp('over',
          comp('in',
@@ -1574,84 +1606,224 @@ var scratchblocks2 = function () {
   }
 
 
+  /* layout */
+
+  function draw(o) {
+    o.draw();
+  }
+
+  function makeMeasuring() {
+    var measuring = newSVG(1, 1);
+    measuring.classList.add('sb-measure');
+    measuring.style.visibility = 'hidden';
+    document.body.appendChild(measuring);
+
+    var defs = el('defs');
+    measuring.appendChild(defs);
+    defs.appendChild(makeStyle());
+
+    return measuring;
+  }
+  var measuring = makeMeasuring();
+
+  var toMeasure = [];
+  function measure(el, cb) {
+    measuring.appendChild(el);
+    toMeasure.push(function() {
+      cb(el.getBBox());
+      measuring.removeChild(el);
+    });
+  }
+  function measureAll() {
+    for (var i=0; i<toMeasure.length; i++) {
+      toMeasure[i]();
+    }
+    toMeasure = [];
+  }
 
 
+  /* Label */
 
-  var Shape = function(el, width, height) {
-    this.el = el;
-    this.width = width;
-    this.height = height;
+  var Label = function(value) {
+    this.el = text(0, 10, value);
+    measure(this.el, function(bbox) {
+      this.width = bbox.width;
+      this.height = bbox.height;
+    }.bind(this));
+    this.x = 0;
+  };
+
+  Label.prototype.draw = function() {
+    return this.el;
   };
 
 
+  /* Input */
 
-  var measuring = newSVG(1, 1);
-  measuring.style.visibility = 'hidden';
-  document.body.appendChild(measuring);
+  var Input = function(shape, value) {
+    this.shape = shape;
+    this.value = value;
+
+    this.label = new Label(value);
+    this.x = 0;
+  };
+
+  Input.prototype.fromJSON = function(shape, value) {
+    // TODO decode _mouse etc
+    return new Input(shape, value);
+  };
+
+  Input.prototype.draw = function(x, y) {
+    return group([
+      roundedPill(),
+      translate(5, 5, this.label),
+    ]);
+  };
 
 
+  /* Block */
 
-  var cssContent;
-  var request = new XMLHttpRequest();
-  request.open('GET', 'blockpix.css', false);
-  request.send(null);
-  if (request.status === 200) {
-    cssContent = request.responseText;
-  }
+  var Block = function(info, args) {
+    this.info = info;
+    this.args = args;
+    this.x = 0;
 
-  function scriptsToSVG(scripts) {
-    var svg = newSVG(300, 200);
-    window.svg = svg;
+    this.children = [];
+    var args = args.slice();
+    for (var i=0; i<info.parts.length; i++) {
+      var part = info.parts[i];
+      if (Scratch.inputPat.test(part)) {
+        this.children.push(args.shift());
+      } else {
+        this.children.push(new Label(part));
+      }
+    }
+  };
 
-    var defs = el('defs');
-    svg.appendChild(defs);
+  Block.fromJSON = function(arr) {
+    var selector = arr[0];
+    var info = Scratch.blocksBySelector[selector];
+    var args = arr.slice(1).map(function(arg, index) {
+      var input = info.inputs[index];
+      if (arg && arg.constructor === Array) {
+        return (input === undefined ? Script : Block).fromJSON(arg);
+      } else {
+        return Input(input, arg);
+      }
+    });
+    return new Block(info, args);
+  };
 
-    defs.appendChild(bevelFilter());
-
-    var style = el('style');
-    defs.appendChild(style);
-    style.appendChild(cdata(cssContent));
-
-    svg.appendChild(path({
+  Block.prototype.drawSelf = function(w, h) {
+    var r = h / 2;
+    return path({
       class: 'variable bevel',
       path: [
-        "M", P(10, 0),
-        roundedCorner(P(190, 0), P(200, 10)),
-        roundedCorner(P(200, 10), P(190, 20)),
-        roundedCorner(P(10, 20), P(0, 10)),
-        roundedCorner(P(0, 10), P(10, 0)),
+        "M", P(r, 0),
+        roundedCorner(P(w - r, 0), P(w, r)),
+        roundedCorner(P(w, r), P(w - r, h)),
+        roundedCorner(P(r, h), P(0, r)),
+        roundedCorner(P(0, r), P(r, 0)),
         "Z"
       ],
-    }));
+    });
+  };
 
-    svg.appendChild(polygon({
-      class: 'looks bevel',
-      points: [
-        P(0, 100),
-        P(0, 200),
-        P(100, 150),
-      ],
-    }));
+  Block.prototype.draw = function() {
+    var x = 5;
+    var h = 0;
 
-    var label = text(10, 20, "Hello there! filial safflower");
-    window.label = label;
-    svg.appendChild(label);
+    var objects = [];
+    for (var i=0; i<this.children.length; i++) {
+      var child = this.children[i];
+      objects.push(child.draw());
+      child.x = x;
+      x += child.width;
+      h = Math.max(h, child.height);
+    }
+    this.children.map(draw);
 
-    var bbox = label.getBBox();
-    console.log(bbox);
-    console.log(label.getBoundingClientRect());
-    console.log(label.getComputedTextLength());
-    svg.appendChild(el('rect', {
-      x: 10,
-      y: 20 - bbox.height,
-      width: bbox.width,
-      height: bbox.height,
-      fill: 'transparent',
-      stroke: '#f00',
-    }));
+    this.width = x + 10;
+    this.height = Math.max(10, h + 4);
 
+    for (var i=0; i<this.children.length; i++) {
+      var child = this.children[i];
+      var o = objects[i];
+      translate(child.x, (this.height - child.height) / 2, o);
+    }
+
+    objects.splice(0, 0, this.drawSelf(this.width, this.height));
+
+    return group(objects);
+  };
+
+
+  /* Script */
+
+  var Script = function(blocks) {
+    this.blocks = blocks;
+  };
+
+  Script.prototype.draw = function() {
+    var children = [];
+    var y = 0;
+    this.width = 0;
+    for (var i=0; i<this.blocks.length; i++) {
+      var block = this.blocks[i];
+      children.push(translate(0, y, block.draw()));
+      y += block.height;
+      this.width = Math.max(this.width, block.width);
+    }
+    this.height = y;
+    return group(children);
+  }
+
+
+  /*****************************************************************************/
+
+  function walkAST(result) {
+    // TODO
+    return new Script([
+      //new Block.fromJSON(['readVariable', "Hi there, fillial safflower"]),
+      //new Block.fromJSON(['say:duration:elapsed:from:', "Hi there, fillial safflower", 10]),
+      new Block.fromJSON(['stampCostume']),
+      new Block.fromJSON(['nextCostume']),
+    ]);
+  }
+
+
+  function scriptsToSVG(results) {
+    // walk AST
+    var scripts = [];
+    for (var i=0; i<results.length; i++) {
+      scripts.push(walkAST(results[i]));
+    }
+
+    // measure strings
+    measureAll();
+
+    // render each script
+    var width = 0;
+    var height = 0;
+    var elements = [];
+    for (var i=0; i<scripts.length; i++) {
+      var script = scripts[i];
+      if (height) height += 10;
+      elements.push(translate(0, height, script.draw()));
+      height += script.height;
+      width = Math.max(width, script.width);
+    }
+
+    // return SVG
+    var svg = newSVG(width, height);
+    var defs = el('defs');
+    svg.appendChild(defs);
+    defs.appendChild(makeStyle());
+    defs.appendChild(bevelFilter());
+    svg.appendChild(group(elements));
     return svg;
   }
+
 
   function exportXML(svg) {
     return new XMLSerializer().serializeToString(svg);
