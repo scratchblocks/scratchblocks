@@ -1732,7 +1732,7 @@ var scratchblocks2 = function () {
     merge([
       'SourceGraphic',
       comp('in',
-           flood('#fff', 0.2),
+           flood('#fff', 0.15),
            subtract('SourceAlpha', offset(+s, +s, blur))
       ),
       comp('in',
