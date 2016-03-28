@@ -1439,8 +1439,7 @@ var scratchblocks2 = function () {
 
   function el(name, props) {
     var el = document.createElementNS("http://www.w3.org/2000/svg", name);
-    setProps(el, props);
-    return el;
+    return setProps(el, props);
   }
 
   var directProps = {
@@ -1478,6 +1477,19 @@ var scratchblocks2 = function () {
       d: props.path.map(function(p) {
         return p.constructor === Point ? [p.x, p.y].join(" ") : p;
       }).join(" "),
+    }));
+  }
+
+  function roundedRect(w, h, r, props) {
+    return path(extend(props, {
+      path: [
+        "M", P(r, 0),
+        roundedCorner(P(w - r, 0), P(w, r)),
+        roundedCorner(P(w, r), P(w - r, h)),
+        roundedCorner(P(r, h), P(0, r)),
+        roundedCorner(P(0, r), P(r, 0)),
+        "Z"
+      ],
     }));
   }
 
@@ -1618,9 +1630,9 @@ var scratchblocks2 = function () {
     measuring.style.visibility = 'hidden';
     document.body.appendChild(measuring);
 
-    var defs = el('defs');
-    measuring.appendChild(defs);
-    defs.appendChild(makeStyle());
+    // var defs = el('defs');
+    // measuring.appendChild(defs);
+    // defs.appendChild(makeStyle());
 
     return measuring;
   }
@@ -1636,7 +1648,8 @@ var scratchblocks2 = function () {
   }
   function measureAll() {
     for (var i=0; i<toMeasure.length; i++) {
-      toMeasure[i]();
+      var func = toMeasure[i]
+      func();
     }
     toMeasure = [];
   }
@@ -1668,36 +1681,90 @@ var scratchblocks2 = function () {
     this.x = 0;
   };
 
-  Input.prototype.fromJSON = function(shape, value) {
+  Input.prototype.draw = function(x, y) {
+    var label = this.label.draw();
+
+    this.width = this.label.width + 4;
+    this.height = this.label.height + 3;
+
+    var radius = this.height / 2;
+    return group([
+      roundedRect(this.width, this.height, radius, {
+        class: 'string',
+      }),
+      setProps(translate(2, 2, label), {
+        class: 'literal',
+      }),
+    ]);
+  };
+
+  Input.fromJSON = function(shape, value) {
     // TODO decode _mouse etc
     return new Input(shape, value);
   };
 
-  Input.prototype.draw = function(x, y) {
-    return group([
-      roundedPill(),
-      translate(5, 5, this.label),
-    ]);
+  Input.fromAST = function(input) {
+    if (input.pieces.length > 1) throw "ahh";
+    return new Input(input.shape, input.pieces[0]);
   };
+
 
 
   /* Block */
 
-  var Block = function(info, args) {
+  var Block = function(info, children) {
     this.info = info;
-    this.args = args;
-    this.x = 0;
+    this.children = children;
 
-    this.children = [];
-    var args = args.slice();
-    for (var i=0; i<info.parts.length; i++) {
-      var part = info.parts[i];
-      if (Scratch.inputPat.test(part)) {
-        this.children.push(args.shift());
-      } else {
-        this.children.push(new Label(part));
-      }
+    this.x = 0;
+  };
+
+  Block.prototype.drawSelf = function(w, h) {
+    var radius = h / 2;
+    return roundedRect(w, h, radius, {
+      class: 'variable bevel',
+    });
+
+    return path({
+      class: 'variable bevel',
+      path: [
+        "M", P(0, 0),
+        "L", P(w, 0),
+        "L", P(w, h),
+        "L", P(0, h),
+        "Z"
+      ]
+    });
+  };
+
+  Block.prototype.draw = function() {
+    var x = 0;
+    var h = 0;
+
+    var objects = [];
+    for (var i=0; i<this.children.length; i++) {
+      var child = this.children[i];
+      objects.push(child.draw());
+      if (x) x += 2;
+      child.x = x;
+      x += child.width;
+      h = Math.max(h, child.height);
     }
+
+    var pv = 2;
+    this.height = Math.max(10, h + 2 * pv);
+    var ph = 4;
+    this.width = x + 2 * ph;
+
+    for (var i=0; i<this.children.length; i++) {
+      var child = this.children[i];
+      var o = objects[i];
+      translate(ph + child.x, (this.height - child.height) / 2, o);
+    }
+
+    objects.splice(0, 0, this.drawSelf(this.width, this.height));
+
+    return group(objects);
   };
 
   Block.fromJSON = function(arr) {
@@ -1711,50 +1778,40 @@ var scratchblocks2 = function () {
         return Input(input, arg);
       }
     });
-    return new Block(info, args);
+    var children = [];
+    for (var i=0; i<info.parts.length; i++) {
+      var part = info.parts[i];
+      if (Scratch.inputPat.test(part)) {
+        children.push(args.shift());
+      } else {
+        children.push(new Label(part));
+      }
+    }
+    return new Block(info, children);
   };
 
-  Block.prototype.drawSelf = function(w, h) {
-    var r = h / 2;
-    return path({
-      class: 'variable bevel',
-      path: [
-        "M", P(r, 0),
-        roundedCorner(P(w - r, 0), P(w, r)),
-        roundedCorner(P(w, r), P(w - r, h)),
-        roundedCorner(P(r, h), P(0, r)),
-        roundedCorner(P(0, r), P(r, 0)),
-        "Z"
-      ],
+  Block.fromAST = function(block) {
+    var info = {
+      // spec: spec,
+      // parts: spec.split(inputPat),
+      shape: block.shape,
+      category: block.category,
+      // selector: command[3],
+      // defaults: command.slice(4),
+      // inputs: 
+    };
+    var children = block.pieces.map(function(piece) {
+      if (typeof piece === 'string') return new Label(piece);
+      switch (piece.shape) {
+        case 'number':
+        case 'string':
+          return Input.fromAST(piece);
+        // if (piece.shape === 'cwrap')  // TODO
+        default:
+          return Block.fromAST(piece);
+      }
     });
-  };
-
-  Block.prototype.draw = function() {
-    var x = 5;
-    var h = 0;
-
-    var objects = [];
-    for (var i=0; i<this.children.length; i++) {
-      var child = this.children[i];
-      objects.push(child.draw());
-      child.x = x;
-      x += child.width;
-      h = Math.max(h, child.height);
-    }
-    this.children.map(draw);
-
-    this.width = x + 10;
-    this.height = Math.max(10, h + 4);
-
-    for (var i=0; i<this.children.length; i++) {
-      var child = this.children[i];
-      var o = objects[i];
-      translate(child.x, (this.height - child.height) / 2, o);
-    }
-
-    objects.splice(0, 0, this.drawSelf(this.width, this.height));
-
-    return group(objects);
+    return new Block(info, children);
   };
 
 
@@ -1776,27 +1833,20 @@ var scratchblocks2 = function () {
     }
     this.height = y;
     return group(children);
-  }
+  };
 
+  Script.fromAST = function(blocks) {
+    return new Script(blocks.map(Block.fromAST));
+  };
 
   /*****************************************************************************/
-
-  function walkAST(result) {
-    // TODO
-    return new Script([
-      //new Block.fromJSON(['readVariable', "Hi there, fillial safflower"]),
-      //new Block.fromJSON(['say:duration:elapsed:from:', "Hi there, fillial safflower", 10]),
-      new Block.fromJSON(['stampCostume']),
-      new Block.fromJSON(['nextCostume']),
-    ]);
-  }
 
 
   function scriptsToSVG(results) {
     // walk AST
     var scripts = [];
     for (var i=0; i<results.length; i++) {
-      scripts.push(walkAST(results[i]));
+      scripts.push(Script.fromAST(results[i]));
     }
 
     // measure strings
