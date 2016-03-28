@@ -7,6 +7,7 @@ text {
   font-weight: bold;
   fill: #fff;
   font-size: 10px;
+  word-spacing: +1px;
 }
 
 .obsolete { fill: #d42828; }
@@ -40,6 +41,7 @@ text {
 .literal {
   font-weight: normal;
   font-size: 9px;
+  word-spacing: 0;
 }
 .number-literal,
 .string-literal {

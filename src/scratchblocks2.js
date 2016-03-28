@@ -1554,72 +1554,42 @@ var scratchblocks2 = function () {
     }));
   }
 
-
-  // cmd
-  // some constants that I copy-pasted from BlockShape.as
-  var RectShape = 1;
-  var BooleanShape = 2;
-  var NumberShape = 3;
-  var CmdShape = 4;
-  var FinalCmdShape = 5;
-  var CmdOutlineShape = 6;
-  var HatShape = 7;
-  var ProcHatShape = 8;
-  // C-shaped blocks
-  var LoopShape = 9;
-  var FinalLoopShape = 10;
-  // E-shaped blocks
-  var IfElseShape = 11;
-  // Geometry
-  var NotchDepth = 3;
-  var EmptySubstackH = 12;
-  var SubstackInset = 15;
-
-  var CornerInset = 3;
-  var InnerCornerInset = 2;
-  var BottomBarH = 16; // height of the bottom bar of a C or E block
-  var DividerH = 18; // height of the divider bar in an E block
-  var NotchL1 = 13;
-  var NotchL2 = NotchL1 + NotchDepth;
-  var NotchR1 = NotchL2 + 8;
-  var NotchR2 = NotchR1 + NotchDepth;
-
   function getTop(w) {
-    return ["M", 0, CornerInset,
-      "L", CornerInset, 0,
-      "L", NotchL1, 0,
-      "L", NotchL2, NotchDepth,
-      "L", NotchR1, NotchDepth,
-      "L", NotchR2, 0,
-      "L", w - CornerInset, 0,
-      "L", w, CornerInset
+    return ["M", 0, 3,
+      "L", 3, 0,
+      "L", 13, 0,
+      "L", 16, 3,
+      "L", 24, 3,
+      "L", 27, 0,
+      "L", w - 3, 0,
+      "L", w, 3
     ].join(" ");
   }
 
-  function getRightAndBottom(w, bottomY, hasNotch, inset) {
+  function getRightAndBottom(w, y, hasNotch, inset) {
     if (typeof inset === "undefined") {
       inset = 0;
     }
-    var arr = ["L", w, bottomY - CornerInset,
-      "L", w - CornerInset, bottomY
+    var arr = ["L", w, y - 3,
+      "L", w - 3, y
     ];
     if (hasNotch) {
       arr = arr.concat([
-        "L", inset + NotchR2, bottomY,
-        "L", inset + NotchR1, bottomY + NotchDepth,
-        "L", inset + NotchL2, bottomY + NotchDepth,
-        "L", inset + NotchL1, bottomY
+        "L", inset + 27, y,
+        "L", inset + 24, y + 3,
+        "L", inset + 16, y + 3,
+        "L", inset + 13, y
       ]);
     }
     if (inset > 0) {
       arr = arr.concat([
-        "L", inset + InnerCornerInset, bottomY,
-        "L", inset, bottomY + InnerCornerInset
+        "L", inset + 2, y,
+        "L", inset, y + 2
       ])
     } else {
       arr = arr.concat([
-        "L", inset + CornerInset, bottomY,
-        "L", 0, bottomY - CornerInset
+        "L", inset + 3, y,
+        "L", 0, y - 3
       ]);
     }
     return arr.join(" ");
@@ -1647,8 +1617,8 @@ var scratchblocks2 = function () {
     return path(extend(props, {
       path: [
         "M", 0, 12,
-        arc(P(0, 12), P(80, 10), 80, 40),
-        "L", w - CornerInset, 10, "L", w, 10 + CornerInset,
+        arc(P(0, 12), P(80, 10), 80, 80),
+        "L", w - 3, 10, "L", w, 10 + 3,
         getRightAndBottom(w, h, true),
       ],
     }));
@@ -1819,19 +1789,18 @@ var scratchblocks2 = function () {
   Input.prototype.draw = function(parent) {
     var label = this.label.draw();
     var lw = this.label.width;
-    var lh = this.label.height;
-
+    var children = [];
     switch (this.shape) {
       case 'number':
-        var w = Math.max(14, lw + 10);
-        var h = 14;
+        var w = Math.max(14, lw + 9);
+        var h = 13;
         var el = roundedRect(w, h);
         var lx = 5;
         var ly = 0;
         break;
 
       case 'string':
-        var w = Math.max(0, lw + 5);
+        var w = Math.max(14, lw + 5);
         var h = 14;
         var lx = 4;
         var ly = 1;
@@ -1839,11 +1808,19 @@ var scratchblocks2 = function () {
         break;
 
       case 'dropdown':
-        var w = Math.max(0, lw + 16);
+        var w = Math.max(0, lw + 19);
         var h = 14;
         var lx = 4;
         var ly = 1;
         var el = rect(w, h);
+        children.push(translate(lw + 9, 5, polygon({
+          points: [
+            P(7, 0), 
+            P(3.5, 4),
+            P(0, 0),
+          ],
+          fill: 'rgba(0,0,0, 0.6)',
+        })));
         break;
     }
     this.width = w;
@@ -1853,8 +1830,8 @@ var scratchblocks2 = function () {
       setProps(el, {
         class: [this.shape, 'input', parent.info.category].join(' '),
       }),
-      translate(lx, 1, label),
-    ]);
+      translate(lx, 0, label),
+    ].concat(children));
   };
 
   Input.fromJSON = function(shape, value) {
@@ -1885,33 +1862,6 @@ var scratchblocks2 = function () {
     this.hasScript = /block/.test(shape);
 
     this.x = 0;
-  };
-
-  Block.padding = {
-    c: [4, 6, 2],
-    f: [4, 6, 2],
-    r: [3, 4, 1],
-    b: [3, 4, 2],
-    h: [3, 6, 2]
-  };
-  Block.partPadding = 4;
-  Block.lineSpacing = 2;
-  Block.scriptPadding = 15;
-  Block.blockOffsetY = 1;
-
-  Block.prototype.minDistance = function(part) {
-    if (this.isBoolean) {
-      return (
-        part.isBlock && part._type === 'r' && !part.hasScript ? this.paddingX + part.height/4 | 0 :
-        part._type !== 'b' ? this.paddingX + part.height/2 | 0 :
-        0);
-    }
-    if (this.isReporter) {
-      return (
-        part.isArg && (part._type === 'd' || part._type === 'n') || part.isReporter && !part.hasScript ? 0 :
-        (part.height)/2 | 0);
-    }
-    return 0;
   };
 
   Block.prototype.drawSelf = function(w, h) {
@@ -1957,29 +1907,31 @@ var scratchblocks2 = function () {
 
     switch (this.info.shape) {
       case 'hat':
-        var pt = 12, px = 6, pb = 2;
+        var pt = 13, px = 6, pb = 2;
         break;
       case 'reporter':
       case 'embedded':
-        var pt = 3, px = 4, pb = 1;
-        px = 9;
+        var pt = 3, px = 4, px2 = 9, pb = 1;
         break;
       case 'boolean':
-        var pt = 3, px = 4, pb = 2;
-        px = 12;
+        var pt = 3, px = 4, px2 = 12, pb = 2;
         break;
       default:
         var pt = 4, px = 6, pb = 2;
     }
+    var pl = px;
+    var pr = px;
+    if (this.children[0].constructor === Label) pl = px2 || px;
+    if (child.constructor === Label) pr = px2 || px;
 
     this.height = h + pt + pb;
-    this.width = Math.max(minWidth, x + 2 * px);
+    this.width = Math.max(minWidth, x + pl + pr);
 
     var objects = [];
     for (var i=0; i<this.children.length; i++) {
       var child = this.children[i];
       var y = pt + (h - child.height - 2) / 2;
-      translate(px + child.x, y, child.el);
+      translate(pl + child.x, y, child.el);
       objects.push(child.el);
     }
 
@@ -2059,7 +2011,7 @@ var scratchblocks2 = function () {
     }
     this.height = y;
     if (!/cap/.test(block.shape)) {
-      this.height += NotchDepth;
+      this.height += 3;
     }
     return group(children);
   };
