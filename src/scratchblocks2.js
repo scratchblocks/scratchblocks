@@ -1949,7 +1949,7 @@ var scratchblocks2 = function () {
         var pt = 3, px = 4, px2 = 9, pb = 1;
         break;
       case 'boolean':
-        var pt = 3, px = 4, px2 = 12, pb = 2;
+        var pt = 3, px = 8, px2 = 12, pb = 2;
         // TODO scale padding based on size?
         break;
       case 'cap':
