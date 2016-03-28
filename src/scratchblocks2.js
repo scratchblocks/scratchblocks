@@ -1414,7 +1414,7 @@ var scratchblocks2 = function () {
     // TODO round points
   };
   Point.prototype.toString = function() {
-    return [this.x, this.y].join(",");
+    return [this.x, this.y].join(" ");
   };
   var P = function(x, y) {
     return new Point(x, y);
@@ -1480,19 +1480,6 @@ var scratchblocks2 = function () {
     }));
   }
 
-  function roundedRect(w, h, r, props) {
-    return path(extend(props, {
-      path: [
-        "M", P(r, 0),
-        roundedCorner(P(w - r, 0), P(w, r)),
-        roundedCorner(P(w, r), P(w - r, h)),
-        roundedCorner(P(r, h), P(0, r)),
-        roundedCorner(P(0, r), P(r, 0)),
-        "Z"
-      ],
-    }));
-  }
-
   function text(x, y, content) {
     var text = el('text', {
       x: x,
@@ -1524,11 +1511,37 @@ var scratchblocks2 = function () {
     var roundness = 0.42;
     var midX = (p1.x + p2.x) / 2.0;
     var midY = (p1.y + p2.y) / 2.0;
-    var cx = midX + (roundness * (p2.y - p1.y));
-    var cy = midY - (roundness * (p2.x - p1.x));
+    var cx = Math.round(midX + (roundness * (p2.y - p1.y)));
+    var cy = Math.round(midY - (roundness * (p2.x - p1.x)));
     return ["L", p1.x, p1.y, "Q", cx, cy, p2.x, p2.y].join(" ");
   }
 
+  function roundedRect(w, h, props) {
+    var r = h / 2;
+    return path(extend(props, {
+      path: [
+        "M", P(r, 0),
+        roundedCorner(P(w - r, 0), P(w, r)),
+        roundedCorner(P(w, r), P(w - r, h)),
+        roundedCorner(P(r, h), P(0, r)),
+        roundedCorner(P(0, r), P(r, 0)),
+        "Z"
+      ],
+    }));
+  }
+
+  function pointedRect(w, h, props) {
+    var r = h / 2;
+    return polygon(extend(props, {
+      points: [
+        P(r, 0),
+        P(w - r, 0), P(w, r),
+        P(w, r), P(w - r, h),
+        P(r, h), P(0, r),
+        P(0, r), P(r, 0),
+      ],
+    }));
+  }
 
   /* definitions */
 
@@ -1660,8 +1673,8 @@ var scratchblocks2 = function () {
   var Label = function(value) {
     this.el = text(0, 10, value);
     measure(this.el, function(bbox) {
-      this.width = bbox.width;
-      this.height = bbox.height;
+      this.width = Math.round(bbox.width);
+      this.height = Math.round(bbox.height);
     }.bind(this));
     this.x = 0;
   };
@@ -1689,7 +1702,7 @@ var scratchblocks2 = function () {
 
     var radius = this.height / 2;
     return group([
-      roundedRect(this.width, this.height, radius, {
+      roundedRect(this.width, this.height, {
         class: 'string',
       }),
       setProps(translate(2, 2, label), {
@@ -1720,8 +1733,7 @@ var scratchblocks2 = function () {
   };
 
   Block.prototype.drawSelf = function(w, h) {
-    var radius = h / 2;
-    return roundedRect(w, h, radius, {
+    return roundedRect(w, h, {
       class: 'variable bevel',
     });
 
@@ -1871,6 +1883,7 @@ var scratchblocks2 = function () {
     defs.appendChild(makeStyle());
     defs.appendChild(bevelFilter());
     svg.appendChild(group(elements));
+    window.svg = svg; // DEBUG
     return svg;
   }
 
