@@ -29,25 +29,30 @@ text {
 .bevel {
   filter: url(#bevelFilter);
 }
+
 .input {
   filter: url(#inputBevelFilter);
 }
-
-.number,
-.string,
-.number-dropdown {
+.input-number,
+.input-string,
+.input-number-dropdown {
   fill: #fff;
 }
-.dropdown {
+.input-dropdown,
+.input-boolean {
+  fill: rgba(0,0,0, 0.1);
 }
-.literal {
+.literal-number,
+.literal-string,
+.literal-number-dropdown,
+.literal-dropdown {
   font-weight: normal;
   font-size: 9px;
   word-spacing: 0;
 }
-.number-literal,
-.string-literal,
-.number-dropdown-literal {
+.literal-number,
+.literal-string,
+.literal-number-dropdown {
   fill: #000;
 }
 

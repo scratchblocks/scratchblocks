@@ -1641,6 +1641,8 @@ var scratchblocks2 = function () {
   }
 
   function bevelFilter(id, inset) {
+    // TODO deal with inputs with rgba backgrounds!
+
     var filter = el('filter', {
       id: id,
       x0: '-50%',
@@ -1782,7 +1784,7 @@ var scratchblocks2 = function () {
     this.shape = shape;
     this.value = value;
 
-    this.label = new Label(value, ['literal', this.shape+'-literal'].join(' '));
+    this.label = new Label(value, ['literal-' + this.shape]);
     this.x = 0;
   };
 
@@ -1790,8 +1792,7 @@ var scratchblocks2 = function () {
     var label = this.label.draw();
     var lw = this.label.width;
     var children = [];
-    var classList = [this.shape, 'input', parent.info.category]
-    if (this.shape !== 'color') {
+    if (this.shape !== 'color' && this.shape !== 'boolean') {
       children.push(label);
     }
     switch (this.shape) {
@@ -1849,7 +1850,12 @@ var scratchblocks2 = function () {
         var el = rect(w, h, {
           fill: this.value,
         });
-        classList = ['input'];
+        break;
+
+      case 'boolean':
+        var w = 30;
+        var h = 14;
+        var el = pointedRect(w, h);
         break;
     }
     this.width = w;
@@ -1858,7 +1864,7 @@ var scratchblocks2 = function () {
 
     return group([
       setProps(el, {
-        class: classList.join(' '),
+        class: 'input input-' + this.shape,
       }),
     ].concat(children));
   };
@@ -1946,6 +1952,9 @@ var scratchblocks2 = function () {
         var pt = 3, px = 4, px2 = 12, pb = 2;
         // TODO scale padding based on size?
         break;
+      case 'cap':
+        var pt = 6, px = 6, pb = 2;
+        break;
       default:
         var pt = 4, px = 6, pb = 2;
     }
@@ -2021,6 +2030,9 @@ var scratchblocks2 = function () {
           return Input.fromAST(piece);
         // TODO <>
         default:
+          if (piece.shape === 'boolean' && piece.blockid === '') {
+            return Input.fromAST(piece);
+          }
           return Block.fromAST(piece);
       }
     });
