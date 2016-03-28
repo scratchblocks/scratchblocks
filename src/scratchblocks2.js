@@ -1564,6 +1564,7 @@ var scratchblocks = function () {
       path: [
         getTop(w),
         getRightAndBottom(w, h, true, 0),
+        "Z",
       ],
     }));
   }
@@ -1573,6 +1574,7 @@ var scratchblocks = function () {
       path: [
         getTop(w),
         getRightAndBottom(w, h, false, 0),
+        "Z",
       ],
     }));
   }
@@ -1584,8 +1586,54 @@ var scratchblocks = function () {
         arc(P(0, 12), P(80, 10), 80, 80),
         "L", w - 3, 10, "L", w, 10 + 3,
         getRightAndBottom(w, h, true),
+        "Z",
       ],
     }));
+  }
+
+
+  function curve(p1x, p1y, p2x, p2y, roundness) {
+    var roundness = roundness || 0.42;
+    var midX = (p1x + p2x) / 2.0;
+    var midY = (p1y + p2y) / 2.0;
+    var cx = Math.round(midX + (roundness * (p2y - p1y)));
+    var cy = Math.round(midY - (roundness * (p2x - p1x)));
+    return [cx, cy, p2x, p2y].join(" ");
+  }
+
+  function procHatRect(w, h, props) {
+    // TODO use arc()
+    var archRoundness = Math.min(0.2, 35 / w);
+    return path(extend(props, {
+      path: [
+        "M", 0, 15,
+        "Q", curve(0, 15, w, 15, archRoundness),
+        getRightAndBottom(w, h, true),
+        "M", -1, 13,
+        "Q", curve(-1, 13, w + 1, 13, archRoundness),
+        "Q", curve(w + 1, 13, w, 16, 0.6),
+        "Q", curve(w, 16, 0, 16, -archRoundness),
+        "Q", curve(0, 16, -1, 13, 0.6),
+        "Z",
+      ],
+    }));
+  }
+
+  function procHatCap(w, h) {
+    // TODO use arc()
+    // TODO this doesn't look quite right
+    var archRoundness = Math.min(0.2, 35 / w);
+    return path({
+      path: [
+        "M", -1, 13,
+        "Q", curve(-1, 13, w + 1, 13, archRoundness),
+        "Q", curve(w + 1, 13, w, 16, 0.6),
+        "Q", curve(w, 16, 0, 16, -archRoundness),
+        "Q", curve(0, 16, -1, 13, 0.6),
+        "Z",
+      ],
+      class: 'define-hat-cap',
+    });
   }
 
 
@@ -1854,7 +1902,7 @@ var scratchblocks = function () {
         ]), { width: w, height: h });
         children.push(translate(lw + 9, 5, polygon({
           points: [
-            P(7, 0), 
+            P(7, 0),
             P(3.5, 4),
             P(0, 0),
           ],
@@ -1870,7 +1918,7 @@ var scratchblocks = function () {
         var ly = 0;
         children.push(translate(lw + 6, 4, polygon({
           points: [
-            P(7, 0), 
+            P(7, 0),
             P(3.5, 4),
             P(0, 0),
           ],
@@ -1937,6 +1985,12 @@ var scratchblocks = function () {
   };
 
   Block.prototype.drawSelf = function(w, h) {
+    if (this.info.shape === 'outline') {
+      return setProps(stackRect(w, h), {
+        class: 'outline',
+      });
+    }
+
     var func = {
       stack: stackRect,
       cap: capRect,
@@ -1944,6 +1998,7 @@ var scratchblocks = function () {
       embedded: roundedRect,
       boolean: pointedRect,
       hat: hatRect,
+      'define-hat': procHatRect,
       // 'c-block': TODO
       // 'c-block cap': TODO
       // 'if-block': TODO
@@ -1979,7 +2034,10 @@ var scratchblocks = function () {
 
     switch (this.info.shape) {
       case 'hat':
-        var pt = 13, px = 6, pb = 2;
+        var pt = 13, px = 6, pb = 4;
+        break;
+      case 'define-hat':
+        var pt = 19, px = 8, pb = 8;
         break;
       case 'reporter':
       case 'embedded':
@@ -2012,6 +2070,9 @@ var scratchblocks = function () {
     }
 
     objects.splice(0, 0, this.drawSelf(this.width, this.height));
+    if (this.info.shape === 'define-hat') {
+      objects.splice(1, 0, procHatCap(this.width, this.height));
+    }
 
     return group(objects);
   };
@@ -2051,7 +2112,7 @@ var scratchblocks = function () {
       category: block.category,
       // selector: command[3],
       // defaults: command.slice(4),
-      // inputs: 
+      // inputs:
     };
     if (block.pieces.length === 0) {
       block.pieces = [""];
@@ -2138,9 +2199,9 @@ var scratchblocks = function () {
     for (var i=0; i<scripts.length; i++) {
       var script = scripts[i];
       if (height) height += 10;
-      elements.push(translate(0, height, script.draw()));
+      elements.push(translate(2, height, script.draw()));
       height += script.height;
-      width = Math.max(width, script.width);
+      width = Math.max(width, script.width + 4);
     }
 
     // return SVG
@@ -2159,6 +2220,7 @@ var scratchblocks = function () {
   }
 
   function exportSVG(svg) {
+    // TODO pad exported SVGs?
     return new XMLSerializer().serializeToString(svg);
   }
 

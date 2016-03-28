@@ -22,7 +22,7 @@ text {
 .variables { fill: #ee7d16; }
 .list { fill: #cc5b22 }
 .custom { fill: #632d99; }
-.parameter { fill: #5947b1; }
+.custom-arg { fill: #5947b1; }
 .extension { fill: #4b4a60; }
 .grey { fill: #969696; }
 
@@ -57,4 +57,16 @@ text {
 
 .darker {
   filter: url(#inputDarkFilter);
+}
+
+.outline {
+  stroke: rgba(255, 255, 255, 0.2);
+  stroke-width: 2;
+  fill: none;
+}
+
+.define-hat-cap {
+  stroke: #632d99;
+  stroke-width: 1;
+  fill: #8e2ec2;
 }
