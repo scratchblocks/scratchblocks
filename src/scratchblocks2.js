@@ -1814,7 +1814,7 @@ var scratchblocks2 = function () {
 
     switch (this.shape) {
       case 'number':
-        var w = Math.max(14, lw + 6);
+        var w = Math.max(14, lw + 10);
         var h = 14;
         var el = roundedRect(w, h);
         var lx = 5;
@@ -1822,7 +1822,7 @@ var scratchblocks2 = function () {
         break;
 
       case 'string':
-        var w = Math.max(0, lw + 6);
+        var w = Math.max(0, lw + 5);
         var h = 14;
         var lx = 4;
         var ly = 1;
@@ -1887,17 +1887,22 @@ var scratchblocks2 = function () {
       var child = this.children[i];
       objects.push(child.draw());
 
-      if (x) x += 4;
-      if (i === 1) x = 24; // TODO
+      if (x) {
+        if (child.constructor === Input && x < 24) {
+          x = 24;
+        } else {
+          x += 4;
+        }
+      }
       child.x = x;
       x += child.width;
       h = Math.max(h, child.height);
     }
 
     var pv = 4;
-    this.height = Math.max(10, h + 2 * pv);
+    this.height = Math.max(22, h + 2 * pv);
     var ph = 6;
-    this.width = x + 2 * ph;
+    this.width = Math.max(39, x + 2 * ph);
 
     var pt = 0;
     if (this.info.shape === 'hat') {
