@@ -40,7 +40,6 @@ text {
 }
 .input-dropdown,
 .input-boolean {
-  fill: rgba(0,0,0, 0.1);
 }
 .literal-number,
 .literal-string,
@@ -56,3 +55,6 @@ text {
   fill: #000;
 }
 
+.darker {
+  filter: url(#inputDarkFilter);
+}

@@ -1668,84 +1668,96 @@ var scratchblocks2 = function () {
     ];
   }
 
-  function bevelFilter(id, inset) {
-    // TODO deal with inputs with rgba backgrounds!
-
-    var filter = el('filter', {
+  var Filter = function(id, props) {
+    this.el = el('filter', extend(props, {
       id: id,
       x0: '-50%',
       y0: '-50%',
       width: '200%',
       height: '200%',
+    }));
+    this.highestId = 0;
+  };
+  Filter.prototype.fe = function(name, props, children) {
+    var shortName = name.toLowerCase().replace(/gaussian|osite/, '');
+    var id = [shortName, '-', ++this.highestId].join('');
+    this.el.appendChild(withChildren(el("fe" + name, extend(props, {
+      result: id,
+    })), children || []));
+    return id;
+  }
+  Filter.prototype.comp = function(op, in1, in2, props) {
+    return this.fe('Composite', extend(props, {
+      operator: op,
+      in: in1,
+      in2: in2,
+    }));
+  }
+  Filter.prototype.subtract = function(in1, in2) {
+    return this.comp('arithmetic', in1, in2, { k2: +1, k3: -1 });
+  }
+  Filter.prototype.offset = function(dx, dy, in1) {
+    return this.fe('Offset', {
+      in: in1,
+      dx: dx,
+      dy: dy,
     });
+  }
+  Filter.prototype.flood = function(color, opacity, in1) {
+    return this.fe('Flood', {
+      in: in1,
+      'flood-color': color,
+      'flood-opacity': opacity,
+    });
+  }
+  Filter.prototype.blur = function(dev, in1) {
+    return this.fe('GaussianBlur', {
+      'in': 'SourceAlpha',
+      stdDeviation: [dev, dev].join(' '),
+    });
+  }
+  Filter.prototype.merge = function(children) {
+    this.fe('Merge', {}, children.map(function(name) {
+      return el('feMergeNode', {
+        in: name,
+      });
+    }));
+  }
 
-    var highestId = 0;
-    function fe(name, props, children) {
-      var shortName = name.toLowerCase().replace(/gaussian|osite/, '');
-      var id = [shortName, '-', ++highestId].join('');
-      filter.appendChild(withChildren(el("fe" + name, extend(props, {
-        result: id,
-      })), children || []));
-      return id;
-    }
-    function comp(op, in1, in2, props) {
-      return fe('Composite', extend(props, {
-        operator: op,
-        in: in1,
-        in2: in2,
-      }));
-    }
-    function subtract(in1, in2) {
-      return comp('arithmetic', in1, in2, { k2: +1, k3: -1 });
-    }
-    function offset(dx, dy, in1) {
-      return fe('Offset', {
-        in: in1,
-        dx: dx,
-        dy: dy,
-      });
-    }
-    function flood(color, opacity, in1) {
-      return fe('Flood', {
-        in: in1,
-        'flood-color': color,
-        'flood-opacity': opacity,
-      });
-    }
-    function blur(dev, in1) {
-      return fe('GaussianBlur', {
-        'in': 'SourceAlpha',
-        stdDeviation: [dev, dev].join(' '),
-      });
-    }
-    function merge(children) {
-      fe('Merge', {}, children.map(function(name) {
-        return el('feMergeNode', {
-          in: name,
-        });
-      }));
-    }
+  function bevelFilter(id, inset) {
+    var f = new Filter(id);
 
     var alpha = 'SourceAlpha';
-
     var s = inset ? -1 : 1;
-    var blur = blur(1, alpha);
+    var blur = f.blur(1, alpha);
 
-    merge([
+    f.merge([
       'SourceGraphic',
-      comp('in',
-           flood('#fff', 0.15),
-           subtract(alpha, offset(+s, +s, blur))
+      f.comp('in',
+           f.flood('#fff', 0.15),
+           f.subtract(alpha, f.offset(+s, +s, blur))
       ),
-      comp('in',
-           flood('#000', 0.7),
-           subtract(alpha, offset(-s, -s, blur))
+      f.comp('in',
+           f.flood('#000', 0.7),
+           f.subtract(alpha, f.offset(-s, -s, blur))
       ),
     ]);
 
-    return filter;
+    return f.el;
   }
 
+  function darkFilter(id) {
+    var f = new Filter(id);
+
+    f.merge([
+      'SourceGraphic',
+      f.comp('in',
+        f.flood('#000', 0.2),
+        'SourceAlpha'),
+    ]);
+
+    return f.el;
+  }
 
   /* layout */
 
@@ -1851,10 +1863,12 @@ var scratchblocks2 = function () {
   Input.prototype.draw = function(parent) {
     var label = this.label.draw();
     var lw = this.label.width;
+    var classList = ['input', 'input-'+this.shape];
     var children = [];
     if (this.shape !== 'color' && this.shape !== 'boolean') {
       children.push(label);
     }
+    var darker = false;
     switch (this.shape) {
       case 'number':
         var w = Math.max(14, lw + 9);
@@ -1865,7 +1879,7 @@ var scratchblocks2 = function () {
         break;
 
       case 'string':
-        var w = Math.max(14, lw + 5);
+        var w = Math.max(14, lw + 6);
         var h = 14;
         var lx = 4;
         var ly = 1;
@@ -1877,7 +1891,11 @@ var scratchblocks2 = function () {
         var h = 14;
         var lx = 4;
         var ly = 1;
-        var el = rect(w, h);
+        var el = setProps(group([
+          setProps(rect(w, h), {
+            class: [parent.info.category, 'darker'].join(' '),
+          })
+        ]), { width: w, height: h });
         children.push(translate(lw + 9, 5, polygon({
           points: [
             P(7, 0), 
@@ -1915,7 +1933,11 @@ var scratchblocks2 = function () {
       case 'boolean':
         var w = 30;
         var h = 14;
-        var el = pointedRect(w, h);
+        var el = group([
+          setProps(pointedRect(w, h), {
+            class: [parent.info.category, 'darker'].join(' '),
+          })
+        ]);
         break;
     }
     this.width = w;
@@ -1924,7 +1946,7 @@ var scratchblocks2 = function () {
 
     return group([
       setProps(el, {
-        class: 'input input-' + this.shape,
+        class: classList.join(' '),
       }),
     ].concat(children));
   };
@@ -2172,6 +2194,7 @@ var scratchblocks2 = function () {
         makeStyle(),
         bevelFilter('bevelFilter', false),
         bevelFilter('inputBevelFilter', true),
+        darkFilter('inputDarkFilter'),
     ].concat(makeIcons())));
 
     window.svg = svg; // DEBUG
