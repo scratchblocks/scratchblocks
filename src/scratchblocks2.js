@@ -1790,6 +1790,10 @@ var scratchblocks2 = function () {
     var label = this.label.draw();
     var lw = this.label.width;
     var children = [];
+    var classList = [this.shape, 'input', parent.info.category]
+    if (this.shape !== 'color') {
+      children.push(label);
+    }
     switch (this.shape) {
       case 'number':
         var w = Math.max(14, lw + 9);
@@ -1808,7 +1812,7 @@ var scratchblocks2 = function () {
         break;
 
       case 'dropdown':
-        var w = Math.max(0, lw + 19);
+        var w = Math.max(14, lw + 19);
         var h = 14;
         var lx = 4;
         var ly = 1;
@@ -1822,15 +1826,40 @@ var scratchblocks2 = function () {
           fill: 'rgba(0,0,0, 0.6)',
         })));
         break;
+
+      case 'number-dropdown':
+        var w = Math.max(14, lw + 16);
+        var h = 13;
+        var el = roundedRect(w, h);
+        var lx = 5;
+        var ly = 0;
+        children.push(translate(lw + 6, 4, polygon({
+          points: [
+            P(7, 0), 
+            P(3.5, 4),
+            P(0, 0),
+          ],
+          fill: 'rgba(0,0,0, 0.6)',
+        })));
+        break;
+
+      case 'color':
+        var w = 13;
+        var h = 13;
+        var el = rect(w, h, {
+          fill: this.value,
+        });
+        classList = ['input'];
+        break;
     }
     this.width = w;
     this.height = h;
+    translate(lx, 0, label);
 
     return group([
       setProps(el, {
-        class: [this.shape, 'input', parent.info.category].join(' '),
+        class: classList.join(' '),
       }),
-      translate(lx, 0, label),
     ].concat(children));
   };
 
@@ -1892,11 +1921,11 @@ var scratchblocks2 = function () {
       child.el = child.draw(this);
 
       if (x) {
+        x += 4;
         if (child.constructor === Input && x < 24) {
           x = 24;
-        } else {
-          x += 4;
         }
+        // TODO padding between join's inputs
       }
       child.x = x;
       x += child.width;
@@ -1915,6 +1944,7 @@ var scratchblocks2 = function () {
         break;
       case 'boolean':
         var pt = 3, px = 4, px2 = 12, pb = 2;
+        // TODO scale padding based on size?
         break;
       default:
         var pt = 4, px = 6, pb = 2;
@@ -1966,7 +1996,7 @@ var scratchblocks2 = function () {
   Block.fromAST = function(block) {
     if (block.type === 'cwrap') {
       block = block.contents[0];
-      // TODO
+      // TODO cwrap
     }
     var info = {
       // spec: spec,
@@ -1977,14 +2007,19 @@ var scratchblocks2 = function () {
       // defaults: command.slice(4),
       // inputs: 
     };
+    if (block.pieces.length === 0) {
+      block.pieces = [""];
+    }
     var children = block.pieces.map(function(piece) {
       if (typeof piece === 'string') return new Label(piece);
       switch (piece.shape) {
         case 'number':
         case 'string':
         case 'dropdown':
+        case 'number-dropdown':
+        case 'color':
           return Input.fromAST(piece);
-        // if (piece.shape === 'cwrap')  // TODO
+        // TODO <>
         default:
           return Block.fromAST(piece);
       }

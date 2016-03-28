@@ -24,6 +24,7 @@ text {
 .custom { fill: #632d99; }
 .parameter { fill: #5947b1; }
 .extension { fill: #4b4a60; }
+.grey { fill: #969696; }
 
 .bevel {
   filter: url(#bevelFilter);
@@ -33,7 +34,8 @@ text {
 }
 
 .number,
-.string {
+.string,
+.number-dropdown {
   fill: #fff;
 }
 .dropdown {
@@ -44,7 +46,8 @@ text {
   word-spacing: 0;
 }
 .number-literal,
-.string-literal {
+.string-literal,
+.number-dropdown-literal {
   fill: #000;
 }
 
