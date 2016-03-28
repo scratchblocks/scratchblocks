@@ -1507,13 +1507,9 @@ var scratchblocks2 = function () {
 
   /* shapes */
 
-  function roundedCorner(p1, p2) {
-    var roundness = 0.42;
-    var midX = (p1.x + p2.x) / 2.0;
-    var midY = (p1.y + p2.y) / 2.0;
-    var cx = Math.round(midX + (roundness * (p2.y - p1.y)));
-    var cy = Math.round(midY - (roundness * (p2.x - p1.x)));
-    return ["L", p1.x, p1.y, "Q", cx, cy, p2.x, p2.y].join(" ");
+  function cornerArc(p1, p2) {
+    var r = p2.y - p1.y;
+    return ["L", p1.x, p1.y, "A", r, r, 0, 0, 1, p2.x, p2.y].join(" ");
   }
 
   function roundedRect(w, h, props) {
@@ -1521,10 +1517,10 @@ var scratchblocks2 = function () {
     return path(extend(props, {
       path: [
         "M", P(r, 0),
-        roundedCorner(P(w - r, 0), P(w, r)),
-        roundedCorner(P(w, r), P(w - r, h)),
-        roundedCorner(P(r, h), P(0, r)),
-        roundedCorner(P(0, r), P(r, 0)),
+        cornerArc(P(w - r, 0), P(w, r)),
+        cornerArc(P(w, r), P(w - r, h)),
+        cornerArc(P(r, h), P(0, r)),
+        cornerArc(P(0, r), P(r, 0)),
         "Z"
       ],
     }));
