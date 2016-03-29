@@ -1561,9 +1561,10 @@ var scratchblocks = function () {
 
   function getArm(w, armTop) {
     return [
-      "L", SubstackInset, armTop - InnerCornerInset,
-      "L", w - CornerInset, armTop,
-      "L", w, armTop + CornerInset
+      "L", 15, armTop - InnerCornerInset,
+      "L", 15 + InnerCornerInset, armTop,
+      "L", w - 3, armTop,
+      "L", w, armTop + 3
     ].join(" ");
   }
 
@@ -1645,31 +1646,41 @@ var scratchblocks = function () {
   }
 
   // TODO
-  var CornerInset = 3;
   var NotchDepth = 3;
   var SubstackInset = 15;
   var InnerCornerInset = 2;
   var DividerH = 18; // height of the divider bar in an E block
   var BottomBarH = 16; // height of the bottom bar of a C or E block
 
-  function mouthRect(w, h, lines, props) {
-    h = 20;
-    var substack1H = 20;
-    var substack2H = 20;
+  function mouthRect(w, h, isFinal, lines, props) {
+    h = lines[0].height + 6;
+    var substack1H = lines[1].height;
+    var substack2H = lines.length > 3 ? lines[3].height : 0;
     
     var h1 = h + substack1H - NotchDepth;
-    var h2 = h1 + DividerH + substack2H - NotchDepth;
+    var h2 = h1 + lines[2].height + substack2H - NotchDepth + 9;
 
-    return path(extend(props, {
-      path: [
-        getTop(w),
-        getRightAndBottom(w, h, true, SubstackInset),
-        getArm(w, h1),
-        getRightAndBottom(w, h1 + DividerH, true, SubstackInset),
-        getArm(w, h2),
-        getRightAndBottom(w, h2 + BottomBarH, true),
-      ],
-    }));
+    if (lines.length === 3) {
+      return path(extend(props, {
+        path: [
+          getTop(w),
+          getRightAndBottom(w, h, true, SubstackInset),
+          getArm(w, h1),
+          getRightAndBottom(w, h1 + lines[2].height, !isFinal),
+        ],
+      }));
+    } else {
+      return path(extend(props, {
+        path: [
+          getTop(w),
+          getRightAndBottom(w, h, true, SubstackInset),
+          getArm(w, h1),
+          getRightAndBottom(w, h1 + lines[2].height + 9, true, SubstackInset),
+          getArm(w, h2),
+          getRightAndBottom(w, h2 + lines[4].height, true),
+        ],
+      }));
+    }
   }
 
   /* definitions */
@@ -2022,7 +2033,7 @@ var scratchblocks = function () {
 
   Block.prototype.drawSelf = function(w, h, lines) {
     if (lines.length > 1) {
-      return mouthRect(w, h, lines, {
+      return mouthRect(w, h, this.isFinal, lines, {
         class: [this.info.category, 'bevel'].join(' '),
       });
       // TODO rings
@@ -2053,13 +2064,13 @@ var scratchblocks = function () {
   };
 
   Block.prototype.minDistance = function(child) {
+    // TODO
     return 4;
   };
 
-
   Block.prototype.draw = function() {
     var scriptIndent = 15;
-    var minWidth = this.isCommand ? 39 : 0;
+    var minWidth = this.hasScript ? 83 : this.isCommand ? 39 : 0;
 
     switch (this.info.shape) {
       case 'hat':
@@ -2100,9 +2111,7 @@ var scratchblocks = function () {
     var line = new Line(y);
     function pushLine() {
       innerWidth = Math.max(innerWidth, line.width);
-
       y += line.height + pt + pb;
-
       lines.push(line);
     }
 
@@ -2114,9 +2123,11 @@ var scratchblocks = function () {
       if (child.constructor === Script) {
         pushLine();
         child.y = y;
-        scriptWidth = Math.max(scriptWidth, child.width);
         lines.push(child);
-        y += Math.max(child.height, 4);
+        scriptWidth = Math.max(scriptWidth, Math.max(1, child.width));
+        child.height = Math.max(12, child.height);
+        if (child.isFinal) child.height += 3;
+        y += child.height;
         line = new Line(y);
       } else {
         if (line.width) {
@@ -2137,7 +2148,7 @@ var scratchblocks = function () {
     pushLine();
 
     var innerWidth = Math.max(minWidth, innerWidth + pl + pr);
-    this.height = y;
+    this.height = scriptWidth ? y - 9 : y;
     this.width = scriptWidth ? Math.max(innerWidth, scriptIndent + scriptWidth) : innerWidth;
 
     var objects = [this.drawSelf(innerWidth, this.height, lines)];
@@ -2197,19 +2208,28 @@ var scratchblocks = function () {
           list.push(Script.fromAST(item.contents));
         } else {
           item.pieces.forEach(function(l) {
-            list.push(new Label(l));
+            if (typeof l === 'string') {
+              list.push(new Label(l));
+            } else {
+              list.push(Block.fromAST(l));
+            }
           });
         }
       }
       var block = thing.contents[0];
+      var shape = block.pieces[0] === 'if ' ? 'if-block' : 'c-block';
+      if (thing.shape === 'cap') {
+        shape += ' cap';
+      }
     } else {
       var block = thing;
+      var shape = block.shape;
     }
 
     var info = {
       // spec: spec,
       // parts: spec.split(inputPat),
-      shape: block.shape,
+      shape: shape,
       category: block.category,
       // selector: command[3],
       // defaults: command.slice(4),
