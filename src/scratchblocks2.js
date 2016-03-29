@@ -1660,27 +1660,25 @@ var scratchblocks = function () {
     var h1 = h + substack1H - NotchDepth;
     var h2 = h1 + lines[2].height + substack2H - NotchDepth + 9;
 
-    if (lines.length === 3) {
-      return path(extend(props, {
-        path: [
-          getTop(w),
-          getRightAndBottom(w, h, true, SubstackInset),
-          getArm(w, h1),
-          getRightAndBottom(w, h1 + lines[2].height, !isFinal),
-        ],
-      }));
-    } else {
-      return path(extend(props, {
-        path: [
-          getTop(w),
-          getRightAndBottom(w, h, true, SubstackInset),
-          getArm(w, h1),
-          getRightAndBottom(w, h1 + lines[2].height + 9, true, SubstackInset),
-          getArm(w, h2),
-          getRightAndBottom(w, h2 + lines[4].height, true),
-        ],
-      }));
+    var y = lines[0].height + 6;
+    var p = [
+      getTop(w),
+      getRightAndBottom(w, y, true, SubstackInset),
+    ];
+    for (var i=1; i<lines.length; i += 2) {
+      var isLast = (i + 2 === lines.length);
+
+      y += lines[i].height - 3;
+      p.push(getArm(w, y));
+
+      var hasNotch = !(isLast && isFinal);
+      var inset = isLast ? 0 : SubstackInset;
+      y += lines[i + 1].height + (isLast ? 0 : 9);
+      p.push(getRightAndBottom(w, y, hasNotch, inset));
     }
+    return path(extend(props, {
+      path: p,
+    }));
   }
 
   /* definitions */
