@@ -1559,6 +1559,15 @@ var scratchblocks = function () {
     return arr.join(" ");
   }
 
+  function getArm(w, armTop) {
+    return [
+      "L", SubstackInset, armTop - InnerCornerInset,
+      "L", w - CornerInset, armTop,
+      "L", w, armTop + CornerInset
+    ].join(" ");
+  }
+
+
   function stackRect(w, h, props) {
     return path(extend(props, {
       path: [
@@ -1590,7 +1599,6 @@ var scratchblocks = function () {
       ],
     }));
   }
-
 
   function curve(p1x, p1y, p2x, p2y, roundness) {
     var roundness = roundness || 0.42;
@@ -1636,6 +1644,33 @@ var scratchblocks = function () {
     });
   }
 
+  // TODO
+  var CornerInset = 3;
+  var NotchDepth = 3;
+  var SubstackInset = 15;
+  var InnerCornerInset = 2;
+  var DividerH = 18; // height of the divider bar in an E block
+  var BottomBarH = 16; // height of the bottom bar of a C or E block
+
+  function mouthRect(w, h, lines, props) {
+    h = 20;
+    var substack1H = 20;
+    var substack2H = 20;
+    
+    var h1 = h + substack1H - NotchDepth;
+    var h2 = h1 + DividerH + substack2H - NotchDepth;
+
+    return path(extend(props, {
+      path: [
+        getTop(w),
+        getRightAndBottom(w, h, true, SubstackInset),
+        getArm(w, h1),
+        getRightAndBottom(w, h1 + DividerH, true, SubstackInset),
+        getArm(w, h2),
+        getRightAndBottom(w, h2 + BottomBarH, true),
+      ],
+    }));
+  }
 
   /* definitions */
 
@@ -1971,6 +2006,7 @@ var scratchblocks = function () {
   var Block = function(info, children) {
     this.info = info;
     this.children = children;
+    if (!children.length) throw "oops";
 
     var shape = this.info.shape;
     this.isHat = shape === 'hat';
@@ -1984,7 +2020,14 @@ var scratchblocks = function () {
     this.x = 0;
   };
 
-  Block.prototype.drawSelf = function(w, h) {
+  Block.prototype.drawSelf = function(w, h, lines) {
+    if (lines.length > 1) {
+      return mouthRect(w, h, lines, {
+        class: [this.info.category, 'bevel'].join(' '),
+      });
+      // TODO rings
+    }
+
     if (this.info.shape === 'outline') {
       return setProps(stackRect(w, h), {
         class: 'outline',
@@ -2009,28 +2052,14 @@ var scratchblocks = function () {
     });
   };
 
+  Block.prototype.minDistance = function(child) {
+    return 4;
+  };
+
+
   Block.prototype.draw = function() {
-    var x = 0;
-    var h = 16;
+    var scriptIndent = 15;
     var minWidth = this.isCommand ? 39 : 0;
-
-    for (var i=0; i<this.children.length; i++) {
-      var child = this.children[i];
-      child.el = child.draw(this);
-
-      if (x) {
-        x += 4;
-        if (child.constructor === Input && x < 24) {
-          x = 24;
-        }
-        // TODO padding between join's inputs
-      }
-      child.x = x;
-      x += child.width;
-      if (child.constructor !== Label) {
-        h = Math.max(h, child.height);
-      }
-    }
 
     switch (this.info.shape) {
       case 'hat':
@@ -2055,23 +2084,82 @@ var scratchblocks = function () {
     }
     var pl = px;
     var pr = px;
-    if (this.children[0].constructor === Label) pl = px2 || px;
-    if (child.constructor === Label) pr = px2 || px;
+    // if (this.children[0].constructor === Label) pl = px2 || px; TODO
+    // if (child.constructor === Label) pr = px2 || px; TODO
 
-    this.height = h + pt + pb;
-    this.width = Math.max(minWidth, x + pl + pr);
+    var y = 0;
+    var Line = function(y) {
+      this.y = y;
+      this.width = 0;
+      this.height = 16;
+      this.children = [];
+    };
 
-    var objects = [];
-    for (var i=0; i<this.children.length; i++) {
-      var child = this.children[i];
-      var y = pt + (h - child.height - 2) / 2;
-      translate(pl + child.x, y, child.el);
-      objects.push(child.el);
+    var innerWidth = 0;
+    var scriptWidth = 0;
+    var line = new Line(y);
+    function pushLine() {
+      innerWidth = Math.max(innerWidth, line.width);
+
+      y += line.height + pt + pb;
+
+      lines.push(line);
     }
 
-    objects.splice(0, 0, this.drawSelf(this.width, this.height));
+    var lines = [];
+    for (var i=0; i<this.children.length; i++) {
+      var child = this.children[i];
+      child.el = child.draw(this);
+
+      if (child.constructor === Script) {
+        pushLine();
+        child.y = y;
+        scriptWidth = Math.max(scriptWidth, child.width);
+        lines.push(child);
+        y += Math.max(child.height, 4);
+        line = new Line(y);
+      } else {
+        if (line.width) {
+          line.width += this.minDistance(child);
+          if (child.constructor === Input && line.width < 24) {
+            line.width = 24;
+          }
+          // TODO padding between join's inputs
+        }
+        child.x = line.width;
+        line.width += child.width;
+        if (child.constructor !== Label) {
+          line.height = Math.max(line.height, child.height);
+        }
+        line.children.push(child);
+      }
+    }
+    pushLine();
+
+    var innerWidth = Math.max(minWidth, innerWidth + pl + pr);
+    this.height = y;
+    this.width = scriptWidth ? Math.max(innerWidth, scriptIndent + scriptWidth) : innerWidth;
+
+    var objects = [this.drawSelf(innerWidth, this.height, lines)];
     if (this.info.shape === 'define-hat') {
-      objects.splice(1, 0, procHatCap(this.width, this.height));
+      objects.push(procHatCap(innerWidth, this.height));
+    }
+
+    for (var i=0; i<lines.length; i++) {
+      var line = lines[i];
+      if (line.constructor === Script) {
+        objects.push(translate(scriptIndent, line.y, line.el));
+        continue;
+      }
+
+      var h = line.height;
+
+      for (var j=0; j<line.children.length; j++) {
+        var child = line.children[j];
+
+        var y = pt + (h - child.height - 2) / 2;
+        objects.push(translate(pl + child.x, line.y + y, child.el));
+      }
     }
 
     return group(objects);
@@ -2100,11 +2188,24 @@ var scratchblocks = function () {
     return new Block(info, children);
   };
 
-  Block.fromAST = function(block) {
-    if (block.type === 'cwrap') {
-      block = block.contents[0];
-      // TODO cwrap
+  Block.fromAST = function(thing) {
+    var list = [];
+    if (thing.type === 'cwrap') {
+      for (var i=1; i<thing.contents.length; i++) {
+        var item = thing.contents[i];
+        if (item.type === 'cmouth') {
+          list.push(Script.fromAST(item.contents));
+        } else {
+          item.pieces.forEach(function(l) {
+            list.push(new Label(l));
+          });
+        }
+      }
+      var block = thing.contents[0];
+    } else {
+      var block = thing;
     }
+
     var info = {
       // spec: spec,
       // parts: spec.split(inputPat),
@@ -2115,7 +2216,11 @@ var scratchblocks = function () {
       // inputs:
     };
     if (block.pieces.length === 0) {
-      block.pieces = [""];
+      if (block.blockid === 'end') {
+        block.pieces = ["end"];
+      } else {
+        block.pieces = [""];
+      }
     }
     var children = block.pieces.map(function(piece) {
       if (/^ *$/.test(piece)) return;
@@ -2144,6 +2249,7 @@ var scratchblocks = function () {
       }
     });
     children = children.filter(function(x) { return !!x; });
+    children = children.concat(list);
     return new Block(info, children);
   };
 
@@ -2152,6 +2258,9 @@ var scratchblocks = function () {
 
   var Script = function(blocks) {
     this.blocks = blocks;
+    this.isEmpty = !blocks.length;
+    this.isFinal = !this.isEmpty && blocks[blocks.length - 1].isFinal;
+    this.y = 0;
   };
 
   Script.prototype.draw = function() {
@@ -2165,7 +2274,7 @@ var scratchblocks = function () {
       this.width = Math.max(this.width, block.width);
     }
     this.height = y;
-    if (!/cap/.test(block.shape)) {
+    if (!this.isFinal) {
       this.height += 3;
     }
     return group(children);
