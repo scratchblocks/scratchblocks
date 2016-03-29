@@ -2022,6 +2022,7 @@ var scratchblocks = function () {
     this.hasPuzzle = shape === 'stack' || shape === 'hat';
     this.isFinal = /cap/.test(shape);
     this.isCommand = shape === 'stack' || shape === 'cap';
+    this.isOutline = shape === 'outline';
     this.isReporter = shape === 'boolean' || shape === 'reporter' || shape === 'embedded';
     this.isBoolean = shape === 'boolean';
     this.hasScript = /block/.test(shape);
@@ -2068,7 +2069,7 @@ var scratchblocks = function () {
 
   Block.prototype.draw = function() {
     var scriptIndent = 15;
-    var minWidth = this.hasScript ? 83 : this.isCommand ? 39 : 0;
+    var minWidth = this.hasScript ? 83 : this.isCommand || this.isOutline ? 39 : 0;
 
     switch (this.info.shape) {
       case 'hat':
@@ -2233,13 +2234,6 @@ var scratchblocks = function () {
       // defaults: command.slice(4),
       // inputs:
     };
-    if (block.pieces.length === 0) {
-      if (block.blockid === 'end') {
-        block.pieces = ["end"];
-      } else {
-        block.pieces = [""];
-      }
-    }
     var children = block.pieces.map(function(piece) {
       if (/^ *$/.test(piece)) return;
       if (piece === '@') {
@@ -2268,6 +2262,9 @@ var scratchblocks = function () {
     });
     children = children.filter(function(x) { return !!x; });
     children = children.concat(list);
+    if (!children.length) {
+      children.push(new Label(""));
+    }
     return new Block(info, children);
   };
 
