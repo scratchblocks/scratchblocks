@@ -1653,14 +1653,7 @@ var scratchblocks = function () {
   var BottomBarH = 16; // height of the bottom bar of a C or E block
 
   function mouthRect(w, h, isFinal, lines, props) {
-    h = lines[0].height + 6;
-    var substack1H = lines[1].height;
-    var substack2H = lines.length > 3 ? lines[3].height : 0;
-    
-    var h1 = h + substack1H - NotchDepth;
-    var h2 = h1 + lines[2].height + substack2H - NotchDepth + 9;
-
-    var y = lines[0].height + 6;
+    var y = lines[0].height;
     var p = [
       getTop(w),
       getRightAndBottom(w, y, true, SubstackInset),
@@ -1673,7 +1666,7 @@ var scratchblocks = function () {
 
       var hasNotch = !(isLast && isFinal);
       var inset = isLast ? 0 : SubstackInset;
-      y += lines[i + 1].height + (isLast ? 0 : 9);
+      y += lines[i + 1].height - (isLast ? 6 : -3);
       p.push(getRightAndBottom(w, y, hasNotch, inset));
     }
     return path(extend(props, {
@@ -1827,9 +1820,10 @@ var scratchblocks = function () {
     } else {
       Label.measure(this);
     }
-    this.height = 10;
+    this.height = 12;
     this.x = 0;
   };
+  Label.prototype.isLabel = true;
 
   Label.prototype.draw = function() {
     return this.el;
@@ -1885,6 +1879,7 @@ var scratchblocks = function () {
     this.width = info.width;
     this.height = info.height;
   };
+  Label.prototype.isIcon = true;
   Icon.icons = {
     greenFlag: { width: 20, height: 21 },
     turnLeft: { width: 15, height: 12 },
@@ -1904,9 +1899,12 @@ var scratchblocks = function () {
     this.shape = shape;
     this.value = value;
 
+    this.isRound = shape === 'number' || shape === 'number-dropdown';
+
     this.label = new Label(value, ['literal-' + this.shape]);
     this.x = 0;
   };
+  Input.prototype.isInput = true;
 
   Input.prototype.draw = function(parent) {
     var label = this.label.draw();
@@ -2021,14 +2019,15 @@ var scratchblocks = function () {
     this.isHat = shape === 'hat';
     this.hasPuzzle = shape === 'stack' || shape === 'hat';
     this.isFinal = /cap/.test(shape);
-    this.isCommand = shape === 'stack' || shape === 'cap';
+    this.isCommand = shape === 'stack' || shape === 'cap' || /block/.test(shape);
     this.isOutline = shape === 'outline';
-    this.isReporter = shape === 'boolean' || shape === 'reporter' || shape === 'embedded';
+    this.isReporter = shape === 'reporter' || shape === 'embedded';
     this.isBoolean = shape === 'boolean';
     this.hasScript = /block/.test(shape);
 
     this.x = 0;
   };
+  Block.prototype.isBlock = true;
 
   Block.prototype.drawSelf = function(w, h, lines) {
     if (lines.length > 1) {
@@ -2063,39 +2062,53 @@ var scratchblocks = function () {
   };
 
   Block.prototype.minDistance = function(child) {
-    // TODO
-    return 4;
+    // nb. this is subtly different from Visual: 
+    // we base this on the reporter/contents of the input.
+    // I think Visual actually bases this on the input slot shape itself.
+    // I don't think this matters for our purposes
+    if (this.isBoolean) {
+      return (
+        child.isBlock && child.isReporter && !child.hasScript ? 4 + child.height/4 | 0 :
+        child.isBoolean || child.shape === 'boolean' ? 5 :
+        5 + child.height/2 | 0
+      );
+    }
+    if (this.isReporter) {
+      return (
+        (child.isInput && child.isRound) || ((child.isReporter || child.isBoolean) && !child.hasScript) ? 0 :
+        2 + (child.height)/2 | 0
+      );
+    }
+    return 0;
   };
 
   Block.prototype.draw = function() {
     var scriptIndent = 15;
-    var minWidth = this.hasScript ? 83 : this.isCommand || this.isOutline ? 39 : 0;
 
     switch (this.info.shape) {
       case 'hat':
-        var pt = 13, px = 6, pb = 4;
+        var pt = 13, px = 6, pb = 2;
         break;
       case 'define-hat':
         var pt = 19, px = 8, pb = 8;
         break;
       case 'reporter':
       case 'embedded':
-        var pt = 3, px = 4, px2 = 9, pb = 1;
+        var pt = 3, px = 4, pb = 1;
         break;
       case 'boolean':
-        var pt = 3, px = 8, px2 = 12, pb = 2;
-        // TODO scale padding based on size?
+        var pt = 3, px = 4, pb = 2;
         break;
       case 'cap':
-        var pt = 6, px = 6, pb = 2;
+        var pt = 6, px = 6, pb = 2; // 4,6,2
+        break;
+      case 'c-block':
+      case 'if-block':
+        var pt = 3, px = 6, pb = 2;
         break;
       default:
         var pt = 4, px = 6, pb = 2;
     }
-    var pl = px;
-    var pr = px;
-    // if (this.children[0].constructor === Label) pl = px2 || px; TODO
-    // if (child.constructor === Label) pr = px2 || px; TODO
 
     var y = 0;
     var Line = function(y) {
@@ -2109,8 +2122,9 @@ var scratchblocks = function () {
     var scriptWidth = 0;
     var line = new Line(y);
     function pushLine() {
-      innerWidth = Math.max(innerWidth, line.width);
-      y += line.height + pt + pb;
+      line.height += pt + pb;
+      y += line.height;
+      // TODO lineSpacing ?
       lines.push(line);
     }
 
@@ -2119,7 +2133,7 @@ var scratchblocks = function () {
       var child = this.children[i];
       child.el = child.draw(this);
 
-      if (child.constructor === Script) {
+      if (child.isScript) {
         pushLine();
         child.y = y;
         lines.push(child);
@@ -2129,24 +2143,34 @@ var scratchblocks = function () {
         y += child.height;
         line = new Line(y);
       } else {
-        if (line.width) {
-          line.width += this.minDistance(child);
-          if (child.constructor === Input && line.width < 24) {
-            line.width = 24;
-          }
-          // TODO padding between join's inputs
-        }
         child.x = line.width;
+
+        var cmw = 30; // 27
+        var md = this.isCommand ? 0 : this.minDistance(child);
+        var mw = this.isCommand ? (child.isBlock || child.isInput ? cmw : 0) : md;
+        if (mw && !lines.length && line.width < mw - px) {
+          line.width = child.x = mw - px;
+        }
+        // if (i > 0 && this.isCommand && !child.isLabel && line.width <= 20) {
+        //   line.width = 24;
+        //   // TODO this is what 'cmw' was for. so we don't need this??
+        // }
         line.width += child.width;
-        if (child.constructor !== Label) {
+        innerWidth = Math.max(innerWidth, line.width + Math.max(0, md - px));
+        line.width += 4;
+        // save this width
+        if (!child.isLabel) {
           line.height = Math.max(line.height, child.height);
         }
         line.children.push(child);
       }
     }
     pushLine();
+    // TODO  height = y - ls + bp;
 
-    var innerWidth = Math.max(minWidth, innerWidth + pl + pr);
+    innerWidth = Math.max(innerWidth + px * 2,
+                          this.isHat || this.hasScript ? 83 :
+                          this.isCommand || this.isOutline ? 39 : 0);
     this.height = scriptWidth ? y - 9 : y;
     this.width = scriptWidth ? Math.max(innerWidth, scriptIndent + scriptWidth) : innerWidth;
 
@@ -2157,7 +2181,7 @@ var scratchblocks = function () {
 
     for (var i=0; i<lines.length; i++) {
       var line = lines[i];
-      if (line.constructor === Script) {
+      if (line.isScript) {
         objects.push(translate(scriptIndent, line.y, line.el));
         continue;
       }
@@ -2167,8 +2191,8 @@ var scratchblocks = function () {
       for (var j=0; j<line.children.length; j++) {
         var child = line.children[j];
 
-        var y = pt + (h - child.height - 2) / 2;
-        objects.push(translate(pl + child.x, line.y + y, child.el));
+        var y = pt + (h - child.height - pt - pb) / 2 - 1;
+        objects.push(translate(px + child.x, line.y + y|0, child.el));
       }
     }
 
@@ -2277,6 +2301,7 @@ var scratchblocks = function () {
     this.isFinal = !this.isEmpty && blocks[blocks.length - 1].isFinal;
     this.y = 0;
   };
+  Script.prototype.isScript = true;
 
   Script.prototype.draw = function() {
     var children = [];
