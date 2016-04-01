@@ -2062,21 +2062,19 @@ var scratchblocks = function () {
   };
 
   Block.prototype.minDistance = function(child) {
-    // nb. this is subtly different from Visual: 
-    // we base this on the reporter/contents of the input.
-    // I think Visual actually bases this on the input slot shape itself.
-    // I don't think this matters for our purposes
     if (this.isBoolean) {
       return (
-        child.isBlock && child.isReporter && !child.hasScript ? 4 + child.height/4 | 0 :
+        child.isReporter ? 4 + child.height/4 | 0 :
+        child.isLabel ? 5 + child.height/2 | 0 :
         child.isBoolean || child.shape === 'boolean' ? 5 :
-        5 + child.height/2 | 0
+        2 + child.height/2 | 0
       );
     }
     if (this.isReporter) {
       return (
         (child.isInput && child.isRound) || ((child.isReporter || child.isBoolean) && !child.hasScript) ? 0 :
-        2 + (child.height)/2 | 0
+        child.isLabel ? 2 + child.height/2 | 0 :
+        -2 + child.height/2 | 0
       );
     }
     return 0;
