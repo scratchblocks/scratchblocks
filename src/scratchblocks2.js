@@ -1717,6 +1717,18 @@ var scratchblocks = function () {
         fill: '#fff',
         id: 'turnLeft',
       }),
+      setProps(group([
+        el('path', {
+          d: "M8 0l2 -2l0 -3l3 0l-4 -5l-4 5l3 0l0 3l-8 0l0 2",
+          fill: 'rgba(0,0,0, 0.3)',
+        }),
+        translate(-1, -1, el('path', {
+          d: "M8 0l2 -2l0 -3l3 0l-4 -5l-4 5l3 0l0 3l-8 0l0 2",
+          fill: 'rgba(255,255,255, 0.9)',
+        })),
+      ]), {
+        id: 'loopArrow',
+      }),
     ];
   }
 
@@ -1887,6 +1899,7 @@ var scratchblocks = function () {
 
   var Icon = function(name) {
     this.name = name;
+    this.isArrow = name === 'loopArrow';
 
     var info = Icon.icons[name];
     this.width = info.width;
@@ -1897,6 +1910,7 @@ var scratchblocks = function () {
     greenFlag: { width: 20, height: 21 },
     turnLeft: { width: 15, height: 12 },
     turnRight: { width: 15, height: 12 },
+    loopArrow: { width: 14, height: 11 }
   };
   Icon.prototype.draw = function() {
     return symbol('#' + this.name, {
@@ -2198,6 +2212,10 @@ var scratchblocks = function () {
 
       for (var j=0; j<line.children.length; j++) {
         var child = line.children[j];
+        if (child.isArrow) {
+          objects.push(translate(innerWidth - 15, this.height - 3, child.el));
+          continue;
+        }
 
         var y = pt + (h - child.height - pt - pb) / 2 - 1;
         if (isDefine && child.isLabel) {
@@ -2252,8 +2270,9 @@ var scratchblocks = function () {
       }
       var block = thing.contents[0];
       var shape = block.pieces[0] === 'if ' ? 'if-block' : 'c-block';
-      if (thing.shape === 'cap') {
-        shape += ' cap';
+      if (thing.shape === 'cap') shape += ' cap';
+      if (['repeat until _', 'repeat _', 'forever'].indexOf(block.blockid) > -1) {
+        list.push(new Icon('loopArrow'));
       }
     } else {
       var block = thing;
