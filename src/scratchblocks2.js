@@ -1820,6 +1820,7 @@ var scratchblocks = function () {
   /* Label */
 
   var Label = function(value, cls) {
+    this.value = value;
     this.el = text(0, 10, value, {
       class: cls || '',
     });
@@ -1838,10 +1839,6 @@ var scratchblocks = function () {
 
   Label.prototype.draw = function() {
     return this.el;
-  };
-
-  Label.prototype.toString = function() {
-    return this.value; // DEBUG
   };
 
   Label.measuring = null;
@@ -1875,6 +1872,11 @@ var scratchblocks = function () {
       var label = toMeasure[i];
       var bbox = label.el.getBBox();
       label.width = (bbox.width + 0.5) | 0;
+
+      var trailingSpaces = / *$/.exec(label.value)[0].length || 0;
+      for (var j=0; j<trailingSpaces; j++) {
+        label.width += 4.15625;
+      }
     }
     document.body.removeChild(measuring);
     cb();
@@ -2241,7 +2243,7 @@ var scratchblocks = function () {
         } else {
           item.pieces.forEach(function(l) {
             if (typeof l === 'string') {
-              list.push(new Label(l));
+              list.push(new Label(l.trim()));
             } else {
               list.push(Block.fromAST(l));
             }
@@ -2277,7 +2279,7 @@ var scratchblocks = function () {
         }[block.image_replacement];
         return new Icon(symbol);
       }
-      if (typeof piece === 'string') return new Label(piece);
+      if (typeof piece === 'string') return new Label(piece.trim());
       switch (piece.shape) {
         case 'number':
         case 'string':
