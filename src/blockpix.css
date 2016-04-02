@@ -1,7 +1,4 @@
 
-
-
-
 text {
   font-family: Lucida Grande, Verdana, Arial, DejaVu Sans, sans-serif;
   font-weight: bold;
@@ -38,9 +35,6 @@ text {
 .input-number-dropdown {
   fill: #fff;
 }
-.input-dropdown,
-.input-boolean {
-}
 .literal-number,
 .literal-string,
 .literal-number-dropdown,
@@ -70,3 +64,4 @@ text {
   stroke-width: 1;
   fill: #8e2ec2;
 }
+
