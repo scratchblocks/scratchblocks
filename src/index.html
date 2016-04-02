@@ -151,6 +151,7 @@ body {
 
 <script>
 var editor = document.getElementById('editor');
+var exportLink;
 
 var obj = {};
 extractHash();
@@ -243,6 +244,17 @@ function objUpdated() {
   scratchblocks.render(scratchblocks.parse(obj.script), function(svg) {
     preview.innerHTML = "";
     preview.appendChild(svg);
+
+    // add export link
+    setTimeout(function() {
+      if (exportLink) document.body.removeChild(exportLink);
+      exportLink = document.createElement('a');
+      exportLink.href = 'data:image/svg+xml;utf8,' + scratchblocks.exportSVG(svg);
+      exportLink.setAttribute('download', 'scratchblocks.svg');
+      exportLink.textContent = "Export SVG";
+      exportLink.className = 'export-link';
+      document.body.appendChild(exportLink);
+    }, 0);
   });
 
   // update language dropdown

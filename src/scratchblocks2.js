@@ -2349,8 +2349,6 @@ var scratchblocks = function () {
         darkFilter('inputDarkFilter'),
     ].concat(makeIcons())));
 
-    window.svg = svg; // DEBUG
-
     svg.appendChild(group(elements));
     cb(svg);
   }
