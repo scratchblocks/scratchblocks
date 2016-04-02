@@ -1238,7 +1238,6 @@ var scratchblocks = function () {
 
       if (!info.pieces.length && info.comment !== undefined
           && nesting.length <= 1) {
-        // TODO multi-line comments
         new_script();
         current_script.push(info);
         new_script();
@@ -1367,7 +1366,6 @@ var scratchblocks = function () {
   var Point = function Point(x, y) {
     this.x = x;
     this.y = y;
-    // TODO round points
   };
   Point.prototype.toString = function() {
     return [this.x, this.y].join(" ");
@@ -1561,8 +1559,8 @@ var scratchblocks = function () {
 
   function getArm(w, armTop) {
     return [
-      "L", 15, armTop - InnerCornerInset,
-      "L", 15 + InnerCornerInset, armTop,
+      "L", 15, armTop - 2,
+      "L", 15 + 2, armTop,
       "L", w - 3, armTop,
       "L", w, armTop + 3
     ].join(" ");
@@ -1656,18 +1654,11 @@ var scratchblocks = function () {
     ]));
   }
 
-  // TODO
-  var NotchDepth = 3;
-  var SubstackInset = 15;
-  var InnerCornerInset = 2;
-  var DividerH = 18; // height of the divider bar in an E block
-  var BottomBarH = 16; // height of the bottom bar of a C or E block
-
   function mouthRect(w, h, isFinal, lines, props) {
     var y = lines[0].height;
     var p = [
       getTop(w),
-      getRightAndBottom(w, y, true, SubstackInset),
+      getRightAndBottom(w, y, true, 15),
     ];
     for (var i=1; i<lines.length; i += 2) {
       var isLast = (i + 2 === lines.length);
@@ -1676,7 +1667,7 @@ var scratchblocks = function () {
       p.push(getArm(w, y));
 
       var hasNotch = !(isLast && isFinal);
-      var inset = isLast ? 0 : SubstackInset;
+      var inset = isLast ? 0 : 15;
       y += lines[i + 1].height + 3;
       p.push(getRightAndBottom(w, y, hasNotch, inset));
     }
@@ -2025,7 +2016,7 @@ var scratchblocks = function () {
   };
 
   Input.fromJSON = function(shape, value) {
-    // TODO decode _mouse etc
+    // TODO decode _mouse_ etc
     return new Input(shape, value);
   };
 
@@ -2306,7 +2297,6 @@ var scratchblocks = function () {
         case 'number-dropdown':
         case 'color':
           return Input.fromAST(piece);
-        // TODO <>
         default:
           if (piece.shape === 'boolean' && piece.blockid === '') {
             return Input.fromAST(piece);
