@@ -2015,11 +2015,6 @@ var scratchblocks = function () {
     ].concat(children));
   };
 
-  Input.fromJSON = function(shape, value) {
-    // TODO decode _mouse_ etc
-    return new Input(shape, value);
-  };
-
   Input.fromAST = function(input) {
     if (input.pieces.length > 1) throw "ahh";
     return new Input(input.shape, input.pieces[0]);
@@ -2219,29 +2214,6 @@ var scratchblocks = function () {
     return group(objects);
   };
 
-  Block.fromJSON = function(arr) {
-    var selector = arr[0];
-    var info = Scratch.blocksBySelector[selector];
-    var args = arr.slice(1).map(function(arg, index) {
-      var input = info.inputs[index];
-      if (arg && arg.constructor === Array) {
-        return (input === undefined ? Script : Block).fromJSON(arg);
-      } else {
-        return Input(input, arg);
-      }
-    });
-    var children = [];
-    for (var i=0; i<info.parts.length; i++) {
-      var part = info.parts[i];
-      if (Scratch.inputPat.test(part)) {
-        children.push(args.shift());
-      } else {
-        children.push(new Label(part));
-      }
-    }
-    return new Block(info, children);
-  };
-
   Block.fromAST = function(thing) {
     var list = [];
     if (thing.type === 'cwrap') {
@@ -2271,13 +2243,8 @@ var scratchblocks = function () {
     }
 
     var info = {
-      // spec: spec,
-      // parts: spec.split(inputPat),
       shape: shape,
       category: block.category,
-      // selector: command[3],
-      // defaults: command.slice(4),
-      // inputs:
     };
     var children = block.pieces.map(function(piece) {
       if (/^ *$/.test(piece)) return;
