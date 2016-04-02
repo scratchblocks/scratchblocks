@@ -1677,7 +1677,7 @@ var scratchblocks = function () {
 
       var hasNotch = !(isLast && isFinal);
       var inset = isLast ? 0 : SubstackInset;
-      y += lines[i + 1].height - (isLast ? 6 : -3);
+      y += lines[i + 1].height + 3;
       p.push(getRightAndBottom(w, y, hasNotch, inset));
     }
     return path(extend(props, {
@@ -2128,10 +2128,14 @@ var scratchblocks = function () {
     var innerWidth = 0;
     var scriptWidth = 0;
     var line = new Line(y);
-    function pushLine() {
-      line.height += pt + pb;
+    function pushLine(isLast) {
+      if (lines.length === 0) {
+        line.height += pt + pb;
+      } else {
+        line.height = isLast ? 13 : 15;
+        line.y -= 1;
+      }
       y += line.height;
-      // TODO lineSpacing ?
       lines.push(line);
     }
 
@@ -2166,13 +2170,12 @@ var scratchblocks = function () {
         line.children.push(child);
       }
     }
-    pushLine();
-    // TODO  height = y - ls + bp;
+    pushLine(true);
 
     innerWidth = Math.max(innerWidth + px * 2,
                           this.isHat || this.hasScript ? 83 :
                           this.isCommand || this.isOutline ? 39 : 0);
-    this.height = scriptWidth ? y - 9 : y;
+    this.height = y;
     this.width = scriptWidth ? Math.max(innerWidth, scriptIndent + scriptWidth) : innerWidth;
     if (isDefine) {
       var p = Math.min(26, 3.5 + 0.13 * innerWidth | 0) - 18;
