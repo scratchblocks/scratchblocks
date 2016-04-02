@@ -2141,22 +2141,16 @@ var scratchblocks = function () {
         y += child.height;
         line = new Line(y);
       } else {
-        child.x = line.width;
-
-        var cmw = 30; // 27
+        var cmw = i > 0 ? 30 : 0; // 27
         var md = this.isCommand ? 0 : this.minDistance(child);
         var mw = this.isCommand ? (child.isBlock || child.isInput ? cmw : 0) : md;
         if (mw && !lines.length && line.width < mw - px) {
-          line.width = child.x = mw - px;
+          line.width = mw - px;
         }
-        // if (i > 0 && this.isCommand && !child.isLabel && line.width <= 20) {
-        //   line.width = 24;
-        //   // TODO this is what 'cmw' was for. so we don't need this??
-        // }
+        child.x = line.width;
         line.width += child.width;
         innerWidth = Math.max(innerWidth, line.width + Math.max(0, md - px));
         line.width += 4;
-        // save this width
         if (!child.isLabel) {
           line.height = Math.max(line.height, child.height);
         }
