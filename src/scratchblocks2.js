@@ -1610,7 +1610,7 @@ var scratchblocks = function () {
     return [cx, cy, p2x, p2y].join(" ");
   }
 
-  function procHatRect(w, h, props) {
+  function procHatBase(w, h, archRoundness, props) {
     // TODO use arc()
     var archRoundness = Math.min(0.2, 35 / w);
     return path(extend(props, {
@@ -1628,10 +1628,9 @@ var scratchblocks = function () {
     }));
   }
 
-  function procHatCap(w, h) {
+  function procHatCap(w, h, archRoundness) {
     // TODO use arc()
     // TODO this doesn't look quite right
-    var archRoundness = Math.min(0.2, 35 / w);
     return path({
       path: [
         "M", -1, 13,
@@ -1643,6 +1642,18 @@ var scratchblocks = function () {
       ],
       class: 'define-hat-cap',
     });
+  }
+
+  function procHatRect(w, h, props) {
+    var q = 52;
+    var y = h - q;
+
+    var archRoundness = Math.min(0.2, 35 / w);
+
+    return translate(0, y, group([
+        procHatBase(w, q, archRoundness, props),
+        procHatCap(w, q, archRoundness),
+    ]));
   }
 
   // TODO
@@ -2051,9 +2062,6 @@ var scratchblocks = function () {
       boolean: pointedRect,
       hat: hatRect,
       'define-hat': procHatRect,
-      // 'c-block': TODO
-      // 'c-block cap': TODO
-      // 'if-block': TODO
     }[this.info.shape];
     if (!func) throw "no shape func: " + this.info.shape;
     return func(w, h, {
@@ -2082,13 +2090,14 @@ var scratchblocks = function () {
 
   Block.prototype.draw = function() {
     var scriptIndent = 15;
+    var isDefine = this.info.shape === 'define-hat';
 
     switch (this.info.shape) {
       case 'hat':
-        var pt = 13, px = 6, pb = 2;
+        var pt = 15, px = 6, pb = 2;
         break;
       case 'define-hat':
-        var pt = 19, px = 8, pb = 8;
+        var pt = 21, px = 8, pb = 9;
         break;
       case 'reporter':
       case 'embedded':
@@ -2165,11 +2174,13 @@ var scratchblocks = function () {
                           this.isCommand || this.isOutline ? 39 : 0);
     this.height = scriptWidth ? y - 9 : y;
     this.width = scriptWidth ? Math.max(innerWidth, scriptIndent + scriptWidth) : innerWidth;
+    if (isDefine) {
+      var p = Math.min(26, 3.5 + 0.13 * innerWidth | 0) - 18;
+      this.height += p;
+      pt += 2 * p;
+    }
 
     var objects = [this.drawSelf(innerWidth, this.height, lines)];
-    if (this.info.shape === 'define-hat') {
-      objects.push(procHatCap(innerWidth, this.height));
-    }
 
     for (var i=0; i<lines.length; i++) {
       var line = lines[i];
@@ -2184,6 +2195,9 @@ var scratchblocks = function () {
         var child = line.children[j];
 
         var y = pt + (h - child.height - pt - pb) / 2 - 1;
+        if (isDefine && child.isLabel) {
+          y += 3;
+        }
         objects.push(translate(px + child.x, line.y + y|0, child.el));
       }
     }
