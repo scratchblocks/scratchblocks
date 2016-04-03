@@ -24,7 +24,7 @@ $(translations_all) : src/translations-all.js
 zopfli :
 	zopfli build/*.js
 
-css : src/blockpix.css
+css : src/defs.css
 	sed -i '' 's/var cssContent =.*/var cssContent = "$(shell cleancss $^)";/' \
 	    src/scratchblocks.js
 
