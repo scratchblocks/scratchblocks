@@ -2381,7 +2381,7 @@ var scratchblocks = function () {
       }
 
       var scripts = parse(code);
-      scriptsToSVG(scripts, function(svg) {
+      render(scripts, function(svg) {
         var container = document.createElement('div');
         container.classList.add("sb");
         if (options.inline) container.classList.add('sb-inline');
