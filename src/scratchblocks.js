@@ -2081,7 +2081,7 @@ var scratchblocks = function () {
   };
 
   Block.prototype.draw = function() {
-    var scriptIndent = 15;
+    var scriptIndent = 13;
     var isDefine = this.info.shape === 'define-hat';
 
     switch (this.info.shape) {
