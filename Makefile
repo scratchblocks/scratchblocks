@@ -1,7 +1,11 @@
 
 version := $(shell git describe --tags)
+all : css translations js
 
-all: css translations js
+clean :
+	rm -r build
+	rm src/translations.js
+	rm src/translations-all.js
 
 js-name := build/scratchblocks-$(version)-min.js
 translations := build/translations-$(version)-min.js
