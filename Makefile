@@ -8,7 +8,7 @@ translations := build/translations-$(version)-min.js
 translations_all := build/translations-all-$(version)-min.js
 js : $(js-name) $(translations) $(translations_all)
 $(js-name) : \
-	    src/scratchblocks2.js \
+	    src/scratchblocks.js \
 	    src/diacritics.js
 	mkdir -p build/
 	uglifyjs $^ > $@ --comments
@@ -22,7 +22,7 @@ zopfli :
 
 css : src/blockpix.css
 	sed -i '' 's/var cssContent =.*/var cssContent = "$(shell cleancss $^)";/' \
-	    src/scratchblocks2.js
+	    src/scratchblocks.js
 
 translations : \
 	src/translations.js \
