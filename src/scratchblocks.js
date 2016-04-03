@@ -2367,10 +2367,8 @@ var scratchblocks = function () {
     }
 
     // find elements
-    var results = document.querySelectorAll(selector);
-    for (var i=0; i<results.length; i++) {
-      var el = results[i];
-
+    var results = [].slice.apply(document.querySelectorAll(selector));
+    results.forEach(function(el) {
       var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/ig, '\n');
       var pre = document.createElement('pre');
       pre.innerHTML = html;
@@ -2390,7 +2388,7 @@ var scratchblocks = function () {
         el.innerHTML = '';
         el.appendChild(container);
       });
-    }
+    });
   };
 
 
