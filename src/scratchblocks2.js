@@ -1884,15 +1884,14 @@ var scratchblocks = function () {
     this.isArrow = name === 'loopArrow';
 
     var info = Icon.icons[name];
-    this.width = info.width;
-    this.height = info.height;
+    extend(info, this);
   };
-  Label.prototype.isIcon = true;
+  Icon.prototype.isIcon = true;
   Icon.icons = {
-    greenFlag: { width: 20, height: 21 },
-    turnLeft: { width: 15, height: 12 },
-    turnRight: { width: 15, height: 12 },
-    loopArrow: { width: 14, height: 11 }
+    greenFlag: { width: 20, height: 21, dy: -2 },
+    turnLeft: { width: 15, height: 12, dy: +1 },
+    turnRight: { width: 15, height: 12, dy: +1 },
+    loopArrow: { width: 14, height: 11 },
   };
   Icon.prototype.draw = function() {
     return symbol('#' + this.name, {
@@ -2197,6 +2196,8 @@ var scratchblocks = function () {
         var y = pt + (h - child.height - pt - pb) / 2 - 1;
         if (isDefine && child.isLabel) {
           y += 3;
+        } else if (child.isIcon) {
+          y += child.dy | 0;
         }
         objects.push(translate(px + child.x, line.y + y|0, child.el));
       }
@@ -2287,7 +2288,7 @@ var scratchblocks = function () {
     this.width = 0;
     for (var i=0; i<this.blocks.length; i++) {
       var block = this.blocks[i];
-      children.push(translate(0, y, block.draw()));
+      children.push(translate(2, y, block.draw()));
       y += block.height;
       this.width = Math.max(this.width, block.width);
     }
@@ -2326,7 +2327,7 @@ var scratchblocks = function () {
     for (var i=0; i<scripts.length; i++) {
       var script = scripts[i];
       if (height) height += 10;
-      elements.push(translate(2, height, script.draw()));
+      elements.push(translate(0, height, script.draw()));
       height += script.height;
       width = Math.max(width, script.width + 4);
     }
