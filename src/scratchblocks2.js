@@ -109,8 +109,6 @@ var scratchblocks = function () {
     if (!bool) throw "Assertion failed!";
   }
 
-  var sb2 = {}; // The module we export.
-
 
 
   // List of classes we're allowed to override.
@@ -157,7 +155,7 @@ var scratchblocks = function () {
    *
    */
 
-  var strings = sb2.strings = {
+  var strings = {
     aliases: {},
 
     define: [],
@@ -169,8 +167,8 @@ var scratchblocks = function () {
   // languages that should be displayed right to left
   var rtl_languages = ['ar', 'fa', 'he'];
 
-  var languages = sb2.languages = {};
-  var block_info_by_id = sb2.block_info_by_id = {};
+  var languages = {};
+  var block_info_by_id = block_info_by_id = {};
   var block_by_text = {};
   var blockids = []; // Used by load_language
 
@@ -620,16 +618,16 @@ var scratchblocks = function () {
 
     languages[iso_code] = language;
   }
-  sb2.load_language = load_language;
+  load_language = load_language;
 
   // Store initial state.
   var _init_strings = clone(strings);
   var _init_languages = clone(languages);
   var _init_block_by_text = clone(block_by_text);
 
-  sb2.reset_languages = function(language) {
-    sb2.strings = strings = clone(_init_strings);
-    sb2.languages = languages = clone(_init_languages);
+  var reset_languages = function(language) {
+    strings = clone(_init_strings);
+    languages = clone(_init_languages);
     block_by_text = clone(_init_block_by_text);
   }
 
@@ -680,8 +678,6 @@ var scratchblocks = function () {
     }
     if (spec.replace(/ /g, "") === "...") return find_block("...");
   }
-
-  sb2.find_block = find_block;
 
   // Utility function that deep clones dictionaries/lists.
 
@@ -1680,7 +1676,7 @@ var scratchblocks = function () {
 
   var cssContent;
   var request = new XMLHttpRequest();
-  request.open('GET', 'blockpix.css', false);
+  request.open('GET', '/src/blockpix.css', false);
   request.send(null);
   if (request.status === 200) {
     cssContent = request.responseText;
@@ -2408,6 +2404,10 @@ var scratchblocks = function () {
     render: render,
     renderMatching: renderMatching,
     exportSVG: exportSVG,
+
+    resetLanguages: reset_languages,
+    loadLanguage: load_language,
+    _findBlock: find_block,
   };
 
 }();
