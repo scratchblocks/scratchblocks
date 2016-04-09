@@ -1,6 +1,6 @@
 Make pictures of Scratch blocks from text.
 
-![Screenshot](http://scratchblocks.github.io/screenshot.png)
+[![Screenshot](http://scratchblocks.github.io/screenshot.png)](https://scratchblocks.github.io/)
 
 **[Try it out!](http://scratchblocks.github.io/)**
 
