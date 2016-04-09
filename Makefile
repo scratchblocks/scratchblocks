@@ -1,6 +1,6 @@
 
 version := $(shell git describe --tags)
-all : css translations js
+all : css commands translations js
 
 clean :
 	rm -r build
@@ -27,6 +27,9 @@ zopfli :
 css : src/defs.css
 	sed -i '' 's/var cssContent =.*/var cssContent = "$(shell cleancss $^)";/' \
 	    src/scratchblocks.js
+
+commands : src/commands.js
+	sh -c 'cd src ; python package_commands.py'
 
 translations : \
 	src/translations.js \
