@@ -54,7 +54,8 @@ text {
 }
 
 .outline {
-  stroke: rgba(255, 255, 255, 0.2);
+  stroke: #fff;
+  stroke-opacity: 0.2;
   stroke-width: 2;
   fill: none;
 }
