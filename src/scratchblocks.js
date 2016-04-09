@@ -1359,17 +1359,6 @@ var scratchblocks = function () {
     return dest;
   }
 
-  var Point = function Point(x, y) {
-    this.x = x;
-    this.y = y;
-  };
-  Point.prototype.toString = function() {
-    return [this.x, this.y].join(" ");
-  };
-  var P = function(x, y) {
-    return new Point(x, y);
-  };
-
   var Box = function(x, y, width, height) {
     this.x = x;
     this.y = y;
@@ -1437,9 +1426,7 @@ var scratchblocks = function () {
   function path(props) {
     return el('path', extend(props, {
       path: null,
-      d: props.path.map(function(p) {
-        return p.constructor === Point ? [p.x, p.y].join(" ") : p;
-      }).join(" "),
+      d: props.path.join(" "),
     }));
   }
 
@@ -1477,23 +1464,18 @@ var scratchblocks = function () {
     }));
   }
 
-  function arc(p1, p2, rx, ry) {
-    var r = p2.y - p1.y;
-    return ["L", p1.x, p1.y, "A", rx, ry, 0, 0, 1, p2.x, p2.y].join(" ");
-  }
-
-  function cornerArc(p1, p2) {
-    var r = p2.y - p1.y;
-    return arc(p1, p2, r, r);
+  function arc(p1x, p1y, p2x, p2y, rx, ry) {
+    var r = p2y - p1y;
+    return ["L", p1x, p1y, "A", rx, ry, 0, 0, 1, p2x, p2y].join(" ");
   }
 
   function roundedRect(w, h, props) {
     var r = h / 2;
     return path(extend(props, {
       path: [
-        "M", P(r, 0),
-        arc(P(w - r, 0), P(w - r, h), r, r),
-        arc(P(r, h), P(r, 0), r, r),
+        "M", r, 0,
+        arc(w - r, 0, w - r, h, r, r),
+        arc(r, h, r, 0, r, r),
         "Z"
       ],
     }));
@@ -1503,11 +1485,11 @@ var scratchblocks = function () {
     var r = h / 2;
     return polygon(extend(props, {
       points: [
-        P(r, 0),
-        P(w - r, 0), P(w, r),
-        P(w, r), P(w - r, h),
-        P(r, h), P(0, r),
-        P(0, r), P(r, 0),
+        r, 0,
+        w - r, 0, w, r,
+        w, r, w - r, h,
+        r, h, 0, r,
+        0, r, r, 0,
       ],
     }));
   }
@@ -1587,7 +1569,7 @@ var scratchblocks = function () {
     return path(extend(props, {
       path: [
         "M", 0, 12,
-        arc(P(0, 12), P(80, 10), 80, 80),
+        arc(0, 12, 80, 10, 80, 80),
         "L", w - 3, 10, "L", w, 10 + 3,
         getRightAndBottom(w, h, true),
         "Z",
@@ -1952,9 +1934,9 @@ var scratchblocks = function () {
         ]), { width: w, height: h });
         children.push(translate(lw + 9, 5, polygon({
           points: [
-            P(7, 0),
-            P(3.5, 4),
-            P(0, 0),
+            7, 0,
+            3.5, 4,
+            0, 0,
           ],
           fill: 'rgba(0,0,0, 0.6)',
         })));
@@ -1968,9 +1950,9 @@ var scratchblocks = function () {
         var ly = 0;
         children.push(translate(lw + 6, 4, polygon({
           points: [
-            P(7, 0),
-            P(3.5, 4),
-            P(0, 0),
+            7, 0,
+            3.5, 4,
+            0, 0,
           ],
           fill: 'rgba(0,0,0, 0.6)',
         })));
