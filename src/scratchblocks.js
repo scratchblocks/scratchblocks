@@ -2052,34 +2052,26 @@ var scratchblocks = function () {
     return 0;
   };
 
+  Block.padding = {
+    'hat':        [15, 6, 2],
+    'define-hat': [21, 8, 9],
+    'reporter':   [3, 4, 1],
+    'embedded':   [3, 4, 1],
+    'boolean':    [3, 4, 2],
+    'cap':        [6, 6, 2],
+    'c-block':    [3, 6, 2],
+    'if-block':   [3, 6, 2],
+    null:         [4, 6, 2],
+  };
+
   Block.prototype.draw = function() {
     var scriptIndent = 13;
     var isDefine = this.info.shape === 'define-hat';
 
-    switch (this.info.shape) {
-      case 'hat':
-        var pt = 15, px = 6, pb = 2;
-        break;
-      case 'define-hat':
-        var pt = 21, px = 8, pb = 9;
-        break;
-      case 'reporter':
-      case 'embedded':
-        var pt = 3, px = 4, pb = 1;
-        break;
-      case 'boolean':
-        var pt = 3, px = 4, pb = 2;
-        break;
-      case 'cap':
-        var pt = 6, px = 6, pb = 2; // 4,6,2
-        break;
-      case 'c-block':
-      case 'if-block':
-        var pt = 3, px = 6, pb = 2;
-        break;
-      default:
-        var pt = 4, px = 6, pb = 2;
-    }
+    var padding = Block.padding[this.info.shape] || Block.padding[null];
+    var pt = padding[0],
+        px = padding[1],
+        pb = padding[2];
 
     var y = 0;
     var Line = function(y) {
