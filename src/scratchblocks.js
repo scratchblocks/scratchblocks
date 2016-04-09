@@ -1957,7 +1957,7 @@ var scratchblocks = function () {
   };
 
   Input.fromAST = function(input) {
-    if (input.pieces.length > 1) throw "ahh";
+    assert(input.pieces.length === 1);
     return new Input(input.shape, input.pieces[0]);
   };
 
@@ -1967,7 +1967,7 @@ var scratchblocks = function () {
   var Block = function(info, children) {
     this.info = info;
     this.children = children;
-    if (!children.length) throw "oops";
+    assert(children.length);
 
     var shape = this.info.shape;
     this.isHat = shape === 'hat';
@@ -2008,7 +2008,7 @@ var scratchblocks = function () {
     }
 
     var func = Block.shapes[this.info.shape];
-    if (!func) throw "no shape func: " + this.info.shape;
+    assert(func, "no shape func");
     return func(w, h, {
       class: [this.info.category, 'bevel'].join(' '),
     });
