@@ -1900,6 +1900,15 @@ var scratchblocks = function () {
   };
   Input.prototype.isInput = true;
 
+  Input.shapes = {
+    'string': rect,
+    'number': roundedRect,
+    'number-dropdown': roundedRect,
+    'color': rect,
+    'dropdown': rect,
+    'boolean': pointedRect,
+  };
+
   Input.prototype.draw = function(parent) {
     if (this.hasLabel) {
       var label = this.label.draw();
@@ -1912,15 +1921,7 @@ var scratchblocks = function () {
 
     var h = this.height = this.isRound || this.isColor ? 13 : 14;
 
-    var shapeFunc = {
-      'string': rect,
-      'number': roundedRect,
-      'number-dropdown': roundedRect,
-      'color': rect,
-      'dropdown': rect,
-      'boolean': pointedRect,
-    }[this.shape];
-    var el = shapeFunc(w, h);
+    var el = Input.shapes[this.shape](w, h);
     if (this.isColor) {
       setProps(el, {
         fill: this.value,
@@ -1979,6 +1980,16 @@ var scratchblocks = function () {
   };
   Block.prototype.isBlock = true;
 
+  Block.shapes = {
+    'stack': stackRect,
+    'cap': capRect,
+    'reporter': roundedRect,
+    'embedded': roundedRect,
+    'boolean': pointedRect,
+    'hat': hatRect,
+    'define-hat': procHatRect,
+  };
+
   Block.prototype.drawSelf = function(w, h, lines) {
     if (lines.length > 1) {
       return mouthRect(w, h, this.isFinal, lines, {
@@ -1993,15 +2004,7 @@ var scratchblocks = function () {
       });
     }
 
-    var func = {
-      stack: stackRect,
-      cap: capRect,
-      reporter: roundedRect,
-      embedded: roundedRect,
-      boolean: pointedRect,
-      hat: hatRect,
-      'define-hat': procHatRect,
-    }[this.info.shape];
+    var func = Block.shapes[this.info.shape];
     if (!func) throw "no shape func: " + this.info.shape;
     return func(w, h, {
       class: [this.info.category, 'bevel'].join(' '),
