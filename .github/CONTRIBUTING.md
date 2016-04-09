@@ -16,5 +16,9 @@ When **reporting an issue**, please do the following:
 
 ---
 
-For **pull requests**, make sure you read the advice in [src/Dev-Readme.md](https://github.com/blob8108/scratchblocks2/blob/master/src/Dev-Readme.md). Thanks!
+For **pull requests**: when developing, you'll want to run a local web server,
+eg. `python2 -m SimpleHTTPServer 8000`, and then browse to
+<http://localhost:8000/src/>.
+
+To update translations, use `make translations`.
 

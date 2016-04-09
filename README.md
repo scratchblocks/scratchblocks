@@ -101,6 +101,12 @@ It uses `pre.blocks` by default.
 scratchblocks.renderMatching("pre.blocks");
 ```
 
+Use `make`, or your preferred build tool, to minify the assets. You'll need to
+install some dependencies first:
+
+- Try `npm install`
+- Try `brew install zopfli`, or the equivalent command for your preferred package manager.
+
 ### Inline blocks
 
 To use blocks inside a paragraph...
