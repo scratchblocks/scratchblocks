@@ -1359,16 +1359,6 @@ var scratchblocks = function () {
     return dest;
   }
 
-  var Box = function(x, y, width, height) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-  };
-  var B = function(x, y, w, h) {
-    return new Box(x, y, w, h);
-  };
-
   /* for constucting SVGs */
 
   var xml = new DOMParser().parseFromString('<xml></xml>',  "application/xml")
