@@ -1777,6 +1777,15 @@ var scratchblocks = function () {
     return f.el;
   }
 
+  function darkRect(w, h, category, el) {
+    return setProps(group([
+      setProps(el, {
+        class: [category, 'darker'].join(' '),
+      })
+    ]), { width: w, height: h });
+  }
+
+
   /* layout */
 
   function draw(o) {
@@ -1880,101 +1889,67 @@ var scratchblocks = function () {
     this.value = value;
 
     this.isRound = shape === 'number' || shape === 'number-dropdown';
+    this.isBoolean = shape === 'boolean';
+    this.isColor = shape === 'color';
+    this.hasArrow = shape === 'dropdown' || shape === 'number-dropdown';
+    this.isDarker = shape === 'boolean' || shape === 'dropdown';
 
-    this.label = new Label(value, ['literal-' + this.shape]);
+    this.hasLabel = !(this.isColor || this.isBoolean);
+    this.label = this.hasLabel ? new Label(value, ['literal-' + this.shape]) : null;
     this.x = 0;
   };
   Input.prototype.isInput = true;
 
   Input.prototype.draw = function(parent) {
-    var label = this.label.draw();
-    var lw = this.label.width;
-    var classList = ['input', 'input-'+this.shape];
-    var children = [];
-    if (this.shape !== 'color' && this.shape !== 'boolean') {
-      children.push(label);
+    if (this.hasLabel) {
+      var label = this.label.draw();
+      var w = Math.max(14, this.label.width + (this.shape === 'string' || this.shape === 'number-dropdown' ? 6 : 9));
+    } else {
+      var w = this.isBoolean ? 30 : this.isColor ? 13 : null;
     }
-    var darker = false;
-    switch (this.shape) {
-      case 'number':
-        var w = Math.max(14, lw + 9);
-        var h = 13;
-        var el = roundedRect(w, h);
-        var lx = 5;
-        var ly = 0;
-        break;
-
-      case 'string':
-        var w = Math.max(14, lw + 6);
-        var h = 14;
-        var lx = 4;
-        var ly = 1;
-        var el = rect(w, h);
-        break;
-
-      case 'dropdown':
-        var w = Math.max(14, lw + 19);
-        var h = 14;
-        var lx = 4;
-        var ly = 1;
-        var el = setProps(group([
-          setProps(rect(w, h), {
-            class: [parent.info.category, 'darker'].join(' '),
-          })
-        ]), { width: w, height: h });
-        children.push(translate(lw + 9, 5, polygon({
-          points: [
-            7, 0,
-            3.5, 4,
-            0, 0,
-          ],
-          fill: 'rgba(0,0,0, 0.6)',
-        })));
-        break;
-
-      case 'number-dropdown':
-        var w = Math.max(14, lw + 16);
-        var h = 13;
-        var el = roundedRect(w, h);
-        var lx = 5;
-        var ly = 0;
-        children.push(translate(lw + 6, 4, polygon({
-          points: [
-            7, 0,
-            3.5, 4,
-            0, 0,
-          ],
-          fill: 'rgba(0,0,0, 0.6)',
-        })));
-        break;
-
-      case 'color':
-        var w = 13;
-        var h = 13;
-        var el = rect(w, h, {
-          fill: this.value,
-        });
-        break;
-
-      case 'boolean':
-        var w = 30;
-        var h = 14;
-        var el = group([
-          setProps(pointedRect(w, h), {
-            class: [parent.info.category, 'darker'].join(' '),
-          })
-        ]);
-        break;
-    }
+    if (this.hasArrow) w += 10;
     this.width = w;
-    this.height = h;
-    translate(lx, 0, label);
 
-    return group([
+    var h = this.height = this.isRound || this.isColor ? 13 : 14;
+
+    var shapeFunc = {
+      'string': rect,
+      'number': roundedRect,
+      'number-dropdown': roundedRect,
+      'color': rect,
+      'dropdown': rect,
+      'boolean': pointedRect,
+    }[this.shape];
+    var el = shapeFunc(w, h);
+    if (this.isColor) {
       setProps(el, {
-        class: classList.join(' '),
+        fill: this.value,
+      });
+    } else if (this.isDarker) {
+      el = darkRect(w, h, parent.info.category, el);
+    }
+
+    var result = group([
+      setProps(el, {
+        class: ['input', 'input-'+this.shape].join(' '),
       }),
-    ].concat(children));
+    ]);
+    if (this.hasLabel) {
+      var x = this.isRound ? 5 : 4;
+      result.appendChild(translate(x, 0, label));
+    }
+    if (this.hasArrow) {
+      var y = this.shape === 'dropdown' ? 5 : 4;
+      result.appendChild(translate(w - 10, y, polygon({
+        points: [
+          7, 0,
+          3.5, 4,
+          0, 0,
+        ],
+        fill: 'rgba(0,0,0, 0.6)',
+      })));
+    }
+    return result;
   };
 
   Input.fromAST = function(input) {
