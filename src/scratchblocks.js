@@ -1359,27 +1359,6 @@ var scratchblocks = function () {
     return dest;
   }
 
-  var Point = function Point(x, y) {
-    this.x = x;
-    this.y = y;
-  };
-  Point.prototype.toString = function() {
-    return [this.x, this.y].join(" ");
-  };
-  var P = function(x, y) {
-    return new Point(x, y);
-  };
-
-  var Box = function(x, y, width, height) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-  };
-  var B = function(x, y, w, h) {
-    return new Box(x, y, w, h);
-  };
-
   /* for constucting SVGs */
 
   var xml = new DOMParser().parseFromString('<xml></xml>',  "application/xml")
@@ -1437,9 +1416,7 @@ var scratchblocks = function () {
   function path(props) {
     return el('path', extend(props, {
       path: null,
-      d: props.path.map(function(p) {
-        return p.constructor === Point ? [p.x, p.y].join(" ") : p;
-      }).join(" "),
+      d: props.path.join(" "),
     }));
   }
 
@@ -1477,23 +1454,18 @@ var scratchblocks = function () {
     }));
   }
 
-  function arc(p1, p2, rx, ry) {
-    var r = p2.y - p1.y;
-    return ["L", p1.x, p1.y, "A", rx, ry, 0, 0, 1, p2.x, p2.y].join(" ");
-  }
-
-  function cornerArc(p1, p2) {
-    var r = p2.y - p1.y;
-    return arc(p1, p2, r, r);
+  function arc(p1x, p1y, p2x, p2y, rx, ry) {
+    var r = p2y - p1y;
+    return ["L", p1x, p1y, "A", rx, ry, 0, 0, 1, p2x, p2y].join(" ");
   }
 
   function roundedRect(w, h, props) {
     var r = h / 2;
     return path(extend(props, {
       path: [
-        "M", P(r, 0),
-        arc(P(w - r, 0), P(w - r, h), r, r),
-        arc(P(r, h), P(r, 0), r, r),
+        "M", r, 0,
+        arc(w - r, 0, w - r, h, r, r),
+        arc(r, h, r, 0, r, r),
         "Z"
       ],
     }));
@@ -1503,11 +1475,11 @@ var scratchblocks = function () {
     var r = h / 2;
     return polygon(extend(props, {
       points: [
-        P(r, 0),
-        P(w - r, 0), P(w, r),
-        P(w, r), P(w - r, h),
-        P(r, h), P(0, r),
-        P(0, r), P(r, 0),
+        r, 0,
+        w - r, 0, w, r,
+        w, r, w - r, h,
+        r, h, 0, r,
+        0, r, r, 0,
       ],
     }));
   }
@@ -1587,7 +1559,7 @@ var scratchblocks = function () {
     return path(extend(props, {
       path: [
         "M", 0, 12,
-        arc(P(0, 12), P(80, 10), 80, 80),
+        arc(0, 12, 80, 10, 80, 80),
         "L", w - 3, 10, "L", w, 10 + 3,
         getRightAndBottom(w, h, true),
         "Z",
@@ -1805,6 +1777,15 @@ var scratchblocks = function () {
     return f.el;
   }
 
+  function darkRect(w, h, category, el) {
+    return setProps(group([
+      setProps(el, {
+        class: [category, 'darker'].join(' '),
+      })
+    ]), { width: w, height: h });
+  }
+
+
   /* layout */
 
   function draw(o) {
@@ -1908,101 +1889,68 @@ var scratchblocks = function () {
     this.value = value;
 
     this.isRound = shape === 'number' || shape === 'number-dropdown';
+    this.isBoolean = shape === 'boolean';
+    this.isColor = shape === 'color';
+    this.hasArrow = shape === 'dropdown' || shape === 'number-dropdown';
+    this.isDarker = shape === 'boolean' || shape === 'dropdown';
 
-    this.label = new Label(value, ['literal-' + this.shape]);
+    this.hasLabel = !(this.isColor || this.isBoolean);
+    this.label = this.hasLabel ? new Label(value, ['literal-' + this.shape]) : null;
     this.x = 0;
   };
   Input.prototype.isInput = true;
 
+  Input.shapes = {
+    'string': rect,
+    'number': roundedRect,
+    'number-dropdown': roundedRect,
+    'color': rect,
+    'dropdown': rect,
+    'boolean': pointedRect,
+  };
+
   Input.prototype.draw = function(parent) {
-    var label = this.label.draw();
-    var lw = this.label.width;
-    var classList = ['input', 'input-'+this.shape];
-    var children = [];
-    if (this.shape !== 'color' && this.shape !== 'boolean') {
-      children.push(label);
+    if (this.hasLabel) {
+      var label = this.label.draw();
+      var w = Math.max(14, this.label.width + (this.shape === 'string' || this.shape === 'number-dropdown' ? 6 : 9));
+    } else {
+      var w = this.isBoolean ? 30 : this.isColor ? 13 : null;
     }
-    var darker = false;
-    switch (this.shape) {
-      case 'number':
-        var w = Math.max(14, lw + 9);
-        var h = 13;
-        var el = roundedRect(w, h);
-        var lx = 5;
-        var ly = 0;
-        break;
-
-      case 'string':
-        var w = Math.max(14, lw + 6);
-        var h = 14;
-        var lx = 4;
-        var ly = 1;
-        var el = rect(w, h);
-        break;
-
-      case 'dropdown':
-        var w = Math.max(14, lw + 19);
-        var h = 14;
-        var lx = 4;
-        var ly = 1;
-        var el = setProps(group([
-          setProps(rect(w, h), {
-            class: [parent.info.category, 'darker'].join(' '),
-          })
-        ]), { width: w, height: h });
-        children.push(translate(lw + 9, 5, polygon({
-          points: [
-            P(7, 0),
-            P(3.5, 4),
-            P(0, 0),
-          ],
-          fill: 'rgba(0,0,0, 0.6)',
-        })));
-        break;
-
-      case 'number-dropdown':
-        var w = Math.max(14, lw + 16);
-        var h = 13;
-        var el = roundedRect(w, h);
-        var lx = 5;
-        var ly = 0;
-        children.push(translate(lw + 6, 4, polygon({
-          points: [
-            P(7, 0),
-            P(3.5, 4),
-            P(0, 0),
-          ],
-          fill: 'rgba(0,0,0, 0.6)',
-        })));
-        break;
-
-      case 'color':
-        var w = 13;
-        var h = 13;
-        var el = rect(w, h, {
-          fill: this.value,
-        });
-        break;
-
-      case 'boolean':
-        var w = 30;
-        var h = 14;
-        var el = group([
-          setProps(pointedRect(w, h), {
-            class: [parent.info.category, 'darker'].join(' '),
-          })
-        ]);
-        break;
-    }
+    if (this.hasArrow) w += 10;
     this.width = w;
-    this.height = h;
-    translate(lx, 0, label);
 
-    return group([
+    var h = this.height = this.isRound || this.isColor ? 13 : 14;
+
+    var el = Input.shapes[this.shape](w, h);
+    if (this.isColor) {
       setProps(el, {
-        class: classList.join(' '),
+        fill: this.value,
+      });
+    } else if (this.isDarker) {
+      el = darkRect(w, h, parent.info.category, el);
+    }
+
+    var result = group([
+      setProps(el, {
+        class: ['input', 'input-'+this.shape].join(' '),
       }),
-    ].concat(children));
+    ]);
+    if (this.hasLabel) {
+      var x = this.isRound ? 5 : 4;
+      result.appendChild(translate(x, 0, label));
+    }
+    if (this.hasArrow) {
+      var y = this.shape === 'dropdown' ? 5 : 4;
+      result.appendChild(translate(w - 10, y, polygon({
+        points: [
+          7, 0,
+          3.5, 4,
+          0, 0,
+        ],
+        fill: 'rgba(0,0,0, 0.6)',
+      })));
+    }
+    return result;
   };
 
   Input.fromAST = function(input) {
@@ -2032,6 +1980,16 @@ var scratchblocks = function () {
   };
   Block.prototype.isBlock = true;
 
+  Block.shapes = {
+    'stack': stackRect,
+    'cap': capRect,
+    'reporter': roundedRect,
+    'embedded': roundedRect,
+    'boolean': pointedRect,
+    'hat': hatRect,
+    'define-hat': procHatRect,
+  };
+
   Block.prototype.drawSelf = function(w, h, lines) {
     if (lines.length > 1) {
       return mouthRect(w, h, this.isFinal, lines, {
@@ -2046,15 +2004,7 @@ var scratchblocks = function () {
       });
     }
 
-    var func = {
-      stack: stackRect,
-      cap: capRect,
-      reporter: roundedRect,
-      embedded: roundedRect,
-      boolean: pointedRect,
-      hat: hatRect,
-      'define-hat': procHatRect,
-    }[this.info.shape];
+    var func = Block.shapes[this.info.shape];
     if (!func) throw "no shape func: " + this.info.shape;
     return func(w, h, {
       class: [this.info.category, 'bevel'].join(' '),
@@ -2080,34 +2030,26 @@ var scratchblocks = function () {
     return 0;
   };
 
+  Block.padding = {
+    'hat':        [15, 6, 2],
+    'define-hat': [21, 8, 9],
+    'reporter':   [3, 4, 1],
+    'embedded':   [3, 4, 1],
+    'boolean':    [3, 4, 2],
+    'cap':        [6, 6, 2],
+    'c-block':    [3, 6, 2],
+    'if-block':   [3, 6, 2],
+    null:         [4, 6, 2],
+  };
+
   Block.prototype.draw = function() {
     var scriptIndent = 13;
     var isDefine = this.info.shape === 'define-hat';
 
-    switch (this.info.shape) {
-      case 'hat':
-        var pt = 15, px = 6, pb = 2;
-        break;
-      case 'define-hat':
-        var pt = 21, px = 8, pb = 9;
-        break;
-      case 'reporter':
-      case 'embedded':
-        var pt = 3, px = 4, pb = 1;
-        break;
-      case 'boolean':
-        var pt = 3, px = 4, pb = 2;
-        break;
-      case 'cap':
-        var pt = 6, px = 6, pb = 2; // 4,6,2
-        break;
-      case 'c-block':
-      case 'if-block':
-        var pt = 3, px = 6, pb = 2;
-        break;
-      default:
-        var pt = 4, px = 6, pb = 2;
-    }
+    var padding = Block.padding[this.info.shape] || Block.padding[null];
+    var pt = padding[0],
+        px = padding[1],
+        pb = padding[2];
 
     var y = 0;
     var Line = function(y) {
