@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<meta charset="utf8">
+<meta name=viewport content="width=device-width, initial-scale=1">
+<title>scratchblocks homepage</title>
+
+<meta name=description content="Use scratchblocks to write pictures of Scratch scripts in forum posts.">
+
+<!--
+<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700">
+-->
+<link rel=stylesheet href="lib/style.css">
+
+<style>
+#preview, #preview:before {
+  position: relative;
+  min-width: 400px;
+  min-height: 300px;
+}
+.cmp #preview:before,
+.diff #preview:before {
+  position: absolute;
+  display: block;
+  content: "";
+  background: url(screenshot.png) no-repeat;
+}
+.cmp.diff #preview:before {
+  -webkit-filter: invert(100%) opacity(50%);
+}
+.diff #preview:before {
+  -webkit-filter: opacity(50%);
+}
+.cmp img {
+  display: none;
+}
+body {
+  background: #dddede;
+}
+</style>
+
+<!---------------------------------------------------------------------------->
+
+<h1>
+  <a id=title href="/">scratchblocks</a>
+  <span>
+    <a target="_blank" href="http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax">help</a>
+    <a href="http://github.com/blob8108/scratchblocks2">github</a>
+    <a href="generator/"><b>generate</b></a>
+  </span>
+</h1>
+
+<div id="side">
+<div>
+  <select id="choose-lang">
+    <option value="">Select language…
+    <option value="de"> Deutsch (German)
+    <option value="es"> Español (Spanish)
+    <option value="fr"> Français (French)
+    <option value="zh_CN"> 中文 (Simplified Chinese)
+    <option value="pl"> Polski (Polish)
+    <option value="ja"> 日本語 (Japanese)
+    <option value="nl"> Nederlands (Dutch)
+    <option value="pt"> Português (Portugese)
+    <option value="it"> Italiano (Italian)
+    <option value="he"> עברית (Hebrew)
+    <option value="ko"> 한국어 (Korean)
+    <option value="nb">Norsk (Norwegian Bokmål) †
+    <option value="tr">Türkçe (Turkish)
+    <option value="el"> Ελληνικά (Greek)
+    <option value="ru"> Pусский (Russian)
+    <option value="ca"> Català (Catalan)
+    <option value="id">Indonesia (Indonesian)
+    <option>———
+    <option value="an"> Aragonés (Aragonese)
+    <option value="ar"> العربية (Arabic)
+    <option value="ast"> Asturianu (Asturian) †
+    <option value="bg"> Български (Bulgarian)
+    <option value="bn_IN"> বাংলা (Bengali) †
+    <option value="cs"> Čeština (Czech)
+    <option value="cy"> Cymraeg (Welsh)
+    <option value="da"> Dansk (Danish)
+    <option value="eo"> Esperanto (Esperanto)
+    <option value="et"> Eesti (Estonian)
+    <option value="eu"> Euskara (Basque)
+    <option value="fa"> فارسی (Persian) *
+    <option value="fi"> Suomi (Finnish)
+    <option value="fil"> Filipino (Filipino) *
+    <option value="fo"> Føroyskt (Faroese) *
+    <option value="fr_CA"> Français Canadien (Canadian French) *
+    <option value="ga"> Gaeilge (Irish) †
+    <option value="gl"> Galego (Galician)
+    <option value="hch"> Wixárika (Huichol) *
+    <option value="hi"> हिन्दी (Hindi)
+    <option value="hr"> Hrvatski (Croatian)
+    <option value="ht"> Kreyòl ayisyen (Haitian) *
+    <option value="hu"> Magyar (Hungarian)
+    <option value="hy"> Հայերեն (Armenian)
+    <option value="is"> Íslenska (Icelandic)
+    <option value="ja_HIRA"> にほんご (Japanese Hiragana)
+    <option value="kk"> Қазақша (Kazakh) *
+    <option value="km"> ភាសាខ្មែរ (Khmer) *
+    <option value="kn"> ಕನ್ನಡ (Kannada)
+    <option value="ku"> Kurdî / كوردی (Kurdish) *
+    <option value="ky"> Кыргызча (Kyrgyz) †
+    <option value="la"> Latina (Latin) *
+    <option value="lt"> Lietuvių (Lithuanian)
+    <option value="lv"> Latviešu (Latvian) †
+    <option value="maz"> Jñatjo (Mazahua) *
+    <option value="mk"> Македонски (Macedonian)
+    <option value="ml"> മലയാളം (Malayalam) *
+    <option value="mn"> Монгол (Mongolian) *
+    <option value="mr"> मराठी (Marathi) *
+    <option value="ms"> Bahasa Melayu (Malay) *
+    <option value="my"> ဗမာစာ (Burmese)
+    <option value="nah"> Nāhuatl (Nahuatl) *
+    <option value="ne"> नेपाली (Nepali) *
+    <option value="nn"> Nynorsk (Norwegian Nynorsk) †
+    <option value="no"> Norsk (Norwegian)
+    <option value="os"> Иронау (Ossetian) †
+    <option value="ote"> Hñähñu (Mezquital Otomi) *
+    <option value="oto"> Hñähñu (Otomi) *
+    <option value="pap"> Idoma-Nòmber (Idoma) *
+    <option value="pt_BR"> Português brasileiro (Brazilian Portuguese)
+    <option value="ro"> Română (Romanian)
+    <option value="rw"> Ikinyarwanda (Kinyarwanda) *
+    <option value="sk"> Slovenčina (Slovak)
+    <option value="sl"> Slovenščina (Slovene)
+    <option value="sr"> Српски / Srpski (Serbian)
+    <option value="sv"> Svenska (Swedish)
+    <option value="sw"> Kiswahili (Swahili) *
+    <option value="ta"> தமிழ் (Tamil) †
+    <option value="th"> ไทย (Thai) *
+    <option value="tzm"> Tamaziġt (Tamazight) †
+    <option value="ug"> ئۇيغۇر تىلى (Uyghur) *
+    <option value="uk"> Українська (Ukrainian)
+    <option value="vi"> Tiếng Việt (Vietnamese)
+    <option value="zh_TW"> 正體中文 (Traditional Chinese)
+  </select>
+
+  <small id=lang-status></small>
+
+</div>
+
+<textarea id="editor"></textarea>
+</div>
+
+<pre id="preview" class="blocks"></pre>
+
+<!---------------------------------------------------------------------------->
+
+<script src="scratchblocks.js"></script>
+
+<script>
+var editor = document.getElementById('editor');
+var exportLink;
+
+var obj = {};
+extractHash();
+
+editor.addEventListener('input', function(e) {
+  obj.script = editor.value;
+  objUpdated();
+});
+
+var chooseLang = document.getElementById('choose-lang');
+
+var incompleteLangs = [];
+var newOnlyLangs = [];
+[].slice.apply(chooseLang.options).forEach(function(el) {
+  var text = el.textContent;
+  if (/\*/.test(text)) incompleteLangs.push(el.value);
+  if (/\†/.test(text)) newOnlyLangs.push(el.value);
+});
+
+var langStatus = document.createTextNode("");
+document.getElementById('lang-status').appendChild(langStatus);
+
+chooseLang.addEventListener('change', function(e) {
+  obj.lang = chooseLang.value;
+  console.log(obj);
+  objUpdated();
+});
+
+
+/* Extract hash from location. Returns true if changed */
+function extractHash() {
+  var newObj = decodeHash();
+  if (!newObj || !newObj.script) {
+    newObj = {
+      script: "",
+      lang: obj.lang,
+    };
+  }
+
+  if (newObj.lang !== obj.lang || newObj.script !== obj.script) {
+    obj = newObj;
+    return true;
+  }
+  return false;
+}
+
+function decodeHash() {
+  var hash = location.href.split('#')[1];
+  if (!hash) return;
+
+  if (!/^\?/.test(hash)) {
+    return {
+      script: decodeURIComponent(hash),
+    };
+  } else {
+    var newObj = {};
+    parts = hash.slice(1).split('&');
+    parts.forEach(function(part) {
+      var match = /^(.*)=(.*)$/.exec(part);
+      if (!match) return;
+      var key = decodeURIComponent(match[1]);
+      var value = decodeURIComponent(match[2]);
+      if (key === "lang" || key === "script") {
+        newObj[key] = value;
+      }
+    });
+    return newObj;
+  }
+}
+
+function objUpdated() {
+  // set hash
+  if (obj.lang) {
+    location.hash = ('#?lang=' + encodeURIComponent(obj.lang) +
+                     '&script='+encodeURIComponent(obj.script));
+  } else if (obj.script) {
+    location.hash = '#'+encodeURIComponent(obj.script);
+  } else {
+    if (!(location.hash == '' || location.hash == '#')) {
+      location.hash = '#';
+    }
+  }
+  // TODO: don't spam history on every keypress!
+
+  // TODO fix this stuff
+  // scratchblocks.reset_languages();
+  // var langDict = scratchblocks2._translations[obj.lang];
+  // if (langDict) scratchblocks2.load_language(langDict);
+
+  scratchblocks.render(scratchblocks.parse(obj.script), function(svg) {
+    preview.innerHTML = "";
+    preview.appendChild(svg);
+
+    // add export link
+    setTimeout(function() {
+      if (exportLink) document.body.removeChild(exportLink);
+      exportLink = document.createElement('a');
+      exportLink.href = 'data:image/svg+xml;utf8,' + scratchblocks.exportSVG(svg);
+      exportLink.setAttribute('download', 'scratchblocks.svg');
+      exportLink.textContent = "Export SVG";
+      exportLink.className = 'export-link';
+      document.body.appendChild(exportLink);
+    }, 0);
+  });
+
+  // update language dropdown
+  var isIncomplete = incompleteLangs.indexOf(obj.lang) > -1;
+  var isNewOnly = newOnlyLangs.indexOf(obj.lang) > -1;
+  var displayText = (
+      (isIncomplete && isNewOnly)
+              ? "has Scratch 2.0 blocks only, and is missing some blocks" :
+      isNewOnly ? "has Scratch 2.0 blocks only" :
+      isIncomplete ? "is missing some blocks" :
+      ""
+  );
+  langStatus.textContent = displayText;
+}
+
+setInterval(function() {
+  if (extractHash()) {
+    updatedFromHash();
+  }
+}, 200);
+
+function updatedFromHash() {
+  objUpdated();
+  editor.value = obj.script;
+  chooseLang.value = obj.lang || "";
+}
+
+updatedFromHash();
+
+</script>
+
+<script>
+function showDiff(e) {
+  document.body.classList[e.ctrlKey ? 'add' : 'remove']('cmp');
+  document.body.classList[e.altKey  ? 'add' : 'remove']('diff');
+}
+document.addEventListener('keydown', showDiff);
+document.addEventListener('keyup', showDiff);
+
+</script>
+

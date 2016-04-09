@@ -1,4 +1,4 @@
-Render Scratch blocks code to HTML.
+Make pictures of Scratch blocks from text.
 
 ![Screenshot](http://scratchblocks.github.io/screenshot.png)
 

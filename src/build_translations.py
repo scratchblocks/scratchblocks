@@ -100,8 +100,8 @@ def fetch_po(lang, project):
 
 language_translations = {}
 
-# Get blockids list from scratchblocks2
-js_lines = map(unicode.strip, codecs.open("scratchblocks2.js",
+# Get blockids list from JS source
+js_lines = map(unicode.strip, codecs.open("scratchblocks.js",
                                           encoding="utf-8").readlines())
 start = js_lines.index("var english_blocks = [")
 end = js_lines.index("];", start)
@@ -233,7 +233,7 @@ for lang, translations in language_translations.items():
     #open("blocks-%s.js" % lang, "w").write(json.dumps(language_array,
     #    ensure_ascii=False))
 
-data = "scratchblocks2._translations = "
+data = "scratchblocks._translations = "
 data += json.dumps(language_translations, ensure_ascii=False)
 data += ";"
 if langs == 'all':
