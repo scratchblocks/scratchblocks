@@ -86,38 +86,20 @@ If you want to host the files yourself, read on.
 
 ### In more detail
 
-You need to include jQuery (in the `<head>` of your page):
+Include the scratchblocks JS file on your webpage:
 
 ```html
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+<script src="scratchblocks.js"></script>
 ```
 
-Then include the scratchblocks CSS and JS:
-
-```html
-<link rel="stylesheet" href="scratchblocks2.css">
-<script src="scratchblocks2.js"></script>
-```
-
-Then just call `ncratchblocks2.parse` after the page has loaded, which will
-render matching page elements to shiny scratch blocks. Its sole argument is the
-CSS-style selector for the elements that contain the scratchblocks code. It
-uses `pre.blocks` by default.
+Then just call `scratchblocks.renderMatching` after the page has loaded, which
+will render matching page elements to shiny scratch blocks. Its sole argument
+is the CSS-style selector for the elements that contain the scratchblocks code.
+It uses `pre.blocks` by default.
 
 ```js
-scratchblocks2.parse("pre.blocks");
+scratchblocks.renderMatching("pre.blocks");
 ```
-
-Finally, you need to put `flag.png` and `arrows.png` in the folder
-`block_images`, which must be in the same folder as `scratchblocks2.css`.
-
-In summary, your directory layout should look something like this:
-
-    block_images/
-        arrows.png
-        flag.png
-    scratchblocks2.css
-    scratchblocks2.js
 
 ### Inline blocks
 
@@ -130,7 +112,7 @@ I'm rather fond of the <code class="b">stamp</code> block in Scratch.
 ...make a separate call to `parse` using the `inline` argument.
 
 ```js
-scratchblocks2.parse("code.b", {inline: true});
+scratchblocks.renderMatching("code.b", {inline: true});
 ```
 
 
