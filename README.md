@@ -15,33 +15,7 @@ Make pictures of Scratch blocks from text.
 It's MIT licensed, so you can use it in your projects. (But do send me a link
 [on Twitter](http://twitter.com/blob8108)!)
 
-## Syntax
-
-It's inspired by the block plugin by JSO that was used on
-the old [Scratch Forums](http://scratch.mit.edu/discuss/). It's a complete
-rewrite for Scratch 2.0, but it still uses the same syntax (with some minor
-additions).
-
-It follows the philosophy of the original Block Plugin in that it tries to match
-the code you write as closely as possible, and doesn't check you've used the
-correct syntax. The block text is only used to find the correct colour.
-
-For the full guide to the syntax, see [the
-wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
-
-## Languages
-
-The version of [`translations.js`](https://github.com/tjvr/scratchblocks/blob/master/src/translations.js) in this repo is designed for the Scratch Forums, so it supports [all the languages there](http://scratch.mit.edu/discuss/#category_head_6).
-
-However, the plugin _can_ be made to accept any of the languages that Scratch supports. You just need to run:
-
-```
-python build_translations.py all
-```
-
-…which will fetch language files from the [Scratch translation server](http://translate.scratch.mit.edu).
-
-scratchblocks also requires some [additional words](https://github.com/tjvr/scratchblocks/blob/master/src/extra_strings.py) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
+For the full guide to the syntax, see [the wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
 
 # Usage
 
@@ -66,30 +40,19 @@ This would probably be a good way to write a Scratch book.
 
 By using [codeclub_lesson_builder](https://github.com/arve0/codeclub_lesson_builder) you can include scratch code directly in markdown codeblocks like this:
 
-<pre>```blocks
-when flag clicked
-go to x:(-50) y:(0)
-```
-</pre>
+    ```blocks
+    when flag clicked
+    go to x:(-50) y:(0)
+    ```
 
 The markdown builds to HTML and PDF.
 
 ## HTML
 
-### A simple example
-
-Have a look at the [example HTML
-file](http://github.com/tjvr/scratchblocks/blob/master/example.html),
-which includes scratchblocks from GitHub Pages and jQuery from Google's CDN.
-
-If you want to host the files yourself, read on.
-
-### In more detail
-
 Include the scratchblocks JS file on your webpage:
 
 ```html
-<script src="scratchblocks.js"></script>
+<script src="//scratchblocks.github.io/js/scratchblocks-3.x-min.js"></script>
 ```
 
 Then just call `scratchblocks.renderMatching` after the page has loaded, which
@@ -115,16 +78,24 @@ To use blocks inside a paragraph...
 I'm rather fond of the <code class="b">stamp</code> block in Scratch.
 ```
 
-...make a separate call to `parse` using the `inline` argument.
+...make a separate call to `renderMatching` using the `inline` argument.
 
 ```js
 scratchblocks.renderMatching("code.b", {inline: true});
 ```
 
+# Languages
+
+[`translations.js`](https://github.com/tjvr/scratchblocks/blob/master/src/translations.js) contains all the languages needed [on the Scratch Forums](http://scratch.mit.edu/discuss/#category_head_6).
+
+`translations-all.js` contains all the languages Scratch supports.
+
+scratchblocks also requires some [additional words](https://github.com/tjvr/scratchblocks/blob/master/src/extra_strings.py) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
+
 
 # Development
 
-See [`src/Dev-Readme.md`](https://github.com/tjvr/scratchblocks/blob/master/src/Dev-Readme.md).
+See [`CONTRIBUTING.md`](https://github.com/tjvr/scratchblocks/blob/master/.github/CONTRIBUTING.md).
 
 
 # Credits
@@ -132,7 +103,8 @@ See [`src/Dev-Readme.md`](https://github.com/tjvr/scratchblocks/blob/master/src/
 Many, many thanks to the [contributors](https://github.com/tjvr/scratchblocks/graphs/contributors)!
 
 * Authored by [tjvr](https://github.com/tjvr)
-* Inspired by JSO's [Block Plugin](http://wiki.scratch.mit.edu/wiki/Block_Plugin_\(1.4\))
+* SVG proof-of-concept, shapes & filters by [as-com](https://github.com/ascom)
+* JSO designed the syntax and wrote the original [Block Plugin](http://wiki.scratch.mit.edu/wiki/Block_Plugin_\(1.4\))
 * Help with translation code from [joooni](http://scratch.mit.edu/users/joooni/)
 * Block translations from the [Scratch translation server](http://translate.scratch.mit.edu/)
 
