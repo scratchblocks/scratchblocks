@@ -157,6 +157,7 @@ var scratchblocks = function () {
       shape: typeShapes[command[1]], // /[ bcefhr]|cf/
       category: categoriesById[command[2] % 100],
       selector: command[3],
+      hasLoopArrow: ['doRepeat', 'doUntil', 'doForever'].indexOf(command[3]) > -1,
     });
     if (info.selector !== 'getParam') assert(!blocksBySelector[info.selector], info.selector);
     return blocksBySelector[info.selector] = blocksBySpec[info.spec] = info;
@@ -286,6 +287,7 @@ var scratchblocks = function () {
     var info = {
       shape: shape,
       category: shape === 'reporter' ? 'variables' : 'obsolete',
+      hasLoopArrow: false,
     };
 
     // build hash
@@ -308,6 +310,7 @@ var scratchblocks = function () {
         if (info.shape === 'stack') info.shape = block.shape;
         info.category = block.category;
         info.selector = block.selector; // for backpack
+        info.hasLoopArrow = block.hasLoopArrow;
 
         // image replacement
         if (iconPat.test(block.spec)) {
@@ -321,11 +324,8 @@ var scratchblocks = function () {
                  : iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part);
           }).filter(bool);
         }
-        break;
       }
     }
-
-    // TODO loop arrows
 
     // apply overrides
     for (var i=0; i<overrides.length; i++) {
@@ -336,7 +336,14 @@ var scratchblocks = function () {
         info.shape = name;
       } else if (overrideShapes.indexOf(name) > -1) {
         info.shape = name;
+      } else if (name === 'loop') {
+        info.hasLoopArrow = true;
       }
+    }
+
+    // loop arrows
+    if (info.hasLoopArrow) {
+      children.push(new Icon('loopArrow'));
     }
 
     return new Block(info, children);
