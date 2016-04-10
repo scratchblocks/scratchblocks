@@ -334,6 +334,13 @@ var scratchblocks = function () {
         var blocks = [];
         while (tok && tok !== '\n') {
           var b = pBlock();
+
+          if (b.isElse || b.isEnd) {
+            b = new Block(extend(b.info, {
+              shape: 'stack',
+            }), b.children);
+          }
+
           if (b.isHat) {
             if (blocks.length) scripts.push(new Script(blocks));
             blocks = [b];
@@ -365,10 +372,47 @@ var scratchblocks = function () {
         'h': 'hat',
         'r': 'reporter',
         'b': 'boolean',
+        'q': 'c-block',
+        'i': 'if-block',
+        'e': 'cend',
+        'l': 'celse',
       }[x];
-      return new Block({
+      var b = new Block({
         shape: shape,
       }, [new Label(shape)]);
+
+      if (b.hasScript) {
+        while (true) {
+          var blocks = pMouth();
+          var last = blocks.pop();
+          if (last && last.isCommand) {
+            blocks.push(last);
+            last = null;
+          }
+          b.children.push(new Script(blocks));
+          if (last && last.isElse) {
+            for (var i=0; i<last.children.length; i++) {
+              b.children.push(last.children[i]);
+            }
+            continue;
+          }
+          break;
+        }
+      }
+      return b;
+    }
+
+    function pMouth(end) {
+      var blocks = [];
+      while (tok && tok !== end) {
+        if (consume("\n")) continue;
+        var b = pBlock();
+        blocks.push(b);
+        if (!b.isCommand) {
+          return blocks;
+        }
+      }
+      return blocks;
     }
 
     return pFile();
@@ -992,7 +1036,10 @@ var scratchblocks = function () {
     this.isOutline = shape === 'outline';
     this.isReporter = shape === 'reporter' || shape === 'embedded';
     this.isBoolean = shape === 'boolean';
+
     this.hasScript = /block/.test(shape);
+    this.isElse = shape === 'celse';
+    this.isEnd = shape === 'cend';
 
     this.x = 0;
   };
