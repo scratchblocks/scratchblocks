@@ -1907,11 +1907,12 @@ var scratchblocks = function () {
 
     this.isRound = shape === 'number' || shape === 'number-dropdown';
     this.isBoolean = shape === 'boolean';
+    this.isStack = shape === 'stack';
     this.isColor = shape === 'color';
     this.hasArrow = shape === 'dropdown' || shape === 'number-dropdown';
-    this.isDarker = shape === 'boolean' || shape === 'dropdown';
+    this.isDarker = shape === 'boolean' || shape === 'stack' || shape === 'dropdown';
 
-    this.hasLabel = !(this.isColor || this.isBoolean);
+    this.hasLabel = !(this.isColor || this.isBoolean || this.isStack);
     this.label = this.hasLabel ? new Label(value, ['literal-' + this.shape]) : null;
     this.x = 0;
   };
@@ -1924,6 +1925,7 @@ var scratchblocks = function () {
     'color': rect,
     'dropdown': rect,
     'boolean': pointedRect,
+    'stack': stackRect,
   };
 
   Input.prototype.draw = function(parent) {
@@ -1931,12 +1933,14 @@ var scratchblocks = function () {
       var label = this.label.draw();
       var w = Math.max(14, this.label.width + (this.shape === 'string' || this.shape === 'number-dropdown' ? 6 : 9));
     } else {
-      var w = this.isBoolean ? 30 : this.isColor ? 13 : null;
+      var w = this.isStack ? 42
+            : this.isBoolean ? 30
+            : this.isColor ? 13 : null;
     }
     if (this.hasArrow) w += 10;
     this.width = w;
 
-    var h = this.height = this.isRound || this.isColor ? 13 : 14;
+    var h = this.height = this.isStack ? 18 : this.isRound || this.isColor ? 13 : 14;
 
     var el = Input.shapes[this.shape](w, h);
     if (this.isColor) {
@@ -2223,7 +2227,7 @@ var scratchblocks = function () {
         case 'color':
           return Input.fromAST(piece);
         default:
-          if (piece.shape === 'boolean' && piece.blockid === '') {
+          if (piece.blockid === '' && (piece.shape === 'boolean' || piece.shape === 'stack')) {
             return Input.fromAST(piece);
           }
           return Block.fromAST(piece);
