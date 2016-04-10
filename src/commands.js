@@ -134,10 +134,6 @@
   ["length of %m.list",                           "r", 12,  "lineCountOfList:"],
   ["%m.list contains %s?",                        "b", 12,  "list:contains:"],
   
-  ["%m.var", "r", 9, "readVariable"],
-  ["%m.list", "r", 12, "contentsOfList:"],
-  ["%m.param", "r", 11, "getParam"],
-  ["%m.param", "b", 11, "getParam"],
   ["else", "else", 6, "else"],
   ["end", "end", 6, "end"],
   ["...", "ellips", 42, "ellips"],
