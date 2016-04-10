@@ -698,21 +698,10 @@ var scratchblocks = function () {
 
   // Text minifying functions normalise block text before lookups.
 
-  function remove_diacritics(text) {
-    text = text.replace("ß", "ss");
-    var map = diacritics_removal_map;
-    for (var i = 0; i < map.length; i++) {
-      text = text.replace(map[i].letters, map[i].base);
-    }
-    return text;
-  }
-
   function minify(text) {
     var minitext = text.replace(/[.,%?:▶◀▸◂]/g, "").toLowerCase()
       .replace(/[ \t]+/g, " ").trim();
-    if (window.diacritics_removal_map) {
-      minitext = remove_diacritics(minitext);
-    }
+    minitext = minitext.replace("ß", "ss");
     if (!minitext && text.replace(" ", "") === "...") minitext = "...";
     return minitext;
   }

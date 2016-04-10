@@ -12,8 +12,7 @@ translations := build/translations-$(version)-min.js
 translations_all := build/translations-all-$(version)-min.js
 js : $(js-name) $(translations) $(translations_all)
 $(js-name) : \
-	    src/scratchblocks.js \
-	    src/diacritics.js
+	    src/scratchblocks.js
 	mkdir -p build/
 	uglifyjs $^ > $@ --comments
 $(translations) : src/translations.js
