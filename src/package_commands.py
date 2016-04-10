@@ -1,6 +1,6 @@
 import regex
 
-ws = regex.compile(r'([\[,]) +')
+ws = regex.compile(r'( )+')
 contents = open('commands.js').read().replace("\n", " ")
 encoded, _ = ws.subn(lambda x: x.group(1), contents)
 
