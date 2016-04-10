@@ -370,6 +370,11 @@ var scratchblocks = function () {
     function peek() {
       return code[index + 1];
     }
+    function peekNonWs() {
+      for (var i = index + 1; i<code.length; i++) {
+        if (code[i] !== ' ') return code[i];
+      }
+    }
 
     function makeBlock(shape, children) {
       return paintBlock(shape, children, languages);
@@ -377,10 +382,21 @@ var scratchblocks = function () {
 
     function pParts(end) {
       // TODO ignoreLt
-      // TODO comparisons vs. predicates
       var children = [];
       var label;
-      while (tok && tok !== '\n' && tok !== end) {
+      while (tok && tok !== '\n') {
+        if (tok === '<' || (tok === '>' && end === '>')) {
+          var last = children[children.length - 1];
+          var c = peekNonWs();
+          if (last && last.isInput && (c === '[' || c === '(' || c === '<')) {
+            label = null;
+            children.push(new Label(tok));
+            next();
+            continue;
+          }
+        }
+        if (tok === end) break;
+
         switch (tok) {
           case '[':
             label = null;
