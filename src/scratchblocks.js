@@ -379,11 +379,12 @@ var scratchblocks = function () {
       var info = {
         shape: shape,
         category: shape === 'define-hat' ? 'custom'
-          : shape === 'reporter' ? 'variables' : 'obsolete',
+                : shape === 'reporter' ? 'variables' : 'obsolete',
         hasLoopArrow: false,
       };
       return paintBlock(info, children, languages);
     }
+    // TODO readVariable selector
 
     function pParts(end) {
       // TODO ignoreLt
@@ -417,7 +418,7 @@ var scratchblocks = function () {
             break;
           case '{':
             label = null;
-            children.push(pMouth());
+            children.push(pEmbedded());
             break;
           case ' ':
             next();
@@ -472,6 +473,14 @@ var scratchblocks = function () {
         return makeBlock('define-hat', children);
       }
 
+      // standalone reporters
+      if (children.length === 1) {
+        var child = children[0];
+        if (child.isBlock && (child.isReporter || child.isBoolean)) {
+          return child;
+        }
+      }
+
       return makeBlock('stack', children);
     }
 
@@ -520,7 +529,7 @@ var scratchblocks = function () {
       return makeBlock('boolean', children);
     }
 
-    function pMouth() {
+    function pEmbedded() {
       next(); // '{'
       var blocks = [];
       while (tok && tok !== '}') {
@@ -612,7 +621,7 @@ var scratchblocks = function () {
       while (line) {
         var blocks = [];
         while (line && line !== 'NL') {
-          var b = pBlock();
+          var b = pLine();
 
           if (b.isElse || b.isEnd) {
             b = new Block(extend(b.info, {
@@ -641,7 +650,7 @@ var scratchblocks = function () {
       return scripts;
     }
 
-    function pBlock() {
+    function pLine() {
       var b = line;
       next();
 
@@ -675,7 +684,7 @@ var scratchblocks = function () {
         if (!line.isCommand) {
           return blocks;
         }
-        blocks.push(pBlock());
+        blocks.push(pLine());
       }
       return blocks;
     }
@@ -1355,6 +1364,7 @@ var scratchblocks = function () {
     'boolean': pointedRect,
     'hat': hatRect,
     'define-hat': procHatRect,
+    'ring': roundedRect,
   };
 
   Block.prototype.drawSelf = function(w, h, lines) {
