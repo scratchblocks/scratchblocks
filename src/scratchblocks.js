@@ -406,29 +406,17 @@ var scratchblocks = function () {
             label = null;
             children.push(pPredicate());
             break;
+          case '{':
+            label = null;
+            children.push(pMouth());
+            break;
           case ' ':
             label = null;
             next();
             break;
           case ':':
             if (peek() === ':') {
-              next();
-              next();
-              var overrides = [];
-              var override = "";
-              while (tok && tok !== '\n' && tok !== end) {
-                if (tok === ' ') {
-                  if (override) {
-                    overrides.push(override);
-                    override = "";
-                  }
-                } else {
-                  override += tok;
-                }
-                next();
-              }
-              if (override) overrides.push(override);
-              children.push(overrides);
+              children.push(pOverrides(end));
               return children;
             } // fall-thru
           default:
@@ -463,8 +451,8 @@ var scratchblocks = function () {
                                        : new Input('string', s);
     }
 
-    function pBlock() {
-      var children = pParts();
+    function pBlock(end) {
+      var children = pParts(end);
       if (tok && tok === '\n') next();
       return makeBlock('stack', children);
     }
@@ -515,6 +503,37 @@ var scratchblocks = function () {
     }
 
     function pMouth() {
+      next(); // '{'
+      var blocks = [];
+      while (tok && tok !== '}') {
+        if (tok === '\n') {
+          next();
+          continue;
+        }
+        blocks.push(pBlock('}'));
+      }
+      if (tok === '}') next();
+      return new Script(blocks);
+    }
+
+    function pOverrides(end) {
+      next();
+      next();
+      var overrides = [];
+      var override = "";
+      while (tok && tok !== '\n' && tok !== end) {
+        if (tok === ' ') {
+          if (override) {
+            overrides.push(override);
+            override = "";
+          }
+        } else {
+          override += tok;
+        }
+        next();
+      }
+      if (override) overrides.push(override);
+      return overrides;
     }
 
     return function() {
