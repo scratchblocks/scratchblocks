@@ -923,7 +923,7 @@ var scratchblocks = function () {
       };
 
       // For recognising list reporters & custom args
-      if (info.shape === "reporter") {
+      if (info.shape === "reporter" || info.shape === "boolean") {
         var name = info.spec;
         if (!(name in context.variable_reporters)) {
           context.variable_reporters[name] = [];
