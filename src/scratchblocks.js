@@ -11,9 +11,15 @@ var scratchblocks = function () {
 
   /* utils */
 
-  function assert(bool) {
-    if (!bool) throw "Assertion failed!";
+  function assert(bool, message) {
+    if (!bool) throw "Assertion failed! " + (message || "");
   }
+
+  function isArray(o) {
+    return o && o.constructor === Array;
+  }
+
+  function bool(x) { return !!x; }
 
   function extend(src, dest) {
     src = src || {};
@@ -103,22 +109,24 @@ var scratchblocks = function () {
 
   var typeShapes = {
     ' ': 'stack',
-    'b': 'predicate',
+    'b': 'boolean',
     'c': 'c-block',
     'e': 'if-block',
     'f': 'cap',
     'h': 'hat',
     'r': 'reporter',
     'cf': 'c-block cap',
-    'else': 'else',
-    'end': 'end',
+    'else': 'celse',
+    'end': 'cend',
     'ellips': 'ellips',
   };
 
   var inputPat = /(%[a-zA-Z](?:\.[a-zA-Z]+)?)/g;
+  var iconPat = /(@[a-zA-Z]+)/;
+  var splitPat = new RegExp([inputPat.source, '|', iconPat.source].join(''), 'g');
 
   function parseSpec(spec) {
-    var parts = spec.split(inputPat);
+    var parts = spec.split(splitPat).filter(bool);
     return {
       spec: spec,
       parts: parts,
@@ -128,7 +136,11 @@ var scratchblocks = function () {
   }
 
   function hashSpec(spec) {
-    return spec.replace(inputPat, " _ ").replace(/ +/g, " ").trim();
+    return minifyHash(spec.replace(inputPat, " _ "));
+  }
+
+  function minifyHash(hash) {
+    return hash.replace(/_/g, " _ ").replace(/ +/g, " ").trim();
   }
 
   var blocksBySelector = {};
@@ -156,30 +168,23 @@ var scratchblocks = function () {
 
     Object.keys(language.commands).forEach(function(spec) {
       var nativeSpec = language.commands[spec];
-      var block = {
-        language: code,
-        block: blocksBySpec[spec],
-      };
+      var block = blocksBySpec[spec];
 
       var nativeHash = hashSpec(nativeSpec);
       blocksByHash[nativeHash] = block;
 
-      // fallback image replacement
-      // not every language has `aliases` yet
-      var m = /@[a-zA-Z]+/.exec(spec);
+      // fallback image replacement, for languages without aliases
+      var m = iconPat.exec(spec);
       if (m) {
         var image = m[0];
         var hash = nativeHash.replace(image, imageIcons[image]);
-        blocksByHash[nativeHash] = block;
+        blocksByHash[hash] = block;
       }
     });
 
     Object.keys(language.aliases).forEach(function(alias) {
       var spec = language.aliases[alias];
-      var block = {
-        language: code,
-        block: blocksBySpec[spec],
-      };
+      var block = blocksBySpec[spec];
 
       var aliasHash = hashSpec(alias);
       blocksByHash[aliasHash] = block;
@@ -295,38 +300,179 @@ var scratchblocks = function () {
   }
   */
 
-  // TODO paint blocks
   // TODO recognise list reporters
   // TODO custom arguments
   // TODO definitions
-  // TODO ignoreLt
-  // TODO comparisons vs. predicates
 
-  function parseLines(code) {
+  function paintBlock(shape, children, languages) {
+    var overrides = [];
+    if (isArray(children[children.length - 1])) {
+      overrides = children.pop();
+    }
+    if (!children.length) {
+      children = [new Label("")];
+    }
+    var info = {
+      shape: shape,
+      category: 'obsolete',
+    };
+
+    // build hash
+    var words = [];
+    for (var i=0; i<children.length; i++) {
+      var child = children[i];
+      if (child.isLabel) {
+        words.push(child.value);
+      } else {
+        words.push("_");
+      }
+    }
+    var hash = minifyHash(words.join(" "));
+
+    // paint
+    for (var i=0; i<languages.length; i++) {
+      var lang = languages[i];
+      var block = lang.blocksByHash[hash];
+      if (block) {
+        if (info.shape === 'stack') info.shape = block.shape;
+        info.category = block.category;
+        info.selector = block.selector; // for backpack
+
+        // image replacement
+        if (iconPat.test(block.spec)) {
+          var inputs = children.filter(function(child) {
+            return !child.isLabel;
+          });
+          children = block.parts.map(function(part) {
+            part = part.trim();
+            if (!part) return;
+            return inputPat.test(part) ? inputs.shift()
+                 : iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part);
+          }).filter(bool);
+        }
+        break;
+      }
+    }
+
+    // TODO loop arrows
+
+    // apply overrides
+    for (var i=0; i<overrides.length; i++) {
+      var name = overrides[i];
+      if (overrideCategories.indexOf(name) > -1) {
+        info.category = name;
+      } else if (overrideFlags.indexOf(name) > -1) { // TODO remove flags
+        info.shape = name;
+      } else if (overrideShapes.indexOf(name) > -1) {
+        info.shape = name;
+      }
+    }
+
+    return new Block(info, children);
+  }
+
+  function parseLines(code, languages) {
     var tok = code[0];
     var index = 0;
     function next() {
       tok = code[++index];
     }
-   
+    function peek() {
+      return code[index + 1];
+    }
+
+    function makeBlock(shape, children) {
+      return paintBlock(shape, children, languages);
+    }
+
+    function pParts(end) {
+      // TODO ignoreLt
+      // TODO comparisons vs. predicates
+      var children = [];
+      var label;
+      while (tok && tok !== '\n' && tok !== end) {
+        switch (tok) {
+          case '[':
+            children.push(pString());
+            break;
+          case '(':
+            children.push(pReporter());
+            break;
+          case '<':
+            children.push(pPredicate());
+            break;
+          case ' ':
+            label = null;
+            next();
+            break;
+          case ':':
+            if (peek() === ':') {
+              next();
+              next();
+              var overrides = [];
+              var override = "";
+              while (tok && tok !== '\n' && tok !== end) {
+                if (tok === ' ') {
+                  if (override) overrides.push(override);
+                } else {
+                  override += tok;
+                }
+                next();
+              }
+              if (override) overrides.push(override);
+              children.push(overrides);
+              return children;
+            } // fall-thru
+          default:
+            if (!label) {
+              label = new Label("");
+              children.push(label);
+            }
+            label.value += tok;
+            next();
+        }
+      }
+      return children;
+    }
+
+    function pString() {
+      next(); // '['
+      var s = "";
+      while (tok && tok !== ']') {
+        if (tok === '\\') {
+          next();
+          if (!tok) break;
+        }
+        s += tok;
+        next();
+      }
+      return s;
+    }
+
     function pBlock() {
-      var x = tok;
-      next();
-      if (tok === '\n') next();
-      var shape = {
-        's': 'stack',
-        'c': 'cap',
-        'h': 'hat',
-        'r': 'reporter',
-        'b': 'boolean',
-        'q': 'c-block',
-        'i': 'if-block',
-        'e': 'cend',
-        'l': 'celse',
-      }[x];
-      return new Block({
-        shape: shape,
-      }, [new Label(shape)]);
+      var children = pParts();
+      if (tok && tok === '\n') next();
+      return makeBlock('stack', children);
+    }
+
+    function pReporter() {
+      next(); // '('
+      var children = pParts(')');
+      if (tok && tok === ')') next();
+      if (children.length === 1 && children[0].isLabel && /^[0-9e.]*$/.test(children[0].value)) {
+        return new Input('number', children[0].value);
+      }
+      return makeBlock('reporter', children);
+    }
+
+    function pPredicate() {
+      next(); // '<'
+      var children = pParts('>');
+      if (tok && tok === '>') next();
+      return makeBlock('boolean', children);
+    }
+
+    function pMouth() {
     }
 
     return function() {
@@ -434,7 +580,7 @@ var scratchblocks = function () {
 
     /* * */
 
-    var f = parseLines(code);
+    var f = parseLines(code, languages);
     var scripts = parseScripts(f);
     return scripts;
   }
@@ -880,9 +1026,8 @@ var scratchblocks = function () {
 
   var Label = function(value, cls) {
     this.value = value;
-    this.el = text(0, 10, value, {
-      class: cls || '',
-    });
+    this.cls = cls || '';
+    this.el = null;
     this.width = null;
     this.height = 12;
     this.x = 0;
@@ -890,6 +1035,9 @@ var scratchblocks = function () {
   Label.prototype.isLabel = true;
 
   Label.prototype.measure = function() {
+    this.el = text(0, 10, this.value, {
+      class: this.cls,
+    });
     if (this.value === "") {
       this.width = 0;
     } else if (this.value === " ") {
@@ -952,6 +1100,7 @@ var scratchblocks = function () {
     this.isArrow = name === 'loopArrow';
 
     var info = Icon.icons[name];
+    assert(info, "no info for icon " + name);
     extend(info, this);
   };
   Icon.prototype.isIcon = true;
@@ -986,6 +1135,10 @@ var scratchblocks = function () {
     this.x = 0;
   };
   Input.prototype.isInput = true;
+
+  Input.prototype.measure = function() {
+    if (this.hasLabel) this.label.measure();
+  };
 
   Input.shapes = {
     'string': rect,
@@ -1069,7 +1222,7 @@ var scratchblocks = function () {
   Block.prototype.measure = function() {
     for (var i=0; i<this.children.length; i++) {
       var child = this.children[i];
-      if (child) child.measure();
+      if (child.measure) child.measure();
     }
   };
 
@@ -1098,7 +1251,7 @@ var scratchblocks = function () {
     }
 
     var func = Block.shapes[this.info.shape];
-    assert(func, "no shape func");
+    assert(func, "no shape func " + this.info.shape);
     return func(w, h, {
       class: [this.info.category, 'bevel'].join(' '),
     });
