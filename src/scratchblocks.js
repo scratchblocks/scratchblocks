@@ -302,37 +302,55 @@ var scratchblocks = function () {
   // TODO ignoreLt
   // TODO comparisons vs. predicates
 
-  function parse(code, options) {
-    var options = extend({
-      inline: false,
-      languages: ['en'],
-    }, options);
-
-    var languages = options.languages.map(function(code) {
-      return allLanguages[code];
-    });
-
+  function parseLines(code) {
     var tok = code[0];
     var index = 0;
     function next() {
       tok = code[++index];
     }
-    function consume(what) {
-      if (tok === what) {
-        next();
-        return true;
-      }
-      return false;
+   
+    function pBlock() {
+      var x = tok;
+      next();
+      if (tok === '\n') next();
+      var shape = {
+        's': 'stack',
+        'c': 'cap',
+        'h': 'hat',
+        'r': 'reporter',
+        'b': 'boolean',
+        'q': 'c-block',
+        'i': 'if-block',
+        'e': 'cend',
+        'l': 'celse',
+      }[x];
+      return new Block({
+        shape: shape,
+      }, [new Label(shape)]);
     }
 
-    /* * */
+    return function() {
+      if (!tok) return undefined;
+      if (tok === '\n') {
+        next();
+        return 'NL';
+      }
+      return pBlock();
+    }
+  }
+
+  function parseScripts(getLine) {
+    var line = getLine();
+    function next() {
+      line = getLine();
+    }
 
     function pFile() {
-      while (consume("\n")) {}
+      while (line === 'NL') next();
       var scripts = [];
-      while (tok) {
+      while (line) {
         var blocks = [];
-        while (tok && tok !== '\n') {
+        while (line && line !== 'NL') {
           var b = pBlock();
 
           if (b.isElse || b.isEnd) {
@@ -357,44 +375,28 @@ var scratchblocks = function () {
           }
         }
         if (blocks.length) scripts.push(new Script(blocks));
-        while (consume("\n")) {}
+        while (line === 'NL') next();
       }
       return scripts;
     }
 
     function pBlock() {
-      var x = tok;
+      var b = line;
       next();
-      consume('\n');
-      var shape = {
-        's': 'stack',
-        'c': 'cap',
-        'h': 'hat',
-        'r': 'reporter',
-        'b': 'boolean',
-        'q': 'c-block',
-        'i': 'if-block',
-        'e': 'cend',
-        'l': 'celse',
-      }[x];
-      var b = new Block({
-        shape: shape,
-      }, [new Label(shape)]);
 
       if (b.hasScript) {
         while (true) {
           var blocks = pMouth();
-          var last = blocks.pop();
-          if (last && last.isCommand) {
-            blocks.push(last);
-            last = null;
-          }
           b.children.push(new Script(blocks));
-          if (last && last.isElse) {
-            for (var i=0; i<last.children.length; i++) {
-              b.children.push(last.children[i]);
+          if (line && line.isElse) {
+            for (var i=0; i<line.children.length; i++) {
+              b.children.push(line.children[i]);
             }
+            next();
             continue;
+          }
+          if (line && line.isEnd) {
+            next();
           }
           break;
         }
@@ -402,20 +404,39 @@ var scratchblocks = function () {
       return b;
     }
 
-    function pMouth(end) {
+    function pMouth() {
       var blocks = [];
-      while (tok && tok !== end) {
-        if (consume("\n")) continue;
-        var b = pBlock();
-        blocks.push(b);
-        if (!b.isCommand) {
+      while (line) {
+        if (line === 'NL') {
+          next();
+          continue;
+        }
+        if (!line.isCommand) {
           return blocks;
         }
+        blocks.push(pBlock());
       }
       return blocks;
     }
 
     return pFile();
+  }
+
+  function parse(code, options) {
+    var options = extend({
+      inline: false,
+      languages: ['en'],
+    }, options);
+
+    var languages = options.languages.map(function(code) {
+      return allLanguages[code];
+    });
+
+    /* * */
+
+    var f = parseLines(code);
+    var scripts = parseScripts(f);
+    return scripts;
   }
 
   /*****************************************************************************/
