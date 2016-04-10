@@ -383,12 +383,15 @@ var scratchblocks = function () {
       while (tok && tok !== '\n' && tok !== end) {
         switch (tok) {
           case '[':
+            label = null;
             children.push(pString());
             break;
           case '(':
+            label = null;
             children.push(pReporter());
             break;
           case '<':
+            label = null;
             children.push(pPredicate());
             break;
           case ' ':
