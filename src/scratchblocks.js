@@ -418,7 +418,10 @@ var scratchblocks = function () {
               var override = "";
               while (tok && tok !== '\n' && tok !== end) {
                 if (tok === ' ') {
-                  if (override) overrides.push(override);
+                  if (override) {
+                    overrides.push(override);
+                    override = "";
+                  }
                 } else {
                   override += tok;
                 }
