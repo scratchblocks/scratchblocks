@@ -53,7 +53,7 @@ var scratchblocks = function () {
   // List of classes we're allowed to override.
 
   var overrideCategories = ["motion", "looks", "sound", "pen", "variables", "list", "events", "control", "sensing", "operators", "custom", "custom-arg", "extension", "grey", "obsolete"];
-  var overrideShapes = ["hat", "cap", "stack", "embedded", "boolean", "reporter", "cstart", "celse", "cend", "ring"];
+  var overrideShapes = ["hat", "cap", "stack", "embedded", "boolean", "reporter", "celse", "cend", "ring"];
 
   /*
    * We need to store info such as category and shape for each block.
@@ -280,6 +280,8 @@ var scratchblocks = function () {
         info.category = name;
       } else if (overrideShapes.indexOf(name) > -1) {
         info.shape = name;
+      } else if (name === 'cstart') {
+        info.shape = 'c-block';
       } else if (name === 'loop') {
         info.hasLoopArrow = true;
       }
@@ -1342,6 +1344,11 @@ var scratchblocks = function () {
 
   Block.shapes = {
     'stack': stackRect,
+    'c-block': stackRect,
+    'if-block': stackRect,
+    'celse': stackRect,
+    'cend': stackRect,
+
     'cap': capRect,
     'reporter': roundedRect,
     'embedded': roundedRect,
@@ -1438,7 +1445,7 @@ var scratchblocks = function () {
       var child = this.children[i];
       child.el = child.draw(this);
 
-      if (child.isScript) {
+      if (child.isScript && this.hasScript) {
         pushLine();
         child.y = y;
         lines.push(child);
