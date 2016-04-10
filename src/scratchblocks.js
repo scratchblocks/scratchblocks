@@ -238,33 +238,39 @@ var scratchblocks = function () {
 
   /*****************************************************************************/
 
-  // Hacks for certain blocks. TODO
-  /*
-  block_info_by_id["_ of _"].hack = function (info, args) {
+  function disambig(selector1, selector2, test) {
+    var func = function(children, language) {
+      return blocksBySelector[test(children, language) ? selector1 : selector2];
+    };
+    blocksBySelector[selector1].specialCase = blocksBySelector[selector2].specialCase = func;
+  }
+
+  disambig('computeFunction:of:', 'getAttribute:of:', function(children, language) {
     // Operators if math function, otherwise sensing "attribute of" block
-    if (!args.length) return;
-    var func = minify(strip_brackets(args[0]).replace(/ v$/, ""));
-    if (func == "e^") func = "e ^";
-    if (func == "10^") func = "10 ^";
-    info.category = (strings.math.indexOf(func) > -1) ? "operators"
-      : "sensing";
-  }
+    var first = children[0];
+    if (!first.isInput) return;
+    var name = first.value;
+    return language.math.indexOf(name) > -1;
+  });
 
-  block_info_by_id["length of _"].hack = function (info, args) {
+  disambig('lineCountOfList:', 'stringLength:', function(children, language) {
     // List block if dropdown, otherwise operators
-    if (!args.length) return;
-    info.category = (/^\[.* v\]$/.test(args[0])) ? "list"
-      : "operators";
-  }
+    var last = children[children.length - 1];
+    if (!last.isInput) return;
+    return last.shape === 'dropdown';
+  });
 
-  block_info_by_id["stop _"].hack = function (info, args) {
+  blocksBySelector['stopScripts'].specialCase = function(children, language) {
     // Cap block unless argument is "other scripts in sprite"
-    if (!args.length) return;
-    var what = minify(strip_brackets(args[0]).replace(/ v$/, ""));
-    info.shape = (strings.osis.indexOf(what) > -1) ? null
-      : "cap";
+    var last = children[children.length - 1];
+    if (!last.isInput) return;
+    var value = last.value;
+    if (language.osis.indexOf(value) > -1) {
+      return extend(blocksBySelector['stopScripts'], {
+        shape: 'stack',
+      });
+    }
   }
-  */
 
   // TODO recognise list reporters
   // TODO custom arguments
@@ -307,6 +313,10 @@ var scratchblocks = function () {
       var lang = languages[i];
       var block = lang.blocksByHash[hash];
       if (block) {
+        if (block.specialCase) {
+          block = block.specialCase(children, lang) || block;
+        }
+        info.language = lang;
         if (info.shape === 'stack') info.shape = block.shape;
         info.category = block.category;
         info.selector = block.selector; // for backpack
@@ -431,8 +441,8 @@ var scratchblocks = function () {
         next();
       }
       if (tok === ']') next();
-      var shape = (!escapeV && / v$/.test(s)) ? 'dropdown' : 'string';
-      return new Input(shape, s);
+      return !escapeV && / v$/.test(s) ? new Input('dropdown', s.slice(0, s.length - 2))
+                                       : new Input('string', s);
     }
 
     function pBlock() {
@@ -466,7 +476,7 @@ var scratchblocks = function () {
         }
       } if (i === children.length) {
         var last = children[i - 1];
-        if (last.value === 'v') {
+        if (i > 1 && last.value === 'v') {
           children.pop();
           var value = children.map(function(l) { return l.value; }).join(" ");
           return new Input('number-dropdown', value);
