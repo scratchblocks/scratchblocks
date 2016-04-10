@@ -6,6 +6,6 @@ encoded, _ = ws.subn(lambda x: x.group(1), contents)
 
 sc = regex.compile(r'var scratchCommands = (.*)')
 js = open('scratchblocks.js', 'r').read()
-js = sc.sub("var scratchCommands = {}".format(encoded), js)
+js = sc.sub("var scratchCommands = {}".format(encoded.strip()), js)
 open('scratchblocks.js', 'w').write(js)
 
