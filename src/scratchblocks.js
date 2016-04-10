@@ -270,17 +270,23 @@ var scratchblocks = function () {
     }
   }
 
+  // TODO recognise custom arguments
   // TODO recognise list reporters
-  // TODO custom arguments
-  // TODO definitions
 
-  function paintBlock(shape, children, languages) {
-    children.forEach(function(child) {
-      if (typeof child === 'string') {
-        debugger;
+  function applyOverrides(info, overrides) {
+    for (var i=0; i<overrides.length; i++) {
+      var name = overrides[i];
+      if (overrideCategories.indexOf(name) > -1) {
+        info.category = name;
+      } else if (overrideShapes.indexOf(name) > -1) {
+        info.shape = name;
+      } else if (name === 'loop') {
+        info.hasLoopArrow = true;
       }
-    });
+    }
+  }
 
+  function paintBlock(info, children, languages) {
     var overrides = [];
     if (isArray(children[children.length - 1])) {
       overrides = children.pop();
@@ -288,11 +294,6 @@ var scratchblocks = function () {
     if (!children.length) {
       children = [new Label("")];
     }
-    var info = {
-      shape: shape,
-      category: shape === 'reporter' ? 'variables' : 'obsolete',
-      hasLoopArrow: false,
-    };
 
     // build hash
     var words = [];
@@ -335,17 +336,7 @@ var scratchblocks = function () {
       }
     }
 
-    // apply overrides
-    for (var i=0; i<overrides.length; i++) {
-      var name = overrides[i];
-      if (overrideCategories.indexOf(name) > -1) {
-        info.category = name;
-      } else if (overrideShapes.indexOf(name) > -1) {
-        info.shape = name;
-      } else if (name === 'loop') {
-        info.hasLoopArrow = true;
-      }
-    }
+    applyOverrides(info, overrides);
 
     // loop arrows
     if (info.hasLoopArrow) {
@@ -354,6 +345,7 @@ var scratchblocks = function () {
 
     return new Block(info, children);
   }
+
 
   /* * */
 
@@ -372,8 +364,23 @@ var scratchblocks = function () {
       }
     }
 
+    var define = [];
+    languages.map(function(lang) {
+      define = define.concat(lang.define);
+    });
+    // NB. we assume 'define' is a single word in every language
+    function isDefine(word) {
+      return define.indexOf(word) > -1;
+    }
+
     function makeBlock(shape, children) {
-      return paintBlock(shape, children, languages);
+      var info = {
+        shape: shape,
+        category: shape === 'define-hat' ? 'custom'
+          : shape === 'reporter' ? 'variables' : 'obsolete',
+        hasLoopArrow: false,
+      };
+      return paintBlock(info, children, languages);
     }
 
     function pParts(end) {
@@ -411,8 +418,13 @@ var scratchblocks = function () {
             children.push(pMouth());
             break;
           case ' ':
-            label = null;
             next();
+            if (label && isDefine(label.value)) {
+              // define hat
+              children.push(pOutline());
+              return children;
+            }
+            label = null;
             break;
           case ':':
             if (peek() === ':') {
@@ -420,10 +432,7 @@ var scratchblocks = function () {
               return children;
             } // fall-thru
           default:
-            if (!label) {
-              label = new Label("");
-              children.push(label);
-            }
+            if (!label) children.push(label = new Label(""));
             label.value += tok;
             next();
         }
@@ -454,6 +463,13 @@ var scratchblocks = function () {
     function pBlock(end) {
       var children = pParts(end);
       if (tok && tok === '\n') next();
+
+      // define hats
+      var first = children[0];
+      if (first && first.isLabel && isDefine(first.value)) {
+        return makeBlock('define-hat', children);
+      }
+
       return makeBlock('stack', children);
     }
 
@@ -534,6 +550,40 @@ var scratchblocks = function () {
       }
       if (override) overrides.push(override);
       return overrides;
+    }
+
+    function pOutline() {
+      var children = [];
+      function parseArg(kind, end) {
+        label = null;
+        next();
+        var parts = pParts(end);
+        if (tok === end) next();
+        children.push(paintBlock({
+          shape: kind === 'boolean' ? 'boolean' : 'reporter',
+          argument: kind,
+          category: 'custom-arg',
+        }, parts, languages));
+      }
+      var label;
+      while (tok && tok !== '\n') {
+        switch (tok) {
+          case '(': parseArg('number', ')'); break;
+          case '[': parseArg('string', ']'); break;
+          case '<': parseArg('boolean', '>'); break;
+          case ' ': next(); label = null; break;
+          case ':':
+            if (peek() === ':') {
+              children.push(pOverrides());
+              break;
+            } // fall-thru
+          default:
+            if (!label) children.push(label = new Label(""));
+            label.value += tok;
+            next();
+        }
+      }
+      return makeBlock('outline', children);
     }
 
     return function() {
@@ -1098,6 +1148,7 @@ var scratchblocks = function () {
   Label.prototype.isLabel = true;
 
   Label.prototype.measure = function() {
+    // TODO measure multiple spaces
     this.el = text(0, 10, this.value, {
       class: this.cls,
     });
@@ -1582,6 +1633,12 @@ var scratchblocks = function () {
   return {
     allLanguages: allLanguages, // read-only
     loadLanguages: loadLanguages,
+
+    Label: Label,
+    Icon: Icon,
+    Input: Input,
+    Block: Block,
+    Script: Script,
 
     parse: parse,
     render: render,
