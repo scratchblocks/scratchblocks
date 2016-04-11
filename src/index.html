@@ -148,6 +148,7 @@ body {
 <!---------------------------------------------------------------------------->
 
 <script src="scratchblocks.js"></script>
+<script src="translations.js"></script>
 
 <script>
 var editor = document.getElementById('editor');
@@ -236,12 +237,35 @@ function objUpdated() {
   }
   // TODO: don't spam history on every keypress!
 
-  // TODO fix this stuff
-  // scratchblocks.reset_languages();
-  // var langDict = scratchblocks2._translations[obj.lang];
-  // if (langDict) scratchblocks2.load_language(langDict);
+  /*
+  // renderMatching API example
+  preview.innerHTML = obj.script;
+  scratchblocks.renderMatching('pre.blocks', {
+    languages: ['en', obj.lang],
+    render: function(scripts, cb) {
+      scratchblocks.render(scripts, function(svg) {
+        var el = document.createElement('div');
+        el.appendChild(svg);
 
-  scratchblocks.render(scratchblocks.parse(obj.script), function(svg) {
+        exportLink = document.createElement('a');
+        exportLink.href = 'data:image/svg+xml;utf8,' + scratchblocks.exportSVG(svg);
+        exportLink.setAttribute('download', 'scratchblocks.svg');
+        exportLink.textContent = "Export SVG";
+        exportLink.className = 'export-link';
+        var p = document.createElement('p');
+        p.appendChild(exportLink);
+        el.appendChild(p);
+
+        cb(el);
+      });
+    },
+  });
+  */
+
+  var scripts = scratchblocks.parse(obj.script, {
+    languages: ['en', obj.lang],
+  });
+  scratchblocks.render(scripts, function(svg) {
     preview.innerHTML = "";
     preview.appendChild(svg);
 

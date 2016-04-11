@@ -66,3 +66,19 @@ text {
   fill: #8e2ec2;
 }
 
+.comment {
+  fill: #ffffa5;
+  stroke: #d0d1d2;
+  stroke-width: 1;
+}
+.comment-line {
+  fill: #ffff80;
+}
+.comment-label {
+  font-family: Helevetica, Arial, DejaVu Sans, sans-serif;
+  font-weight: bold;
+  fill: #5c5d5f;
+  word-spacing: 0;
+  font-size: 12px;
+}
+

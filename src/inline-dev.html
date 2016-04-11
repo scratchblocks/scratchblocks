@@ -3,43 +3,7 @@
 
 <title>inline dev : [scratchblocks]</title>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
-
-<link rel="stylesheet/less" href="scratchblocks2.less">
-<script src="diacritics.js"></script>
-<script src="scratchblocks2.js"></script>
-
-<script>
-  less = {
-    env: "development", // or "production"
-    poll: 1000, // when in watch mode, time in ms between polls
-    dumpLineNumbers: "all", // or "mediaQuery" or "all"
-    rootpath: "../build/"
-  };
-</script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.3.3/less.min.js"></script>
-
-<script>
-$(document).ready(function() {
-  $("#tester-status").css({ color: 'red' });
-
-  if (/file:\/\//.test(window.location)) {
-    // Warn we need localhost
-    $("#tester-status").css({ color: 'red' });
-
-  } else {
-    // In case of error
-    $("#tester-status").html("Couldn't load less.js");
-
-    less.watch();
-
-    // Success!
-    $("#tester-status").css({ color: '' });
-    $("#tester-status").html("LESS is now watching the file for changes: \
-      update the file on disk, and the styles will automatically reload here.");
-  }
-});
-</script>
+<script src="scratchblocks.js"></script>
 
 <style>
 h1 {
@@ -56,6 +20,7 @@ body {
   margin: 1em;
   margin-bottom: 100%;
   font-family: sans-serif;
+  line-height: 1.5em;
 }
 input, button {
   font-size: 1em;
@@ -147,7 +112,7 @@ function refresh (e) {
   // add script
   preview.appendChild(document.createTextNode(script))
 
-  scratchblocks2.parse("code.b", {inline: true});
+  scratchblocks.renderMatching("code.b", { inline: true });
 }
 
 function checkHash() {

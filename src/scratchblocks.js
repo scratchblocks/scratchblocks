@@ -794,6 +794,31 @@ var scratchblocks = function () {
     return el;
   }
 
+  function translatePath(dx, dy, path) {
+    var isX = true;
+    var parts = path.split(" ");
+    var out = [];
+    for (var i=0; i<parts.length; i++) {
+      var part = parts[i];
+      if (part === 'A') {
+        var j = i + 5;
+        out.push('A');
+        while (i < j) {
+          out.push(parts[++i]);
+        }
+        continue;
+      } else if (/[A-Za-z]/.test(part)) {
+        assert(isX);
+      } else {
+        part = +part;
+        part += isX ? dx : dy;
+        isX = !isX;
+      }
+      out.push(part);
+    }
+    return out.join(" ");
+  }
+
 
   /* shapes */
 
@@ -811,6 +836,11 @@ var scratchblocks = function () {
     return ["L", p1x, p1y, "A", rx, ry, 0, 0, 1, p2x, p2y].join(" ");
   }
 
+  function arcw(p1x, p1y, p2x, p2y, rx, ry) {
+    var r = p2y - p1y;
+    return ["L", p1x, p1y, "A", rx, ry, 0, 0, 0, p2x, p2y].join(" ");
+  }
+
   function roundedRect(w, h, props) {
     var r = h / 2;
     return path(extend(props, {
@@ -825,13 +855,14 @@ var scratchblocks = function () {
 
   function pointedRect(w, h, props) {
     var r = h / 2;
-    return polygon(extend(props, {
-      points: [
-        r, 0,
-        w - r, 0, w, r,
-        w, r, w - r, h,
-        r, h, 0, r,
-        0, r, r, 0,
+    return path(extend(props, {
+      path: [
+        "M", r, 0,
+        "L", w - r, 0, w, r,
+        "L", w, r, w - r, h,
+        "L", r, h, 0, r,
+        "L", 0, r, r, 0,
+        "Z",
       ],
     }));
   }
@@ -996,9 +1027,44 @@ var scratchblocks = function () {
     }));
   }
 
+  function ringOuter(w, h, props) {
+    var r = 8;
+    return path(extend(props, {
+      path: [
+        "M", r, 0,
+        arcw(r, 0, 0, r, r, r),
+        arcw(0, h - r, r, h, r, r),
+        arcw(w - r, h, w, h - r, r, r),
+        arcw(w, r, w - r, 0, r, r),
+        "Z"
+      ],
+    }));
+  }
+
+  function commentRect(w, h, props) {
+    var r = 6;
+    return path(extend(props, {
+      class: 'comment',
+      path: [
+        "M", r, 0,
+        arc(w - r, 0, w, r, r, r),
+        arc(w, h - r, w - r, h, r, r),
+        arc(r, h, 0, h - r, r, r),
+        arc(0, r, r, 0, r, r),
+        "Z"
+      ],
+    }));
+  }
+
+  function commentLine(width, props) {
+    return translate(-width, 9, rect(width, 2, extend(props, {
+      class: 'comment-line',
+    })));
+  }
+
   /* definitions */
 
-  var cssContent = "text{font-family:Lucida Grande,Verdana,Arial,DejaVu Sans,sans-serif;font-weight:700;fill:#fff;font-size:10px;word-spacing:+1px}.obsolete{fill:#d42828}.motion{fill:#4a6cd4}.looks{fill:#8a55d7}.sound{fill:#bb42c3}.pen{fill:#0e9a6c}.events{fill:#c88330}.control{fill:#e1a91a}.sensing{fill:#2ca5e2}.operators{fill:#5cb712}.variables{fill:#ee7d16}.list{fill:#cc5b22}.custom{fill:#632d99}.custom-arg{fill:#5947b1}.extension{fill:#4b4a60}.grey{fill:#969696}.bevel{filter:url(#bevelFilter)}.input{filter:url(#inputBevelFilter)}.input-number,.input-number-dropdown,.input-string{fill:#fff}.literal-dropdown,.literal-number,.literal-number-dropdown,.literal-string{font-weight:400;font-size:9px;word-spacing:0}.literal-number,.literal-number-dropdown,.literal-string{fill:#000}.darker{filter:url(#inputDarkFilter)}.outline{stroke:#fff;stroke-opacity:.2;stroke-width:2;fill:none}.define-hat-cap{stroke:#632d99;stroke-width:1;fill:#8e2ec2}";
+  var cssContent = "text{font-family:Lucida Grande,Verdana,Arial,DejaVu Sans,sans-serif;font-weight:700;fill:#fff;font-size:10px;word-spacing:+1px}.obsolete{fill:#d42828}.motion{fill:#4a6cd4}.looks{fill:#8a55d7}.sound{fill:#bb42c3}.pen{fill:#0e9a6c}.events{fill:#c88330}.control{fill:#e1a91a}.sensing{fill:#2ca5e2}.operators{fill:#5cb712}.variables{fill:#ee7d16}.list{fill:#cc5b22}.custom{fill:#632d99}.custom-arg{fill:#5947b1}.extension{fill:#4b4a60}.grey{fill:#969696}.bevel{filter:url(#bevelFilter)}.input{filter:url(#inputBevelFilter)}.input-number,.input-number-dropdown,.input-string{fill:#fff}.literal-dropdown,.literal-number,.literal-number-dropdown,.literal-string{font-weight:400;font-size:9px;word-spacing:0}.literal-number,.literal-number-dropdown,.literal-string{fill:#000}.darker{filter:url(#inputDarkFilter)}.outline{stroke:#fff;stroke-opacity:.2;stroke-width:2;fill:none}.define-hat-cap{stroke:#632d99;stroke-width:1;fill:#8e2ec2}.comment{fill:#ffffa5;stroke:#d0d1d2;stroke-width:1}.comment-line{fill:#ffff80}.comment-label{font-family:Helevetica,Arial,DejaVu Sans,sans-serif;font-weight:700;fill:#5c5d5f;word-spacing:0;font-size:12px}";
 
   function makeStyle() {
     var style = el('style');
@@ -1251,11 +1317,13 @@ var scratchblocks = function () {
 
     this.isRound = shape === 'number' || shape === 'number-dropdown';
     this.isBoolean = shape === 'boolean';
+    this.isStack = shape === 'stack';
+    this.isInset = shape === 'boolean' || shape === 'stack' || shape === 'reporter';
     this.isColor = shape === 'color';
     this.hasArrow = shape === 'dropdown' || shape === 'number-dropdown';
-    this.isDarker = shape === 'boolean' || shape === 'dropdown';
+    this.isDarker = shape === 'boolean' || shape === 'stack' || shape === 'dropdown';
 
-    this.hasLabel = !(this.isColor || this.isBoolean);
+    this.hasLabel = !(this.isColor || this.isInset);
     this.label = this.hasLabel ? new Label(value, ['literal-' + this.shape]) : null;
     this.x = 0;
   };
@@ -1271,7 +1339,10 @@ var scratchblocks = function () {
     'number-dropdown': roundedRect,
     'color': rect,
     'dropdown': rect,
+
     'boolean': pointedRect,
+    'stack': stackRect,
+    'reporter': roundedRect,
   };
 
   Input.prototype.draw = function(parent) {
@@ -1279,12 +1350,14 @@ var scratchblocks = function () {
       var label = this.label.draw();
       var w = Math.max(14, this.label.width + (this.shape === 'string' || this.shape === 'number-dropdown' ? 6 : 9));
     } else {
-      var w = this.isBoolean ? 30 : this.isColor ? 13 : null;
+      var w = this.isStack ? 40
+            : this.isInset ? 30
+            : this.isColor ? 13 : null;
     }
     if (this.hasArrow) w += 10;
     this.width = w;
 
-    var h = this.height = this.isRound || this.isColor ? 13 : 14;
+    var h = this.height = this.isStack ? 16 : this.isRound || this.isColor ? 13 : 14;
 
     var el = Input.shapes[this.shape](w, h);
     if (this.isColor) {
@@ -1322,10 +1395,11 @@ var scratchblocks = function () {
 
   /* Block */
 
-  var Block = function(info, children) {
+  var Block = function(info, children, comment) {
+    assert(children.length);
     this.info = info;
     this.children = children;
-    assert(children.length);
+    this.comment = comment || null;
 
     var shape = this.info.shape;
     this.isHat = shape === 'hat';
@@ -1336,6 +1410,7 @@ var scratchblocks = function () {
     this.isReporter = shape === 'reporter' || shape === 'embedded';
     this.isBoolean = shape === 'boolean';
 
+    this.isRing = shape === 'ring';
     this.hasScript = /block/.test(shape);
     this.isElse = shape === 'celse';
     this.isEnd = shape === 'cend';
@@ -1349,6 +1424,7 @@ var scratchblocks = function () {
       var child = this.children[i];
       if (child.measure) child.measure();
     }
+    if (this.comment) this.comment.measure();
   };
 
   Block.shapes = {
@@ -1364,17 +1440,18 @@ var scratchblocks = function () {
     'boolean': pointedRect,
     'hat': hatRect,
     'define-hat': procHatRect,
-    'ring': roundedRect,
+    'ring': ringOuter,
   };
 
   Block.prototype.drawSelf = function(w, h, lines) {
+    // mouths
     if (lines.length > 1) {
       return mouthRect(w, h, this.isFinal, lines, {
         class: [this.info.category, 'bevel'].join(' '),
       });
-      // TODO rings
     }
 
+    // outlines
     if (this.info.shape === 'outline') {
       return setProps(stackRect(w, h), {
         class: 'outline',
@@ -1382,10 +1459,32 @@ var scratchblocks = function () {
     }
 
     var func = Block.shapes[this.info.shape];
-    assert(func, "no shape func " + this.info.shape);
-    return func(w, h, {
+    assert(func, "no shape func: " + this.info.shape);
+    var el = func(w, h, {
       class: [this.info.category, 'bevel'].join(' '),
     });
+
+    // rings
+    if (this.isRing) {
+      var child = this.children[0];
+      if (child) {
+        var childEl = child.el;
+        while (childEl.tagName !== 'path' && childEl.children.length) {
+          childEl = childEl.children[0];
+        }
+        if (childEl.tagName === 'path') {
+          setProps(group([
+            setProps(el, {
+              d: el.getAttribute('d') + ' ' + translatePath(4, child.y || 4, childEl.getAttribute('d')),
+            }),
+          ]), {
+            'fill-rule': 'even-odd',
+          });
+        }
+      }
+    }
+
+    return el;
   };
 
   Block.prototype.minDistance = function(child) {
@@ -1416,11 +1515,11 @@ var scratchblocks = function () {
     'cap':        [6, 6, 2],
     'c-block':    [3, 6, 2],
     'if-block':   [3, 6, 2],
+    'ring':       [4, 4, 2],
     null:         [4, 6, 2],
   };
 
   Block.prototype.draw = function() {
-    var scriptIndent = 13;
     var isDefine = this.info.shape === 'define-hat';
 
     var padding = Block.padding[this.info.shape] || Block.padding[null];
@@ -1485,21 +1584,21 @@ var scratchblocks = function () {
 
     innerWidth = Math.max(innerWidth + px * 2,
                           this.isHat || this.hasScript ? 83 :
-                          this.isCommand || this.isOutline ? 39 : 0);
+                          this.isCommand || this.isOutline || this.isRing ? 39 : 0);
     this.height = y;
-    this.width = scriptWidth ? Math.max(innerWidth, scriptIndent + scriptWidth) : innerWidth;
+    this.width = scriptWidth ? Math.max(innerWidth, 15 + scriptWidth) : innerWidth;
     if (isDefine) {
       var p = Math.min(26, 3.5 + 0.13 * innerWidth | 0) - 18;
       this.height += p;
       pt += 2 * p;
     }
 
-    var objects = [this.drawSelf(innerWidth, this.height, lines)];
+    var objects = [];
 
     for (var i=0; i<lines.length; i++) {
       var line = lines[i];
       if (line.isScript) {
-        objects.push(translate(scriptIndent, line.y, line.el));
+        objects.push(translate(13, line.y, line.el));
         continue;
       }
 
@@ -1518,11 +1617,46 @@ var scratchblocks = function () {
         } else if (child.isIcon) {
           y += child.dy | 0;
         }
+        if (this.isRing) {
+          child.y = line.y + y|0;
+          if (child.isInset) {
+            continue;
+          }
+        }
         objects.push(translate(px + child.x, line.y + y|0, child.el));
       }
     }
 
+    objects.splice(0, 0, this.drawSelf(innerWidth, this.height, lines));
+
     return group(objects);
+  };
+
+
+  /* Comment */
+
+  var Comment = function(value) {
+    this.label = new Label(value, ['comment-label']);
+    this.width = null;
+  };
+  Comment.lineLength = 12;
+  Comment.prototype.height = 20;
+
+  Comment.prototype.measure = function() {
+    this.label.measure();
+  };
+
+  Comment.prototype.draw = function() {
+    var labelEl = this.label.draw();
+
+    this.width = this.label.width + 16;
+    return group([
+      commentLine(Comment.lineLength, 6),
+      commentRect(this.width, this.height, {
+        class: 'comment',
+      }),
+      translate(8, 4, labelEl),
+    ]);
   };
 
 
@@ -1551,6 +1685,15 @@ var scratchblocks = function () {
       children.push(translate(2, y, block.draw()));
       y += block.height;
       this.width = Math.max(this.width, block.width);
+
+      var comment = block.comment;
+      if (comment) {
+        var cx = block.width + 2 + Comment.lineLength;
+        var cy = y - (block.height / 2);
+        var el = comment.draw();
+        children.push(translate(cx, cy - comment.height / 2, el));
+        this.width = Math.max(this.width, cx + comment.width);
+      }
     }
     this.height = y;
     if (!this.isFinal) {
@@ -1563,13 +1706,13 @@ var scratchblocks = function () {
   /*****************************************************************************/
 
   function render(scripts, cb) {
+    // measure strings
     Label.startMeasuring();
-
     scripts.forEach(function(script) {
       script.measure();
     });
 
-    // measure strings, then draw
+    // finish measuring & render
     Label.endMeasuring(drawScripts.bind(null, scripts, cb));
   }
 
@@ -1604,8 +1747,66 @@ var scratchblocks = function () {
     return new XMLSerializer().serializeToString(svg);
   }
 
-
   /*** Render ***/
+
+  // read code from a DOM element
+  function readCode(el, options) {
+    var options = extend({ 
+      inline: false,
+    }, options);
+
+    var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/ig, '\n');
+    var pre = document.createElement('pre');
+    pre.innerHTML = html;
+    var code = pre.textContent;
+    if (options.inline) {
+      code = code.replace('\n', '');
+    }
+    return code;
+  }
+
+  // parse code to list of Scripts
+  function parse(code, options) {
+    var options = extend({
+      inline: false,
+      languages: ['en'],
+    }, options);
+
+    reset_languages();
+    options.languages.forEach(function(code) {
+      if (code === 'en') return;
+      load_language(scratchblocks._translations[code]);
+    });
+
+    var results = oldParser(code);
+
+    // walk AST
+    var scripts = [];
+    for (var i=0; i<results.length; i++) {
+      scripts.push(Script.fromAST(results[i]));
+    }
+    return scripts;
+  }
+
+  // insert 'svg' into 'el', with appropriate wrapper elements
+  function replace(el, svg, scripts, options) {
+    if (options.inline) {
+      var container = document.createElement('span');
+      container.className = "scratchblocks scratchblocks-inline";
+      if (scripts[0] && !scripts[0].isEmpty) {
+        container.classList.add('scratchblocks-inline-' + scripts[0].blocks[0].shape);
+      }
+      container.style.display = 'inline-block';
+      container.style.verticalAlign = 'middle';
+    } else {
+      var container = document.createElement('div');
+      container.className = "scratchblocks";
+    }
+    container.appendChild(svg);
+
+    el.innerHTML = '';
+    el.appendChild(container);
+  }
 
   /* Render all matching elements in page to shiny scratch blocks.
    * Accepts a CSS selector as an argument.
@@ -1618,29 +1819,23 @@ var scratchblocks = function () {
     var selector = selector || "pre.blocks";
     var options = extend({
       inline: false,
+      languages: ['en'],
+
+      read: readCode, // function(el, options) => code
+      parse: parse,   // function(code, options) => scripts
+      render: render, // function(scripts, cb) => svg
+      replace: replace, // function(el, svg, scripts, options)
     }, options);
 
     // find elements
     var results = [].slice.apply(document.querySelectorAll(selector));
     results.forEach(function(el) {
-      var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/ig, '\n');
-      var pre = document.createElement('pre');
-      pre.innerHTML = html;
-      var code = pre.textContent;
+      var code = options.read(el, options);
 
-      if (options.inline) {
-        code = code.replace('\n', '');
-      }
+      var scripts = options.parse(code, options);
 
-      var scripts = parse(code, options);
-      render(scripts, function(svg) {
-        var container = document.createElement('div');
-        container.classList.add("sb");
-        if (options.inline) container.classList.add('sb-inline');
-        container.appendChild(svg);
-
-        el.innerHTML = '';
-        el.appendChild(container);
+      options.render(scripts, function(svg) {
+        options.replace(el, svg, scripts, options);
       });
     });
   };
@@ -1657,8 +1852,11 @@ var scratchblocks = function () {
     Block: Block,
     Script: Script,
 
+    read: readCode,
+    _oldParser: oldParser,
     parse: parse,
     render: render,
+    replace: replace,
     renderMatching: renderMatching,
     exportSVG: exportSVG,
   };
