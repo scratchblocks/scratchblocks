@@ -263,7 +263,7 @@ function objUpdated() {
   */
 
   var scripts = scratchblocks.parse(obj.script, {
-    languages: ['en', obj.lang],
+    languages: obj.lang ? ['en', obj.lang] : ['en'],
   });
   scratchblocks.render(scripts, function(svg) {
     preview.innerHTML = "";
