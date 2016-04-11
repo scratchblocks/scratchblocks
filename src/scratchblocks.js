@@ -2483,14 +2483,16 @@ var scratchblocks = function () {
 
 
   return {
+    Label: Label,
+    Icon: Icon,
+    Input: Input,
+    Block: Block,
+    Script: Script,
+
     parse: parse,
     render: render,
     renderMatching: renderMatching,
     exportSVG: exportSVG,
-
-    resetLanguages: reset_languages,
-    loadLanguage: load_language,
-    _findBlock: find_block,
   };
 
 }();
