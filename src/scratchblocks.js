@@ -1680,20 +1680,6 @@ var scratchblocks = function () {
     return path(extend(props, {
       path: [
         "M", r, 0,
-        arc(w - r, 0, w, r, r, r),
-        arc(w, h - r, w - r, h, r, r),
-        arc(r, h, 0, h - r, r, r),
-        arc(0, r, r, 0, r, r),
-        "Z"
-      ],
-    }));
-  }
-
-  function ringOuter(w, h, props) {
-    var r = 8;
-    return path(extend(props, {
-      path: [
-        "M", r, 0,
         arcw(r, 0, 0, r, r, r),
         arcw(0, h - r, r, h, r, r),
         arcw(w - r, h, w, h - r, r, r),
@@ -1702,35 +1688,6 @@ var scratchblocks = function () {
       ],
     }));
   }
-
-  function ringRect(w, h, props) {
-    var r = 8;
-    var y = 3;
-    var x = 4;
-    return translate(x, y, path(extend(props, {
-      path: [
-        "M", r - x, 0 - y,
-        arc(w - r - x, 0 - y, w - x, r - y, r, r),
-        arc(w - x, h - r - y, w - r - x, h - y, r, r),
-        arc(r - x, h - y, 0 - x, h - r - y, r, r),
-        arc(0 - x, r - y, r - x, 0 - y, r, r),
-        "Z",
-        getTop(w - 12),
-        getRightAndBottom(w - 12, h - 2 * y - 1, true, 0),
-        "Z",
-      ],
-      'fill-rule': 'evenodd',
-    })));
-
-    return setProps(group([
-      ringOuter(w, h, {}),
-      ringOuter(w - 4, h, - 4, {}),
-      //translate(3, 3, stackRect(w - 6, h - 6)),
-    ]), extend(props, {
-      'fill-rule': 'evenodd',
-    }));
-  }
-
 
   /* definitions */
 
