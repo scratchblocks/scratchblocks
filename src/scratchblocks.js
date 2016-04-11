@@ -2152,7 +2152,6 @@ var scratchblocks = function () {
   };
 
   Block.prototype.draw = function() {
-    var scriptIndent = 13;
     var isDefine = this.info.shape === 'define-hat';
 
     var padding = Block.padding[this.info.shape] || Block.padding[null];
@@ -2219,7 +2218,7 @@ var scratchblocks = function () {
                           this.isHat || this.hasScript ? 83 :
                           this.isCommand || this.isOutline || this.isRing ? 39 : 0);
     this.height = y;
-    this.width = scriptWidth ? Math.max(innerWidth, scriptIndent + scriptWidth) : innerWidth;
+    this.width = scriptWidth ? Math.max(innerWidth, 15 + scriptWidth) : innerWidth;
     if (isDefine) {
       var p = Math.min(26, 3.5 + 0.13 * innerWidth | 0) - 18;
       this.height += p;
@@ -2231,7 +2230,7 @@ var scratchblocks = function () {
     for (var i=0; i<lines.length; i++) {
       var line = lines[i];
       if (line.isScript) {
-        objects.push(translate(scriptIndent, line.y, line.el));
+        objects.push(translate(13, line.y, line.el));
         continue;
       }
 
