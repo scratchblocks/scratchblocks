@@ -2355,10 +2355,10 @@ var scratchblocks = function () {
 
     this.width = this.label.width + 16;
     return group([
+      commentLine(Comment.lineLength, 6),
       commentRect(this.width, this.height, {
         class: 'comment',
       }),
-      commentLine(Comment.lineLength, 6),
       translate(8, 4, labelEl),
     ]);
   };
