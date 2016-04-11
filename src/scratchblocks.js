@@ -1765,29 +1765,6 @@ var scratchblocks = function () {
     return code;
   }
 
-  // parse code to list of Scripts
-  function parse(code, options) {
-    var options = extend({
-      inline: false,
-      languages: ['en'],
-    }, options);
-
-    reset_languages();
-    options.languages.forEach(function(code) {
-      if (code === 'en') return;
-      load_language(scratchblocks._translations[code]);
-    });
-
-    var results = oldParser(code);
-
-    // walk AST
-    var scripts = [];
-    for (var i=0; i<results.length; i++) {
-      scripts.push(Script.fromAST(results[i]));
-    }
-    return scripts;
-  }
-
   // insert 'svg' into 'el', with appropriate wrapper elements
   function replace(el, svg, scripts, options) {
     if (options.inline) {
@@ -1854,7 +1831,6 @@ var scratchblocks = function () {
     Script: Script,
 
     read: readCode,
-    _oldParser: oldParser,
     parse: parse,
     render: render,
     replace: replace,
