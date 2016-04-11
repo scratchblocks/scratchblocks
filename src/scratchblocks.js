@@ -2460,9 +2460,18 @@ var scratchblocks = function () {
 
       var scripts = parse(code);
       render(scripts, function(svg) {
-        var container = document.createElement('div');
-        container.classList.add("sb");
-        if (options.inline) container.classList.add('sb-inline');
+        if (options.inline) {
+          var container = document.createElement('span');
+          container.className = "scratchblocks scratchblocks-inline";
+          if (scripts[0] && !scripts[0].isEmpty) {
+            container.classList.add('scratchblocks-inline-' + scripts[0][0].shape);
+          }
+          container.style.display = 'inline-block';
+          container.style.verticalAlign = 'middle';
+        } else {
+          var container = document.createElement('div');
+          container.className = "scratchblocks";
+        }
         container.appendChild(svg);
 
         el.innerHTML = '';
