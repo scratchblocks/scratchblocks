@@ -2034,6 +2034,9 @@ var scratchblocks = function () {
   };
 
   Input.fromAST = function(input) {
+    if (input.pieces.length === 0) {
+      return new Input(input.shape, "");
+    }
     assert(input.pieces.length === 1);
     return new Input(input.shape, input.pieces[0]);
   };
