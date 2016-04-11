@@ -701,7 +701,12 @@ var scratchblocks = function () {
   function minify(text) {
     var minitext = text.replace(/[.,%?:▶◀▸◂]/g, "").toLowerCase()
       .replace(/[ \t]+/g, " ").trim();
-    minitext = minitext.replace("ß", "ss");
+    minitext = (minitext
+      .replace("ß", "ss")
+      .replace("ü", "u")
+      .replace("ö", "o")
+      .replace("ä", "a")
+    )
     if (!minitext && text.replace(" ", "") === "...") minitext = "...";
     return minitext;
   }
