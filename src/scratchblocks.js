@@ -1850,6 +1850,7 @@ var scratchblocks = function () {
     Icon: Icon,
     Input: Input,
     Block: Block,
+    Comment: Comment,
     Script: Script,
 
     read: readCode,
