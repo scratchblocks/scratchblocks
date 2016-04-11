@@ -2474,6 +2474,17 @@ var scratchblocks = function () {
 
   // parse code to list of Scripts
   function parse(code, options) {
+    var options = extend({
+      inline: false,
+      languages: ['en'],
+    }, options);
+
+    reset_languages();
+    options.languages.forEach(function(code) {
+      if (code === 'en') return;
+      load_language(scratchblocks._translations[code]);
+    });
+
     var results = oldParser(code);
 
     // walk AST
@@ -2515,6 +2526,7 @@ var scratchblocks = function () {
     var selector = selector || "pre.blocks";
     var options = extend({
       inline: false,
+      languages: ['en'],
 
       read: readCode, // function(el, options) => code
       parse: parse,   // function(code, options) => scripts
