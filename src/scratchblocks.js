@@ -1442,6 +1442,31 @@ var scratchblocks = function () {
     return el;
   }
 
+  function translatePath(dx, dy, path) {
+    var isX = true;
+    var parts = path.split(" ");
+    var out = [];
+    for (var i=0; i<parts.length; i++) {
+      var part = parts[i];
+      if (part === 'A') {
+        var j = i + 5;
+        out.push('A');
+        while (i < j) {
+          out.push(parts[++i]);
+        }
+        continue;
+      } else if (/[A-Za-z]/.test(part)) {
+        assert(isX);
+      } else {
+        part = +part;
+        part += isX ? dx : dy;
+        isX = !isX;
+      }
+      out.push(part);
+    }
+    return out.join(" ");
+  }
+
 
   /* shapes */
 
@@ -1459,6 +1484,11 @@ var scratchblocks = function () {
     return ["L", p1x, p1y, "A", rx, ry, 0, 0, 1, p2x, p2y].join(" ");
   }
 
+  function arcw(p1x, p1y, p2x, p2y, rx, ry) {
+    var r = p2y - p1y;
+    return ["L", p1x, p1y, "A", rx, ry, 0, 0, 0, p2x, p2y].join(" ");
+  }
+
   function roundedRect(w, h, props) {
     var r = h / 2;
     return path(extend(props, {
@@ -1473,13 +1503,14 @@ var scratchblocks = function () {
 
   function pointedRect(w, h, props) {
     var r = h / 2;
-    return polygon(extend(props, {
-      points: [
-        r, 0,
-        w - r, 0, w, r,
-        w, r, w - r, h,
-        r, h, 0, r,
-        0, r, r, 0,
+    return path(extend(props, {
+      path: [
+        "M", r, 0,
+        "L", w - r, 0, w, r,
+        "L", w, r, w - r, h,
+        "L", r, h, 0, r,
+        "L", 0, r, r, 0,
+        "Z",
       ],
     }));
   }
@@ -1643,6 +1674,63 @@ var scratchblocks = function () {
       path: p,
     }));
   }
+
+  function ringOuter(w, h, props) {
+    var r = 8;
+    return path(extend(props, {
+      path: [
+        "M", r, 0,
+        arc(w - r, 0, w, r, r, r),
+        arc(w, h - r, w - r, h, r, r),
+        arc(r, h, 0, h - r, r, r),
+        arc(0, r, r, 0, r, r),
+        "Z"
+      ],
+    }));
+  }
+
+  function ringOuter(w, h, props) {
+    var r = 8;
+    return path(extend(props, {
+      path: [
+        "M", r, 0,
+        arcw(r, 0, 0, r, r, r),
+        arcw(0, h - r, r, h, r, r),
+        arcw(w - r, h, w, h - r, r, r),
+        arcw(w, r, w - r, 0, r, r),
+        "Z"
+      ],
+    }));
+  }
+
+  function ringRect(w, h, props) {
+    var r = 8;
+    var y = 3;
+    var x = 4;
+    return translate(x, y, path(extend(props, {
+      path: [
+        "M", r - x, 0 - y,
+        arc(w - r - x, 0 - y, w - x, r - y, r, r),
+        arc(w - x, h - r - y, w - r - x, h - y, r, r),
+        arc(r - x, h - y, 0 - x, h - r - y, r, r),
+        arc(0 - x, r - y, r - x, 0 - y, r, r),
+        "Z",
+        getTop(w - 12),
+        getRightAndBottom(w - 12, h - 2 * y - 1, true, 0),
+        "Z",
+      ],
+      'fill-rule': 'evenodd',
+    })));
+
+    return setProps(group([
+      ringOuter(w, h, {}),
+      ringOuter(w - 4, h, - 4, {}),
+      //translate(3, 3, stackRect(w - 6, h - 6)),
+    ]), extend(props, {
+      'fill-rule': 'evenodd',
+    }));
+  }
+
 
   /* definitions */
 
@@ -1892,11 +1980,13 @@ var scratchblocks = function () {
 
     this.isRound = shape === 'number' || shape === 'number-dropdown';
     this.isBoolean = shape === 'boolean';
+    this.isStack = shape === 'stack';
+    this.isInset = shape === 'boolean' || shape === 'stack' || shape === 'reporter';
     this.isColor = shape === 'color';
     this.hasArrow = shape === 'dropdown' || shape === 'number-dropdown';
-    this.isDarker = shape === 'boolean' || shape === 'dropdown';
+    this.isDarker = shape === 'boolean' || shape === 'stack' || shape === 'dropdown';
 
-    this.hasLabel = !(this.isColor || this.isBoolean);
+    this.hasLabel = !(this.isColor || this.isInset);
     this.label = this.hasLabel ? new Label(value, ['literal-' + this.shape]) : null;
     this.x = 0;
   };
@@ -1908,7 +1998,10 @@ var scratchblocks = function () {
     'number-dropdown': roundedRect,
     'color': rect,
     'dropdown': rect,
+
     'boolean': pointedRect,
+    'stack': stackRect,
+    'reporter': roundedRect,
   };
 
   Input.prototype.draw = function(parent) {
@@ -1916,12 +2009,14 @@ var scratchblocks = function () {
       var label = this.label.draw();
       var w = Math.max(14, this.label.width + (this.shape === 'string' || this.shape === 'number-dropdown' ? 6 : 9));
     } else {
-      var w = this.isBoolean ? 30 : this.isColor ? 13 : null;
+      var w = this.isStack ? 40
+            : this.isInset ? 30
+            : this.isColor ? 13 : null;
     }
     if (this.hasArrow) w += 10;
     this.width = w;
 
-    var h = this.height = this.isRound || this.isColor ? 13 : 14;
+    var h = this.height = this.isStack ? 16 : this.isRound || this.isColor ? 13 : 14;
 
     var el = Input.shapes[this.shape](w, h);
     if (this.isColor) {
@@ -1977,6 +2072,7 @@ var scratchblocks = function () {
     this.isOutline = shape === 'outline';
     this.isReporter = shape === 'reporter' || shape === 'embedded';
     this.isBoolean = shape === 'boolean';
+    this.isRing = shape === 'ring';
     this.hasScript = /block/.test(shape);
 
     this.x = 0;
@@ -1991,16 +2087,18 @@ var scratchblocks = function () {
     'boolean': pointedRect,
     'hat': hatRect,
     'define-hat': procHatRect,
+    'ring': ringOuter,
   };
 
   Block.prototype.drawSelf = function(w, h, lines) {
+    // mouths
     if (lines.length > 1) {
       return mouthRect(w, h, this.isFinal, lines, {
         class: [this.info.category, 'bevel'].join(' '),
       });
-      // TODO rings
     }
 
+    // outlines
     if (this.info.shape === 'outline') {
       return setProps(stackRect(w, h), {
         class: 'outline',
@@ -2009,9 +2107,31 @@ var scratchblocks = function () {
 
     var func = Block.shapes[this.info.shape];
     if (!func) throw "no shape func: " + this.info.shape;
-    return func(w, h, {
+    var el = func(w, h, {
       class: [this.info.category, 'bevel'].join(' '),
     });
+
+    // rings
+    if (this.isRing) {
+      var child = this.children[0];
+      if (child) {
+        var childEl = child.el;
+        while (childEl.tagName !== 'path' && childEl.children.length) {
+          childEl = childEl.children[0];
+        }
+        if (childEl.tagName === 'path') {
+          setProps(group([
+            setProps(el, {
+              d: el.getAttribute('d') + ' ' + translatePath(4, child.y || 4, childEl.getAttribute('d')),
+            }),
+          ]), {
+            'fill-rule': 'even-odd',
+          });
+        }
+      }
+    }
+
+    return el;
   };
 
   Block.prototype.minDistance = function(child) {
@@ -2042,6 +2162,7 @@ var scratchblocks = function () {
     'cap':        [6, 6, 2],
     'c-block':    [3, 6, 2],
     'if-block':   [3, 6, 2],
+    'ring':       [4, 4, 2],
     null:         [4, 6, 2],
   };
 
@@ -2111,7 +2232,7 @@ var scratchblocks = function () {
 
     innerWidth = Math.max(innerWidth + px * 2,
                           this.isHat || this.hasScript ? 83 :
-                          this.isCommand || this.isOutline ? 39 : 0);
+                          this.isCommand || this.isOutline || this.isRing ? 39 : 0);
     this.height = y;
     this.width = scriptWidth ? Math.max(innerWidth, scriptIndent + scriptWidth) : innerWidth;
     if (isDefine) {
@@ -2120,7 +2241,7 @@ var scratchblocks = function () {
       pt += 2 * p;
     }
 
-    var objects = [this.drawSelf(innerWidth, this.height, lines)];
+    var objects = [];
 
     for (var i=0; i<lines.length; i++) {
       var line = lines[i];
@@ -2144,9 +2265,17 @@ var scratchblocks = function () {
         } else if (child.isIcon) {
           y += child.dy | 0;
         }
+        if (this.isRing) {
+          child.y = line.y + y|0;
+          if (child.isInset) {
+            continue;
+          }
+        }
         objects.push(translate(px + child.x, line.y + y|0, child.el));
       }
     }
+
+    objects.splice(0, 0, this.drawSelf(innerWidth, this.height, lines));
 
     return group(objects);
   };
@@ -2177,6 +2306,9 @@ var scratchblocks = function () {
     } else {
       var block = thing;
       var shape = block.shape;
+      if (thing.flag === 'ring') {
+        shape = 'ring';
+      }
     }
 
     var info = {
@@ -2200,9 +2332,12 @@ var scratchblocks = function () {
         case 'dropdown':
         case 'number-dropdown':
         case 'color':
+          if (piece.shape === 'number' && piece.is_ringed) {
+            return new Input('reporter', "");
+          }
           return Input.fromAST(piece);
         default:
-          if (piece.shape === 'boolean' && piece.blockid === '') {
+          if (piece.blockid === '' && (piece.shape === 'boolean' || piece.shape === 'stack')) {
             return Input.fromAST(piece);
           }
           return Block.fromAST(piece);
