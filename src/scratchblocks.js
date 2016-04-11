@@ -1178,7 +1178,7 @@ var scratchblocks = function () {
 
   // Take scratchblocks text and turn it into useful objects.
 
-  function parse(code) {
+  function oldParser(code) {
     var context = {obsolete_blocks: {}, define_hats: [], custom_args: [],
         variable_reporters: {}, lists: []};
     var scripts = [];
@@ -1340,6 +1340,7 @@ var scratchblocks = function () {
 
   function extend(src, dest) {
     src = src || {};
+    dest = dest || {};
     for (var key in src) {
       if (src.hasOwnProperty(key) && !dest.hasOwnProperty(key)) {
         dest[key] = src[key];
@@ -2411,14 +2412,7 @@ var scratchblocks = function () {
 
   /*****************************************************************************/
 
-
-  function render(results, cb) {
-    // walk AST
-    var scripts = [];
-    for (var i=0; i<results.length; i++) {
-      scripts.push(Script.fromAST(results[i]));
-    }
-
+  function render(scripts, cb) {
     // measure strings
     Label.startMeasuring();
     scripts.forEach(function(script) {
@@ -2460,8 +2454,55 @@ var scratchblocks = function () {
     return new XMLSerializer().serializeToString(svg);
   }
 
-
   /*** Render ***/
+
+  // read code from a DOM element
+  function readCode(el, options) {
+    var options = extend({ 
+      inline: false,
+    }, options);
+
+    var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/ig, '\n');
+    var pre = document.createElement('pre');
+    pre.innerHTML = html;
+    var code = pre.textContent;
+    if (options.inline) {
+      code = code.replace('\n', '');
+    }
+    return code;
+  }
+
+  // parse code to list of Scripts
+  function parse(code, options) {
+    var results = oldParser(code);
+
+    // walk AST
+    var scripts = [];
+    for (var i=0; i<results.length; i++) {
+      scripts.push(Script.fromAST(results[i]));
+    }
+    return scripts;
+  }
+
+  // insert 'svg' into 'el', with appropriate wrapper elements
+  function replace(el, svg, scripts, options) {
+    if (options.inline) {
+      var container = document.createElement('span');
+      container.className = "scratchblocks scratchblocks-inline";
+      if (scripts[0] && !scripts[0].isEmpty) {
+        container.classList.add('scratchblocks-inline-' + scripts[0].blocks[0].shape);
+      }
+      container.style.display = 'inline-block';
+      container.style.verticalAlign = 'middle';
+    } else {
+      var container = document.createElement('div');
+      container.className = "scratchblocks";
+    }
+    container.appendChild(svg);
+
+    el.innerHTML = '';
+    el.appendChild(container);
+  }
 
   /* Render all matching elements in page to shiny scratch blocks.
    * Accepts a CSS selector as an argument.
@@ -2474,38 +2515,22 @@ var scratchblocks = function () {
     var selector = selector || "pre.blocks";
     var options = extend({
       inline: false,
+
+      read: readCode, // function(el, options) => code
+      parse: parse,   // function(code, options) => scripts
+      render: render, // function(scripts, cb) => svg
+      replace: replace, // function(el, svg, scripts, options)
     }, options);
 
     // find elements
     var results = [].slice.apply(document.querySelectorAll(selector));
     results.forEach(function(el) {
-      var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/ig, '\n');
-      var pre = document.createElement('pre');
-      pre.innerHTML = html;
-      var code = pre.textContent;
+      var code = options.read(el, options);
 
-      if (options.inline) {
-        code = code.replace('\n', '');
-      }
+      var scripts = options.parse(code, options);
 
-      var scripts = parse(code);
-      render(scripts, function(svg) {
-        if (options.inline) {
-          var container = document.createElement('span');
-          container.className = "scratchblocks scratchblocks-inline";
-          if (scripts[0] && !scripts[0].isEmpty) {
-            container.classList.add('scratchblocks-inline-' + scripts[0][0].shape);
-          }
-          container.style.display = 'inline-block';
-          container.style.verticalAlign = 'middle';
-        } else {
-          var container = document.createElement('div');
-          container.className = "scratchblocks";
-        }
-        container.appendChild(svg);
-
-        el.innerHTML = '';
-        el.appendChild(container);
+      options.render(scripts, function(svg) {
+        options.replace(el, svg, scripts, options);
       });
     });
   };
@@ -2519,8 +2544,11 @@ var scratchblocks = function () {
     Block: Block,
     Script: Script,
 
+    read: readCode,
+    _oldParser: oldParser,
     parse: parse,
     render: render,
+    replace: replace,
     renderMatching: renderMatching,
     exportSVG: exportSVG,
   };

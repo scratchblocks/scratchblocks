@@ -241,6 +241,30 @@ function objUpdated() {
   // var langDict = scratchblocks2._translations[obj.lang];
   // if (langDict) scratchblocks2.load_language(langDict);
 
+  /*
+  // renderMatching API example
+  preview.innerHTML = obj.script;
+  scratchblocks.renderMatching('pre.blocks', {
+    render: function(scripts, cb) {
+      scratchblocks.render(scripts, function(svg) {
+        var el = document.createElement('div');
+        el.appendChild(svg);
+
+        exportLink = document.createElement('a');
+        exportLink.href = 'data:image/svg+xml;utf8,' + scratchblocks.exportSVG(svg);
+        exportLink.setAttribute('download', 'scratchblocks.svg');
+        exportLink.textContent = "Export SVG";
+        exportLink.className = 'export-link';
+        var p = document.createElement('p');
+        p.appendChild(exportLink);
+        el.appendChild(p);
+
+        cb(el);
+      });
+    },
+  });
+  */
+
   scratchblocks.render(scratchblocks.parse(obj.script), function(svg) {
     preview.innerHTML = "";
     preview.appendChild(svg);
