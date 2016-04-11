@@ -1843,21 +1843,26 @@ var scratchblocks = function () {
 
   var Label = function(value, cls) {
     this.value = value;
-    this.el = text(0, 10, value, {
-      class: cls || '',
-    });
+    this.cls = cls || '';
+    this.el = null;
     this.width = null;
-    if (value === "") {
-      this.width = 0;
-    } else if (value === " ") {
-      this.width = 4.15625;
-    } else {
-      Label.measure(this);
-    }
     this.height = 12;
     this.x = 0;
   };
   Label.prototype.isLabel = true;
+
+  Label.prototype.measure = function() {
+    this.el = text(0, 10, this.value, {
+      class: this.cls,
+    });
+    if (this.value === "") {
+      this.width = 0;
+    } else if (this.value === " ") {
+      this.width = 4.15625;
+    } else {
+      Label.measure(this);
+    }
+  };
 
   Label.prototype.draw = function() {
     return this.el;
@@ -1949,6 +1954,10 @@ var scratchblocks = function () {
   };
   Input.prototype.isInput = true;
 
+  Input.prototype.measure = function() {
+    if (this.hasLabel) this.label.measure();
+  };
+
   Input.shapes = {
     'string': rect,
     'number': roundedRect,
@@ -2035,6 +2044,13 @@ var scratchblocks = function () {
     this.x = 0;
   };
   Block.prototype.isBlock = true;
+
+  Block.prototype.measure = function() {
+    for (var i=0; i<this.children.length; i++) {
+      var child = this.children[i];
+      if (child.measure) child.measure();
+    }
+  };
 
   Block.shapes = {
     'stack': stackRect,
@@ -2319,6 +2335,12 @@ var scratchblocks = function () {
   };
   Script.prototype.isScript = true;
 
+  Script.prototype.measure = function() {
+    for (var i=0; i<this.blocks.length; i++) {
+      this.blocks[i].measure();
+    }
+  };
+
   Script.prototype.draw = function() {
     var children = [];
     var y = 0;
@@ -2344,8 +2366,6 @@ var scratchblocks = function () {
 
 
   function render(results, cb) {
-    Label.startMeasuring();
-
     // walk AST
     var scripts = [];
     for (var i=0; i<results.length; i++) {
@@ -2353,6 +2373,12 @@ var scratchblocks = function () {
     }
 
     // measure strings
+    Label.startMeasuring();
+    scripts.forEach(function(script) {
+      script.measure();
+    });
+
+    // finish measuring & render
     Label.endMeasuring(drawScripts.bind(null, scripts, cb));
   }
 
@@ -2398,10 +2424,10 @@ var scratchblocks = function () {
    * Like the old 'scratchblocks2.parse().
    */
   var renderMatching = function (selector, options) {
-    selector = selector || "pre.blocks";
-    options = options || {
+    var selector = selector || "pre.blocks";
+    var options = extend({
       inline: false,
-    }
+    }, options);
 
     // find elements
     var results = [].slice.apply(document.querySelectorAll(selector));
