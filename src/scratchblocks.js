@@ -1933,6 +1933,7 @@ var scratchblocks = function () {
     this.isArrow = name === 'loopArrow';
 
     var info = Icon.icons[name];
+    assert(info, "no info for icon " + name);
     extend(info, this);
   };
   Icon.prototype.isIcon = true;
@@ -2316,7 +2317,7 @@ var scratchblocks = function () {
           'arrow-cw': 'turnRight',
           'arrow-ccw': 'turnLeft',
         }[block.image_replacement];
-        return new Icon(symbol);
+        if (symbol) return new Icon(symbol);
       }
       if (typeof piece === 'string') return new Label(piece.trim());
       switch (piece.shape) {
