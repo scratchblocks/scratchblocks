@@ -1678,9 +1678,30 @@ var scratchblocks = function () {
     }));
   }
 
+  function commentRect(w, h, props) {
+    var r = 6;
+    return path(extend(props, {
+      class: 'comment',
+      path: [
+        "M", r, 0,
+        arc(w - r, 0, w, r, r, r),
+        arc(w, h - r, w - r, h, r, r),
+        arc(r, h, 0, h - r, r, r),
+        arc(0, r, r, 0, r, r),
+        "Z"
+      ],
+    }));
+  }
+
+  function commentLine(width, props) {
+    return translate(-width, 9, rect(width, 2, extend(props, {
+      class: 'comment-line',
+    })));
+  }
+
   /* definitions */
 
-  var cssContent = "text{font-family:Lucida Grande,Verdana,Arial,DejaVu Sans,sans-serif;font-weight:700;fill:#fff;font-size:10px;word-spacing:+1px}.obsolete{fill:#d42828}.motion{fill:#4a6cd4}.looks{fill:#8a55d7}.sound{fill:#bb42c3}.pen{fill:#0e9a6c}.events{fill:#c88330}.control{fill:#e1a91a}.sensing{fill:#2ca5e2}.operators{fill:#5cb712}.variables{fill:#ee7d16}.list{fill:#cc5b22}.custom{fill:#632d99}.custom-arg{fill:#5947b1}.extension{fill:#4b4a60}.grey{fill:#969696}.bevel{filter:url(#bevelFilter)}.input{filter:url(#inputBevelFilter)}.input-number,.input-number-dropdown,.input-string{fill:#fff}.literal-dropdown,.literal-number,.literal-number-dropdown,.literal-string{font-weight:400;font-size:9px;word-spacing:0}.literal-number,.literal-number-dropdown,.literal-string{fill:#000}.darker{filter:url(#inputDarkFilter)}.outline{stroke:#fff;stroke-opacity:.2;stroke-width:2;fill:none}.define-hat-cap{stroke:#632d99;stroke-width:1;fill:#8e2ec2}";
+  var cssContent = "text{font-family:Lucida Grande,Verdana,Arial,DejaVu Sans,sans-serif;font-weight:700;fill:#fff;font-size:10px;word-spacing:+1px}.obsolete{fill:#d42828}.motion{fill:#4a6cd4}.looks{fill:#8a55d7}.sound{fill:#bb42c3}.pen{fill:#0e9a6c}.events{fill:#c88330}.control{fill:#e1a91a}.sensing{fill:#2ca5e2}.operators{fill:#5cb712}.variables{fill:#ee7d16}.list{fill:#cc5b22}.custom{fill:#632d99}.custom-arg{fill:#5947b1}.extension{fill:#4b4a60}.grey{fill:#969696}.bevel{filter:url(#bevelFilter)}.input{filter:url(#inputBevelFilter)}.input-number,.input-number-dropdown,.input-string{fill:#fff}.literal-dropdown,.literal-number,.literal-number-dropdown,.literal-string{font-weight:400;font-size:9px;word-spacing:0}.literal-number,.literal-number-dropdown,.literal-string{fill:#000}.darker{filter:url(#inputDarkFilter)}.outline{stroke:#fff;stroke-opacity:.2;stroke-width:2;fill:none}.define-hat-cap{stroke:#632d99;stroke-width:1;fill:#8e2ec2}.comment{fill:#ffffa5;stroke:#d0d1d2;stroke-width:1}.comment-line{fill:#ffff80}.comment-label{font-family:Helevetica,Arial,DejaVu Sans,sans-serif;font-weight:700;fill:#5c5d5f;word-spacing:0;font-size:12px}";
 
   function makeStyle() {
     var style = el('style');
@@ -2014,10 +2035,11 @@ var scratchblocks = function () {
 
   /* Block */
 
-  var Block = function(info, children) {
+  var Block = function(info, children, comment) {
+    assert(children.length);
     this.info = info;
     this.children = children;
-    assert(children.length);
+    this.comment = comment || null;
 
     var shape = this.info.shape;
     this.isHat = shape === 'hat';
@@ -2039,6 +2061,7 @@ var scratchblocks = function () {
       var child = this.children[i];
       if (child.measure) child.measure();
     }
+    if (this.comment) this.comment.measure();
   };
 
   Block.shapes = {
@@ -2310,7 +2333,34 @@ var scratchblocks = function () {
     if (!children.length) {
       children.push(new Label(""));
     }
-    return new Block(info, children);
+    return new Block(info, children, block.comment ? new Comment(block.comment.trim()) : undefined);
+  };
+
+
+  /* Comment */
+
+  var Comment = function(value) {
+    this.label = new Label(value, ['comment-label']);
+    this.width = null;
+  };
+  Comment.lineLength = 12;
+  Comment.prototype.height = 20;
+
+  Comment.prototype.measure = function() {
+    this.label.measure();
+  };
+
+  Comment.prototype.draw = function() {
+    var labelEl = this.label.draw();
+
+    this.width = this.label.width + 16;
+    return group([
+      commentRect(this.width, this.height, {
+        class: 'comment',
+      }),
+      commentLine(Comment.lineLength, 6),
+      translate(8, 4, labelEl),
+    ]);
   };
 
 
@@ -2339,6 +2389,15 @@ var scratchblocks = function () {
       children.push(translate(2, y, block.draw()));
       y += block.height;
       this.width = Math.max(this.width, block.width);
+
+      var comment = block.comment;
+      if (comment) {
+        var cx = block.width + 2 + Comment.lineLength;
+        var cy = y - (block.height / 2);
+        var el = comment.draw();
+        children.push(translate(cx, cy - comment.height / 2, el));
+        this.width = Math.max(this.width, cx + comment.width);
+      }
     }
     this.height = y;
     if (!this.isFinal) {
