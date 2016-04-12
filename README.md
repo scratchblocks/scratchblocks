@@ -103,7 +103,7 @@ See [`CONTRIBUTING.md`](https://github.com/tjvr/scratchblocks/blob/master/.githu
 Many, many thanks to the [contributors](https://github.com/tjvr/scratchblocks/graphs/contributors)!
 
 * Authored by [tjvr](https://github.com/tjvr)
-* SVG proof-of-concept, shapes & filters by [as-com](https://github.com/ascom)
+* SVG proof-of-concept, shapes & filters by [as-com](https://github.com/as-com)
 * JSO designed the syntax and wrote the original [Block Plugin](http://wiki.scratch.mit.edu/wiki/Block_Plugin_\(1.4\))
 * Help with translation code from [joooni](http://scratch.mit.edu/users/joooni/)
 * Block translations from the [Scratch translation server](http://translate.scratch.mit.edu/)
