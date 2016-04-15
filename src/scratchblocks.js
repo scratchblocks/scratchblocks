@@ -146,6 +146,9 @@ var scratchblocks = function () {
         .replace(/ +/g, ' ')
         .replace(/[,%?:]/g, '')
         .replace(/ß/g, 'ss')
+        .replace(/ä/g,"a")
+        .replace(/ö/g,"o")
+        .replace(/ü/g,"u")
         .replace('. . .', '...')
     ).trim().toLowerCase();
   }
