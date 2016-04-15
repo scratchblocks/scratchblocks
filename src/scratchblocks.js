@@ -1888,8 +1888,9 @@ var scratchblocks = function () {
   Label.toMeasure = [];
 
   Label.startMeasuring = function() {
-    Label.measuring = newSVG(1, 1);
-    Label.measuring.classList.add('sb-measure');
+    Label.measuring = setProps(newSVG(1, 1), {
+      class: 'sb-measure',
+    });
     Label.measuring.style.visibility = 'hidden';
     document.body.appendChild(Label.measuring);
 
@@ -2513,10 +2514,11 @@ var scratchblocks = function () {
   function replace(el, svg, scripts, options) {
     if (options.inline) {
       var container = document.createElement('span');
-      container.className = "scratchblocks scratchblocks-inline";
+      var cls = "scratchblocks scratchblocks-inline";
       if (scripts[0] && !scripts[0].isEmpty) {
-        container.classList.add('scratchblocks-inline-' + scripts[0].blocks[0].shape);
+        cls += " scratchblocks-inline-" + scripts[0].blocks[0].shape;
       }
+      container.className = cls;
       container.style.display = 'inline-block';
       container.style.verticalAlign = 'middle';
     } else {
