@@ -1,6 +1,6 @@
 
 version := $(shell git describe --tags)
-all : css commands translations js
+all : css commands translations js zopfli
 
 clean :
 	rm -r build
@@ -14,7 +14,7 @@ js : $(js-name) $(translations) $(translations_all)
 $(js-name) : \
 	    src/scratchblocks.js
 	mkdir -p build/
-	uglifyjs $^ > $@ --comments
+	uglifyjs $^ > $@ --comments --mangle
 $(translations) : src/translations.js
 	uglifyjs $^ > $@ --comments
 $(translations_all) : src/translations-all.js
