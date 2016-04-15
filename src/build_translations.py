@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #coding=utf-8
-from __future__ import unicode_literals
+from __future__ import unicode_literals, division
 
 import codecs
 import json
@@ -48,23 +48,6 @@ INSERT_RE = re.compile(r'(%[A-Za-z](?:\.[A-Za-z]+)?)')
 PICTURE_RE = re.compile(r'@[A-Za-z-]+')
 JUNK_RE = re.compile(r'[ \t,\%?:]')
 
-def minify(spec):
-    #spec = spec.lower()
-    #spec = JUNK_RE.sub("", spec)
-    return spec
-
-def minify_blockspec(spec):
-    spec = INSERT_RE.sub("_", spec)
-    spec = PICTURE_RE.sub("@", spec)
-    return minify(spec)
-
-def minify_blocks(blocks):
-    mini_blocks = {}
-    for block, result in blocks.items():
-        assert "_" not in block
-        mini_blocks[minify_blockspec(block)] = minify_blockspec(result)
-    return mini_blocks
-
 def parse_po(content):
     msg_id = None
     translations = {}
@@ -98,28 +81,33 @@ def fetch_po(lang, project):
             return ""
         raise
 
-language_translations = {}
+all_languages = {}
 
-# Get blockids list from JS source
-js_lines = map(unicode.strip, codecs.open("scratchblocks.js",
-                                          encoding="utf-8").readlines())
-start = js_lines.index("var english_blocks = [")
-end = js_lines.index("];", start)
-block_lines = js_lines[start+1:end]
-parsed_lines = [json.loads(line.rstrip(",")) for line in block_lines
-                if line and not line.startswith("//")]
-english_blocks = [l[0] for l in parsed_lines if len(l) > 1]
+# Get spec list from JS
+english_commands = json.loads('{"commands":' + open('commands.js').read().rstrip(";\n],") + ']]}')["commands"]
+command_specs = [c[0] for c in english_commands]
 
 # Prepare blocks lists
-english_blocks = map(minify_blockspec, english_blocks)
-untranslated = set(["_ + _", "_ - _", "_ * _", "_ / _", "_ < _", "_ = _",
-                    "_ > _", "…", "..."])
-acceptable_missing = set(["username"])
+untranslated = set([
+    "%n + %n",
+    "%n - %n",
+    "%n * %n",
+    "%n / %n",
+    "%s < %s",
+    "%s = %s",
+    "%s > %s",
+    "…",
+    "..."
+])
+acceptable_missing = set([
+    "username",
+])
 need_aliases = [
-    "turn @arrow-ccw _ degrees",
-    "turn @arrow-cw _ degrees",
-    "when @green-flag clicked",
+    "turn @turnRight %n degrees",
+    "turn @turnLeft %n degrees",
+    "when @greenFlag clicked",
 ]
+math_funcs = ["abs", "floor", "ceiling", "sqrt", "sin", "cos", "tan", "asin", "acos", "atan", "ln", "log", "e ^", "10 ^"]
 
 dropdown_values = ["A connected", "all", "all around", "all motors",
     "B connected", "brightness", "button pressed", "C connected", "color",
@@ -138,83 +126,65 @@ for lang in LANGUAGES:
     if lang in BLACKLIST: continue
     print lang
 
-    blocks = minify_blocks(parse_po(fetch_po(lang, "scratch1.4")))
-    blocks.update(minify_blocks(parse_po(fetch_po(lang, "blocks"))))
+    lang_blocks = parse_po(fetch_po(lang, "blocks"))
+    lang_editor = parse_po(fetch_po(lang, "editor"))
+    extra_aliases = extra_strings.get(lang, {}).copy()
 
-    editor = parse_po(fetch_po(lang, "editor"))
-
-    if " < _" in blocks.get("when distance < _", []):
-        when_distance, _ = blocks["when distance < _"].split(" < _")
-    else:
-        when_distance = None
+    when_distance = None
+    if " < %n" in lang_blocks.get("when distance < %n", ""):
+        when_distance, _ = lang_blocks["when distance < %n"].split(" < %n")
 
     end_block = None
-    extra_aliases = extra_strings.get(lang, {}).copy()
-    for translated_text, english_text in extra_aliases.items():
-        if english_text == "end":
+    for translated_text, english_spec in extra_aliases.items():
+        if english_spec == "end":
             end_block = translated_text
             del extra_aliases[translated_text]
-    for english_text in need_aliases:
-        if english_text not in extra_aliases.values():
-            print "%s is missing alias: %s" % (lang, english_text)
 
-        image_pat = re.compile(r'@(arrow-c?cw|green-flag)')
-        m = image_pat.search(english_text)
-        unicode_images = {
-            'green-flag': '⚑',
-            'arrow-cw': '↻',
-            'arrow-ccw': '↺',
-        }
-        symbol = unicode_images[m.group(1)]
-        key = image_pat.sub('@', english_text)
-        if key in blocks:
-            translation = blocks[key]
-            translation = translation.replace('@', symbol)
-            extra_aliases[translation] = english_text
+    for english_spec in need_aliases:
+        if english_spec not in extra_aliases.values():
+            print "%s is missing alias: %s" % (lang, english_spec)
 
-    blocks_list = []
-    for blockid in english_blocks:
-        if blockid in blocks:
-            translation = blocks[blockid]
-        elif blockid == "end":
-            if end_block:
-                translation = end_block
-            else:
-                translation = ""
-                print "%s is missing extra: end" % lang
+    count = 0
+    commands = {}
+    for spec in command_specs:
+        if spec == "end":
+            lang_spec = end_block or ""
         else:
-            if blockid in untranslated or blockid in acceptable_missing:
-                translation = ""
-            else:
-                print "%s is missing: %s" % (lang, blockid)
-                translation = "" # DEBUG
+            lang_spec = (lang_blocks.get(spec)
+                or lang_blocks.get(spec.replace("%m.location", "%m.spriteOrMouse"))
+            )
+        if lang_spec:
+            commands[spec] = lang_spec
+            count += 1
+        else:
+            if spec == "end":
+                print "%s is missing extra: end" % lang
+            elif spec not in untranslated and spec not in acceptable_missing:
+                print "%s is missing: %s" % (lang, spec)
 
-        blocks_list.append(translation)
+    print("{}: {:.1f}%".format(lang, count/len(command_specs)*100))
 
     language = {
-        'code': lang,
         'aliases': extra_aliases,
-        'define': [blocks.get('define', '')],
+        'define': [lang_blocks.get('define', '')],
         'ignorelt': [when_distance],
-        'math': map(editor.get, ["abs", "floor", "ceiling", "sqrt", "sin", 
-                                 "cos", "tan", "asin", "acos", "atan", "ln",
-                                 "log", "e ^", "10 ^"]),
-        'osis': [editor.get('other scripts in sprite', '')],
-        'blocks': blocks_list,
+        'math': map(lang_editor.get, math_funcs),
+        'osis': [lang_editor.get('other scripts in sprite', '')],
+        'commands': commands,
     }
     if langs == 'all':
-        language["dropdowns"] = [blocks.get(x) or editor.get(x, '') for x in dropdown_values]
-    language_translations[lang] = language
+        language["dropdowns"] = [lang_blocks.get(x) or lang_editor.get(x, '') for x in dropdown_values]
+    all_languages[lang] = language
 
 block_ids = []
-some_language_translations = language_translations.values()[0]
+some_language_translations = all_languages.values()[0]
 for bid in some_language_translations.keys():
     if not bid[0].isupper(): # Assume upper-case are category names
         block_ids.append(bid)
 
 translations_array = []
 translations_array.append([None] + block_ids)
-for lang, translations in language_translations.items():
+for lang, translations in all_languages.items():
     language_array = [lang]
     for bid in block_ids:
         if bid not in translations:
@@ -225,12 +195,12 @@ for lang, translations in language_translations.items():
     #open("blocks-%s.js" % lang, "w").write(json.dumps(language_array,
     #    ensure_ascii=False))
 
-data = "scratchblocks._translations = "
-data += json.dumps(language_translations, ensure_ascii=False)
-data += ";"
+encoded = json.dumps(all_languages, ensure_ascii=False)
+data = "scratchblocks.loadLanguages({});".format(encoded)
 if langs == 'all':
     filename = "translations-all.js"
 else:
     filename = "translations.js"
 open(filename, "wb").write(data.encode("utf-8"))
-print "Wrote %s" % filename
+print("Wrote %s" % filename)
+

@@ -34,9 +34,9 @@ translations : \
 	src/translations.js \
 	src/translations-all.js
 
-src/translations.js : src/extra_strings.py src/_cache/*
+src/translations.js : src/extra_strings.py src/_cache src/commands.js src/build_translations.py
 	sh -c 'cd src ; python build_translations.py'
 
-src/translations-all.js : src/extra_strings.py src/_cache/*
+src/translations-all.js : src/extra_strings.py src/_cache src/commands.js src/build_translations.py
 	sh -c 'cd src ; python build_translations.py all'
 
