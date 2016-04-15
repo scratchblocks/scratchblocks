@@ -191,13 +191,6 @@ for lang in LANGUAGES:
 
         blocks_list.append(translation)
 
-    palette = dict((x, blocks.get(x) or editor.get(x)) for x in [
-        "Motion", "Looks", "Sound", "Pen", "Data", "variables", "variable",
-        "lists", "list", "Events", "Control", "Sensing", "Operators",
-        "More Blocks",
-    ])
-    palette['Tips'] = editor.get('Tips')
-
     language = {
         'code': lang,
         'aliases': extra_aliases,
@@ -206,7 +199,6 @@ for lang in LANGUAGES:
         'math': map(editor.get, ["abs", "floor", "ceiling", "sqrt", "sin", 
                                  "cos", "tan", "asin", "acos", "atan", "ln",
                                  "log", "e ^", "10 ^"]),
-        'palette': palette,
         'osis': [editor.get('other scripts in sprite', '')],
         'blocks': blocks_list,
     }
