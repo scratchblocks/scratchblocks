@@ -124,6 +124,8 @@ var scratchblocks = function () {
   var iconPat = /(@[a-zA-Z]+)/;
   var splitPat = new RegExp([inputPat.source, '|', iconPat.source].join(''), 'g');
 
+  var hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/;
+
   function parseSpec(spec) {
     var parts = spec.split(splitPat).filter(bool);
     return {
@@ -276,7 +278,10 @@ var scratchblocks = function () {
   function applyOverrides(info, overrides) {
     for (var i=0; i<overrides.length; i++) {
       var name = overrides[i];
-      if (overrideCategories.indexOf(name) > -1) {
+      if (hexColorPat.test(name)) {
+        info.color = name;
+        info.category = "";
+      } else if (overrideCategories.indexOf(name) > -1) {
         info.category = name;
       } else if (overrideShapes.indexOf(name) > -1) {
         info.shape = name;
@@ -1628,7 +1633,13 @@ var scratchblocks = function () {
       }
     }
 
-    objects.splice(0, 0, this.drawSelf(innerWidth, this.height, lines));
+    var el = this.drawSelf(innerWidth, this.height, lines);
+    objects.splice(0, 0, el);
+    if (this.info.color) {
+      setProps(el, {
+        fill: this.info.color,
+      });
+    }
 
     return group(objects);
   };
