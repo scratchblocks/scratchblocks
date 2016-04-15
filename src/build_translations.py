@@ -33,7 +33,7 @@ FORUM_LANGS = ['de', 'es', 'fr', 'zh_CN', 'pl', 'ja', 'nl' , 'pt', 'it',
 langs = "forum"
 if len(sys.argv) > 1:
     if sys.argv[1] == "--help":
-        print("\nA tool for combining and minifying scratch translations.")
+        print("\nA tool for combining and packaging scratch translations.")
         print("\n  Usage: python build_translations.py [--help] [all]")
         exit()
     if sys.argv[1] == "all":
@@ -195,7 +195,7 @@ for lang, translations in all_languages.items():
     #open("blocks-%s.js" % lang, "w").write(json.dumps(language_array,
     #    ensure_ascii=False))
 
-encoded = json.dumps(all_languages, ensure_ascii=False)
+encoded = json.dumps(all_languages, ensure_ascii=False, indent=2)
 data = "scratchblocks.loadLanguages({});".format(encoded)
 if langs == 'all':
     filename = "translations-all.js"
