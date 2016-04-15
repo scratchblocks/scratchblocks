@@ -105,8 +105,8 @@ String.prototype.trimRight = function() {
 var scratchblocks = function () {
   "use strict";
 
-  function assert(bool) {
-    if (!bool) throw "Assertion failed!";
+  function assert(bool, message) {
+    if (!bool) throw "Assertion failed! " + message;
   }
 
 
@@ -2305,6 +2305,10 @@ var scratchblocks = function () {
       }
     }
 
+    if (thing.blockid === '//') {
+      return new Comment(thing.comment, false);
+    }
+
     var info = {
       shape: shape,
       category: block.category,
@@ -2342,15 +2346,16 @@ var scratchblocks = function () {
     if (!children.length) {
       children.push(new Label(""));
     }
-    return new Block(info, children, block.comment ? new Comment(block.comment.trim()) : undefined);
+    return new Block(info, children, block.comment ? new Comment(block.comment.trim(), true) : undefined);
   };
 
 
   /* Comment */
 
-  var Comment = function(value) {
+  var Comment = function(value, hasBlock) {
     this.label = new Label(value, ['comment-label']);
     this.width = null;
+    this.hasBlock = hasBlock;
   };
   Comment.lineLength = 12;
   Comment.prototype.height = 20;
@@ -2364,7 +2369,7 @@ var scratchblocks = function () {
 
     this.width = this.label.width + 16;
     return group([
-      commentLine(Comment.lineLength, 6),
+      commentLine(this.hasBlock ? Comment.lineLength : 0, 6),
       commentRect(this.width, this.height, {
         class: 'comment',
       }),
