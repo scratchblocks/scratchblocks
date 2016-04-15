@@ -148,7 +148,8 @@ var scratchblocks = function () {
         .replace(/ä/g,"a")
         .replace(/ö/g,"o")
         .replace(/ü/g,"u")
-    ).trim().toLowerCase();
+        .replace('. . .', '...')
+    ).trim();
   }
 
   var blocksBySelector = {};
