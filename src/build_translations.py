@@ -107,7 +107,9 @@ need_aliases = [
     "turn @turnLeft %n degrees",
     "when @greenFlag clicked",
 ]
+
 math_funcs = ["abs", "floor", "ceiling", "sqrt", "sin", "cos", "tan", "asin", "acos", "atan", "ln", "log", "e ^", "10 ^"]
+osis = ["other scripts in sprite", "other scripts in stage"]
 
 dropdown_values = ["A connected", "all", "all around", "all motors",
     "B connected", "brightness", "button pressed", "C connected", "color",
@@ -121,6 +123,9 @@ dropdown_values = ["A connected", "all", "all around", "all motors",
     "slider", "sound", "space", "Stage", "that way", "this script",
     "this sprite", "this way", "up arrow", "video motion", "whirl", "year"
 ]
+
+def nonempty(seq):
+    return list(set(filter(None, seq)))
 
 for lang in LANGUAGES:
     if lang in BLACKLIST: continue
@@ -161,15 +166,14 @@ for lang in LANGUAGES:
                 print "%s is missing extra: end" % lang
             elif spec not in untranslated and spec not in acceptable_missing:
                 print "%s is missing: %s" % (lang, spec)
-
     print("{}: {:.1f}%".format(lang, count/len(command_specs)*100))
 
     language = {
         'aliases': extra_aliases,
         'define': [lang_blocks.get('define', '')],
         'ignorelt': [when_distance],
-        'math': map(lang_editor.get, math_funcs),
-        'osis': [lang_editor.get('other scripts in sprite', '')],
+        'math': nonempty(map(lang_editor.get, math_funcs)),
+        'osis': nonempty(map(lang_editor.get, osis)),
         'commands': commands,
     }
     if langs == 'all':

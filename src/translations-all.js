@@ -203,20 +203,20 @@ scratchblocks.loadLanguages({
       "στρίψε αριστερόστροφα %n μοίρες": "turn @turnLeft %n degrees"
     }, 
     "math": [
-      "ΑπόλυτηΤιμή", 
-      "floor", 
-      "ceiling", 
-      "ΤετΡίζα", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
+      "cos", 
       "log", 
+      "atan", 
+      "floor", 
+      "ln", 
+      "acos", 
+      "ceiling", 
+      "ΑπόλυτηΤιμή", 
       "e ^", 
-      "10 ^"
+      "ΤετΡίζα", 
+      "10 ^", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "ορισμός του"
@@ -419,20 +419,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
       "planko", 
-      "plafono", 
-      "radiko", 
-      "sin", 
       "cos", 
-      "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
       "log", 
+      "atan", 
+      "asin", 
+      "ln", 
+      "acos", 
+      "plafono", 
       "e ^", 
-      "10 ^"
+      "abs", 
+      "10 ^", 
+      "radiko", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "difini"
@@ -540,9 +540,7 @@ scratchblocks.loadLanguages({
       "reset timer": "कालमापक पुन्हा सुरु करा", 
       "change x by %n": "x %n ने बदला"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -610,19 +608,7 @@ scratchblocks.loadLanguages({
     "aliases": {}, 
     "math": [
       "abs", 
-      null, 
-      null, 
-      "वर्गमूळ", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "वर्गमूळ"
     ], 
     "define": [
       ""
@@ -757,7 +743,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "nuair a chliceáiltear @greenFlag"
     }, 
     "osis": [
-      "scripteanna eile sa sprid"
+      "scripteanna eile sa sprid", 
+      "scripteanna eile ar an stáitse"
     ], 
     "ignorelt": [
       "nuair a bhíonn fad"
@@ -825,20 +812,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
+      "asin", 
+      "cos", 
+      "log", 
+      "atan", 
+      "10 ^", 
+      "ln", 
+      "acos", 
+      "sqrt", 
+      "e ^", 
+      "síleáil", 
       "abs", 
       "urlár", 
-      "síleáil", 
-      "sqrt", 
-      "sin", 
-      "cos", 
       "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
-      "log", 
-      "e ^", 
-      "10 ^"
+      "sin"
     ], 
     "define": [
       "sainmhínigh"
@@ -973,7 +960,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "коли натиснуто @greenFlag"
     }, 
     "osis": [
-      "інші скрипти цього спрайту"
+      "інші скрипти цього спрайту", 
+      "інші скрипти"
     ], 
     "ignorelt": [
       "коли відстань"
@@ -1041,20 +1029,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "модуль", 
-      "менше ціле", 
-      "більше ціле", 
-      "корінь", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
+      "cos", 
       "log", 
+      "atan", 
+      "корінь", 
+      "ln", 
+      "acos", 
+      "більше ціле", 
+      "модуль", 
       "e ^", 
-      "10 ^"
+      "10 ^", 
+      "менше ціле", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "визначити"
@@ -1087,9 +1075,7 @@ scratchblocks.loadLanguages({
       "timer": "ۋاقىت سانىغۇچ", 
       "backdrop #": "ئارقا كۆرۈنۈش #"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -1156,20 +1142,7 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "مۇتلەق قىممەت", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "مۇتلەق قىممەت"
     ], 
     "define": [
       ""
@@ -1272,9 +1245,7 @@ scratchblocks.loadLanguages({
       "reset timer": "anzisha tena kitunza muda", 
       "change x by %n": "badili alama x kwa %n"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -1340,22 +1311,7 @@ scratchblocks.loadLanguages({
       ""
     ], 
     "aliases": {}, 
-    "math": [
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
-    ], 
+    "math": [], 
     "define": [
       ""
     ]
@@ -1557,20 +1513,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
+      "asin", 
+      "cos", 
+      "loft", 
+      "atan", 
+      "10 ^", 
+      "ln", 
+      "acos", 
+      "sqrt", 
+      "e ^", 
       "abs", 
       "gólf", 
-      "loft", 
-      "sqrt", 
-      "sin", 
-      "cos", 
       "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
-      "log", 
-      "e ^", 
-      "10 ^"
+      "sin", 
+      "log"
     ], 
     "define": [
       "skilgreina"
@@ -1706,7 +1662,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "quando si clicca su @greenFlag"
     }, 
     "osis": [
-      "tutti gli altri script dello sprite"
+      "tutti gli altri script dello sprite", 
+      "tutti gli altri script dello stage"
     ], 
     "ignorelt": [
       "quando la distanza"
@@ -1778,20 +1735,20 @@ scratchblocks.loadLanguages({
       "quando si clicca sulla bandiera verde": "when @greenFlag clicked"
     }, 
     "math": [
-      "abs", 
-      "intero inferiore", 
-      "intero superiore", 
-      "radq", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
+      "cos", 
+      "intero superiore", 
       "log", 
+      "atan", 
+      "10 ^", 
+      "ln", 
+      "acos", 
+      "intero inferiore", 
       "e ^", 
-      "10 ^"
+      "abs", 
+      "radq", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "definisci"
@@ -1926,7 +1883,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "en fer clic en @greenFlag"
     }, 
     "osis": [
-      "atros programas de l'obchecto"
+      "atros programas de l'obchecto", 
+      "atros programas en o scenario"
     ], 
     "ignorelt": [
       "quan a distancia"
@@ -1994,20 +1952,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
+      "radiz quadrada", 
+      "cos", 
+      "log", 
+      "atan", 
+      "asin", 
+      "ln", 
+      "acos", 
+      "e ^", 
       "abs", 
+      "10 ^", 
+      "tan", 
       "parte entera", 
       "teito", 
-      "radiz quadrada", 
-      "sin", 
-      "cos", 
-      "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
-      "log", 
-      "e ^", 
-      "10 ^"
+      "sin"
     ], 
     "define": [
       "definir"
@@ -2142,6 +2100,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "po kliknutí na @greenFlag"
     }, 
     "osis": [
+      "další scénáře scény", 
       "jiné scénáře postavy"
     ], 
     "ignorelt": [
@@ -2210,20 +2169,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
+      "odmocnina", 
+      "cos", 
+      "log", 
+      "ln", 
       "zaokr. dolů", 
       "zaokr. nahoru", 
-      "odmocnina", 
-      "sin", 
-      "cos", 
-      "tg", 
-      "arcsin", 
-      "arccos", 
       "arctg", 
-      "ln", 
-      "log", 
+      "arcsin", 
+      "abs", 
       "exp", 
-      "10 ^"
+      "arccos", 
+      "tg", 
+      "10 ^", 
+      "sin"
     ], 
     "define": [
       "blok"
@@ -2358,7 +2317,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "pan fo @greenFlag wedi ei glicio"
     }, 
     "osis": [
-      "sgriptiau eraill yn y ciplun"
+      "sgriptiau eraill yn y ciplun", 
+      "sgriptiau eraill yn y llwyfan"
     ], 
     "ignorelt": [
       "pan mae pellter yn"
@@ -2426,20 +2386,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
-      "llawr", 
-      "nenfwd", 
-      "ail isradd", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
-      "atan", 
-      "Yn", 
+      "cos", 
+      "llawr", 
       "log", 
+      "atan", 
+      "ail isradd", 
+      "acos", 
+      "Yn", 
+      "nenfwd", 
       "e ^", 
-      "10 ^"
+      "abs", 
+      "10 ^", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "diffinio"
@@ -2574,6 +2534,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "عند نقر @greenFlag"
     }, 
     "osis": [
+      "المقاطع الأخرى في المنصة", 
       "المقاطع الأخرى في الكائن"
     ], 
     "ignorelt": [
@@ -2642,20 +2603,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "القيمة المطلقة", 
-      "الجزء الصحيح", 
-      "السقف", 
-      "الجذر التربيعي", 
-      "الجيب", 
-      "جيب التمام", 
       "الظل", 
-      "الجيب العكسي", 
+      "السقف", 
       "جيب التمام العكسي", 
-      "الظل العكسي", 
-      "اللوغارتم الطبيعي", 
+      "القيمة المطلقة", 
       "اللوغارتم العشري", 
+      "الجزء الصحيح", 
+      "^ 10", 
+      "الجيب العكسي", 
+      "الظل العكسي", 
+      "الجيب", 
+      "اللوغارتم الطبيعي", 
       "هـ^", 
-      "^ 10"
+      "الجذر التربيعي", 
+      "جيب التمام"
     ], 
     "define": [
       "تعريف"
@@ -2858,20 +2819,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "апс", 
-      "под", 
-      "таван", 
-      "квадратен корен", 
-      "синус", 
-      "косинус", 
-      "тангес", 
-      "а синус", 
-      "а косинус", 
-      "а тангес", 
-      "Во", 
       "логаритам", 
+      "косинус", 
+      "а тангес", 
+      "10 ^", 
+      "квадратен корен", 
+      "Во", 
+      "апс", 
       "e ^", 
-      "10 ^"
+      "синус", 
+      "а синус", 
+      "таван", 
+      "тангес", 
+      "а косинус", 
+      "под"
     ], 
     "define": [
       "дефинирај"
@@ -3075,19 +3036,9 @@ scratchblocks.loadLanguages({
     "aliases": {}, 
     "math": [
       "абсолютна стойност", 
-      "закръглено надолу", 
-      "закръглено нагоре", 
       "квадратен корен", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "закръглено надолу", 
+      "закръглено нагоре"
     ], 
     "define": [
       "дефиниране на"
@@ -3222,7 +3173,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "@greenFlag sakatzean"
     }, 
     "osis": [
-      "beste skript batzu spritean"
+      "beste skript batzu spritean", 
+      "beste skript batzu eszenatokian"
     ], 
     "ignorelt": [
       "distantzia"
@@ -3290,20 +3242,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
-      "solairua", 
-      "sabaia", 
-      "erro karratua", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
-      "atan", 
-      "Barruan", 
+      "cos", 
       "log", 
+      "atan", 
+      "10 ^", 
+      "solairua", 
+      "acos", 
+      "Barruan", 
       "e ^", 
-      "10 ^"
+      "erro karratua", 
+      "abs", 
+      "tan", 
+      "sabaia", 
+      "sin"
     ], 
     "define": [
       "definitu"
@@ -3438,7 +3390,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "kui klõpsatakse @greenFlag"
     }, 
     "osis": [
-      "teised spraidi skriptid"
+      "teised spraidi skriptid", 
+      "teised skriptid tulekul"
     ], 
     "ignorelt": [
       "kui kaugus"
@@ -3506,20 +3459,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
+      "asin", 
+      "cos", 
+      "log", 
+      "atan", 
       "floor", 
+      "ln", 
+      "acos", 
       "ceiling", 
       "sqrt", 
-      "sin", 
-      "cos", 
-      "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
-      "log", 
       "e ^", 
-      "10 ^"
+      "abs", 
+      "10 ^", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "defineeri"
@@ -3655,7 +3608,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "quan la @greenFlag es premi"
     }, 
     "osis": [
-      "altres programes del personatge"
+      "altres programes del personatge", 
+      "altres programes de l'escenari"
     ], 
     "ignorelt": [
       "quan distància"
@@ -3727,20 +3681,20 @@ scratchblocks.loadLanguages({
       "quan la bandera verda es premi": "when @greenFlag clicked"
     }, 
     "math": [
-      "abs", 
-      "part sencera", 
-      "sostre", 
-      "arrel quadrada", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
+      "cos", 
       "atan", 
+      "part sencera", 
+      "10 ^", 
       "ln", 
-      "log", 
+      "acos", 
       "e ^", 
-      "10 ^"
+      "abs", 
+      "log", 
+      "sostre", 
+      "tan", 
+      "sin", 
+      "arrel quadrada"
     ], 
     "define": [
       "defineix"
@@ -3875,6 +3829,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "ao premer @greenFlag"
     }, 
     "osis": [
+      "outros programas no escenario", 
       "outros programas na figura"
     ], 
     "ignorelt": [
@@ -3943,20 +3898,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "valor absoluto", 
-      "chan", 
-      "teito", 
+      "10 ^", 
+      "tanxente", 
       "raíz cadrada", 
       "seno", 
-      "coseno", 
-      "tanxente", 
-      "arco seno", 
-      "arco coseno", 
-      "arco tanxente", 
+      "chan", 
+      "valor absoluto", 
       "Dentro", 
-      "log", 
+      "arco tanxente", 
+      "arco coseno", 
+      "arco seno", 
       "e elevado a", 
-      "10 ^"
+      "teito", 
+      "coseno", 
+      "log"
     ], 
     "define": [
       "definir"
@@ -3964,9 +3919,7 @@ scratchblocks.loadLanguages({
   }, 
   "tzm": {
     "commands": {}, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -4032,22 +3985,7 @@ scratchblocks.loadLanguages({
       ""
     ], 
     "aliases": {}, 
-    "math": [
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
-    ], 
+    "math": [], 
     "define": [
       ""
     ]
@@ -4181,7 +4119,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "ketika @greenFlag diklik"
     }, 
     "osis": [
-      "script lain di sprite ini"
+      "script lain di sprite ini", 
+      "skrip lain di panggung ini"
     ], 
     "ignorelt": [
       "ketika jarak"
@@ -4249,20 +4188,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
-      "lantai", 
-      "langit-langit", 
-      "akar kuadrat", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
-      "atan", 
-      "di dalam", 
+      "cos", 
+      "lantai", 
       "log", 
+      "atan", 
+      "10 ^", 
+      "akar kuadrat", 
+      "acos", 
+      "di dalam", 
+      "abs", 
       "e ^", 
-      "10 ^"
+      "langit-langit", 
+      "sin", 
+      "tan"
     ], 
     "define": [
       "artikan"
@@ -4316,9 +4255,7 @@ scratchblocks.loadLanguages({
       "loudness": "z‡n‡", 
       "length of %m.list": "na j¢¢ %m.list"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -4386,19 +4323,7 @@ scratchblocks.loadLanguages({
     "aliases": {}, 
     "math": [
       "abs", 
-      null, 
-      null, 
-      "nziyo dyŠŠ", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "nziyo dyŠŠ"
     ], 
     "define": [
       ""
@@ -4456,9 +4381,7 @@ scratchblocks.loadLanguages({
       "length of %m.list": "%m.list-এর দৈর্ঘ", 
       "letter %n of %s": "%s-এর %n নম্বর অক্ষর"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -4524,22 +4447,7 @@ scratchblocks.loadLanguages({
       ""
     ], 
     "aliases": {}, 
-    "math": [
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
-    ], 
+    "math": [], 
     "define": [
       "নির্ধারণ"
     ]
@@ -4673,6 +4581,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "ora @greenFlag primí"
     }, 
     "osis": [
+      "otro scriptnan den stage", 
       "otro scriptnan den sprait"
     ], 
     "ignorelt": [
@@ -4741,20 +4650,19 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
-      "flur", 
-      "plafond", 
-      "wòrtel", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
+      "cos", 
+      "plafond", 
       "atan", 
-      "ln", 
-      "log", 
+      "wòrtel", 
+      "acos", 
       "e ^", 
-      null
+      "ln", 
+      "abs", 
+      "tan", 
+      "flur", 
+      "sin", 
+      "log"
     ], 
     "define": [
       "definí"
@@ -4890,6 +4798,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "когда щелкнут по @greenFlag"
     }, 
     "osis": [
+      "другие скрипты сцены", 
       "другие скрипты спрайта"
     ], 
     "ignorelt": [
@@ -4962,20 +4871,20 @@ scratchblocks.loadLanguages({
       "когда щёлкнут по зелёному флагу": "when @greenFlag clicked"
     }, 
     "math": [
-      "модуль", 
+      "asin", 
+      "cos", 
+      "log", 
+      "atan", 
+      "10 ^", 
+      "ln", 
+      "acos", 
+      "квадратный корень", 
+      "e ^", 
       "пол", 
       "предел", 
-      "квадратный корень", 
-      "sin", 
-      "cos", 
+      "модуль", 
       "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
-      "log", 
-      "e ^", 
-      "10 ^"
+      "sin"
     ], 
     "define": [
       "определить"
@@ -5109,9 +5018,7 @@ scratchblocks.loadLanguages({
       "stop %m.stop": "стоп %m.stop", 
       "when @greenFlag clicked": "когда щелкнут по @greenFlag"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -5179,19 +5086,7 @@ scratchblocks.loadLanguages({
     "aliases": {}, 
     "math": [
       "abs", 
-      null, 
-      null, 
-      "sqrt", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "sqrt"
     ], 
     "define": [
       "определить"
@@ -5327,7 +5222,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "wanneer @greenFlag wordt aangeklikt"
     }, 
     "osis": [
-      "andere scripts in sprite"
+      "andere scripts in sprite", 
+      "andere scripts op het speelveld"
     ], 
     "ignorelt": [
       "wanneer afstand"
@@ -5399,20 +5295,20 @@ scratchblocks.loadLanguages({
       "draai %n graden naar rechts": "turn @turnRight %n degrees"
     }, 
     "math": [
+      "asin", 
+      "cos", 
+      "acos", 
+      "log", 
+      "atan", 
+      "10 ^", 
+      "ln", 
       "absoluut", 
       "beneden", 
       "boven", 
-      "wortel", 
-      "sin", 
-      "cos", 
-      "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
-      "log", 
       "e ^", 
-      "10 ^"
+      "wortel", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "definieer"
@@ -5547,7 +5443,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "når @greenFlag vert trykt på"
     }, 
     "osis": [
-      "andre skript i figuren"
+      "andre skript i figuren", 
+      "andre skript på scena"
     ], 
     "ignorelt": [
       "når avstanden"
@@ -5615,20 +5512,17 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      null, 
-      "golv", 
-      "tak", 
-      "kvadratrot", 
-      "sin", 
       "cos", 
-      "tan", 
+      "log", 
       "arcsin", 
-      null, 
+      "kvadratrot", 
       "arctan", 
       "ln", 
-      "log", 
       "e^", 
-      null
+      "golv", 
+      "tan", 
+      "sin", 
+      "tak"
     ], 
     "define": [
       "definer"
@@ -5736,9 +5630,7 @@ scratchblocks.loadLanguages({
       "reset timer": "repone horologium", 
       "change x by %n": "muta x per %n"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -5805,20 +5697,7 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "abs"
     ], 
     "define": [
       ""
@@ -5954,6 +5833,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "når @greenFlag klikkes"
     }, 
     "osis": [
+      "andre skript på scenen", 
       "andre skript i figuren"
     ], 
     "ignorelt": [
@@ -6026,20 +5906,20 @@ scratchblocks.loadLanguages({
       "når grønt flagg klikkes": "when @greenFlag clicked"
     }, 
     "math": [
+      "10 ^", 
+      "cos", 
+      "log", 
+      "arcsin", 
+      "kvadratrot", 
+      "arctan", 
+      "e ^", 
+      "ln", 
       "abs", 
       "gulv", 
-      "tak", 
-      "kvadratrot", 
-      "sin", 
-      "cos", 
-      "tan", 
-      "arcsin", 
       "arccos", 
-      "arctan", 
-      "ln", 
-      "log", 
-      "e ^", 
-      "10 ^"
+      "tan", 
+      "sin", 
+      "tak"
     ], 
     "define": [
       "definer"
@@ -6146,9 +6026,7 @@ scratchblocks.loadLanguages({
       "reset timer": "reiniciar cronómetro", 
       "change x by %n": "poti kongena %n"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -6216,19 +6094,7 @@ scratchblocks.loadLanguages({
     "aliases": {}, 
     "math": [
       "abs", 
-      null, 
-      null, 
-      "hmi", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "hmi"
     ], 
     "define": [
       ""
@@ -6364,7 +6230,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "@greenFlag tıklanınca"
     }, 
     "osis": [
-      "kuklanın diğer dizilerini"
+      "kuklanın diğer dizilerini", 
+      "sahnedeki diğer diziler"
     ], 
     "ignorelt": [
       null
@@ -6438,20 +6305,20 @@ scratchblocks.loadLanguages({
       "yeşil bayrak tıklandığında": "when @greenFlag clicked"
     }, 
     "math": [
-      "mutlak değer", 
-      "aşağı yuvarla", 
-      "yukarı yuvarla", 
-      "karekök", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
+      "cos", 
+      "aşağı yuvarla", 
       "log", 
+      "atan", 
+      "10 ^", 
+      "ln", 
+      "acos", 
+      "mutlak değer", 
+      "karekök", 
       "e ^", 
-      "10 ^"
+      "yukarı yuvarla", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "tanımla"
@@ -6554,9 +6421,7 @@ scratchblocks.loadLanguages({
       "reset timer": "समय गणक पुन सुरु", 
       "change x by %n": "x लाई %n बनाऊ"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -6624,19 +6489,7 @@ scratchblocks.loadLanguages({
     "aliases": {}, 
     "math": [
       "abs", 
-      null, 
-      null, 
-      "वर्गमूल", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "वर्गमूल"
     ], 
     "define": [
       ""
@@ -6771,6 +6624,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "@greenFlag がクリックされたとき"
     }, 
     "osis": [
+      "ステージの他のスクリプト", 
       "スプライトの他のスクリプト"
     ], 
     "ignorelt": [
@@ -6839,20 +6693,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
+      "asin", 
+      "cos", 
+      "log", 
+      "atan", 
+      "10 ^", 
+      "ln", 
+      "acos", 
+      "e ^", 
       "絶対値", 
       "切り下げ", 
-      "切り上げ", 
       "平方根", 
+      "切り上げ", 
       "sin", 
-      "cos", 
-      "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
-      "log", 
-      "e ^", 
-      "10 ^"
+      "tan"
     ], 
     "define": [
       "定義"
@@ -6987,6 +6841,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "kad nospiests @greenFlag"
     }, 
     "osis": [
+      "citas programmas gariņā", 
       "citi skripti gariņā"
     ], 
     "ignorelt": [
@@ -7055,20 +6910,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "modulis (absolūtā vērtība)", 
-      "apaļot uz leju", 
+      "asin", 
+      "cos", 
+      "log", 
+      "atan", 
+      "10 ^", 
+      "ln", 
+      "acos", 
       "apaļot uz augšu", 
       "sqrt", 
-      "sin", 
-      "cos", 
-      "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
-      "log", 
       "e ^", 
-      "10 ^"
+      "modulis (absolūtā vērtība)", 
+      "apaļot uz leju", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "definēt"
@@ -7271,20 +7126,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "teigiama reikšmė", 
-      "apvalink žemyn", 
-      "apvalink aukštyn", 
-      "šaknis iš", 
-      "sin", 
+      "lg", 
       "cos", 
-      "tg", 
+      "šaknis iš", 
+      "10 ^", 
       "arcsin", 
       "arccos", 
       "arctg", 
-      "ln", 
-      "lg", 
       "e ^", 
-      "10 ^"
+      "ln", 
+      "tg", 
+      "teigiama reikšmė", 
+      "apvalink žemyn", 
+      "sin", 
+      "apvalink aukštyn"
     ], 
     "define": [
       "komanda"
@@ -7356,9 +7211,7 @@ scratchblocks.loadLanguages({
       "length of %m.list": "%m.list-ы дӕргъ", 
       "letter %n of %s": "%s-ы дамгъӕ %n"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -7426,19 +7279,10 @@ scratchblocks.loadLanguages({
     "aliases": {}, 
     "math": [
       "модул", 
-      null, 
-      null, 
-      null, 
-      "asin", 
       "acos", 
+      "10 ^", 
       "atan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      null, 
-      null, 
-      null, 
-      "10 ^"
+      "asin"
     ], 
     "define": [
       "сбӕрӕг кӕнын"
@@ -7574,6 +7418,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "al presionar @greenFlag"
     }, 
     "osis": [
+      "otros programas en el escenario", 
       "otros programas en el objeto"
     ], 
     "ignorelt": [
@@ -7646,20 +7491,20 @@ scratchblocks.loadLanguages({
       "al presionar bandera verde": "when @greenFlag clicked"
     }, 
     "math": [
-      "abs", 
-      "piso", 
-      "techo", 
-      "raíz cuadrada", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
+      "cos", 
+      "piso", 
       "atan", 
-      "En", 
-      "log", 
+      "raíz cuadrada", 
+      "10 ^", 
+      "acos", 
       "e ^", 
-      "10 ^"
+      "abs", 
+      "En", 
+      "techo", 
+      "sin", 
+      "tan", 
+      "log"
     ], 
     "define": [
       "definir"
@@ -7858,19 +7703,10 @@ scratchblocks.loadLanguages({
     "aliases": {}, 
     "math": [
       "ค่าสัมบูรณ์", 
-      "พื้น", 
-      "เพดาน", 
       "รากที่สอง", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
+      "เพดาน", 
       "ใน", 
-      null, 
-      null, 
-      null
+      "พื้น"
     ], 
     "define": [
       "กำหนด"
@@ -8004,9 +7840,7 @@ scratchblocks.loadLanguages({
       "stop %m.stop": "ngừng %m.stop", 
       "when @greenFlag clicked": "khi nhấn vào @greenFlag"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       "khi khoảng cách"
     ], 
@@ -8073,20 +7907,8 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "trị tuyệt đối", 
-      null, 
-      null, 
       "căn", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "trị tuyệt đối"
     ], 
     "define": [
       "định nghĩa"
@@ -8221,6 +8043,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "ko je kliknjena @greenFlag"
     }, 
     "osis": [
+      "ostale skripte na odru", 
       "ostale figurine skripte"
     ], 
     "ignorelt": [
@@ -8289,20 +8112,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "absolutna vrednost", 
-      "zaokroževanje navzdol", 
-      "zaokroževanje navzgor", 
-      "sqrt", 
-      "sin", 
-      "cos", 
-      "tan", 
-      "arcsin", 
-      "arccos", 
-      "arctan", 
-      "V", 
-      "log", 
       "e ^", 
-      "10 ^"
+      "absolutna vrednost", 
+      "log", 
+      "10 ^", 
+      "arcsin", 
+      "zaokroževanje navzgor", 
+      "V", 
+      "cos", 
+      "sqrt", 
+      "arctan", 
+      "zaokroževanje navzdol", 
+      "arccos", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "določi"
@@ -8437,6 +8260,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "當 @greenFlag 被點一下"
     }, 
     "osis": [
+      "舞台上的其他程式", 
       "角色的其他程式"
     ], 
     "ignorelt": [
@@ -8505,20 +8329,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
+      "asin", 
+      "cos", 
+      "log", 
+      "atan", 
       "floor", 
+      "ln", 
+      "acos", 
       "ceiling", 
       "sqrt", 
-      "sin", 
-      "cos", 
-      "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
-      "log", 
       "e ^", 
-      "10 ^"
+      "abs", 
+      "10 ^", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "定義"
@@ -8568,9 +8392,7 @@ scratchblocks.loadLanguages({
       "change x by %n": "broyt x við %n", 
       "change y by %n": "broyt y við %n"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -8636,31 +8458,14 @@ scratchblocks.loadLanguages({
       ""
     ], 
     "aliases": {}, 
-    "math": [
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
-    ], 
+    "math": [], 
     "define": [
       ""
     ]
   }, 
   "ja_hr": {
     "commands": {}, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -8726,22 +8531,7 @@ scratchblocks.loadLanguages({
       ""
     ], 
     "aliases": {}, 
-    "math": [
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
-    ], 
+    "math": [], 
     "define": [
       ""
     ]
@@ -8781,9 +8571,7 @@ scratchblocks.loadLanguages({
       "next costume": "susunod na kasuotan", 
       "mouse y": "mouse y"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -8849,31 +8637,14 @@ scratchblocks.loadLanguages({
       ""
     ], 
     "aliases": {}, 
-    "math": [
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
-    ], 
+    "math": [], 
     "define": [
       ""
     ]
   }, 
   "ta": {
     "commands": {}, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -8939,22 +8710,7 @@ scratchblocks.loadLanguages({
       ""
     ], 
     "aliases": {}, 
-    "math": [
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
-    ], 
+    "math": [], 
     "define": [
       ""
     ]
@@ -9089,7 +8845,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "quand @greenFlag cliqué"
     }, 
     "osis": [
-      "autres scripts du lutin"
+      "autres scripts du lutin", 
+      "autres scripts"
     ], 
     "ignorelt": [
       "quand la distance"
@@ -9161,20 +8918,20 @@ scratchblocks.loadLanguages({
       "tourner droite de %n degrés": "turn @turnRight %n degrees"
     }, 
     "math": [
-      "abs", 
-      "plancher", 
-      "plafond", 
-      "racine", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
+      "cos", 
+      "plafond", 
       "atan", 
       "ln", 
-      "log", 
+      "acos", 
+      "plancher", 
       "e ^", 
-      "10^"
+      "abs", 
+      "10^", 
+      "tan", 
+      "sin", 
+      "racine", 
+      "log"
     ], 
     "define": [
       "définir"
@@ -9377,20 +9134,19 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs (մոդուլ)", 
-      "Հատակ", 
-      "Առաստաղ", 
-      "քառակուսի արմատ", 
-      "sin", 
+      "asin", 
       "cos", 
       "atan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "մեջ", 
+      "10 ^", 
+      "քառակուսի արմատ", 
+      "Առաստաղ", 
       "Մուտք", 
       "e ^", 
-      "10 ^"
+      "abs (մոդուլ)", 
+      "Հատակ", 
+      "acos", 
+      "մեջ", 
+      "sin"
     ], 
     "define": [
       "սահմանել"
@@ -9498,9 +9254,7 @@ scratchblocks.loadLanguages({
       "reset timer": "reset pemasa", 
       "change x by %n": "tukar x dengan %n"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -9568,19 +9322,7 @@ scratchblocks.loadLanguages({
     "aliases": {}, 
     "math": [
       "abs", 
-      null, 
-      null, 
-      "sqrt", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "sqrt"
     ], 
     "define": [
       ""
@@ -9715,7 +9457,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "quando clicar em @greenFlag"
     }, 
     "osis": [
-      "outros scripts do ator"
+      "outros scripts do ator", 
+      "outros scripts em uso"
     ], 
     "ignorelt": [
       "quando a distância for"
@@ -9783,20 +9526,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "módulo", 
-      "arredondar para baixo", 
-      "arredondar para cima", 
-      "raiz quadrada", 
-      "seno", 
-      "cosseno", 
-      "tangente", 
-      "arco seno", 
+      "Em", 
+      "10 ^", 
       "arco cosseno", 
       "arco tangente", 
-      "Em", 
-      "logaritmo", 
+      "seno", 
       "e ^", 
-      "10 ^"
+      "arredondar para cima", 
+      "tangente", 
+      "módulo", 
+      "arco seno", 
+      "cosseno", 
+      "raiz quadrada", 
+      "logaritmo", 
+      "arredondar para baixo"
     ], 
     "define": [
       "defina"
@@ -9930,9 +9673,7 @@ scratchblocks.loadLanguages({
       "stop %m.stop": "parar %m.stop", 
       "when @greenFlag clicked": "cuando se calque @greenFlag"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       "cuando la distancia seya"
     ], 
@@ -9999,20 +9740,13 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
-      null, 
       "techu", 
-      null, 
       "asin", 
       "cos", 
       "atan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      null, 
-      null, 
-      null, 
-      "10 ^"
+      "10 ^", 
+      "abs", 
+      "acos"
     ], 
     "define": [
       "definir"
@@ -10215,20 +9949,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "apsolutno", 
-      "donja vrijednost", 
-      "gornja vrijednost", 
-      "korijen", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
+      "cos", 
       "atan", 
-      "ln", 
-      "log", 
+      "donja vrijednost", 
+      "10 ^", 
+      "gornja vrijednost", 
+      "acos", 
       "e ^", 
-      "10 ^"
+      "ln", 
+      "korijen", 
+      "apsolutno", 
+      "tan", 
+      "sin", 
+      "log"
     ], 
     "define": [
       "definiraj"
@@ -10363,7 +10097,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "när @greenFlag klickas på"
     }, 
     "osis": [
-      "andra skript i sprajt"
+      "andra skript i sprajt", 
+      "andra script på scenen"
     ], 
     "ignorelt": [
       "när avståndet är"
@@ -10431,20 +10166,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
+      "asin", 
+      "cos", 
+      "log", 
+      "atan", 
+      "10 ^", 
+      "ln", 
+      "acos", 
+      "sqrt", 
+      "e ^", 
       "abs", 
       "golv", 
-      "tak", 
-      "sqrt", 
-      "sin", 
-      "cos", 
       "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
-      "log", 
-      "e ^", 
-      "10 ^"
+      "sin", 
+      "tak"
     ], 
     "define": [
       "definiera"
@@ -10580,6 +10315,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "Wenn @greenFlag angeklickt"
     }, 
     "osis": [
+      "andere Skripte der Bühne", 
       "andere Skripte der Figur"
     ], 
     "ignorelt": [
@@ -10652,20 +10388,20 @@ scratchblocks.loadLanguages({
       "drehe dich nach rechts um %n Grad": "turn @turnRight %n degrees"
     }, 
     "math": [
-      "Betrag", 
-      "abrunden", 
       "aufrunden", 
-      "Wurzel", 
-      "sin", 
       "cos", 
-      "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
       "log", 
+      "atan", 
+      "asin", 
+      "ln", 
+      "acos", 
+      "Betrag", 
       "e^", 
-      "10^"
+      "10^", 
+      "Wurzel", 
+      "abrunden", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "Definiere"
@@ -10772,9 +10508,7 @@ scratchblocks.loadLanguages({
       "reset timer": "'yo pa fudi", 
       "change x by %n": "pata ra x ko ra %n"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -10842,19 +10576,7 @@ scratchblocks.loadLanguages({
     "aliases": {}, 
     "math": [
       "abs", 
-      null, 
-      null, 
-      "Y'u b'ede", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "Y'u b'ede"
     ], 
     "define": [
       ""
@@ -10988,9 +10710,7 @@ scratchblocks.loadLanguages({
       "stop %m.stop": "kanpe %m.stop", 
       "when @greenFlag clicked": "lè yo klike @greenFlag"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       "lè distans"
     ], 
@@ -11057,20 +10777,11 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
-      null, 
-      "plafon", 
       "rasin", 
-      "sinis envès", 
-      null, 
+      "abs", 
+      "plafon", 
       "tanjant envès", 
-      "sinis envès", 
-      null, 
-      "tanjant envès", 
-      null, 
-      null, 
-      null, 
-      null
+      "sinis envès"
     ], 
     "define": [
       "defini"
@@ -11205,7 +10916,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "når du klikker på @greenFlag"
     }, 
     "osis": [
-      "andre script i sprite"
+      "andre script i sprite", 
+      "andre koder i scene"
     ], 
     "ignorelt": [
       "når afstanden"
@@ -11273,20 +10985,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
-      "gulv", 
-      "loft", 
-      "kvrod", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
+      "cos", 
+      "loft", 
       "atan", 
+      "10 ^", 
       "ln", 
-      "log", 
+      "acos", 
       "e ^", 
-      "10 ^"
+      "abs", 
+      "log", 
+      "gulv", 
+      "tan", 
+      "sin", 
+      "kvrod"
     ], 
     "define": [
       "definer"
@@ -11421,7 +11133,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "تا زمانی که @greenFlag کلیک شد"
     }, 
     "osis": [
-      "سایر اسکریپت های شبح"
+      "سایر اسکریپت های شبح", 
+      "سایر اسکریپت های صحنه"
     ], 
     "ignorelt": [
       "تا زمانی که فاصله"
@@ -11489,20 +11202,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "قدرمطلق", 
-      "طبقه", 
-      "سقف", 
-      "جذر", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
+      "cos", 
       "atan", 
-      "داخل", 
+      "قدرمطلق", 
+      "acos", 
       "گزارش", 
+      "طبقه", 
+      "جذر", 
+      "داخل", 
+      "سقف", 
+      "10 ^", 
       "e ^", 
-      "10 ^"
+      "tan", 
+      "sin"
     ], 
     "define": [
       "تعریف"
@@ -11636,9 +11349,7 @@ scratchblocks.loadLanguages({
       "stop %m.stop": "रोक दे %m.stop ", 
       "when @greenFlag clicked": "जब @greenFlag क्लिक किया गया हो"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -11705,19 +11416,7 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      null, 
-      null, 
-      null, 
-      null, 
       "असिन", 
-      null, 
-      null, 
-      "असिन", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
       "10^"
     ], 
     "define": [
@@ -11852,6 +11551,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "når @greenFlag klikkes"
     }, 
     "osis": [
+      "andre skript på scenen", 
       "andre skript i figuren"
     ], 
     "ignorelt": [
@@ -11920,20 +11620,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
+      "asin", 
+      "cos", 
+      "log", 
+      "atan", 
+      "10 ^", 
+      "I", 
+      "acos", 
+      "kvadratrot", 
+      "e ^", 
       "abs", 
       "gulv", 
-      "tak", 
-      "kvadratrot", 
-      "sin", 
-      "cos", 
       "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "I", 
-      "log", 
-      "e ^", 
-      "10 ^"
+      "sin", 
+      "tak"
     ], 
     "define": [
       "definer"
@@ -12068,7 +11768,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "kun klikataan @greenFlag"
     }, 
     "osis": [
-      "muut hahmossa olevat skriptit"
+      "muut hahmossa olevat skriptit", 
+      "muut skriptit kentällä"
     ], 
     "ignorelt": [
       "kun etäisyys"
@@ -12136,20 +11837,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "itseisarvo", 
-      "pyöristä alaspäin", 
-      "pyöristys ylös", 
-      "neliöjuuri", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
+      "cos", 
+      "pyöristä alaspäin", 
       "atan", 
       "luonnollinen logaritmi", 
+      "pyöristys ylös", 
       "10-logaritmi", 
+      "acos", 
       "e ^", 
-      "10 ^"
+      "neliöjuuri", 
+      "10 ^", 
+      "itseisarvo", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "määrittele"
@@ -12352,20 +12053,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abszolút érték", 
-      "lekerekítés", 
-      "felkerekítés", 
-      "gyök", 
-      "sin", 
+      "10 ^", 
       "cos", 
-      "tg", 
-      "arcsin", 
+      "log", 
+      "ln", 
+      "abszolút érték", 
       "arccos", 
       "arctg", 
-      "ln", 
-      "log", 
       "e ^", 
-      "10 ^"
+      "arcsin", 
+      "lekerekítés", 
+      "tg", 
+      "gyök", 
+      "felkerekítés", 
+      "sin"
     ], 
     "define": [
       "meghatározás:"
@@ -12467,9 +12168,7 @@ scratchblocks.loadLanguages({
       "reset timer": "hutarieka pitsutüani kurumeturu", 
       "change x by %n": "pipata x xeimeküküpüta %n"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -12537,19 +12236,7 @@ scratchblocks.loadLanguages({
     "aliases": {}, 
     "math": [
       "abs", 
-      null, 
-      null, 
-      "nanari mayehaika", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "nanari mayehaika"
     ], 
     "define": [
       ""
@@ -12557,9 +12244,7 @@ scratchblocks.loadLanguages({
   }, 
   "fr_CA": {
     "commands": {}, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -12625,22 +12310,7 @@ scratchblocks.loadLanguages({
       ""
     ], 
     "aliases": {}, 
-    "math": [
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
-    ], 
+    "math": [], 
     "define": [
       ""
     ]
@@ -12847,20 +12517,20 @@ scratchblocks.loadLanguages({
       "כאשר לוחצים על דגל ירוק": "when @greenFlag clicked"
     }, 
     "math": [
-      "abs", 
-      "רצפה", 
-      "תקרה", 
-      "sqrt", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
-      "atan", 
-      "פנימה", 
+      "cos", 
       "log", 
+      "atan", 
+      "10 ^", 
+      "acos", 
+      "רצפה", 
+      "sqrt", 
+      "abs", 
+      "פנימה", 
+      "תקרה", 
+      "tan", 
       " ^e", 
-      "10 ^"
+      "sin"
     ], 
     "define": [
       "הגדר"
@@ -12995,7 +12665,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "cand se da clic pe @greenFlag"
     }, 
     "osis": [
-      "celelalte scripturi ale personajului"
+      "celelalte scripturi ale personajului", 
+      "alte script-uri pentru scenă"
     ], 
     "ignorelt": [
       "cand distanta"
@@ -13063,20 +12734,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "modul", 
       "partea intreaga", 
-      "rotunjire prin adaos", 
-      "radical", 
-      "sin", 
       "cos", 
-      "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
       "log", 
+      "atan", 
+      "asin", 
+      "ln", 
+      "radical", 
+      "modul", 
+      "acos", 
       "e ^", 
-      "10 ^"
+      "rotunjire prin adaos", 
+      "10 ^", 
+      "tan", 
+      "sin"
     ], 
     "define": [
       "definește"
@@ -13284,20 +12955,20 @@ scratchblocks.loadLanguages({
       "Quando alguém clicar na bandeira verde": "when @greenFlag clicked"
     }, 
     "math": [
-      "o valor absoluto", 
-      "o chão (o maior inteiro não superior)", 
-      "o tecto (menor inteiro não inferior)", 
-      "a raiz quadrada", 
-      "o seno", 
-      "cosseno", 
-      "a tangente", 
-      "o arco-seno", 
-      "o arco-cosseno", 
       "o arco-tangente", 
-      "o logaritmo natural", 
+      "10 ^", 
+      "o arco-cosseno", 
       "o logaritmo", 
+      "o seno", 
+      "o logaritmo natural", 
+      "a raiz quadrada", 
+      "o tecto (menor inteiro não inferior)", 
+      "o chão (o maior inteiro não superior)", 
+      "o arco-seno", 
+      "a tangente", 
+      "o valor absoluto", 
       "a exponencial", 
-      "10 ^"
+      "cosseno"
     ], 
     "define": [
       "definiuj"
@@ -13433,7 +13104,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "当 @greenFlag 被点击"
     }, 
     "osis": [
-      "角色的其他脚本"
+      "角色的其他脚本", 
+      "舞台上的其他脚本"
     ], 
     "ignorelt": [
       "当距离"
@@ -13507,20 +13179,20 @@ scratchblocks.loadLanguages({
       "点击绿旗时": "when @greenFlag clicked"
     }, 
     "math": [
-      "绝对值", 
-      "向下取整", 
+      "asin", 
+      "cos", 
+      "log", 
+      "atan", 
       "向上取整", 
+      "ln", 
+      "acos", 
+      "向下取整", 
+      "e ^", 
+      "10 ^", 
+      "绝对值", 
       "平方根", 
       "sin", 
-      "cos", 
-      "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
-      "log", 
-      "e ^", 
-      "10 ^"
+      "tan"
     ], 
     "define": [
       "定义"
@@ -13619,7 +13291,8 @@ scratchblocks.loadLanguages({
       "change x by %n": "x дегенді өзгерту %n"
     }, 
     "osis": [
-      "スプライトのほかのスクリプト"
+      "スプライトのほかのスクリプト", 
+      "сахнадағы басқа скрипттер"
     ], 
     "ignorelt": [
       null
@@ -13687,20 +13360,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "модуль", 
       "きりさげ", 
-      "шектеу", 
-      "へいほうこん", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
+      "cos", 
       "log", 
+      "atan", 
+      "10 ^", 
+      "ln", 
+      "acos", 
+      "модуль", 
       "e ^", 
-      "10 ^"
+      "へいほうこん", 
+      "tan", 
+      "шектеу", 
+      "sin"
     ], 
     "define": [
       ""
@@ -13902,20 +13575,18 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "കേവല വില", 
-      "നിലം", 
-      "പരിധി", 
-      "വര്‍ഗ്ഗമൂലം", 
-      "sin", 
-      "cos", 
-      null, 
-      "ബുദ്ധിശൂന്യമായ", 
-      "ആകസ്", 
-      null, 
       "ഇല്‍", 
+      "cos", 
       "ലോഗ്", 
+      "ആകസ്", 
+      "ബുദ്ധിശൂന്യമായ", 
+      "പരിധി", 
+      "നിലം", 
       "e^", 
-      "10 ^മലയാളം"
+      "വര്‍ഗ്ഗമൂലം", 
+      "10 ^മലയാളം", 
+      "sin", 
+      "കേവല വില"
     ], 
     "define": [
       "നിര്‍വചിക്കുക"
@@ -14027,9 +13698,7 @@ scratchblocks.loadLanguages({
       "reset timer": "тоолуурыг 0 болго", 
       "change x by %n": "x утгыг %n -р өөрчил"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -14096,20 +13765,8 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
-      null, 
-      null, 
       "квадрат язгуур", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "abs"
     ], 
     "define": [
       "Тодорхойл"
@@ -14244,6 +13901,7 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "@greenFlag 클릭했을 때"
     }, 
     "osis": [
+      "무대에 있는 다른 스크립트", 
       "스프라이트에 있는 다른 스크립트"
     ], 
     "ignorelt": [
@@ -14312,20 +13970,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "절대값", 
+      "asin", 
+      "cos", 
+      "atan", 
       "바닥 함수", 
+      "e ^", 
+      "ln", 
+      "acos", 
       "천장 함수", 
       "제곱근", 
-      "sin", 
-      "cos", 
+      "10 ^", 
+      "절대값", 
       "tan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
-      "log", 
-      "e ^", 
-      "10 ^"
+      "sin", 
+      "log"
     ], 
     "define": [
       "정의하기"
@@ -14458,9 +14116,7 @@ scratchblocks.loadLanguages({
       "stop %m.stop": "ನಿಲ್ಲಿಸು %m.ನಿಲ್ಲಿಸು", 
       "when @greenFlag clicked": "ಯಾವಾಗ @ಹಸಿರುಬಾವುಟವನ್ನು ಒತ್ತಿದಾಗ"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       "ದೂರವು ಯಾವಾಗ"
     ], 
@@ -14527,20 +14183,12 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
+      "asin", 
+      "atan", 
+      "10 ^", 
       "ಪೂರ್ಣಾಂಕ", 
-      null, 
-      null, 
-      "ವರ್ಗಮೂಲ", 
-      "asin", 
       "acos", 
-      "atan", 
-      "asin", 
-      "acos", 
-      "atan", 
-      null, 
-      null, 
-      null, 
-      "10 ^"
+      "ವರ್ಗಮೂಲ"
     ], 
     "define": [
       "ವ್ಯಾಖ್ಯಾನ"
@@ -14717,20 +14365,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "ぜったいち", 
       "きりさげ", 
-      "きりあげ", 
-      "へいほうこん", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
+      "cos", 
       "log", 
+      "atan", 
+      "10 ^", 
+      "ln", 
+      "acos", 
       "e ^", 
-      "10 ^"
+      "へいほうこん", 
+      "きりあげ", 
+      "ぜったいち", 
+      "sin", 
+      "tan"
     ], 
     "define": [
       ""
@@ -14865,7 +14513,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "po kliknutí na @greenFlag"
     }, 
     "osis": [
-      "zvyšné scenáre postavy"
+      "zvyšné scenáre postavy", 
+      "zvyšné scenáre na scéne"
     ], 
     "ignorelt": [
       "ak je vzdialenosť"
@@ -14933,20 +14582,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "abs", 
-      "zaokrúhli nadol", 
-      "zaokrúhli nahor", 
       "odmocnina", 
-      "sin", 
       "cos", 
-      "tg", 
+      "zaokrúhli nahor", 
+      "log", 
+      "10 ^", 
       "arcsin", 
       "arccos", 
       "arctg", 
       "ln", 
-      "log", 
+      "abs", 
       "exp", 
-      "10 ^"
+      "tg", 
+      "zaokrúhli nadol", 
+      "sin"
     ], 
     "define": [
       "blok"
@@ -15081,7 +14730,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "када је кликнуто на @greenFlag"
     }, 
     "osis": [
-      "друге програме лика"
+      "друге програме лика", 
+      "други програми позорнице"
     ], 
     "ignorelt": [
       "када је растојање"
@@ -15149,20 +14799,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "апс", 
+      "cos", 
+      "log", 
+      "ln", 
       "цео", 
       "цео+1", 
-      "корен", 
-      "sin", 
-      "cos", 
-      "tg", 
-      "arcsin", 
       "arccos", 
-      "arctan", 
-      "ln", 
-      "log", 
+      "апс", 
       "e на степен", 
-      "10 на степен"
+      "arcsin", 
+      "10 на степен", 
+      "корен", 
+      "tg", 
+      "arctan", 
+      "sin"
     ], 
     "define": [
       "дефиниши"
@@ -15298,7 +14948,8 @@ scratchblocks.loadLanguages({
       "when @greenFlag clicked": "kiedy kliknięto @greenFlag"
     }, 
     "osis": [
-      "inne skrypty duszka"
+      "inne skrypty duszka", 
+      "inne skrypty na scenie"
     ], 
     "ignorelt": [
       null
@@ -15370,20 +15021,20 @@ scratchblocks.loadLanguages({
       "kiedy kliknięto zieloną flagę": "when @greenFlag clicked"
     }, 
     "math": [
-      "wartość bezwzględna", 
-      "podłoga", 
-      "sufit", 
-      "pierwiastek kwadratowy", 
-      "sin", 
       "cos", 
-      "tan", 
+      "10 do potęgi", 
+      "log", 
       "arcsin", 
       "arccos", 
       "arctan", 
-      "ln", 
-      "log", 
       "e ^", 
-      "10 do potęgi"
+      "ln", 
+      "wartość bezwzględna", 
+      "podłoga", 
+      "tan", 
+      "pierwiastek kwadratowy", 
+      "sufit", 
+      "sin"
     ], 
     "define": [
       "definiuj"
@@ -15491,9 +15142,7 @@ scratchblocks.loadLanguages({
       "reset timer": "demjimar tuneke", 
       "change x by %n": "x bi %n re biguherîne"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -15561,19 +15210,7 @@ scratchblocks.loadLanguages({
     "aliases": {}, 
     "math": [
       "abs", 
-      null, 
-      null, 
-      "sqrt", 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
+      "sqrt"
     ], 
     "define": [
       ""
@@ -15776,20 +15413,20 @@ scratchblocks.loadLanguages({
     ], 
     "aliases": {}, 
     "math": [
-      "ぜったいち", 
       "きりさげ", 
-      "きりあげ", 
-      "へいほうこん", 
-      "sin", 
-      "cos", 
-      "tan", 
       "asin", 
-      "acos", 
-      "atan", 
-      "ln", 
+      "cos", 
       "log", 
+      "atan", 
+      "10 ^", 
+      "ln", 
+      "acos", 
       "e ^", 
-      "10 ^"
+      "へいほうこん", 
+      "きりあげ", 
+      "ぜったいち", 
+      "sin", 
+      "tan"
     ], 
     "define": [
       "ていぎ"
@@ -15797,9 +15434,7 @@ scratchblocks.loadLanguages({
   }, 
   "ky": {
     "commands": {}, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -15865,22 +15500,7 @@ scratchblocks.loadLanguages({
       ""
     ], 
     "aliases": {}, 
-    "math": [
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
-    ], 
+    "math": [], 
     "define": [
       ""
     ]
@@ -16013,9 +15633,7 @@ scratchblocks.loadLanguages({
       "stop %m.stop": "%m.stopကို ရပ်", 
       "when @greenFlag clicked": "@greenFlag ကို ကလစ် နှိပ်ခဲ့ရင်"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       "distance"
     ], 
@@ -16081,22 +15699,7 @@ scratchblocks.loadLanguages({
       ""
     ], 
     "aliases": {}, 
-    "math": [
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
-    ], 
+    "math": [], 
     "define": [
       "သတ်မှတ်ချက်"
     ]
@@ -16140,9 +15743,7 @@ scratchblocks.loadLanguages({
       "change x by %n": "nijpatlas x ika seyok tlamantli %n", 
       "change y by %n": "nijpatlas y ika seyok tlamantli %n"
     }, 
-    "osis": [
-      ""
-    ], 
+    "osis": [], 
     "ignorelt": [
       null
     ], 
@@ -16208,22 +15809,7 @@ scratchblocks.loadLanguages({
       ""
     ], 
     "aliases": {}, 
-    "math": [
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null, 
-      null
-    ], 
+    "math": [], 
     "define": [
       ""
     ]
