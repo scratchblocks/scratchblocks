@@ -136,6 +136,6 @@
   
   ["else", "else", 6, "else"],
   ["end", "end", 6, "end"],
-  ["...", "ellips", 42, "ellips"],
+  ["...", " ", 42, "ellips"],
 
 ];
