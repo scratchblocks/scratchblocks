@@ -31,3 +31,4 @@ For **pull requests**:
 
 To rebuild the translations (eg. to take into account new updates on Pootle), use `make translations`.
 
+To modify the homepage, send a PR to the [scratchblocks/scratchblocks.github.io](//github.com/scratchblocks/scratchblocks.github.io) repo.
