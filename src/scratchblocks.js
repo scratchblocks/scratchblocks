@@ -317,8 +317,8 @@ var scratchblocks = function () {
     // paint
     for (var i=0; i<languages.length; i++) {
       var lang = languages[i];
-      var block = lang.blocksByHash[hash];
-      if (block) {
+      if (lang.blocksByHash.hasOwnProperty(hash)) {
+        var block = lang.blocksByHash[hash];
         if (block.specialCase) {
           block = block.specialCase(children, lang) || block;
         }
