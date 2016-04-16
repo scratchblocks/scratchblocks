@@ -528,7 +528,19 @@ var scratchblocks = function () {
         }
       }
 
-      return makeBlock('reporter', children);
+      var block = makeBlock('reporter', children);
+
+      // rings
+      if (block.info.shape === 'ring') {
+        var first = block.children[0];
+        if (first.isInput && first.shape === 'number' && first.value === "") {
+          block.children[0] = new Input('reporter');
+        } else if (first.isScript && first.isEmpty) {
+          block.children[0] = new Input('stack');
+        }
+      }
+
+      return block;
     }
 
     function pPredicate() {
@@ -1516,14 +1528,12 @@ var scratchblocks = function () {
       var label = this.label.draw();
       var w = Math.max(14, this.label.width + (this.shape === 'string' || this.shape === 'number-dropdown' ? 6 : 9));
     } else {
-      var w = this.isStack ? 40
-            : this.isInset ? 30
-            : this.isColor ? 13 : null;
+      var w = this.isInset ? 30 : this.isColor ? 13 : null;
     }
     if (this.hasArrow) w += 10;
     this.width = w;
 
-    var h = this.height = this.isStack ? 16 : this.isRound || this.isColor ? 13 : 14;
+    var h = this.height = this.isRound || this.isColor ? 13 : 14;
 
     var el = Input.shapes[this.shape](w, h);
     if (this.isColor) {
