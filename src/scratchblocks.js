@@ -902,6 +902,10 @@ var scratchblocks = function () {
       languages: ['en'],
     }, options);
 
+    if (options.inline) {
+      code = code.replace(/\n/g, ' ');
+    }
+
     var languages = options.languages.map(function(code) {
       return allLanguages[code];
     });
