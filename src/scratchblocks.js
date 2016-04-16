@@ -1435,7 +1435,7 @@ var scratchblocks = function () {
     this.comment = comment || null;
 
     var shape = this.info.shape;
-    this.isHat = shape === 'hat';
+    this.isHat = shape === 'hat' || shape === 'define-hat';
     this.hasPuzzle = shape === 'stack' || shape === 'hat';
     this.isFinal = /cap/.test(shape);
     this.isCommand = shape === 'stack' || shape === 'cap' || /block/.test(shape);
