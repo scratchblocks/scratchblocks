@@ -1017,29 +1017,37 @@ var scratchblocks = function () {
     return ["L", p1x, p1y, "A", rx, ry, 0, 0, 0, p2x, p2y].join(" ");
   }
 
-  function roundedRect(w, h, props) {
+  function roundedPath(w, h) {
     var r = h / 2;
+    return [
+      "M", r, 0,
+      arc(w - r, 0, w - r, h, r, r),
+      arc(r, h, r, 0, r, r),
+      "Z"
+    ];
+  }
+
+  function roundedRect(w, h, props) {
     return path(extend(props, {
-      path: [
-        "M", r, 0,
-        arc(w - r, 0, w - r, h, r, r),
-        arc(r, h, r, 0, r, r),
-        "Z"
-      ],
+      path: roundedPath(w, h),
     }));
   }
 
-  function pointedRect(w, h, props) {
+  function pointedPath(w, h) {
     var r = h / 2;
+    return [
+      "M", r, 0,
+      "L", w - r, 0, w, r,
+      "L", w, r, w - r, h,
+      "L", r, h, 0, r,
+      "L", 0, r, r, 0,
+      "Z",
+    ];
+  }
+
+  function pointedRect(w, h, props) {
     return path(extend(props, {
-      path: [
-        "M", r, 0,
-        "L", w - r, 0, w, r,
-        "L", w, r, w - r, h,
-        "L", r, h, 0, r,
-        "L", 0, r, r, 0,
-        "Z",
-      ],
+      path: pointedPath(w, h),
     }));
   }
 
@@ -1050,6 +1058,18 @@ var scratchblocks = function () {
       "L", 16, 3,
       "L", 24, 3,
       "L", 27, 0,
+      "L", w - 3, 0,
+      "L", w, 3
+    ].join(" ");
+  }
+
+  function getRingTop(w) {
+    return ["M", 0, 3,
+      "L", 3, 0,
+      "L", 7, 0,
+      "L", 10, 3,
+      "L", 16, 3,
+      "L", 19, 0,
       "L", w - 3, 0,
       "L", w, 3
     ].join(" ");
@@ -1104,13 +1124,25 @@ var scratchblocks = function () {
     }));
   }
 
+  function capPath(w, h) {
+    return [
+      getTop(w),
+      getRightAndBottom(w, h, false, 0),
+      "Z",
+    ];
+  }
+
+  function ringCapPath(w, h) {
+    return [
+      getRingTop(w),
+      getRightAndBottom(w, h, false, 0),
+      "Z",
+    ];
+  }
+
   function capRect(w, h, props) {
     return path(extend(props, {
-      path: [
-        getTop(w),
-        getRightAndBottom(w, h, false, 0),
-        "Z",
-      ],
+      path: capPath(w, h),
     }));
   }
 
@@ -1203,8 +1235,11 @@ var scratchblocks = function () {
     }));
   }
 
-  function ringOuter(w, h, props) {
+  function ringRect(w, h, cy, cw, ch, shape, props) {
     var r = 8;
+    var func = shape === 'reporter' ? roundedPath
+             : shape === 'boolean' ? pointedPath
+             : cw < 40 ? ringCapPath : capPath;
     return path(extend(props, {
       path: [
         "M", r, 0,
@@ -1212,8 +1247,10 @@ var scratchblocks = function () {
         arcw(0, h - r, r, h, r, r),
         arcw(w - r, h, w, h - r, r, r),
         arcw(w, r, w - r, 0, r, r),
-        "Z"
+        "Z",
+        translatePath(4, cy || 4, func(cw, ch).join(" ")),
       ],
+      'fill-rule': 'even-odd',
     }));
   }
 
@@ -1614,7 +1651,7 @@ var scratchblocks = function () {
     'boolean': pointedRect,
     'hat': hatRect,
     'define-hat': procHatRect,
-    'ring': ringOuter,
+    'ring': roundedRect,
   };
 
   Block.prototype.drawSelf = function(w, h, lines) {
@@ -1632,33 +1669,24 @@ var scratchblocks = function () {
       });
     }
 
-    var func = Block.shapes[this.info.shape];
-    assert(func, "no shape func: " + this.info.shape);
-    var el = func(w, h, {
-      class: [this.info.category, 'bevel'].join(' '),
-    });
-
     // rings
     if (this.isRing) {
       var child = this.children[0];
-      if (child) {
-        var childEl = child.el;
-        while (childEl.tagName !== 'path' && childEl.children.length) {
-          childEl = childEl.children[0];
-        }
-        if (childEl.tagName === 'path') {
-          setProps(group([
-            setProps(el, {
-              d: el.getAttribute('d') + ' ' + translatePath(4, child.y || 4, childEl.getAttribute('d')),
-            }),
-          ]), {
-            'fill-rule': 'even-odd',
-          });
-        }
+      if (child && (child.isInput || child.isBlock || child.isScript)) {
+        var shape = child.isScript ? 'stack'
+                  : child.isInput ? child.shape : child.info.shape;
+        return ringRect(w, h, child.y, child.width, child.height, shape, {
+          class: [this.info.category, 'bevel'].join(' '),
+        });
       }
+      debugger;
     }
 
-    return el;
+    var func = Block.shapes[this.info.shape];
+    assert(func, "no shape func: " + this.info.shape);
+    return func(w, h, {
+      class: [this.info.category, 'bevel'].join(' '),
+    });
   };
 
   Block.prototype.minDistance = function(child) {
@@ -1858,13 +1886,13 @@ var scratchblocks = function () {
     }
   };
 
-  Script.prototype.draw = function() {
+  Script.prototype.draw = function(block) {
     var children = [];
     var y = 0;
     this.width = 0;
     for (var i=0; i<this.blocks.length; i++) {
       var block = this.blocks[i];
-      children.push(translate(2, y, block.draw()));
+      children.push(translate(block ? 0 : 2, y, block.draw()));
       y += block.height;
       this.width = Math.max(this.width, block.width);
 
@@ -1878,7 +1906,7 @@ var scratchblocks = function () {
       }
     }
     this.height = y;
-    if (!this.isFinal) {
+    if (!block && !this.isFinal) {
       this.height += 3;
     }
     return group(children);
