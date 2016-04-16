@@ -302,9 +302,6 @@ var scratchblocks = function () {
     if (isArray(children[children.length - 1])) {
       overrides = children.pop();
     }
-    if (!children.length) {
-      children = [new Label("")];
-    }
 
     // build hash
     var words = [];
@@ -411,6 +408,7 @@ var scratchblocks = function () {
           }
         }
         if (tok === end) break;
+        if (tok === '/' && peek() === '/') break;
 
         switch (tok) {
           case '[':
@@ -443,6 +441,7 @@ var scratchblocks = function () {
               children.push(pOverrides(end));
               return children;
             } // fall-thru
+          case '/':
           default:
             if (!label) children.push(label = new Label(""));
             label.value += tok;
@@ -563,6 +562,8 @@ var scratchblocks = function () {
             overrides.push(override);
             override = "";
           }
+        } else if (tok === '/' && peek() === '/') {
+          break;
         } else {
           override += tok;
         }
@@ -570,6 +571,18 @@ var scratchblocks = function () {
       }
       if (override) overrides.push(override);
       return overrides;
+    }
+
+    function pComment(end) {
+      next();
+      next();
+      var comment = "";
+      while (tok && tok !== '\n' && tok !== end) {
+        comment += tok;
+        next();
+      }
+      if (tok && tok === '\n') next();
+      return new Comment(comment, true);
     }
 
     function pOutline() {
@@ -606,13 +619,24 @@ var scratchblocks = function () {
       return makeBlock('outline', children);
     }
 
+    function pLine() {
+      var block = pBlock();
+      if (tok === '/' && peek() === '/') {
+        var comment = pComment();
+        comment.hasBlock = block.children.length;
+        if (!comment.hasBlock) return comment;
+        block.comment = comment;
+      }
+      return block;
+    }
+
     return function() {
       if (!tok) return undefined;
       if (tok === '\n') {
         next();
         return 'NL';
       }
-      return pBlock();
+      return pLine();
     }
   }
 
@@ -1406,7 +1430,6 @@ var scratchblocks = function () {
   /* Block */
 
   var Block = function(info, children, comment) {
-    assert(children.length);
     this.info = info;
     this.children = children;
     this.comment = comment || null;
@@ -1656,6 +1679,7 @@ var scratchblocks = function () {
     this.width = null;
     this.hasBlock = hasBlock;
   };
+  Comment.prototype.isComment = true;
   Comment.lineLength = 12;
   Comment.prototype.height = 20;
 
