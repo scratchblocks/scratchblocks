@@ -98,7 +98,7 @@ var scratchblocks = function () {
     6:  "control",
     7:  "sensing",
     8:  "operators",
-    9:  "variable",
+    9:  "variables",
     10: "custom",
     11: "parameter",
     12: "list",
