@@ -134,8 +134,10 @@
   ["length of %m.list",                           "r", 12,  "lineCountOfList:"],
   ["%m.list contains %s?",                        "b", 12,  "list:contains:"],
   
-  ["else", "else", 6, "else"],
-  ["end", "end", 6, "end"],
-  [". . .", " ", 42, "ellips"],
+  ["else", "else", 6, ""],
+  ["end", "end", 6, ""],
+  [". . .", " ", 42, ""],
+
+  ["%n @addInput", "ring", 42, ""],
 
 ];
