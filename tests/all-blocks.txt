@@ -254,38 +254,60 @@ reset timer
 ([sqrt v] of (9))
 
 
-
 // PicoBoard
 
 when [button pressed v]
+
 when [slider v] [> v] (50)
-<sensor [button pressed v] ?>
+
+<sensor [button pressed v]?
+
 ([slider v] sensor value)
 
-// Lego WeDo
+// Lego WeDo 1.0
 
 turn [motor v] on for (1) secs
+
 turn [motor v] on
+
 turn [motor v] off
-set [motor v] power (100)
-set [motor v] direction [this way v]
+
+set [motor v] power to (100)
+
+set [motor v] direction to [this way v]
+
 when distance [< v] (20)
-when tilt [= v] (1)
+
+when tilt [= v] (20)
+
 (distance)
+
 (tilt)
 
-// Lego WeDo (old)
+// Lego WeDo 2.0
 
-turn motor on for (1) secs
-turn motor on
-turn motor off
-set motor power (100)
-set motor direction [this way v]
-when distance < (20)
-when tilt = (1)
+turn [motor v] on for (1) seconds
 
+turn [motor v] on
 
-//
+turn [motor v] off
+
+set [motor v] power to (100)
+
+set [motor v] direction to [this way v]
+
+set light color to (50)
+
+play note (60 v) for (0.5) seconds
+
+when distance [< v] (50)
+
+when tilted
+
+(distance)
+
+(tilt [up-down v])
+
 
 // Obsolete Scratch 1.4 blocks:
 
@@ -325,17 +347,9 @@ when Sprite1 clicked
 
 
 
-// Extension
-
-motor on
-motor off
-motor on for (1) secs
-motor power (100)
-motor direction [this way v]
-
-
-
 // Grey
 
+. . .
 ...
 …
+

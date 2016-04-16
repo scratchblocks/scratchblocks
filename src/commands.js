@@ -133,7 +133,28 @@
   ["item %d.listItem of %m.list",                 "r", 12,  "getLine:ofList:"],
   ["length of %m.list",                           "r", 12,  "lineCountOfList:"],
   ["%m.list contains %s?",                        "b", 12,  "list:contains:"],
-  
+
+  ["when %m.booleanSensor",                         "h", 20,  ""],
+  ["when %m.sensor %m.lessMore %n",                 "h", 20,  ""],
+  ["sensor %m.booleanSensor?",                      "b", 20,  ""],
+  ["%m.sensor sensor value",                        "r", 20,  ""],
+
+  ["turn %m.motor on for %n secs",                  " ", 20,  ""],
+  ["turn %m.motor on",                              " ", 20,  ""],
+  ["turn %m.motor off",                             " ", 20,  ""],
+  ["set %m.motor power to %n",                      " ", 20,  ""],
+  ["set %m.motor2 direction to %m.motorDirection",  " ", 20,  ""],
+  ["when distance %m.lessMore %n",                  "h", 20,  ""],
+  ["when tilt %m.eNe %n",                           "h", 20,  ""],
+  ["distance",                                      "r", 20,  ""],
+  ["tilt",                                          "r", 20,  ""],
+
+  ["turn %m.motor on for %n seconds",               " ", 20,  ""],
+  ["set light color to %n",                         " ", 20,  ""],
+  ["play note %n for %n seconds",                   " ", 20,  ""],
+  ["when tilted",                                   "h", 20,  ""],
+  ["tilt %m.xxx",                                   "r", 20,  ""],
+
   ["else", "else", 6, ""],
   ["end", "end", 6, ""],
   [". . .", " ", 42, ""],
