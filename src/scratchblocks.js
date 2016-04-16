@@ -478,6 +478,7 @@ var scratchblocks = function () {
     function pBlock(end) {
       var children = pParts(end);
       if (tok && tok === '\n') next();
+      if (children.length === 0) return;
 
       // define hats
       var first = children[0];
@@ -557,11 +558,10 @@ var scratchblocks = function () {
       next(); // '{'
       var blocks = [];
       while (tok && tok !== '}') {
-        if (tok === '\n') {
-          next();
-          continue;
+        var block = pBlock('}');
+        if (block) {
+          blocks.push(block);
         }
-        blocks.push(pBlock('}'));
       }
       if (tok === '}') next();
       return new Script(blocks);
@@ -639,8 +639,10 @@ var scratchblocks = function () {
       var block = pBlock();
       if (tok === '/' && peek() === '/') {
         var comment = pComment();
-        comment.hasBlock = block.children.length;
-        if (!comment.hasBlock) return comment;
+        comment.hasBlock = block && block.children.length;
+        if (!comment.hasBlock) {
+          return comment;
+        }
         block.comment = comment;
       }
       return block;
@@ -648,11 +650,8 @@ var scratchblocks = function () {
 
     return function() {
       if (!tok) return undefined;
-      if (tok === '\n') {
-        next();
-        return 'NL';
-      }
-      return pLine();
+      var line = pLine();
+      return line || 'NL';
     }
   }
 
