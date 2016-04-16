@@ -320,7 +320,6 @@ var scratchblocks = function () {
       }
     }
     var hash = info.hash = minifyHash(words.join(" "));
-    console.log(hash);
 
     // paint
     for (var i=0; i<languages.length; i++) {
