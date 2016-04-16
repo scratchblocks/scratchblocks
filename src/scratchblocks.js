@@ -483,6 +483,9 @@ var scratchblocks = function () {
         next();
       }
       if (tok === ']') next();
+      if (hexColorPat.test(s)) {
+        return new Input('color', s);
+      }
       return !escapeV && / v$/.test(s) ? new Input('dropdown', s.slice(0, s.length - 2))
                                        : new Input('string', s);
     }
