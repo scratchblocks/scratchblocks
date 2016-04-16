@@ -1807,8 +1807,7 @@ var scratchblocks = function () {
         child.y = y;
         lines.push(child);
         scriptWidth = Math.max(scriptWidth, Math.max(1, child.width));
-        child.height = Math.max(12, child.height);
-        if (child.isFinal) child.height += 3;
+        child.height = Math.max(12, child.height) + 3;
         y += child.height;
         line = new Line(y);
       } else {
@@ -1846,7 +1845,7 @@ var scratchblocks = function () {
     for (var i=0; i<lines.length; i++) {
       var line = lines[i];
       if (line.isScript) {
-        objects.push(translate(13, line.y, line.el));
+        objects.push(translate(15, line.y, line.el));
         continue;
       }
 
