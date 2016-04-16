@@ -55,34 +55,6 @@ var scratchblocks = function () {
   var overrideCategories = ["motion", "looks", "sound", "pen", "variables", "list", "events", "control", "sensing", "operators", "custom", "custom-arg", "extension", "grey", "obsolete"];
   var overrideShapes = ["hat", "cap", "stack", "embedded", "boolean", "reporter", "celse", "cend", "ring"];
 
-  /*
-   * We need to store info such as category and shape for each block.
-   *
-   * This can be indexed in two ways:
-   *
-   *  - by the text input to the parser, minus the insert parts
-   *
-   *      (eg. "say [Hi!] for (3) secs" is minifed to "sayforsecs", which we
-   *           then look up in the database
-   *
-   *  - by a language code & blockid
-   *
-   *      (eg. "de" & "say _ for _ secs")
-   *
-   *      This is used by external add-ons for translating between languages,
-   *      and won't get used internally.
-   *
-   * Some definitions:
-   *
-   *  - spec: The spec for the block, with underscores representing inserts.
-   *          May be translated.
-   *          eg. "sage _ für _ Sek."
-   *
-   *  - blockid: the English spec.
-   *          eg. "say _ for _ secs"
-   *
-   */
-
   // languages that should be displayed right to left
   var rtlLanguages = ['ar', 'fa', 'he'];
 
