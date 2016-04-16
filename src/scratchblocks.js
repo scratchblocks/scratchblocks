@@ -1886,13 +1886,13 @@ var scratchblocks = function () {
     }
   };
 
-  Script.prototype.draw = function(block) {
+  Script.prototype.draw = function(inside) {
     var children = [];
     var y = 0;
     this.width = 0;
     for (var i=0; i<this.blocks.length; i++) {
       var block = this.blocks[i];
-      children.push(translate(block ? 0 : 2, y, block.draw()));
+      children.push(translate(inside ? 0 : 2, y, block.draw()));
       y += block.height;
       this.width = Math.max(this.width, block.width);
 
@@ -1906,7 +1906,7 @@ var scratchblocks = function () {
       }
     }
     this.height = y;
-    if (!block && !this.isFinal) {
+    if (!inside && !this.isFinal) {
       this.height += 3;
     }
     return group(children);
