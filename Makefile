@@ -1,6 +1,6 @@
 
 version := $(shell git describe --tags)
-all : css commands translations js zopfli
+all : css commands translations js
 
 clean :
 	rm -r build
