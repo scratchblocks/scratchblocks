@@ -488,7 +488,7 @@ var scratchblocks = function () {
       // standalone reporters
       if (children.length === 1) {
         var child = children[0];
-        if (child.isBlock && (child.isReporter || child.isBoolean)) {
+        if (child.isBlock && (child.isReporter || child.isBoolean || child.isRing)) {
           return child;
         }
       }
