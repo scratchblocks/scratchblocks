@@ -285,8 +285,10 @@ var scratchblocks = function () {
       if (hexColorPat.test(name)) {
         info.color = name;
         info.category = "";
+        info.categoryIsDefault = false;
       } else if (overrideCategories.indexOf(name) > -1) {
         info.category = name;
+        info.categoryIsDefault = false;
       } else if (overrideShapes.indexOf(name) > -1) {
         info.shape = name;
       } else if (name === 'cstart') {
@@ -326,6 +328,7 @@ var scratchblocks = function () {
         info.language = lang;
         if (info.shape === 'stack') info.shape = block.shape;
         info.category = block.category;
+        info.categoryIsDefault = false;
         info.selector = block.selector; // for backpack
         info.hasLoopArrow = block.hasLoopArrow;
 
@@ -386,6 +389,7 @@ var scratchblocks = function () {
         shape: shape,
         category: shape === 'define-hat' ? 'custom'
                 : shape === 'reporter' ? 'variables' : 'obsolete',
+        categoryIsDefault: true,
         hasLoopArrow: false,
       };
       return paintBlock(info, children, languages);
@@ -725,6 +729,80 @@ var scratchblocks = function () {
     return pFile();
   }
 
+  /* * */
+
+  function eachBlock(x, cb) {
+    if (x.isScript) {
+      x.blocks.forEach(function(block) {
+        eachBlock(block, cb);
+      });
+    } else if (x.isBlock) {
+      cb(x);
+      x.children.forEach(function(child) {
+        eachBlock(child, cb);
+      });
+    }
+  }
+
+  var listBlocks = {
+    "append:toList:": 1,
+    "deleteLine:ofList:": 1,
+    "insert:at:ofList:": 2,
+    "setLine:ofList:to:": 1,
+    "showList:": 0,
+    "hideList:": 0,
+  };
+
+  function recogniseStuff(scripts) {
+
+    var customBlocks = {};
+    var customBlocksByHash = {};
+    var listNames = {};
+
+    scripts.forEach(function(script) {
+      eachBlock(script, function(block) {
+        // custom blocks
+        if (block.info.shape === 'define-hat') {
+          // TODO
+
+        // list names
+        } else if (listBlocks.hasOwnProperty(block.info.selector)) {
+          var argIndex = listBlocks[block.info.selector];
+          var inputs = block.children.filter(function(child) {
+            return !child.isLabel;
+          });
+          var input = inputs[argIndex];
+          if (input.isInput) {
+            listNames[input.value] = true;
+          }
+        }
+      });
+    });
+
+    scripts.forEach(function(script) {
+      eachBlock(script, function(block) {
+        // custom blocks
+        if (false) {
+          // TODO
+
+        // list reporters
+        } else if (block.info.categoryIsDefault && block.info.category === 'variables') {
+          var words = [];
+          for (var i=0; i<block.children.length; i++) {
+            var child = block.children[i];
+            if (!child.isLabel) return;
+            words.push(child.value);
+          }
+          var name = words.join(" ");
+          if (listNames[name]) {
+            block.info.category = 'list';
+            block.info.categoryIsDefault = false;
+          }
+        }
+      });
+    });
+  }
+
   function parse(code, options) {
     var options = extend({
       inline: false,
@@ -739,6 +817,7 @@ var scratchblocks = function () {
 
     var f = parseLines(code, languages);
     var scripts = parseScripts(f);
+    recogniseStuff(scripts);
     return scripts;
   }
 
@@ -1792,7 +1871,7 @@ var scratchblocks = function () {
 
   // read code from a DOM element
   function readCode(el, options) {
-    var options = extend({ 
+    var options = extend({
       inline: false,
     }, options);
 
