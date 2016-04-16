@@ -391,10 +391,11 @@ var scratchblocks = function () {
     }
 
     function makeBlock(shape, children) {
+      var hasInputs = !!children.filter(function(x) { return !x.isLabel }).length;
       var info = {
         shape: shape,
         category: shape === 'define-hat' ? 'custom'
-                : shape === 'reporter' ? 'variables' : 'obsolete',
+                : shape === 'reporter' && !hasInputs ? 'variables' : 'obsolete',
         categoryIsDefault: true,
         hasLoopArrow: false,
       };
