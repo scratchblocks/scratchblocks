@@ -1,6 +1,6 @@
 
 version := $(shell git describe --tags)
-all : css translations js
+all : css commands translations js zopfli
 
 clean :
 	rm -r build
@@ -14,7 +14,7 @@ js : $(js-name) $(translations) $(translations_all)
 $(js-name) : \
 	    src/scratchblocks.js
 	mkdir -p build/
-	uglifyjs $^ > $@ --comments
+	uglifyjs $^ > $@ --comments --mangle
 $(translations) : src/translations.js
 	uglifyjs $^ > $@ --comments
 $(translations_all) : src/translations-all.js
@@ -27,13 +27,16 @@ css : src/defs.css
 	sed -i '' 's/var cssContent =.*/var cssContent = "$(shell cleancss $^)";/' \
 	    src/scratchblocks.js
 
+commands : src/commands.js
+	sh -c 'cd src ; python package_commands.py'
+
 translations : \
 	src/translations.js \
 	src/translations-all.js
 
-src/translations.js : src/extra_strings.py src/_cache/*
+src/translations.js : src/extra_strings.py src/_cache src/commands.js src/build_translations.py
 	sh -c 'cd src ; python build_translations.py'
 
-src/translations-all.js : src/extra_strings.py src/_cache/*
+src/translations-all.js : src/extra_strings.py src/_cache src/commands.js src/build_translations.py
 	sh -c 'cd src ; python build_translations.py all'
 

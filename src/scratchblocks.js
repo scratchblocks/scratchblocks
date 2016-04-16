@@ -2,130 +2,58 @@
  * scratchblocks
  * http://scratchblocks.github.io/
  *
- * Copyright 2013, Tim Radvan
+ * Copyright 2013-2016, Tim Radvan
  * @license MIT
  * http://opensource.org/licenses/MIT
  */
-
-/*
- * The following classes are used:
- *
- * Categories:
- *
- *     sb2
- *     inline-block
- *     script
- *     empty
- *
- * Comments:
- *
- *     comment
- *     attached
- *     to-hat
- *     to-reporter
- *
- * Shapes:
- *
- *     hat                |- Blocks  (These come from the database, the rest
- *     cap                |           come from the parsed code.)
- *
- *     stack              |
- *     embedded           |- Blocks
- *     boolean            |
- *
- *     reporter           |- This one's kinda weird.
- *                           "embedded" and "reporter" should really be the
- *                           same thing, but are separate due to some
- *                           implementation detail that I don't even remember.
- *
- *     string             |
- *     dropdown           |
- *     number             |
- *     number-dropdown    |- Inserts
- *     color              |
- *     define-hat         |
- *     outline            |
- *
- *     cstart |
- *     celse  |- Parser directives. (Used in the database to tell the parser
- *     cend   |                      to create the C blocks.)
- *
- *     cmouth |
- *     cwrap  |- Only used in the CSS code
- *     capend |
- *
- *     ring
- *     ring-inner
- *
- * Categories (colour):
- *
- *     motion
- *     looks
- *     sound
- *     pen
- *     variables
- *     list
- *
- *     events
- *     control
- *     sensing
- *     operators
- *
- *     custom
- *     custom-arg
- *     extension -- Sensor blocks
- *     grey -- for the ". . ." ellipsis block
- *
- *     obsolete
- *
-*/
-
-String.prototype.startsWith = function(prefix) {
-  return this.indexOf(prefix) === 0;
-};
-
-String.prototype.endsWith = function(suffix) {
-  return this.indexOf(suffix, this.length - suffix.length) !== -1;
-};
-
-String.prototype.contains = function(substring) {
-  return this.indexOf(substring) !== -1;
-};
-
-String.prototype.trimLeft = function() {
-  return this.replace(/^\s+/, "");
-}
-
-String.prototype.trimRight = function() {
-  return this.replace(/\s+$/, "");
-}
-
-
-
 var scratchblocks = function () {
-  "use strict";
+  'use strict';
+
+  /* utils */
 
   function assert(bool, message) {
-    if (!bool) throw "Assertion failed! " + message;
+    if (!bool) throw "Assertion failed! " + (message || "");
   }
 
+  function isArray(o) {
+    return o && o.constructor === Array;
+  }
 
+  function bool(x) { return !!x; }
+
+  function extend(src, dest) {
+    src = src || {};
+    dest = dest || {};
+    for (var key in src) {
+      if (src.hasOwnProperty(key) && !dest.hasOwnProperty(key)) {
+        dest[key] = src[key];
+      }
+    }
+    return dest;
+  }
+
+  // deep clone dictionaries/lists.
+  function clone(val) {
+    if (val == null) return val;
+    if (val.constructor == Array) {
+      return val.map(clone);
+    } else if (typeof val == "object") {
+      var result = {}
+      for (var key in val) {
+        result[clone(key)] = clone(val[key]);
+      }
+      return result;
+    } else {
+      return val;
+    }
+  }
+
+  /*****************************************************************************/
 
   // List of classes we're allowed to override.
 
-  var override_categories = ["motion", "looks", "sound", "pen",
-    "variables", "list", "events", "control", "sensing",
-    "operators", "custom", "custom-arg", "extension", "grey",
-    "obsolete"];
-  var override_flags = ["cstart", "celse", "cend", "ring"];
-  var override_shapes = ["hat", "cap", "stack", "embedded",
-    "boolean", "reporter"];
-
-
-
-  /*** Database ***/
-
-  // First, initialise the blocks database.
+  var overrideCategories = ["motion", "looks", "sound", "pen", "variables", "list", "events", "control", "sensing", "operators", "custom", "custom-arg", "extension", "grey", "obsolete"];
+  var overrideShapes = ["hat", "cap", "stack", "embedded", "boolean", "reporter", "celse", "cend", "ring"];
 
   /*
    * We need to store info such as category and shape for each block.
@@ -155,1204 +83,844 @@ var scratchblocks = function () {
    *
    */
 
-  var strings = {
-    aliases: {},
+  // languages that should be displayed right to left
+  var rtlLanguages = ['ar', 'fa', 'he'];
 
-    define: [],
-    ignorelt: [],
-    math: [],
-    osis: [],
+  // List of commands taken from Scratch
+  var scratchCommands = [ ["move %n steps", " ", 1, "forward:"], ["turn @turnRight %n degrees", " ", 1, "turnRight:"], ["turn @turnLeft %n degrees", " ", 1, "turnLeft:"], ["point in direction %d.direction", " ", 1, "heading:"], ["point towards %m.spriteOrMouse", " ", 1, "pointTowards:"], ["go to x:%n y:%n", " ", 1, "gotoX:y:"], ["go to %m.location", " ", 1, "gotoSpriteOrMouse:"], ["glide %n secs to x:%n y:%n", " ", 1, "glideSecs:toX:y:elapsed:from:"], ["change x by %n", " ", 1, "changeXposBy:"], ["set x to %n", " ", 1, "xpos:"], ["change y by %n", " ", 1, "changeYposBy:"], ["set y to %n", " ", 1, "ypos:"], ["set rotation style %m.rotationStyle", " ", 1, "setRotationStyle"], ["say %s for %n secs", " ", 2, "say:duration:elapsed:from:"], ["say %s", " ", 2, "say:"], ["think %s for %n secs", " ", 2, "think:duration:elapsed:from:"], ["think %s", " ", 2, "think:"], ["show", " ", 2, "show"], ["hide", " ", 2, "hide"], ["switch costume to %m.costume", " ", 2, "lookLike:"], ["next costume", " ", 2, "nextCostume"], ["next backdrop", " ", 102, "nextScene"], ["switch backdrop to %m.backdrop", " ", 2, "startScene"], ["switch backdrop to %m.backdrop and wait", " ", 102, "startSceneAndWait"], ["change %m.effect effect by %n", " ", 2, "changeGraphicEffect:by:"], ["set %m.effect effect to %n", " ", 2, "setGraphicEffect:to:"], ["clear graphic effects", " ", 2, "filterReset"], ["change size by %n", " ", 2, "changeSizeBy:"], ["set size to %n%", " ", 2, "setSizeTo:"], ["go to front", " ", 2, "comeToFront"], ["go back %n layers", " ", 2, "goBackByLayers:"], ["play sound %m.sound", " ", 3, "playSound:"], ["play sound %m.sound until done", " ", 3, "doPlaySoundAndWait"], ["stop all sounds", " ", 3, "stopAllSounds"], ["play drum %d.drum for %n beats", " ", 3, "playDrum"], ["rest for %n beats", " ", 3, "rest:elapsed:from:"], ["play note %d.note for %n beats", " ", 3, "noteOn:duration:elapsed:from:"], ["set instrument to %d.instrument", " ", 3, "instrument:"], ["change volume by %n", " ", 3, "changeVolumeBy:"], ["set volume to %n%", " ", 3, "setVolumeTo:"], ["change tempo by %n", " ", 3, "changeTempoBy:"], ["set tempo to %n bpm", " ", 3, "setTempoTo:"], ["clear", " ", 4, "clearPenTrails"], ["stamp", " ", 4, "stampCostume"], ["pen down", " ", 4, "putPenDown"], ["pen up", " ", 4, "putPenUp"], ["set pen color to %c", " ", 4, "penColor:"], ["change pen color by %n", " ", 4, "changePenHueBy:"], ["set pen color to %n", " ", 4, "setPenHueTo:"], ["change pen shade by %n", " ", 4, "changePenShadeBy:"], ["set pen shade to %n", " ", 4, "setPenShadeTo:"], ["change pen size by %n", " ", 4, "changePenSizeBy:"], ["set pen size to %n", " ", 4, "penSize:"], ["when @greenFlag clicked", "h", 5, "whenGreenFlag"], ["when %m.key key pressed", "h", 5, "whenKeyPressed"], ["when this sprite clicked", "h", 5, "whenClicked"], ["when backdrop switches to %m.backdrop", "h", 5, "whenSceneStarts"], ["when %m.triggerSensor > %n", "h", 5, "whenSensorGreaterThan"], ["when I receive %m.broadcast", "h", 5, "whenIReceive"], ["broadcast %m.broadcast", " ", 5, "broadcast:"], ["broadcast %m.broadcast and wait", " ", 5, "doBroadcastAndWait"], ["wait %n secs", " ", 6, "wait:elapsed:from:"], ["repeat %n", "c", 6, "doRepeat"], ["forever", "cf",6, "doForever"], ["if %b then", "c", 6, "doIf"], ["if %b then", "e", 6, "doIfElse"], ["wait until %b", " ", 6, "doWaitUntil"], ["repeat until %b", "c", 6, "doUntil"], ["stop %m.stop", "f", 6, "stopScripts"], ["when I start as a clone", "h", 6, "whenCloned"], ["create clone of %m.spriteOnly", " ", 6, "createCloneOf"], ["delete this clone", "f", 6, "deleteClone"], ["ask %s and wait", " ", 7, "doAsk"], ["turn video %m.videoState", " ", 7, "setVideoState"], ["set video transparency to %n%", " ", 7, "setVideoTransparency"], ["reset timer", " ", 7, "timerReset"], ["set %m.var to %s", " ", 9, "setVar:to:"], ["change %m.var by %n", " ", 9, "changeVar:by:"], ["show variable %m.var", " ", 9, "showVariable:"], ["hide variable %m.var", " ", 9, "hideVariable:"], ["add %s to %m.list", " ", 12, "append:toList:"], ["delete %d.listDeleteItem of %m.list", " ", 12, "deleteLine:ofList:"], ["if on edge, bounce", " ", 1, "bounceOffEdge"], ["insert %s at %d.listItem of %m.list", " ", 12, "insert:at:ofList:"], ["replace item %d.listItem of %m.list with %s", " ", 12, "setLine:ofList:to:"], ["show list %m.list", " ", 12, "showList:"], ["hide list %m.list", " ", 12, "hideList:"], ["x position", "r", 1, "xpos"], ["y position", "r", 1, "ypos"], ["direction", "r", 1, "heading"], ["costume #", "r", 2, "costumeIndex"], ["size", "r", 2, "scale"], ["backdrop name", "r", 102, "sceneName"], ["backdrop #", "r", 102, "backgroundIndex"], ["volume", "r", 3, "volume"], ["tempo", "r", 3, "tempo"], ["touching %m.touching?", "b", 7, "touching:"], ["touching color %c?", "b", 7, "touchingColor:"], ["color %c is touching %c?", "b", 7, "color:sees:"], ["distance to %m.spriteOrMouse", "r", 7, "distanceTo:"], ["answer", "r", 7, "answer"], ["key %m.key pressed?", "b", 7, "keyPressed:"], ["mouse down?", "b", 7, "mousePressed"], ["mouse x", "r", 7, "mouseX"], ["mouse y", "r", 7, "mouseY"], ["loudness", "r", 7, "soundLevel"], ["video %m.videoMotionType on %m.stageOrThis", "r", 7, "senseVideoMotion"], ["timer", "r", 7, "timer"], ["%m.attribute of %m.spriteOrStage", "r", 7, "getAttribute:of:"], ["current %m.timeAndDate", "r", 7, "timeAndDate"], ["days since 2000", "r", 7, "timestamp"], ["username", "r", 7, "getUserName"], ["%n + %n", "r", 8, "+"], ["%n - %n", "r", 8, "-"], ["%n * %n", "r", 8, "*"], ["%n / %n", "r", 8, "/"], ["pick random %n to %n", "r", 8, "randomFrom:to:"], ["%s < %s", "b", 8, "<"], ["%s = %s", "b", 8, "="], ["%s > %s", "b", 8, ">"], ["%b and %b", "b", 8, "&"], ["%b or %b", "b", 8, "|"], ["not %b", "b", 8, "not"], ["join %s %s", "r", 8, "concatenate:with:"], ["letter %n of %s", "r", 8, "letter:of:"], ["length of %s", "r", 8, "stringLength:"], ["%n mod %n", "r", 8, "%"], ["round %n", "r", 8, "rounded"], ["%m.mathOp of %n", "r", 8, "computeFunction:of:"], ["item %d.listItem of %m.list", "r", 12, "getLine:ofList:"], ["length of %m.list", "r", 12, "lineCountOfList:"], ["%m.list contains %s?", "b", 12, "list:contains:"], ["when %m.booleanSensor", "h", 20, ""], ["when %m.sensor %m.lessMore %n", "h", 20, ""], ["sensor %m.booleanSensor?", "b", 20, ""], ["%m.sensor sensor value", "r", 20, ""], ["turn %m.motor on for %n secs", " ", 20, ""], ["turn %m.motor on", " ", 20, ""], ["turn %m.motor off", " ", 20, ""], ["set %m.motor power to %n", " ", 20, ""], ["set %m.motor2 direction to %m.motorDirection", " ", 20, ""], ["when distance %m.lessMore %n", "h", 20, ""], ["when tilt %m.eNe %n", "h", 20, ""], ["distance", "r", 20, ""], ["tilt", "r", 20, ""], ["turn %m.motor on for %n seconds", " ", 20, ""], ["set light color to %n", " ", 20, ""], ["play note %n for %n seconds", " ", 20, ""], ["when tilted", "h", 20, ""], ["tilt %m.xxx", "r", 20, ""], ["else", "else", 6, ""], ["end", "end", 6, ""], [". . .", " ", 42, ""], ["%n @addInput", "ring", 42, ""], ];
+
+  var categoriesById = {
+    1:  "motion",
+    2:  "looks",
+    3:  "sound",
+    4:  "pen",
+    5:  "events",
+    6:  "control",
+    7:  "sensing",
+    8:  "operators",
+    9:  "variables",
+    10: "custom",
+    11: "parameter",
+    12: "list",
+    20: "extension",
+    42: "grey",
   };
 
-  // languages that should be displayed right to left
-  var rtl_languages = ['ar', 'fa', 'he'];
+  var typeShapes = {
+    ' ': 'stack',
+    'b': 'boolean',
+    'c': 'c-block',
+    'e': 'if-block',
+    'f': 'cap',
+    'h': 'hat',
+    'r': 'reporter',
+    'cf': 'c-block cap',
+    'else': 'celse',
+    'end': 'cend',
+    'ring': 'ring',
+  };
 
-  var languages = {};
-  var block_info_by_id = block_info_by_id = {};
-  var block_by_text = {};
-  var blockids = []; // Used by load_language
+  var inputPat = /(%[a-zA-Z](?:\.[a-zA-Z0-9]+)?)/g;
+  var iconPat = /(@[a-zA-Z]+)/;
+  var splitPat = new RegExp([inputPat.source, '|', iconPat.source].join(''), 'g');
 
-  // Build the English blocks.
+  var hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/;
+
+  function parseSpec(spec) {
+    var parts = spec.split(splitPat).filter(bool);
+    return {
+      spec: spec,
+      parts: parts,
+      inputs: parts.filter(function(p) { return inputPat.test(p); }),
+      hash: hashSpec(spec),
+    };
+  }
+
+  function hashSpec(spec) {
+    return minifyHash(spec.replace(inputPat, " _ "));
+  }
+
+  function minifyHash(hash) {
+    return (hash
+        .replace(/_/g, ' _ ')
+        .replace(/ +/g, ' ')
+        .replace(/[,%?:]/g, '')
+        .replace(/ß/g, 'ss')
+        .replace(/ä/g,"a")
+        .replace(/ö/g,"o")
+        .replace(/ü/g,"u")
+        .replace('. . .', '...')
+    ).trim();
+  }
+
+  var blocksBySelector = {};
+  var blocksBySpec = {};
+  var allBlocks = scratchCommands.map(function(command) {
+    var info = extend(parseSpec(command[0]), {
+      shape: typeShapes[command[1]], // /[ bcefhr]|cf/
+      category: categoriesById[command[2] % 100],
+      selector: command[3],
+      hasLoopArrow: ['doRepeat', 'doUntil', 'doForever'].indexOf(command[3]) > -1,
+    });
+    if (info.selector) {
+      assert(!blocksBySelector[info.selector], info.selector);
+      blocksBySelector[info.selector] = info;
+    }
+    return blocksBySpec[info.spec] = info;
+  });
+
+  var imageIcons = {
+    "@greenFlag": "⚑",
+    "@turnRight": "↻",
+    "@turnLeft": "↺",
+  };
+
+  var allLanguages = {};
+  function loadLanguage(code, language) {
+    var blocksByHash = language.blocksByHash = {};
+
+    Object.keys(language.commands).forEach(function(spec) {
+      var nativeSpec = language.commands[spec];
+      var block = blocksBySpec[spec];
+
+      var nativeHash = hashSpec(nativeSpec);
+      blocksByHash[nativeHash] = block;
+
+      // fallback image replacement, for languages without aliases
+      var m = iconPat.exec(spec);
+      if (m) {
+        var image = m[0];
+        var hash = nativeHash.replace(image, imageIcons[image]);
+        blocksByHash[hash] = block;
+      }
+    });
+
+    Object.keys(language.aliases).forEach(function(alias) {
+      var spec = language.aliases[alias];
+      var block = blocksBySpec[spec];
+
+      var aliasHash = hashSpec(alias);
+      blocksByHash[aliasHash] = block;
+    });
+
+    allLanguages[code] = language;
+  }
+  function loadLanguages(languages) {
+    Object.keys(languages).forEach(function(code) {
+      loadLanguage(code, languages[code]);
+    });
+  }
 
   var english = {
-    code: "en",
-
     aliases: {
-      "turn left _ degrees": "turn @arrow-ccw _ degrees",
-      "turn ccw _ degrees": "turn @arrow-ccw _ degrees",
-      "turn ↺ _ degrees": "turn @arrow-ccw _ degrees",
-        "turn right _ degrees": "turn @arrow-cw _ degrees",
-        "turn cw _ degrees": "turn @arrow-cw _ degrees",
-          "turn ↻ _ degrees": "turn @arrow-cw _ degrees",
-          "when gf clicked": "when @green-flag clicked",
-            "when flag clicked": "when @green-flag clicked",
-            "when green flag clicked": "when @green-flag clicked",
-              "when ⚑ clicked": "when @green-flag clicked",
+      "turn left %n degrees": "turn @turnLeft %n degrees",
+      "turn ccw %n degrees": "turn @turnLeft %n degrees",
+      "turn right %n degrees": "turn @turnRight %n degrees",
+      "turn cw %n degrees": "turn @turnRight %n degrees",
+      "when gf clicked": "when @greenFlag clicked",
+      "when flag clicked": "when @greenFlag clicked",
+      "when green flag clicked": "when @greenFlag clicked",
+      "...": ". . .",
+      "…": ". . .",
     },
 
     define: ["define"],
 
-      // For ignoring the lt sign in the "when distance < _" block
+    // For ignoring the lt sign in the "when distance < _" block
     ignorelt: ["when distance"],
 
-      // Valid arguments to "of" dropdown, for resolving ambiguous situations
-    math: ["abs", "floor", "ceiling", "sqrt", "sin", "cos", "tan", "asin",
-      "acos", "atan", "ln", "log", "e ^", "10 ^"],
+    // Valid arguments to "of" dropdown, for resolving ambiguous situations
+    math: ["abs", "floor", "ceiling", "sqrt", "sin", "cos", "tan", "asin", "acos", "atan", "ln", "log", "e ^", "10 ^"],
 
-      // For detecting the "stop" cap / stack block
+    // For detecting the "stop" cap / stack block
     osis: ["other scripts in sprite", "other scripts in stage"],
 
-    blocks: [], // These are defined just below
-
-    palette: { // Currently unused
-      "Control": "Control",
-      "Data": "Data",
-      "Events": "Events",
-      "Looks": "Looks",
-        "More Blocks": "More Blocks",
-      "Motion": "Motion",
-      "Operators": "Operators",
-      "Pen": "Pen",
-      "Sensing": "Sensing",
-      "Sound": "Sound",
-      "List": "Lists",
-      "Variables": "Variables",
-    },
+    commands: {},
   };
-
-  var image_text = {
-    "arrow-cw": "↻",
-    "arrow-ccw": "↺",
-  };
-
-  var english_blocks = [
-    ["motion"],
-
-    ["move _ steps", []],
-    ["turn @arrow-ccw _ degrees", []],
-    ["turn @arrow-cw _ degrees", []],
-
-    ["point in direction _", []],
-    ["point towards _", []],
-
-    ["go to x:_ y:_", []],
-    ["go to _", []],
-    ["glide _ secs to x:_ y:_", []],
-
-    ["change x by _", []],
-    ["set x to _", []],
-    ["change y by _", []],
-    ["set y to _", []],
-
-    ["if on edge, bounce", []],
-
-    ["set rotation style _", []],
-
-    ["x position", []],
-    ["y position", []],
-    ["direction", []],
-
-
-
-    ["looks"],
-
-    ["say _ for _ secs", []],
-    ["say _", []],
-    ["think _ for _ secs", []],
-    ["think _", []],
-
-    ["show", []],
-    ["hide", []],
-
-    ["switch costume to _", []],
-    ["next costume", []],
-    ["switch backdrop to _", []],
-
-    ["change _ effect by _", []],
-    ["set _ effect to _", []],
-    ["clear graphic effects", []],
-
-    ["change size by _", []],
-    ["set size to _%", []],
-
-    ["go to front", []],
-    ["go back _ layers", []],
-
-    ["costume #", []],
-    ["backdrop name", []],
-    ["size", []],
-
-    // Stage-specific
-
-    ["switch backdrop to _ and wait", []],
-    ["next backdrop", []],
-
-    ["backdrop #", []],
-
-    // Scratch 1.4
-
-    ["switch to costume _", []],
-
-    ["switch to background _", []],
-    ["next background", []],
-    ["background #", []],
-
-
-
-    ["sound"],
-
-    ["play sound _", []],
-    ["play sound _ until done", []],
-    ["stop all sounds", []],
-
-    ["play drum _ for _ beats", []],
-    ["rest for _ beats", []],
-
-    ["play note _ for _ beats", []],
-    ["set instrument to _", []],
-
-    ["change volume by _", []],
-    ["set volume to _%", []],
-    ["volume", []],
-
-    ["change tempo by _", []],
-    ["set tempo to _ bpm", []],
-    ["tempo", []],
-
-
-
-    ["pen"],
-
-    ["clear", []],
-
-    ["stamp", []],
-
-    ["pen down", []],
-    ["pen up", []],
-
-    ["set pen color to _", []],
-    ["change pen color by _", []],
-    ["set pen color to _", []],
-
-    ["change pen shade by _", []],
-    ["set pen shade to _", []],
-
-    ["change pen size by _", []],
-    ["set pen size to _", []],
-
-
-
-    ["variables"],
-
-    ["set _ to _", []],
-    ["change _ by _", []],
-    ["show variable _", []],
-    ["hide variable _", []],
-
-
-
-    ["list"],
-
-    ["add _ to _", []],
-
-    ["delete _ of _", []],
-    ["insert _ at _ of _", []],
-    ["replace item _ of _ with _", []],
-
-    ["item _ of _", []],
-    ["length of _", []],
-    ["_ contains _", []],
-
-    ["show list _", []],
-    ["hide list _", []],
-
-
-
-    ["events"],
-
-    ["when @green-flag clicked", ["hat"]],
-    ["when _ key pressed", ["hat"]],
-    ["when this sprite clicked", ["hat"]],
-    ["when Stage clicked", ["hat"]],
-    ["when backdrop switches to _", ["hat"]],
-
-    ["when _ > _", ["hat"]],
-
-    ["when I receive _", ["hat"]],
-    ["broadcast _", []],
-    ["broadcast _ and wait", []],
-
-
-
-    ["control"],
-
-    ["wait _ secs", []],
-
-    ["repeat _", ["cstart"]],
-    ["forever", ["cstart", "cap"]],
-    ["if _ then", ["cstart"]],
-    ["else", ["celse"]],
-    ["end", ["cend"]],
-    ["wait until _", []],
-    ["repeat until _", ["cstart"]],
-
-    ["stop _", ["cap"]],
-
-    ["when I start as a clone", ["hat"]],
-    ["create clone of _", []],
-    ["delete this clone", ["cap"]],
-
-    // Scratch 1.4
-
-    ["if _", ["cstart"]],
-    ["forever if _", ["cstart", "cap"]],
-    ["stop script", ["cap"]],
-    ["stop all", ["cap"]],
-
-
-
-    ["sensing"],
-
-    ["touching _?", []],
-    ["touching color _?", []],
-    ["color _ is touching _?", []],
-    ["distance to _", []],
-
-    ["ask _ and wait", []],
-    ["answer", []],
-
-    ["key _ pressed?", []],
-    ["mouse down?", []],
-    ["mouse x", []],
-    ["mouse y", []],
-
-    ["loudness", []],
-
-    ["video _ on _", []],
-    ["turn video _", []],
-    ["set video transparency to _%", []],
-
-    ["timer", []],
-    ["reset timer", []],
-
-    ["_ of _", []],
-
-    ["current _", []],
-    ["days since 2000", []],
-    ["username", []],
-
-    // Scratch 1.4
-
-    ["loud?", []],
-
-
-
-    ["operators"],
-
-    ["_ + _", []],
-    ["_ - _", []],
-    ["_ * _", []],
-    ["_ / _", []],
-
-    ["pick random _ to _", []],
-
-    ["_ < _", []],
-    ["_ = _", []],
-    ["_ > _", []],
-
-    ["_ and _", []],
-    ["_ or _", []],
-    ["not _", []],
-
-    ["join _ _", []],
-    ["letter _ of _", []],
-    ["length of _", []],
-
-    ["_ mod _", []],
-    ["round _", []],
-
-    ["_ of _", []],
-
-
-
-    ["extension"],
-
-    // PicoBoard
-
-    ["when _", ["hat"]],
-    ["when _ _ _", ["hat"]],
-    ["sensor _?", []],
-    ["_ sensor value", []],
-
-    // LEGO WeDo
-
-    ["turn _ on for _ secs", []],
-    ["turn _ on", []],
-    ["turn _ off", []],
-    ["set _ power _", []],
-    ["set _ direction _", []],
-    ["when distance _ _", ["hat"]],
-    ["when tilt _ _", ["hat"]],
-    ["distance", []],
-    ["tilt", []],
-
-    // LEGO WeDo (old)
-
-    ["turn motor on for _ secs", []],
-    ["turn motor on", []],
-    ["turn motor off", []],
-    ["set motor power _", []],
-    ["set motor direction _", []],
-    ["when distance < _", ["hat"]],
-    ["when tilt = _", ["hat"]],
-
-    // Scratch 1.4
-
-    ["motor on", []],
-    ["motor off", []],
-    ["motor on for _ secs", []],
-    ["motor power _", []],
-    ["motor direction _", []],
-
-
-
-    ["grey"],
-
-    ["…", []],
-    ["...", []],
-  ];
-
-  // The blockids are the same as english block text, so we build the blockid
-  // list at the same time.
-
-  var category = null;
-  for (var i=0; i<english_blocks.length; i++) {
-    if (english_blocks[i].length === 1) { // [category]
-      category = english_blocks[i][0];
-    } else {                              // [block id, [list of flags]]
-      var block_and_flags = english_blocks[i],
-          spec = block_and_flags[0], flags = block_and_flags[1];
-      english.blocks.push(spec);
-
-      blockids.push(spec); // Other languages will just provide a list of
-      // translations, which is matched up with this
-      // list.
-
-      // Now store shape/category info.
-      var info = {
-        blockid: spec,
-        category: category,
-      };
-
-      while (flags.length) {
-        var flag = flags.pop();
-        switch (flag) {
-          case "hat":
-          case "cap":
-            info.shape = flag;
-            break;
-          default:
-            assert(!info.flag);
-            info.flag = flag;
-        }
-      }
-
-      var image_match = /@([-A-z]+)/.exec(spec);
-      if (image_match) {
-        info.image_replacement = image_match[1];
-      }
-
-      block_info_by_id[spec] = info;
-    }
+  allBlocks.forEach(function(info) {
+    english.commands[info.spec] = info.spec;
+  }),
+  loadLanguages({
+    en: english,
+  });
+
+  /*****************************************************************************/
+
+  function disambig(selector1, selector2, test) {
+    var func = function(info, children, lang) {
+      return blocksBySelector[test(children, lang) ? selector1 : selector2];
+    };
+    blocksBySelector[selector1].specialCase = blocksBySelector[selector2].specialCase = func;
   }
 
-  // Built english, now add it.
-
-  load_language(english);
-
-  function load_language(language) {
-    language = clone(language);
-
-    var iso_code = language.code;
-    delete language.code;
-
-    // convert blocks list to a dict.
-    var block_spec_by_id = {};
-    for (var i=0; i<language.blocks.length; i++) {
-      var spec = language.blocks[i],
-          blockid = blockids[i];
-      spec = spec.replace(/@[-A-z]+/, "@"); // remove images
-      block_spec_by_id[blockid] = spec;
-
-      // Add block to the text lookup dict.
-      var minispec = minify(normalize_spec(spec));
-      if (minispec) block_by_text[minispec] = {
-        blockid: blockid,
-        lang: iso_code,
-      };
-    }
-    language.blocks = block_spec_by_id;
-
-    // add aliases (for images)
-    for (var text in language.aliases) {
-      strings.aliases[text] = language.aliases[text];
-
-      // Add alias to the text lookup dict.
-      var minispec = minify(normalize_spec(text));
-      block_by_text[minispec] = {
-        blockid: language.aliases[text],
-        lang: iso_code,
-      };
-    }
-
-    // add stuff to strings
-    for (var key in strings) {
-      if (strings[key].constructor === Array) {
-        for (i=0; i<language[key].length; i++) {
-          if (language[key][i]) {
-            strings[key].push(minify(language[key][i]));
-          }
-        }
-      }
-    }
-
-    languages[iso_code] = language;
-  }
-  load_language = load_language;
-
-  // Store initial state.
-  var _init_strings = clone(strings);
-  var _init_languages = clone(languages);
-  var _init_block_by_text = clone(block_by_text);
-
-  var reset_languages = function(language) {
-    strings = clone(_init_strings);
-    languages = clone(_init_languages);
-    block_by_text = clone(_init_block_by_text);
-  }
-
-  // Hacks for certain blocks.
-
-  block_info_by_id["_ of _"].hack = function (info, args) {
+  disambig('computeFunction:of:', 'getAttribute:of:', function(children, lang) {
     // Operators if math function, otherwise sensing "attribute of" block
-    if (!args.length) return;
-    var func = minify(strip_brackets(args[0]).replace(/ v$/, ""));
-    if (func == "e^") func = "e ^";
-    if (func == "10^") func = "10 ^";
-    info.category = (strings.math.indexOf(func) > -1) ? "operators"
-      : "sensing";
-  }
+    var first = children[0];
+    if (!first.isInput) return;
+    var name = first.value;
+    return lang.math.indexOf(name) > -1;
+  });
 
-  block_info_by_id["length of _"].hack = function (info, args) {
+  disambig('lineCountOfList:', 'stringLength:', function(children, lang) {
     // List block if dropdown, otherwise operators
-    if (!args.length) return;
-    info.category = (/^\[.* v\]$/.test(args[0])) ? "list"
-      : "operators";
-  }
+    var last = children[children.length - 1];
+    if (!last.isInput) return;
+    return last.shape === 'dropdown';
+  });
 
-  block_info_by_id["stop _"].hack = function (info, args) {
+  blocksBySelector['stopScripts'].specialCase = function(info, children, lang) {
     // Cap block unless argument is "other scripts in sprite"
-    if (!args.length) return;
-    var what = minify(strip_brackets(args[0]).replace(/ v$/, ""));
-    info.shape = (strings.osis.indexOf(what) > -1) ? null
-      : "cap";
+    var last = children[children.length - 1];
+    if (!last.isInput) return;
+    var value = last.value;
+    if (lang.osis.indexOf(value) > -1) {
+      return extend(blocksBySelector['stopScripts'], {
+        shape: 'stack',
+      });
+    }
   }
 
-  // Define function for getting block info by text.
 
-  function find_block(spec, args) {
-    var minitext = minify(spec);
-    if (minitext in block_by_text) {
-      var lang_and_id = block_by_text[minitext];
-      var blockid = lang_and_id.blockid;
-      var info = clone(block_info_by_id[blockid]);
-      info.lang = lang_and_id.lang;
-      if (info.image_replacement) {
-        info.spec = languages[lang_and_id.lang].blocks[blockid];
+  function applyOverrides(info, overrides) {
+    for (var i=0; i<overrides.length; i++) {
+      var name = overrides[i];
+      if (hexColorPat.test(name)) {
+        info.color = name;
+        info.category = "";
+        info.categoryIsDefault = false;
+      } else if (overrideCategories.indexOf(name) > -1) {
+        info.category = name;
+        info.categoryIsDefault = false;
+      } else if (overrideShapes.indexOf(name) > -1) {
+        info.shape = name;
+      } else if (name === 'cstart') {
+        info.shape = 'c-block';
+      } else if (name === 'loop') {
+        info.hasLoopArrow = true;
+      }
+    }
+  }
+
+  function paintBlock(info, children, languages) {
+    var overrides = [];
+    if (isArray(children[children.length - 1])) {
+      overrides = children.pop();
+    }
+
+    // build hash
+    var words = [];
+    for (var i=0; i<children.length; i++) {
+      var child = children[i];
+      if (child.isLabel) {
+        words.push(child.value);
+      } else if (child.isIcon) {
+        words.push("@" + child.name);
       } else {
-        if (spec === "..." || spec === "…") spec = ". . .";
-        info.spec = spec;
+        words.push("_");
       }
-      if (info.hack) info.hack(info, args);
-      return info;
     }
-    if (spec.replace(/ /g, "") === "...") return find_block("...");
-  }
+    var hash = info.hash = minifyHash(words.join(" "));
 
-  // Utility function that deep clones dictionaries/lists.
-
-  function clone(val) {
-    if (val == null) return val;
-    if (val.constructor == Array) {
-      return val.map(clone);
-    } else if (typeof val == "object") {
-      var result = {}
-      for (var key in val) {
-        result[clone(key)] = clone(val[key]);
-      }
-      return result;
-    } else {
-      return val;
-    }
-  }
-
-  // Text minifying functions normalise block text before lookups.
-
-  function minify(text) {
-    var minitext = text.replace(/[.,%?:▶◀▸◂]/g, "").toLowerCase()
-      .replace(/[ \t]+/g, " ").trim();
-    minitext = (minitext
-      .replace("ß", "ss")
-      .replace("ü", "u")
-      .replace("ö", "o")
-      .replace("ä", "a")
-    )
-    if (!minitext && text.replace(" ", "") === "...") minitext = "...";
-    return minitext;
-  }
-
-  // Insert padding around arguments in spec
-
-  function normalize_spec(spec) {
-    return spec.replace(/([^ ])_/g, "$1 _").replace(/_([^ ])/g, "_ $1");
-  }
-
-  /*** Parse block ***/
-
-  var BRACKETS = "([<{)]>}";
-
-  // Various bracket-related utilities...
-
-  function is_open_bracket(chr) {
-    var bracket_index = BRACKETS.indexOf(chr);
-    return (-1 < bracket_index && bracket_index < 4);
-  }
-
-  function is_close_bracket(chr) {
-    return (3 < BRACKETS.indexOf(chr));
-  }
-
-  function get_matching_bracket(chr) {
-    return BRACKETS[BRACKETS.indexOf(chr) + 4];
-  }
-
-  // Strip one level of brackets from around a piece.
-
-  function strip_brackets(code) {
-    if (is_open_bracket(code[0])) {
-      var bracket = code[0];
-      if (code[code.length - 1] === get_matching_bracket(bracket)) {
-        code = code.substr(0, code.length - 1);
-      }
-      code = code.substr(1);
-    }
-    return code;
-  }
-
-  // Split the block code into text and inserts based on brackets.
-
-  function split_into_pieces(code) {
-    var pieces = [],
-        piece = "",
-        matching_bracket = "",
-        nesting = [];
-
-    for (var i=0; i<code.length; i++) {
-      var chr = code[i];
-
-      if (nesting.length > 0) {
-        piece += chr;
-        if (is_open_bracket(chr) && !is_lt_gt(code, i) &&
-            nesting[nesting.length - 1] !== "[") {
-          nesting.push(chr);
-          matching_bracket = get_matching_bracket(chr);
-        } else if (chr === matching_bracket && !is_lt_gt(code, i)) {
-          nesting.pop();
-          if (nesting.length === 0) {
-            pieces.push(piece);
-            piece = "";
-          } else {
-            matching_bracket = get_matching_bracket(
-                nesting[nesting.length - 1]
-                );
-          }
+    // paint
+    for (var i=0; i<languages.length; i++) {
+      var lang = languages[i];
+      if (lang.blocksByHash.hasOwnProperty(hash)) {
+        var block = lang.blocksByHash[hash];
+        if (block.specialCase) {
+          block = block.specialCase(info, children, lang) || block;
         }
-      } else {
-        if (is_open_bracket(chr) && !is_lt_gt(code, i)) {
-          nesting.push(chr);
-          matching_bracket = get_matching_bracket(chr);
-
-          if (piece) pieces.push(piece);
-          piece = "";
+        info.language = lang;
+        if (block.shape === 'ring' ? info.shape === 'reporter' : info.shape === 'stack') {
+          info.shape = block.shape;
         }
-        piece += chr;
-      }
-    }
-    if (piece) pieces.push(piece); // last piece
-    return pieces;
-  }
+        info.category = block.category;
+        info.categoryIsDefault = false;
+        info.selector = block.selector; // for backpack
+        info.hasLoopArrow = block.hasLoopArrow;
 
-  // A piece is a block if it starts with a bracket.
-
-  function is_block(piece) {
-    return piece && is_open_bracket(piece[0]);
-  }
-
-  // Function for filtering pieces to get block text & args
-  function filter_pieces(pieces) {
-    var spec = "";
-    var args = [];
-    for (var i=0; i<pieces.length; i++) {
-      var piece = pieces[i];
-      if (is_block(piece) || typeof piece === "object") {
-        args.push(piece);
-        spec += "_";
-      } else {
-        spec += piece;
-      }
-    }
-    return {spec: normalize_spec(spec), args: args};
-  }
-
-  // Take block code and return block info object.
-
-  function parse_block(code, context, dont_strip_brackets) {
-    // strip brackets
-    var bracket;
-    if (!dont_strip_brackets) {
-      bracket = code.charAt(0);
-      code = strip_brackets(code);
-    }
-
-    // split into text segments and inserts
-    var pieces = split_into_pieces(code);
-
-    // define hat?
-    for (var i=0; i<strings.define.length; i++) {;;
-      var define_text = strings.define[i];
-      if (code.toLowerCase() === define_text || (pieces[0] &&
-            pieces[0].toLowerCase().startsWith(define_text+" "))) {
-        pieces[0] = pieces[0].slice(define_text.length).trimLeft();
-
-        for (var i=0; i<pieces.length; i++) {
-          var piece = pieces[i];
-          if (is_block(piece)) {
-            piece = {
-              shape: get_custom_arg_shape(piece.charAt(0)),
-              category: "custom-arg",
-              pieces: [strip_brackets(piece).trim()],
-            };
-          }
-          pieces[i] = piece;
+        // image replacement
+        if (iconPat.test(block.spec) || lang.aliases[hash]) {
+          var inputs = children.filter(function(child) {
+            return !child.isLabel;
+          });
+          children = block.parts.map(function(part) {
+            part = part.trim();
+            if (!part) return;
+            return inputPat.test(part) ? inputs.shift()
+                 : iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part);
+          }).filter(bool);
         }
-
-        return {
-          shape: "define-hat",
-          category: "custom",
-          pieces: [code.slice(0, define_text.length), {
-            shape: "outline",
-            pieces: pieces,
-          }],
-        };
       }
     }
 
-    // get shape
-    var shape, isablock;
-    if (pieces.length > 1 && bracket !== "[") {
-      shape = get_block_shape(bracket);
-      isablock = true;
-    } else {
-      shape = get_insert_shape(bracket, code);
-      isablock = ["reporter", "boolean", "stack"].indexOf(shape) !== -1;
-      if (shape.contains("dropdown")) {
-        code = code.substr(0, code.length - 2);
+    applyOverrides(info, overrides);
+
+    // loop arrows
+    if (info.hasLoopArrow) {
+      children.push(new Icon('loopArrow'));
+    }
+
+    return new Block(info, children);
+  }
+
+
+  /* * */
+
+  function parseLines(code, languages) {
+    var tok = code[0];
+    var index = 0;
+    function next() {
+      tok = code[++index];
+    }
+    function peek() {
+      return code[index + 1];
+    }
+    function peekNonWs() {
+      for (var i = index + 1; i<code.length; i++) {
+        if (code[i] !== ' ') return code[i];
       }
     }
 
-    // insert?
-    if (!isablock) {
-      return {
+    var define = [];
+    languages.map(function(lang) {
+      define = define.concat(lang.define);
+    });
+    // NB. we assume 'define' is a single word in every language
+    function isDefine(word) {
+      return define.indexOf(word) > -1;
+    }
+
+    function makeBlock(shape, children) {
+      var info = {
         shape: shape,
-        pieces: [code],
+        category: shape === 'define-hat' ? 'custom'
+                : shape === 'reporter' ? 'variables' : 'obsolete',
+        categoryIsDefault: true,
+        hasLoopArrow: false,
       };
+      return paintBlock(info, children, languages);
     }
+    // TODO readVariable selector
 
-    // trim ends
-    if (pieces.length) {
-      pieces[0] = pieces[0].trimLeft();
-      pieces[pieces.length-1] = pieces[pieces.length-1].trimRight();
-    }
-
-    // filter out block text & args
-    var filtered = filter_pieces(pieces);
-    var spec = filtered.spec;
-    var args = filtered.args;
-
-    // override attrs?
-    var overrides;
-    var match = /^(.*)::([A-z\- ]*)$/.exec(spec);
-    if (match) {
-      spec = match[1].trimRight();
-      overrides = match[2].trim().split(/\s+/);
-      while (overrides[overrides.length - 1] === "") overrides.pop();
-      if (!overrides.length) overrides = undefined;
-    }
-
-    // get category & related block info
-    if (spec) var info = find_block(spec, args);
-
-    if (info) {
-      if (!info.shape) info.shape = shape;
-      if (info.flag === "cend") info.spec = "";
-    } else {
-      // unknown block
-      info = {
-        blockid: spec,
-        shape: shape,
-        category: (shape === "reporter") ? "variables" : "obsolete",
-        lang: "en",
-        spec: spec,
-        args: args,
-      };
-
-      // For recognising list reporters & custom args
-      if (info.shape === "reporter" || info.shape === "boolean") {
-        var name = info.spec;
-        if (!(name in context.variable_reporters)) {
-          context.variable_reporters[name] = [];
-        }
-        context.variable_reporters[name].push(info);
-      }
-    }
-
-    // rebuild pieces (in case text has changed) and parse arguments
-    var pieces = [];
-    var text_parts = info.spec.split((info.blockid === "_ + _")
-        ? /([_@▶◀▸◂])/ : /([_@▶◀▸◂+])/);
-    for (var i=0; i<text_parts.length; i++) {
-      var part = text_parts[i];
-      if (part === "_") {
-        var arg = args.shift();
-        if (arg === undefined) {
-          part = "_";
-          /* If there are no args left, then the underscore must
-           * really be an underscore and not an insert.
-           *
-           * This only becomes a problem if the code contains
-           * underscores followed by inserts.
-           */
-        } else {
-          part = parse_block(arg, context);
-        }
-      }
-      if (part) pieces.push(part);
-    }
-    delete info.spec;
-    delete info.args;
-    info.pieces = pieces;
-
-    if (overrides) {
-      for (var i=0; i<overrides.length; i++) {
-        var value = overrides[i];
-        if (override_categories.indexOf(value) > -1) {
-          info.category = value;
-        } else if (override_flags.indexOf(value) > -1) {
-          info.flag = value;
-        } else if (override_shapes.indexOf(value) > -1) {
-          info.shape = value;
-        }
-      }
-
-      // Tag ring-inner pieces
-      if (info.flag === "ring") {
-        for (var i=0; i<info.pieces.length; i++) {
-          var part = info.pieces[i];
-          if (typeof part == "object") {
-            part.is_ringed = true;
+    function pParts(end) {
+      // TODO ignoreLt
+      var children = [];
+      var label;
+      while (tok && tok !== '\n') {
+        if (tok === '<' || (tok === '>' && end === '>')) {
+          var last = children[children.length - 1];
+          var c = peekNonWs();
+          if (last && last.isInput && (c === '[' || c === '(' || c === '<')) {
+            label = null;
+            children.push(new Label(tok));
+            next();
+            continue;
           }
         }
-      }
-    } else {
-      // For recognising list reporters
-      var list_block_name = {
-        "add _ to _": 1,
-        "delete _ of _": 1,
-        "insert _ at _ of _": 2,
-          "replace item _ of _ with _": 1,
-          "item _ of _": 1,
-            "length of _": 0,
-            "_ contains _": 0,
-              "show list _": 0,
-              "hide list _": 0,
-      };
-      if (info.blockid in list_block_name) {
-        var index = list_block_name[info.blockid];
-        var args = filter_pieces(info.pieces).args;
-        var arg = args[index];
-        if (arg && arg.shape === "dropdown") {
-          context.lists.push(arg.pieces[0]);
+        if (tok === end) break;
+        if (tok === '/' && peek() === '/') break;
+
+        switch (tok) {
+          case '[':
+            label = null;
+            children.push(pString());
+            break;
+          case '(':
+            label = null;
+            children.push(pReporter());
+            break;
+          case '<':
+            label = null;
+            children.push(pPredicate());
+            break;
+          case '{':
+            label = null;
+            children.push(pEmbedded());
+            break;
+          case ' ':
+            next();
+            if (label && isDefine(label.value)) {
+              // define hat
+              children.push(pOutline());
+              return children;
+            }
+            label = null;
+            break;
+          case '◂':
+          case '▸':
+            children.push(pIcon());
+            label = null;
+            break;
+          case ':':
+            if (peek() === ':') {
+              children.push(pOverrides(end));
+              return children;
+            } // fall-thru
+          case '/':
+          default:
+            if (!label) children.push(label = new Label(""));
+            label.value += tok;
+            next();
         }
       }
+      return children;
     }
 
-    return info;
-  }
-
-  // Return block info object for line, including comment.
-
-  function parse_line(line, context) {
-    line = line.trim();
-
-    // comments
-    var comment;
-
-    var i = line.indexOf("//");
-    if (i !== -1 && line[i-1] !== ":") {
-      comment = line.slice(i+2);
-      line    = line.slice(0, i).trim();
-
-      // free-floating comment?
-      if (!line.trim()) return {blockid: "//", comment: comment,
-        pieces: []};
-    }
-
-    var info;
-    if (is_open_bracket(line.charAt(0))
-        && split_into_pieces(line).length === 1) {
-      // reporter
-      info = parse_block(line, context); // don't strip brackets
-
-      if (!info.category) { // cheap test for inserts.
-        // Put free-floating inserts in their own stack block.
-        info = {blockid: "_", category: "obsolete", shape: "stack",
-          pieces: [info]};
-      }
-    } else {
-      // normal stack block
-      info = parse_block(line, context, true);
-      // true = don't strip brackets
-    }
-
-    // category hack (DEPRECATED)
-    if (comment && info.shape !== "define-hat") {
-      var match = /(^| )category=([a-z]+)($| )/.exec(comment);
-      if (match && override_categories.indexOf(match[2]) > -1) {
-        info.category = match[2];
-        comment = comment.replace(match[0], " ").trim();
-      }
-    }
-
-    // For recognising custom blocks and their arguments
-    if (info.shape === "define-hat") {
-      var pieces = info.pieces[1].pieces;
-      var filtered = filter_pieces(pieces);
-      var minispec = minify(filtered.spec);
-      context.define_hats.push(minispec);
-      for (var i=0; i<filtered.args.length; i++) {
-        context.custom_args.push(filtered.args[i].pieces[0]);
-      }
-    }
-    if (info.shape === "stack" && info.category === "obsolete") {
-      var minispec = minify(filter_pieces(info.pieces).spec);
-      if (!(minispec in context.obsolete_blocks)) {
-        context.obsolete_blocks[minispec] = [];
-      }
-      context.obsolete_blocks[minispec].push(info);
-    }
-
-    if (comment !== undefined && !comment.trim()) comment = undefined;
-    info.comment = comment;
-    return info;
-  }
-
-  // Functions to get shape from code.
-
-  function get_block_shape(bracket) {
-    switch (bracket) {
-      case "(": return "embedded";
-      case "<": return "boolean";
-      case "{": default: return "stack";
-    }
-  }
-
-  function get_insert_shape(bracket, code) {
-    switch (bracket) {
-      case "(":
-        if (/^([0-9e.-]+( v)?)?$/i.test(code)) {
-          if (code.endsWith(" v")) {
-            return "number-dropdown";
-          } else {
-            return "number";
-          }
-        } else if (code.endsWith(" v")) {
-          // rounded dropdowns (not actually number)
-          return "number-dropdown";
+    function pString() {
+      next(); // '['
+      var s = "";
+      var escapeV = false;
+      while (tok && tok !== ']' && tok !== '\n') {
+        if (tok === '\\') {
+          next();
+          if (tok === 'v') escapeV = true;
+          if (!tok) break;
         } else {
-          // reporter (or embedded! TODO remove this comment)
-          return "reporter";
+          escapeV = false;
         }
-      case "[":
-        if (/^#[a-f0-9]{3}([a-f0-9]{3})?$/i.test(code)) {
-          return "color";
-        } else {
-          if (code.endsWith(" v")) {
-            return "dropdown";
-          } else {
-            return "string";
-          }
+        s += tok;
+        next();
+      }
+      if (tok === ']') next();
+      if (hexColorPat.test(s)) {
+        return new Input('color', s);
+      }
+      return !escapeV && / v$/.test(s) ? new Input('dropdown', s.slice(0, s.length - 2))
+                                       : new Input('string', s);
+    }
+
+    function pBlock(end) {
+      var children = pParts(end);
+      if (tok && tok === '\n') next();
+      if (children.length === 0) return;
+
+      // define hats
+      var first = children[0];
+      if (first && first.isLabel && isDefine(first.value)) {
+        return makeBlock('define-hat', children);
+      }
+
+      // standalone reporters
+      if (children.length === 1) {
+        var child = children[0];
+        if (child.isBlock && (child.isReporter || child.isBoolean || child.isRing)) {
+          return child;
         }
-      case "<":
-        return "boolean";
-      default:
-        return "stack";
-    }
-  }
-
-  function get_custom_arg_shape(bracket) {
-    switch (bracket) {
-      case "<": return "boolean";
-      default:  return "reporter";
-    }
-  }
-
-  // Check whether angle brackets are supposed to be lt/gt blocks.
-
-  /*
-   * We need a way to parse eg.
-   *
-   *      if <[6] < [3]> then
-   *
-   *  Obviously the central "<" should be ignored by split_into_pieces.
-   *
-   *  In addition, we need to handle blocks containing a lt symbol:
-   *
-   *      when distance < (30)
-   *
-   *  We do this by matching against `strings.ignorelt`.
-   */
-
-  // Returns true if it's lt/gt, false if it's an open/close bracket.
-
-  function is_lt_gt(code, index) {
-    var chr, i;
-
-    if ((code[index] !== "<" && code[index] !== ">") ||
-        index === code.length || index === 0) {
-      return false;
-    }
-
-    // hat block containing lt symbol?
-    for (var i=0; i<strings.ignorelt.length; i++) {
-      var when_dist = strings.ignorelt[i];
-      if (minify(code.substr(0, index)).startsWith(when_dist)) {
-        return true; // don't parse as a boolean
       }
+
+      return makeBlock('stack', children);
     }
 
-    // look for open brackets ahead
-    for (i = index + 1; i < code.length; i++) {
-      chr = code[i];
-      if (is_open_bracket(chr)) {
-        break; // might be an innocuous lt/gt!
+    function pReporter() {
+      next(); // '('
+      var children = pParts(')');
+      if (tok && tok === ')') next();
+
+      // empty numbers
+      if (children.length === 0) {
+        return new Input('number', "");
       }
-      if (chr !== " ") {
-        return false; // something else => it's a bracket
-      }
-    }
 
-    // look for close brackets behind
-    for (i = index - 1; i > -1; i--) {
-      chr = code[i];
-      if (is_close_bracket(chr)) {
-        break; // must be an innocuous lt/gt!
-      }
-      if (chr !== " ") {
-        return false; // something else => it's a bracket
-      }
-    }
-
-    // we found a close bracket behind and an open bracket ahead, eg:
-    //      ) < [
-    return true; // it's an lt/gt block!
-  }
-
-
-
-  /*** Parse scripts ***/
-
-  // Take scratchblocks text and turn it into useful objects.
-
-  function oldParser(code) {
-    var context = {obsolete_blocks: {}, define_hats: [], custom_args: [],
-        variable_reporters: {}, lists: []};
-    var scripts = [];
-    var nesting = [[]];
-    var lines = code.trim().split("\n");
-
-    function new_script() {
-      if (nesting[0].length) {
-        while (nesting.length > 1) {
-          do_cend({blockid: "end", category: "control",
-            flag: "cend", shape: "stack", pieces: []});
+      // number
+      if (children.length === 1 && children[0].isLabel) {
+        var value = children[0].value;
+        if (/^[0-9e.-]*$/.test(value)) {
+          return new Input('number', value);
         }
-        scripts.push(nesting[0]);
-        nesting = [[]];
-      }
-      current_script = nesting[nesting.length - 1];
-    }
-
-    function do_cend(info) {
-      // pop the innermost script off the stack
-      var cmouth = nesting.pop(); // cmouth contents
-      if (cmouth.length && cmouth[cmouth.length - 1].shape == "cap") {
-        // last block is a cap block
-        info.flag += " capend";
-      }
-      var cwrap = nesting.pop();
-      info.category = cwrap[0].category; // category of c block
-      cwrap.push(info);
-    }
-
-    for (i=0; i<lines.length; i++) {
-      var line = lines[i].trim();
-
-      if (!line) {
-        if (nesting.length <= 1) new_script();
-        continue;
       }
 
-      var current_script = nesting[nesting.length - 1];
-
-      var info = parse_line(lines[i], context);
-
-      if (!info.pieces.length && info.comment !== undefined
-          && nesting.length <= 1) {
-        new_script();
-        current_script.push(info);
-        new_script();
-        continue;
-      }
-
-      switch (info.flag || info.shape) {
-        case "hat":
-        case "define-hat":
-          new_script();
-          current_script.push(info);
+      // number-dropdown
+      for (var i=0; i<children.length; i++) {
+        if (!children[i].isLabel) {
           break;
+        }
+      } if (i === children.length) {
+        var last = children[i - 1];
+        if (i > 1 && last.value === 'v') {
+          children.pop();
+          var value = children.map(function(l) { return l.value; }).join(" ");
+          return new Input('number-dropdown', value);
+        }
+      }
 
-        case "cap":
-          current_script.push(info);
-          if (nesting.length <= 1) new_script();
+      var block = makeBlock('reporter', children);
+
+      // rings
+      if (block.info.shape === 'ring') {
+        var first = block.children[0];
+        if (first.isInput && first.shape === 'number' && first.value === "") {
+          block.children[0] = new Input('reporter');
+        } else if (first.isScript && first.isEmpty) {
+          block.children[0] = new Input('stack');
+        }
+      }
+
+      return block;
+    }
+
+    function pPredicate() {
+      next(); // '<'
+      var children = pParts('>');
+      if (tok && tok === '>') next();
+      if (children.length === 0) {
+        return new Input('boolean');
+      }
+      return makeBlock('boolean', children);
+    }
+
+    function pEmbedded() {
+      next(); // '{'
+
+      var f = function() {
+        while (tok && tok !== '}') {
+          var block = pBlock('}');
+          if (block) return block;
+        }
+      };
+      var scripts = parseScripts(f);
+      var blocks = [];
+      scripts.forEach(function(script) {
+        blocks = blocks.concat(script.blocks);
+      });
+
+      if (tok === '}') next();
+      return new Script(blocks);
+    }
+
+    function pIcon() {
+      var c = tok;
+      next();
+      switch (c) {
+        case '▸':
+          return new Icon('addInput');
+        case '◂':
+          return new Icon('delInput');
+      }
+    }
+
+    function pOverrides(end) {
+      next();
+      next();
+      var overrides = [];
+      var override = "";
+      while (tok && tok !== '\n' && tok !== end) {
+        if (tok === ' ') {
+          if (override) {
+            overrides.push(override);
+            override = "";
+          }
+        } else if (tok === '/' && peek() === '/') {
           break;
+        } else {
+          override += tok;
+        }
+        next();
+      }
+      if (override) overrides.push(override);
+      return overrides;
+    }
 
-        case "cstart":
-          var cwrap = {
-            type: "cwrap",
-            shape: info.shape,
-            contents: [info],
+    function pComment(end) {
+      next();
+      next();
+      var comment = "";
+      while (tok && tok !== '\n' && tok !== end) {
+        comment += tok;
+        next();
+      }
+      if (tok && tok === '\n') next();
+      return new Comment(comment, true);
+    }
+
+    function pOutline() {
+      var children = [];
+      function parseArg(kind, end) {
+        label = null;
+        next();
+        var parts = pParts(end);
+        if (tok === end) next();
+        children.push(paintBlock({
+          shape: kind === 'boolean' ? 'boolean' : 'reporter',
+          argument: kind,
+          category: 'custom-arg',
+        }, parts, languages));
+      }
+      var label;
+      while (tok && tok !== '\n') {
+        switch (tok) {
+          case '(': parseArg('number', ')'); break;
+          case '[': parseArg('string', ']'); break;
+          case '<': parseArg('boolean', '>'); break;
+          case ' ': next(); label = null; break;
+          case ':':
+            if (peek() === ':') {
+              children.push(pOverrides());
+              break;
+            } // fall-thru
+          default:
+            if (!label) children.push(label = new Label(""));
+            label.value += tok;
+            next();
+        }
+      }
+      return makeBlock('outline', children);
+    }
+
+    function pLine() {
+      var block = pBlock();
+      if (tok === '/' && peek() === '/') {
+        var comment = pComment();
+        comment.hasBlock = block && block.children.length;
+        if (!comment.hasBlock) {
+          return comment;
+        }
+        block.comment = comment;
+      }
+      return block;
+    }
+
+    return function() {
+      if (!tok) return undefined;
+      var line = pLine();
+      return line || 'NL';
+    }
+  }
+
+  /* * */
+
+  function parseScripts(getLine) {
+    var line = getLine();
+    function next() {
+      line = getLine();
+    }
+
+    function pFile() {
+      while (line === 'NL') next();
+      var scripts = [];
+      while (line) {
+        var blocks = [];
+        while (line && line !== 'NL') {
+          var b = pLine();
+
+          if (b.isElse || b.isEnd) {
+            b = new Block(extend(b.info, {
+              shape: 'stack',
+            }), b.children);
+          }
+
+          if (b.isHat) {
+            if (blocks.length) scripts.push(new Script(blocks));
+            blocks = [b];
+          } else if (b.isFinal) {
+            blocks.push(b);
+            break;
+          } else if (b.isCommand) {
+            blocks.push(b);
+          } else { // reporter or predicate
+            if (blocks.length) scripts.push(new Script(blocks));
+            scripts.push(new Script([b]));
+            blocks = [];
+            break;
+          }
+        }
+        if (blocks.length) scripts.push(new Script(blocks));
+        while (line === 'NL') next();
+      }
+      return scripts;
+    }
+
+    function pLine() {
+      var b = line;
+      next();
+
+      if (b.hasScript) {
+        while (true) {
+          var blocks = pMouth();
+          b.children.push(new Script(blocks));
+          if (line && line.isElse) {
+            for (var i=0; i<line.children.length; i++) {
+              b.children.push(line.children[i]);
+            }
+            next();
+            continue;
+          }
+          if (line && line.isEnd) {
+            next();
+          }
+          break;
+        }
+      }
+      return b;
+    }
+
+    function pMouth() {
+      var blocks = [];
+      while (line) {
+        if (line === 'NL') {
+          next();
+          continue;
+        }
+        if (!line.isCommand) {
+          return blocks;
+        }
+        blocks.push(pLine());
+      }
+      return blocks;
+    }
+
+    return pFile();
+  }
+
+  /* * */
+
+  function eachBlock(x, cb) {
+    if (x.isScript) {
+      x.blocks.forEach(function(block) {
+        eachBlock(block, cb);
+      });
+    } else if (x.isBlock) {
+      cb(x);
+      x.children.forEach(function(child) {
+        eachBlock(child, cb);
+      });
+    }
+  }
+
+  var listBlocks = {
+    "append:toList:": 1,
+    "deleteLine:ofList:": 1,
+    "insert:at:ofList:": 2,
+    "setLine:ofList:to:": 1,
+    "showList:": 0,
+    "hideList:": 0,
+  };
+
+  function blockName(block) {
+    var words = [];
+    for (var i=0; i<block.children.length; i++) {
+      var child = block.children[i];
+      if (!child.isLabel) return;
+      words.push(child.value);
+    }
+    return words.join(" ");
+  }
+
+  function recogniseStuff(scripts) {
+
+    var customBlocksByHash = {};
+    var listNames = {};
+
+    scripts.forEach(function(script) {
+
+      var customArgs = {};
+
+      eachBlock(script, function(block) {
+        // custom blocks
+        if (block.info.shape === 'define-hat') {
+          var outline = block.children[1];
+          if (!outline) return;
+
+          var names = [];
+          var parts = [];
+          for (var i=0; i<outline.children.length; i++) {
+            var child = outline.children[i];
+            if (child.isLabel) {
+              parts.push(child.value);
+            } else if (child.isBlock) {
+              if (!child.info.argument) return;
+              parts.push({
+                number: "%n",
+                string: "%s",
+                boolean: "%b",
+              }[child.info.argument]);
+
+              var name = blockName(child);
+              names.push(name);
+              customArgs[name] = true;
+            }
+          }
+          var spec = parts.join(" ");
+          var hash = hashSpec(spec);
+          var info = customBlocksByHash[hash] = {
+            spec: spec,
+            names: names,
           };
-          info.shape = "stack";
-          current_script.push(cwrap);
-          nesting.push(cwrap.contents);
-          var cmouth = {type: "cmouth", contents: [],
-                        category: info.category};
-          cwrap.contents.push(cmouth);
-          nesting.push(cmouth.contents);
-          break;
+          block.info.selector = 'procDef';
+          block.info.call = info.spec;
+          block.info.names = info.names;
+          block.info.category = 'custom';
 
-        case "celse":
-          if (nesting.length <= 1) {
-            current_script.push(info);
-            break;
+        // custom arguments
+        } else if (block.info.categoryIsDefault && block.info.category === 'variables') {
+          var name = blockName(block);
+          if (customArgs[name]) {
+            block.info.category = 'custom-arg';
+            block.info.categoryIsDefault = false;
           }
-          var cmouth = nesting.pop(); // old cmouth contents
-          if (cmouth.length
-              && cmouth[cmouth.length - 1].shape == "cap") {
-            // last block is a cap block
-            info.flag += " capend";
+
+        // list names
+        } else if (listBlocks.hasOwnProperty(block.info.selector)) {
+          var argIndex = listBlocks[block.info.selector];
+          var inputs = block.children.filter(function(child) {
+            return !child.isLabel;
+          });
+          var input = inputs[argIndex];
+          if (input.isInput) {
+            listNames[input.value] = true;
           }
-          var cwrap = nesting[nesting.length - 1]; // cwrap contents
-          info.category = cwrap[0].category; // category of c block
-          cwrap.push(info);
-          var cmouth = {type: "cmouth", contents: [],
-                        category: cwrap[0].category};
-          cwrap.push(cmouth);
-          nesting.push(cmouth.contents);
-          break;
+        }
+      });
+    });
 
-        case "cend":
-          if (nesting.length <= 1) {
-            current_script.push(info);
-            break;
+    scripts.forEach(function(script) {
+      eachBlock(script, function(block) {
+        if (!block.info.categoryIsDefault) return;
+
+        // custom blocks
+        if (block.info.category === 'obsolete') {
+          var info = customBlocksByHash[block.info.hash];
+          if (info) {
+            block.info.selector = 'call';
+            block.info.call = info.spec;
+            block.info.names = info.names;
+            block.info.category = 'custom';
           }
-          do_cend(info);
-          break;
 
-        case "reporter":
-        case "boolean":
-        case "embedded":
-        case "ring":
-          // put free-floating reporters in a new script
-          new_script();
-          current_script.push(info);
-          new_script();
-          break;
+        // list reporters
+        } else if (block.info.category === 'variables') {
+          var name = blockName(block);
+          if (name && listNames[name]) {
+            block.info.category = 'list';
+            block.info.categoryIsDefault = false;
+          }
+        }
+      });
+    });
+  }
 
-        default:
-          current_script.push(info);
-      }
-    }
-    new_script();
+  function parse(code, options) {
+    var options = extend({
+      inline: false,
+      languages: ['en'],
+    }, options);
 
-    // Recognise custom blocks
-    for (var i=0; i<context.define_hats.length; i++) {
-      var minispec = context.define_hats[i];
-      var custom_blocks = context.obsolete_blocks[minispec];
-      if (!custom_blocks) continue;
-      for (var j=0; j<custom_blocks.length; j++) {
-        custom_blocks[j].category = "custom";
-      }
+    if (options.inline) {
+      code = code.replace(/\n/g, ' ');
     }
 
-    // Recognise list reporters
-    for (var i=0; i<context.lists.length; i++) {
-      var name = context.lists[i];
-      var list_reporters = context.variable_reporters[name];
-      if (!list_reporters) continue;
-      for (var j=0; j<list_reporters.length; j++) {
-        list_reporters[j].category = "list";
-      }
-    }
+    var languages = options.languages.map(function(code) {
+      return allLanguages[code];
+    });
 
-    // Recognise custom args
-    for (var i=0; i<context.custom_args.length; i++) {
-      var name = context.custom_args[i];
-      var custom_args = context.variable_reporters[name];
-      if (!custom_args) continue;
-      for (var j=0; j<custom_args.length; j++) {
-        custom_args[j].category = "custom-arg";
-      }
-    }
+    /* * */
 
+    var f = parseLines(code, languages);
+    var scripts = parseScripts(f);
+    recogniseStuff(scripts);
     return scripts;
   }
 
   /*****************************************************************************/
-
-
-  /* utils */
-
-  function extend(src, dest) {
-    src = src || {};
-    dest = dest || {};
-    for (var key in src) {
-      if (src.hasOwnProperty(key) && !dest.hasOwnProperty(key)) {
-        dest[key] = src[key];
-      }
-    }
-    return dest;
-  }
 
   /* for constucting SVGs */
 
@@ -1484,29 +1052,37 @@ var scratchblocks = function () {
     return ["L", p1x, p1y, "A", rx, ry, 0, 0, 0, p2x, p2y].join(" ");
   }
 
-  function roundedRect(w, h, props) {
+  function roundedPath(w, h) {
     var r = h / 2;
+    return [
+      "M", r, 0,
+      arc(w - r, 0, w - r, h, r, r),
+      arc(r, h, r, 0, r, r),
+      "Z"
+    ];
+  }
+
+  function roundedRect(w, h, props) {
     return path(extend(props, {
-      path: [
-        "M", r, 0,
-        arc(w - r, 0, w - r, h, r, r),
-        arc(r, h, r, 0, r, r),
-        "Z"
-      ],
+      path: roundedPath(w, h),
     }));
   }
 
-  function pointedRect(w, h, props) {
+  function pointedPath(w, h) {
     var r = h / 2;
+    return [
+      "M", r, 0,
+      "L", w - r, 0, w, r,
+      "L", w, r, w - r, h,
+      "L", r, h, 0, r,
+      "L", 0, r, r, 0,
+      "Z",
+    ];
+  }
+
+  function pointedRect(w, h, props) {
     return path(extend(props, {
-      path: [
-        "M", r, 0,
-        "L", w - r, 0, w, r,
-        "L", w, r, w - r, h,
-        "L", r, h, 0, r,
-        "L", 0, r, r, 0,
-        "Z",
-      ],
+      path: pointedPath(w, h),
     }));
   }
 
@@ -1517,6 +1093,18 @@ var scratchblocks = function () {
       "L", 16, 3,
       "L", 24, 3,
       "L", 27, 0,
+      "L", w - 3, 0,
+      "L", w, 3
+    ].join(" ");
+  }
+
+  function getRingTop(w) {
+    return ["M", 0, 3,
+      "L", 3, 0,
+      "L", 7, 0,
+      "L", 10, 3,
+      "L", 16, 3,
+      "L", 19, 0,
       "L", w - 3, 0,
       "L", w, 3
     ].join(" ");
@@ -1571,13 +1159,25 @@ var scratchblocks = function () {
     }));
   }
 
+  function capPath(w, h) {
+    return [
+      getTop(w),
+      getRightAndBottom(w, h, false, 0),
+      "Z",
+    ];
+  }
+
+  function ringCapPath(w, h) {
+    return [
+      getRingTop(w),
+      getRightAndBottom(w, h, false, 0),
+      "Z",
+    ];
+  }
+
   function capRect(w, h, props) {
     return path(extend(props, {
-      path: [
-        getTop(w),
-        getRightAndBottom(w, h, false, 0),
-        "Z",
-      ],
+      path: capPath(w, h),
     }));
   }
 
@@ -1670,8 +1270,11 @@ var scratchblocks = function () {
     }));
   }
 
-  function ringOuter(w, h, props) {
+  function ringRect(w, h, cy, cw, ch, shape, props) {
     var r = 8;
+    var func = shape === 'reporter' ? roundedPath
+             : shape === 'boolean' ? pointedPath
+             : cw < 40 ? ringCapPath : capPath;
     return path(extend(props, {
       path: [
         "M", r, 0,
@@ -1679,8 +1282,10 @@ var scratchblocks = function () {
         arcw(0, h - r, r, h, r, r),
         arcw(w - r, h, w, h - r, r, r),
         arcw(w, r, w - r, 0, r, r),
-        "Z"
+        "Z",
+        translatePath(4, cy || 4, func(cw, ch).join(" ")),
       ],
+      'fill-rule': 'even-odd',
     }));
   }
 
@@ -1731,6 +1336,16 @@ var scratchblocks = function () {
         d: "M3.637 1.794A6.825 6.825 0 0 1 8.277 0C11.99 0 15 2.91 15 6.5c0 2.316-1.253 4.35-3.14 5.5H9.83v-1.256c1.808-.618 3.103-2.285 3.103-4.244 0-2.485-2.083-4.5-4.654-4.5-1.14 0-2.184.396-2.993 1.053L6.69 4.13c.45.344.398.826-.11 1.08L0 8.5 1.142.992c.083-.547.514-.714.963-.37l1.532 1.172z",
         fill: '#fff',
         id: 'turnLeft',
+      }),
+      el('path', {
+        d: "M0 0L4 4L0 8Z",
+        fill: '#111',
+        id: 'addInput',
+      }),
+      el('path', {
+        d: "M4 0L4 8L0 4Z",
+        fill: '#111',
+        id: 'delInput',
       }),
       setProps(group([
         el('path', {
@@ -1868,6 +1483,7 @@ var scratchblocks = function () {
   Label.prototype.isLabel = true;
 
   Label.prototype.measure = function() {
+    // TODO measure multiple spaces
     this.el = text(0, 10, this.value, {
       class: this.cls,
     });
@@ -1943,6 +1559,8 @@ var scratchblocks = function () {
     turnLeft: { width: 15, height: 12, dy: +1 },
     turnRight: { width: 15, height: 12, dy: +1 },
     loopArrow: { width: 14, height: 11 },
+    addInput: { width: 4, height: 8 },
+    delInput: { width: 4, height: 8 },
   };
   Icon.prototype.draw = function() {
     return symbol('#' + this.name, {
@@ -1993,14 +1611,12 @@ var scratchblocks = function () {
       var label = this.label.draw();
       var w = Math.max(14, this.label.width + (this.shape === 'string' || this.shape === 'number-dropdown' ? 6 : 9));
     } else {
-      var w = this.isStack ? 40
-            : this.isInset ? 30
-            : this.isColor ? 13 : null;
+      var w = this.isInset ? 30 : this.isColor ? 13 : null;
     }
     if (this.hasArrow) w += 10;
     this.width = w;
 
-    var h = this.height = this.isStack ? 16 : this.isRound || this.isColor ? 13 : 14;
+    var h = this.height = this.isRound || this.isColor ? 13 : 14;
 
     var el = Input.shapes[this.shape](w, h);
     if (this.isColor) {
@@ -2035,33 +1651,27 @@ var scratchblocks = function () {
     return result;
   };
 
-  Input.fromAST = function(input) {
-    if (input.pieces.length === 0) {
-      return new Input(input.shape, "");
-    }
-    assert(input.pieces.length === 1);
-    return new Input(input.shape, input.pieces[0]);
-  };
-
 
   /* Block */
 
   var Block = function(info, children, comment) {
-    assert(children.length);
     this.info = info;
     this.children = children;
     this.comment = comment || null;
 
     var shape = this.info.shape;
-    this.isHat = shape === 'hat';
+    this.isHat = shape === 'hat' || shape === 'define-hat';
     this.hasPuzzle = shape === 'stack' || shape === 'hat';
     this.isFinal = /cap/.test(shape);
     this.isCommand = shape === 'stack' || shape === 'cap' || /block/.test(shape);
     this.isOutline = shape === 'outline';
     this.isReporter = shape === 'reporter' || shape === 'embedded';
     this.isBoolean = shape === 'boolean';
+
     this.isRing = shape === 'ring';
     this.hasScript = /block/.test(shape);
+    this.isElse = shape === 'celse';
+    this.isEnd = shape === 'cend';
 
     this.x = 0;
   };
@@ -2077,13 +1687,18 @@ var scratchblocks = function () {
 
   Block.shapes = {
     'stack': stackRect,
+    'c-block': stackRect,
+    'if-block': stackRect,
+    'celse': stackRect,
+    'cend': stackRect,
+
     'cap': capRect,
     'reporter': roundedRect,
     'embedded': roundedRect,
     'boolean': pointedRect,
     'hat': hatRect,
     'define-hat': procHatRect,
-    'ring': ringOuter,
+    'ring': roundedRect,
   };
 
   Block.prototype.drawSelf = function(w, h, lines) {
@@ -2101,33 +1716,23 @@ var scratchblocks = function () {
       });
     }
 
-    var func = Block.shapes[this.info.shape];
-    assert(func, "no shape func: " + this.info.shape);
-    var el = func(w, h, {
-      class: [this.info.category, 'bevel'].join(' '),
-    });
-
     // rings
     if (this.isRing) {
       var child = this.children[0];
-      if (child) {
-        var childEl = child.el;
-        while (childEl.tagName !== 'path' && childEl.children.length) {
-          childEl = childEl.children[0];
-        }
-        if (childEl.tagName === 'path') {
-          setProps(group([
-            setProps(el, {
-              d: el.getAttribute('d') + ' ' + translatePath(4, child.y || 4, childEl.getAttribute('d')),
-            }),
-          ]), {
-            'fill-rule': 'even-odd',
-          });
-        }
+      if (child && (child.isInput || child.isBlock || child.isScript)) {
+        var shape = child.isScript ? 'stack'
+                  : child.isInput ? child.shape : child.info.shape;
+        return ringRect(w, h, child.y, child.width, child.height, shape, {
+          class: [this.info.category, 'bevel'].join(' '),
+        });
       }
     }
 
-    return el;
+    var func = Block.shapes[this.info.shape];
+    assert(func, "no shape func: " + this.info.shape);
+    return func(w, h, {
+      class: [this.info.category, 'bevel'].join(' '),
+    });
   };
 
   Block.prototype.minDistance = function(child) {
@@ -2197,7 +1802,7 @@ var scratchblocks = function () {
       var child = this.children[i];
       child.el = child.draw(this);
 
-      if (child.isScript) {
+      if (child.isScript && this.hasScript) {
         pushLine();
         child.y = y;
         lines.push(child);
@@ -2227,7 +1832,7 @@ var scratchblocks = function () {
 
     innerWidth = Math.max(innerWidth + px * 2,
                           this.isHat || this.hasScript ? 83 :
-                          this.isCommand || this.isOutline || this.isRing ? 39 : 0);
+                          this.isCommand || this.isOutline || this.isRing ? 39 : 20);
     this.height = y;
     this.width = scriptWidth ? Math.max(innerWidth, 15 + scriptWidth) : innerWidth;
     if (isDefine) {
@@ -2270,84 +1875,15 @@ var scratchblocks = function () {
       }
     }
 
-    objects.splice(0, 0, this.drawSelf(innerWidth, this.height, lines));
+    var el = this.drawSelf(innerWidth, this.height, lines);
+    objects.splice(0, 0, el);
+    if (this.info.color) {
+      setProps(el, {
+        fill: this.info.color,
+      });
+    }
 
     return group(objects);
-  };
-
-  Block.fromAST = function(thing) {
-    var list = [];
-    if (thing.type === 'cwrap') {
-      for (var i=1; i<thing.contents.length; i++) {
-        var item = thing.contents[i];
-        if (item.type === 'cmouth') {
-          list.push(Script.fromAST(item.contents));
-        } else {
-          item.pieces.forEach(function(l) {
-            if (typeof l === 'string') {
-              list.push(new Label(l.trim()));
-            } else {
-              list.push(Block.fromAST(l));
-            }
-          });
-        }
-      }
-      var block = thing.contents[0];
-      var shape = block.pieces[0] === 'if ' ? 'if-block' : 'c-block';
-      if (thing.shape === 'cap') shape += ' cap';
-      if (['repeat until _', 'repeat _', 'forever'].indexOf(block.blockid) > -1) {
-        list.push(new Icon('loopArrow'));
-      }
-    } else {
-      var block = thing;
-      var shape = block.shape;
-      if (thing.flag === 'ring') {
-        shape = 'ring';
-      }
-    }
-
-    if (thing.blockid === '//') {
-      return new Comment(thing.comment, false);
-    }
-
-    var info = {
-      shape: shape,
-      category: block.category,
-    };
-    var children = block.pieces.map(function(piece) {
-      if (/^ *$/.test(piece)) return;
-      if (piece === '@') {
-        var symbol = {
-          'green-flag': 'greenFlag',
-          'arrow-cw': 'turnRight',
-          'arrow-ccw': 'turnLeft',
-        }[block.image_replacement];
-        if (symbol) return new Icon(symbol);
-      }
-      if (typeof piece === 'string') return new Label(piece.trim());
-      switch (piece.shape) {
-        case 'number':
-        case 'string':
-        case 'dropdown':
-        case 'number-dropdown':
-        case 'color':
-          if (piece.shape === 'number' && piece.is_ringed) {
-            return new Input('reporter', "");
-          }
-          return Input.fromAST(piece);
-        default:
-          if (piece.blockid === '' && (piece.shape === 'boolean' || piece.shape === 'stack')) {
-            return Input.fromAST(piece);
-          }
-          return Block.fromAST(piece);
-      }
-    });
-    children = children.filter(function(x) { return !!x; });
-    children = children.concat(list);
-    if (!children.length) {
-      children.push(new Label(""));
-    }
-    return new Block(info, children, block.comment ? new Comment(block.comment.trim(), true) : undefined);
   };
 
 
@@ -2358,6 +1894,7 @@ var scratchblocks = function () {
     this.width = null;
     this.hasBlock = hasBlock;
   };
+  Comment.prototype.isComment = true;
   Comment.lineLength = 12;
   Comment.prototype.height = 20;
 
@@ -2395,13 +1932,13 @@ var scratchblocks = function () {
     }
   };
 
-  Script.prototype.draw = function() {
+  Script.prototype.draw = function(inside) {
     var children = [];
     var y = 0;
     this.width = 0;
     for (var i=0; i<this.blocks.length; i++) {
       var block = this.blocks[i];
-      children.push(translate(2, y, block.draw()));
+      children.push(translate(inside ? 0 : 2, y, block.draw()));
       y += block.height;
       this.width = Math.max(this.width, block.width);
 
@@ -2415,15 +1952,12 @@ var scratchblocks = function () {
       }
     }
     this.height = y;
-    if (!this.isFinal) {
+    if (!inside && !this.isFinal) {
       this.height += 3;
     }
     return group(children);
   };
 
-  Script.fromAST = function(blocks) {
-    return new Script(blocks.map(Block.fromAST));
-  };
 
   /*****************************************************************************/
 
@@ -2473,7 +2007,7 @@ var scratchblocks = function () {
 
   // read code from a DOM element
   function readCode(el, options) {
-    var options = extend({ 
+    var options = extend({
       inline: false,
     }, options);
 
@@ -2485,29 +2019,6 @@ var scratchblocks = function () {
       code = code.replace('\n', '');
     }
     return code;
-  }
-
-  // parse code to list of Scripts
-  function parse(code, options) {
-    var options = extend({
-      inline: false,
-      languages: ['en'],
-    }, options);
-
-    reset_languages();
-    options.languages.forEach(function(code) {
-      if (code === 'en') return;
-      load_language(scratchblocks._translations[code]);
-    });
-
-    var results = oldParser(code);
-
-    // walk AST
-    var scripts = [];
-    for (var i=0; i<results.length; i++) {
-      scripts.push(Script.fromAST(results[i]));
-    }
-    return scripts;
   }
 
   // insert 'svg' into 'el', with appropriate wrapper elements
@@ -2566,6 +2077,9 @@ var scratchblocks = function () {
 
 
   return {
+    allLanguages: allLanguages, // read-only
+    loadLanguages: loadLanguages,
+
     Label: Label,
     Icon: Icon,
     Input: Input,
@@ -2574,7 +2088,6 @@ var scratchblocks = function () {
     Script: Script,
 
     read: readCode,
-    _oldParser: oldParser,
     parse: parse,
     render: render,
     replace: replace,
