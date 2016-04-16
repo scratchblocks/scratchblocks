@@ -525,7 +525,7 @@ var scratchblocks = function () {
       // number
       if (children.length === 1 && children[0].isLabel) {
         var value = children[0].value;
-        if (/^[0-9e.]*$/.test(value)) {
+        if (/^[0-9e.-]*$/.test(value)) {
           return new Input('number', value);
         }
       }
