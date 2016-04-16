@@ -315,7 +315,7 @@ var scratchblocks = function () {
         words.push("_");
       }
     }
-    var hash = minifyHash(words.join(" "));
+    var hash = info.hash = minifyHash(words.join(" "));
 
     // paint
     for (var i=0; i<languages.length; i++) {
@@ -753,17 +753,68 @@ var scratchblocks = function () {
     "hideList:": 0,
   };
 
+  function blockName(block) {
+    var words = [];
+    for (var i=0; i<block.children.length; i++) {
+      var child = block.children[i];
+      if (!child.isLabel) return;
+      words.push(child.value);
+    }
+    return words.join(" ");
+  }
+
   function recogniseStuff(scripts) {
 
-    var customBlocks = {};
     var customBlocksByHash = {};
     var listNames = {};
 
     scripts.forEach(function(script) {
+
+      var customArgs = {};
+
       eachBlock(script, function(block) {
         // custom blocks
         if (block.info.shape === 'define-hat') {
-          // TODO
+          var outline = block.children[1];
+          if (!outline) return;
+
+          var names = [];
+          var parts = [];
+          for (var i=0; i<outline.children.length; i++) {
+            var child = outline.children[i];
+            if (child.isLabel) {
+              parts.push(child.value);
+            } else if (child.isBlock) {
+              if (!child.info.argument) return;
+              parts.push({
+                number: "%n",
+                string: "%s",
+                boolean: "%b",
+              }[child.info.argument]);
+
+              var name = blockName(child);
+              names.push(name);
+              customArgs[name] = true;
+            }
+          }
+          var spec = parts.join(" ");
+          var hash = hashSpec(spec);
+          var info = customBlocksByHash[hash] = {
+            spec: spec,
+            names: names,
+          };
+          block.info.selector = 'procDef';
+          block.info.call = info.spec;
+          block.info.names = info.names;
+          block.info.category = 'custom';
+
+        // custom arguments
+        } else if (block.info.categoryIsDefault && block.info.category === 'variables') {
+          var name = blockName(block);
+          if (customArgs[name]) {
+            block.info.category = 'custom-arg';
+            block.info.categoryIsDefault = false;
+          }
 
         // list names
         } else if (listBlocks.hasOwnProperty(block.info.selector)) {
@@ -781,20 +832,22 @@ var scratchblocks = function () {
 
     scripts.forEach(function(script) {
       eachBlock(script, function(block) {
+        if (!block.info.categoryIsDefault) return;
+
         // custom blocks
-        if (false) {
-          // TODO
+        if (block.info.category === 'obsolete') {
+          var info = customBlocksByHash[block.info.hash];
+          if (info) {
+            block.info.selector = 'call';
+            block.info.call = info.spec;
+            block.info.names = info.names;
+            block.info.category = 'custom';
+          }
 
         // list reporters
-        } else if (block.info.categoryIsDefault && block.info.category === 'variables') {
-          var words = [];
-          for (var i=0; i<block.children.length; i++) {
-            var child = block.children[i];
-            if (!child.isLabel) return;
-            words.push(child.value);
-          }
-          var name = words.join(" ");
-          if (listNames[name]) {
+        } else if (block.info.category === 'variables') {
+          var name = blockName(block);
+          if (name && listNames[name]) {
             block.info.category = 'list';
             block.info.categoryIsDefault = false;
           }
