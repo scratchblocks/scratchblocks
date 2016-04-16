@@ -1800,7 +1800,7 @@ var scratchblocks = function () {
 
     innerWidth = Math.max(innerWidth + px * 2,
                           this.isHat || this.hasScript ? 83 :
-                          this.isCommand || this.isOutline || this.isRing ? 39 : 0);
+                          this.isCommand || this.isOutline || this.isRing ? 39 : 18);
     this.height = y;
     this.width = scriptWidth ? Math.max(innerWidth, 15 + scriptWidth) : innerWidth;
     if (isDefine) {
