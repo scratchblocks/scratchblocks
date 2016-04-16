@@ -568,13 +568,19 @@ var scratchblocks = function () {
 
     function pEmbedded() {
       next(); // '{'
-      var blocks = [];
-      while (tok && tok !== '}') {
-        var block = pBlock('}');
-        if (block) {
-          blocks.push(block);
+
+      var f = function() {
+        while (tok && tok !== '}') {
+          var block = pBlock('}');
+          if (block) return block;
         }
-      }
+      };
+      var scripts = parseScripts(f);
+      var blocks = [];
+      scripts.forEach(function(script) {
+        blocks = blocks.concat(script.blocks);
+      });
+
       if (tok === '}') next();
       return new Script(blocks);
     }
