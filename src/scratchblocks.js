@@ -222,7 +222,6 @@ var scratchblocks = function () {
       "when green flag clicked": "when @greenFlag clicked",
       "...": ". . .",
       "…": ". . .",
-      "%n": "%n @addInput",
     },
 
     define: ["define"],
@@ -281,9 +280,6 @@ var scratchblocks = function () {
     }
   }
 
-  english.blocksByHash['_'].specialCase = function(info, children, lang) {
-    if (info.shape !== 'reporter') return info;
-  }
 
   function applyOverrides(info, overrides) {
     for (var i=0; i<overrides.length; i++) {
@@ -317,11 +313,14 @@ var scratchblocks = function () {
       var child = children[i];
       if (child.isLabel) {
         words.push(child.value);
+      } else if (child.isIcon) {
+        words.push("@" + child.name);
       } else {
         words.push("_");
       }
     }
     var hash = info.hash = minifyHash(words.join(" "));
+    console.log(hash);
 
     // paint
     for (var i=0; i<languages.length; i++) {
@@ -446,6 +445,11 @@ var scratchblocks = function () {
               children.push(pOutline());
               return children;
             }
+            label = null;
+            break;
+          case '◂':
+          case '▸':
+            children.push(pIcon());
             label = null;
             break;
           case ':':
@@ -573,6 +577,17 @@ var scratchblocks = function () {
       }
       if (tok === '}') next();
       return new Script(blocks);
+    }
+
+    function pIcon() {
+      var c = tok;
+      next();
+      switch (c) {
+        case '▸':
+          return new Icon('addInput');
+        case '◂':
+          return new Icon('delInput');
+      }
     }
 
     function pOverrides(end) {
@@ -1311,9 +1326,14 @@ var scratchblocks = function () {
         id: 'turnLeft',
       }),
       el('path', {
-        d: "M0,0 L4,4 L0,8 L0,0 Z",
+        d: "M0 0L4 4L0 8Z",
         fill: '#111',
         id: 'addInput',
+      }),
+      el('path', {
+        d: "M4 0L4 8L0 4Z",
+        fill: '#111',
+        id: 'delInput',
       }),
       setProps(group([
         el('path', {
@@ -1528,6 +1548,7 @@ var scratchblocks = function () {
     turnRight: { width: 15, height: 12, dy: +1 },
     loopArrow: { width: 14, height: 11 },
     addInput: { width: 4, height: 8 },
+    delInput: { width: 4, height: 8 },
   };
   Icon.prototype.draw = function() {
     return symbol('#' + this.name, {
@@ -1693,7 +1714,6 @@ var scratchblocks = function () {
           class: [this.info.category, 'bevel'].join(' '),
         });
       }
-      debugger;
     }
 
     var func = Block.shapes[this.info.shape];
@@ -1800,7 +1820,7 @@ var scratchblocks = function () {
 
     innerWidth = Math.max(innerWidth + px * 2,
                           this.isHat || this.hasScript ? 83 :
-                          this.isCommand || this.isOutline || this.isRing ? 39 : 18);
+                          this.isCommand || this.isOutline || this.isRing ? 39 : 20);
     this.height = y;
     this.width = scriptWidth ? Math.max(innerWidth, 15 + scriptWidth) : innerWidth;
     if (isDefine) {
