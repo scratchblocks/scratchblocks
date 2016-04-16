@@ -248,41 +248,42 @@ var scratchblocks = function () {
   /*****************************************************************************/
 
   function disambig(selector1, selector2, test) {
-    var func = function(children, language) {
-      return blocksBySelector[test(children, language) ? selector1 : selector2];
+    var func = function(info, children, lang) {
+      return blocksBySelector[test(children, lang) ? selector1 : selector2];
     };
     blocksBySelector[selector1].specialCase = blocksBySelector[selector2].specialCase = func;
   }
 
-  disambig('computeFunction:of:', 'getAttribute:of:', function(children, language) {
+  disambig('computeFunction:of:', 'getAttribute:of:', function(children, lang) {
     // Operators if math function, otherwise sensing "attribute of" block
     var first = children[0];
     if (!first.isInput) return;
     var name = first.value;
-    return language.math.indexOf(name) > -1;
+    return lang.math.indexOf(name) > -1;
   });
 
-  disambig('lineCountOfList:', 'stringLength:', function(children, language) {
+  disambig('lineCountOfList:', 'stringLength:', function(children, lang) {
     // List block if dropdown, otherwise operators
     var last = children[children.length - 1];
     if (!last.isInput) return;
     return last.shape === 'dropdown';
   });
 
-  blocksBySelector['stopScripts'].specialCase = function(children, language) {
+  blocksBySelector['stopScripts'].specialCase = function(info, children, lang) {
     // Cap block unless argument is "other scripts in sprite"
     var last = children[children.length - 1];
     if (!last.isInput) return;
     var value = last.value;
-    if (language.osis.indexOf(value) > -1) {
+    if (lang.osis.indexOf(value) > -1) {
       return extend(blocksBySelector['stopScripts'], {
         shape: 'stack',
       });
     }
   }
 
-  // TODO recognise custom arguments
-  // TODO recognise list reporters
+  english.blocksByHash['_'].specialCase = function(info, children, lang) {
+    if (info.shape !== 'reporter') return info;
+  }
 
   function applyOverrides(info, overrides) {
     for (var i=0; i<overrides.length; i++) {
@@ -328,10 +329,10 @@ var scratchblocks = function () {
       if (lang.blocksByHash.hasOwnProperty(hash)) {
         var block = lang.blocksByHash[hash];
         if (block.specialCase) {
-          block = block.specialCase(children, lang) || block;
+          block = block.specialCase(info, children, lang) || block;
         }
         info.language = lang;
-        if (info.shape === 'stack' || (info.shape === 'reporter' && block.shape === 'ring')) {
+        if (block.shape === 'ring' ? info.shape === 'reporter' : info.shape === 'stack') {
           info.shape = block.shape;
         }
         info.category = block.category;
