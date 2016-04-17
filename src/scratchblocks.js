@@ -48,6 +48,12 @@ var scratchblocks = function () {
     }
   }
 
+  function indent(text) {
+    return text.split("\n").map(function(line) {
+      return "  " + line;
+    }).join("\n");
+  }
+
   /*****************************************************************************/
 
   // List of classes we're allowed to override.
@@ -143,10 +149,12 @@ var scratchblocks = function () {
     return blocksBySpec[info.spec] = info;
   });
 
-  var imageIcons = {
+  var unicodeIcons = {
     "@greenFlag": "⚑",
     "@turnRight": "↻",
     "@turnLeft": "↺",
+    "@addInput": "▸",
+    "@delInput": "◂",
   };
 
   var allLanguages = {};
@@ -164,7 +172,7 @@ var scratchblocks = function () {
       var m = iconPat.exec(spec);
       if (m) {
         var image = m[0];
-        var hash = nativeHash.replace(image, imageIcons[image]);
+        var hash = nativeHash.replace(image, unicodeIcons[image]);
         blocksByHash[hash] = block;
       }
     });
@@ -1457,6 +1465,10 @@ var scratchblocks = function () {
   };
   Label.prototype.isLabel = true;
 
+  Label.prototype.stringify = function() {
+    return this.value;
+  };
+
   Label.prototype.measure = function() {
     // TODO measure multiple spaces
     this.el = text(0, 10, this.value, {
@@ -1529,6 +1541,11 @@ var scratchblocks = function () {
     extend(info, this);
   };
   Icon.prototype.isIcon = true;
+
+  Icon.prototype.stringify = function() {
+    return unicodeIcons["@" + this.name] || "";
+  };
+
   Icon.icons = {
     greenFlag: { width: 20, height: 21, dy: -2 },
     turnLeft: { width: 15, height: 12, dy: +1 },
@@ -1558,12 +1575,37 @@ var scratchblocks = function () {
     this.isColor = shape === 'color';
     this.hasArrow = shape === 'dropdown' || shape === 'number-dropdown';
     this.isDarker = shape === 'boolean' || shape === 'stack' || shape === 'dropdown';
+    this.isSquare = shape === 'string' || shape === 'color' || shape === 'dropdown';
 
     this.hasLabel = !(this.isColor || this.isInset);
     this.label = this.hasLabel ? new Label(value, ['literal-' + this.shape]) : null;
     this.x = 0;
   };
   Input.prototype.isInput = true;
+
+  Input.fromJSON = function(lang, value, part) {
+    return new Input({
+      b: 'boolean',
+      n: 'number',
+      s: 'string',
+      d: 'number-dropdown',
+      m: 'dropdown',
+    }[part[1]], value || "");
+  };
+
+  Input.prototype.toJSON = function() {
+    return this.isBoolean ? false : this.value;
+  };
+
+  Input.prototype.stringify = function() {
+    var text = this.value || "";
+    if (this.hasArrow) text += " v";
+    return this.isRound ? "(" + text + ")"
+         : this.isSquare ? "[" + text + "]"
+         : this.isBoolean ? "<>"
+         : this.isStacK ? "{}"
+         : text;
+  };
 
   Input.prototype.measure = function() {
     if (this.hasLabel) this.label.measure();
@@ -1635,6 +1677,7 @@ var scratchblocks = function () {
   /* Block */
 
   var Block = function(info, children, comment) {
+    assert(info);
     this.info = info;
     this.children = children;
     this.comment = comment || null;
@@ -1656,6 +1699,66 @@ var scratchblocks = function () {
     this.x = 0;
   };
   Block.prototype.isBlock = true;
+
+  Block.fromJSON = function(lang, array, part) {
+    var args = array.slice();
+    var selector = args.shift();
+    if (selector === 'procDef') {
+      // TODO
+      return new Block({
+        shape: 'define-hat',
+      }, []);
+    } else if (selector === 'call') {
+      var spec = args.shift();
+      var info = extend(parseSpec(spec), {
+        category: 'custom',
+        shape: 'stack',
+      });
+      var parts = info.parts;
+    } else {
+      var info = blocksBySelector[selector];
+      assert(info, "unknown selector: " + selector);
+      var spec = lang.commands[info.spec];
+      var parts = parseSpec(spec).parts;
+    }
+    var children = parts.map(function(part) {
+      if (inputPat.test(part)) {
+        var arg = args.shift();
+        return (isArray(arg) ? Block : Input).fromJSON(lang, arg, part);
+      } else {
+        return new Label(part);
+      }
+    });
+    return new Block(info, children);
+  };
+
+  Block.prototype.toJSON = function() {
+    var selector = this.info.selector || "";
+    var args = [];
+    for (var i=0; i<this.children.length; i++) {
+      var child = this.children[i];
+      if (child.isInput || child.isBlock || child.isScript) {
+        args.push(child.toJSON());
+      }
+    }
+    if (selector === 'call') {
+      return ['call', this.info.call].concat(args);
+    }
+    return [selector].concat(args);
+  };
+
+  Block.prototype.stringify = function() {
+    var text = this.children.map(function(child) {
+      return child.isScript ? "\n" + indent(child.stringify()) + "\n"
+                            : child.stringify().trim() + " ";
+    }).join("").trim();
+    if (this.info.shape === 'reporter' && this.info.category === 'list') text += " :: list";
+    if (this.info.category === 'custom') text += " :: custom";
+    return this.hasScript ? text + "\nend"
+         : this.info.shape === 'reporter' ? "(" + text + ")"
+         : this.info.shape === 'boolean' ? "<" + text + ">"
+         : text;
+  };
 
   Block.prototype.measure = function() {
     for (var i=0; i<this.children.length; i++) {
@@ -1877,6 +1980,10 @@ var scratchblocks = function () {
   Comment.lineLength = 12;
   Comment.prototype.height = 20;
 
+  Comment.prototype.stringify = function() {
+    return "// " + this.label.value;
+  };
+
   Comment.prototype.measure = function() {
     this.label.measure();
   };
@@ -1911,6 +2018,25 @@ var scratchblocks = function () {
     }
   };
 
+  Script.fromJSON = function(lang, array) {
+    // x = array[0], y = array[1];
+    return new Script(array[2].map(Block.fromJSON.bind(null, lang)));
+  };
+
+  Script.prototype.toJSON = function() {
+    return this.blocks.map(function(block) {
+      return block.toJSON();
+    });
+  };
+
+  Script.prototype.stringify = function() {
+    return this.blocks.map(function(block) {
+      var line = block.stringify();
+      if (block.comment) line += " " + block.comment.stringify();
+      return line;
+    }).join("\n");
+  };
+
   Script.prototype.draw = function(inside) {
     var children = [];
     var y = 0;
@@ -1938,6 +2064,31 @@ var scratchblocks = function () {
   };
 
 
+  /* import/export */
+
+  var fromJSON = function(scriptable, lang) {
+    var lang = lang || english;
+    var scripts = scriptable.scripts.map(Script.fromJSON.bind(null, lang));
+    // TODO scriptable.scriptComments
+    return scripts;
+  };
+
+  var toJSON = function(scripts) {
+    var jsonScripts = scripts.map(function(script) {
+      return [10, script.y + 10, script.toJSON()];
+    });
+    return {
+      scripts: jsonScripts,
+      // scriptComments: [], // TODO
+    };
+  };
+
+  var stringify = function(scripts) {
+    return scripts.map(function(script) {
+      return script.stringify();
+    }).join("\n\n");
+  };
+
   /*****************************************************************************/
 
   function render(scripts, cb) {
@@ -1959,6 +2110,7 @@ var scratchblocks = function () {
     for (var i=0; i<scripts.length; i++) {
       var script = scripts[i];
       if (height) height += 10;
+      script.y = height;
       elements.push(translate(0, height, script.draw()));
       height += script.height;
       width = Math.max(width, script.width + 4);
@@ -2058,6 +2210,10 @@ var scratchblocks = function () {
   return {
     allLanguages: allLanguages, // read-only
     loadLanguages: loadLanguages,
+
+    fromJSON: fromJSON,
+    toJSON: toJSON,
+    stringify: stringify,
 
     Label: Label,
     Icon: Icon,

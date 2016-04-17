@@ -262,9 +262,13 @@ function objUpdated() {
   });
   */
 
-  var scripts = scratchblocks.parse(obj.script, {
+  var scripts = window.scripts = scratchblocks.parse(obj.script, {
     languages: obj.lang ? ['en', obj.lang] : ['en'],
   });
+  // var scripts = window.scripts = scratchblocks.fromJSON({
+  //   scripts: eval(obj.script),
+  // });
+  console.log(scratchblocks.stringify(scripts));
   scratchblocks.render(scripts, function(svg) {
     preview.innerHTML = "";
     preview.appendChild(svg);
@@ -279,6 +283,8 @@ function objUpdated() {
       exportLink.className = 'export-link';
       document.body.appendChild(exportLink);
     }, 0);
+
+    console.log(scratchblocks.toJSON(scripts).scripts);
   });
 
   // update language dropdown
