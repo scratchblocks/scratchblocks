@@ -1713,15 +1713,43 @@ var scratchblocks = function () {
     var args = array.slice();
     var selector = args.shift();
     if (selector === 'procDef') {
-      // TODO
+      var spec = args[0];
+      var inputNames = args[1].slice();
+      // var defaultValues = args[2];
+      // var isAtomic = args[3]; // TODO
+
+      var info = parseSpec(spec);
+      var children = info.parts.map(function(part) {
+        if (inputPat.test(part)) {
+          var label = new Label(inputNames.shift());
+          return new Block({
+            shape: part[1] === 'b' ? 'boolean' : 'reporter',
+            category: 'custom-arg',
+          }, [label]);
+        } else {
+          return new Label(part);
+        }
+      });
+      var outline = new Block({
+        shape: 'outline',
+      }, children);
+
+      var children = [new Label(lang.define[0]), outline];
       return new Block({
         shape: 'define-hat',
-      }, []);
+        category: 'custom',
+        selector: 'procDef',
+        call: spec,
+        names: args[1],
+      }, children);
+
     } else if (selector === 'call') {
       var spec = args.shift();
       var info = extend(parseSpec(spec), {
         category: 'custom',
         shape: 'stack',
+        selector: 'call',
+        call: spec,
       });
       var parts = info.parts;
     } else {
@@ -1783,7 +1811,7 @@ var scratchblocks = function () {
                             : child.stringify().trim() + " ";
     }).join("").trim();
     if (this.info.shape === 'reporter' && this.info.category === 'list') text += " :: list";
-    if (this.info.category === 'custom') text += " :: custom";
+    if (this.info.category === 'custom' && this.info.shape !== 'define-hat') text += " :: custom";
     return this.hasScript ? text + "\nend"
          : this.info.shape === 'reporter' ? "(" + text + ")"
          : this.info.shape === 'boolean' ? "<" + text + ">"
