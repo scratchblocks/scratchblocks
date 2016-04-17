@@ -285,7 +285,9 @@ function objUpdated() {
     }, 0);
 
     console.log(scratchblocks.toJSON(scripts).scripts);
-    console.log(JSON.stringify(scratchblocks.toJSON(scripts).scripts));
+    console.log(scratchblocks.toJSON(scripts).scripts.map(function(s) {
+      return s[2].map(JSON.stringify).join("\n");
+    }).join("\n\n"));
   });
 
   // update language dropdown

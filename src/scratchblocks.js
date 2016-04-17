@@ -383,7 +383,6 @@ var scratchblocks = function () {
       };
       return paintBlock(info, children, languages);
     }
-    // TODO readVariable selector
 
     function pParts(end) {
       // TODO ignoreLt
@@ -844,6 +843,7 @@ var scratchblocks = function () {
           if (customArgs[name]) {
             block.info.category = 'custom-arg';
             block.info.categoryIsDefault = false;
+            block.info.selector = 'getParam';
           }
 
         // list names
@@ -862,10 +862,8 @@ var scratchblocks = function () {
 
     scripts.forEach(function(script) {
       eachBlock(script, function(block) {
-        if (!block.info.categoryIsDefault) return;
-
         // custom blocks
-        if (block.info.category === 'obsolete') {
+        if (block.info.categoryIsDefault && block.info.category === 'obsolete') {
           var info = customBlocksByHash[block.info.hash];
           if (info) {
             block.info.selector = 'call';
@@ -875,11 +873,17 @@ var scratchblocks = function () {
           }
 
         // list reporters
-        } else if (block.info.category === 'variables') {
+        } else if (block.info.shape === 'reporter') {
           var name = blockName(block);
-          if (name && listNames[name]) {
+          if (!name) return;
+          if (block.info.category === 'variables' && listNames[name] && block.info.categoryIsDefault) {
             block.info.category = 'list';
             block.info.categoryIsDefault = false;
+          }
+          if (block.info.category === 'list') {
+            block.info.selector = 'contentsOfList:';
+          } else if (block.info.category === 'variables') {
+            block.info.selector = 'readVariable';
           }
         }
       });
@@ -1738,7 +1742,8 @@ var scratchblocks = function () {
   };
 
   Block.prototype.toJSON = function() {
-    var selector = this.info.selector || "";
+    var selector = this.info.selector;
+    var args = [];
     if (selector === 'procDef') {
       var inputNames = this.info.names;
       var spec = this.info.call;
@@ -1750,16 +1755,21 @@ var scratchblocks = function () {
       var isAtomic = false; // TODO 'define-atomic' ??
       return ['procDef', spec, inputNames, defaultValues, isAtomic];
     }
-    var args = [];
-    for (var i=0; i<this.children.length; i++) {
-      var child = this.children[i];
-      if (child.isInput || child.isBlock || child.isScript) {
-        args.push(child.toJSON());
+    if (selector === 'readVariable' || selector === 'contentsOfList:' || selector === 'getParam') {
+      if (selector === 'getParam') args.push(this.info.shape === 'boolean' ? 'b' : 'r');
+      args.push(blockName(this));
+    } else {
+      for (var i=0; i<this.children.length; i++) {
+        var child = this.children[i];
+        if (child.isInput || child.isBlock || child.isScript) {
+          args.push(child.toJSON());
+        }
+      }
+      if (selector === 'call') {
+        return ['call', this.info.call].concat(args);
       }
     }
-    if (selector === 'call') {
-      return ['call', this.info.call].concat(args);
-    }
+    if (!selector) return "";
     return [selector].concat(args);
   };
 
