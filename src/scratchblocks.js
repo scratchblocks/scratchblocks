@@ -1598,6 +1598,11 @@ var scratchblocks = function () {
       });
     } else if (this.isDarker) {
       el = darkRect(w, h, parent.info.category, el);
+      if (parent.info.color) {
+        setProps(el, {
+          fill: parent.info.color,
+        });
+      }
     }
 
     var result = group([
