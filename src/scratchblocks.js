@@ -59,7 +59,7 @@ var scratchblocks = function () {
   // List of classes we're allowed to override.
 
   var overrideCategories = ["motion", "looks", "sound", "pen", "variables", "list", "events", "control", "sensing", "operators", "custom", "custom-arg", "extension", "grey", "obsolete"];
-  var overrideShapes = ["hat", "cap", "stack", "embedded", "boolean", "reporter", "celse", "cend", "ring"];
+  var overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "celse", "cend", "ring"];
 
   // languages that should be displayed right to left
   var rtlLanguages = ['ar', 'fa', 'he'];
@@ -1697,7 +1697,7 @@ var scratchblocks = function () {
     this.isFinal = /cap/.test(shape);
     this.isCommand = shape === 'stack' || shape === 'cap' || /block/.test(shape);
     this.isOutline = shape === 'outline';
-    this.isReporter = shape === 'reporter' || shape === 'embedded';
+    this.isReporter = shape === 'reporter';
     this.isBoolean = shape === 'boolean';
 
     this.isRing = shape === 'ring';
@@ -1807,7 +1807,6 @@ var scratchblocks = function () {
 
     'cap': capRect,
     'reporter': roundedRect,
-    'embedded': roundedRect,
     'boolean': pointedRect,
     'hat': hatRect,
     'define-hat': procHatRect,
@@ -1871,7 +1870,6 @@ var scratchblocks = function () {
     'hat':        [15, 6, 2],
     'define-hat': [21, 8, 9],
     'reporter':   [3, 4, 1],
-    'embedded':   [3, 4, 1],
     'boolean':    [3, 4, 2],
     'cap':        [6, 6, 2],
     'c-block':    [3, 6, 2],
