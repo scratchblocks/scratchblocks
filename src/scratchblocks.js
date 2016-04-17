@@ -521,9 +521,9 @@ var scratchblocks = function () {
       // rings
       if (block.info.shape === 'ring') {
         var first = block.children[0];
-        if (first.isInput && first.shape === 'number' && first.value === "") {
+        if (first && first.isInput && first.shape === 'number' && first.value === "") {
           block.children[0] = new Input('reporter');
-        } else if (first.isScript && first.isEmpty) {
+        } else if (first && first.isScript && first.isEmpty) {
           block.children[0] = new Input('stack');
         }
       }
