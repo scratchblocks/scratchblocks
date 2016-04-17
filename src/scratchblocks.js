@@ -908,7 +908,7 @@ var scratchblocks = function () {
     var f = parseLines(code, languages);
     var scripts = parseScripts(f);
     recogniseStuff(scripts);
-    return scripts;
+    return new Document(scripts);
   }
 
   /*****************************************************************************/
@@ -2119,17 +2119,25 @@ var scratchblocks = function () {
   };
 
 
-  /* import/export */
+  /* Document */
 
-  var fromJSON = function(scriptable, lang) {
+  var Document = function(scripts) {
+    this.scripts = scripts;
+
+    this.width = null;
+    this.height = null;
+    this.el = null;
+  };
+
+  Document.fromJSON = function(scriptable, lang) {
     var lang = lang || english;
     var scripts = scriptable.scripts.map(Script.fromJSON.bind(null, lang));
     // TODO scriptable.scriptComments
-    return scripts;
+    return new Document(scripts);
   };
 
-  var toJSON = function(scripts) {
-    var jsonScripts = scripts.map(function(script) {
+  Document.prototype.toJSON = function() {
+    var jsonScripts = this.scripts.map(function(script) {
       return [10, script.y + 10, script.toJSON()];
     });
     return {
@@ -2138,38 +2146,42 @@ var scratchblocks = function () {
     };
   };
 
-  var stringify = function(scripts) {
-    return scripts.map(function(script) {
+  Document.prototype.stringify = function() {
+    return this.scripts.map(function(script) {
       return script.stringify();
     }).join("\n\n");
   };
 
-  /*****************************************************************************/
-
-  function render(scripts, cb) {
-    // measure strings
-    Label.startMeasuring();
-    scripts.forEach(function(script) {
+  Document.prototype.measure = function() {
+    this.scripts.forEach(function(script) {
       script.measure();
     });
+  };
+
+  Document.prototype.render = function(cb) {
+    // measure strings
+    Label.startMeasuring();
+    this.measure();
 
     // finish measuring & render
-    Label.endMeasuring(drawScripts.bind(null, scripts, cb));
-  }
+    Label.endMeasuring(this.drawScripts.bind(this, cb));
+  };
 
-  function drawScripts(scripts, cb) {
+  Document.prototype.drawScripts = function(cb) {
     // render each script
     var width = 0;
     var height = 0;
     var elements = [];
-    for (var i=0; i<scripts.length; i++) {
-      var script = scripts[i];
+    for (var i=0; i<this.scripts.length; i++) {
+      var script = this.scripts[i];
       if (height) height += 10;
       script.y = height;
       elements.push(translate(0, height, script.draw()));
       height += script.height;
       width = Math.max(width, script.width + 4);
     }
+    this.width = width;
+    this.height = height;
 
     // return SVG
     var svg = newSVG(width, height);
@@ -2181,7 +2193,14 @@ var scratchblocks = function () {
     ].concat(makeIcons())));
 
     svg.appendChild(group(elements));
+    this.el = svg;
     cb(svg);
+  };
+
+  /*****************************************************************************/
+
+  function render(doc, cb) {
+    return doc.render(cb);
   }
 
   function exportSVG(svg) {
@@ -2242,9 +2261,9 @@ var scratchblocks = function () {
       languages: ['en'],
 
       read: readCode, // function(el, options) => code
-      parse: parse,   // function(code, options) => scripts
-      render: render, // function(scripts, cb) => svg
-      replace: replace, // function(el, svg, scripts, options)
+      parse: parse,   // function(code, options) => doc
+      render: render, // function(doc, cb) => svg
+      replace: replace, // function(el, svg, doc, options)
     }, options);
 
     // find elements
@@ -2252,10 +2271,10 @@ var scratchblocks = function () {
     results.forEach(function(el) {
       var code = options.read(el, options);
 
-      var scripts = options.parse(code, options);
+      var doc = options.parse(code, options);
 
-      options.render(scripts, function(svg) {
-        options.replace(el, svg, scripts, options);
+      options.render(doc, function(svg) {
+        options.replace(el, svg, doc, options);
       });
     });
   };
@@ -2266,9 +2285,9 @@ var scratchblocks = function () {
     allLanguages: allLanguages, // read-only
     loadLanguages: loadLanguages,
 
-    fromJSON: fromJSON,
-    toJSON: toJSON,
-    stringify: stringify,
+    fromJSON: Document.fromJSON,
+    toJSON: function(doc) { return doc.toJSON(); },
+    stringify: function(doc) { return doc.stringify(); },
 
     Label: Label,
     Icon: Icon,
@@ -2276,6 +2295,7 @@ var scratchblocks = function () {
     Block: Block,
     Comment: Comment,
     Script: Script,
+    Document: Document,
 
     read: readCode,
     parse: parse,

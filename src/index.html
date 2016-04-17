@@ -242,8 +242,8 @@ function objUpdated() {
   preview.innerHTML = obj.script;
   scratchblocks.renderMatching('pre.blocks', {
     languages: ['en', obj.lang],
-    render: function(scripts, cb) {
-      scratchblocks.render(scripts, function(svg) {
+    render: function(doc, cb) {
+      doc.render(function(svg) {
         var el = document.createElement('div');
         el.appendChild(svg);
 
@@ -262,14 +262,14 @@ function objUpdated() {
   });
   */
 
-  var scripts = window.scripts = scratchblocks.parse(obj.script, {
+  var doc = window.doc = scratchblocks.parse(obj.script, {
     languages: obj.lang ? ['en', obj.lang] : ['en'],
   });
-  // var scripts = window.scripts = scratchblocks.fromJSON({
+  // var doc = window.doc = scratchblocks.fromJSON({
   //   scripts: eval(obj.script),
   // });
-  console.log(scratchblocks.stringify(scripts));
-  scratchblocks.render(scripts, function(svg) {
+  console.log(scratchblocks.stringify(doc));
+  doc.render(function(svg) {
     preview.innerHTML = "";
     preview.appendChild(svg);
 
@@ -284,8 +284,8 @@ function objUpdated() {
       document.body.appendChild(exportLink);
     }, 0);
 
-    console.log(scratchblocks.toJSON(scripts).scripts);
-    console.log(scratchblocks.toJSON(scripts).scripts.map(function(s) {
+    console.log(doc.toJSON().scripts);
+    console.log(doc.toJSON().scripts.map(function(s) {
       return s[2].map(JSON.stringify).join("\n");
     }).join("\n\n"));
   });
