@@ -833,6 +833,11 @@ var scratchblocks = function () {
           block.info.names = info.names;
           block.info.category = 'custom';
 
+        // fix up if/else selectors
+        } else if (block.info.selector === 'doIfElse') {
+          var last2 = block.children[block.children.length - 2];
+          block.info.selector = last2 && last2.isLabel && last2.value === 'else' ? 'doIfElse' : 'doIf';
+
         // custom arguments
         } else if (block.info.categoryIsDefault && block.info.category === 'variables') {
           var name = blockName(block);
