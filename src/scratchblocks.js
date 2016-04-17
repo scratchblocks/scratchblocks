@@ -385,7 +385,6 @@ var scratchblocks = function () {
     }
 
     function pParts(end) {
-      // TODO ignoreLt
       var children = [];
       var label;
       while (tok && tok !== '\n') {
