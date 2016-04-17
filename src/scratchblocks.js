@@ -1739,6 +1739,17 @@ var scratchblocks = function () {
 
   Block.prototype.toJSON = function() {
     var selector = this.info.selector || "";
+    if (selector === 'procDef') {
+      var inputNames = this.info.names;
+      var spec = this.info.call;
+      var info = parseSpec(spec);
+      var defaultValues = info.inputs.map(function(input) {
+        return input === '%n' ? 1
+             : input === '%b' ? false : "";
+      });
+      var isAtomic = false; // TODO 'define-atomic' ??
+      return ['procDef', spec, inputNames, defaultValues, isAtomic];
+    }
     var args = [];
     for (var i=0; i<this.children.length; i++) {
       var child = this.children[i];
