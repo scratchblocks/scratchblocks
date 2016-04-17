@@ -838,7 +838,7 @@ var scratchblocks = function () {
           block.info.selector = last2 && last2.isLabel && last2.value === 'else' ? 'doIfElse' : 'doIf';
 
         // custom arguments
-        } else if (block.info.categoryIsDefault && block.info.category === 'variables') {
+        } else if (block.info.categoryIsDefault && (block.isReporter || block.isBoolean)) {
           var name = blockName(block);
           if (customArgs[name]) {
             block.info.category = 'custom-arg';
@@ -873,7 +873,7 @@ var scratchblocks = function () {
           }
 
         // list reporters
-        } else if (block.info.shape === 'reporter') {
+        } else if (block.isReporter) {
           var name = blockName(block);
           if (!name) return;
           if (block.info.category === 'variables' && listNames[name] && block.info.categoryIsDefault) {
@@ -1744,6 +1744,7 @@ var scratchblocks = function () {
   Block.prototype.toJSON = function() {
     var selector = this.info.selector;
     var args = [];
+
     if (selector === 'procDef') {
       var inputNames = this.info.names;
       var spec = this.info.call;
@@ -1755,9 +1756,11 @@ var scratchblocks = function () {
       var isAtomic = false; // TODO 'define-atomic' ??
       return ['procDef', spec, inputNames, defaultValues, isAtomic];
     }
+
     if (selector === 'readVariable' || selector === 'contentsOfList:' || selector === 'getParam') {
-      if (selector === 'getParam') args.push(this.info.shape === 'boolean' ? 'b' : 'r');
+      if (selector === 'getParam') args.push(this.isBoolean === 'boolean' ? 'b' : 'r');
       args.push(blockName(this));
+
     } else {
       for (var i=0; i<this.children.length; i++) {
         var child = this.children[i];
@@ -1765,6 +1768,7 @@ var scratchblocks = function () {
           args.push(child.toJSON());
         }
       }
+
       if (selector === 'call') {
         return ['call', this.info.call].concat(args);
       }
