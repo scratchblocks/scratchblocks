@@ -161,4 +161,15 @@
 
   ["%n @addInput", "ring", 42, ""],
 
+  ["if %b",                                     "c",  6,   "doIf"],
+  ["if %b",                                     "e",  6,   "doIfElse"],
+  ["forever if %b",                             "cf", 6,   "doForeverIf"],
+  ["stop script",                               "f",  6,   "doReturn"],
+  ["stop all",                                  "f",  6,   "stopAll"],
+  ["switch to costume %m.costume",              " ",  2,   "lookLike:"],
+  ["next background",                           " ",  102, "nextScene"],
+  ["switch to background %m.backdrop",          " ",  102, "startScene"],
+  ["background #",                              "r",  102, "backgroundIndex"],
+  ["loud?",                                     "b",  7,   "isLoud"],
+
 ];
