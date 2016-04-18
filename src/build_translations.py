@@ -7,9 +7,15 @@ import json
 import os
 import re
 import sys
+from io import open  # open -> str for both python 2.x and 3.x
+from copy import copy
 
-import urllib2
-from urllib2 import urlopen
+try:
+    from urllib2 import HTTPError
+    from urllib2 import urlopen
+except ImportError:
+    from urllib.error import HTTPError
+    from urllib.request import urlopen
 
 from extra_strings import extra_strings
 
@@ -66,18 +72,18 @@ def fetch_po(lang, project):
     if not os.path.exists("_cache"):
         os.mkdir("_cache")
     if os.path.exists(filename):
-        return open(filename).read().decode("utf-8")
+        return open(filename, encoding='utf-8').read()
     name = (lang if project == "scratch1.4" else project)
     url = "http://translate.scratch.mit.edu/download/{lang}/{proj}/{name}.po"
     url = url.format(proj=project, **vars())
-    print "GETing {url}".format(**vars())
+    print("GETing {url}".format(**vars()))
     try:
-        data = urlopen(url).read()
-        open(filename, "w").write(data)
-        return data.decode("utf-8")
-    except urllib2.HTTPError, e:
+        data = urlopen(url).read().decode('utf-8')
+        open(filename, "w", encoding="utf-8").write(data)
+        return data
+    except HTTPError as e:
         if e.code == 404:
-            print "HTTP 404 not found:", url
+            print("HTTP 404 not found:", url)
             return ""
         raise
 
@@ -129,7 +135,7 @@ def nonempty(seq):
 
 for lang in LANGUAGES:
     if lang in BLACKLIST: continue
-    print lang
+    print(lang)
 
     lang_blocks = parse_po(fetch_po(lang, "blocks"))
     lang_editor = parse_po(fetch_po(lang, "editor"))
@@ -140,14 +146,14 @@ for lang in LANGUAGES:
         when_distance, _ = lang_blocks["when distance < %n"].split(" < %n")
 
     end_block = None
-    for translated_text, english_spec in extra_aliases.items():
+    for translated_text, english_spec in copy(extra_aliases).items():
         if english_spec == "end":
             end_block = translated_text
             del extra_aliases[translated_text]
 
     for english_spec in need_aliases:
         if english_spec not in extra_aliases.values():
-            print "%s is missing alias: %s" % (lang, english_spec)
+            print("%s is missing alias: %s" % (lang, english_spec))
 
     count = 0
     commands = {}
@@ -163,9 +169,9 @@ for lang in LANGUAGES:
             count += 1
         else:
             if spec == "end":
-                print "%s is missing extra: end" % lang
+                print("%s is missing extra: end" % lang)
             elif spec not in untranslated and spec not in acceptable_missing:
-                print "%s is missing: %s" % (lang, spec)
+                print("%s is missing: %s" % (lang, spec))
     print("{}: {:.1f}%".format(lang, count/len(command_specs)*100))
 
     language = {
@@ -181,7 +187,7 @@ for lang in LANGUAGES:
     all_languages[lang] = language
 
 block_ids = []
-some_language_translations = all_languages.values()[0]
+some_language_translations = list(all_languages.values())[0]
 for bid in some_language_translations.keys():
     if not bid[0].isupper(): # Assume upper-case are category names
         block_ids.append(bid)
@@ -192,7 +198,7 @@ for lang, translations in all_languages.items():
     language_array = [lang]
     for bid in block_ids:
         if bid not in translations:
-            print "%s doesn't have %s" % (lang, bid)
+            print("%s doesn't have %s" % (lang, bid))
         language_array.append(translations.get(bid, ''))
     translations_array.append(language_array)
 
@@ -207,4 +213,3 @@ else:
     filename = "translations.js"
 open(filename, "wb").write(data.encode("utf-8"))
 print("Wrote %s" % filename)
-
