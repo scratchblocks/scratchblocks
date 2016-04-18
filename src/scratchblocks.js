@@ -185,6 +185,7 @@ var scratchblocks = function () {
       blocksByHash[aliasHash] = block;
     });
 
+    language.code = code;
     allLanguages[code] = language;
   }
   function loadLanguages(languages) {
@@ -311,7 +312,10 @@ var scratchblocks = function () {
         if (block.specialCase) {
           block = block.specialCase(info, children, lang) || block;
         }
+
         info.language = lang;
+        info.isRTL = rtlLanguages.indexOf(lang.code) > -1;
+
         if (block.shape === 'ring' ? info.shape === 'reporter' : info.shape === 'stack') {
           info.shape = block.shape;
         }
@@ -1907,6 +1911,7 @@ var scratchblocks = function () {
 
   Block.prototype.draw = function() {
     var isDefine = this.info.shape === 'define-hat';
+    var children = this.children;
 
     var padding = Block.padding[this.info.shape] || Block.padding[null];
     var pt = padding[0],
@@ -1935,9 +1940,28 @@ var scratchblocks = function () {
       lines.push(line);
     }
 
+    if (this.info.isRTL) {
+      var start = 0;
+      var flip = function() {
+        children = (
+          children.slice(0, start).concat(
+          children.slice(start, i).reverse())
+          .concat(children.slice(i))
+        );
+      }.bind(this);
+      for (var i=0; i<children.length; i++) {
+        if (children[i].isScript) {
+          flip();
+          start = i + 1;
+        }
+      } if (start < i) {
+        flip();
+      }
+    }
+
     var lines = [];
-    for (var i=0; i<this.children.length; i++) {
-      var child = this.children[i];
+    for (var i=0; i<children.length; i++) {
+      var child = children[i];
       child.el = child.draw(this);
 
       if (child.isScript && this.hasScript) {
