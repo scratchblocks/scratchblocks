@@ -1779,8 +1779,10 @@ var scratchblocks = function () {
       if (inputPat.test(part)) {
         var arg = args.shift();
         return (isArray(arg) ? Block : Input).fromJSON(lang, arg, part);
+      } else if (iconPat.test(part)) {
+        return new Icon(part.slice(1));
       } else {
-        return new Label(part);
+        return new Label(part.trim());
       }
     });
     args.forEach(function(list) {
