@@ -326,10 +326,11 @@ var scratchblocks = function () {
 
         // image replacement
         if (iconPat.test(block.spec) || lang.aliases[hash]) {
+          var langInfo = parseSpec(lang.commands[block.spec] || block.spec);
           var inputs = children.filter(function(child) {
             return !child.isLabel;
           });
-          children = block.parts.map(function(part) {
+          children = langInfo.parts.map(function(part) {
             part = part.trim();
             if (!part) return;
             return inputPat.test(part) ? inputs.shift()
