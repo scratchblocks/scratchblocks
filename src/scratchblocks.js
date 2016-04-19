@@ -2244,7 +2244,10 @@ var scratchblocks = function () {
   Document.prototype.exportSVG = function() {
     assert(this.el, "call draw() first");
     // TODO pad exported SVGs?
-    return new XMLSerializer().serializeToString(this.el);
+    var xml = new XMLSerializer().serializeToString(this.el);
+    return 'data:image/svg+xml;utf8,' + xml.replace(
+      /[#]/g, encodeURIComponent
+    );
   }
 
   Document.prototype.exportPNG = function(cb) {
@@ -2254,7 +2257,7 @@ var scratchblocks = function () {
     var context = canvas.getContext("2d");
 
     var image = new Image;
-    image.src = 'data:image/svg+xml;utf8,' + this.exportSVG();
+    image.src = this.exportSVG();
     image.onload = function() {
       context.drawImage(image, 0, 0);
 

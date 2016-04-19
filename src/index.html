@@ -249,7 +249,7 @@ function objUpdated() {
         el.appendChild(svg);
 
         var link = exportSVGLink = document.createElement('a');
-        exportLink.href = 'data:image/svg+xml;utf8,' + scratchblocks.exportSVG(svg);
+        exportLink.href = scratchblocks.exportSVG(svg);
         exportLink.setAttribute('download', 'scratchblocks.svg');
         exportLink.textContent = "Export SVG";
         exportLink.className = 'export-link';
@@ -278,7 +278,7 @@ function objUpdated() {
     setTimeout(function() {
       if (exportSVGLink) document.body.removeChild(exportSVGLink);
       var link = exportSVGLink = document.createElement('a');
-      link.href = 'data:image/svg+xml;utf8,' + doc.exportSVG();
+      link.href = doc.exportSVG();
       link.setAttribute('download', 'scratchblocks.svg');
       link.textContent = "Export SVG";
       link.className = 'export-link';
