@@ -1755,6 +1755,20 @@ var scratchblocks = function () {
         call: spec,
       });
       var parts = info.parts;
+
+    } else if (selector === 'readVariable' || selector === 'contentsOfList:' || selector === 'getParam') {
+      var shape = selector === 'getParam' && args.shift() === 'b' ? 'boolean' : 'reporter';
+      var info = {
+        selector: selector,
+        shape: shape,
+        category: {
+          'readVariable': 'variables',
+          'contentsOfList:': 'list',
+          'getParam': 'custom-arg',
+        }[selector],
+      }
+      return new Block(info, [new Label(args[0])]);
+
     } else {
       var info = blocksBySelector[selector];
       assert(info, "unknown selector: " + selector);
@@ -1768,6 +1782,10 @@ var scratchblocks = function () {
       } else {
         return new Label(part);
       }
+    });
+    args.forEach(function(list) {
+      assert(isArray(list));
+      children.push(new Script(list.map(Block.fromJSON.bind(null, lang))));
     });
     return new Block(info, children);
   };
