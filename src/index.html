@@ -11,7 +11,7 @@
 <link rel=stylesheet href="lib/style.css">
 
 <style>
-#preview, #preview:before {
+#preview:before {
   position: relative;
   min-width: 400px;
   min-height: 300px;
@@ -152,7 +152,8 @@ body {
 
 <script>
 var editor = document.getElementById('editor');
-var exportLink;
+var exportSVGLink;
+var exportPNGLink;
 
 var obj = {};
 extractHash();
@@ -247,7 +248,7 @@ function objUpdated() {
         var el = document.createElement('div');
         el.appendChild(svg);
 
-        exportLink = document.createElement('a');
+        var link = exportSVGLink = document.createElement('a');
         exportLink.href = 'data:image/svg+xml;utf8,' + scratchblocks.exportSVG(svg);
         exportLink.setAttribute('download', 'scratchblocks.svg');
         exportLink.textContent = "Export SVG";
@@ -275,13 +276,23 @@ function objUpdated() {
 
     // add export link
     setTimeout(function() {
-      if (exportLink) document.body.removeChild(exportLink);
-      exportLink = document.createElement('a');
-      exportLink.href = 'data:image/svg+xml;utf8,' + scratchblocks.exportSVG(svg);
-      exportLink.setAttribute('download', 'scratchblocks.svg');
-      exportLink.textContent = "Export SVG";
-      exportLink.className = 'export-link';
-      document.body.appendChild(exportLink);
+      if (exportSVGLink) document.body.removeChild(exportSVGLink);
+      var link = exportSVGLink = document.createElement('a');
+      link.href = 'data:image/svg+xml;utf8,' + doc.exportSVG();
+      link.setAttribute('download', 'scratchblocks.svg');
+      link.textContent = "Export SVG";
+      link.className = 'export-link';
+      document.body.appendChild(link);
+
+      if (exportPNGLink) document.body.removeChild(exportPNGLink);
+      doc.exportPNG(function(pngDataURL) {
+        var link = exportPNGLink = document.createElement('a');
+        link.href = pngDataURL;
+        link.setAttribute('download', 'scratchblocks.png');
+        link.textContent = "Export PNG";
+        link.className = 'export-link';
+        document.body.appendChild(link);
+      });
     }, 0);
 
     console.log(doc.toJSON().scripts);

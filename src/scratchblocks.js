@@ -2221,16 +2221,39 @@ var scratchblocks = function () {
     cb(svg);
   };
 
+  Document.prototype.exportSVG = function() {
+    assert(this.el, "call draw() first");
+    // TODO pad exported SVGs?
+    return new XMLSerializer().serializeToString(this.el);
+  }
+
+  Document.prototype.exportPNG = function(cb) {
+    var canvas = document.createElement('canvas');
+    canvas.width = this.width;
+    canvas.height = this.height;
+    var context = canvas.getContext("2d");
+
+    var image = new Image;
+    image.src = 'data:image/svg+xml;utf8,' + this.exportSVG();
+    image.onload = function() {
+      context.drawImage(image, 0, 0);
+
+      if (URL && URL.createObjectURL && Blob && canvas.toBlob) {
+        var blob = canvas.toBlob(function(blob) {
+          cb(URL.createObjectURL(blob));
+        }, 'image/png');
+      } else {
+        cb(canvas.toDataURL('image/png'));
+      }
+    };
+  }
+
   /*****************************************************************************/
 
   function render(doc, cb) {
     return doc.render(cb);
   }
 
-  function exportSVG(svg) {
-    // TODO pad exported SVGs?
-    return new XMLSerializer().serializeToString(svg);
-  }
 
   /*** Render ***/
 
@@ -2326,7 +2349,6 @@ var scratchblocks = function () {
     render: render,
     replace: replace,
     renderMatching: renderMatching,
-    exportSVG: exportSVG,
   };
 
 }();
