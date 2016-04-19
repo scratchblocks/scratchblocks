@@ -395,7 +395,7 @@ var scratchblocks = function () {
         if (tok === '<' || (tok === '>' && end === '>')) {
           var last = children[children.length - 1];
           var c = peekNonWs();
-          if (last && last.isInput && (c === '[' || c === '(' || c === '<')) {
+          if (last && !last.isLabel && (c === '[' || c === '(' || c === '<' || c === '{')) {
             label = null;
             children.push(new Label(tok));
             next();
