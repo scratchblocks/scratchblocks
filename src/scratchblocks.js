@@ -429,12 +429,14 @@ var scratchblocks = function () {
             children.push(pIcon());
             label = null;
             break;
+          case '\\':
+            next(); // escape character
+            // fall-thru
           case ':':
-            if (peek() === ':') {
+            if (tok === ':' && peek() === ':') {
               children.push(pOverrides(end));
               return children;
             } // fall-thru
-          case '/':
           default:
             if (!label) children.push(label = new Label(""));
             label.value += tok;
