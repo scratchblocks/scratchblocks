@@ -1606,6 +1606,17 @@ var scratchblocks = function () {
         hex = hex[0] + hex[2] + hex[4];
       }
       var value = '#' + hex;
+    } else if (shape === 'dropdown') {
+      var value = {
+        _mouse_: "mouse-pointer",
+        _myself_: "myself",
+        _stage_: "Stage",
+        _edge_: "edge",
+        _random_: "random position",
+      }[value] || value;
+    }
+    if (shape === 'dropdown' || shape === 'number-dropdown') {
+      // TODO translate
     }
     return new Input(shape, value || "");
   };
@@ -1617,6 +1628,18 @@ var scratchblocks = function () {
       if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
       return parseInt(h, 16);
       // TODO signed int?
+    }
+    if (this.shape === 'dropdown' || this.shape === 'number-dropdown') {
+      // TODO translate
+    }
+    if (this.shape === 'dropdown') {
+      return {
+        "mouse-pointer": "_mouse_",
+        "myself": "_myself",
+        "Stage": "_stage_",
+        "edge": "_edge_",
+        "random position": "_random_",
+      }[this.value] || this.value;
     }
     return this.isBoolean ? false : this.value;
   };
