@@ -1589,20 +1589,43 @@ var scratchblocks = function () {
   Input.prototype.isInput = true;
 
   Input.fromJSON = function(lang, value, part) {
-    return new Input({
+    var shape = {
       b: 'boolean',
       n: 'number',
       s: 'string',
       d: 'number-dropdown',
       m: 'dropdown',
-    }[part[1]], value || "");
+      c: 'color',
+    }[part[1]];
+    if (shape === 'color') {
+      if (value < 0) value = 0xFFFFFFFF + value + 1;
+      var hex = value.toString(16);
+      hex = hex.slice(Math.max(0, hex.length - 6)); // last 6 characters
+      while (hex.length < 6) hex = '0' + hex;
+      if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] === hex[5]) {
+        hex = hex[0] + hex[2] + hex[4];
+      }
+      var value = '#' + hex;
+    }
+    return new Input(shape, value || "");
   };
 
   Input.prototype.toJSON = function() {
+    if (this.isColor) {
+      assert(this.value[0] === '#');
+      var h = this.value.slice(1);
+      if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+      return parseInt(h, 16);
+      // TODO signed int?
+    }
     return this.isBoolean ? false : this.value;
   };
 
   Input.prototype.stringify = function() {
+    if (this.isColor) {
+      assert(this.value[0] === '#');
+      return this.value;
+    }
     var text = "" + (this.value || "");
     if (this.hasArrow) text += " v";
     return this.isRound ? "(" + text + ")"
