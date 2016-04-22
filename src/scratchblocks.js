@@ -1473,7 +1473,9 @@ var scratchblocks = function () {
   Label.prototype.isLabel = true;
 
   Label.prototype.stringify = function() {
-    return this.value;
+    return (this.value
+      .replace(/([<>[\](){}])/g, "\\$1")
+    );
   };
 
   Label.prototype.measure = function() {
