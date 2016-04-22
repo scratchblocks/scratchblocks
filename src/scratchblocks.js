@@ -1603,7 +1603,7 @@ var scratchblocks = function () {
   };
 
   Input.prototype.stringify = function() {
-    var text = this.value || "";
+    var text = "" + (this.value || "");
     if (this.hasArrow) text += " v";
     return this.isRound ? "(" + text + ")"
          : this.isSquare ? "[" + text + "]"
