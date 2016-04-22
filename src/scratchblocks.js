@@ -2143,10 +2143,9 @@ var scratchblocks = function () {
   };
   Script.prototype.isScript = true;
 
-  Script.fromJSON = function(lang, array) {
+  Script.fromJSON = function(lang, blocks) {
     // x = array[0], y = array[1];
-    // TODO this is not consistent with toJSON() !
-    return new Script(array[2].map(Block.fromJSON.bind(null, lang)));
+    return new Script(blocks.map(Block.fromJSON.bind(null, lang)));
   };
 
   Script.prototype.toJSON = function() {
@@ -2216,7 +2215,12 @@ var scratchblocks = function () {
 
   Document.fromJSON = function(scriptable, lang) {
     var lang = lang || english;
-    var scripts = scriptable.scripts.map(Script.fromJSON.bind(null, lang));
+    var scripts = scriptable.scripts.map(function(array) {
+      var script = Script.fromJSON(lang, array[2]);
+      script.x = array[0];
+      script.y = array[1];
+      return script;
+    });
     // TODO scriptable.scriptComments
     return new Document(scripts);
   };
