@@ -1649,7 +1649,10 @@ var scratchblocks = function () {
       assert(this.value[0] === '#');
       return this.value;
     }
-    var text = "" + (this.value || "");
+    var text = ((this.value ? "" + this.value : "")
+      .replace(/ v$/, " \\v")
+      .replace(/([\]\\])/g, "\\$1")
+    );
     if (this.hasArrow) text += " v";
     return this.isRound ? "(" + text + ")"
          : this.isSquare ? "[" + text + "]"
