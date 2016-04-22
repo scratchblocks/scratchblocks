@@ -849,7 +849,7 @@ var scratchblocks = function () {
             return !child.isLabel;
           });
           var input = inputs[argIndex];
-          if (input.isInput) {
+          if (input && input.isInput) {
             listNames[input.value] = true;
           }
         }
