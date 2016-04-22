@@ -124,11 +124,11 @@ dropdown_values = ["A connected", "all", "all around", "all motors",
     "left arrow", "left-right", "light", "lights", "minute", "month",
     "mosaic", "motion", "motor", "motor A", "motor B", "mouse-pointer",
     "myself", "not =", "off", "on", "on-flipped", "other scripts in sprite",
-    "pixelate", "previous backdrop", "resistance-A", "resistance-B",
-    "resistance-C", "resistance-D", "reverse", "right arrow", "second",
-    "slider", "sound", "space", "Stage", "that way", "this script",
-    "this sprite", "this way", "up arrow", "video motion", "whirl", "year"
-]
+    "pixelate", "previous backdrop", "random position", "resistance-A",
+    "resistance-B", "resistance-C", "resistance-D", "reverse", "right arrow",
+    "second", "slider", "sound", "space", "Stage", "that way", "this script",
+    "this sprite", "this way", "up arrow", "video motion", "whirl", "year",
+    ]
 
 def nonempty(seq):
     return list(set(filter(None, seq)))
@@ -174,6 +174,12 @@ for lang in LANGUAGES:
                 print("%s is missing: %s" % (lang, spec))
     print("{}: {:.1f}%".format(lang, count/len(command_specs)*100))
 
+    dropdowns = {}
+    for name in dropdown_values:
+        native_name = lang_blocks.get(x) or lang_editor.get(x, '')
+        if native_name:
+            dropdowns[name] = native_name
+
     language = {
         'aliases': extra_aliases,
         'define': [lang_blocks.get('define', '')],
@@ -181,9 +187,8 @@ for lang in LANGUAGES:
         'math': nonempty(map(lang_editor.get, math_funcs)),
         'osis': nonempty(map(lang_editor.get, osis)),
         'commands': commands,
+        'dropdowns': dropdowns,
     }
-    if langs == 'all':
-        language["dropdowns"] = [lang_blocks.get(x) or lang_editor.get(x, '') for x in dropdown_values]
     all_languages[lang] = language
 
 block_ids = []
