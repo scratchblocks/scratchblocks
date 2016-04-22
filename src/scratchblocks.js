@@ -1844,6 +1844,7 @@ var scratchblocks = function () {
     var selector = this.info.selector;
     if (!selector) return;
     var block = blocksBySelector[selector];
+    if (!block) return;
     var nativeSpec = lang.commands[block.spec];
     if (!nativeSpec) return;
     var nativeInfo = parseSpec(nativeSpec);
@@ -1862,6 +1863,8 @@ var scratchblocks = function () {
     args.forEach(function(arg) {
       this.children.push(arg);
     }.bind(this));
+    this.info.language = lang;
+    this.info.isRTL = rtlLanguages.indexOf(lang.code) > -1;
   };
 
   Block.prototype.measure = function() {
