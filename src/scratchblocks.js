@@ -323,20 +323,6 @@ var scratchblocks = function () {
         info.categoryIsDefault = false;
         info.selector = block.selector; // for backpack
         info.hasLoopArrow = block.hasLoopArrow;
-
-        // image replacement
-        if (iconPat.test(block.spec) || lang.aliases[hash]) {
-          var langInfo = parseSpec(lang.commands[block.spec] || block.spec);
-          var inputs = children.filter(function(child) {
-            return !child.isLabel;
-          });
-          children = langInfo.parts.map(function(part) {
-            part = part.trim();
-            if (!part) return;
-            return inputPat.test(part) ? inputs.shift()
-                 : iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part);
-          }).filter(bool);
-        }
       }
     }
 
@@ -347,7 +333,13 @@ var scratchblocks = function () {
       children.push(new Icon('loopArrow'));
     }
 
-    return new Block(info, children);
+    var block = new Block(info, children);
+
+    // image replacement
+    if (iconPat.test(block.spec) || lang.aliases[hash]) {
+      block.translate(lang, true);
+    }
+    return block;
   }
 
 
@@ -994,7 +986,7 @@ var scratchblocks = function () {
     });
   }
 
-  function translate(dx, dy, el) {
+  function move(dx, dy, el) {
     setProps(el, {
       transform: ['translate(', dx, ' ', dy, ')'].join(''),
     });
@@ -1238,7 +1230,7 @@ var scratchblocks = function () {
 
     var archRoundness = Math.min(0.2, 35 / w);
 
-    return translate(0, y, group([
+    return move(0, y, group([
         procHatBase(w, q, archRoundness, props),
         procHatCap(w, q, archRoundness),
     ]));
@@ -1301,7 +1293,7 @@ var scratchblocks = function () {
   }
 
   function commentLine(width, props) {
-    return translate(-width, 9, rect(width, 2, extend(props, {
+    return move(-width, 9, rect(width, 2, extend(props, {
       class: 'comment-line',
     })));
   }
@@ -1349,7 +1341,7 @@ var scratchblocks = function () {
           fill: '#000',
           opacity: '0.3',
         }),
-        translate(-1, -1, el('path', {
+        move(-1, -1, el('path', {
           d: "M8 0l2 -2l0 -3l3 0l-4 -5l-4 5l3 0l0 3l-8 0l0 2",
           fill: '#fff',
           opacity: '0.9',
@@ -1620,6 +1612,12 @@ var scratchblocks = function () {
          : text;
   };
 
+  Input.prototype.translate = function() {
+    if (this.hasArrow) {
+      // TODO translate menu options
+    }
+  };
+
   Input.prototype.measure = function() {
     if (this.hasLabel) this.label.measure();
   };
@@ -1669,11 +1667,11 @@ var scratchblocks = function () {
     ]);
     if (this.hasLabel) {
       var x = this.isRound ? 5 : 4;
-      result.appendChild(translate(x, 0, label));
+      result.appendChild(move(x, 0, label));
     }
     if (this.hasArrow) {
       var y = this.shape === 'dropdown' ? 5 : 4;
-      result.appendChild(translate(w - 10, y, polygon({
+      result.appendChild(move(w - 10, y, polygon({
         points: [
           7, 0,
           3.5, 4,
@@ -1840,6 +1838,30 @@ var scratchblocks = function () {
          : this.info.shape === 'reporter' ? "(" + text + ")"
          : this.info.shape === 'boolean' ? "<" + text + ">"
          : text;
+  };
+
+  Block.prototype.translate = function(lang, isShallow) {
+    var selector = this.info.selector;
+    if (!selector) return;
+    var block = blocksBySelector[selector];
+    var nativeSpec = lang.commands[block.spec];
+    if (!nativeSpec) return;
+    var nativeInfo = parseSpec(nativeSpec);
+    var args = this.children.filter(function(child) {
+      return !child.isLabel;
+    });
+    if (!isShallow) args.forEach(function(child) {
+      if (!child.isIcon) child.translate(lang);
+    });
+    this.children = nativeInfo.parts.map(function(part) {
+      var part = part.trim();
+      if (!part) return;
+      return inputPat.test(part) ? args.shift()
+           : iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part);
+    }).filter(bool);
+    args.forEach(function(arg) {
+      this.children.push(arg);
+    }.bind(this));
   };
 
   Block.prototype.measure = function() {
@@ -2028,7 +2050,7 @@ var scratchblocks = function () {
     for (var i=0; i<lines.length; i++) {
       var line = lines[i];
       if (line.isScript) {
-        objects.push(translate(15, line.y, line.el));
+        objects.push(move(15, line.y, line.el));
         continue;
       }
 
@@ -2037,7 +2059,7 @@ var scratchblocks = function () {
       for (var j=0; j<line.children.length; j++) {
         var child = line.children[j];
         if (child.isArrow) {
-          objects.push(translate(innerWidth - 15, this.height - 3, child.el));
+          objects.push(move(innerWidth - 15, this.height - 3, child.el));
           continue;
         }
 
@@ -2053,7 +2075,7 @@ var scratchblocks = function () {
             continue;
           }
         }
-        objects.push(translate(px + child.x, line.y + y|0, child.el));
+        objects.push(move(px + child.x, line.y + y|0, child.el));
       }
     }
 
@@ -2097,7 +2119,7 @@ var scratchblocks = function () {
       commentRect(this.width, this.height, {
         class: 'comment',
       }),
-      translate(8, 4, labelEl),
+      move(8, 4, labelEl),
     ]);
   };
 
@@ -2112,18 +2134,14 @@ var scratchblocks = function () {
   };
   Script.prototype.isScript = true;
 
-  Script.prototype.measure = function() {
-    for (var i=0; i<this.blocks.length; i++) {
-      this.blocks[i].measure();
-    }
-  };
-
   Script.fromJSON = function(lang, array) {
     // x = array[0], y = array[1];
+    // TODO this is not consistent with toJSON() !
     return new Script(array[2].map(Block.fromJSON.bind(null, lang)));
   };
 
   Script.prototype.toJSON = function() {
+    if (this.blocks[0] && this.blocks[0].isComment) return;
     return this.blocks.map(function(block) {
       return block.toJSON();
     });
@@ -2137,13 +2155,25 @@ var scratchblocks = function () {
     }).join("\n");
   };
 
+  Script.prototype.translate = function(lang) {
+    this.blocks.forEach(function(block) {
+      block.translate(lang);
+    });
+  };
+
+  Script.prototype.measure = function() {
+    for (var i=0; i<this.blocks.length; i++) {
+      this.blocks[i].measure();
+    }
+  };
+
   Script.prototype.draw = function(inside) {
     var children = [];
     var y = 0;
     this.width = 0;
     for (var i=0; i<this.blocks.length; i++) {
       var block = this.blocks[i];
-      children.push(translate(inside ? 0 : 2, y, block.draw()));
+      children.push(move(inside ? 0 : 2, y, block.draw()));
       y += block.height;
       this.width = Math.max(this.width, block.width);
 
@@ -2152,7 +2182,7 @@ var scratchblocks = function () {
         var cx = block.width + 2 + Comment.lineLength;
         var cy = y - (block.height / 2);
         var el = comment.draw();
-        children.push(translate(cx, cy - comment.height / 2, el));
+        children.push(move(cx, cy - comment.height / 2, el));
         this.width = Math.max(this.width, cx + comment.width);
       }
     }
@@ -2183,8 +2213,10 @@ var scratchblocks = function () {
 
   Document.prototype.toJSON = function() {
     var jsonScripts = this.scripts.map(function(script) {
-      return [10, script.y + 10, script.toJSON()];
-    });
+      var jsonBlocks = script.toJSON();
+      if (!jsonBlocks) return;
+      return [10, script.y + 10, jsonBlocks];
+    }).filter(bool);
     return {
       scripts: jsonScripts,
       // scriptComments: [], // TODO
@@ -2195,6 +2227,12 @@ var scratchblocks = function () {
     return this.scripts.map(function(script) {
       return script.stringify();
     }).join("\n\n");
+  };
+
+  Document.prototype.translate = function(lang) {
+    this.scripts.forEach(function(script) {
+      script.translate(lang);
+    });
   };
 
   Document.prototype.measure = function() {
@@ -2221,7 +2259,7 @@ var scratchblocks = function () {
       var script = this.scripts[i];
       if (height) height += 10;
       script.y = height;
-      elements.push(translate(0, height, script.draw()));
+      elements.push(move(0, height, script.draw()));
       height += script.height;
       width = Math.max(width, script.width + 4);
     }

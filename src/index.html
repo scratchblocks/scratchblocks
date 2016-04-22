@@ -266,9 +266,13 @@ function objUpdated() {
   var doc = window.doc = scratchblocks.parse(obj.script, {
     languages: obj.lang ? ['en', obj.lang] : ['en'],
   });
+
+  // doc.translate(scratchblocks.allLanguages['de']);
+
   // var doc = window.doc = scratchblocks.fromJSON({
   //   scripts: eval(obj.script),
   // });
+
   console.log(scratchblocks.stringify(doc));
   doc.render(function(svg) {
     preview.innerHTML = "";
