@@ -632,8 +632,11 @@ var scratchblocks = function () {
           case '[': parseArg('string', ']'); break;
           case '<': parseArg('boolean', '>'); break;
           case ' ': next(); label = null; break;
+          case '\\':
+            next();
+            // fall-thru
           case ':':
-            if (peek() === ':') {
+            if (tok === ':' && peek() === ':') {
               children.push(pOverrides());
               break;
             } // fall-thru
