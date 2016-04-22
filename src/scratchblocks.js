@@ -1708,6 +1708,10 @@ var scratchblocks = function () {
     this.isEnd = shape === 'cend';
 
     this.x = 0;
+    this.width = null;
+    this.height = null;
+    this.firstLine = null;
+    this.innerWidth = null;
   };
   Block.prototype.isBlock = true;
 
@@ -2047,6 +2051,8 @@ var scratchblocks = function () {
       this.height += p;
       pt += 2 * p;
     }
+    this.firstLine = lines[0];
+    this.innerWidth = innerWidth;
 
     var objects = [];
 
@@ -2182,8 +2188,9 @@ var scratchblocks = function () {
 
       var comment = block.comment;
       if (comment) {
-        var cx = block.width + 2 + Comment.lineLength;
-        var cy = y - (block.height / 2);
+        var line = block.firstLine;
+        var cx = block.innerWidth + 2 + Comment.lineLength;
+        var cy = y - block.height + (line.height / 2);
         var el = comment.draw();
         children.push(move(cx, cy - comment.height / 2, el));
         this.width = Math.max(this.width, cx + comment.width);
