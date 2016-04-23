@@ -1951,8 +1951,11 @@ var scratchblocks = function () {
       return child.isScript ? "\n" + indent(child.stringify()) + "\n"
                             : child.stringify().trim() + " ";
     }).join("").trim();
-    if (this.info.shape === 'reporter' && this.info.category === 'list') text += " :: list";
-    if (this.info.category === 'custom' && this.info.shape !== 'define-hat') text += " :: custom";
+    if ((this.info.shape === 'reporter' && this.info.category === 'list')
+     || (this.info.category === 'custom' && this.info.shape === 'stack')) {
+      text += " :: " + this.info.category;
+      console.log(this, this.info.categoryIsDefault);
+    }
     return this.hasScript ? text + "\nend"
          : this.info.shape === 'reporter' ? "(" + text + ")"
          : this.info.shape === 'boolean' ? "<" + text + ">"
