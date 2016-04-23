@@ -1661,7 +1661,9 @@ var scratchblocks = function () {
       c: 'color',
     }[part[1]];
 
+    var value = value ? ""+value : "";
     if (shape === 'color') {
+      if (!value) value = parseInt(Math.random() * 256 * 256 * 256);
       if (value < 0) value = 0xFFFFFFFF + value + 1;
       var hex = value.toString(16);
       hex = hex.slice(Math.max(0, hex.length - 6)); // last 6 characters
@@ -1678,13 +1680,15 @@ var scratchblocks = function () {
         _edge_: "edge",
         _random_: "random position",
       }[value] || value;
+    } else if (shape === 'number') {
+      value = value || "0";
     }
     if (shape === 'dropdown' || shape === 'number-dropdown') {
       var menu = value;
       value = lang.dropdowns[value] || value;
     }
 
-    return new Input(shape, value || "", menu);
+    return new Input(shape, value, menu);
   };
 
   Input.prototype.toJSON = function() {
@@ -1957,7 +1961,6 @@ var scratchblocks = function () {
     if ((this.info.shape === 'reporter' && this.info.category === 'list')
      || (this.info.category === 'custom' && this.info.shape === 'stack')) {
       text += " :: " + this.info.category;
-      console.log(this, this.info.categoryIsDefault);
     }
     return this.hasScript ? text + "\nend"
          : this.info.shape === 'reporter' ? "(" + text + ")"
