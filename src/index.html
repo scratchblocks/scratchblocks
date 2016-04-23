@@ -299,10 +299,17 @@ function objUpdated() {
       });
     }, 0);
 
-    console.log(doc.toJSON().scripts);
-    console.log(doc.toJSON().scripts.map(function(s) {
-      return s[2].map(JSON.stringify).join("\n");
-    }).join("\n\n"));
+    try {
+      var j = doc.toJSON();
+    } catch (e) {
+      console.error("toJSON: " + e);
+    }
+    if (j) {
+      console.log(j.scripts);
+      console.log(j.scripts.map(function(s) {
+        return s[2].map(JSON.stringify).join("\n");
+      }).join("\n\n"));
+    }
   });
 
   // update language dropdown

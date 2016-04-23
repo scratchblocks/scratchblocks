@@ -129,6 +129,7 @@ var scratchblocks = function () {
         .replace(/ö/g,"o")
         .replace(/ü/g,"u")
         .replace('. . .', '...')
+        .replace(/^…$/, '...')
     ).trim();
   }
 
@@ -203,8 +204,6 @@ var scratchblocks = function () {
       "when gf clicked": "when @greenFlag clicked",
       "when flag clicked": "when @greenFlag clicked",
       "when green flag clicked": "when @greenFlag clicked",
-      "...": ". . .",
-      "…": ". . .",
     },
 
     define: ["define"],
@@ -272,6 +271,19 @@ var scratchblocks = function () {
   }
 
 
+  function lookupHash(hash, info, children, languages) {
+    for (var i=0; i<languages.length; i++) {
+      var lang = languages[i];
+      if (lang.blocksByHash.hasOwnProperty(hash)) {
+        var block = lang.blocksByHash[hash];
+        if (block.specialCase) {
+          block = block.specialCase(info, children, lang) || block;
+        }
+        return { type: block, lang: lang };
+      }
+    }
+  }
+
   function applyOverrides(info, overrides) {
     for (var i=0; i<overrides.length; i++) {
       var name = overrides[i];
@@ -311,28 +323,28 @@ var scratchblocks = function () {
     var hash = info.hash = minifyHash(words.join(" "));
 
     // paint
-    for (var i=0; i<languages.length; i++) {
-      var lang = languages[i];
-      if (lang.blocksByHash.hasOwnProperty(hash)) {
-        var type = lang.blocksByHash[hash];
-        if (type.specialCase) {
-          type = type.specialCase(info, children, lang) || type;
-        }
+    var o = lookupHash(hash, info, children, languages);
+    if (o) {
+      var lang = o.lang;
+      var type = o.type;
+      info.language = lang;
+      info.isRTL = rtlLanguages.indexOf(lang.code) > -1;
 
-        info.language = lang;
-        info.isRTL = rtlLanguages.indexOf(lang.code) > -1;
+      if (type.shape === 'ring' ? info.shape === 'reporter' : info.shape === 'stack') {
+        info.shape = type.shape;
+      }
+      info.category = type.category;
+      info.categoryIsDefault = false;
+      info.selector = type.selector; // for toJSON
+      info.hasLoopArrow = type.hasLoopArrow;
 
-        if (type.shape === 'ring' ? info.shape === 'reporter' : info.shape === 'stack') {
-          info.shape = type.shape;
-        }
-        info.category = type.category;
-        info.categoryIsDefault = false;
-        info.selector = type.selector; // for backpack
-        info.hasLoopArrow = type.hasLoopArrow;
-        break;
+      // ellipsis block
+      if (type.spec === ". . .") {
+        children = [new Label(". . .")];
       }
     }
 
+    // overrides
     applyOverrides(info, overrides);
 
     // loop arrows
@@ -343,7 +355,7 @@ var scratchblocks = function () {
     var block = new Block(info, children);
 
     // image replacement
-    if (type && (iconPat.test(type.spec) || lang.aliases[hash])) {
+    if (type && iconPat.test(type.spec)) {
       block.translate(lang, true);
     }
     return block;
