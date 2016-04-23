@@ -59,7 +59,7 @@ var scratchblocks = function () {
   // List of classes we're allowed to override.
 
   var overrideCategories = ["motion", "looks", "sound", "pen", "variables", "list", "events", "control", "sensing", "operators", "custom", "custom-arg", "extension", "grey", "obsolete"];
-  var overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "celse", "cend", "ring"];
+  var overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "ring"];
 
   // languages that should be displayed right to left
   var rtlLanguages = ['ar', 'fa', 'he'];
@@ -276,8 +276,6 @@ var scratchblocks = function () {
         info.categoryIsDefault = false;
       } else if (overrideShapes.indexOf(name) > -1) {
         info.shape = name;
-      } else if (name === 'cstart') {
-        info.shape = 'c-block';
       } else if (name === 'loop') {
         info.hasLoopArrow = true;
       }
@@ -2063,7 +2061,8 @@ var scratchblocks = function () {
       var child = children[i];
       child.el = child.draw(this);
 
-      if (child.isScript && this.hasScript) {
+      if (child.isScript && this.isCommand) {
+        this.hasScript = true;
         pushLine();
         child.y = y;
         lines.push(child);
