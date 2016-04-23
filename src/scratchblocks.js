@@ -306,21 +306,22 @@ var scratchblocks = function () {
     for (var i=0; i<languages.length; i++) {
       var lang = languages[i];
       if (lang.blocksByHash.hasOwnProperty(hash)) {
-        var block = lang.blocksByHash[hash];
-        if (block.specialCase) {
-          block = block.specialCase(info, children, lang) || block;
+        var type = lang.blocksByHash[hash];
+        if (type.specialCase) {
+          type = type.specialCase(info, children, lang) || type;
         }
 
         info.language = lang;
         info.isRTL = rtlLanguages.indexOf(lang.code) > -1;
 
-        if (block.shape === 'ring' ? info.shape === 'reporter' : info.shape === 'stack') {
-          info.shape = block.shape;
+        if (type.shape === 'ring' ? info.shape === 'reporter' : info.shape === 'stack') {
+          info.shape = type.shape;
         }
-        info.category = block.category;
+        info.category = type.category;
         info.categoryIsDefault = false;
-        info.selector = block.selector; // for backpack
-        info.hasLoopArrow = block.hasLoopArrow;
+        info.selector = type.selector; // for backpack
+        info.hasLoopArrow = type.hasLoopArrow;
+        break;
       }
     }
 
@@ -334,7 +335,7 @@ var scratchblocks = function () {
     var block = new Block(info, children);
 
     // image replacement
-    if (iconPat.test(block.spec) || lang.aliases[hash]) {
+    if (iconPat.test(type.spec) || lang.aliases[hash]) {
       block.translate(lang, true);
     }
     return block;
@@ -1900,10 +1901,10 @@ var scratchblocks = function () {
     if (!nativeSpec) return;
     var nativeInfo = parseSpec(nativeSpec);
     var args = this.children.filter(function(child) {
-      return !child.isLabel;
+      return !child.isLabel && !child.isIcon;
     });
     if (!isShallow) args.forEach(function(child) {
-      if (!child.isIcon) child.translate(lang);
+      child.translate(lang);
     });
     this.children = nativeInfo.parts.map(function(part) {
       var part = part.trim();
