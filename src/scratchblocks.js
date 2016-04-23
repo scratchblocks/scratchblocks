@@ -1932,6 +1932,10 @@ var scratchblocks = function () {
   Block.prototype.translate = function(lang, isShallow) {
     var selector = this.info.selector;
     if (!selector) return;
+    if (selector === 'procDef') {
+      assert(this.children[0].isLabel);
+      this.children[0] = new Label(lang.define[0] || english.define[0]);
+    }
     var block = blocksBySelector[selector];
     if (!block) return;
     var nativeSpec = lang.commands[block.spec];
