@@ -251,6 +251,14 @@ var scratchblocks = function () {
     return last.shape === 'dropdown';
   });
 
+  disambig('penColor:', 'setPenHueTo:', function(children, lang) {
+    // Color block if color input, otherwise numeric
+    var last = children[children.length - 1];
+    // If variable, assume color input, since the RGBA hack is common.
+    // TODO fix Scratch :P
+    return (last.isInput && last.isColor) || last.isBlock;
+  });
+
   blocksBySelector['stopScripts'].specialCase = function(info, children, lang) {
     // Cap block unless argument is "other scripts in sprite"
     var last = children[children.length - 1];
@@ -1885,7 +1893,7 @@ var scratchblocks = function () {
         return ['call', this.info.call].concat(args);
       }
     }
-    if (!selector) throw "unknown block " + this.info.hash;
+    if (!selector) throw "unknown block: " + this.info.hash;
     return [selector].concat(args);
   };
 

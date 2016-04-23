@@ -325,8 +325,8 @@ setInterval(function() {
 }, 200);
 
 function updatedFromHash() {
-  objUpdated();
   editor.value = obj.script;
+  objUpdated();
   chooseLang.value = obj.lang || "";
 }
 
