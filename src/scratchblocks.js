@@ -458,12 +458,14 @@ var scratchblocks = function () {
             children.push(Icon.icons.hasOwnProperty(name) ? new Icon(name) : new Label("@" + name));
             label = null;
             break;
+          case '\\':
+            next(); // escape character
+            // fall-thru
           case ':':
-            if (peek() === ':') {
+            if (tok === ':' && peek() === ':') {
               children.push(pOverrides(end));
               return children;
             } // fall-thru
-          case '/':
           default:
             if (!label) children.push(label = new Label(""));
             label.value += tok;
@@ -659,8 +661,11 @@ var scratchblocks = function () {
           case '[': parseArg('string', ']'); break;
           case '<': parseArg('boolean', '>'); break;
           case ' ': next(); label = null; break;
+          case '\\':
+            next();
+            // fall-thru
           case ':':
-            if (peek() === ':') {
+            if (tok === ':' && peek() === ':') {
               children.push(pOverrides());
               break;
             } // fall-thru
@@ -1500,7 +1505,9 @@ var scratchblocks = function () {
   Label.prototype.isLabel = true;
 
   Label.prototype.stringify = function() {
-    return this.value;
+    return (this.value
+      .replace(/([<>[\](){}])/g, "\\$1")
+    );
   };
 
   Label.prototype.measure = function() {
