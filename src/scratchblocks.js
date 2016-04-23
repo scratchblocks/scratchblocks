@@ -428,6 +428,16 @@ var scratchblocks = function () {
             children.push(pIcon());
             label = null;
             break;
+          case '@':
+            next();
+            var name = "";
+            while (tok && /[a-zA-Z]/.test(tok)) {
+              name += tok;
+              next();
+            }
+            children.push(Icon.icons.hasOwnProperty(name) ? new Icon(name) : new Label("@" + name));
+            label = null;
+            break;
           case ':':
             if (peek() === ':') {
               children.push(pOverrides(end));
