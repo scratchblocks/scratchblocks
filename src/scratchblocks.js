@@ -335,7 +335,7 @@ var scratchblocks = function () {
     var block = new Block(info, children);
 
     // image replacement
-    if (iconPat.test(type.spec) || lang.aliases[hash]) {
+    if (type && (iconPat.test(type.spec) || lang.aliases[hash])) {
       block.translate(lang, true);
     }
     return block;
