@@ -529,6 +529,9 @@ var scratchblocks = function () {
       // define hats
       var first = children[0];
       if (first && first.isLabel && isDefine(first.value)) {
+        if (children.length < 2) {
+          children.push(makeBlock('outline', []));
+        }
         return makeBlock('define-hat', children);
       }
 
