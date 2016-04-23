@@ -1885,7 +1885,7 @@ var scratchblocks = function () {
         return ['call', this.info.call].concat(args);
       }
     }
-    if (!selector) return "";
+    if (!selector) throw "unknown block " + this.info.hash;
     return [selector].concat(args);
   };
 
