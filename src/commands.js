@@ -161,6 +161,8 @@
 
   ["%n @addInput", "ring", 42, ""],
 
+  ["user id",                                   "r",  0,  ""],
+
   ["if %b",                                     "c",  0,  "doIf"],
   ["if %b",                                     "e",  0,  "doIfElse"],
   ["forever if %b",                             "cf", 0,  "doForeverIf"],
