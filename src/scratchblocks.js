@@ -99,7 +99,8 @@ var scratchblocks = function () {
     'ring': 'ring',
   };
 
-  var inputPat = /(%[a-zA-Z](?:\.[a-zA-Z0-9]+)?)/g;
+  var inputPat = /(%[a-zA-Z](?:\.[a-zA-Z0-9]+)?)/;
+  var inputPatGlobal = new RegExp(inputPat.source, 'g');
   var iconPat = /(@[a-zA-Z]+)/;
   var splitPat = new RegExp([inputPat.source, '|', iconPat.source].join(''), 'g');
 
@@ -116,7 +117,7 @@ var scratchblocks = function () {
   }
 
   function hashSpec(spec) {
-    return minifyHash(spec.replace(inputPat, " _ "));
+    return minifyHash(spec.replace(inputPatGlobal, " _ "));
   }
 
   function minifyHash(hash) {
@@ -1889,8 +1890,8 @@ var scratchblocks = function () {
     } else {
       var info = blocksBySelector[selector];
       assert(info, "unknown selector: " + selector);
-      var spec = lang.commands[info.spec];
-      var parts = parseSpec(spec).parts;
+      var spec = lang.commands[info.spec] || spec;
+      var parts = spec ? parseSpec(spec).parts : info.parts;
     }
     var children = parts.map(function(part) {
       if (inputPat.test(part)) {
