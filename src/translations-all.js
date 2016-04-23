@@ -200,12 +200,25 @@ scratchblocks.loadLanguages({
       "motion": "κίνηση", 
       "edge": "όρια"
     }, 
-    "aliases": {
-      "στρίψε δεξιόστροφα %n μοίρες": "turn @turnRight %n degrees", 
-      "Όταν στην πράσινη σημαία γίνει κλικ": "when @greenFlag clicked", 
-      "στρίψε δεξιά %n μοίρες": "turn @turnRight %n degrees", 
-      "στρίψε αριστερά %n μοίρες": "turn @turnLeft %n degrees", 
-      "στρίψε αριστερόστροφα %n μοίρες": "turn @turnLeft %n degrees"
+    "define": [
+      "ορισμός του"
+    ], 
+    "palette": {
+      "Sound": "Ήχοι", 
+      "Control": "Έλεγχος", 
+      "More Blocks": "Άλλες Εντολές", 
+      "Sensing": "Αισθητήρες", 
+      "variables": null, 
+      "Operators": "Τελεστές", 
+      "list": "Λίστα", 
+      "lists": null, 
+      "Motion": "Κινήσεις", 
+      "Pen": "Σχεδιασμοί Πένας", 
+      "Looks": "Όψεις", 
+      "variable": "Μεταβλητή", 
+      "Tips": "Συμβουλές", 
+      "Data": "Δεδομένα", 
+      "Events": "Συμβάντα"
     }, 
     "math": [
       "asin", 
@@ -223,9 +236,13 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "ορισμός του"
-    ]
+    "aliases": {
+      "στρίψε δεξιόστροφα %n μοίρες": "turn @turnRight %n degrees", 
+      "Όταν στην πράσινη σημαία γίνει κλικ": "when @greenFlag clicked", 
+      "στρίψε δεξιά %n μοίρες": "turn @turnRight %n degrees", 
+      "στρίψε αριστερά %n μοίρες": "turn @turnLeft %n degrees", 
+      "στρίψε αριστερόστροφα %n μοίρες": "turn @turnLeft %n degrees"
+    }
   }, 
   "eo": {
     "commands": {
@@ -425,7 +442,26 @@ scratchblocks.loadLanguages({
       "motion": "movado", 
       "edge": "rando"
     }, 
-    "aliases": {}, 
+    "define": [
+      "difini"
+    ], 
+    "palette": {
+      "Sound": "Sonoj", 
+      "Control": "Stirado", 
+      "More Blocks": "Pli da blokoj", 
+      "Sensing": "Sentiloj", 
+      "variables": null, 
+      "Operators": "Operatoroj", 
+      "list": "listo", 
+      "lists": null, 
+      "Motion": "Movado", 
+      "Pen": "Skribilo", 
+      "Looks": "Aspekto", 
+      "variable": "variablo", 
+      "Tips": "Helpetoj", 
+      "Data": "Datumoj", 
+      "Events": "Eventoj"
+    }, 
     "math": [
       "planko", 
       "cos", 
@@ -442,9 +478,7 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "difini"
-    ]
+    "aliases": {}
   }, 
   "mr": {
     "commands": {
@@ -585,14 +619,31 @@ scratchblocks.loadLanguages({
       "down arrow": "बाण खाली", 
       "edge": "कडे"
     }, 
-    "aliases": {}, 
+    "define": [
+      ""
+    ], 
+    "palette": {
+      "Sound": "आवाज", 
+      "Control": "नियंत्रण", 
+      "More Blocks": null, 
+      "Sensing": "संवेदना", 
+      "variables": null, 
+      "Operators": "क्रिया", 
+      "list": "शेवटच्या", 
+      "lists": null, 
+      "Motion": "हालचाल", 
+      "Pen": "पेन ", 
+      "Looks": "रुप", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "abs", 
       "वर्गमूळ"
     ], 
-    "define": [
-      ""
-    ]
+    "aliases": {}
   }, 
   "ga": {
     "commands": {
@@ -796,7 +847,26 @@ scratchblocks.loadLanguages({
       "motion": "gluaiseacht", 
       "edge": "ciumhais"
     }, 
-    "aliases": {}, 
+    "define": [
+      "sainmhínigh"
+    ], 
+    "palette": {
+      "Sound": "Fuaim", 
+      "Control": "Rialú", 
+      "More Blocks": "Tuilleadh Blocanna", 
+      "Sensing": "Brath", 
+      "variables": null, 
+      "Operators": "Oibreoirí", 
+      "list": "liosta", 
+      "lists": null, 
+      "Motion": "Gluaiseacht", 
+      "Pen": "Peann", 
+      "Looks": "Cuma", 
+      "variable": "athróg", 
+      "Tips": "Leideanna", 
+      "Data": "Sonraí", 
+      "Events": "Teagmhais"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -813,9 +883,7 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "sainmhínigh"
-    ]
+    "aliases": {}
   }, 
   "uk": {
     "commands": {
@@ -1019,7 +1087,26 @@ scratchblocks.loadLanguages({
       "motion": "рух", 
       "edge": "межа"
     }, 
-    "aliases": {}, 
+    "define": [
+      "визначити"
+    ], 
+    "palette": {
+      "Sound": "Звук", 
+      "Control": "Керувати", 
+      "More Blocks": "Ваші блоки", 
+      "Sensing": "Датчики", 
+      "variables": null, 
+      "Operators": "Оператори", 
+      "list": "список", 
+      "lists": null, 
+      "Motion": "Рух", 
+      "Pen": "Олівець", 
+      "Looks": "Вигляд", 
+      "variable": "змінна", 
+      "Tips": "Поради", 
+      "Data": "Величини", 
+      "Events": "Події"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -1036,9 +1123,7 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "визначити"
-    ]
+    "aliases": {}
   }, 
   "ug": {
     "commands": {
@@ -1085,13 +1170,30 @@ scratchblocks.loadLanguages({
       "A connected": "A ئۇلاندى", 
       "lights": "ئوڭ"
     }, 
-    "aliases": {}, 
+    "define": [
+      ""
+    ], 
+    "palette": {
+      "Sound": "ئاۋاز", 
+      "Control": "كونتروللاش", 
+      "More Blocks": null, 
+      "Sensing": "سىزىش", 
+      "variables": null, 
+      "Operators": "مەشغۇلاتچىلار", 
+      "list": null, 
+      "lists": null, 
+      "Motion": "ھەرىكەت", 
+      "Pen": "sh", 
+      "Looks": "كۆرۈنۈشلەر", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "مۇتلەق قىممەت"
     ], 
-    "define": [
-      ""
-    ]
+    "aliases": {}
   }, 
   "sw": {
     "commands": {
@@ -1199,11 +1301,28 @@ scratchblocks.loadLanguages({
       null
     ], 
     "dropdowns": {}, 
-    "aliases": {}, 
-    "math": [], 
     "define": [
       ""
-    ]
+    ], 
+    "palette": {
+      "Sound": "sauti", 
+      "Control": "Ongoza", 
+      "More Blocks": null, 
+      "Sensing": "hisi", 
+      "variables": null, 
+      "Operators": "opereta", 
+      "list": null, 
+      "lists": null, 
+      "Motion": "mwendo", 
+      "Pen": "kalamu", 
+      "Looks": "muonekano", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
+    "math": [], 
+    "aliases": {}
   }, 
   "is": {
     "commands": {
@@ -1407,7 +1526,26 @@ scratchblocks.loadLanguages({
       "motion": "hreyfing", 
       "edge": "jaðar"
     }, 
-    "aliases": {}, 
+    "define": [
+      "skilgreina"
+    ], 
+    "palette": {
+      "Sound": "Hljóð", 
+      "Control": "Stjórn", 
+      "More Blocks": "Fleiri blokkir", 
+      "Sensing": "Mæling", 
+      "variables": null, 
+      "Operators": "Virkjar", 
+      "list": "listi", 
+      "lists": null, 
+      "Motion": "Hreyfing", 
+      "Pen": "Penni", 
+      "Looks": "Útlit", 
+      "variable": "breyta", 
+      "Tips": "Ábendingar", 
+      "Data": "Gögn", 
+      "Events": "Atburðir"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -1424,9 +1562,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "log"
     ], 
-    "define": [
-      "skilgreina"
-    ]
+    "aliases": {}
   }, 
   "it": {
     "commands": {
@@ -1631,10 +1767,25 @@ scratchblocks.loadLanguages({
       "motion": "movimento", 
       "edge": "bordo"
     }, 
-    "aliases": {
-      "ruota in senso orario di %n gradi": "turn @turnRight %n degrees", 
-      "ruota in senso antiorario di %n gradi": "turn @turnLeft %n degrees", 
-      "quando si clicca sulla bandiera verde": "when @greenFlag clicked"
+    "define": [
+      "definisci"
+    ], 
+    "palette": {
+      "Sound": "Suono", 
+      "Control": "Controllo", 
+      "More Blocks": "Altri Blocchi", 
+      "Sensing": "Sensori", 
+      "variables": null, 
+      "Operators": "Operatori", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Movimento", 
+      "Pen": "Penna", 
+      "Looks": "Aspetto", 
+      "variable": "variabile", 
+      "Tips": "Suggerimenti", 
+      "Data": "Variabili e Liste", 
+      "Events": "Situazioni"
     }, 
     "math": [
       "asin", 
@@ -1652,9 +1803,11 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "definisci"
-    ]
+    "aliases": {
+      "ruota in senso orario di %n gradi": "turn @turnRight %n degrees", 
+      "ruota in senso antiorario di %n gradi": "turn @turnLeft %n degrees", 
+      "quando si clicca sulla bandiera verde": "when @greenFlag clicked"
+    }
   }, 
   "an": {
     "commands": {
@@ -1858,7 +2011,26 @@ scratchblocks.loadLanguages({
       "motion": "movimiento", 
       "edge": "canto"
     }, 
-    "aliases": {}, 
+    "define": [
+      "definir"
+    ], 
+    "palette": {
+      "Sound": "Son", 
+      "Control": "Control", 
+      "More Blocks": "Mas bloques", 
+      "Sensing": "Sensors", 
+      "variables": null, 
+      "Operators": "Operadors", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Movimiento", 
+      "Pen": "Lapicero", 
+      "Looks": "Aparencia", 
+      "variable": "variable", 
+      "Tips": "Consellos", 
+      "Data": "Datos", 
+      "Events": "Eventos"
+    }, 
     "math": [
       "radiz quadrada", 
       "cos", 
@@ -1875,9 +2047,7 @@ scratchblocks.loadLanguages({
       "teito", 
       "sin"
     ], 
-    "define": [
-      "definir"
-    ]
+    "aliases": {}
   }, 
   "cs": {
     "commands": {
@@ -2081,7 +2251,26 @@ scratchblocks.loadLanguages({
       "motion": "pohyb", 
       "edge": "okraj"
     }, 
-    "aliases": {}, 
+    "define": [
+      "blok"
+    ], 
+    "palette": {
+      "Sound": "Zvuk", 
+      "Control": "Ovládání", 
+      "More Blocks": "Bloky", 
+      "Sensing": "Vnímání", 
+      "variables": null, 
+      "Operators": "Operátory", 
+      "list": "seznam", 
+      "lists": null, 
+      "Motion": "Pohyb", 
+      "Pen": "Pero", 
+      "Looks": "Vzhled", 
+      "variable": "proměnná", 
+      "Tips": "Tipy", 
+      "Data": "Data", 
+      "Events": "Události"
+    }, 
     "math": [
       "odmocnina", 
       "cos", 
@@ -2098,9 +2287,7 @@ scratchblocks.loadLanguages({
       "10 ^", 
       "sin"
     ], 
-    "define": [
-      "blok"
-    ]
+    "aliases": {}
   }, 
   "cy": {
     "commands": {
@@ -2304,7 +2491,26 @@ scratchblocks.loadLanguages({
       "motion": "symudiad", 
       "edge": "ymyl"
     }, 
-    "aliases": {}, 
+    "define": [
+      "diffinio"
+    ], 
+    "palette": {
+      "Sound": "Sain", 
+      "Control": "Rheoli", 
+      "More Blocks": "Mwy o flociau", 
+      "Sensing": "Synhwyro", 
+      "variables": null, 
+      "Operators": "Gweithredwyr", 
+      "list": "rhestr", 
+      "lists": null, 
+      "Motion": "Symudiad", 
+      "Pen": "Pin", 
+      "Looks": "Edrychiad", 
+      "variable": "newidyn", 
+      "Tips": "Awgrymiadau", 
+      "Data": "Data", 
+      "Events": "Digwyddiadau"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -2321,9 +2527,7 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "diffinio"
-    ]
+    "aliases": {}
   }, 
   "ar": {
     "commands": {
@@ -2527,7 +2731,26 @@ scratchblocks.loadLanguages({
       "motion": "حركة", 
       "edge": "الحافة"
     }, 
-    "aliases": {}, 
+    "define": [
+      "تعريف"
+    ], 
+    "palette": {
+      "Sound": "الصوت", 
+      "Control": "التحكم", 
+      "More Blocks": "لبنات إضافية", 
+      "Sensing": "التحسس", 
+      "variables": null, 
+      "Operators": "العمليات", 
+      "list": "لائحة", 
+      "lists": null, 
+      "Motion": "الحركة", 
+      "Pen": "القلم", 
+      "Looks": "المظاهر", 
+      "variable": "متغير", 
+      "Tips": "تلميحات", 
+      "Data": "البيانات", 
+      "Events": "الأحداث"
+    }, 
     "math": [
       "الظل", 
       "السقف", 
@@ -2544,9 +2767,7 @@ scratchblocks.loadLanguages({
       "الجذر التربيعي", 
       "جيب التمام"
     ], 
-    "define": [
-      "تعريف"
-    ]
+    "aliases": {}
   }, 
   "mk": {
     "commands": {
@@ -2749,7 +2970,26 @@ scratchblocks.loadLanguages({
       "motion": "движење", 
       "edge": "раб"
     }, 
-    "aliases": {}, 
+    "define": [
+      "дефинирај"
+    ], 
+    "palette": {
+      "Sound": "Звук", 
+      "Control": "Контрола", 
+      "More Blocks": "Повеќе блокови", 
+      "Sensing": "Распознавање", 
+      "variables": null, 
+      "Operators": "Оператори", 
+      "list": "листа", 
+      "lists": null, 
+      "Motion": "Движења", 
+      "Pen": "Молив", 
+      "Looks": "Погледи", 
+      "variable": "променлива", 
+      "Tips": "Совети", 
+      "Data": "Датум", 
+      "Events": "Настани"
+    }, 
     "math": [
       "логаритам", 
       "косинус", 
@@ -2766,9 +3006,7 @@ scratchblocks.loadLanguages({
       "а косинус", 
       "под"
     ], 
-    "define": [
-      "дефинирај"
-    ]
+    "aliases": {}
   }, 
   "bg": {
     "commands": {
@@ -2972,16 +3210,33 @@ scratchblocks.loadLanguages({
       "motion": "движение", 
       "edge": "ръб"
     }, 
-    "aliases": {}, 
+    "define": [
+      "дефиниране на"
+    ], 
+    "palette": {
+      "Sound": "Звук", 
+      "Control": "Контрол", 
+      "More Blocks": "Още блокове", 
+      "Sensing": "Сетива", 
+      "variables": null, 
+      "Operators": "Оператори", 
+      "list": "списък", 
+      "lists": null, 
+      "Motion": "Движение", 
+      "Pen": "Молив", 
+      "Looks": "Външност", 
+      "variable": "променлива", 
+      "Tips": "Съвети", 
+      "Data": "Данни", 
+      "Events": "Събития"
+    }, 
     "math": [
       "абсолютна стойност", 
       "квадратен корен", 
       "закръглено надолу", 
       "закръглено нагоре"
     ], 
-    "define": [
-      "дефиниране на"
-    ]
+    "aliases": {}
   }, 
   "eu": {
     "commands": {
@@ -3185,7 +3440,26 @@ scratchblocks.loadLanguages({
       "motion": "mugimendua", 
       "edge": "ertza"
     }, 
-    "aliases": {}, 
+    "define": [
+      "definitu"
+    ], 
+    "palette": {
+      "Sound": "Soinua", 
+      "Control": "Kontrola", 
+      "More Blocks": "Bloke gehiago", 
+      "Sensing": "Sentsoreak", 
+      "variables": null, 
+      "Operators": "Eragiketak", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Mugimendua", 
+      "Pen": "Arkatza", 
+      "Looks": "Itxura", 
+      "variable": "aldagaia", 
+      "Tips": "Laguntza", 
+      "Data": "Datuak", 
+      "Events": "Gertaerak"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -3202,9 +3476,7 @@ scratchblocks.loadLanguages({
       "sabaia", 
       "sin"
     ], 
-    "define": [
-      "definitu"
-    ]
+    "aliases": {}
   }, 
   "et": {
     "commands": {
@@ -3408,7 +3680,26 @@ scratchblocks.loadLanguages({
       "motion": "liikumine", 
       "edge": "serv"
     }, 
-    "aliases": {}, 
+    "define": [
+      "defineeri"
+    ], 
+    "palette": {
+      "Sound": "Heli", 
+      "Control": "Juhtimine", 
+      "More Blocks": "Lisaplokid", 
+      "Sensing": "Andurid", 
+      "variables": null, 
+      "Operators": "Tehted", 
+      "list": "loend", 
+      "lists": null, 
+      "Motion": "Liikumine", 
+      "Pen": "Pliiats", 
+      "Looks": "Välimus", 
+      "variable": "muutuja", 
+      "Tips": "Selgitused", 
+      "Data": "Andmed", 
+      "Events": "Sündmused"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -3425,9 +3716,7 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "defineeri"
-    ]
+    "aliases": {}
   }, 
   "ca": {
     "commands": {
@@ -3632,10 +3921,25 @@ scratchblocks.loadLanguages({
       "motion": "moviment", 
       "edge": "vora"
     }, 
-    "aliases": {
-      "gira a l'esquerra %n graus": "turn @turnLeft %n degrees", 
-      "gira a la dreta %n graus": "turn @turnRight %n degrees", 
-      "quan la bandera verda es premi": "when @greenFlag clicked"
+    "define": [
+      "defineix"
+    ], 
+    "palette": {
+      "Sound": "Sons", 
+      "Control": "Control", 
+      "More Blocks": "Més Blocs", 
+      "Sensing": "Sensors", 
+      "variables": null, 
+      "Operators": "Operadors", 
+      "list": "llista", 
+      "lists": null, 
+      "Motion": "Moviment", 
+      "Pen": "Llapis", 
+      "Looks": "Aspecte", 
+      "variable": "variable", 
+      "Tips": "Ajuda", 
+      "Data": "Dades", 
+      "Events": "Esdeveniments"
     }, 
     "math": [
       "asin", 
@@ -3653,9 +3957,11 @@ scratchblocks.loadLanguages({
       "sin", 
       "arrel quadrada"
     ], 
-    "define": [
-      "defineix"
-    ]
+    "aliases": {
+      "gira a l'esquerra %n graus": "turn @turnLeft %n degrees", 
+      "gira a la dreta %n graus": "turn @turnRight %n degrees", 
+      "quan la bandera verda es premi": "when @greenFlag clicked"
+    }
   }, 
   "gl": {
     "commands": {
@@ -3859,7 +4165,26 @@ scratchblocks.loadLanguages({
       "motion": "movemento", 
       "edge": "bordo"
     }, 
-    "aliases": {}, 
+    "define": [
+      "definir"
+    ], 
+    "palette": {
+      "Sound": "Son", 
+      "Control": "Control", 
+      "More Blocks": "Máis Bloques", 
+      "Sensing": "Sensores", 
+      "variables": null, 
+      "Operators": "Operadores", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Movemento", 
+      "Pen": "Lapis", 
+      "Looks": "Apariencia", 
+      "variable": "variable", 
+      "Tips": "Suxestións", 
+      "Data": "Datos", 
+      "Events": "Eventos"
+    }, 
     "math": [
       "10 ^", 
       "tanxente", 
@@ -3876,9 +4201,7 @@ scratchblocks.loadLanguages({
       "coseno", 
       "log"
     ], 
-    "define": [
-      "definir"
-    ]
+    "aliases": {}
   }, 
   "tzm": {
     "commands": {}, 
@@ -3887,11 +4210,28 @@ scratchblocks.loadLanguages({
       null
     ], 
     "dropdowns": {}, 
-    "aliases": {}, 
-    "math": [], 
     "define": [
       ""
-    ]
+    ], 
+    "palette": {
+      "Sound": "ⴰⵎⵙⵍⵉ", 
+      "Control": null, 
+      "More Blocks": null, 
+      "Sensing": null, 
+      "variables": null, 
+      "Operators": null, 
+      "list": null, 
+      "lists": null, 
+      "Motion": null, 
+      "Pen": null, 
+      "Looks": null, 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
+    "math": [], 
+    "aliases": {}
   }, 
   "id": {
     "commands": {
@@ -4095,7 +4435,26 @@ scratchblocks.loadLanguages({
       "motion": "gerak", 
       "edge": "pinggir"
     }, 
-    "aliases": {}, 
+    "define": [
+      "artikan"
+    ], 
+    "palette": {
+      "Sound": "Suara", 
+      "Control": "Kontrol", 
+      "More Blocks": "Balok Baru", 
+      "Sensing": "Sensor", 
+      "variables": null, 
+      "Operators": "Operator", 
+      "list": "daftar", 
+      "lists": null, 
+      "Motion": "Gerakan", 
+      "Pen": "Pena", 
+      "Looks": "Tampilan", 
+      "variable": "variabel", 
+      "Tips": "Tips", 
+      "Data": "Data", 
+      "Events": "Kejadian"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -4112,9 +4471,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "tan"
     ], 
-    "define": [
-      "artikan"
-    ]
+    "aliases": {}
   }, 
   "maz": {
     "commands": {
@@ -4199,14 +4556,31 @@ scratchblocks.loadLanguages({
       "down arrow": "jminch¦ a nr‡b'Š", 
       "edge": "ñŠnŠ"
     }, 
-    "aliases": {}, 
+    "define": [
+      ""
+    ], 
+    "palette": {
+      "Sound": null, 
+      "Control": "tsjapŠ na joo", 
+      "More Blocks": null, 
+      "Sensing": null, 
+      "variables": null, 
+      "Operators": null, 
+      "list": "b'¦pja", 
+      "lists": null, 
+      "Motion": "ñ'om'Š", 
+      "Pen": null, 
+      "Looks": "ch¦njui", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "abs", 
       "nziyo dyŠŠ"
     ], 
-    "define": [
-      ""
-    ]
+    "aliases": {}
   }, 
   "bn_IN": {
     "commands": {
@@ -4267,11 +4641,28 @@ scratchblocks.loadLanguages({
       null
     ], 
     "dropdowns": {}, 
-    "aliases": {}, 
-    "math": [], 
     "define": [
       "নির্ধারণ"
-    ]
+    ], 
+    "palette": {
+      "Sound": null, 
+      "Control": "নিয়ন্ত্রণ", 
+      "More Blocks": "আরো ব্লক", 
+      "Sensing": null, 
+      "variables": null, 
+      "Operators": "অপারেটরগুলো", 
+      "list": null, 
+      "lists": null, 
+      "Motion": "গতি", 
+      "Pen": "কলম", 
+      "Looks": "চেহারা", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": "তথ্য", 
+      "Events": "ঘটনা"
+    }, 
+    "math": [], 
+    "aliases": {}
   }, 
   "pap": {
     "commands": {
@@ -4473,7 +4864,26 @@ scratchblocks.loadLanguages({
       "motion": "moveshon", 
       "edge": "rant"
     }, 
-    "aliases": {}, 
+    "define": [
+      "definí"
+    ], 
+    "palette": {
+      "Sound": "Zonido", 
+      "Control": "kontròl", 
+      "More Blocks": "Mas bloki", 
+      "Sensing": "sensando", 
+      "variables": null, 
+      "Operators": "Operadornan", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "movementu", 
+      "Pen": "pèn", 
+      "Looks": "mustra", 
+      "variable": "variabel", 
+      "Tips": "Tipnan", 
+      "Data": "Data", 
+      "Events": "Eventonan"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -4489,9 +4899,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "log"
     ], 
-    "define": [
-      "definí"
-    ]
+    "aliases": {}
   }, 
   "ru": {
     "commands": {
@@ -4696,10 +5104,25 @@ scratchblocks.loadLanguages({
       "motion": "движение", 
       "edge": "край"
     }, 
-    "aliases": {
-      "повернуть влево на %n градусов": "turn @turnLeft %n degrees", 
-      "повернуть вправо на %n градусов": "turn @turnRight %n degrees", 
-      "когда щёлкнут по зелёному флагу": "when @greenFlag clicked"
+    "define": [
+      "определить"
+    ], 
+    "palette": {
+      "Sound": "Звук", 
+      "Control": "Управление", 
+      "More Blocks": "Другие блоки", 
+      "Sensing": "Сенсоры", 
+      "variables": null, 
+      "Operators": "Операторы", 
+      "list": "список", 
+      "lists": null, 
+      "Motion": "Движение", 
+      "Pen": "Перо", 
+      "Looks": "Внешность", 
+      "variable": "переменная", 
+      "Tips": "Подсказки", 
+      "Data": "Данные", 
+      "Events": "События"
     }, 
     "math": [
       "asin", 
@@ -4717,9 +5140,11 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "определить"
-    ]
+    "aliases": {
+      "повернуть влево на %n градусов": "turn @turnLeft %n degrees", 
+      "повернуть вправо на %n градусов": "turn @turnRight %n degrees", 
+      "когда щёлкнут по зелёному флагу": "when @greenFlag clicked"
+    }
   }, 
   "rw": {
     "commands": {
@@ -4893,14 +5318,31 @@ scratchblocks.loadLanguages({
       "down arrow": "akerekezo kareba hasi", 
       "edge": "umusozo"
     }, 
-    "aliases": {}, 
+    "define": [
+      "определить"
+    ], 
+    "palette": {
+      "Sound": "Звук", 
+      "Control": "Управление", 
+      "More Blocks": "Другие блоки", 
+      "Sensing": "Сенсоры", 
+      "variables": null, 
+      "Operators": "Операторы", 
+      "list": "cya nyuma", 
+      "lists": null, 
+      "Motion": "Движение", 
+      "Pen": "Перо", 
+      "Looks": "Внешность", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": "Данные", 
+      "Events": "События"
+    }, 
     "math": [
       "abs", 
       "sqrt"
     ], 
-    "define": [
-      "определить"
-    ]
+    "aliases": {}
   }, 
   "nl": {
     "commands": {
@@ -5105,10 +5547,25 @@ scratchblocks.loadLanguages({
       "motion": "beweging", 
       "edge": "rand"
     }, 
-    "aliases": {
-      "wanneer groene vlag wordt aangeklikt": "when @greenFlag clicked", 
-      "draai %n graden naar links": "turn @turnLeft %n degrees", 
-      "draai %n graden naar rechts": "turn @turnRight %n degrees"
+    "define": [
+      "definieer"
+    ], 
+    "palette": {
+      "Sound": "Geluid", 
+      "Control": "Besturen", 
+      "More Blocks": "Meer blokken", 
+      "Sensing": "Waarnemen", 
+      "variables": null, 
+      "Operators": "Functies", 
+      "list": "lijst", 
+      "lists": null, 
+      "Motion": "Beweging", 
+      "Pen": "Pen", 
+      "Looks": "Uiterlijken", 
+      "variable": "variabele", 
+      "Tips": "Tips", 
+      "Data": "Data", 
+      "Events": "Gebeurtenissen"
     }, 
     "math": [
       "asin", 
@@ -5126,9 +5583,11 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "definieer"
-    ]
+    "aliases": {
+      "wanneer groene vlag wordt aangeklikt": "when @greenFlag clicked", 
+      "draai %n graden naar links": "turn @turnLeft %n degrees", 
+      "draai %n graden naar rechts": "turn @turnRight %n degrees"
+    }
   }, 
   "nn": {
     "commands": {
@@ -5338,7 +5797,26 @@ scratchblocks.loadLanguages({
       "motion": "rørsle", 
       "edge": "kant"
     }, 
-    "aliases": {}, 
+    "define": [
+      "definer"
+    ], 
+    "palette": {
+      "Sound": "Lyd", 
+      "Control": "Styring", 
+      "More Blocks": "Fleire klossar", 
+      "Sensing": "Sansing", 
+      "variables": null, 
+      "Operators": "Operatorar", 
+      "list": "liste", 
+      "lists": null, 
+      "Motion": "Rørsle", 
+      "Pen": "Penn", 
+      "Looks": "Utsjånad", 
+      "variable": "variabel", 
+      "Tips": "Tips", 
+      "Data": "Data", 
+      "Events": "Hendingar"
+    }, 
     "math": [
       "cos", 
       "log", 
@@ -5352,9 +5830,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "tak"
     ], 
-    "define": [
-      "definer"
-    ]
+    "aliases": {}
   }, 
   "la": {
     "commands": {
@@ -5475,13 +5951,30 @@ scratchblocks.loadLanguages({
       "down arrow": "deorsa sagitta", 
       "brightness": "splendor"
     }, 
-    "aliases": {}, 
+    "define": [
+      ""
+    ], 
+    "palette": {
+      "Sound": "sonitus", 
+      "Control": "cohibe", 
+      "More Blocks": null, 
+      "Sensing": "sentiens", 
+      "variables": null, 
+      "Operators": "exercentes", 
+      "list": null, 
+      "lists": null, 
+      "Motion": "motio", 
+      "Pen": "stilus", 
+      "Looks": "videt", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "abs"
     ], 
-    "define": [
-      ""
-    ]
+    "aliases": {}
   }, 
   "nb": {
     "commands": {
@@ -5686,10 +6179,25 @@ scratchblocks.loadLanguages({
       "motion": "bevegelse", 
       "edge": "kant"
     }, 
-    "aliases": {
-      "vend venstre %n grader": "turn @turnLeft %n degrees", 
-      "vend høyre %n grader": "turn @turnRight %n degrees", 
-      "når grønt flagg klikkes": "when @greenFlag clicked"
+    "define": [
+      "definer"
+    ], 
+    "palette": {
+      "Sound": "Lyd", 
+      "Control": "Styring", 
+      "More Blocks": "Flere klosser", 
+      "Sensing": "Sansning", 
+      "variables": null, 
+      "Operators": "Operatorer", 
+      "list": "liste", 
+      "lists": null, 
+      "Motion": "Bevegelse", 
+      "Pen": "Penn", 
+      "Looks": "Utseende", 
+      "variable": "variabel", 
+      "Tips": "Hjelp", 
+      "Data": "Data", 
+      "Events": "Hendelser"
     }, 
     "math": [
       "10 ^", 
@@ -5707,9 +6215,11 @@ scratchblocks.loadLanguages({
       "sin", 
       "tak"
     ], 
-    "define": [
-      "definer"
-    ]
+    "aliases": {
+      "vend venstre %n grader": "turn @turnLeft %n degrees", 
+      "vend høyre %n grader": "turn @turnRight %n degrees", 
+      "når grønt flagg klikkes": "when @greenFlag clicked"
+    }
   }, 
   "oto": {
     "commands": {
@@ -5845,14 +6355,31 @@ scratchblocks.loadLanguages({
       "fisheye": "nixt´i nkät´i", 
       "Stage": "Escenario"
     }, 
-    "aliases": {}, 
+    "define": [
+      ""
+    ], 
+    "palette": {
+      "Sound": "nzuni", 
+      "Control": "pent`i", 
+      "More Blocks": null, 
+      "Sensing": "sensores", 
+      "variables": null, 
+      "Operators": "´yoni", 
+      "list": "nsuru", 
+      "lists": null, 
+      "Motion": "ntomi nt`ot´i", 
+      "Pen": "nt`ot`i thehña", 
+      "Looks": "hzuni ntsedi", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "abs", 
       "hmi"
     ], 
-    "define": [
-      ""
-    ]
+    "aliases": {}
   }, 
   "tr": {
     "commands": {
@@ -6057,12 +6584,25 @@ scratchblocks.loadLanguages({
       "motion": "hareketi", 
       "edge": "kenar"
     }, 
-    "aliases": {
-      "_ derece saat yönünde dön": "turn @turnRight %n degrees", 
-      "_ derece saatin tersi yönde dön": "turn @turnLeft %n degrees", 
-      "_ derece sola dön": "turn @turnLeft %n degrees", 
-      "_ derece sağa dön": "turn @turnRight %n degrees", 
-      "yeşil bayrak tıklandığında": "when @greenFlag clicked"
+    "define": [
+      "tanımla"
+    ], 
+    "palette": {
+      "Sound": "Ses", 
+      "Control": "Kontrol", 
+      "More Blocks": "Özel Taşlar", 
+      "Sensing": "Algılama", 
+      "variables": null, 
+      "Operators": "İşlemler", 
+      "list": "liste", 
+      "lists": null, 
+      "Motion": "Hareket", 
+      "Pen": "Kalem", 
+      "Looks": "Görünüm", 
+      "variable": "değişken", 
+      "Tips": "İpuçları", 
+      "Data": "Veri", 
+      "Events": "Olaylar"
     }, 
     "math": [
       "asin", 
@@ -6080,9 +6620,13 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "tanımla"
-    ]
+    "aliases": {
+      "_ derece saat yönünde dön": "turn @turnRight %n degrees", 
+      "_ derece saatin tersi yönde dön": "turn @turnLeft %n degrees", 
+      "_ derece sola dön": "turn @turnLeft %n degrees", 
+      "_ derece sağa dön": "turn @turnRight %n degrees", 
+      "yeşil bayrak tıklandığında": "when @greenFlag clicked"
+    }
   }, 
   "ne": {
     "commands": {
@@ -6212,14 +6756,31 @@ scratchblocks.loadLanguages({
       "down arrow": "उधोँ धर्सो", 
       "edge": "किनारा"
     }, 
-    "aliases": {}, 
+    "define": [
+      ""
+    ], 
+    "palette": {
+      "Sound": "आवाज", 
+      "Control": "नियन्त्रण", 
+      "More Blocks": null, 
+      "Sensing": "अनुभव गर्दै", 
+      "variables": null, 
+      "Operators": null, 
+      "list": "अन्तिम", 
+      "lists": null, 
+      "Motion": "गति", 
+      "Pen": "कलम", 
+      "Looks": "देखिन्छ", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "abs", 
       "वर्गमूल"
     ], 
-    "define": [
-      ""
-    ]
+    "aliases": {}
   }, 
   "ja": {
     "commands": {
@@ -6423,7 +6984,26 @@ scratchblocks.loadLanguages({
       "motion": "モーション", 
       "edge": "端"
     }, 
-    "aliases": {}, 
+    "define": [
+      "定義"
+    ], 
+    "palette": {
+      "Sound": "音", 
+      "Control": "制御", 
+      "More Blocks": "その他", 
+      "Sensing": "調べる", 
+      "variables": null, 
+      "Operators": "演算", 
+      "list": "リスト", 
+      "lists": null, 
+      "Motion": "動き", 
+      "Pen": "ペン", 
+      "Looks": "見た目", 
+      "variable": "変数", 
+      "Tips": "ヒント", 
+      "Data": "データ", 
+      "Events": "イベント"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -6440,9 +7020,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "tan"
     ], 
-    "define": [
-      "定義"
-    ]
+    "aliases": {}
   }, 
   "lv": {
     "commands": {
@@ -6646,7 +7224,26 @@ scratchblocks.loadLanguages({
       "motion": "kustība", 
       "edge": "mala"
     }, 
-    "aliases": {}, 
+    "define": [
+      "definēt"
+    ], 
+    "palette": {
+      "Sound": "Skaņa", 
+      "Control": "Vadība", 
+      "More Blocks": "Pārējie bloki", 
+      "Sensing": "Novērošana", 
+      "variables": null, 
+      "Operators": "Operatori", 
+      "list": "saraksts", 
+      "lists": null, 
+      "Motion": "Kustība", 
+      "Pen": "Zīmulis", 
+      "Looks": "Izskats", 
+      "variable": "mainīgais", 
+      "Tips": "Ieteikumi", 
+      "Data": "Dati", 
+      "Events": "Notikumi"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -6663,9 +7260,7 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "definēt"
-    ]
+    "aliases": {}
   }, 
   "lt": {
     "commands": {
@@ -6865,7 +7460,26 @@ scratchblocks.loadLanguages({
       "motion": "judesys", 
       "edge": "kraštas"
     }, 
-    "aliases": {}, 
+    "define": [
+      "komanda"
+    ], 
+    "palette": {
+      "Sound": "Garsas", 
+      "Control": "Veikimo logika", 
+      "More Blocks": "Mano komandos", 
+      "Sensing": "Aplinka", 
+      "variables": null, 
+      "Operators": "Matematika", 
+      "list": "sąrašas", 
+      "lists": null, 
+      "Motion": "Judėjimas", 
+      "Pen": "Piešimas", 
+      "Looks": "Išvaizda", 
+      "variable": "kintamasis", 
+      "Tips": "Užuominos", 
+      "Data": "Duomenys", 
+      "Events": "Įvykiai"
+    }, 
     "math": [
       "lg", 
       "cos", 
@@ -6882,9 +7496,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "apvalink aukštyn"
     ], 
-    "define": [
-      "komanda"
-    ]
+    "aliases": {}
   }, 
   "os": {
     "commands": {
@@ -6968,7 +7580,26 @@ scratchblocks.loadLanguages({
       "A connected": "A иу у", 
       "all around": "алыварс"
     }, 
-    "aliases": {}, 
+    "define": [
+      "сбӕрӕг кӕнын"
+    ], 
+    "palette": {
+      "Sound": null, 
+      "Control": "Армдард", 
+      "More Blocks": "Фылдӕр блоктӕ", 
+      "Sensing": null, 
+      "variables": null, 
+      "Operators": "Оператортӕ", 
+      "list": null, 
+      "lists": null, 
+      "Motion": "Змӕлд", 
+      "Pen": "Фыссӕн", 
+      "Looks": "Уынд", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": "Бӕрӕгтӕ", 
+      "Events": "Цаутӕ"
+    }, 
     "math": [
       "модул", 
       "acos", 
@@ -6976,9 +7607,7 @@ scratchblocks.loadLanguages({
       "atan", 
       "asin"
     ], 
-    "define": [
-      "сбӕрӕг кӕнын"
-    ]
+    "aliases": {}
   }, 
   "es": {
     "commands": {
@@ -7183,10 +7812,25 @@ scratchblocks.loadLanguages({
       "motion": "movimiento", 
       "edge": "borde"
     }, 
-    "aliases": {
-      "girar a la izquierda %n grados": "turn @turnLeft %n degrees", 
-      "girar a la derecha %n grados": "turn @turnRight %n degrees", 
-      "al presionar bandera verde": "when @greenFlag clicked"
+    "define": [
+      "definir"
+    ], 
+    "palette": {
+      "Sound": "Sonido", 
+      "Control": "Control", 
+      "More Blocks": "Más Bloques", 
+      "Sensing": "Sensores", 
+      "variables": null, 
+      "Operators": "Operadores", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Movimiento", 
+      "Pen": "Lápiz", 
+      "Looks": "Apariencia", 
+      "variable": "variable", 
+      "Tips": "Sugerencias", 
+      "Data": "Datos", 
+      "Events": "Eventos"
     }, 
     "math": [
       "asin", 
@@ -7204,9 +7848,11 @@ scratchblocks.loadLanguages({
       "tan", 
       "log"
     ], 
-    "define": [
-      "definir"
-    ]
+    "aliases": {
+      "girar a la izquierda %n grados": "turn @turnLeft %n degrees", 
+      "girar a la derecha %n grados": "turn @turnRight %n degrees", 
+      "al presionar bandera verde": "when @greenFlag clicked"
+    }
   }, 
   "th": {
     "commands": {
@@ -7388,7 +8034,26 @@ scratchblocks.loadLanguages({
       "motion": "การเคลื่อนไหว", 
       "edge": "ขอบ"
     }, 
-    "aliases": {}, 
+    "define": [
+      "กำหนด"
+    ], 
+    "palette": {
+      "Sound": "เสียง", 
+      "Control": "ควบคุม", 
+      "More Blocks": null, 
+      "Sensing": "กำลังรับรู้", 
+      "variables": null, 
+      "Operators": "โอเปอร์เรเตอร์", 
+      "list": "รายการ", 
+      "lists": null, 
+      "Motion": "การเคลื่อนที่", 
+      "Pen": "ปากกา", 
+      "Looks": "รูปร่าง", 
+      "variable": "ตัวแปร", 
+      "Tips": "เคล็ดลับ", 
+      "Data": "ข้อมูล", 
+      "Events": "เหตุการณ์"
+    }, 
     "math": [
       "ค่าสัมบูรณ์", 
       "รากที่สอง", 
@@ -7396,9 +8061,7 @@ scratchblocks.loadLanguages({
       "ใน", 
       "พื้น"
     ], 
-    "define": [
-      "กำหนด"
-    ]
+    "aliases": {}
   }, 
   "vi": {
     "commands": {
@@ -7572,14 +8235,31 @@ scratchblocks.loadLanguages({
       "down arrow": "mũi tên xuống", 
       "edge": "biên"
     }, 
-    "aliases": {}, 
+    "define": [
+      "định nghĩa"
+    ], 
+    "palette": {
+      "Sound": "Âm thanh", 
+      "Control": "Điều khiển", 
+      "More Blocks": "Thêm nhiều khối nữa", 
+      "Sensing": "Cảm biến", 
+      "variables": null, 
+      "Operators": "Phép toán", 
+      "list": "cuối cùng", 
+      "lists": null, 
+      "Motion": "Chuyển động", 
+      "Pen": "Bút vẽ", 
+      "Looks": "Ngoại hình", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": "Dữ liệu", 
+      "Events": "Sự kiện"
+    }, 
     "math": [
       "căn", 
       "trị tuyệt đối"
     ], 
-    "define": [
-      "định nghĩa"
-    ]
+    "aliases": {}
   }, 
   "sl": {
     "commands": {
@@ -7783,7 +8463,26 @@ scratchblocks.loadLanguages({
       "motion": "gibanje", 
       "edge": "rob"
     }, 
-    "aliases": {}, 
+    "define": [
+      "določi"
+    ], 
+    "palette": {
+      "Sound": "Zvok", 
+      "Control": "Krmiljenje", 
+      "More Blocks": "Več blokov", 
+      "Sensing": "Zaznavanje", 
+      "variables": null, 
+      "Operators": "Operatorji", 
+      "list": "seznam", 
+      "lists": null, 
+      "Motion": "Premikanje", 
+      "Pen": "Svinčnik", 
+      "Looks": "Izgled", 
+      "variable": "spremenljivka", 
+      "Tips": "Namigi", 
+      "Data": "Podatki", 
+      "Events": "Dogodki"
+    }, 
     "math": [
       "e ^", 
       "absolutna vrednost", 
@@ -7800,9 +8499,7 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "določi"
-    ]
+    "aliases": {}
   }, 
   "zh_TW": {
     "commands": {
@@ -8006,7 +8703,26 @@ scratchblocks.loadLanguages({
       "motion": "動作", 
       "edge": "邊緣"
     }, 
-    "aliases": {}, 
+    "define": [
+      "定義"
+    ], 
+    "palette": {
+      "Sound": "音效", 
+      "Control": "控制", 
+      "More Blocks": "更多積木", 
+      "Sensing": "偵測", 
+      "variables": null, 
+      "Operators": "運算", 
+      "list": "列表", 
+      "lists": null, 
+      "Motion": "動作", 
+      "Pen": "畫筆", 
+      "Looks": "外觀", 
+      "variable": "變數", 
+      "Tips": "技巧", 
+      "Data": "資料", 
+      "Events": "事件"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -8023,9 +8739,7 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "定義"
-    ]
+    "aliases": {}
   }, 
   "fo": {
     "commands": {
@@ -8081,11 +8795,28 @@ scratchblocks.loadLanguages({
       "left arrow": "vinstapílur", 
       "lights": "ljós"
     }, 
-    "aliases": {}, 
-    "math": [], 
     "define": [
       ""
-    ]
+    ], 
+    "palette": {
+      "Sound": "ljóð", 
+      "Control": "Stjórna", 
+      "More Blocks": null, 
+      "Sensing": null, 
+      "variables": null, 
+      "Operators": null, 
+      "list": "síðsta", 
+      "lists": null, 
+      "Motion": null, 
+      "Pen": null, 
+      "Looks": null, 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
+    "math": [], 
+    "aliases": {}
   }, 
   "ja_hr": {
     "commands": {}, 
@@ -8094,11 +8825,28 @@ scratchblocks.loadLanguages({
       null
     ], 
     "dropdowns": {}, 
-    "aliases": {}, 
-    "math": [], 
     "define": [
       ""
-    ]
+    ], 
+    "palette": {
+      "Sound": null, 
+      "Control": null, 
+      "More Blocks": null, 
+      "Sensing": null, 
+      "variables": null, 
+      "Operators": null, 
+      "list": null, 
+      "lists": null, 
+      "Motion": null, 
+      "Pen": null, 
+      "Looks": null, 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
+    "math": [], 
+    "aliases": {}
   }, 
   "fil": {
     "commands": {
@@ -8149,11 +8897,28 @@ scratchblocks.loadLanguages({
       "down arrow": "ibaba ang arrow", 
       "brightness": "tingkad"
     }, 
-    "aliases": {}, 
-    "math": [], 
     "define": [
       ""
-    ]
+    ], 
+    "palette": {
+      "Sound": "tunog", 
+      "Control": null, 
+      "More Blocks": null, 
+      "Sensing": null, 
+      "variables": null, 
+      "Operators": "namamahala", 
+      "list": null, 
+      "lists": null, 
+      "Motion": "galaw", 
+      "Pen": "panulat", 
+      "Looks": "hitsura", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
+    "math": [], 
+    "aliases": {}
   }, 
   "ta": {
     "commands": {}, 
@@ -8162,11 +8927,28 @@ scratchblocks.loadLanguages({
       null
     ], 
     "dropdowns": {}, 
-    "aliases": {}, 
-    "math": [], 
     "define": [
       ""
-    ]
+    ], 
+    "palette": {
+      "Sound": null, 
+      "Control": null, 
+      "More Blocks": null, 
+      "Sensing": null, 
+      "variables": null, 
+      "Operators": null, 
+      "list": null, 
+      "lists": null, 
+      "Motion": null, 
+      "Pen": null, 
+      "Looks": null, 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
+    "math": [], 
+    "aliases": {}
   }, 
   "fr": {
     "commands": {
@@ -8371,10 +9153,25 @@ scratchblocks.loadLanguages({
       "motion": "mouvement", 
       "edge": "bord"
     }, 
-    "aliases": {
-      "tourner gauche de %n degrés": "turn @turnLeft %n degrees", 
-      "quand le drapeau vert pressé": "when @greenFlag clicked", 
-      "tourner droite de %n degrés": "turn @turnRight %n degrees"
+    "define": [
+      "définir"
+    ], 
+    "palette": {
+      "Sound": "Sons", 
+      "Control": "Contrôle", 
+      "More Blocks": "Ajouter blocs", 
+      "Sensing": "Capteurs", 
+      "variables": null, 
+      "Operators": "Opérateurs", 
+      "list": "liste", 
+      "lists": null, 
+      "Motion": "Mouvement", 
+      "Pen": "Stylo", 
+      "Looks": "Apparence", 
+      "variable": "variable", 
+      "Tips": "Conseils", 
+      "Data": "Données", 
+      "Events": "Evènements"
     }, 
     "math": [
       "asin", 
@@ -8392,9 +9189,11 @@ scratchblocks.loadLanguages({
       "racine", 
       "log"
     ], 
-    "define": [
-      "définir"
-    ]
+    "aliases": {
+      "tourner gauche de %n degrés": "turn @turnLeft %n degrees", 
+      "quand le drapeau vert pressé": "when @greenFlag clicked", 
+      "tourner droite de %n degrés": "turn @turnRight %n degrees"
+    }
   }, 
   "hy": {
     "commands": {
@@ -8594,7 +9393,26 @@ scratchblocks.loadLanguages({
       "motion": "շարժում", 
       "edge": "եզր"
     }, 
-    "aliases": {}, 
+    "define": [
+      "սահմանել"
+    ], 
+    "palette": {
+      "Sound": "Ձայն", 
+      "Control": "Կառավարել", 
+      "More Blocks": "Ավելի մասնիկներ", 
+      "Sensing": "ընկալում", 
+      "variables": null, 
+      "Operators": "Հրամաններ", 
+      "list": "ցուցակ", 
+      "lists": null, 
+      "Motion": "Շարժում", 
+      "Pen": "Գրիչ", 
+      "Looks": "Տեսքեր", 
+      "variable": "փոփոխական", 
+      "Tips": "Հուշում", 
+      "Data": "Տվյալներ", 
+      "Events": "Իրադարձություններ"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -8610,9 +9428,7 @@ scratchblocks.loadLanguages({
       "մեջ", 
       "sin"
     ], 
-    "define": [
-      "սահմանել"
-    ]
+    "aliases": {}
   }, 
   "ms": {
     "commands": {
@@ -8753,14 +9569,31 @@ scratchblocks.loadLanguages({
       "down arrow": "anak panah bawah", 
       "edge": "bucu"
     }, 
-    "aliases": {}, 
+    "define": [
+      ""
+    ], 
+    "palette": {
+      "Sound": "bunyi", 
+      "Control": "kawal", 
+      "More Blocks": null, 
+      "Sensing": "mengesan", 
+      "variables": null, 
+      "Operators": "operator", 
+      "list": "akhir", 
+      "lists": null, 
+      "Motion": "gerakan", 
+      "Pen": "pen", 
+      "Looks": "rupa", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "abs", 
       "sqrt"
     ], 
-    "define": [
-      ""
-    ]
+    "aliases": {}
   }, 
   "pt_BR": {
     "commands": {
@@ -8964,7 +9797,26 @@ scratchblocks.loadLanguages({
       "motion": "movimento", 
       "edge": "borda"
     }, 
-    "aliases": {}, 
+    "define": [
+      "defina"
+    ], 
+    "palette": {
+      "Sound": "Som", 
+      "Control": "Controle", 
+      "More Blocks": "Mais Blocos", 
+      "Sensing": "Sensores", 
+      "variables": null, 
+      "Operators": "Operadores", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Movimento", 
+      "Pen": "Caneta", 
+      "Looks": "Aparência", 
+      "variable": "variável", 
+      "Tips": "Dicas", 
+      "Data": "Variáveis", 
+      "Events": "Eventos"
+    }, 
     "math": [
       "Em", 
       "10 ^", 
@@ -8981,9 +9833,7 @@ scratchblocks.loadLanguages({
       "logaritmo", 
       "arredondar para baixo"
     ], 
-    "define": [
-      "defina"
-    ]
+    "aliases": {}
   }, 
   "ast": {
     "commands": {
@@ -9142,7 +9992,26 @@ scratchblocks.loadLanguages({
       "A connected": "A coneutáu", 
       "all around": "alredor"
     }, 
-    "aliases": {}, 
+    "define": [
+      "definir"
+    ], 
+    "palette": {
+      "Sound": "Soníu", 
+      "Control": "Control", 
+      "More Blocks": "Más Bloques", 
+      "Sensing": "Sensores", 
+      "variables": null, 
+      "Operators": "Operadores", 
+      "list": null, 
+      "lists": null, 
+      "Motion": "Movimientu", 
+      "Pen": "Llápiz", 
+      "Looks": "Aspeutu", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": "Datos", 
+      "Events": "Socesos"
+    }, 
     "math": [
       "techu", 
       "asin", 
@@ -9152,9 +10021,7 @@ scratchblocks.loadLanguages({
       "abs", 
       "acos"
     ], 
-    "define": [
-      "definir"
-    ]
+    "aliases": {}
   }, 
   "hr": {
     "commands": {
@@ -9354,7 +10221,26 @@ scratchblocks.loadLanguages({
       "motion": "kretanje", 
       "edge": "rub"
     }, 
-    "aliases": {}, 
+    "define": [
+      "definiraj"
+    ], 
+    "palette": {
+      "Sound": "Zvuk", 
+      "Control": "Upravljanje", 
+      "More Blocks": "Više Blokova", 
+      "Sensing": "Očitanja", 
+      "variables": null, 
+      "Operators": "Operacije", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Kretanje", 
+      "Pen": "Olovka", 
+      "Looks": "Izgled", 
+      "variable": "varijabla", 
+      "Tips": "Natuknice", 
+      "Data": "Podaci", 
+      "Events": "Događaji"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -9371,9 +10257,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "log"
     ], 
-    "define": [
-      "definiraj"
-    ]
+    "aliases": {}
   }, 
   "sv": {
     "commands": {
@@ -9577,7 +10461,26 @@ scratchblocks.loadLanguages({
       "motion": "rörelse", 
       "edge": "kant"
     }, 
-    "aliases": {}, 
+    "define": [
+      "definiera"
+    ], 
+    "palette": {
+      "Sound": "Ljud", 
+      "Control": "Kontroll", 
+      "More Blocks": "Fler block", 
+      "Sensing": "Känna av", 
+      "variables": null, 
+      "Operators": "Operatorer", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Rörelse", 
+      "Pen": "Penna", 
+      "Looks": "Utseende", 
+      "variable": "variabel", 
+      "Tips": "Tips", 
+      "Data": "Data", 
+      "Events": "Händelser"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -9594,9 +10497,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "tak"
     ], 
-    "define": [
-      "definiera"
-    ]
+    "aliases": {}
   }, 
   "de": {
     "commands": {
@@ -9801,10 +10702,25 @@ scratchblocks.loadLanguages({
       "motion": "Bewegung", 
       "edge": "Rand"
     }, 
-    "aliases": {
-      "drehe dich nach links um %n Grad": "turn @turnLeft %n degrees", 
-      "Wenn die grüne Flagge angeklickt": "when @greenFlag clicked", 
-      "drehe dich nach rechts um %n Grad": "turn @turnRight %n degrees"
+    "define": [
+      "Definiere"
+    ], 
+    "palette": {
+      "Sound": "Klang", 
+      "Control": "Steuerung", 
+      "More Blocks": "Weitere Blöcke", 
+      "Sensing": "Fühlen", 
+      "variables": null, 
+      "Operators": "Operatoren", 
+      "list": "Liste", 
+      "lists": null, 
+      "Motion": "Bewegung", 
+      "Pen": "Malstift", 
+      "Looks": "Aussehen", 
+      "variable": "Variable", 
+      "Tips": "Tipps", 
+      "Data": "Daten", 
+      "Events": "Ereignisse"
     }, 
     "math": [
       "aufrunden", 
@@ -9822,9 +10738,11 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "Definiere"
-    ]
+    "aliases": {
+      "drehe dich nach links um %n Grad": "turn @turnLeft %n degrees", 
+      "Wenn die grüne Flagge angeklickt": "when @greenFlag clicked", 
+      "drehe dich nach rechts um %n Grad": "turn @turnRight %n degrees"
+    }
   }, 
   "ote": {
     "commands": {
@@ -9964,14 +10882,31 @@ scratchblocks.loadLanguages({
       "down arrow": "Ät’i ngati", 
       "edge": "Ñäni"
     }, 
-    "aliases": {}, 
+    "define": [
+      ""
+    ], 
+    "palette": {
+      "Sound": "nzuni", 
+      "Control": "bepi", 
+      "More Blocks": null, 
+      "Sensing": "nthom'i", 
+      "variables": null, 
+      "Operators": "ya tsoge", 
+      "list": "ngäts'i", 
+      "lists": null, 
+      "Motion": "'ñani", 
+      "Pen": "nt'ohni", 
+      "Looks": "hneki", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "abs", 
       "Y'u b'ede"
     ], 
-    "define": [
-      ""
-    ]
+    "aliases": {}
   }, 
   "ht": {
     "commands": {
@@ -10162,7 +11097,26 @@ scratchblocks.loadLanguages({
       "motion": "mouvman", 
       "edge": "arebò"
     }, 
-    "aliases": {}, 
+    "define": [
+      "defini"
+    ], 
+    "palette": {
+      "Sound": "son", 
+      "Control": "Kontwòl", 
+      "More Blocks": "Lòt blok", 
+      "Sensing": "Detektè", 
+      "variables": null, 
+      "Operators": "Operasyon", 
+      "list": "lis", 
+      "lists": null, 
+      "Motion": "Mouvman", 
+      "Pen": "Plim", 
+      "Looks": "Aparans", 
+      "variable": "varyab", 
+      "Tips": "Poul", 
+      "Data": "Done", 
+      "Events": "Evènman"
+    }, 
     "math": [
       "rasin", 
       "abs", 
@@ -10170,9 +11124,7 @@ scratchblocks.loadLanguages({
       "tanjant envès", 
       "sinis envès"
     ], 
-    "define": [
-      "defini"
-    ]
+    "aliases": {}
   }, 
   "da": {
     "commands": {
@@ -10376,7 +11328,26 @@ scratchblocks.loadLanguages({
       "motion": "bevægelse", 
       "edge": "kant"
     }, 
-    "aliases": {}, 
+    "define": [
+      "definer"
+    ], 
+    "palette": {
+      "Sound": "Lyd", 
+      "Control": "Styring", 
+      "More Blocks": "Flere Brikker", 
+      "Sensing": "Registrering", 
+      "variables": null, 
+      "Operators": "Operatorer", 
+      "list": "liste", 
+      "lists": null, 
+      "Motion": "Bevægelse", 
+      "Pen": "Pen", 
+      "Looks": "Udseende", 
+      "variable": "variabel", 
+      "Tips": "Idéer", 
+      "Data": "Data", 
+      "Events": "Hændelser"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -10393,9 +11364,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "kvrod"
     ], 
-    "define": [
-      "definer"
-    ]
+    "aliases": {}
   }, 
   "fa": {
     "commands": {
@@ -10599,7 +11568,26 @@ scratchblocks.loadLanguages({
       "motion": "حرکت", 
       "edge": "لبه"
     }, 
-    "aliases": {}, 
+    "define": [
+      "تعریف"
+    ], 
+    "palette": {
+      "Sound": "صدا", 
+      "Control": "کنترل", 
+      "More Blocks": "بلاک های بیشتر", 
+      "Sensing": "حس کردن", 
+      "variables": null, 
+      "Operators": "عملگرها", 
+      "list": "لیست", 
+      "lists": null, 
+      "Motion": "حرکت", 
+      "Pen": "قلم", 
+      "Looks": "ظاهر", 
+      "variable": "متغیر", 
+      "Tips": "نکات", 
+      "Data": "داده", 
+      "Events": "رویدادها"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -10616,9 +11604,7 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "تعریف"
-    ]
+    "aliases": {}
   }, 
   "hi": {
     "commands": {
@@ -10773,14 +11759,31 @@ scratchblocks.loadLanguages({
       "A connected": "A जुड़ा हुआ हैं", 
       "all around": "सब ओर"
     }, 
-    "aliases": {}, 
+    "define": [
+      "स्पष्ट अर्थ बताइए"
+    ], 
+    "palette": {
+      "Sound": "अवाज", 
+      "Control": "कंट्रोल", 
+      "More Blocks": "अधिक ब्लॉक", 
+      "Sensing": "महसूस", 
+      "variables": null, 
+      "Operators": "ऑपरेटर्स", 
+      "list": null, 
+      "lists": null, 
+      "Motion": "चाल", 
+      "Pen": "पेन", 
+      "Looks": "रूप", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": "डेटा", 
+      "Events": "घटनाक्रम"
+    }, 
     "math": [
       "असिन", 
       "10^"
     ], 
-    "define": [
-      "स्पष्ट अर्थ बताइए"
-    ]
+    "aliases": {}
   }, 
   "no": {
     "commands": {
@@ -10980,7 +11983,26 @@ scratchblocks.loadLanguages({
       "motion": "bevegelse", 
       "edge": "kant"
     }, 
-    "aliases": {}, 
+    "define": [
+      "definer"
+    ], 
+    "palette": {
+      "Sound": "Lyd", 
+      "Control": "Styring", 
+      "More Blocks": "Flere klosser", 
+      "Sensing": "Sansning", 
+      "variables": null, 
+      "Operators": "Operatorer", 
+      "list": "siste", 
+      "lists": null, 
+      "Motion": "Bevegelse", 
+      "Pen": "Penn", 
+      "Looks": "Utseende", 
+      "variable": null, 
+      "Tips": "Tips", 
+      "Data": "Data", 
+      "Events": "Hendelser"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -10997,9 +12019,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "tak"
     ], 
-    "define": [
-      "definer"
-    ]
+    "aliases": {}
   }, 
   "fi": {
     "commands": {
@@ -11202,7 +12222,26 @@ scratchblocks.loadLanguages({
       "motion": "liike", 
       "edge": "reuna"
     }, 
-    "aliases": {}, 
+    "define": [
+      "määrittele"
+    ], 
+    "palette": {
+      "Sound": "Ääni", 
+      "Control": "Ohjaus", 
+      "More Blocks": "Lisää lohkoja", 
+      "Sensing": "Tuntoaisti", 
+      "variables": null, 
+      "Operators": "Toiminnot", 
+      "list": "luettelo", 
+      "lists": null, 
+      "Motion": "Liike", 
+      "Pen": "Kynä", 
+      "Looks": "Ulkonäkö", 
+      "variable": "muuttuja", 
+      "Tips": "Vinkit", 
+      "Data": "Tieto", 
+      "Events": "Tapahtumat"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -11219,9 +12258,7 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "määrittele"
-    ]
+    "aliases": {}
   }, 
   "hu": {
     "commands": {
@@ -11425,7 +12462,26 @@ scratchblocks.loadLanguages({
       "motion": "mozgás", 
       "edge": "játéktér széle"
     }, 
-    "aliases": {}, 
+    "define": [
+      "meghatározás:"
+    ], 
+    "palette": {
+      "Sound": "Hang", 
+      "Control": "Vezérlés", 
+      "More Blocks": "Továbbiak", 
+      "Sensing": "Érzékelés", 
+      "variables": null, 
+      "Operators": "Műveletek", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Mozgás", 
+      "Pen": "Toll", 
+      "Looks": "Kinézet", 
+      "variable": "változó", 
+      "Tips": "Tippek", 
+      "Data": "Adatok", 
+      "Events": "Események"
+    }, 
     "math": [
       "10 ^", 
       "cos", 
@@ -11442,9 +12498,7 @@ scratchblocks.loadLanguages({
       "felkerekítés", 
       "sin"
     ], 
-    "define": [
-      "meghatározás:"
-    ]
+    "aliases": {}
   }, 
   "hch": {
     "commands": {
@@ -11572,14 +12626,31 @@ scratchblocks.loadLanguages({
       "fisheye": "ketsü hüxieya", 
       "Stage": "êtsenariyu"
     }, 
-    "aliases": {}, 
+    "define": [
+      ""
+    ], 
+    "palette": {
+      "Sound": "mayuake", 
+      "Control": "kunitururi", 
+      "More Blocks": null, 
+      "Sensing": "tsenitsure", 
+      "variables": null, 
+      "Operators": null, 
+      "list": "manawie", 
+      "lists": null, 
+      "Motion": "mukuyuake", 
+      "Pen": "rapi", 
+      "Looks": "waâtü", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "abs", 
       "nanari mayehaika"
     ], 
-    "define": [
-      ""
-    ]
+    "aliases": {}
   }, 
   "fr_CA": {
     "commands": {}, 
@@ -11588,11 +12659,28 @@ scratchblocks.loadLanguages({
       null
     ], 
     "dropdowns": {}, 
-    "aliases": {}, 
-    "math": [], 
     "define": [
       ""
-    ]
+    ], 
+    "palette": {
+      "Sound": null, 
+      "Control": null, 
+      "More Blocks": null, 
+      "Sensing": null, 
+      "variables": null, 
+      "Operators": null, 
+      "list": null, 
+      "lists": null, 
+      "Motion": null, 
+      "Pen": null, 
+      "Looks": null, 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
+    "math": [], 
+    "aliases": {}
   }, 
   "he": {
     "commands": {
@@ -11793,10 +12881,25 @@ scratchblocks.loadLanguages({
       "motion": "תנועה", 
       "edge": "קצה"
     }, 
-    "aliases": {
-      "הסתובב שמאל %n מעלות": "turn @turnLeft %n degrees", 
-      "הסתובב ימינה %n מעלות": "turn @turnRight %n degrees", 
-      "כאשר לוחצים על דגל ירוק": "when @greenFlag clicked"
+    "define": [
+      "הגדר"
+    ], 
+    "palette": {
+      "Sound": "צלילים", 
+      "Control": "בקרה", 
+      "More Blocks": "לבנים נוספות", 
+      "Sensing": "חיישנים", 
+      "variables": null, 
+      "Operators": "מפעילים", 
+      "list": "רשימה", 
+      "lists": null, 
+      "Motion": "תנועה", 
+      "Pen": "עט", 
+      "Looks": "מראה", 
+      "variable": "משתנה", 
+      "Tips": "טיפים", 
+      "Data": "נתונים", 
+      "Events": "אירועים"
     }, 
     "math": [
       "asin", 
@@ -11814,9 +12917,11 @@ scratchblocks.loadLanguages({
       " ^e", 
       "sin"
     ], 
-    "define": [
-      "הגדר"
-    ]
+    "aliases": {
+      "הסתובב שמאל %n מעלות": "turn @turnLeft %n degrees", 
+      "הסתובב ימינה %n מעלות": "turn @turnRight %n degrees", 
+      "כאשר לוחצים על דגל ירוק": "when @greenFlag clicked"
+    }
   }, 
   "ro": {
     "commands": {
@@ -12021,7 +13126,26 @@ scratchblocks.loadLanguages({
       "motion": "mișcare", 
       "edge": "marginea"
     }, 
-    "aliases": {}, 
+    "define": [
+      "definește"
+    ], 
+    "palette": {
+      "Sound": "Sunet", 
+      "Control": "Control", 
+      "More Blocks": "Mai multe blocuri", 
+      "Sensing": "Detectie", 
+      "variables": null, 
+      "Operators": "Operatori", 
+      "list": "listă", 
+      "lists": null, 
+      "Motion": "Miscare", 
+      "Pen": "Stilou", 
+      "Looks": "Aspect", 
+      "variable": "variabilă", 
+      "Tips": "Sfaturi", 
+      "Data": "Date", 
+      "Events": "Evenimente"
+    }, 
     "math": [
       "partea intreaga", 
       "cos", 
@@ -12038,9 +13162,7 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "definește"
-    ]
+    "aliases": {}
   }, 
   "pt": {
     "commands": {
@@ -12244,10 +13366,25 @@ scratchblocks.loadLanguages({
       "motion": "o movimento", 
       "edge": "a borda"
     }, 
-    "aliases": {
-      "gira para a esquerda %n º": "turn @turnLeft %n degrees", 
-      "gira para a direita %n º": "turn @turnRight %n degrees", 
-      "Quando alguém clicar na bandeira verde": "when @greenFlag clicked"
+    "define": [
+      "definiuj"
+    ], 
+    "palette": {
+      "Sound": "Dźwięk", 
+      "Control": "Kontrola", 
+      "More Blocks": "Więcej bloków", 
+      "Sensing": "Czujniki", 
+      "variables": null, 
+      "Operators": "Wyrażenia", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Ruch", 
+      "Pen": "Pisak", 
+      "Looks": "Wygląd", 
+      "variable": "variável", 
+      "Tips": "Dicas", 
+      "Data": "Dane", 
+      "Events": "Zdarzenia"
     }, 
     "math": [
       "o arco-tangente", 
@@ -12265,9 +13402,11 @@ scratchblocks.loadLanguages({
       "a exponencial", 
       "cosseno"
     ], 
-    "define": [
-      "definiuj"
-    ]
+    "aliases": {
+      "gira para a esquerda %n º": "turn @turnLeft %n degrees", 
+      "gira para a direita %n º": "turn @turnRight %n degrees", 
+      "Quando alguém clicar na bandeira verde": "when @greenFlag clicked"
+    }
   }, 
   "zh_CN": {
     "commands": {
@@ -12472,12 +13611,25 @@ scratchblocks.loadLanguages({
       "motion": "动作", 
       "edge": "边缘"
     }, 
-    "aliases": {
-      "左转 %n 度": "turn @turnLeft %n degrees", 
-      "右转 %n 度": "turn @turnRight %n degrees", 
-      "转动CCW %n 度": "turn @turnLeft %n degrees", 
-      "转动CW %n 度": "turn @turnRight %n degrees", 
-      "点击绿旗时": "when @greenFlag clicked"
+    "define": [
+      "定义"
+    ], 
+    "palette": {
+      "Sound": "声音", 
+      "Control": "控制", 
+      "More Blocks": "更多模块", 
+      "Sensing": "侦测", 
+      "variables": null, 
+      "Operators": "数字和逻辑运算", 
+      "list": "链表", 
+      "lists": null, 
+      "Motion": "动作", 
+      "Pen": "画笔", 
+      "Looks": "外观", 
+      "variable": "变量", 
+      "Tips": "帮助", 
+      "Data": "数据", 
+      "Events": "事件"
     }, 
     "math": [
       "asin", 
@@ -12495,9 +13647,13 @@ scratchblocks.loadLanguages({
       "sin", 
       "tan"
     ], 
-    "define": [
-      "定义"
-    ]
+    "aliases": {
+      "左转 %n 度": "turn @turnLeft %n degrees", 
+      "右转 %n 度": "turn @turnRight %n degrees", 
+      "转动CCW %n 度": "turn @turnLeft %n degrees", 
+      "转动CW %n 度": "turn @turnRight %n degrees", 
+      "点击绿旗时": "when @greenFlag clicked"
+    }
   }, 
   "kk": {
     "commands": {
@@ -12654,7 +13810,26 @@ scratchblocks.loadLanguages({
       "motion": "қимыл", 
       "edge": "шет"
     }, 
-    "aliases": {}, 
+    "define": [
+      ""
+    ], 
+    "palette": {
+      "Sound": "дыбыс", 
+      "Control": "бақылау", 
+      "More Blocks": null, 
+      "Sensing": "сенсорлар", 
+      "variables": null, 
+      "Operators": "амалдар", 
+      "list": "тізім", 
+      "lists": null, 
+      "Motion": "қозғалыс", 
+      "Pen": "қауырсын", 
+      "Looks": "сыртқы түрі", 
+      "variable": "へんすう", 
+      "Tips": "ヒント", 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "きりさげ", 
       "asin", 
@@ -12671,9 +13846,7 @@ scratchblocks.loadLanguages({
       "шектеу", 
       "sin"
     ], 
-    "define": [
-      ""
-    ]
+    "aliases": {}
   }, 
   "ml": {
     "commands": {
@@ -12873,7 +14046,26 @@ scratchblocks.loadLanguages({
       "motion": "ചലനം", 
       "edge": "അരിക്"
     }, 
-    "aliases": {}, 
+    "define": [
+      "നിര്‍വചിക്കുക"
+    ], 
+    "palette": {
+      "Sound": "ശബ്ദം", 
+      "Control": "നിയന്ത്രണം", 
+      "More Blocks": "കൂടുതല്‍ ബ്ലോക്കുകള്‍", 
+      "Sensing": "സംവേധിനി", 
+      "variables": null, 
+      "Operators": "ക്രിയകള്‍", 
+      "list": "ലിസ്റ്റ്", 
+      "lists": null, 
+      "Motion": "ചലനം", 
+      "Pen": "പേന", 
+      "Looks": "കാഴ്ച", 
+      "variable": "ചരം", 
+      "Tips": "എളുപ്പവഴി", 
+      "Data": "വിവരങ്ങള്‍", 
+      "Events": "കാര്യങ്ങള്‍"
+    }, 
     "math": [
       "ഇല്‍", 
       "cos", 
@@ -12888,9 +14080,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "കേവല വില"
     ], 
-    "define": [
-      "നിര്‍വചിക്കുക"
-    ]
+    "aliases": {}
   }, 
   "mn": {
     "commands": {
@@ -13041,14 +14231,31 @@ scratchblocks.loadLanguages({
       "down arrow": "доошоо сум", 
       "edge": "ирмэг"
     }, 
-    "aliases": {}, 
+    "define": [
+      "Тодорхойл"
+    ], 
+    "palette": {
+      "Sound": "Сонсогдохуй", 
+      "Control": "Хянахуй", 
+      "More Blocks": null, 
+      "Sensing": "Мэдрэхүй", 
+      "variables": null, 
+      "Operators": "Тоолохуй", 
+      "list": "сүүлчийн", 
+      "lists": null, 
+      "Motion": "Хөдлөхүй", 
+      "Pen": "Үзэг", 
+      "Looks": "Үзэгдэхүй", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "квадрат язгуур", 
       "abs"
     ], 
-    "define": [
-      "Тодорхойл"
-    ]
+    "aliases": {}
   }, 
   "ko": {
     "commands": {
@@ -13252,7 +14459,26 @@ scratchblocks.loadLanguages({
       "motion": "동작", 
       "edge": "벽"
     }, 
-    "aliases": {}, 
+    "define": [
+      "정의하기"
+    ], 
+    "palette": {
+      "Sound": "소리", 
+      "Control": "제어", 
+      "More Blocks": "추가 블록", 
+      "Sensing": "관찰", 
+      "variables": null, 
+      "Operators": "연산", 
+      "list": "리스트", 
+      "lists": null, 
+      "Motion": "동작", 
+      "Pen": "펜", 
+      "Looks": "형태", 
+      "variable": "변수", 
+      "Tips": "도움말", 
+      "Data": "데이터", 
+      "Events": "이벤트"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -13269,9 +14495,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "log"
     ], 
-    "define": [
-      "정의하기"
-    ]
+    "aliases": {}
   }, 
   "kn": {
     "commands": {
@@ -13443,7 +14667,26 @@ scratchblocks.loadLanguages({
       "down arrow": "ಕೆಳ ಒತ್ತುಗುಂಡಿ", 
       "edge": "ಕೊನೆ"
     }, 
-    "aliases": {}, 
+    "define": [
+      "ವ್ಯಾಖ್ಯಾನ"
+    ], 
+    "palette": {
+      "Sound": "ಶಬ್ಧ", 
+      "Control": "ಹಿಡಿತ", 
+      "More Blocks": "ಹೆಚ್ಚು ಇಟ್ಟಿಗೆಗಳು", 
+      "Sensing": "ಗ್ರಹಿಸುವುದು", 
+      "variables": null, 
+      "Operators": "ಚಿಹ್ನ್ಹೆ", 
+      "list": null, 
+      "lists": null, 
+      "Motion": "ಚಲನೆ", 
+      "Pen": "ಲೇಖಣಿ", 
+      "Looks": "ಕಾಣುವುದು", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": "ದತ್ತಾ೦ಸಗಳು", 
+      "Events": "ಸಂಭವಗಳು"
+    }, 
     "math": [
       "asin", 
       "atan", 
@@ -13452,9 +14695,7 @@ scratchblocks.loadLanguages({
       "acos", 
       "ವರ್ಗಮೂಲ"
     ], 
-    "define": [
-      "ವ್ಯಾಖ್ಯಾನ"
-    ]
+    "aliases": {}
   }, 
   "km": {
     "commands": {
@@ -13624,7 +14865,26 @@ scratchblocks.loadLanguages({
       "motion": "モーション", 
       "edge": "はし"
     }, 
-    "aliases": {}, 
+    "define": [
+      ""
+    ], 
+    "palette": {
+      "Sound": "សំឡេង", 
+      "Control": "ខុនត្រូល", 
+      "More Blocks": null, 
+      "Sensing": "សិនស៊ីង", 
+      "variables": null, 
+      "Operators": "អបភេរ៉េទ័រ", 
+      "list": "ចុងបង្អស់", 
+      "lists": null, 
+      "Motion": "ចលនា", 
+      "Pen": "ប៊ិច", 
+      "Looks": "រូបរាង", 
+      "variable": "へんすう", 
+      "Tips": "ヒント", 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "きりさげ", 
       "asin", 
@@ -13641,9 +14901,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "tan"
     ], 
-    "define": [
-      ""
-    ]
+    "aliases": {}
   }, 
   "sk": {
     "commands": {
@@ -13847,7 +15105,26 @@ scratchblocks.loadLanguages({
       "motion": "pohyb", 
       "edge": "okraj"
     }, 
-    "aliases": {}, 
+    "define": [
+      "blok"
+    ], 
+    "palette": {
+      "Sound": "Zvuk", 
+      "Control": "Ovládanie", 
+      "More Blocks": "Bloky", 
+      "Sensing": "Vnímanie", 
+      "variables": null, 
+      "Operators": "Operátory", 
+      "list": "zoznam", 
+      "lists": null, 
+      "Motion": "Pohyb", 
+      "Pen": "Pero", 
+      "Looks": "Vzhľad", 
+      "variable": "premenná", 
+      "Tips": "Tipy", 
+      "Data": "Údaje", 
+      "Events": "Udalosti"
+    }, 
     "math": [
       "odmocnina", 
       "cos", 
@@ -13864,9 +15141,7 @@ scratchblocks.loadLanguages({
       "zaokrúhli nadol", 
       "sin"
     ], 
-    "define": [
-      "blok"
-    ]
+    "aliases": {}
   }, 
   "sr": {
     "commands": {
@@ -14071,7 +15346,26 @@ scratchblocks.loadLanguages({
       "motion": "кретање", 
       "edge": "руб"
     }, 
-    "aliases": {}, 
+    "define": [
+      "дефиниши"
+    ], 
+    "palette": {
+      "Sound": "Звук", 
+      "Control": "Управљање", 
+      "More Blocks": "Осталo", 
+      "Sensing": "Осећаји", 
+      "variables": null, 
+      "Operators": "Операције", 
+      "list": "листа", 
+      "lists": null, 
+      "Motion": "Кретање", 
+      "Pen": "Оловка", 
+      "Looks": "Изглед", 
+      "variable": "променљива", 
+      "Tips": "Савети", 
+      "Data": "Подаци", 
+      "Events": "Догађаји"
+    }, 
     "math": [
       "cos", 
       "log", 
@@ -14088,9 +15382,7 @@ scratchblocks.loadLanguages({
       "arctan", 
       "sin"
     ], 
-    "define": [
-      "дефиниши"
-    ]
+    "aliases": {}
   }, 
   "pl": {
     "commands": {
@@ -14295,10 +15587,25 @@ scratchblocks.loadLanguages({
       "motion": "ruch", 
       "edge": "krawędź"
     }, 
-    "aliases": {
-      "obróć w lewo o %n stopni": "turn @turnLeft %n degrees", 
-      "obróć w prawo o %n stopni": "turn @turnRight %n degrees", 
-      "kiedy kliknięto zieloną flagę": "when @greenFlag clicked"
+    "define": [
+      "definiuj"
+    ], 
+    "palette": {
+      "Sound": "Dźwięk", 
+      "Control": "Kontrola", 
+      "More Blocks": "Więcej bloków", 
+      "Sensing": "Czujniki", 
+      "variables": null, 
+      "Operators": "Wyrażenia", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Ruch", 
+      "Pen": "Pisak", 
+      "Looks": "Wygląd", 
+      "variable": "zmienna", 
+      "Tips": "Wskazówki", 
+      "Data": "Dane", 
+      "Events": "Zdarzenia"
     }, 
     "math": [
       "cos", 
@@ -14316,9 +15623,11 @@ scratchblocks.loadLanguages({
       "sufit", 
       "sin"
     ], 
-    "define": [
-      "definiuj"
-    ]
+    "aliases": {
+      "obróć w lewo o %n stopni": "turn @turnLeft %n degrees", 
+      "obróć w prawo o %n stopni": "turn @turnRight %n degrees", 
+      "kiedy kliknięto zieloną flagę": "when @greenFlag clicked"
+    }
   }, 
   "ku": {
     "commands": {
@@ -14459,14 +15768,31 @@ scratchblocks.loadLanguages({
       "down arrow": "tîra jêr", 
       "edge": "kevî"
     }, 
-    "aliases": {}, 
+    "define": [
+      ""
+    ], 
+    "palette": {
+      "Sound": "deng", 
+      "Control": "kontrol", 
+      "More Blocks": null, 
+      "Sensing": "têgihîn", 
+      "variables": null, 
+      "Operators": "operator", 
+      "list": "dawî", 
+      "lists": null, 
+      "Motion": "hereket", 
+      "Pen": "pênûs", 
+      "Looks": "nêrîn", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
     "math": [
       "abs", 
       "sqrt"
     ], 
-    "define": [
-      ""
-    ]
+    "aliases": {}
   }, 
   "ja_HIRA": {
     "commands": {
@@ -14668,7 +15994,26 @@ scratchblocks.loadLanguages({
       "motion": "モーション", 
       "edge": "はし"
     }, 
-    "aliases": {}, 
+    "define": [
+      "ていぎ"
+    ], 
+    "palette": {
+      "Sound": "おと", 
+      "Control": "せいぎょ", 
+      "More Blocks": "そのた", 
+      "Sensing": "しらべる", 
+      "variables": null, 
+      "Operators": "えんざん", 
+      "list": "リスト", 
+      "lists": null, 
+      "Motion": "うごき", 
+      "Pen": "ペン", 
+      "Looks": "みため", 
+      "variable": "へんすう", 
+      "Tips": "ヒント", 
+      "Data": "データ", 
+      "Events": "イベント"
+    }, 
     "math": [
       "きりさげ", 
       "asin", 
@@ -14685,9 +16030,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "tan"
     ], 
-    "define": [
-      "ていぎ"
-    ]
+    "aliases": {}
   }, 
   "ky": {
     "commands": {}, 
@@ -14696,11 +16039,28 @@ scratchblocks.loadLanguages({
       null
     ], 
     "dropdowns": {}, 
-    "aliases": {}, 
-    "math": [], 
     "define": [
       ""
-    ]
+    ], 
+    "palette": {
+      "Sound": null, 
+      "Control": null, 
+      "More Blocks": null, 
+      "Sensing": null, 
+      "variables": null, 
+      "Operators": null, 
+      "list": null, 
+      "lists": null, 
+      "Motion": null, 
+      "Pen": null, 
+      "Looks": null, 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
+    "math": [], 
+    "aliases": {}
   }, 
   "my": {
     "commands": {
@@ -14844,11 +16204,28 @@ scratchblocks.loadLanguages({
       "distance"
     ], 
     "dropdowns": {}, 
-    "aliases": {}, 
-    "math": [], 
     "define": [
       "သတ်မှတ်ချက်"
-    ]
+    ], 
+    "palette": {
+      "Sound": "အသံ", 
+      "Control": "ထိန်းချုပ်", 
+      "More Blocks": "တခြား ဘလောက်တုံး", 
+      "Sensing": "ရှာဖွေမှု့", 
+      "variables": null, 
+      "Operators": "လုပ်ကိုင်မှု့", 
+      "list": null, 
+      "lists": null, 
+      "Motion": "လှုပ်ရှားမှု့", 
+      "Pen": "စုတ်တံ", 
+      "Looks": "မြင်ရပုံ", 
+      "variable": null, 
+      "Tips": null, 
+      "Data": "ဒေတာ", 
+      "Events": "ဖြစ်ရပ်များ"
+    }, 
+    "math": [], 
+    "aliases": {}
   }, 
   "nah": {
     "commands": {
@@ -14907,10 +16284,27 @@ scratchblocks.loadLanguages({
       "up arrow": "mitl aco", 
       "right arrow": "mitl yec"
     }, 
-    "aliases": {}, 
-    "math": [], 
     "define": [
       ""
-    ]
+    ], 
+    "palette": {
+      "Sound": null, 
+      "Control": "nijyakanas", 
+      "More Blocks": null, 
+      "Sensing": null, 
+      "variables": null, 
+      "Operators": null, 
+      "list": null, 
+      "lists": null, 
+      "Motion": null, 
+      "Pen": "teconalli", 
+      "Looks": null, 
+      "variable": null, 
+      "Tips": null, 
+      "Data": null, 
+      "Events": null
+    }, 
+    "math": [], 
+    "aliases": {}
   }
 });

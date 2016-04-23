@@ -200,12 +200,25 @@ scratchblocks.loadLanguages({
       "motion": "κίνηση", 
       "edge": "όρια"
     }, 
-    "aliases": {
-      "στρίψε δεξιόστροφα %n μοίρες": "turn @turnRight %n degrees", 
-      "Όταν στην πράσινη σημαία γίνει κλικ": "when @greenFlag clicked", 
-      "στρίψε δεξιά %n μοίρες": "turn @turnRight %n degrees", 
-      "στρίψε αριστερά %n μοίρες": "turn @turnLeft %n degrees", 
-      "στρίψε αριστερόστροφα %n μοίρες": "turn @turnLeft %n degrees"
+    "define": [
+      "ορισμός του"
+    ], 
+    "palette": {
+      "Sound": "Ήχοι", 
+      "Control": "Έλεγχος", 
+      "More Blocks": "Άλλες Εντολές", 
+      "Sensing": "Αισθητήρες", 
+      "variables": null, 
+      "Operators": "Τελεστές", 
+      "list": "Λίστα", 
+      "lists": null, 
+      "Motion": "Κινήσεις", 
+      "Pen": "Σχεδιασμοί Πένας", 
+      "Looks": "Όψεις", 
+      "variable": "Μεταβλητή", 
+      "Tips": "Συμβουλές", 
+      "Data": "Δεδομένα", 
+      "Events": "Συμβάντα"
     }, 
     "math": [
       "asin", 
@@ -223,9 +236,13 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "ορισμός του"
-    ]
+    "aliases": {
+      "στρίψε δεξιόστροφα %n μοίρες": "turn @turnRight %n degrees", 
+      "Όταν στην πράσινη σημαία γίνει κλικ": "when @greenFlag clicked", 
+      "στρίψε δεξιά %n μοίρες": "turn @turnRight %n degrees", 
+      "στρίψε αριστερά %n μοίρες": "turn @turnLeft %n degrees", 
+      "στρίψε αριστερόστροφα %n μοίρες": "turn @turnLeft %n degrees"
+    }
   }, 
   "fr": {
     "commands": {
@@ -430,10 +447,25 @@ scratchblocks.loadLanguages({
       "motion": "mouvement", 
       "edge": "bord"
     }, 
-    "aliases": {
-      "tourner gauche de %n degrés": "turn @turnLeft %n degrees", 
-      "quand le drapeau vert pressé": "when @greenFlag clicked", 
-      "tourner droite de %n degrés": "turn @turnRight %n degrees"
+    "define": [
+      "définir"
+    ], 
+    "palette": {
+      "Sound": "Sons", 
+      "Control": "Contrôle", 
+      "More Blocks": "Ajouter blocs", 
+      "Sensing": "Capteurs", 
+      "variables": null, 
+      "Operators": "Opérateurs", 
+      "list": "liste", 
+      "lists": null, 
+      "Motion": "Mouvement", 
+      "Pen": "Stylo", 
+      "Looks": "Apparence", 
+      "variable": "variable", 
+      "Tips": "Conseils", 
+      "Data": "Données", 
+      "Events": "Evènements"
     }, 
     "math": [
       "asin", 
@@ -451,9 +483,11 @@ scratchblocks.loadLanguages({
       "racine", 
       "log"
     ], 
-    "define": [
-      "définir"
-    ]
+    "aliases": {
+      "tourner gauche de %n degrés": "turn @turnLeft %n degrees", 
+      "quand le drapeau vert pressé": "when @greenFlag clicked", 
+      "tourner droite de %n degrés": "turn @turnRight %n degrees"
+    }
   }, 
   "nl": {
     "commands": {
@@ -658,10 +692,25 @@ scratchblocks.loadLanguages({
       "motion": "beweging", 
       "edge": "rand"
     }, 
-    "aliases": {
-      "wanneer groene vlag wordt aangeklikt": "when @greenFlag clicked", 
-      "draai %n graden naar links": "turn @turnLeft %n degrees", 
-      "draai %n graden naar rechts": "turn @turnRight %n degrees"
+    "define": [
+      "definieer"
+    ], 
+    "palette": {
+      "Sound": "Geluid", 
+      "Control": "Besturen", 
+      "More Blocks": "Meer blokken", 
+      "Sensing": "Waarnemen", 
+      "variables": null, 
+      "Operators": "Functies", 
+      "list": "lijst", 
+      "lists": null, 
+      "Motion": "Beweging", 
+      "Pen": "Pen", 
+      "Looks": "Uiterlijken", 
+      "variable": "variabele", 
+      "Tips": "Tips", 
+      "Data": "Data", 
+      "Events": "Gebeurtenissen"
     }, 
     "math": [
       "asin", 
@@ -679,9 +728,11 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "definieer"
-    ]
+    "aliases": {
+      "wanneer groene vlag wordt aangeklikt": "when @greenFlag clicked", 
+      "draai %n graden naar links": "turn @turnLeft %n degrees", 
+      "draai %n graden naar rechts": "turn @turnRight %n degrees"
+    }
   }, 
   "pt": {
     "commands": {
@@ -885,10 +936,25 @@ scratchblocks.loadLanguages({
       "motion": "o movimento", 
       "edge": "a borda"
     }, 
-    "aliases": {
-      "gira para a esquerda %n º": "turn @turnLeft %n degrees", 
-      "gira para a direita %n º": "turn @turnRight %n degrees", 
-      "Quando alguém clicar na bandeira verde": "when @greenFlag clicked"
+    "define": [
+      "definiuj"
+    ], 
+    "palette": {
+      "Sound": "Dźwięk", 
+      "Control": "Kontrola", 
+      "More Blocks": "Więcej bloków", 
+      "Sensing": "Czujniki", 
+      "variables": null, 
+      "Operators": "Wyrażenia", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Ruch", 
+      "Pen": "Pisak", 
+      "Looks": "Wygląd", 
+      "variable": "variável", 
+      "Tips": "Dicas", 
+      "Data": "Dane", 
+      "Events": "Zdarzenia"
     }, 
     "math": [
       "o arco-tangente", 
@@ -906,9 +972,11 @@ scratchblocks.loadLanguages({
       "a exponencial", 
       "cosseno"
     ], 
-    "define": [
-      "definiuj"
-    ]
+    "aliases": {
+      "gira para a esquerda %n º": "turn @turnLeft %n degrees", 
+      "gira para a direita %n º": "turn @turnRight %n degrees", 
+      "Quando alguém clicar na bandeira verde": "when @greenFlag clicked"
+    }
   }, 
   "zh_CN": {
     "commands": {
@@ -1113,12 +1181,25 @@ scratchblocks.loadLanguages({
       "motion": "动作", 
       "edge": "边缘"
     }, 
-    "aliases": {
-      "左转 %n 度": "turn @turnLeft %n degrees", 
-      "右转 %n 度": "turn @turnRight %n degrees", 
-      "转动CCW %n 度": "turn @turnLeft %n degrees", 
-      "转动CW %n 度": "turn @turnRight %n degrees", 
-      "点击绿旗时": "when @greenFlag clicked"
+    "define": [
+      "定义"
+    ], 
+    "palette": {
+      "Sound": "声音", 
+      "Control": "控制", 
+      "More Blocks": "更多模块", 
+      "Sensing": "侦测", 
+      "variables": null, 
+      "Operators": "数字和逻辑运算", 
+      "list": "链表", 
+      "lists": null, 
+      "Motion": "动作", 
+      "Pen": "画笔", 
+      "Looks": "外观", 
+      "variable": "变量", 
+      "Tips": "帮助", 
+      "Data": "数据", 
+      "Events": "事件"
     }, 
     "math": [
       "asin", 
@@ -1136,9 +1217,13 @@ scratchblocks.loadLanguages({
       "sin", 
       "tan"
     ], 
-    "define": [
-      "定义"
-    ]
+    "aliases": {
+      "左转 %n 度": "turn @turnLeft %n degrees", 
+      "右转 %n 度": "turn @turnRight %n degrees", 
+      "转动CCW %n 度": "turn @turnLeft %n degrees", 
+      "转动CW %n 度": "turn @turnRight %n degrees", 
+      "点击绿旗时": "when @greenFlag clicked"
+    }
   }, 
   "tr": {
     "commands": {
@@ -1343,12 +1428,25 @@ scratchblocks.loadLanguages({
       "motion": "hareketi", 
       "edge": "kenar"
     }, 
-    "aliases": {
-      "_ derece saat yönünde dön": "turn @turnRight %n degrees", 
-      "_ derece saatin tersi yönde dön": "turn @turnLeft %n degrees", 
-      "_ derece sola dön": "turn @turnLeft %n degrees", 
-      "_ derece sağa dön": "turn @turnRight %n degrees", 
-      "yeşil bayrak tıklandığında": "when @greenFlag clicked"
+    "define": [
+      "tanımla"
+    ], 
+    "palette": {
+      "Sound": "Ses", 
+      "Control": "Kontrol", 
+      "More Blocks": "Özel Taşlar", 
+      "Sensing": "Algılama", 
+      "variables": null, 
+      "Operators": "İşlemler", 
+      "list": "liste", 
+      "lists": null, 
+      "Motion": "Hareket", 
+      "Pen": "Kalem", 
+      "Looks": "Görünüm", 
+      "variable": "değişken", 
+      "Tips": "İpuçları", 
+      "Data": "Veri", 
+      "Events": "Olaylar"
     }, 
     "math": [
       "asin", 
@@ -1366,9 +1464,13 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "tanımla"
-    ]
+    "aliases": {
+      "_ derece saat yönünde dön": "turn @turnRight %n degrees", 
+      "_ derece saatin tersi yönde dön": "turn @turnLeft %n degrees", 
+      "_ derece sola dön": "turn @turnLeft %n degrees", 
+      "_ derece sağa dön": "turn @turnRight %n degrees", 
+      "yeşil bayrak tıklandığında": "when @greenFlag clicked"
+    }
   }, 
   "nb": {
     "commands": {
@@ -1573,10 +1675,25 @@ scratchblocks.loadLanguages({
       "motion": "bevegelse", 
       "edge": "kant"
     }, 
-    "aliases": {
-      "vend venstre %n grader": "turn @turnLeft %n degrees", 
-      "vend høyre %n grader": "turn @turnRight %n degrees", 
-      "når grønt flagg klikkes": "when @greenFlag clicked"
+    "define": [
+      "definer"
+    ], 
+    "palette": {
+      "Sound": "Lyd", 
+      "Control": "Styring", 
+      "More Blocks": "Flere klosser", 
+      "Sensing": "Sansning", 
+      "variables": null, 
+      "Operators": "Operatorer", 
+      "list": "liste", 
+      "lists": null, 
+      "Motion": "Bevegelse", 
+      "Pen": "Penn", 
+      "Looks": "Utseende", 
+      "variable": "variabel", 
+      "Tips": "Hjelp", 
+      "Data": "Data", 
+      "Events": "Hendelser"
     }, 
     "math": [
       "10 ^", 
@@ -1594,9 +1711,11 @@ scratchblocks.loadLanguages({
       "sin", 
       "tak"
     ], 
-    "define": [
-      "definer"
-    ]
+    "aliases": {
+      "vend venstre %n grader": "turn @turnLeft %n degrees", 
+      "vend høyre %n grader": "turn @turnRight %n degrees", 
+      "når grønt flagg klikkes": "when @greenFlag clicked"
+    }
   }, 
   "de": {
     "commands": {
@@ -1801,10 +1920,25 @@ scratchblocks.loadLanguages({
       "motion": "Bewegung", 
       "edge": "Rand"
     }, 
-    "aliases": {
-      "drehe dich nach links um %n Grad": "turn @turnLeft %n degrees", 
-      "Wenn die grüne Flagge angeklickt": "when @greenFlag clicked", 
-      "drehe dich nach rechts um %n Grad": "turn @turnRight %n degrees"
+    "define": [
+      "Definiere"
+    ], 
+    "palette": {
+      "Sound": "Klang", 
+      "Control": "Steuerung", 
+      "More Blocks": "Weitere Blöcke", 
+      "Sensing": "Fühlen", 
+      "variables": null, 
+      "Operators": "Operatoren", 
+      "list": "Liste", 
+      "lists": null, 
+      "Motion": "Bewegung", 
+      "Pen": "Malstift", 
+      "Looks": "Aussehen", 
+      "variable": "Variable", 
+      "Tips": "Tipps", 
+      "Data": "Daten", 
+      "Events": "Ereignisse"
     }, 
     "math": [
       "aufrunden", 
@@ -1822,9 +1956,11 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "Definiere"
-    ]
+    "aliases": {
+      "drehe dich nach links um %n Grad": "turn @turnLeft %n degrees", 
+      "Wenn die grüne Flagge angeklickt": "when @greenFlag clicked", 
+      "drehe dich nach rechts um %n Grad": "turn @turnRight %n degrees"
+    }
   }, 
   "ko": {
     "commands": {
@@ -2028,7 +2164,26 @@ scratchblocks.loadLanguages({
       "motion": "동작", 
       "edge": "벽"
     }, 
-    "aliases": {}, 
+    "define": [
+      "정의하기"
+    ], 
+    "palette": {
+      "Sound": "소리", 
+      "Control": "제어", 
+      "More Blocks": "추가 블록", 
+      "Sensing": "관찰", 
+      "variables": null, 
+      "Operators": "연산", 
+      "list": "리스트", 
+      "lists": null, 
+      "Motion": "동작", 
+      "Pen": "펜", 
+      "Looks": "형태", 
+      "variable": "변수", 
+      "Tips": "도움말", 
+      "Data": "데이터", 
+      "Events": "이벤트"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -2045,9 +2200,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "log"
     ], 
-    "define": [
-      "정의하기"
-    ]
+    "aliases": {}
   }, 
   "it": {
     "commands": {
@@ -2252,10 +2405,25 @@ scratchblocks.loadLanguages({
       "motion": "movimento", 
       "edge": "bordo"
     }, 
-    "aliases": {
-      "ruota in senso orario di %n gradi": "turn @turnRight %n degrees", 
-      "ruota in senso antiorario di %n gradi": "turn @turnLeft %n degrees", 
-      "quando si clicca sulla bandiera verde": "when @greenFlag clicked"
+    "define": [
+      "definisci"
+    ], 
+    "palette": {
+      "Sound": "Suono", 
+      "Control": "Controllo", 
+      "More Blocks": "Altri Blocchi", 
+      "Sensing": "Sensori", 
+      "variables": null, 
+      "Operators": "Operatori", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Movimento", 
+      "Pen": "Penna", 
+      "Looks": "Aspetto", 
+      "variable": "variabile", 
+      "Tips": "Suggerimenti", 
+      "Data": "Variabili e Liste", 
+      "Events": "Situazioni"
     }, 
     "math": [
       "asin", 
@@ -2273,9 +2441,11 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "definisci"
-    ]
+    "aliases": {
+      "ruota in senso orario di %n gradi": "turn @turnRight %n degrees", 
+      "ruota in senso antiorario di %n gradi": "turn @turnLeft %n degrees", 
+      "quando si clicca sulla bandiera verde": "when @greenFlag clicked"
+    }
   }, 
   "id": {
     "commands": {
@@ -2479,7 +2649,26 @@ scratchblocks.loadLanguages({
       "motion": "gerak", 
       "edge": "pinggir"
     }, 
-    "aliases": {}, 
+    "define": [
+      "artikan"
+    ], 
+    "palette": {
+      "Sound": "Suara", 
+      "Control": "Kontrol", 
+      "More Blocks": "Balok Baru", 
+      "Sensing": "Sensor", 
+      "variables": null, 
+      "Operators": "Operator", 
+      "list": "daftar", 
+      "lists": null, 
+      "Motion": "Gerakan", 
+      "Pen": "Pena", 
+      "Looks": "Tampilan", 
+      "variable": "variabel", 
+      "Tips": "Tips", 
+      "Data": "Data", 
+      "Events": "Kejadian"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -2496,9 +2685,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "tan"
     ], 
-    "define": [
-      "artikan"
-    ]
+    "aliases": {}
   }, 
   "es": {
     "commands": {
@@ -2703,10 +2890,25 @@ scratchblocks.loadLanguages({
       "motion": "movimiento", 
       "edge": "borde"
     }, 
-    "aliases": {
-      "girar a la izquierda %n grados": "turn @turnLeft %n degrees", 
-      "girar a la derecha %n grados": "turn @turnRight %n degrees", 
-      "al presionar bandera verde": "when @greenFlag clicked"
+    "define": [
+      "definir"
+    ], 
+    "palette": {
+      "Sound": "Sonido", 
+      "Control": "Control", 
+      "More Blocks": "Más Bloques", 
+      "Sensing": "Sensores", 
+      "variables": null, 
+      "Operators": "Operadores", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Movimiento", 
+      "Pen": "Lápiz", 
+      "Looks": "Apariencia", 
+      "variable": "variable", 
+      "Tips": "Sugerencias", 
+      "Data": "Datos", 
+      "Events": "Eventos"
     }, 
     "math": [
       "asin", 
@@ -2724,9 +2926,11 @@ scratchblocks.loadLanguages({
       "tan", 
       "log"
     ], 
-    "define": [
-      "definir"
-    ]
+    "aliases": {
+      "girar a la izquierda %n grados": "turn @turnLeft %n degrees", 
+      "girar a la derecha %n grados": "turn @turnRight %n degrees", 
+      "al presionar bandera verde": "when @greenFlag clicked"
+    }
   }, 
   "ru": {
     "commands": {
@@ -2931,10 +3135,25 @@ scratchblocks.loadLanguages({
       "motion": "движение", 
       "edge": "край"
     }, 
-    "aliases": {
-      "повернуть влево на %n градусов": "turn @turnLeft %n degrees", 
-      "повернуть вправо на %n градусов": "turn @turnRight %n degrees", 
-      "когда щёлкнут по зелёному флагу": "when @greenFlag clicked"
+    "define": [
+      "определить"
+    ], 
+    "palette": {
+      "Sound": "Звук", 
+      "Control": "Управление", 
+      "More Blocks": "Другие блоки", 
+      "Sensing": "Сенсоры", 
+      "variables": null, 
+      "Operators": "Операторы", 
+      "list": "список", 
+      "lists": null, 
+      "Motion": "Движение", 
+      "Pen": "Перо", 
+      "Looks": "Внешность", 
+      "variable": "переменная", 
+      "Tips": "Подсказки", 
+      "Data": "Данные", 
+      "Events": "События"
     }, 
     "math": [
       "asin", 
@@ -2952,9 +3171,11 @@ scratchblocks.loadLanguages({
       "tan", 
       "sin"
     ], 
-    "define": [
-      "определить"
-    ]
+    "aliases": {
+      "повернуть влево на %n градусов": "turn @turnLeft %n degrees", 
+      "повернуть вправо на %n градусов": "turn @turnRight %n degrees", 
+      "когда щёлкнут по зелёному флагу": "when @greenFlag clicked"
+    }
   }, 
   "ca": {
     "commands": {
@@ -3159,10 +3380,25 @@ scratchblocks.loadLanguages({
       "motion": "moviment", 
       "edge": "vora"
     }, 
-    "aliases": {
-      "gira a l'esquerra %n graus": "turn @turnLeft %n degrees", 
-      "gira a la dreta %n graus": "turn @turnRight %n degrees", 
-      "quan la bandera verda es premi": "when @greenFlag clicked"
+    "define": [
+      "defineix"
+    ], 
+    "palette": {
+      "Sound": "Sons", 
+      "Control": "Control", 
+      "More Blocks": "Més Blocs", 
+      "Sensing": "Sensors", 
+      "variables": null, 
+      "Operators": "Operadors", 
+      "list": "llista", 
+      "lists": null, 
+      "Motion": "Moviment", 
+      "Pen": "Llapis", 
+      "Looks": "Aspecte", 
+      "variable": "variable", 
+      "Tips": "Ajuda", 
+      "Data": "Dades", 
+      "Events": "Esdeveniments"
     }, 
     "math": [
       "asin", 
@@ -3180,9 +3416,11 @@ scratchblocks.loadLanguages({
       "sin", 
       "arrel quadrada"
     ], 
-    "define": [
-      "defineix"
-    ]
+    "aliases": {
+      "gira a l'esquerra %n graus": "turn @turnLeft %n degrees", 
+      "gira a la dreta %n graus": "turn @turnRight %n degrees", 
+      "quan la bandera verda es premi": "when @greenFlag clicked"
+    }
   }, 
   "ja": {
     "commands": {
@@ -3386,7 +3624,26 @@ scratchblocks.loadLanguages({
       "motion": "モーション", 
       "edge": "端"
     }, 
-    "aliases": {}, 
+    "define": [
+      "定義"
+    ], 
+    "palette": {
+      "Sound": "音", 
+      "Control": "制御", 
+      "More Blocks": "その他", 
+      "Sensing": "調べる", 
+      "variables": null, 
+      "Operators": "演算", 
+      "list": "リスト", 
+      "lists": null, 
+      "Motion": "動き", 
+      "Pen": "ペン", 
+      "Looks": "見た目", 
+      "variable": "変数", 
+      "Tips": "ヒント", 
+      "Data": "データ", 
+      "Events": "イベント"
+    }, 
     "math": [
       "asin", 
       "cos", 
@@ -3403,9 +3660,7 @@ scratchblocks.loadLanguages({
       "sin", 
       "tan"
     ], 
-    "define": [
-      "定義"
-    ]
+    "aliases": {}
   }, 
   "pl": {
     "commands": {
@@ -3610,10 +3865,25 @@ scratchblocks.loadLanguages({
       "motion": "ruch", 
       "edge": "krawędź"
     }, 
-    "aliases": {
-      "obróć w lewo o %n stopni": "turn @turnLeft %n degrees", 
-      "obróć w prawo o %n stopni": "turn @turnRight %n degrees", 
-      "kiedy kliknięto zieloną flagę": "when @greenFlag clicked"
+    "define": [
+      "definiuj"
+    ], 
+    "palette": {
+      "Sound": "Dźwięk", 
+      "Control": "Kontrola", 
+      "More Blocks": "Więcej bloków", 
+      "Sensing": "Czujniki", 
+      "variables": null, 
+      "Operators": "Wyrażenia", 
+      "list": "lista", 
+      "lists": null, 
+      "Motion": "Ruch", 
+      "Pen": "Pisak", 
+      "Looks": "Wygląd", 
+      "variable": "zmienna", 
+      "Tips": "Wskazówki", 
+      "Data": "Dane", 
+      "Events": "Zdarzenia"
     }, 
     "math": [
       "cos", 
@@ -3631,9 +3901,11 @@ scratchblocks.loadLanguages({
       "sufit", 
       "sin"
     ], 
-    "define": [
-      "definiuj"
-    ]
+    "aliases": {
+      "obróć w lewo o %n stopni": "turn @turnLeft %n degrees", 
+      "obróć w prawo o %n stopni": "turn @turnRight %n degrees", 
+      "kiedy kliknięto zieloną flagę": "when @greenFlag clicked"
+    }
   }, 
   "he": {
     "commands": {
@@ -3834,10 +4106,25 @@ scratchblocks.loadLanguages({
       "motion": "תנועה", 
       "edge": "קצה"
     }, 
-    "aliases": {
-      "הסתובב שמאל %n מעלות": "turn @turnLeft %n degrees", 
-      "הסתובב ימינה %n מעלות": "turn @turnRight %n degrees", 
-      "כאשר לוחצים על דגל ירוק": "when @greenFlag clicked"
+    "define": [
+      "הגדר"
+    ], 
+    "palette": {
+      "Sound": "צלילים", 
+      "Control": "בקרה", 
+      "More Blocks": "לבנים נוספות", 
+      "Sensing": "חיישנים", 
+      "variables": null, 
+      "Operators": "מפעילים", 
+      "list": "רשימה", 
+      "lists": null, 
+      "Motion": "תנועה", 
+      "Pen": "עט", 
+      "Looks": "מראה", 
+      "variable": "משתנה", 
+      "Tips": "טיפים", 
+      "Data": "נתונים", 
+      "Events": "אירועים"
     }, 
     "math": [
       "asin", 
@@ -3855,8 +4142,10 @@ scratchblocks.loadLanguages({
       " ^e", 
       "sin"
     ], 
-    "define": [
-      "הגדר"
-    ]
+    "aliases": {
+      "הסתובב שמאל %n מעלות": "turn @turnLeft %n degrees", 
+      "הסתובב ימינה %n מעלות": "turn @turnRight %n degrees", 
+      "כאשר לוחצים על דגל ירוק": "when @greenFlag clicked"
+    }
   }
 });

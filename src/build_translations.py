@@ -180,6 +180,13 @@ for lang in LANGUAGES:
         if native_name:
             dropdowns[name] = native_name
 
+    palette = dict((x, lang_blocks.get(x) or lang_editor.get(x)) for x in [
+        "Motion", "Looks", "Sound", "Pen", "Data", "variables", "variable",
+        "lists", "list", "Events", "Control", "Sensing", "Operators",
+        "More Blocks",
+    ])
+    palette['Tips'] = lang_editor.get('Tips')
+
     language = {
         'aliases': extra_aliases,
         'define': [lang_blocks.get('define', '')],
@@ -187,7 +194,8 @@ for lang in LANGUAGES:
         'math': nonempty(map(lang_editor.get, math_funcs)),
         'osis': nonempty(map(lang_editor.get, osis)),
         'commands': commands,
-        'dropdowns': dropdowns,
+        'dropdowns': dropdowns, # for translate()
+        'palette': palette, # for scratchblocks menu
     }
     all_languages[lang] = language
 
