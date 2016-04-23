@@ -176,7 +176,7 @@ for lang in LANGUAGES:
 
     dropdowns = {}
     for name in dropdown_values:
-        native_name = lang_blocks.get(x) or lang_editor.get(x, '')
+        native_name = lang_blocks.get(name) or lang_editor.get(name, '')
         if native_name:
             dropdowns[name] = native_name
 
