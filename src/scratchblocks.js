@@ -186,6 +186,12 @@ var scratchblocks = function () {
       blocksByHash[aliasHash] = block;
     });
 
+    language.nativeDropdowns = {};
+    Object.keys(language.dropdowns).forEach(function(name) {
+      var nativeName = language.dropdowns[name];
+      language.nativeDropdowns[nativeName] = name;
+    });
+
     language.code = code;
     allLanguages[code] = language;
   }
@@ -216,6 +222,8 @@ var scratchblocks = function () {
 
     // For detecting the "stop" cap / stack block
     osis: ["other scripts in sprite", "other scripts in stage"],
+
+    dropdowns: {},
 
     commands: {},
   };
@@ -280,6 +288,16 @@ var scratchblocks = function () {
           block = block.specialCase(info, children, lang) || block;
         }
         return { type: block, lang: lang };
+      }
+    }
+  }
+
+  function lookupDropdown(name, languages) {
+    for (var i=0; i<languages.length; i++) {
+      var lang = languages[i];
+      if (lang.nativeDropdowns.hasOwnProperty(name)) {
+        var nativeName = lang.nativeDropdowns[name];
+        return nativeName;
       }
     }
   }
@@ -361,7 +379,6 @@ var scratchblocks = function () {
     return block;
   }
 
-
   /* * */
 
   function parseLines(code, languages) {
@@ -398,6 +415,11 @@ var scratchblocks = function () {
         hasLoopArrow: false,
       };
       return paintBlock(info, children, languages);
+    }
+
+    function makeMenu(shape, value) {
+      var menu = lookupDropdown(value, languages) || value;
+      return new Input(shape, value, menu);
     }
 
     function pParts(end) {
@@ -494,7 +516,7 @@ var scratchblocks = function () {
       if (hexColorPat.test(s)) {
         return new Input('color', s);
       }
-      return !escapeV && / v$/.test(s) ? new Input('dropdown', s.slice(0, s.length - 2))
+      return !escapeV && / v$/.test(s) ? makeMenu('dropdown', s.slice(0, s.length - 2))
                                        : new Input('string', s);
     }
 
@@ -548,7 +570,7 @@ var scratchblocks = function () {
         if (i > 1 && last.value === 'v') {
           children.pop();
           var value = children.map(function(l) { return l.value; }).join(" ");
-          return new Input('number-dropdown', value);
+          return makeMenu('number-dropdown', value);
         }
       }
 
@@ -1605,9 +1627,10 @@ var scratchblocks = function () {
 
   /* Input */
 
-  var Input = function(shape, value) {
+  var Input = function(shape, value, menu) {
     this.shape = shape;
     this.value = value;
+    this.menu = menu || null;
 
     this.isRound = shape === 'number' || shape === 'number-dropdown';
     this.isBoolean = shape === 'boolean';
@@ -1633,6 +1656,7 @@ var scratchblocks = function () {
       m: 'dropdown',
       c: 'color',
     }[part[1]];
+
     if (shape === 'color') {
       if (value < 0) value = 0xFFFFFFFF + value + 1;
       var hex = value.toString(16);
@@ -1641,9 +1665,9 @@ var scratchblocks = function () {
       if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] === hex[5]) {
         hex = hex[0] + hex[2] + hex[4];
       }
-      var value = '#' + hex;
+      value = '#' + hex;
     } else if (shape === 'dropdown') {
-      var value = {
+      value = {
         _mouse_: "mouse-pointer",
         _myself_: "myself",
         _stage_: "Stage",
@@ -1652,9 +1676,11 @@ var scratchblocks = function () {
       }[value] || value;
     }
     if (shape === 'dropdown' || shape === 'number-dropdown') {
-      // TODO translate
+      var menu = value;
+      value = lang.dropdowns[value] || value;
     }
-    return new Input(shape, value || "");
+
+    return new Input(shape, value || "", menu);
   };
 
   Input.prototype.toJSON = function() {
@@ -1665,17 +1691,18 @@ var scratchblocks = function () {
       return parseInt(h, 16);
       // TODO signed int?
     }
-    if (this.shape === 'dropdown' || this.shape === 'number-dropdown') {
-      // TODO translate
-    }
-    if (this.shape === 'dropdown') {
-      return {
-        "mouse-pointer": "_mouse_",
-        "myself": "_myself",
-        "Stage": "_stage_",
-        "edge": "_edge_",
-        "random position": "_random_",
-      }[this.value] || this.value;
+    if (this.hasArrow) {
+      var value = this.menu || this.value;
+      if (this.shape === 'dropdown') {
+        value = {
+          "mouse-pointer": "_mouse_",
+          "myself": "_myself",
+          "Stage": "_stage_",
+          "edge": "_edge_",
+          "random position": "_random_",
+        }[value] || value;
+      }
+      return value;
     }
     return this.isBoolean ? false : this.value;
   };
@@ -1697,9 +1724,11 @@ var scratchblocks = function () {
          : text;
   };
 
-  Input.prototype.translate = function() {
+  Input.prototype.translate = function(lang) {
     if (this.hasArrow) {
-      // TODO translate menu options
+      var value = this.menu || this.value;
+      this.value = lang.dropdowns[value] || value;
+      this.label = new Label(this.value, ['literal-' + this.shape]);
     }
   };
 
