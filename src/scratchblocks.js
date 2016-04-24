@@ -102,7 +102,7 @@ var scratchblocks = function () {
   var inputPat = /(%[a-zA-Z](?:\.[a-zA-Z0-9]+)?)/;
   var inputPatGlobal = new RegExp(inputPat.source, 'g');
   var iconPat = /(@[a-zA-Z]+)/;
-  var splitPat = new RegExp([inputPat.source, '|', iconPat.source].join(''), 'g');
+  var splitPat = new RegExp([inputPat.source, '|', iconPat.source, '| +'].join(''), 'g');
 
   var hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/;
 
