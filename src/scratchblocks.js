@@ -1545,6 +1545,7 @@ var scratchblocks = function () {
   Label.prototype.isLabel = true;
 
   Label.prototype.stringify = function() {
+    if (this.value === "<" || this.value === ">") return this.value;
     return (this.value
       .replace(/([<>[\](){}])/g, "\\$1")
     );
@@ -1982,6 +1983,7 @@ var scratchblocks = function () {
     var text = this.children.map(function(child) {
       if (child.isIcon) checkAlias = true;
       if (child.isInput && !firstInput) firstInput = child;
+
       return child.isScript ? "\n" + indent(child.stringify()) + "\n"
                             : child.stringify().trim() + " ";
     }).join("").trim();
@@ -1992,7 +1994,7 @@ var scratchblocks = function () {
       var spec = type.spec;
       var alias = lang.nativeAliases[type.spec]
       if (alias) {
-        // TODO do this properly
+        // TODO make translate() not in-place, and use that
         if (inputPat.test(alias)) {
           alias = alias.replace(inputPat, firstInput.stringify());
         }
