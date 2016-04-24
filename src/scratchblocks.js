@@ -179,12 +179,15 @@ var scratchblocks = function () {
       }
     });
 
+    language.nativeAliases = {};
     Object.keys(language.aliases).forEach(function(alias) {
       var spec = language.aliases[alias];
       var block = blocksBySpec[spec];
 
       var aliasHash = hashSpec(alias);
       blocksByHash[aliasHash] = block;
+
+      language.nativeAliases[spec] = alias;
     });
 
     language.nativeDropdowns = {};
@@ -1880,6 +1883,7 @@ var scratchblocks = function () {
         selector: 'procDef',
         call: spec,
         names: args[1],
+        language: lang,
       }, children);
 
     } else if (selector === 'call') {
@@ -1889,6 +1893,7 @@ var scratchblocks = function () {
         shape: 'stack',
         selector: 'call',
         call: spec,
+        language: lang,
       });
       var parts = info.parts;
 
@@ -1902,11 +1907,14 @@ var scratchblocks = function () {
           'contentsOfList:': 'list',
           'getParam': 'custom-arg',
         }[selector],
+        language: lang,
       }
       return new Block(info, [new Label(args[0])]);
 
     } else {
-      var info = blocksBySelector[selector];
+      var info = extend(blocksBySelector[selector], {
+        language: lang,
+      });
       assert(info, "unknown selector: " + selector);
       var spec = lang.commands[info.spec] || spec;
       var parts = spec ? parseSpec(spec).parts : info.parts;
@@ -1969,10 +1977,29 @@ var scratchblocks = function () {
   };
 
   Block.prototype.stringify = function() {
+    var firstInput = null;
+    var checkAlias = false;
     var text = this.children.map(function(child) {
+      if (child.isIcon) checkAlias = true;
+      if (child.isInput && !firstInput) firstInput = child;
       return child.isScript ? "\n" + indent(child.stringify()) + "\n"
                             : child.stringify().trim() + " ";
     }).join("").trim();
+
+    var lang = this.info.language;
+    if (checkAlias && lang) {
+      var type = blocksBySelector[this.info.selector];
+      var spec = type.spec;
+      var alias = lang.nativeAliases[type.spec]
+      if (alias) {
+        // TODO do this properly
+        if (inputPat.test(alias)) {
+          alias = alias.replace(inputPat, firstInput.stringify());
+        }
+        return alias;
+      }
+    }
+
     if ((this.info.shape === 'reporter' && this.info.category === 'list')
      || (this.info.category === 'custom' && this.info.shape === 'stack')) {
       text += " :: " + this.info.category;
