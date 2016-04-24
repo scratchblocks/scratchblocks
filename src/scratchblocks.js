@@ -335,7 +335,7 @@ var scratchblocks = function () {
         words.push(child.value);
       } else if (child.isIcon) {
         words.push("@" + child.name);
-      } else {
+      } else if (!child.isScript) {
         words.push("_");
       }
     }
