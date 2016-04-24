@@ -548,6 +548,17 @@ var scratchblocks = function () {
 
     function pReporter() {
       next(); // '('
+
+      // empty number-dropdown
+      if (tok === ' ') {
+        next();
+        if (tok === 'v' && peek() === ')') {
+          next();
+          next();
+          return new Input('number-dropdown', "");
+        }
+      }
+
       var children = pParts(')');
       if (tok && tok === ')') next();
 
