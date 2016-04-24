@@ -1718,7 +1718,7 @@ var scratchblocks = function () {
   Input.prototype.stringify = function() {
     if (this.isColor) {
       assert(this.value[0] === '#');
-      return this.value;
+      return "[" + this.value + "]";
     }
     var text = ((this.value ? "" + this.value : "")
       .replace(/ v$/, " \\v")
