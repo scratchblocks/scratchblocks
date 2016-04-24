@@ -438,7 +438,7 @@ var scratchblocks = function () {
           }
         }
         if (tok === end) break;
-        if (tok === '/' && peek() === '/') break;
+        if (tok === '/' && peek() === '/' && !end) break;
 
         switch (tok) {
           case '[':
