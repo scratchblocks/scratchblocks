@@ -1910,10 +1910,14 @@ var scratchblocks = function () {
         return new Label(part.trim());
       }
     });
-    args.forEach(function(list) {
+    args.forEach(function(list, index) {
       assert(isArray(list));
       children.push(new Script(list.map(Block.fromJSON.bind(null, lang))));
+      if (selector === 'doIfElse' && index === 0) {
+        children.push(new Label(lang.commands["else"]));
+      }
     });
+    // TODO loop arrows
     return new Block(info, children);
   };
 
