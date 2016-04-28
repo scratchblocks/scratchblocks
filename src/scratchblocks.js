@@ -2195,6 +2195,8 @@ var scratchblocks = function () {
         child.height = Math.max(12, child.height) + 3;
         y += child.height;
         line = new Line(y);
+      } else if (child.isArrow) {
+        line.children.push(child);
       } else {
         var cmw = i > 0 ? 30 : 0; // 27
         var md = this.isCommand ? 0 : this.minDistance(child);
