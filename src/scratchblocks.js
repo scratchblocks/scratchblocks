@@ -2144,7 +2144,7 @@ var scratchblocks = function () {
     var Line = function(y) {
       this.y = y;
       this.width = 0;
-      this.height = 16;
+      this.height = y ? 13 : 16;
       this.children = [];
     };
 
@@ -2155,7 +2155,7 @@ var scratchblocks = function () {
       if (lines.length === 0) {
         line.height += pt + pb;
       } else {
-        line.height = isLast ? 13 : 15;
+        line.height += isLast ? 0 : +2;
         line.y -= 1;
       }
       y += line.height;
