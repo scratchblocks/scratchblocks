@@ -357,7 +357,7 @@ var scratchblocks = function () {
       }
       info.category = type.category;
       info.categoryIsDefault = false;
-      info.selector = type.selector; // for toJSON
+      if (type.selector) info.selector = type.selector; // for toJSON
       info.hasLoopArrow = type.hasLoopArrow;
 
       // ellipsis block
@@ -1989,7 +1989,7 @@ var scratchblocks = function () {
     }).join("").trim();
 
     var lang = this.info.language;
-    if (checkAlias && lang) {
+    if (checkAlias && lang && this.info.selector) {
       var type = blocksBySelector[this.info.selector];
       var spec = type.spec;
       var alias = lang.nativeAliases[type.spec]
