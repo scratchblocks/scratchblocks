@@ -1899,7 +1899,7 @@ var scratchblocks = function () {
       var parts = info.parts;
 
     } else if (selector === 'readVariable' || selector === 'contentsOfList:' || selector === 'getParam') {
-      var shape = selector === 'getParam' && args.shift() === 'b' ? 'boolean' : 'reporter';
+      var shape = selector === 'getParam' && args.pop() === 'b' ? 'boolean' : 'reporter';
       var info = {
         selector: selector,
         shape: shape,
@@ -1958,8 +1958,8 @@ var scratchblocks = function () {
     }
 
     if (selector === 'readVariable' || selector === 'contentsOfList:' || selector === 'getParam') {
-      if (selector === 'getParam') args.push(this.isBoolean === 'boolean' ? 'b' : 'r');
       args.push(blockName(this));
+      if (selector === 'getParam') args.push(this.isBoolean === 'boolean' ? 'b' : 'r');
 
     } else {
       for (var i=0; i<this.children.length; i++) {
