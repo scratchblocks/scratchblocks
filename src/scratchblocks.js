@@ -1583,11 +1583,6 @@ var scratchblocks = function () {
     svg.style.overflow = 'hidden';
     svg.style.pointerEvents = 'none';
     document.body.appendChild(svg);
-
-    var defs = el('defs');
-    svg.appendChild(defs);
-    defs.appendChild(makeStyle());
-
     return svg;
   }());
   Label.toMeasure = [];
@@ -2462,7 +2457,6 @@ var scratchblocks = function () {
     // return SVG
     var svg = newSVG(width, height);
     svg.appendChild(withChildren(el('defs'), [
-        makeStyle(),
         bevelFilter('bevelFilter', false),
         bevelFilter('inputBevelFilter', true),
         darkFilter('inputDarkFilter'),
@@ -2475,8 +2469,12 @@ var scratchblocks = function () {
 
   Document.prototype.exportSVG = function() {
     assert(this.el, "call draw() first");
-    // TODO pad exported SVGs?
+
+    var style = makeStyle();
+    this.el.appendChild(style);
     var xml = new XMLSerializer().serializeToString(this.el);
+    this.el.removeChild(style);
+
     return 'data:image/svg+xml;utf8,' + xml.replace(
       /[#]/g, encodeURIComponent
     );
@@ -2581,6 +2579,8 @@ var scratchblocks = function () {
     });
   };
 
+  // add our CSS to the page 
+  document.head.appendChild(makeStyle());
 
 
   return {
