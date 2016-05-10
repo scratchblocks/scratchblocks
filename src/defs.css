@@ -1,5 +1,5 @@
 
-text {
+.sb-label {
   font-family: Lucida Grande, Verdana, Arial, DejaVu Sans, sans-serif;
   font-weight: bold;
   fill: #fff;
@@ -7,74 +7,74 @@ text {
   word-spacing: +1px;
 }
 
-.obsolete { fill: #d42828; }
-.motion { fill: #4a6cd4; }
-.looks { fill: #8a55d7; }
-.sound { fill: #bb42c3; }
-.pen { fill: #0e9a6c;  }
-.events { fill: #c88330; }
-.control { fill: #e1a91a; }
-.sensing { fill: #2ca5e2; }
-.operators { fill: #5cb712; }
-.variables { fill: #ee7d16; }
-.list { fill: #cc5b22 }
-.custom { fill: #632d99; }
-.custom-arg { fill: #5947b1; }
-.extension { fill: #4b4a60; }
-.grey { fill: #969696; }
+.sb-obsolete { fill: #d42828; }
+.sb-motion { fill: #4a6cd4; }
+.sb-looks { fill: #8a55d7; }
+.sb-sound { fill: #bb42c3; }
+.sb-pen { fill: #0e9a6c;  }
+.sb-events { fill: #c88330; }
+.sb-control { fill: #e1a91a; }
+.sb-sensing { fill: #2ca5e2; }
+.sb-operators { fill: #5cb712; }
+.sb-variables { fill: #ee7d16; }
+.sb-list { fill: #cc5b22 }
+.sb-custom { fill: #632d99; }
+.sb-custom-arg { fill: #5947b1; }
+.sb-extension { fill: #4b4a60; }
+.sb-grey { fill: #969696; }
 
-.bevel {
+.sb-bevel {
   filter: url(#bevelFilter);
 }
 
-.input {
+.sb-input {
   filter: url(#inputBevelFilter);
 }
-.input-number,
-.input-string,
-.input-number-dropdown {
+.sb-input-number,
+.sb-input-string,
+.sb-input-number-dropdown {
   fill: #fff;
 }
-.literal-number,
-.literal-string,
-.literal-number-dropdown,
-.literal-dropdown {
+.sb-literal-number,
+.sb-literal-string,
+.sb-literal-number-dropdown,
+.sb-literal-dropdown {
   font-weight: normal;
   font-size: 9px;
   word-spacing: 0;
 }
-.literal-number,
-.literal-string,
-.literal-number-dropdown {
+.sb-literal-number,
+.sb-literal-string,
+.sb-literal-number-dropdown {
   fill: #000;
 }
 
-.darker {
+.sb-darker {
   filter: url(#inputDarkFilter);
 }
 
-.outline {
+.sb-outline {
   stroke: #fff;
   stroke-opacity: 0.2;
   stroke-width: 2;
   fill: none;
 }
 
-.define-hat-cap {
+.sb-define-hat-cap {
   stroke: #632d99;
   stroke-width: 1;
   fill: #8e2ec2;
 }
 
-.comment {
+.sb-comment {
   fill: #ffffa5;
   stroke: #d0d1d2;
   stroke-width: 1;
 }
-.comment-line {
+.sb-comment-line {
   fill: #ffff80;
 }
-.comment-label {
+.sb-comment-label {
   font-family: Helevetica, Arial, DejaVu Sans, sans-serif;
   font-weight: bold;
   fill: #5c5d5f;
