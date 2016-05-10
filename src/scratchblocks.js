@@ -1569,34 +1569,40 @@ var scratchblocks = function () {
     return this.el;
   };
 
-  Label.measuring = null;
-  Label.toMeasure = [];
-
-  Label.startMeasuring = function() {
-    Label.measuring = setProps(newSVG(1, 1), {
+  Label.measuring = (function() {
+    var svg = setProps(newSVG(1, 1), {
       class: 'sb-measure',
     });
-    Label.measuring.style.visibility = 'hidden';
-    document.body.appendChild(Label.measuring);
+    svg.style.visibility = 'hidden';
+    svg.style.position = 'absolute';
+    svg.style.top = '-1px';
+    svg.style.left = '-1px';
+    svg.style.width = '1px';
+    svg.style.height = '1px';
+    svg.style.visibility = 'hidden';
+    svg.style.overflow = 'hidden';
+    svg.style.pointerEvents = 'none';
+    document.body.appendChild(svg);
 
     var defs = el('defs');
-    Label.measuring.appendChild(defs);
+    svg.appendChild(defs);
     defs.appendChild(makeStyle());
-  };
+
+    return svg;
+  }());
+  Label.toMeasure = [];
+
   Label.measure = function(label) {
     Label.measuring.appendChild(label.el);
     Label.toMeasure.push(label);
   };
   Label.endMeasuring = function(cb) {
-    var measuring = Label.measuring;
     var toMeasure = Label.toMeasure;
-    Label.measuring = null;
     Label.toMeasure = [];
 
-    setTimeout(Label.measureAll.bind(null, measuring, toMeasure, cb), 0);
-    //Label.measureAll(measuring, toMeasure, cb);
+    setTimeout(Label.measureAll.bind(null, toMeasure, cb), 0);
   };
-  Label.measureAll = function(measuring, toMeasure, cb) {
+  Label.measureAll = function(toMeasure, cb) {
     for (var i=0; i<toMeasure.length; i++) {
       var label = toMeasure[i];
       var bbox = label.el.getBBox();
@@ -1607,7 +1613,6 @@ var scratchblocks = function () {
         label.width += 4.15625;
       }
     }
-    document.body.removeChild(measuring);
     cb();
   };
 
@@ -2432,7 +2437,6 @@ var scratchblocks = function () {
 
   Document.prototype.render = function(cb) {
     // measure strings
-    Label.startMeasuring();
     this.measure();
 
     // finish measuring & render
