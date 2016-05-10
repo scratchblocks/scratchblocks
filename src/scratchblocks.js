@@ -1533,14 +1533,18 @@ var scratchblocks = function () {
     o.draw();
   }
 
+  var Metrics = function(width) {
+    this.width = width;
+  };
+
   /* Label */
 
   var Label = function(value, cls) {
     this.value = value;
     this.cls = cls || '';
     this.el = null;
-    this.width = null;
     this.height = 12;
+    this.metrics = null;
     this.x = 0;
   };
   Label.prototype.isLabel = true;
@@ -1552,23 +1556,15 @@ var scratchblocks = function () {
     );
   };
 
-  Label.prototype.measure = function() {
-    // TODO measure multiple spaces
-    this.el = text(0, 10, this.value, {
-      class: 'sb-label ' + this.cls,
-    });
-    if (this.value === "") {
-      this.width = 0;
-    } else if (this.value === " ") {
-      this.width = 4.15625;
-    } else {
-      Label.measure(this);
-    }
-  };
-
   Label.prototype.draw = function() {
     return this.el;
   };
+
+  Object.defineProperty(Label.prototype, 'width', {
+    get: function() {
+      return this.metrics.width;
+    },
+  });
 
   Label.measuring = (function() {
     var svg = setProps(newSVG(1, 1), {
@@ -1586,11 +1582,32 @@ var scratchblocks = function () {
     document.body.appendChild(svg);
     return svg;
   }());
+
+  Label.metricsCache = {};
   Label.toMeasure = [];
+
+  Label.prototype.measure = function() {
+    var value = this.value;
+    var cls = this.cls;
+    this.el = text(0, 10, value, {
+      class: 'sb-label ' + cls,
+    });
+
+    var cache = Label.metricsCache[cls];
+    if (!cache) {
+      cache = Label.metricsCache[cls] = Object.create(null);
+    }
+    if (Object.hasOwnProperty.call(cache, value)) {
+      this.metrics = cache[value];
+    } else {
+      this.metrics = cache[value] = Label.measure(this);
+    }
+  };
 
   Label.measure = function(label) {
     Label.measuring.appendChild(label.el);
     Label.toMeasure.push(label);
+    return new Metrics();
   };
   Label.endMeasuring = function(cb) {
     var toMeasure = Label.toMeasure;
@@ -1601,12 +1618,13 @@ var scratchblocks = function () {
   Label.measureAll = function(toMeasure, cb) {
     for (var i=0; i<toMeasure.length; i++) {
       var label = toMeasure[i];
+      var metrics = label.metrics;
       var bbox = label.el.getBBox();
-      label.width = (bbox.width + 0.5) | 0;
+      metrics.width = (bbox.width + 0.5) | 0;
 
       var trailingSpaces = / *$/.exec(label.value)[0].length || 0;
       for (var j=0; j<trailingSpaces; j++) {
-        label.width += 4.15625;
+        metrics.width += 4.15625;
       }
     }
     cb();
