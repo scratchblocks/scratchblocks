@@ -461,6 +461,7 @@ var scratchblocks = function () {
             children.push(pEmbedded());
             break;
           case ' ':
+          case '\t':
             next();
             if (label && isDefine(label.value)) {
               // define hat
