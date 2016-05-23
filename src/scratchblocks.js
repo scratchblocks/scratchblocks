@@ -1950,6 +1950,7 @@ var scratchblocks = function () {
       }
     });
     args.forEach(function(list, index) {
+      list = list || [];
       assert(isArray(list));
       children.push(new Script(list.map(Block.fromJSON.bind(null, lang))));
       if (selector === 'doIfElse' && index === 0) {
