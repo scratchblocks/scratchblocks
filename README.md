@@ -21,10 +21,7 @@ For the full guide to the syntax, see [the wiki](http://wiki.scratch.mit.edu/wik
 
 ## MediaWiki
 
-Use [the MediaWiki plugin](https://github.com/tjvr/wiki-scratchblocks). This is what the [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) uses.
-
-It doesn't support other languages yet. Sorry about that. (But the [German
-Scratch wiki](http://scratch-dach.info/) people seem to be working on this.)
+Use [the MediaWiki plugin](https://github.com/tjvr/wiki-scratchblocks). (This is what the [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) uses.)
 
 ## WordPress
 
@@ -69,6 +66,8 @@ install some dependencies first:
 
 - Try `npm install`
 - Try `brew install zopfli`, or the equivalent command for your preferred package manager.
+
+See the [release notes](https://github.com/tjvr/scratchblocks/releases) for more details.
 
 ### Inline blocks
 
