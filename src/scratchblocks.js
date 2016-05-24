@@ -1770,7 +1770,7 @@ var scratchblocks = function () {
     if (this.hasArrow) {
       var value = this.menu || this.value;
       this.value = lang.dropdowns[value] || value;
-      this.label = new Label(this.value, ['literal-' + this.shape]);
+      this.label = new Label(this.value, ['sb-literal-' + this.shape]);
     }
   };
 
