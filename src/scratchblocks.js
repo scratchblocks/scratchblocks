@@ -1762,7 +1762,7 @@ var scratchblocks = function () {
     return this.isRound ? "(" + text + ")"
          : this.isSquare ? "[" + text + "]"
          : this.isBoolean ? "<>"
-         : this.isStacK ? "{}"
+         : this.isStack ? "{}"
          : text;
   };
 
