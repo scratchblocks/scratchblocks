@@ -2002,8 +2002,7 @@ var scratchblocks = function () {
     var checkAlias = false;
     var text = this.children.map(function(child) {
       if (child.isIcon) checkAlias = true;
-      if (child.isInput && !firstInput) firstInput = child;
-
+      if (!firstInput && !(child.isLabel || child.isIcon)) firstInput = child;
       return child.isScript ? "\n" + indent(child.stringify()) + "\n"
                             : child.stringify().trim() + " ";
     }).join("").trim();
@@ -2015,7 +2014,7 @@ var scratchblocks = function () {
       var alias = lang.nativeAliases[type.spec]
       if (alias) {
         // TODO make translate() not in-place, and use that
-        if (inputPat.test(alias)) {
+        if (inputPat.test(alias) && firstInput) {
           alias = alias.replace(inputPat, firstInput.stringify());
         }
         return alias;
