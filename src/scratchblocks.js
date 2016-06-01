@@ -482,7 +482,11 @@ var scratchblocks = function () {
               name += tok;
               next();
             }
-            children.push(Icon.icons.hasOwnProperty(name) ? new Icon(name) : new Label("@" + name));
+            if (name === 'cloud') {
+              children.push(new Label("☁"));
+            } else {
+              children.push(Icon.icons.hasOwnProperty(name) ? new Icon(name) : new Label("@" + name));
+            }
             label = null;
             break;
           case '\\':
