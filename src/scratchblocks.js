@@ -2409,6 +2409,7 @@ var scratchblocks = function () {
     this.width = null;
     this.height = null;
     this.el = null;
+    this.defs = null;
   };
 
   Document.fromJSON = function(scriptable, lang) {
@@ -2479,7 +2480,7 @@ var scratchblocks = function () {
 
     // return SVG
     var svg = newSVG(width, height);
-    svg.appendChild(withChildren(el('defs'), [
+    svg.appendChild(this.defs = withChildren(el('defs'), [
         bevelFilter('bevelFilter', false),
         bevelFilter('inputBevelFilter', true),
         darkFilter('inputDarkFilter'),
@@ -2494,9 +2495,9 @@ var scratchblocks = function () {
     assert(this.el, "call draw() first");
 
     var style = makeStyle();
-    this.el.appendChild(style);
+    this.defs.appendChild(style);
     var xml = new XMLSerializer().serializeToString(this.el);
-    this.el.removeChild(style);
+    this.defs.removeChild(style);
 
     return 'data:image/svg+xml;utf8,' + xml.replace(
       /[#]/g, encodeURIComponent
