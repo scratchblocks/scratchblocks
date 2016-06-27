@@ -1702,7 +1702,7 @@ var scratchblocks = function () {
     var value = value ? ""+value : "";
     if (shape === 'color') {
       if (!value) value = parseInt(Math.random() * 256 * 256 * 256);
-      if (value < 0) value = 0xFFFFFFFF + value + 1;
+      if (value < 0) value = 0xFFFFFFFF + parseInt(value) + 1;
       var hex = value.toString(16);
       hex = hex.slice(Math.max(0, hex.length - 6)); // last 6 characters
       while (hex.length < 6) hex = '0' + hex;
