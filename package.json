@@ -26,5 +26,8 @@
   "devDependencies": {
     "uglify-js": "^2.6.1",
     "clean-css": "^3.4.9"
+  },
+  "dependencies": {
+    "xmldom": "^0.1.22"
   }
 }

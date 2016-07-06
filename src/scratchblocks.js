@@ -1,3 +1,5 @@
+var DOMParser = require('xmldom').DOMParser;
+
 /*
  * scratchblocks
  * http://scratchblocks.github.io/
@@ -6,7 +8,7 @@
  * @license MIT
  * http://opensource.org/licenses/MIT
  */
-var scratchblocks = function () {
+module.exports = function () {
   'use strict';
 
   /* utils */
@@ -1004,12 +1006,14 @@ var scratchblocks = function () {
   /* for constucting SVGs */
 
   var xml = new DOMParser().parseFromString('<xml></xml>',  "application/xml")
+  var document = new DOMParser().parseFromString('<html><body></body></html>')
   function cdata(content) {
     return xml.createCDATASection(content);
   }
 
   function el(name, props) {
     var el = document.createElementNS("http://www.w3.org/2000/svg", name);
+    el.style = {};
     return setProps(el, props);
   }
 
@@ -1595,7 +1599,7 @@ var scratchblocks = function () {
     svg.style.visibility = 'hidden';
     svg.style.overflow = 'hidden';
     svg.style.pointerEvents = 'none';
-    document.body.appendChild(svg);
+    document.appendChild(svg);
     return svg;
   }());
 
@@ -1632,17 +1636,17 @@ var scratchblocks = function () {
     setTimeout(Label.measureAll.bind(null, toMeasure, cb), 0);
   };
   Label.measureAll = function(toMeasure, cb) {
-    for (var i=0; i<toMeasure.length; i++) {
-      var label = toMeasure[i];
-      var metrics = label.metrics;
-      var bbox = label.el.getBBox();
-      metrics.width = (bbox.width + 0.5) | 0;
+    // for (var i=0; i<toMeasure.length; i++) {
+    //   var label = toMeasure[i];
+    //   var metrics = label.metrics;
+    //   var bbox = label.el.getBBox();
+    //   metrics.width = (bbox.width + 0.5) | 0;
 
-      var trailingSpaces = / *$/.exec(label.value)[0].length || 0;
-      for (var j=0; j<trailingSpaces; j++) {
-        metrics.width += 4.15625;
-      }
-    }
+    //   var trailingSpaces = / *$/.exec(label.value)[0].length || 0;
+    //   for (var j=0; j<trailingSpaces; j++) {
+    //     metrics.width += 4.15625;
+    //   }
+    // }
     cb();
   };
 
@@ -2613,8 +2617,9 @@ var scratchblocks = function () {
     });
   };
 
-  // add our CSS to the page 
-  document.head.appendChild(makeStyle());
+  // TODO: Fix
+  // add our CSS to the page
+  // document.appendChild(makeStyle());
 
 
   return {
@@ -2640,4 +2645,4 @@ var scratchblocks = function () {
     renderMatching: renderMatching,
   };
 
-}();
+};
