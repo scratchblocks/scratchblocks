@@ -5,6 +5,7 @@
   "directories": {
     "test": "tests"
   },
+  "main": "src/scratchblocks.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-make": "sh -c 'make all'",
@@ -28,6 +29,7 @@
     "clean-css": "^3.4.9"
   },
   "dependencies": {
+    "canvas": "^1.4.0",
     "xmldom": "^0.1.22"
   }
 }

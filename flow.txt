@@ -1,0 +1,6 @@
+Document.measure -> Script.measure -> Block.measure
+
+-> Comment.measure -> Label.measure
+-> Child.measure
+  -> Input.measure -> Label.measure
+  -> Label.measure

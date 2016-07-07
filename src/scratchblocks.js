@@ -1,4 +1,5 @@
 var DOMParser = require('xmldom').DOMParser;
+var Canvas = require('canvas')
 
 /*
  * scratchblocks
@@ -206,6 +207,8 @@ module.exports = function () {
       loadLanguage(code, languages[code]);
     });
   }
+  // TODO: refactor
+  loadLanguages(require('./translations.json'));
 
   var english = {
     aliases: {
@@ -1559,6 +1562,14 @@ module.exports = function () {
 
   /* Label */
 
+  function measureText(text) {
+      // re-use canvas object for better performance
+      var canvas = measureText.canvas || (measureText.canvas = new Canvas());
+      var context = canvas.getContext("2d");
+      context.font = '12px';
+      return context.measureText(text);
+  }
+
   var Label = function(value, cls) {
     this.value = value;
     this.cls = cls || '';
@@ -1586,23 +1597,6 @@ module.exports = function () {
     },
   });
 
-  Label.measuring = (function() {
-    var svg = setProps(newSVG(1, 1), {
-      class: 'sb-measure',
-    });
-    svg.style.visibility = 'hidden';
-    svg.style.position = 'absolute';
-    svg.style.top = '-1px';
-    svg.style.left = '-1px';
-    svg.style.width = '1px';
-    svg.style.height = '1px';
-    svg.style.visibility = 'hidden';
-    svg.style.overflow = 'hidden';
-    svg.style.pointerEvents = 'none';
-    document.appendChild(svg);
-    return svg;
-  }());
-
   Label.metricsCache = {};
   Label.toMeasure = [];
 
@@ -1625,7 +1619,7 @@ module.exports = function () {
   };
 
   Label.measure = function(label) {
-    Label.measuring.appendChild(label.el);
+    // Label.measuring.appendChild(label.el);
     Label.toMeasure.push(label);
     return new Metrics();
   };
@@ -1636,17 +1630,17 @@ module.exports = function () {
     setTimeout(Label.measureAll.bind(null, toMeasure, cb), 0);
   };
   Label.measureAll = function(toMeasure, cb) {
-    // for (var i=0; i<toMeasure.length; i++) {
-    //   var label = toMeasure[i];
-    //   var metrics = label.metrics;
-    //   var bbox = label.el.getBBox();
-    //   metrics.width = (bbox.width + 0.5) | 0;
+    for (var i=0; i<toMeasure.length; i++) {
+      var label = toMeasure[i];
+      var metrics = label.metrics;
+      var bbox = measureText(label.value);
+      metrics.width = (bbox.width + 0.5) | 0;
 
-    //   var trailingSpaces = / *$/.exec(label.value)[0].length || 0;
-    //   for (var j=0; j<trailingSpaces; j++) {
-    //     metrics.width += 4.15625;
-    //   }
-    // }
+      var trailingSpaces = / *$/.exec(label.value)[0].length || 0;
+      for (var j=0; j<trailingSpaces; j++) {
+        metrics.width += 4.15625;
+      }
+    }
     cb();
   };
 
@@ -2501,6 +2495,9 @@ module.exports = function () {
     ].concat(makeIcons())));
 
     svg.appendChild(group(elements));
+    svg.viewBox="0,0,1400,300"
+    var style = makeStyle();
+    svg.appendChild(style);
     this.el = svg;
     cb(svg);
   };
