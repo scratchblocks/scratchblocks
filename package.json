@@ -29,7 +29,7 @@
     "clean-css": "^3.4.9"
   },
   "dependencies": {
-    "canvas": "^1.4.0",
+    "canvas": "1.4.0",
     "xmldom": "^0.1.22"
   }
 }

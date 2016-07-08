@@ -1566,7 +1566,7 @@ module.exports = function () {
       // re-use canvas object for better performance
       var canvas = measureText.canvas || (measureText.canvas = new Canvas());
       var context = canvas.getContext("2d");
-      context.font = '12px';
+      context.font = '700 10px Lucida Grande,Verdana,Arial,DejaVu Sans,sans-serif';
       return context.measureText(text);
   }
 
@@ -1634,7 +1634,7 @@ module.exports = function () {
       var label = toMeasure[i];
       var metrics = label.metrics;
       var bbox = measureText(label.value);
-      metrics.width = (bbox.width + 0.5) | 0;
+      metrics.width = bbox.width + 1;
 
       var trailingSpaces = / *$/.exec(label.value)[0].length || 0;
       for (var j=0; j<trailingSpaces; j++) {
