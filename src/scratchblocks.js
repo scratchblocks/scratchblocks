@@ -1700,7 +1700,8 @@ var scratchblocks = function () {
     this.x = 0;
   };
   Input.prototype.isInput = true;
-Input.fromJSON = function(lang, value, part) {
+
+  Input.fromJSON = function(lang, value, part) {
     var shape = {
       b: 'boolean',
       n: 'number',
@@ -1710,37 +1711,36 @@ Input.fromJSON = function(lang, value, part) {
       c: 'color',
     }[part[1]];
 
-    var localValue = value;
     if (shape === 'color') {
       // a number is expected here
-      localValue = parseInt(localValue);
-      if (typeof(localValue) == "undefined" ) localValue = parseInt(Math.random() * 256 * 256 * 256);
-      if (localValue < 0) localValue = 0xFFFFFFFF + parseInt(localValue) + 1;
-      var hex = localValue.toString(16);
+      value = parseInt(value);
+      if (typeof(value) == "undefined" ) value = parseInt(Math.random() * 256 * 256 * 256);
+      if (value < 0) value = 0xFFFFFFFF + parseInt(value) + 1;
+      var hex = value.toString(16);
       hex = hex.slice(Math.max(0, hex.length - 6)); // last 6 characters
       while (hex.length < 6) hex = '0' + hex;
       if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] === hex[5]) {
         hex = hex[0] + hex[2] + hex[4];
       }
-      localValue = '#' + hex;
+      value = '#' + hex;
     } else if (shape === 'number') {
-      localValue = parseInt(localValue);
+      value = parseInt(value);
     } else if (shape === 'dropdown') {
-      localValue = {
+      value = {
         _mouse_: "mouse-pointer",
         _myself_: "myself",
         _stage_: "Stage",
         _edge_: "edge",
         _random_: "random position",
-      }[localValue] || localValue;
-      var menu = localValue;
-      localValue = lang.dropdowns[localValue] || localValue ;
+      }[value] || value;
+      var menu = value;
+      value = lang.dropdowns[value] || value ;
     } else if (shape === 'number-dropdown') {
-      var menu = localValue;
-      localValue = lang.dropdowns[localValue] || localValue ;
+      var menu = value;
+      value = lang.dropdowns[value] || value ;
     }
 
-    return new Input(shape, localValue.toString(), menu);
+    return new Input(shape, value.toString(), menu);
   };
 
   Input.prototype.toJSON = function() {
