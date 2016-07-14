@@ -11,3 +11,4 @@ tests/*.svg
 src/_cache
 build/
 
+tests/*.svg

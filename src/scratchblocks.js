@@ -2592,6 +2592,20 @@
   };
 
 
+  /* Parse scratchblocks code and return XML string.
+   *
+   * Convenience function for Node, really.
+   */
+  var renderSVGString = function (code, options) {
+    var doc = parse(code, options);
+
+    // WARN: Document.render() may become async again in future :-(
+    doc.render(function() {});
+
+    return doc.exportSVGString();
+  };
+
+
   return {
     allLanguages: allLanguages, // read-only
     loadLanguages: loadLanguages,
@@ -2610,10 +2624,11 @@
 
     read: readCode,
     parse: parse,
-    render: render,
+    // render: render, // REMOVED since doc.render(cb) makes much more sense
     replace: replace,
     renderMatching: renderMatching,
 
+    renderSVGString: renderSVGString,
     makeStyle: makeStyle,
   };
 
