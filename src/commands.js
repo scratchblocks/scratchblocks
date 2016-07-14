@@ -1,4 +1,4 @@
-[
+module.exports = [
 
   ["move %n steps",                               " ", 1,   "forward:"],
   ["turn @turnRight %n degrees",                  " ", 1,   "turnRight:"],
