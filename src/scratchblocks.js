@@ -1712,10 +1712,9 @@ var scratchblocks = function () {
     }[part[1]];
 
     if (shape === 'color') {
-      // a number is expected here
-      value = parseInt(value);
-      if (typeof(value) == "undefined" ) value = parseInt(Math.random() * 256 * 256 * 256);
-      if (value < 0) value = 0xFFFFFFFF + parseInt(value) + 1;
+      if (!value && value !== 0) value = parseInt(Math.random() * 256 * 256 * 256);
+      value = +value;
+      if (value < 0) value = 0xFFFFFFFF + value + 1;
       var hex = value.toString(16);
       hex = hex.slice(Math.max(0, hex.length - 6)); // last 6 characters
       while (hex.length < 6) hex = '0' + hex;
@@ -1723,8 +1722,6 @@ var scratchblocks = function () {
         hex = hex[0] + hex[2] + hex[4];
       }
       value = '#' + hex;
-    } else if (shape === 'number') {
-      value = parseInt(value);
     } else if (shape === 'dropdown') {
       value = {
         _mouse_: "mouse-pointer",
@@ -1736,11 +1733,10 @@ var scratchblocks = function () {
       var menu = value;
       value = lang.dropdowns[value] || value ;
     } else if (shape === 'number-dropdown') {
-      var menu = value;
       value = lang.dropdowns[value] || value ;
     }
 
-    return new Input(shape, value.toString(), menu);
+    return new Input(shape, ''+value, menu);
   };
 
   Input.prototype.toJSON = function() {
