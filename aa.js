@@ -1,7 +1,6 @@
-var s = require('./')()
-var fs = require('fs')
+var scratchblocks = require('./')
 
-var doc = s.parse(`
+var code = `
 when flag clicked
 clear
 forever
@@ -12,10 +11,8 @@ else
 add (x position) to [list v]
 end
 move (foo) steps
-turn ccw (9) degrees`);
+turn ccw (9) degrees`;
 
-s.render(doc, (res) => {
-  res = res.toString()
-  res = res.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"')
-  fs.writeFileSync('aa.svg', res)
-});
+var svg = scratchblocks(code)
+
+console.log(svg);

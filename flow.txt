@@ -4,3 +4,9 @@ Document.measure -> Script.measure -> Block.measure
 -> Child.measure
   -> Input.measure -> Label.measure
   -> Label.measure
+
+
+measureAll <- endMeasuring <- Document.prototype.render <- render(doc, cb)
+
+
+drawScripts

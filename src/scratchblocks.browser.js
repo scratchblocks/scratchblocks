@@ -1,25 +1,7 @@
-/**
- * scratchblocks
- * http://scratchblocks.github.io/
- *
- * Copyright 2013-2016, Tim Radvan
- * @license MIT
- * http://opensource.org/licenses/MIT
- */
-
-if (process.env.SB_TARGET === 'client') {
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.scratchblocks = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+{
   function newCanvas() {
     return document.createElement('canvas');
-  }
-} else {
-  var xmldom = require('xmldom');
-  var XMLSerializer = xmldom.XMLSerializer;
-  var DOMParser = xmldom.DOMParser;
-  var DOMImplementation = xmldom.DOMImplementation;
-  var document = new DOMImplementation().createDocument();
-  var Canvas = require('canvas');
-  function newCanvas() {
-    return new Canvas();
   }
 }
 
@@ -2433,9 +2415,7 @@ blocksBySelector['stopScripts'].specialCase = function(info, children, lang) {
 }
 
 loadLanguage('en', english);
-if (process.env.SB_TARGET !== 'client') {
-  loadLanguages(require('./translations.json'));
-} else {
+{
   // TODO: load languages? explicit on client?
 }
 
@@ -2474,3 +2454,6 @@ module.exports.loadLanguages = loadLanguages;
 // fromJSON: Document.fromJSON,
 // toJSON: function(doc) { return doc.toJSON(); },
 // stringify: function(doc) { return doc.stringify(); },
+
+},{}]},{},[1])(1)
+});
