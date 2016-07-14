@@ -399,6 +399,7 @@ var scratchblocks = function () {
         if (code[i] !== ' ') return code[i];
       }
     }
+    var sawNL;
 
     var define = [];
     languages.map(function(lang) {
@@ -531,7 +532,10 @@ var scratchblocks = function () {
 
     function pBlock(end) {
       var children = pParts(end);
-      if (tok && tok === '\n') next();
+      if (tok && tok === '\n') {
+        sawNL = true;
+        next();
+      }
       if (children.length === 0) return;
 
       // define hats
@@ -604,7 +608,8 @@ var scratchblocks = function () {
         var first = block.children[0];
         if (first && first.isInput && first.shape === 'number' && first.value === "") {
           block.children[0] = new Input('reporter');
-        } else if (first && first.isScript && first.isEmpty) {
+        } else if ((first && first.isScript && first.isEmpty)
+                || (first && first.isBlock && !first.children.length)) {
           block.children[0] = new Input('stack');
         }
       }
@@ -625,6 +630,7 @@ var scratchblocks = function () {
     function pEmbedded() {
       next(); // '{'
 
+      sawNL = false;
       var f = function() {
         while (tok && tok !== '}') {
           var block = pBlock('}');
@@ -638,6 +644,10 @@ var scratchblocks = function () {
       });
 
       if (tok === '}') next();
+      if (!sawNL) {
+        assert(blocks.length <= 1);
+        return blocks.length ? blocks[0] : makeBlock('stack', []);
+      }
       return new Script(blocks);
     }
 
