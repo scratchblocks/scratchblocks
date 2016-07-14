@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<html>
+<head>
 <meta charset="utf8">
 <meta name=viewport content="width=device-width, initial-scale=1">
 <title>scratchblocks dev</title>
@@ -10,35 +12,9 @@
 -->
 <link rel=stylesheet href="lib/style.css">
 
-<style>
-#preview:before {
-  position: relative;
-  min-width: 400px;
-  min-height: 300px;
-}
-.cmp #preview:before,
-.diff #preview:before {
-  position: absolute;
-  display: block;
-  content: "";
-  background: url(screenshot.png) no-repeat;
-}
-.cmp.diff #preview:before {
-  -webkit-filter: invert(100%) opacity(50%);
-}
-.diff #preview:before {
-  -webkit-filter: opacity(50%);
-}
-.cmp img {
-  display: none;
-}
-body {
-  background: #dddede;
-}
-</style>
-
+</head>
 <!---------------------------------------------------------------------------->
-
+<body>
 <h1>
   <a id=title href="/">scratchblocks dev</a>
   <span>
@@ -140,15 +116,25 @@ body {
 
 </div>
 
-<textarea id="editor"></textarea>
+<textarea id="editor">when flag clicked
+clear
+forever
+pen down
+if <<mouse down?> and <touching [mouse-pointer v]?>> then
+switch costume to [button v]
+else
+add (x position) to [list v]
+end
+move (foo) steps
+turn ccw (9) degrees</textarea>
 </div>
 
 <pre id="preview" class="blocks"></pre>
 
 <!---------------------------------------------------------------------------->
 
-<script src="scratchblocks.browser.js"></script>
-<script src="translations.js"></script>
+<script src="../scratchblocks.browser.js"></script>
+<script src="../translations.js"></script>
 
 <script>
 var editor = document.getElementById('editor');
@@ -178,7 +164,6 @@ document.getElementById('lang-status').appendChild(langStatus);
 
 chooseLang.addEventListener('change', function(e) {
   obj.lang = chooseLang.value;
-  console.log(obj);
   objUpdated();
 });
 
@@ -224,60 +209,38 @@ function decodeHash() {
   }
 }
 
-var code = `
-when flag clicked
-clear
-forever
-pen down
-if <<mouse down?> and <touching [mouse-pointer v]?>> then
-switch costume to [button v]
-else
-add (x position) to [list v]
-end
-move (foo) steps
-turn ccw (9) degrees`;
-
-var svg = scratchblocks(code);
-preview.innerHTML = svg;
-
 function objUpdated() {
   // set hash
-  if (obj.lang) {
-    location.hash = ('#?lang=' + encodeURIComponent(obj.lang) +
-                     '&script='+encodeURIComponent(obj.script));
-  } else if (obj.script) {
-    location.hash = '#'+encodeURIComponent(obj.script);
-  } else {
-    if (!(location.hash == '' || location.hash == '#')) {
-      location.hash = '#';
+  var debounceTimeout;
+  function updateHash() {
+    if (obj.lang) {
+      location.hash = ('#?lang=' + encodeURIComponent(obj.lang) +
+                      '&script='+encodeURIComponent(obj.script));
+    } else if (obj.script) {
+      location.hash = '#'+encodeURIComponent(obj.script);
+    } else {
+      if (!(location.hash == '' || location.hash == '#')) {
+        location.hash = '#';
+      }
     }
   }
-  // TODO: don't spam history on every keypress!
+  if (debounceTimeout) {
+    clearTimeout(debounceTimeout);
+  }
+  debounceTimeout = setTimeout(updateHash, 1000);
 
-  /*
   // renderMatching API example
-  preview.innerHTML = obj.script;
-  scratchblocks.renderMatching('pre.blocks', {
-    languages: ['en', obj.lang],
-    render: function(doc, cb) {
-      doc.render(function(svg) {
-        var el = document.createElement('div');
-        el.appendChild(svg);
+  var svg = scratchblocks(obj.script);
+  preview.innerHTML = svg;
 
-        var link = exportSVGLink = document.createElement('a');
-        exportLink.href = scratchblocks.exportSVG(svg);
-        exportLink.setAttribute('download', 'scratchblocks.svg');
-        exportLink.textContent = "Export SVG";
-        exportLink.className = 'export-link';
-        var p = document.createElement('p');
-        p.appendChild(exportLink);
-        el.appendChild(p);
-
-        cb(el);
-      });
-    },
-  });
-  */
+  // var link = exportSVGLink = document.createElement('a');
+  // exportLink.href = scratchblocks.exportSVG(svg);
+  // exportLink.setAttribute('download', 'scratchblocks.svg');
+  // exportLink.textContent = "Export SVG";
+  // exportLink.className = 'export-link';
+  // var p = document.createElement('p');
+  // p.appendChild(exportLink);
+  // el.appendChild(p);
 
   // var doc = window.doc = scratchblocks.parse(obj.script, {
   //   languages: obj.lang ? ['en', obj.lang] : ['en'],
@@ -289,43 +252,38 @@ function objUpdated() {
   //   scripts: eval(obj.script),
   // });
 
-  console.log(scratchblocks.stringify(doc));
-  var svg = doc.render();
-  preview.innerHTML = "";
-  preview.appendChild(svg);
-
   // add export link
-  setTimeout(function() {
-    if (exportSVGLink) document.body.removeChild(exportSVGLink);
-    var link = exportSVGLink = document.createElement('a');
-    link.href = doc.exportSVG();
-    link.setAttribute('download', 'scratchblocks.svg');
-    link.textContent = "Export SVG";
-    link.className = 'export-link';
-    document.body.appendChild(link);
+  // setTimeout(function() {
+  //   if (exportSVGLink) document.body.removeChild(exportSVGLink);
+  //   var link = exportSVGLink = document.createElement('a');
+  //   link.href = doc.exportSVG();
+  //   link.setAttribute('download', 'scratchblocks.svg');
+  //   link.textContent = "Export SVG";
+  //   link.className = 'export-link';
+  //   document.body.appendChild(link);
 
-    if (exportPNGLink) document.body.removeChild(exportPNGLink);
-    doc.exportPNG(function(pngDataURL) {
-      var link = exportPNGLink = document.createElement('a');
-      link.href = pngDataURL;
-      link.setAttribute('download', 'scratchblocks.png');
-      link.textContent = "Export PNG";
-      link.className = 'export-link';
-      document.body.appendChild(link);
-    });
+  //   if (exportPNGLink) document.body.removeChild(exportPNGLink);
+  //   doc.exportPNG(function(pngDataURL) {
+  //     var link = exportPNGLink = document.createElement('a');
+  //     link.href = pngDataURL;
+  //     link.setAttribute('download', 'scratchblocks.png');
+  //     link.textContent = "Export PNG";
+  //     link.className = 'export-link';
+  //     document.body.appendChild(link);
+  //   });
 
-    try {
-      var j = doc.toJSON();
-    } catch (e) {
-      console.error("toJSON: " + e);
-    }
-    if (j) {
-      console.log(j.scripts);
-      console.log(j.scripts.map(function(s) {
-        return s[2].map(JSON.stringify).join("\n");
-      }).join("\n\n"));
-    }
-  });
+  //   try {
+  //     var j = doc.toJSON();
+  //   } catch (e) {
+  //     console.error("toJSON: " + e);
+  //   }
+  //   if (j) {
+  //     console.log(j.scripts);
+  //     console.log(j.scripts.map(function(s) {
+  //       return s[2].map(JSON.stringify).join("\n");
+  //     }).join("\n\n"));
+  //   }
+  // });
 
   // update language dropdown
   var isIncomplete = incompleteLangs.indexOf(obj.lang) > -1;
@@ -340,12 +298,6 @@ function objUpdated() {
   langStatus.textContent = displayText;
 }
 
-setInterval(function() {
-  if (extractHash()) {
-    updatedFromHash();
-  }
-}, 200);
-
 function updatedFromHash() {
   editor.value = obj.script;
   objUpdated();
@@ -354,9 +306,6 @@ function updatedFromHash() {
 
 updatedFromHash();
 
-</script>
-
-<script>
 function showDiff(e) {
   document.body.classList[e.ctrlKey ? 'add' : 'remove']('cmp');
   document.body.classList[e.altKey  ? 'add' : 'remove']('diff');
@@ -365,4 +314,5 @@ document.addEventListener('keydown', showDiff);
 document.addEventListener('keyup', showDiff);
 
 </script>
-
+</body>
+</html>

@@ -1,4 +1,15 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.scratchblocks = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/**
+ * scratchblocks
+ * http://scratchblocks.github.io/
+ *
+ * Copyright 2013-2016, Tim Radvan
+ * @license MIT
+ * http://opensource.org/licenses/MIT
+ */
+
+
+
 {
   function newCanvas() {
     return document.createElement('canvas');
@@ -1322,8 +1333,8 @@ function commentLine(width, props) {
 }
 
 /* definitions */
-// TODO: move to own file
-var cssContent = ".sb-label{font-family:Lucida Grande,Verdana,Arial,DejaVu Sans,sans-serif;font-weight:700;fill:#fff;font-size:10px;word-spacing:+1px}.sb-obsolete{fill:#d42828}.sb-motion{fill:#4a6cd4}.sb-looks{fill:#8a55d7}.sb-sound{fill:#bb42c3}.sb-pen{fill:#0e9a6c}.sb-events{fill:#c88330}.sb-control{fill:#e1a91a}.sb-sensing{fill:#2ca5e2}.sb-operators{fill:#5cb712}.sb-variables{fill:#ee7d16}.sb-list{fill:#cc5b22}.sb-custom{fill:#632d99}.sb-custom-arg{fill:#5947b1}.sb-extension{fill:#4b4a60}.sb-grey{fill:#969696}.sb-bevel{filter:url(#bevelFilter)}.sb-input{filter:url(#inputBevelFilter)}.sb-input-number,.sb-input-number-dropdown,.sb-input-string{fill:#fff}.sb-literal-dropdown,.sb-literal-number,.sb-literal-number-dropdown,.sb-literal-string{font-weight:400;font-size:9px;word-spacing:0}.sb-literal-number,.sb-literal-number-dropdown,.sb-literal-string{fill:#000}.sb-darker{filter:url(#inputDarkFilter)}.sb-outline{stroke:#fff;stroke-opacity:.2;stroke-width:2;fill:none}.sb-define-hat-cap{stroke:#632d99;stroke-width:1;fill:#8e2ec2}.sb-comment{fill:#ffffa5;stroke:#d0d1d2;stroke-width:1}.sb-comment-line{fill:#ffff80}.sb-comment-label{font-family:Helevetica,Arial,DejaVu Sans,sans-serif;font-weight:700;fill:#5c5d5f;word-spacing:0;font-size:12px}";
+// browserify brfs transform inlines file as string
+var cssContent = ".sb-label {\n  font-family: Lucida Grande, Lucida Sans Unicode, Lucida Sans, Verdana, Arial, DejaVu Sans, sans-serif;\n  font-weight: bold;\n  fill: #fff;\n  font-size: 10px;\n  word-spacing: +1px;\n}\n\n.sb-obsolete { fill: #d42828; }\n.sb-motion { fill: #4a6cd4; }\n.sb-looks { fill: #8a55d7; }\n.sb-sound { fill: #bb42c3; }\n.sb-pen { fill: #0e9a6c;  }\n.sb-events { fill: #c88330; }\n.sb-control { fill: #e1a91a; }\n.sb-sensing { fill: #2ca5e2; }\n.sb-operators { fill: #5cb712; }\n.sb-variables { fill: #ee7d16; }\n.sb-list { fill: #cc5b22 }\n.sb-custom { fill: #632d99; }\n.sb-custom-arg { fill: #5947b1; }\n.sb-extension { fill: #4b4a60; }\n.sb-grey { fill: #969696; }\n\n.sb-bevel {\n  filter: url(#bevelFilter);\n}\n\n.sb-input {\n  filter: url(#inputBevelFilter);\n}\n.sb-input-number,\n.sb-input-string,\n.sb-input-number-dropdown {\n  fill: #fff;\n}\n.sb-literal-number,\n.sb-literal-string,\n.sb-literal-number-dropdown,\n.sb-literal-dropdown {\n  font-weight: normal;\n  font-size: 9px;\n  word-spacing: 0;\n}\n.sb-literal-number,\n.sb-literal-string,\n.sb-literal-number-dropdown {\n  fill: #000;\n}\n\n.sb-darker {\n  filter: url(#inputDarkFilter);\n}\n\n.sb-outline {\n  stroke: #fff;\n  stroke-opacity: 0.2;\n  stroke-width: 2;\n  fill: none;\n}\n\n.sb-define-hat-cap {\n  stroke: #632d99;\n  stroke-width: 1;\n  fill: #8e2ec2;\n}\n\n.sb-comment {\n  fill: #ffffa5;\n  stroke: #d0d1d2;\n  stroke-width: 1;\n}\n.sb-comment-line {\n  fill: #ffff80;\n}\n.sb-comment-label {\n  font-family: Helevetica, Arial, DejaVu Sans, sans-serif;\n  font-weight: bold;\n  fill: #5c5d5f;\n  word-spacing: 0;\n  font-size: 12px;\n}\n";
 
 function makeStyle() {
   var style = el('style');
@@ -1498,7 +1509,7 @@ function measureText(text, font) {
 var allLabels = [];
 var Label = function(value, cls) {
   this.value = value;
-  this.cls = cls || '';
+  this.cls = cls ? 'sb-label ' + cls : 'sb-label';
   this.el = null;
   this.height = 12;
   this.x = 0;
@@ -1527,7 +1538,7 @@ Object.defineProperty(Label.prototype, 'width', {
 function measureAllLabels() {
   allLabels.forEach(function(label) {
     label.metrics = measureText(label.value, '700 10px Lucida Grande');
-    label.el = text(0, 10, label.value, { class: 'sb-label ' + label.cls });
+    label.el = text(0, 10, label.value, { class: label.cls });
   });
 }
 
@@ -1580,7 +1591,7 @@ var Input = function(shape, value, menu) {
   this.isSquare = shape === 'string' || shape === 'color' || shape === 'dropdown';
 
   this.hasLabel = !(this.isColor || this.isInset);
-  this.label = this.hasLabel ? new Label(value, ['sb-literal-' + this.shape]) : null;
+  this.label = this.hasLabel ? new Label(value, 'sb-literal-' + this.shape) : null;
   this.x = 0;
 };
 Input.prototype.isInput = true;
@@ -1670,7 +1681,7 @@ Input.prototype.translate = function(lang) {
   if (this.hasArrow) {
     var value = this.menu || this.value;
     this.value = lang.dropdowns[value] || value;
-    this.label = new Label(this.value, ['literal-' + this.shape]);
+    this.label = new Label(this.value, 'literal-' + this.shape);
   }
 };
 
@@ -2185,7 +2196,7 @@ Block.prototype.draw = function() {
 /* Comment */
 
 var Comment = function(value, hasBlock) {
-  this.label = new Label(value, ['sb-comment-label']);
+  this.label = new Label(value, 'sb-comment-label');
   this.width = null;
   this.hasBlock = hasBlock;
 };
