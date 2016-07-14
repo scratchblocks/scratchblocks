@@ -7,10 +7,10 @@
   },
   "main": "src/scratchblocks.js",
   "scripts": {
-    "browserify": "SB_TARGET='client' browserify --standalone scratchblocks -t envify -t unreachable-branch-transform src/scratchblocks.js > src/scratchblocks.browser.js",
+    "browserify": "SB_TARGET='client' browserify --standalone scratchblocks -t envify -t unreachable-branch-transform  -t brfs src/scratchblocks.js > browser/scratchblocks.js",
     "build": "npm run build-make",
     "build-make": "sh -c 'make all'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/test.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   },
   "homepage": "https://scratchblocks.github.io/",
   "devDependencies": {
+    "brfs": "^1.4.3",
     "browserify": "^13.0.1",
     "clean-css": "^3.4.9",
     "envify": "^3.4.1",

@@ -4,3 +4,4 @@ node_modules
 *.pyc
 src/_cache
 build/
+tests/*.svg
