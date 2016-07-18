@@ -66,7 +66,7 @@ module.exports =
   ["repeat %n",                                   "c", 6,   "doRepeat"],
   ["forever",                                     "cf",6,   "doForever"],
   ["if %b then",                                  "c", 6,   "doIf"],
-  ["if %b then",                                  "e", 6,   "doIfElse"],
+//  ["if %b then",                                  "e", 6,   "doIfElse"],
   ["wait until %b",                               " ", 6,   "doWaitUntil"],
   ["repeat until %b",                             "c", 6,   "doUntil"],
   ["stop %m.stop",                                "f", 6,   "stopScripts"],

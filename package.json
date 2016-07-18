@@ -10,6 +10,7 @@
     "browserify": "SB_TARGET='client' browserify --standalone scratchblocks -t envify -t unreachable-branch-transform  -t brfs src/scratchblocks.js > browser/scratchblocks.js",
     "build": "npm run build-make",
     "build-make": "sh -c 'make all'",
+    "fetch-translations": "node src/fetch_translations.js",
     "test": "node tests/test.js"
   },
   "repository": {
@@ -28,6 +29,7 @@
   "devDependencies": {
     "brfs": "^1.4.3",
     "browserify": "^13.0.1",
+    "chalk": "^1.1.3",
     "clean-css": "^3.4.9",
     "envify": "^3.4.1",
     "object-values": "^1.0.0",
