@@ -2443,9 +2443,9 @@ blocksBySelector['stopScripts'].specialCase = function(info, children, lang) {
 
 loadLanguage('en', english);
 if (process.env.SB_TARGET !== 'client') {
-  loadLanguages(require('./translations.json'));
+  loadLanguages(require('./locales/de.json'));
 } else {
-  // TODO: load languages? explicit on client?
+  // TODO: load languages explicit on client?
 }
 
 

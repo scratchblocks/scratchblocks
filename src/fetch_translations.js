@@ -14,8 +14,6 @@ var ALL_LANGS = ['ar', 'an', 'hy', 'ast', 'eu', 'bn_IN', 'nb', 'bg', 'zh_CN',
                  'ru', 'rw', 'sv', 'sr', 'sk', 'sl', 'es', 'sw', 'tzm', 'ta',
                  'th', 'cs', 'tr', 'ug', 'uk', 'hu', 'vi'];
 
-var BLACKLIST = ['or'];
-
 // ISO Codes for all the language forums.
 var FORUM_LANGS = ['de', 'es', 'fr', 'zh_CN', 'pl', 'ja', 'nl' , 'pt', 'it',
                    'he', 'ko', 'nb', 'tr', 'el', 'ru', 'ca', 'id'];
@@ -33,18 +31,18 @@ var NEED_ALIAS = [
   'when @greenFlag clicked'
 ];
 var UNTRANSLATED = [
-    '%n + %n',
-    '%n - %n',
-    '%n * %n',
-    '%n / %n',
-    '%s < %s',
-    '%s = %s',
-    '%s > %s',
-    '…',
-    '...'
+  '%n + %n',
+  '%n - %n',
+  '%n * %n',
+  '%n / %n',
+  '%s < %s',
+  '%s = %s',
+  '%s > %s',
+  '…',
+  '...'
 ];
 var ACCEPTABLE_MISSING = [
-    'username'
+  'username'
 ];
 var MATH_FUNCS = [
   'abs', 'floor', 'ceiling', 'sqrt', 'sin', 'cos', 'tan',
@@ -75,6 +73,13 @@ var values = require('object-values');
 var chalk = require('chalk');
 var extraAliases = require('./locales/extra_aliases.js');
 
+/**
+ * Arguments
+ *
+ * ./fetch_translations [language code | all]
+ *
+ * No arguments will fetch forum languages.
+ */
 var args = process.argv;
 var BUILD_LANGS = FORUM_LANGS;
 if (args.length > 3 || args[2] === '--help') {
@@ -89,11 +94,24 @@ if (args.length > 3 || args[2] === '--help') {
   console.log(ALL_LANGS.join(', '));
 } else if (args.length === 3) {
   BUILD_LANGS = [ args[2] ];
-} // TODO: forum languages only
+}
 
-INSERT_RE = /(%[A-Za-z](?:\.[A-Za-z]+)?)/;
-PICTURE_RE = /@[A-Za-z-]+/;
-JUNK_RE = /[ \t,\%?:]/;
+/**
+ * Flow:
+ * - fetch
+ * - add special cases
+ * - transform translations
+ * - print statistics
+ * - write to JSON
+ */
+BUILD_LANGS.forEach(lang => {
+  fetchTranslations(lang)
+    .then(addEnd)
+    .then(transformTranslation)
+    .then(printPercentageTranslated)
+    .then(writeJSON)
+    .catch(e => console.error(e));
+});
 
 /**
  * Fetches translations for given language.
@@ -192,21 +210,6 @@ function addEnd (fetchedTranslation) {
 }
 
 /**
- * Get translated "when distance < %n" special case.
- * Needed for ignoring the "<" less than sign in "when distance < %n".
- *
- * @parameter blocks {object} Translation for blocks.
- * @returns {string|null} When distance in language, or null if not translated.
- */
-function getWhenDistance (blocks) {
-  var whenDistance = blocks['when distance < %n'];
-  if (!whenDistance) {
-    return null;
-  }
-  return whenDistance.split(' < %n')[0];
-}
-
-/**
  * Get end block from aliases (extra_aliases.js).
  *
  * @parameter aliases {object}
@@ -222,6 +225,51 @@ function getEndBlock (aliases) {
   }
   return '';
 }
+
+/**
+ * Transforms the translation for scratchblocks consumption.
+ *
+ * Should contain:
+ * - aliases
+ * - define
+ * - ignorelt (ignore less than)
+ * - math
+ * - osis
+ * - commands
+ * - dropdowns
+ * - palette
+ *
+ * @parameter fetchedTranslation {object} `returnObject` from `fetchTranslations`.
+ * returns {object}
+ */
+function transformTranslation (fetchedTranslation) {
+  // short hands
+  var lang = fetchedTranslation.lang;
+  var editor = fetchedTranslation.editor;
+  var blocks = fetchedTranslation.blocks;
+
+  var translation = {};
+  translation.lang = lang;
+
+  translation.aliases = extraAliases[lang];
+  warningMissingAlias(lang, translation.aliases);
+
+  translation.define = [ blocks['define'] || '' ];
+  translation.ignorelt = [ getWhenDistance(blocks) ];
+
+  translation.commands = translate(lang, COMMAND_SPECS, blocks);
+  translation.dropdowns = translate(lang, DROPDOWN_SPECS, blocks, editor);
+  translation.palette = translate(lang, PALETTE_SPECS, blocks, editor);
+
+  translation.math = values(translate(lang, MATH_FUNCS, editor));
+  translation.osis = values(translate(lang, OSIS, editor));
+
+  delete translation.blocks;
+  delete translation.editor;
+
+  return translation;
+}
+
 
 /**
  * Prints a warning if language is missing needed aliases (extra_aliases.js).
@@ -240,6 +288,21 @@ function warningMissingAlias (lang, aliases) {
       console.log(`${lang} is missing "${alias}" translation in extra_translations.js`);
     }
   });
+}
+
+/**
+ * Get translated "when distance < %n" special case.
+ * Needed for ignoring the "<" less than sign in "when distance < %n".
+ *
+ * @parameter blocks {object} Translation for blocks.
+ * @returns {string|null} When distance in language, or null if not translated.
+ */
+function getWhenDistance (blocks) {
+  var whenDistance = blocks['when distance < %n'];
+  if (!whenDistance) {
+    return null;
+  }
+  return whenDistance.split(' < %n')[0];
 }
 
 /**
@@ -279,54 +342,11 @@ function translate (lang, specs, x, y) {
 }
 
 /**
- * Transforms the translation for scratchblocks consumption.
- *
- * Should contain:
- * - aliases
- * - define
- * - ignorelt (ignore less than)
- * - math
- * - osis
- * - commands
- * - dropdowns
- * - palette
- *
- * @parameter fetchedTranslation {object} `returnObject` from `fetchTranslations`.
- * returns {object}
- */
-function buildTranslation (fetchedTranslation) {
-  // short hands
-  var lang = fetchedTranslation.lang;
-  var editor = fetchedTranslation.editor;
-  var blocks = fetchedTranslation.blocks;
-
-  var translation = {};
-  translation.lang = lang;
-
-  translation.aliases = extraAliases[lang];
-  warningMissingAlias(lang, translation.aliases);
-
-  translation.define = [ blocks['define'] || '' ];
-  translation.ignorelt = [ getWhenDistance(blocks) ];
-
-  translation.commands = translate(lang, COMMAND_SPECS, blocks);
-  translation.dropdowns = translate(lang, DROPDOWN_SPECS, blocks, editor);
-  translation.palette = translate(lang, PALETTE_SPECS, blocks, editor);
-
-  translation.math = values(translate(lang, MATH_FUNCS, editor));
-  translation.osis = values(translate(lang, OSIS, editor));
-
-  printPercentageTranslated(translation);
-
-  delete translation.blocks;
-  delete translation.editor;
-
-  return translation;
-}
-
-/**
  * Prints percentage of `translation.commands` found in `COMMAND_SPECS`, except
  * for those in `UNTRANSLATED`.
+ *
+ * @parameter translation {object} From `transformTranslation`.
+ * @returns {object} `translation`
  */
 function printPercentageTranslated (translation) {
   var total = COMMAND_SPECS.filter(cmd => UNTRANSLATED.indexOf(cmd) === -1).length;
@@ -334,26 +354,22 @@ function printPercentageTranslated (translation) {
   var percentage = (translated / total * 100).toFixed(2);
   var color = translated === total ? chalk.green : chalk.red;
   console.log(color(`${translation.lang}: translated ${translated} of ${total}, ${percentage} %`));
+
+  return translation;
 }
 
 /**
- * Writes the translations from `buildTranslation` to a JSON file.
+ * Writes the translations from `transformTranslation` to a JSON file.
  *
  * @parameter translation {object}
  */
 function writeJSON (translation) {
-  var filename = __dirname + '/locales/' + translation.lang + '.json';
-  var content = JSON.stringify(translation, null, 2);
-  fs.writeFileSync(filename, content);
-}
+  var lang = translation.lang;
+  var filename = __dirname + '/locales/' + lang + '.json';
 
-BUILD_LANGS.map(lang => {
-  if (BLACKLIST.indexOf(lang) !== -1) {
-    return;
-  }
-  return fetchTranslations(lang)
-    .then(addEnd)
-    .then(buildTranslation)
-    .then(writeJSON)
-    .catch(e => console.error(e))
-});
+  var out = {};
+  out[lang] = translation;  // TODO: flatten out object, fix loadLanguage
+  delete out.lang;
+
+  fs.writeFileSync(filename, JSON.stringify(out, null, 2));
+}
