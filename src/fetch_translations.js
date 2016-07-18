@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-var fetch = require('node-fetch');
-var values = require('object-values');
-var extraAliases = require('./locales/extra_aliases.js');
+/**
+ * CONSTANTS
+ */
 
 var ALL_LANGS = ['ar', 'an', 'hy', 'ast', 'eu', 'bn_IN', 'nb', 'bg', 'zh_CN',
                  'zh_TW', 'da', 'de', 'eo', 'et', 'fo', 'fi', 'fr',
@@ -24,15 +23,14 @@ var FORUM_LANGS = ['de', 'es', 'fr', 'zh_CN', 'pl', 'ja', 'nl' , 'pt', 'it',
 var ENGLISH_COMMANDS = require('./commands.js');
 var COMMAND_SPECS = ENGLISH_COMMANDS.map(cmd => cmd[0]);
 var PALETTE_SPECS = [
-  'Motion', 'Looks', 'Sound', 'Pen', 'Data', 'variables', 'variable',
-  'lists', 'list', 'Events', 'Control', 'Sensing', 'Operators',
+  'Motion', 'Looks', 'Sound', 'Pen', 'Data', 'variable',
+  'list', 'Events', 'Control', 'Sensing', 'Operators',
   'More Blocks', 'Tips'
 ];
 var NEED_ALIAS = [
   'turn @turnRight %n degrees',
   'turn @turnLeft %n degrees',
-  'when @greenFlag clicked',
-  'end'
+  'when @greenFlag clicked'
 ];
 var UNTRANSLATED = [
     '%n + %n',
@@ -54,30 +52,43 @@ var MATH_FUNCS = [
 ];
 var OSIS = [ 'other scripts in sprite', 'other scripts in stage' ];
 var DROPDOWN_SPECS = [
-  'A connected', 'all', 'all around', 'all motors',
+  'A connected', 'all', 'all around',
   'B connected', 'brightness', 'button pressed', 'C connected', 'color',
   'costume name', 'D connected', 'date', 'day of week', 'don\'t rotate',
-  'down arrow', 'edge', 'everything', 'fisheye', 'ghost', 'hour',
-  'left arrow', 'left-right', 'light', 'lights', 'minute', 'month',
-  'mosaic', 'motion', 'motor', 'motor A', 'motor B', 'mouse-pointer',
-  'myself', 'not =', 'off', 'on', 'on-flipped', 'other scripts in sprite',
-  'pixelate', 'previous backdrop', 'random position', 'resistance-A',
+  'down arrow', 'edge', 'fisheye', 'ghost', 'hour',
+  'left arrow', 'left-right', 'light', 'minute', 'month',
+  'mosaic', 'motion', 'mouse-pointer',
+  'myself', 'off', 'on', 'on-flipped', 'other scripts in sprite',
+  'pixelate', 'previous backdrop', 'resistance-A',
   'resistance-B', 'resistance-C', 'resistance-D', 'reverse', 'right arrow',
   'second', 'slider', 'sound', 'space', 'Stage', 'that way', 'this script',
   'this sprite', 'this way', 'up arrow', 'video motion', 'whirl', 'year'
 ];
 
+/**
+ * CONSTANTS END
+ */
+
+var fs = require('fs');
+var fetch = require('node-fetch');
+var values = require('object-values');
+var chalk = require('chalk');
+var extraAliases = require('./locales/extra_aliases.js');
+
 var args = process.argv;
+var BUILD_LANGS = FORUM_LANGS;
 if (args.length > 3 || args[2] === '--help') {
   console.log('\nFetches scratch translations from translate.scratch.mit.edu.');
-  console.log('\n  Usage: ./fetch_translations.js [language code]');
-  console.log('\nIf no language code is given, all translations will be fetched.');
+  console.log('\n  Usage: ./fetch_translations.js [language code | all]');
+  console.log('\nIf no language code is given, translations for forum languages will be fetched.');
   process.exit(1);
+}  else if (args.length === 3 && args[2] === 'all') {
+  BUILD_LANGS = ALL_LANGS;
 } else if (args.length === 3 && ALL_LANGS.indexOf(args[2]) === -1) {
   console.log('Language code not valid, supported languages:');
   console.log(ALL_LANGS.join(', '));
 } else if (args.length === 3) {
-  ALL_LANGS = [ args[2] ];
+  BUILD_LANGS = [ args[2] ];
 } // TODO: forum languages only
 
 INSERT_RE = /(%[A-Za-z](?:\.[A-Za-z]+)?)/;
@@ -93,7 +104,6 @@ JUNK_RE = /[ \t,\%?:]/;
  */
 function fetchTranslations (lang, retry) {
   var baseUrl = `http://translate.scratch.mit.edu/download/${lang}/`;
-  console.log(`Fetching ${lang}...`);
 
   function handleFetch (res) {
     if (!res.ok) {
@@ -177,7 +187,6 @@ function addEnd (fetchedTranslation) {
   var end = getEndBlock(aliases);
   if (end) {
     fetchedTranslation.blocks.end = end;
-    delete aliases[end];
   }
   return fetchedTranslation;
 }
@@ -262,7 +271,7 @@ function translate (lang, specs, x, y) {
       translations[spec] = langSpec;
     } else if (UNTRANSLATED.indexOf(spec) === -1 &&
                ACCEPTABLE_MISSING.indexOf(spec) === -1) {
-    // translation not found and not an untranslated or acceptable missing term
+    // translation not found and not acceptable missing -> warn
       console.log(`${lang}: missing translation for "${spec}"`);
     }
   });
@@ -320,16 +329,11 @@ function buildTranslation (fetchedTranslation) {
  * for those in `UNTRANSLATED`.
  */
 function printPercentageTranslated (translation) {
-  var total = COMMAND_SPECS.reduce((count, cmd) => {
-    if (UNTRANSLATED.indexOf(cmd) !== -1) {
-      // these are not translated in any language
-      return count;
-    }
-    return count + 1;
-  }, 0);
+  var total = COMMAND_SPECS.filter(cmd => UNTRANSLATED.indexOf(cmd) === -1).length;
   var translated = Object.keys(translation.commands).length;
   var percentage = (translated / total * 100).toFixed(2);
-  console.log(`${translation.lang}: translated ${percentage} %`);
+  var color = translated === total ? chalk.green : chalk.red;
+  console.log(color(`${translation.lang}: translated ${translated} of ${total}, ${percentage} %`));
 }
 
 /**
@@ -343,7 +347,7 @@ function writeJSON (translation) {
   fs.writeFileSync(filename, content);
 }
 
-ALL_LANGS.map(lang => {
+BUILD_LANGS.map(lang => {
   if (BLACKLIST.indexOf(lang) !== -1) {
     return;
   }

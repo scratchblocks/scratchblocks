@@ -10,7 +10,8 @@
   "scripts": {
     "test": "node tests/test.js",
     "build-make": "sh -c 'make all'",
-    "build": "npm run build-make"
+    "fetch-translations": "node src/fetch_translations.js",
+    "test": "node tests/test.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   },
   "homepage": "https://scratchblocks.github.io/",
   "devDependencies": {
+    "chalk": "^1.1.3",
     "clean-css": "^3.4.9",
     "uglify-js": "^2.6.1",
     "object-values": "^1.0.0",
