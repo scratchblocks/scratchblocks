@@ -30,11 +30,13 @@
     "browserify": "^13.0.1",
     "clean-css": "^3.4.9",
     "envify": "^3.4.1",
+    "object-values": "^1.0.0",
     "uglify-js": "^2.6.1",
     "unreachable-branch-transform": "^0.5.1"
   },
   "dependencies": {
     "canvas": "1.4.0",
+    "node-fetch": "^1.5.3",
     "xmldom": "^0.1.22"
   }
 }

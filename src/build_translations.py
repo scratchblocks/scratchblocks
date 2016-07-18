@@ -46,6 +46,7 @@ if len(sys.argv) > 1:
         langs = "all"
 
 if langs == "all":
+    print("ALL")
     LANGUAGES = ALL_LANGS
 else:
     LANGUAGES = FORUM_LANGS
@@ -90,7 +91,10 @@ def fetch_po(lang, project):
 all_languages = {}
 
 # Get spec list from JS
-english_commands = json.loads('{"commands":' + open('commands.js').read().rstrip(";\n],") + ']]}')["commands"]
+english_commands = json.loads(open('commands.js').read()
+                                  .lstrip("module.exports =")
+                                  .strip()
+                                  .rstrip(";"))
 command_specs = [c[0] for c in english_commands]
 
 # Prepare blocks lists
@@ -135,7 +139,7 @@ def nonempty(seq):
 
 for lang in LANGUAGES:
     if lang in BLACKLIST: continue
-    print(lang)
+    print('#### ' + lang + ' ####')
 
     lang_blocks = parse_po(fetch_po(lang, "blocks"))
     lang_editor = parse_po(fetch_po(lang, "editor"))
@@ -167,12 +171,15 @@ for lang in LANGUAGES:
         if lang_spec:
             commands[spec] = lang_spec
             count += 1
+        elif spec in untranslated:
+            count += 1
         else:
             if spec == "end":
                 print("%s is missing extra: end" % lang)
             elif spec not in untranslated and spec not in acceptable_missing:
                 print("%s is missing: %s" % (lang, spec))
-    print("{}: {:.1f}%".format(lang, count/len(command_specs)*100))
+
+    print("translated: {:.1f}%".format(count/len(command_specs)*100))
 
     dropdowns = {}
     for name in dropdown_values:

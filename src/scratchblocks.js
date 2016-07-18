@@ -164,6 +164,7 @@ var allLanguages = {};
 function loadLanguage(code, language) {
   var blocksByHash = language.blocksByHash = {};
 
+  // TODO: can be moved to fetch_translations.js ?
   Object.keys(language.commands).forEach(function(spec) {
     var nativeSpec = language.commands[spec];
     var block = blocksBySpec[spec];
