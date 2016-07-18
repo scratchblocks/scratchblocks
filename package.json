@@ -27,7 +27,9 @@
   "homepage": "https://scratchblocks.github.io/",
   "devDependencies": {
     "clean-css": "^3.4.9",
-    "uglify-js": "^2.6.1"
+    "uglify-js": "^2.6.1",
+    "object-values": "^1.0.0",
+    "node-fetch": "^1.5.3"
   },
   "dependencies": {
     "canvas": "1.4.0",

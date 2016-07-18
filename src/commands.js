@@ -1,3 +1,4 @@
+module.exports =
 [
 
   ["move %n steps",                               " ", 1,   "forward:"],
@@ -149,29 +150,7 @@
   ["distance",                                      "r", 20,  ""],
   ["tilt",                                          "r", 20,  ""],
 
-  ["turn %m.motor on for %n seconds",               " ", 20,  ""],
-  ["set light color to %n",                         " ", 20,  ""],
-  ["play note %n for %n seconds",                   " ", 20,  ""],
-  ["when tilted",                                   "h", 20,  ""],
-  ["tilt %m.xxx",                                   "r", 20,  ""],
-
   ["else", "else", 6, ""],
   ["end", "end", 6, ""],
-  [". . .", " ", 42, ""],
-
-  ["%n @addInput", "ring", 42, ""],
-
-  ["user id",                                   "r",  0,  ""],
-
-  ["if %b",                                     "c",  0,  "doIf"],
-  ["if %b",                                     "e",  0,  "doIfElse"],
-  ["forever if %b",                             "cf", 0,  "doForeverIf"],
-  ["stop script",                               "f",  0,  "doReturn"],
-  ["stop all",                                  "f",  0,  "stopAll"],
-  ["switch to costume %m.costume",              " ",  0,  "lookLike:"],
-  ["next background",                           " ",  0,  "nextScene"],
-  ["switch to background %m.backdrop",          " ",  0,  "startScene"],
-  ["background #",                              "r",  0,  "backgroundIndex"],
-  ["loud?",                                     "b",  0,  "isLoud"],
 
 ];
