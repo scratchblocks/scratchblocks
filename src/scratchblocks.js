@@ -2459,9 +2459,9 @@ if (process.env.SB_TARGET !== 'client') {
  * @param str {string} Scratch code.
  * @returns {Element} SVG element.
  */
-module.exports = function (str) {
+module.exports = function (str, options) {
   allLabels = [];  // TODO: keep ref to labels in doc
-  var doc = parse(str);
+  var doc = parse(str, options);
   /**
    * Labels are not initialized with whole strings in parsing,
    * so we need to measure their size after parsing.
