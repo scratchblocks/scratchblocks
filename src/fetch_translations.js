@@ -68,8 +68,7 @@ var ACCEPTABLE_MISSING = [
   'next background',
   'switch to background %m.backdrop',
   'background #',
-  'loud?',
-  'username'
+  'loud?'
 ];
 var MATH_FUNCS = [
   'abs', 'floor', 'ceiling', 'sqrt', 'sin', 'cos', 'tan',
