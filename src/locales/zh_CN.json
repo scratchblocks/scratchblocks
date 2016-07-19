@@ -1,6 +1,5 @@
 {
   "zh_CN": {
-    "lang": "zh_CN",
     "aliases": {
       "左转 %n 度": "turn @turnLeft %n degrees",
       "右转 %n 度": "turn @turnRight %n degrees",

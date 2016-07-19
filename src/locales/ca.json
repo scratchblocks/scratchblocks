@@ -1,6 +1,5 @@
 {
   "ca": {
-    "lang": "ca",
     "aliases": {
       "gira a l'esquerra %n graus": "turn @turnLeft %n degrees",
       "gira a la dreta %n graus": "turn @turnRight %n degrees",

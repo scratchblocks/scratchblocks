@@ -1,5 +1,12 @@
 #!/usr/bin/env node
 
+var fs = require('fs');
+var fetch = require('node-fetch');
+var values = require('object-values');
+var unique = require('just-unique');
+var chalk = require('chalk');
+var extraAliases = require('./locales/extra_aliases.js');
+
 /**
  * CONSTANTS
  */
@@ -19,7 +26,7 @@ var FORUM_LANGS = ['de', 'es', 'fr', 'zh_CN', 'pl', 'ja', 'nl' , 'pt', 'it',
                    'he', 'ko', 'nb', 'tr', 'el', 'ru', 'ca', 'id'];
 
 var ENGLISH_COMMANDS = require('./commands.js');
-var COMMAND_SPECS = ENGLISH_COMMANDS.map(cmd => cmd[0]);
+var COMMAND_SPECS = unique(ENGLISH_COMMANDS.map(cmd => cmd[0]));
 var PALETTE_SPECS = [
   'Motion', 'Looks', 'Sound', 'Pen', 'Data', 'variable',
   'list', 'Events', 'Control', 'Sensing', 'Operators',
@@ -42,6 +49,26 @@ var UNTRANSLATED = [
   '...'
 ];
 var ACCEPTABLE_MISSING = [
+  'turn %m.motor on for %n seconds',
+  'set light color to %n',
+  'play note %n for %n seconds',
+  'when tilted',
+  'tilt %m.xxx',
+  'else',
+  'end',
+  '. . .',
+  '%n @addInput',
+  'user id',
+  'if %b',
+  'if %b',
+  'forever if %b',
+  'stop script',
+  'stop all',
+  'switch to costume %m.costume',
+  'next background',
+  'switch to background %m.backdrop',
+  'background #',
+  'loud?',
   'username'
 ];
 var MATH_FUNCS = [
@@ -66,12 +93,6 @@ var DROPDOWN_SPECS = [
 /**
  * CONSTANTS END
  */
-
-var fs = require('fs');
-var fetch = require('node-fetch');
-var values = require('object-values');
-var chalk = require('chalk');
-var extraAliases = require('./locales/extra_aliases.js');
 
 /**
  * Arguments
@@ -279,13 +300,13 @@ function transformTranslation (fetchedTranslation) {
  */
 function warningMissingAlias (lang, aliases) {
   if (!aliases) {
-    console.log(`${lang} is missing all aliases`);
+    console.log(chalk.red(`${lang} is missing all aliases, add them to extra_aliases.js`));
     return;
   }
   var englishSpecs = values(aliases);
   NEED_ALIAS.forEach(alias => {
     if (englishSpecs.indexOf(alias) === -1) {
-      console.log(`${lang} is missing "${alias}" translation in extra_translations.js`);
+      console.log(chalk.red(`${lang} is missing "${alias}" translation in extra_aliases.js`));
     }
   });
 }
@@ -335,27 +356,44 @@ function translate (lang, specs, x, y) {
     } else if (UNTRANSLATED.indexOf(spec) === -1 &&
                ACCEPTABLE_MISSING.indexOf(spec) === -1) {
     // translation not found and not acceptable missing -> warn
-      console.log(`${lang}: missing translation for "${spec}"`);
+      console.log(chalk.red(`${lang}: missing translation for "${spec}"`));
     }
   });
   return translations;
 }
 
 /**
- * Prints percentage of `translation.commands` found in `COMMAND_SPECS`, except
- * for those in `UNTRANSLATED`.
+ * Prints translation percentage for COMMAND_SPECS, DROPDOWN_SPECS and
+ * PALETTE_SPECS, minus those in UNTRANSLATED and ACCEPTABLE_MISSING.
  *
  * @parameter translation {object} From `transformTranslation`.
  * @returns {object} `translation`
  */
 function printPercentageTranslated (translation) {
-  var total = COMMAND_SPECS.filter(cmd => UNTRANSLATED.indexOf(cmd) === -1).length;
-  var translated = Object.keys(translation.commands).length;
-  var percentage = (translated / total * 100).toFixed(2);
+  var total = removeNotNeeded(COMMAND_SPECS).length;
+  total += DROPDOWN_SPECS.length;
+  total += PALETTE_SPECS.length;
+
+  var translated = removeNotNeeded(Object.keys(translation.commands)).length;
+  translated += Object.keys(translation.dropdowns).length;
+  translated += Object.keys(translation.palette).length;
+
+  var percentage = (translated / total * 100).toFixed(0);
   var color = translated === total ? chalk.green : chalk.red;
+
   console.log(color(`${translation.lang}: translated ${translated} of ${total}, ${percentage} %`));
 
   return translation;
+}
+
+/**
+ * Returns a list of commands which are not in `UNTRANSLATED` or
+ * `ACCEPTABLE_MISSING`.
+ */
+function removeNotNeeded (commands) {
+  return commands.filter(cmd =>
+    UNTRANSLATED.indexOf(cmd) === -1 &&
+    ACCEPTABLE_MISSING.indexOf(cmd) === -1);
 }
 
 /**
@@ -369,7 +407,7 @@ function writeJSON (translation) {
 
   var out = {};
   out[lang] = translation;  // TODO: flatten out object, fix loadLanguage
-  delete out.lang;
+  delete out[lang].lang;
 
   fs.writeFileSync(filename, JSON.stringify(out, null, 2));
 }

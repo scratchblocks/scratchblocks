@@ -1,6 +1,5 @@
 {
   "nb": {
-    "lang": "nb",
     "aliases": {
       "vend venstre %n grader": "turn @turnLeft %n degrees",
       "vend høyre %n grader": "turn @turnRight %n degrees",

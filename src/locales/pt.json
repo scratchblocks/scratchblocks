@@ -1,6 +1,5 @@
 {
   "pt": {
-    "lang": "pt",
     "aliases": {
       "gira para a esquerda %n º": "turn @turnLeft %n degrees",
       "gira para a direita %n º": "turn @turnRight %n degrees",

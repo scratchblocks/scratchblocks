@@ -1,6 +1,5 @@
 {
   "he": {
-    "lang": "he",
     "aliases": {
       "הסתובב שמאל %n מעלות": "turn @turnLeft %n degrees",
       "הסתובב ימינה %n מעלות": "turn @turnRight %n degrees",

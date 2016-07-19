@@ -1,6 +1,5 @@
 {
   "el": {
-    "lang": "el",
     "aliases": {
       "στρίψε αριστερά %n μοίρες": "turn @turnLeft %n degrees",
       "στρίψε αριστερόστροφα %n μοίρες": "turn @turnLeft %n degrees",

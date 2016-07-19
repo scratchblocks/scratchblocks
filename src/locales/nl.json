@@ -1,6 +1,5 @@
 {
   "nl": {
-    "lang": "nl",
     "aliases": {
       "draai %n graden naar links": "turn @turnLeft %n degrees",
       "draai %n graden naar rechts": "turn @turnRight %n degrees",

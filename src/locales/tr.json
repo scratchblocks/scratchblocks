@@ -1,6 +1,5 @@
 {
   "tr": {
-    "lang": "tr",
     "aliases": {
       "_ derece sola dön": "turn @turnLeft %n degrees",
       "_ derece sağa dön": "turn @turnRight %n degrees",

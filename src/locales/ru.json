@@ -1,6 +1,5 @@
 {
   "ru": {
-    "lang": "ru",
     "aliases": {
       "повернуть влево на %n градусов": "turn @turnLeft %n degrees",
       "повернуть вправо на %n градусов": "turn @turnRight %n degrees",

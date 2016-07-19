@@ -1,6 +1,5 @@
 {
   "fr": {
-    "lang": "fr",
     "aliases": {
       "tourner gauche de %n degrés": "turn @turnLeft %n degrees",
       "tourner droite de %n degrés": "turn @turnRight %n degrees",

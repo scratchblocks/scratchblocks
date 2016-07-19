@@ -1,6 +1,5 @@
 {
   "de": {
-    "lang": "de",
     "aliases": {
       "drehe dich nach links um %n Grad": "turn @turnLeft %n degrees",
       "drehe dich nach rechts um %n Grad": "turn @turnRight %n degrees",

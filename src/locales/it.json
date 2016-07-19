@@ -1,6 +1,5 @@
 {
   "it": {
-    "lang": "it",
     "aliases": {
       "ruota in senso antiorario di %n gradi": "turn @turnLeft %n degrees",
       "ruota in senso orario di %n gradi": "turn @turnRight %n degrees",
