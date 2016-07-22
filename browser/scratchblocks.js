@@ -2,157 +2,181 @@
 module.exports =
 [
 
-  ["move %n steps",                               " ", 1,   "forward:"],
-  ["turn @turnRight %n degrees",                  " ", 1,   "turnRight:"],
-  ["turn @turnLeft %n degrees",                   " ", 1,   "turnLeft:"],
-  ["point in direction %d.direction",             " ", 1,   "heading:"],
-  ["point towards %m.spriteOrMouse",              " ", 1,   "pointTowards:"],
-  ["go to x:%n y:%n",                             " ", 1,   "gotoX:y:"],
-  ["go to %m.location",                           " ", 1,   "gotoSpriteOrMouse:"],
-  ["glide %n secs to x:%n y:%n",                  " ", 1,   "glideSecs:toX:y:elapsed:from:"],
-  ["change x by %n",                              " ", 1,   "changeXposBy:"],
-  ["set x to %n",                                 " ", 1,   "xpos:"],
-  ["change y by %n",                              " ", 1,   "changeYposBy:"],
-  ["set y to %n",                                 " ", 1,   "ypos:"],
-  ["set rotation style %m.rotationStyle",         " ", 1,   "setRotationStyle"],
-  ["say %s for %n secs",                          " ", 2,   "say:duration:elapsed:from:"],
-  ["say %s",                                      " ", 2,   "say:"],
-  ["think %s for %n secs",                        " ", 2,   "think:duration:elapsed:from:"],
-  ["think %s",                                    " ", 2,   "think:"],
-  ["show",                                        " ", 2,   "show"],
-  ["hide",                                        " ", 2,   "hide"],
-  ["switch costume to %m.costume",                " ", 2,   "lookLike:"],
-  ["next costume",                                " ", 2,   "nextCostume"],
-  ["next backdrop",                               " ", 102, "nextScene"],
-  ["switch backdrop to %m.backdrop",              " ", 2,   "startScene"],
-  ["switch backdrop to %m.backdrop and wait",     " ", 102, "startSceneAndWait"],
-  ["change %m.effect effect by %n",               " ", 2,   "changeGraphicEffect:by:"],
-  ["set %m.effect effect to %n",                  " ", 2,   "setGraphicEffect:to:"],
-  ["clear graphic effects",                       " ", 2,   "filterReset"],
-  ["change size by %n",                           " ", 2,   "changeSizeBy:"],
-  ["set size to %n%",                             " ", 2,   "setSizeTo:"],
-  ["go to front",                                 " ", 2,   "comeToFront"],
-  ["go back %n layers",                           " ", 2,   "goBackByLayers:"],
-  ["play sound %m.sound",                         " ", 3,   "playSound:"],
-  ["play sound %m.sound until done",              " ", 3,   "doPlaySoundAndWait"],
-  ["stop all sounds",                             " ", 3,   "stopAllSounds"],
-  ["play drum %d.drum for %n beats",              " ", 3,   "playDrum"],
-  ["rest for %n beats",                           " ", 3,   "rest:elapsed:from:"],
-  ["play note %d.note for %n beats",              " ", 3,   "noteOn:duration:elapsed:from:"],
-  ["set instrument to %d.instrument",             " ", 3,   "instrument:"],
-  ["change volume by %n",                         " ", 3,   "changeVolumeBy:"],
-  ["set volume to %n%",                           " ", 3,   "setVolumeTo:"],
-  ["change tempo by %n",                          " ", 3,   "changeTempoBy:"],
-  ["set tempo to %n bpm",                         " ", 3,   "setTempoTo:"],
-  ["clear",                                       " ", 4,   "clearPenTrails"],
-  ["stamp",                                       " ", 4,   "stampCostume"],
-  ["pen down",                                    " ", 4,   "putPenDown"],
-  ["pen up",                                      " ", 4,   "putPenUp"],
-  ["set pen color to %c",                         " ", 4,   "penColor:"],
-  ["change pen color by %n",                      " ", 4,   "changePenHueBy:"],
-  ["set pen color to %n",                         " ", 4,   "setPenHueTo:"],
-  ["change pen shade by %n",                      " ", 4,   "changePenShadeBy:"],
-  ["set pen shade to %n",                         " ", 4,   "setPenShadeTo:"],
-  ["change pen size by %n",                       " ", 4,   "changePenSizeBy:"],
-  ["set pen size to %n",                          " ", 4,   "penSize:"],
-  ["when @greenFlag clicked",                     "h", 5,   "whenGreenFlag"],
-  ["when %m.key key pressed",                     "h", 5,   "whenKeyPressed"],
-  ["when this sprite clicked",                    "h", 5,   "whenClicked"],
-  ["when backdrop switches to %m.backdrop",       "h", 5,   "whenSceneStarts"],
-  ["when %m.triggerSensor > %n",                  "h", 5,   "whenSensorGreaterThan"],
-  ["when I receive %m.broadcast",                 "h", 5,   "whenIReceive"],
-  ["broadcast %m.broadcast",                      " ", 5,   "broadcast:"],
-  ["broadcast %m.broadcast and wait",             " ", 5,   "doBroadcastAndWait"],
-  ["wait %n secs",                                " ", 6,   "wait:elapsed:from:"],
-  ["repeat %n",                                   "c", 6,   "doRepeat"],
-  ["forever",                                     "cf",6,   "doForever"],
-  ["if %b then",                                  "c", 6,   "doIf"],
-  ["if %b then",                                  "e", 6,   "doIfElse"],
-  ["wait until %b",                               " ", 6,   "doWaitUntil"],
-  ["repeat until %b",                             "c", 6,   "doUntil"],
-  ["stop %m.stop",                                "f", 6,   "stopScripts"],
-  ["when I start as a clone",                     "h", 6,   "whenCloned"],
-  ["create clone of %m.spriteOnly",               " ", 6,   "createCloneOf"],
-  ["delete this clone",                           "f", 6,   "deleteClone"],
-  ["ask %s and wait",                             " ", 7,   "doAsk"],
-  ["turn video %m.videoState",                    " ", 7,   "setVideoState"],
-  ["set video transparency to %n%",               " ", 7,   "setVideoTransparency"],
-  ["reset timer",                                 " ", 7,   "timerReset"],
-  ["set %m.var to %s",                            " ", 9,   "setVar:to:"],
-  ["change %m.var by %n",                         " ", 9,   "changeVar:by:"],
-  ["show variable %m.var",                        " ", 9,   "showVariable:"],
-  ["hide variable %m.var",                        " ", 9,   "hideVariable:"],
-  ["add %s to %m.list",                           " ", 12,  "append:toList:"],
-  ["delete %d.listDeleteItem of %m.list",         " ", 12,  "deleteLine:ofList:"],
-  ["if on edge, bounce",                          " ", 1,   "bounceOffEdge"],
-  ["insert %s at %d.listItem of %m.list",         " ", 12,  "insert:at:ofList:"],
-  ["replace item %d.listItem of %m.list with %s", " ", 12,  "setLine:ofList:to:"],
-  ["show list %m.list",                           " ", 12,  "showList:"],
-  ["hide list %m.list",                           " ", 12,  "hideList:"],
+  ['move %n steps',                               ' ', 1,   'forward:'],
+  ['turn @turnRight %n degrees',                  ' ', 1,   'turnRight:'],
+  ['turn @turnLeft %n degrees',                   ' ', 1,   'turnLeft:'],
+  ['point in direction %d.direction',             ' ', 1,   'heading:'],
+  ['point towards %m.spriteOrMouse',              ' ', 1,   'pointTowards:'],
+  ['go to x:%n y:%n',                             ' ', 1,   'gotoX:y:'],
+  ['go to %m.location',                           ' ', 1,   'gotoSpriteOrMouse:'],
+  ['glide %n secs to x:%n y:%n',                  ' ', 1,   'glideSecs:toX:y:elapsed:from:'],
+  ['change x by %n',                              ' ', 1,   'changeXposBy:'],
+  ['set x to %n',                                 ' ', 1,   'xpos:'],
+  ['change y by %n',                              ' ', 1,   'changeYposBy:'],
+  ['set y to %n',                                 ' ', 1,   'ypos:'],
+  ['set rotation style %m.rotationStyle',         ' ', 1,   'setRotationStyle'],
+  ['say %s for %n secs',                          ' ', 2,   'say:duration:elapsed:from:'],
+  ['say %s',                                      ' ', 2,   'say:'],
+  ['think %s for %n secs',                        ' ', 2,   'think:duration:elapsed:from:'],
+  ['think %s',                                    ' ', 2,   'think:'],
+  ['show',                                        ' ', 2,   'show'],
+  ['hide',                                        ' ', 2,   'hide'],
+  ['switch costume to %m.costume',                ' ', 2,   'lookLike:'],
+  ['next costume',                                ' ', 2,   'nextCostume'],
+  ['next backdrop',                               ' ', 102, 'nextScene'],
+  ['switch backdrop to %m.backdrop',              ' ', 2,   'startScene'],
+  ['switch backdrop to %m.backdrop and wait',     ' ', 102, 'startSceneAndWait'],
+  ['change %m.effect effect by %n',               ' ', 2,   'changeGraphicEffect:by:'],
+  ['set %m.effect effect to %n',                  ' ', 2,   'setGraphicEffect:to:'],
+  ['clear graphic effects',                       ' ', 2,   'filterReset'],
+  ['change size by %n',                           ' ', 2,   'changeSizeBy:'],
+  ['set size to %n%',                             ' ', 2,   'setSizeTo:'],
+  ['go to front',                                 ' ', 2,   'comeToFront'],
+  ['go back %n layers',                           ' ', 2,   'goBackByLayers:'],
+  ['play sound %m.sound',                         ' ', 3,   'playSound:'],
+  ['play sound %m.sound until done',              ' ', 3,   'doPlaySoundAndWait'],
+  ['stop all sounds',                             ' ', 3,   'stopAllSounds'],
+  ['play drum %d.drum for %n beats',              ' ', 3,   'playDrum'],
+  ['rest for %n beats',                           ' ', 3,   'rest:elapsed:from:'],
+  ['play note %d.note for %n beats',              ' ', 3,   'noteOn:duration:elapsed:from:'],
+  ['set instrument to %d.instrument',             ' ', 3,   'instrument:'],
+  ['change volume by %n',                         ' ', 3,   'changeVolumeBy:'],
+  ['set volume to %n%',                           ' ', 3,   'setVolumeTo:'],
+  ['change tempo by %n',                          ' ', 3,   'changeTempoBy:'],
+  ['set tempo to %n bpm',                         ' ', 3,   'setTempoTo:'],
+  ['clear',                                       ' ', 4,   'clearPenTrails'],
+  ['stamp',                                       ' ', 4,   'stampCostume'],
+  ['pen down',                                    ' ', 4,   'putPenDown'],
+  ['pen up',                                      ' ', 4,   'putPenUp'],
+  ['set pen color to %c',                         ' ', 4,   'penColor:'],
+  ['change pen color by %n',                      ' ', 4,   'changePenHueBy:'],
+  ['set pen color to %n',                         ' ', 4,   'setPenHueTo:'],
+  ['change pen shade by %n',                      ' ', 4,   'changePenShadeBy:'],
+  ['set pen shade to %n',                         ' ', 4,   'setPenShadeTo:'],
+  ['change pen size by %n',                       ' ', 4,   'changePenSizeBy:'],
+  ['set pen size to %n',                          ' ', 4,   'penSize:'],
+  ['when @greenFlag clicked',                     'h', 5,   'whenGreenFlag'],
+  ['when %m.key key pressed',                     'h', 5,   'whenKeyPressed'],
+  ['when this sprite clicked',                    'h', 5,   'whenClicked'],
+  ['when backdrop switches to %m.backdrop',       'h', 5,   'whenSceneStarts'],
+  ['when %m.triggerSensor > %n',                  'h', 5,   'whenSensorGreaterThan'],
+  ['when I receive %m.broadcast',                 'h', 5,   'whenIReceive'],
+  ['broadcast %m.broadcast',                      ' ', 5,   'broadcast:'],
+  ['broadcast %m.broadcast and wait',             ' ', 5,   'doBroadcastAndWait'],
+  ['wait %n secs',                                ' ', 6,   'wait:elapsed:from:'],
+  ['repeat %n',                                   'c', 6,   'doRepeat'],
+  ['forever',                                     'cf',6,   'doForever'],
+  ['if %b then',                                  'c', 6,   'doIf'],
+  ['if %b then',                                  'e', 6,   'doIfElse'],
+  ['wait until %b',                               ' ', 6,   'doWaitUntil'],
+  ['repeat until %b',                             'c', 6,   'doUntil'],
+  ['stop %m.stop',                                'f', 6,   'stopScripts'],
+  ['when I start as a clone',                     'h', 6,   'whenCloned'],
+  ['create clone of %m.spriteOnly',               ' ', 6,   'createCloneOf'],
+  ['delete this clone',                           'f', 6,   'deleteClone'],
+  ['ask %s and wait',                             ' ', 7,   'doAsk'],
+  ['turn video %m.videoState',                    ' ', 7,   'setVideoState'],
+  ['set video transparency to %n%',               ' ', 7,   'setVideoTransparency'],
+  ['reset timer',                                 ' ', 7,   'timerReset'],
+  ['set %m.var to %s',                            ' ', 9,   'setVar:to:'],
+  ['change %m.var by %n',                         ' ', 9,   'changeVar:by:'],
+  ['show variable %m.var',                        ' ', 9,   'showVariable:'],
+  ['hide variable %m.var',                        ' ', 9,   'hideVariable:'],
+  ['add %s to %m.list',                           ' ', 12,  'append:toList:'],
+  ['delete %d.listDeleteItem of %m.list',         ' ', 12,  'deleteLine:ofList:'],
+  ['if on edge, bounce',                          ' ', 1,   'bounceOffEdge'],
+  ['insert %s at %d.listItem of %m.list',         ' ', 12,  'insert:at:ofList:'],
+  ['replace item %d.listItem of %m.list with %s', ' ', 12,  'setLine:ofList:to:'],
+  ['show list %m.list',                           ' ', 12,  'showList:'],
+  ['hide list %m.list',                           ' ', 12,  'hideList:'],
 
-  ["x position",                                  "r", 1,   "xpos"],
-  ["y position",                                  "r", 1,   "ypos"],
-  ["direction",                                   "r", 1,   "heading"],
-  ["costume #",                                   "r", 2,   "costumeIndex"],
-  ["size",                                        "r", 2,   "scale"],
-  ["backdrop name",                               "r", 102, "sceneName"],
-  ["backdrop #",                                  "r", 102, "backgroundIndex"],
-  ["volume",                                      "r", 3,   "volume"],
-  ["tempo",                                       "r", 3,   "tempo"],
-  ["touching %m.touching?",                       "b", 7,   "touching:"],
-  ["touching color %c?",                          "b", 7,   "touchingColor:"],
-  ["color %c is touching %c?",                    "b", 7,   "color:sees:"],
-  ["distance to %m.spriteOrMouse",                "r", 7,   "distanceTo:"],
-  ["answer",                                      "r", 7,   "answer"],
-  ["key %m.key pressed?",                         "b", 7,   "keyPressed:"],
-  ["mouse down?",                                 "b", 7,   "mousePressed"],
-  ["mouse x",                                     "r", 7,   "mouseX"],
-  ["mouse y",                                     "r", 7,   "mouseY"],
-  ["loudness",                                    "r", 7,   "soundLevel"],
-  ["video %m.videoMotionType on %m.stageOrThis",  "r", 7,   "senseVideoMotion"],
-  ["timer",                                       "r", 7,   "timer"],
-  ["%m.attribute of %m.spriteOrStage",            "r", 7,   "getAttribute:of:"],
-  ["current %m.timeAndDate",                      "r", 7,   "timeAndDate"],
-  ["days since 2000",                             "r", 7,   "timestamp"],
-  ["username",                                    "r", 7,   "getUserName"],
-  ["%n + %n",                                     "r", 8,   "+"],
-  ["%n - %n",                                     "r", 8,   "-"],
-  ["%n * %n",                                     "r", 8,   "*"],
-  ["%n / %n",                                     "r", 8,   "/"],
-  ["pick random %n to %n",                        "r", 8,   "randomFrom:to:"],
-  ["%s < %s",                                     "b", 8,   "<"],
-  ["%s = %s",                                     "b", 8,   "="],
-  ["%s > %s",                                     "b", 8,   ">"],
-  ["%b and %b",                                   "b", 8,   "&"],
-  ["%b or %b",                                    "b", 8,   "|"],
-  ["not %b",                                      "b", 8,   "not"],
-  ["join %s %s",                                  "r", 8,   "concatenate:with:"],
-  ["letter %n of %s",                             "r", 8,   "letter:of:"],
-  ["length of %s",                                "r", 8,   "stringLength:"],
-  ["%n mod %n",                                   "r", 8,   "%"],
-  ["round %n",                                    "r", 8,   "rounded"],
-  ["%m.mathOp of %n",                             "r", 8,   "computeFunction:of:"],
-  ["item %d.listItem of %m.list",                 "r", 12,  "getLine:ofList:"],
-  ["length of %m.list",                           "r", 12,  "lineCountOfList:"],
-  ["%m.list contains %s?",                        "b", 12,  "list:contains:"],
+  ['x position',                                  'r', 1,   'xpos'],
+  ['y position',                                  'r', 1,   'ypos'],
+  ['direction',                                   'r', 1,   'heading'],
+  ['costume #',                                   'r', 2,   'costumeIndex'],
+  ['size',                                        'r', 2,   'scale'],
+  ['backdrop name',                               'r', 102, 'sceneName'],
+  ['backdrop #',                                  'r', 102, 'backgroundIndex'],
+  ['volume',                                      'r', 3,   'volume'],
+  ['tempo',                                       'r', 3,   'tempo'],
+  ['touching %m.touching?',                       'b', 7,   'touching:'],
+  ['touching color %c?',                          'b', 7,   'touchingColor:'],
+  ['color %c is touching %c?',                    'b', 7,   'color:sees:'],
+  ['distance to %m.spriteOrMouse',                'r', 7,   'distanceTo:'],
+  ['answer',                                      'r', 7,   'answer'],
+  ['key %m.key pressed?',                         'b', 7,   'keyPressed:'],
+  ['mouse down?',                                 'b', 7,   'mousePressed'],
+  ['mouse x',                                     'r', 7,   'mouseX'],
+  ['mouse y',                                     'r', 7,   'mouseY'],
+  ['loudness',                                    'r', 7,   'soundLevel'],
+  ['video %m.videoMotionType on %m.stageOrThis',  'r', 7,   'senseVideoMotion'],
+  ['timer',                                       'r', 7,   'timer'],
+  ['%m.attribute of %m.spriteOrStage',            'r', 7,   'getAttribute:of:'],
+  ['current %m.timeAndDate',                      'r', 7,   'timeAndDate'],
+  ['days since 2000',                             'r', 7,   'timestamp'],
+  ['username',                                    'r', 7,   'getUserName'],
+  ['%n + %n',                                     'r', 8,   '+'],
+  ['%n - %n',                                     'r', 8,   '-'],
+  ['%n * %n',                                     'r', 8,   '*'],
+  ['%n / %n',                                     'r', 8,   '/'],
+  ['pick random %n to %n',                        'r', 8,   'randomFrom:to:'],
+  ['%s < %s',                                     'b', 8,   '<'],
+  ['%s = %s',                                     'b', 8,   '='],
+  ['%s > %s',                                     'b', 8,   '>'],
+  ['%b and %b',                                   'b', 8,   '&'],
+  ['%b or %b',                                    'b', 8,   '|'],
+  ['not %b',                                      'b', 8,   'not'],
+  ['join %s %s',                                  'r', 8,   'concatenate:with:'],
+  ['letter %n of %s',                             'r', 8,   'letter:of:'],
+  ['length of %s',                                'r', 8,   'stringLength:'],
+  ['%n mod %n',                                   'r', 8,   '%'],
+  ['round %n',                                    'r', 8,   'rounded'],
+  ['%m.mathOp of %n',                             'r', 8,   'computeFunction:of:'],
+  ['item %d.listItem of %m.list',                 'r', 12,  'getLine:ofList:'],
+  ['length of %m.list',                           'r', 12,  'lineCountOfList:'],
+  ['%m.list contains %s?',                        'b', 12,  'list:contains:'],
 
-  ["when %m.booleanSensor",                         "h", 20,  ""],
-  ["when %m.sensor %m.lessMore %n",                 "h", 20,  ""],
-  ["sensor %m.booleanSensor?",                      "b", 20,  ""],
-  ["%m.sensor sensor value",                        "r", 20,  ""],
+  ['when %m.booleanSensor',                         'h', 20,  ''],
+  ['when %m.sensor %m.lessMore %n',                 'h', 20,  ''],
+  ['sensor %m.booleanSensor?',                      'b', 20,  ''],
+  ['%m.sensor sensor value',                        'r', 20,  ''],
 
-  ["turn %m.motor on for %n secs",                  " ", 20,  ""],
-  ["turn %m.motor on",                              " ", 20,  ""],
-  ["turn %m.motor off",                             " ", 20,  ""],
-  ["set %m.motor power to %n",                      " ", 20,  ""],
-  ["set %m.motor2 direction to %m.motorDirection",  " ", 20,  ""],
-  ["when distance %m.lessMore %n",                  "h", 20,  ""],
-  ["when tilt %m.eNe %n",                           "h", 20,  ""],
-  ["distance",                                      "r", 20,  ""],
-  ["tilt",                                          "r", 20,  ""],
+  ['turn %m.motor on for %n secs',                  ' ', 20,  ''],
+  ['turn %m.motor on',                              ' ', 20,  ''],
+  ['turn %m.motor off',                             ' ', 20,  ''],
+  ['set %m.motor power to %n',                      ' ', 20,  ''],
+  ['set %m.motor2 direction to %m.motorDirection',  ' ', 20,  ''],
+  ['when distance %m.lessMore %n',                  'h', 20,  ''],
+  ['when tilt %m.eNe %n',                           'h', 20,  ''],
+  ['distance',                                      'r', 20,  ''],
+  ['tilt',                                          'r', 20,  ''],
 
-  ["else", "else", 6, ""],
-  ["end", "end", 6, ""],
+  ['else', 'else', 6, ''],
+  ['end', 'end', 6, ''],
+  ['turn %m.motor on for %n seconds',               ' ', 20,  ''],
+  ['set light color to %n',                         ' ', 20,  ''],
+  ['play note %n for %n seconds',                   ' ', 20,  ''],
+  ['when tilted',                                   'h', 20,  ''],
+  ['tilt %m.xxx',                                   'r', 20,  ''],
+
+  ['else', 'else', 6, ''],
+  ['end', 'end', 6, ''],
+  ['. . .', ' ', 42, ''],
+
+  ['%n @addInput', 'ring', 42, ''],
+
+  ['user id',                                   'r',  0,  ''],
+
+  ['if %b',                                     'c',  0,  'doIf'],
+  ['if %b',                                     'e',  0,  'doIfElse'],
+  ['forever if %b',                             'cf', 0,  'doForeverIf'],
+  ['stop script',                               'f',  0,  'doReturn'],
+  ['stop all',                                  'f',  0,  'stopAll'],
+  ['switch to costume %m.costume',              ' ',  0,  'lookLike:'],
+  ['next background',                           ' ',  0,  'nextScene'],
+  ['switch to background %m.backdrop',          ' ',  0,  'startScene'],
+  ['background #',                              'r',  0,  'backgroundIndex'],
+  ['loud?',                                     'b',  0,  'isLoud'],
 
 ];
 
@@ -168,16 +192,19 @@ module.exports =
 
 
 
+// root declarations
+var newCanvas;
+
 {
-  function newCanvas() {
+  newCanvas = function () {
     return document.createElement('canvas');
-  }
+  };
 }
 
 /* utils */
 
 function assert(bool, message) {
-  if (!bool) throw "Assertion failed! " + (message || "");
+  if (!bool) throw 'Assertion failed! ' + (message || '');
 }
 
 function isArray(o) {
@@ -197,34 +224,18 @@ function extend(src, dest) {
   return dest;
 }
 
-// deep clone dictionaries/lists.
-function clone(val) {
-  if (val == null) return val;
-  if (val.constructor == Array) {
-    return val.map(clone);
-  } else if (typeof val == "object") {
-    var result = {}
-    for (var key in val) {
-      result[clone(key)] = clone(val[key]);
-    }
-    return result;
-  } else {
-    return val;
-  }
-}
-
 function indent(text) {
-  return text.split("\n").map(function(line) {
-    return "  " + line;
-  }).join("\n");
+  return text.split('\n').map(function(line) {
+    return '  ' + line;
+  }).join('\n');
 }
 
 /***************************************************************************/
 
 // List of classes we're allowed to override.
 
-var overrideCategories = ["motion", "looks", "sound", "pen", "variables", "list", "events", "control", "sensing", "operators", "custom", "custom-arg", "extension", "grey", "obsolete"];
-var overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "ring"];
+var overrideCategories = ['motion', 'looks', 'sound', 'pen', 'variables', 'list', 'events', 'control', 'sensing', 'operators', 'custom', 'custom-arg', 'extension', 'grey', 'obsolete'];
+var overrideShapes = ['hat', 'cap', 'stack', 'boolean', 'reporter', 'ring'];
 
 // languages that should be displayed right to left
 var rtlLanguages = ['ar', 'fa', 'he'];
@@ -233,21 +244,21 @@ var rtlLanguages = ['ar', 'fa', 'he'];
 var scratchCommands = require('./commands.js');
 
 var categoriesById = {
-  0:  "obsolete",
-  1:  "motion",
-  2:  "looks",
-  3:  "sound",
-  4:  "pen",
-  5:  "events",
-  6:  "control",
-  7:  "sensing",
-  8:  "operators",
-  9:  "variables",
-  10: "custom",
-  11: "parameter",
-  12: "list",
-  20: "extension",
-  42: "grey",
+  0:  'obsolete',
+  1:  'motion',
+  2:  'looks',
+  3:  'sound',
+  4:  'pen',
+  5:  'events',
+  6:  'control',
+  7:  'sensing',
+  8:  'operators',
+  9:  'variables',
+  10: 'custom',
+  11: 'parameter',
+  12: 'list',
+  20: 'extension',
+  42: 'grey',
 };
 
 var typeShapes = {
@@ -283,7 +294,7 @@ function parseSpec(spec) {
 }
 
 function hashSpec(spec) {
-  return minifyHash(spec.replace(inputPatGlobal, " _ "));
+  return minifyHash(spec.replace(inputPatGlobal, ' _ '));
 }
 
 function minifyHash(hash) {
@@ -292,9 +303,9 @@ function minifyHash(hash) {
       .replace(/ +/g, ' ')
       .replace(/[,%?:]/g, '')
       .replace(/ß/g, 'ss')
-      .replace(/ä/g,"a")
-      .replace(/ö/g,"o")
-      .replace(/ü/g,"u")
+      .replace(/ä/g,'a')
+      .replace(/ö/g,'o')
+      .replace(/ü/g,'u')
       .replace('. . .', '...')
       .replace(/^…$/, '...')
   ).trim().toLowerCase();
@@ -302,11 +313,11 @@ function minifyHash(hash) {
 
 
 var unicodeIcons = {
-  "@greenFlag": "⚑",
-  "@turnRight": "↻",
-  "@turnLeft": "↺",
-  "@addInput": "▸",
-  "@delInput": "◂",
+  '@greenFlag': '⚑',
+  '@turnRight': '↻',
+  '@turnLeft': '↺',
+  '@addInput': '▸',
+  '@delInput': '◂',
 };
 
 var allLanguages = {};
@@ -331,7 +342,7 @@ function loadLanguage(code, language) {
   });
 
   language.nativeAliases = {};
-  Object.keys(language.aliases).forEach(function(alias) {
+  Object.keys(language.aliases || []).forEach(function(alias) {
     var spec = language.aliases[alias];
     var block = blocksBySpec[spec];
 
@@ -359,25 +370,25 @@ function loadLanguages(languages) {
 // TODO: put in translation file, generate?
 var english = {
   aliases: {
-    "turn left %n degrees": "turn @turnLeft %n degrees",
-    "turn ccw %n degrees": "turn @turnLeft %n degrees",
-    "turn right %n degrees": "turn @turnRight %n degrees",
-    "turn cw %n degrees": "turn @turnRight %n degrees",
-    "when gf clicked": "when @greenFlag clicked",
-    "when flag clicked": "when @greenFlag clicked",
-    "when green flag clicked": "when @greenFlag clicked",
+    'turn left %n degrees': 'turn @turnLeft %n degrees',
+    'turn ccw %n degrees': 'turn @turnLeft %n degrees',
+    'turn right %n degrees': 'turn @turnRight %n degrees',
+    'turn cw %n degrees': 'turn @turnRight %n degrees',
+    'when gf clicked': 'when @greenFlag clicked',
+    'when flag clicked': 'when @greenFlag clicked',
+    'when green flag clicked': 'when @greenFlag clicked',
   },
 
-  define: ["define"],
+  define: ['define'],
 
   // For ignoring the lt sign in the "when distance < _" block
-  ignorelt: ["when distance"],
+  ignorelt: ['when distance'],
 
   // Valid arguments to "of" dropdown, for resolving ambiguous situations
-  math: ["abs", "floor", "ceiling", "sqrt", "sin", "cos", "tan", "asin", "acos", "atan", "ln", "log", "e ^", "10 ^"],
+  math: ['abs', 'floor', 'ceiling', 'sqrt', 'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'ln', 'log', 'e ^', '10 ^'],
 
   // For detecting the "stop" cap / stack block
-  osis: ["other scripts in sprite", "other scripts in stage"],
+  osis: ['other scripts in sprite', 'other scripts in stage'],
 
   dropdowns: {},
 
@@ -421,7 +432,7 @@ function applyOverrides(info, overrides) {
     var name = overrides[i];
     if (hexColorPat.test(name)) {
       info.color = name;
-      info.category = "";
+      info.category = '';
       info.categoryIsDefault = false;
     } else if (overrideCategories.indexOf(name) > -1) {
       info.category = name;
@@ -447,12 +458,12 @@ function paintBlock(info, children, languages) {
     if (child.isLabel) {
       words.push(child.value);
     } else if (child.isIcon) {
-      words.push("@" + child.name);
+      words.push('@' + child.name);
     } else {
-      words.push("_");
+      words.push('_');
     }
   }
-  var hash = info.hash = minifyHash(words.join(" "));
+  var hash = info.hash = minifyHash(words.join(' '));
 
   // paint
   var o = lookupHash(hash, info, children, languages);
@@ -471,8 +482,8 @@ function paintBlock(info, children, languages) {
     info.hasLoopArrow = type.hasLoopArrow;
 
     // ellipsis block
-    if (type.spec === ". . .") {
-      children = [new Label(". . .")];
+    if (type.spec === '. . .') {
+      children = [new Label('. . .')];
     }
   }
 
@@ -522,7 +533,7 @@ function parseLines(code, languages) {
   }
 
   function makeBlock(shape, children) {
-    var hasInputs = !!children.filter(function(x) { return !x.isLabel }).length;
+    var hasInputs = !!children.filter(function(x) { return !x.isLabel; }).length;
     var info = {
       shape: shape,
       category: shape === 'define-hat' ? 'custom'
@@ -589,24 +600,24 @@ function parseLines(code, languages) {
           break;
         case '@':
           next();
-          var name = "";
+          var name = '';
           while (tok && /[a-zA-Z]/.test(tok)) {
             name += tok;
             next();
           }
-          children.push(Icon.icons.hasOwnProperty(name) ? new Icon(name) : new Label("@" + name));
+          children.push(Icon.icons.hasOwnProperty(name) ? new Icon(name) : new Label('@' + name));
           label = null;
           break;
         case '\\':
           next(); // escape character
-          // fall-thru
+          // fall through
         case ':':
           if (tok === ':' && peek() === ':') {
             children.push(pOverrides(end));
             return children;
-          } // fall-thru
+          } // fall through
         default:
-          if (!label) children.push(label = new Label(""));
+          if (!label) children.push(label = new Label(''));
           label.value += tok;
           next();
       }
@@ -616,7 +627,7 @@ function parseLines(code, languages) {
 
   function pString() {
     next(); // '['
-    var s = "";
+    var s = '';
     var escapeV = false;
     while (tok && tok !== ']' && tok !== '\n') {
       if (tok === '\\') {
@@ -671,7 +682,7 @@ function parseLines(code, languages) {
       if (tok === 'v' && peek() === ')') {
         next();
         next();
-        return new Input('number-dropdown', "");
+        return new Input('number-dropdown', '');
       }
     }
 
@@ -680,7 +691,7 @@ function parseLines(code, languages) {
 
     // empty numbers
     if (children.length === 0) {
-      return new Input('number', "");
+      return new Input('number', '');
     }
 
     // number
@@ -700,8 +711,8 @@ function parseLines(code, languages) {
       var last = children[i - 1];
       if (i > 1 && last.value === 'v') {
         children.pop();
-        var value = children.map(function(l) { return l.value; }).join(" ");
-        return makeMenu('number-dropdown', value);
+        var val = children.map(function(l) { return l.value; }).join(' ');
+        return makeMenu('number-dropdown', val);
       }
     }
 
@@ -710,7 +721,7 @@ function parseLines(code, languages) {
     // rings
     if (block.info.shape === 'ring') {
       var first = block.children[0];
-      if (first && first.isInput && first.shape === 'number' && first.value === "") {
+      if (first && first.isInput && first.shape === 'number' && first.value === '') {
         block.children[0] = new Input('reporter');
       } else if (first && first.isScript && first.isEmpty) {
         block.children[0] = new Input('stack');
@@ -764,12 +775,12 @@ function parseLines(code, languages) {
     next();
     next();
     var overrides = [];
-    var override = "";
+    var override = '';
     while (tok && tok !== '\n' && tok !== end) {
       if (tok === ' ') {
         if (override) {
           overrides.push(override);
-          override = "";
+          override = '';
         }
       } else if (tok === '/' && peek() === '/') {
         break;
@@ -785,7 +796,7 @@ function parseLines(code, languages) {
   function pComment(end) {
     next();
     next();
-    var comment = "";
+    var comment = '';
     while (tok && tok !== '\n' && tok !== end) {
       comment += tok;
       next();
@@ -816,14 +827,14 @@ function parseLines(code, languages) {
         case ' ': next(); label = null; break;
         case '\\':
           next();
-          // fall-thru
+          // fall through
         case ':':
           if (tok === ':' && peek() === ':') {
             children.push(pOverrides());
             break;
-          } // fall-thru
+          } // fall through
         default:
-          if (!label) children.push(label = new Label(""));
+          if (!label) children.push(label = new Label(''));
           label.value += tok;
           next();
       }
@@ -848,7 +859,7 @@ function parseLines(code, languages) {
     if (!tok) return undefined;
     var line = pLine();
     return line || 'NL';
-  }
+  };
 }
 
 /* parseLines end */
@@ -899,7 +910,7 @@ function parseScripts(getLine) {
     next();
 
     if (b.hasScript) {
-      while (true) {
+      while (true) {  // eslint-disable-line
         var blocks = pMouth();
         b.children.push(new Script(blocks));
         if (line && line.isElse) {
@@ -952,12 +963,12 @@ function eachBlock(x, cb) {
 }
 
 var listBlocks = {
-  "append:toList:": 1,
-  "deleteLine:ofList:": 1,
-  "insert:at:ofList:": 2,
-  "setLine:ofList:to:": 1,
-  "showList:": 0,
-  "hideList:": 0,
+  'append:toList:': 1,
+  'deleteLine:ofList:': 1,
+  'insert:at:ofList:': 2,
+  'setLine:ofList:to:': 1,
+  'showList:': 0,
+  'hideList:': 0,
 };
 
 function blockName(block) {
@@ -967,7 +978,7 @@ function blockName(block) {
     if (!child.isLabel) return;
     words.push(child.value);
   }
-  return words.join(" ");
+  return words.join(' ');
 }
 
 function recogniseStuff(scripts) {
@@ -994,9 +1005,9 @@ function recogniseStuff(scripts) {
           } else if (child.isBlock) {
             if (!child.info.argument) return;
             parts.push({
-              number: "%n",
-              string: "%s",
-              boolean: "%b",
+              number: '%n',
+              string: '%s',
+              boolean: '%b',
             }[child.info.argument]);
 
             var name = blockName(child);
@@ -1004,7 +1015,7 @@ function recogniseStuff(scripts) {
             customArgs[name] = true;
           }
         }
-        var spec = parts.join(" ");
+        var spec = parts.join(' ');
         var hash = hashSpec(spec);
         var info = customBlocksByHash[hash] = {
           spec: spec,
@@ -1022,8 +1033,8 @@ function recogniseStuff(scripts) {
 
       // custom arguments
       } else if (block.info.categoryIsDefault && (block.isReporter || block.isBoolean)) {
-        var name = blockName(block);
-        if (customArgs[name]) {
+        var name_ = blockName(block);
+        if (customArgs[name_]) {
           block.info.category = 'custom-arg';
           block.info.categoryIsDefault = false;
           block.info.selector = 'getParam';
@@ -1072,12 +1083,15 @@ function recogniseStuff(scripts) {
     });
   });
 }
-
+/**
+ * @parameter code {string}
+ * @parameter options {object}
+ * @returns {Document}
+ */
 function parse(code, options) {
-  // TODO: options on sb.initialize -> state?
-  var options = extend({
+  options = extend({
     inline: false,
-    languages: ['en'],
+    languages: Object.keys(allLanguages),
   }, options);
 
   if (options.inline) {
@@ -1106,7 +1120,7 @@ function cdata(content) {
 }
 
 function el(name, props) {
-  var el = document.createElementNS("http://www.w3.org/2000/svg", name);
+  var el = document.createElementNS('http://www.w3.org/2000/svg', name);
   if (name === 'svg') {
     // explicit set namespace, see https://github.com/jindw/xmldom/issues/97
     el.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
@@ -1143,7 +1157,7 @@ function group(children) {
 
 function newSVG(width, height) {
   return el('svg', {
-    version: "1.1",
+    version: '1.1',
     width: width,
     height: height,
   });
@@ -1151,14 +1165,14 @@ function newSVG(width, height) {
 
 function polygon(props) {
   return el('polygon', extend(props, {
-    points: props.points.join(" "),
+    points: props.points.join(' '),
   }));
 }
 
 function path(props) {
   return el('path', extend(props, {
     path: null,
-    d: props.path.join(" "),
+    d: props.path.join(' '),
   }));
 }
 
@@ -1186,7 +1200,7 @@ function move(dx, dy, el) {
 
 function translatePath(dx, dy, path) {
   var isX = true;
-  var parts = path.split(" ");
+  var parts = path.split(' ');
   var out = [];
   for (var i=0; i<parts.length; i++) {
     var part = parts[i];
@@ -1206,7 +1220,7 @@ function translatePath(dx, dy, path) {
     }
     out.push(part);
   }
-  return out.join(" ");
+  return out.join(' ');
 }
 
 
@@ -1222,22 +1236,20 @@ function rect(w, h, props) {
 }
 
 function arc(p1x, p1y, p2x, p2y, rx, ry) {
-  var r = p2y - p1y;
-  return ["L", p1x, p1y, "A", rx, ry, 0, 0, 1, p2x, p2y].join(" ");
+  return ['L', p1x, p1y, 'A', rx, ry, 0, 0, 1, p2x, p2y].join(' ');
 }
 
 function arcw(p1x, p1y, p2x, p2y, rx, ry) {
-  var r = p2y - p1y;
-  return ["L", p1x, p1y, "A", rx, ry, 0, 0, 0, p2x, p2y].join(" ");
+  return ['L', p1x, p1y, 'A', rx, ry, 0, 0, 0, p2x, p2y].join(' ');
 }
 
 function roundedPath(w, h) {
   var r = h / 2;
   return [
-    "M", r, 0,
+    'M', r, 0,
     arc(w - r, 0, w - r, h, r, r),
     arc(r, h, r, 0, r, r),
-    "Z"
+    'Z'
   ];
 }
 
@@ -1250,12 +1262,12 @@ function roundedRect(w, h, props) {
 function pointedPath(w, h) {
   var r = h / 2;
   return [
-    "M", r, 0,
-    "L", w - r, 0, w, r,
-    "L", w, r, w - r, h,
-    "L", r, h, 0, r,
-    "L", 0, r, r, 0,
-    "Z",
+    'M', r, 0,
+    'L', w - r, 0, w, r,
+    'L', w, r, w - r, h,
+    'L', r, h, 0, r,
+    'L', 0, r, r, 0,
+    'Z',
   ];
 }
 
@@ -1266,65 +1278,65 @@ function pointedRect(w, h, props) {
 }
 
 function getTop(w) {
-  return ["M", 0, 3,
-    "L", 3, 0,
-    "L", 13, 0,
-    "L", 16, 3,
-    "L", 24, 3,
-    "L", 27, 0,
-    "L", w - 3, 0,
-    "L", w, 3
-  ].join(" ");
+  return ['M', 0, 3,
+    'L', 3, 0,
+    'L', 13, 0,
+    'L', 16, 3,
+    'L', 24, 3,
+    'L', 27, 0,
+    'L', w - 3, 0,
+    'L', w, 3
+  ].join(' ');
 }
 
 function getRingTop(w) {
-  return ["M", 0, 3,
-    "L", 3, 0,
-    "L", 7, 0,
-    "L", 10, 3,
-    "L", 16, 3,
-    "L", 19, 0,
-    "L", w - 3, 0,
-    "L", w, 3
-  ].join(" ");
+  return ['M', 0, 3,
+    'L', 3, 0,
+    'L', 7, 0,
+    'L', 10, 3,
+    'L', 16, 3,
+    'L', 19, 0,
+    'L', w - 3, 0,
+    'L', w, 3
+  ].join(' ');
 }
 
 function getRightAndBottom(w, y, hasNotch, inset) {
-  if (typeof inset === "undefined") {
+  if (typeof inset === 'undefined') {
     inset = 0;
   }
-  var arr = ["L", w, y - 3,
-    "L", w - 3, y
+  var arr = ['L', w, y - 3,
+    'L', w - 3, y
   ];
   if (hasNotch) {
     arr = arr.concat([
-      "L", inset + 27, y,
-      "L", inset + 24, y + 3,
-      "L", inset + 16, y + 3,
-      "L", inset + 13, y
+      'L', inset + 27, y,
+      'L', inset + 24, y + 3,
+      'L', inset + 16, y + 3,
+      'L', inset + 13, y
     ]);
   }
   if (inset > 0) {
     arr = arr.concat([
-      "L", inset + 2, y,
-      "L", inset, y + 2
-    ])
+      'L', inset + 2, y,
+      'L', inset, y + 2
+    ]);
   } else {
     arr = arr.concat([
-      "L", inset + 3, y,
-      "L", 0, y - 3
+      'L', inset + 3, y,
+      'L', 0, y - 3
     ]);
   }
-  return arr.join(" ");
+  return arr.join(' ');
 }
 
 function getArm(w, armTop) {
   return [
-    "L", 15, armTop - 2,
-    "L", 15 + 2, armTop,
-    "L", w - 3, armTop,
-    "L", w, armTop + 3
-  ].join(" ");
+    'L', 15, armTop - 2,
+    'L', 15 + 2, armTop,
+    'L', w - 3, armTop,
+    'L', w, armTop + 3
+  ].join(' ');
 }
 
 
@@ -1333,7 +1345,7 @@ function stackRect(w, h, props) {
     path: [
       getTop(w),
       getRightAndBottom(w, h, true, 0),
-      "Z",
+      'Z',
     ],
   }));
 }
@@ -1342,7 +1354,7 @@ function capPath(w, h) {
   return [
     getTop(w),
     getRightAndBottom(w, h, false, 0),
-    "Z",
+    'Z',
   ];
 }
 
@@ -1350,7 +1362,7 @@ function ringCapPath(w, h) {
   return [
     getRingTop(w),
     getRightAndBottom(w, h, false, 0),
-    "Z",
+    'Z',
   ];
 }
 
@@ -1363,38 +1375,38 @@ function capRect(w, h, props) {
 function hatRect(w, h, props) {
   return path(extend(props, {
     path: [
-      "M", 0, 12,
+      'M', 0, 12,
       arc(0, 12, 80, 10, 80, 80),
-      "L", w - 3, 10, "L", w, 10 + 3,
+      'L', w - 3, 10, 'L', w, 10 + 3,
       getRightAndBottom(w, h, true),
-      "Z",
+      'Z',
     ],
   }));
 }
 
 function curve(p1x, p1y, p2x, p2y, roundness) {
-  var roundness = roundness || 0.42;
+  roundness = roundness || 0.42;
   var midX = (p1x + p2x) / 2.0;
   var midY = (p1y + p2y) / 2.0;
   var cx = Math.round(midX + (roundness * (p2y - p1y)));
   var cy = Math.round(midY - (roundness * (p2x - p1x)));
-  return [cx, cy, p2x, p2y].join(" ");
+  return [cx, cy, p2x, p2y].join(' ');
 }
 
 function procHatBase(w, h, archRoundness, props) {
   // TODO use arc()
-  var archRoundness = Math.min(0.2, 35 / w);
+  archRoundness = Math.min(0.2, 35 / w);
   return path(extend(props, {
     path: [
-      "M", 0, 15,
-      "Q", curve(0, 15, w, 15, archRoundness),
+      'M', 0, 15,
+      'Q', curve(0, 15, w, 15, archRoundness),
       getRightAndBottom(w, h, true),
-      "M", -1, 13,
-      "Q", curve(-1, 13, w + 1, 13, archRoundness),
-      "Q", curve(w + 1, 13, w, 16, 0.6),
-      "Q", curve(w, 16, 0, 16, -archRoundness),
-      "Q", curve(0, 16, -1, 13, 0.6),
-      "Z",
+      'M', -1, 13,
+      'Q', curve(-1, 13, w + 1, 13, archRoundness),
+      'Q', curve(w + 1, 13, w, 16, 0.6),
+      'Q', curve(w, 16, 0, 16, -archRoundness),
+      'Q', curve(0, 16, -1, 13, 0.6),
+      'Z',
     ],
   }));
 }
@@ -1404,12 +1416,12 @@ function procHatCap(w, h, archRoundness) {
   // TODO this doesn't look quite right
   return path({
     path: [
-      "M", -1, 13,
-      "Q", curve(-1, 13, w + 1, 13, archRoundness),
-      "Q", curve(w + 1, 13, w, 16, 0.6),
-      "Q", curve(w, 16, 0, 16, -archRoundness),
-      "Q", curve(0, 16, -1, 13, 0.6),
-      "Z",
+      'M', -1, 13,
+      'Q', curve(-1, 13, w + 1, 13, archRoundness),
+      'Q', curve(w + 1, 13, w, 16, 0.6),
+      'Q', curve(w, 16, 0, 16, -archRoundness),
+      'Q', curve(0, 16, -1, 13, 0.6),
+      'Z',
     ],
     class: 'sb-define-hat-cap',
   });
@@ -1422,8 +1434,8 @@ function procHatRect(w, h, props) {
   var archRoundness = Math.min(0.2, 35 / w);
 
   return move(0, y, group([
-      procHatBase(w, q, archRoundness, props),
-      procHatCap(w, q, archRoundness),
+    procHatBase(w, q, archRoundness, props),
+    procHatCap(w, q, archRoundness),
   ]));
 }
 
@@ -1456,13 +1468,13 @@ function ringRect(w, h, cy, cw, ch, shape, props) {
             : cw < 40 ? ringCapPath : capPath;
   return path(extend(props, {
     path: [
-      "M", r, 0,
+      'M', r, 0,
       arcw(r, 0, 0, r, r, r),
       arcw(0, h - r, r, h, r, r),
       arcw(w - r, h, w, h - r, r, r),
       arcw(w, r, w - r, 0, r, r),
-      "Z",
-      translatePath(4, cy || 4, func(cw, ch).join(" ")),
+      'Z',
+      translatePath(4, cy || 4, func(cw, ch).join(' ')),
     ],
     'fill-rule': 'even-odd',
   }));
@@ -1473,12 +1485,12 @@ function commentRect(w, h, props) {
   return path(extend(props, {
     class: 'sb-comment',
     path: [
-      "M", r, 0,
+      'M', r, 0,
       arc(w - r, 0, w, r, r, r),
       arc(w, h - r, w - r, h, r, r),
       arc(r, h, 0, h - r, r, r),
       arc(0, r, r, 0, r, r),
-      "Z"
+      'Z'
     ],
   }));
 }
@@ -1502,38 +1514,38 @@ function makeStyle() {
 function makeIcons() {
   return [
     el('path', {
-      d: "M1.504 21L0 19.493 4.567 0h1.948l-.5 2.418s1.002-.502 3.006 0c2.006.503 3.008 2.01 6.517 2.01 3.508 0 4.463-.545 4.463-.545l-.823 9.892s-2.137 1.005-5.144.696c-3.007-.307-3.007-2.007-6.014-2.51-3.008-.502-4.512.503-4.512.503L1.504 21z",
+      d: 'M1.504 21L0 19.493 4.567 0h1.948l-.5 2.418s1.002-.502 3.006 0c2.006.503 3.008 2.01 6.517 2.01 3.508 0 4.463-.545 4.463-.545l-.823 9.892s-2.137 1.005-5.144.696c-3.007-.307-3.007-2.007-6.014-2.51-3.008-.502-4.512.503-4.512.503L1.504 21z',
       fill: '#3f8d15',
       id: 'greenFlag'
     }),
     el('path', {
-      d: "M6.724 0C3.01 0 0 2.91 0 6.5c0 2.316 1.253 4.35 3.14 5.5H5.17v-1.256C3.364 10.126 2.07 8.46 2.07 6.5 2.07 4.015 4.152 2 6.723 2c1.14 0 2.184.396 2.993 1.053L8.31 4.13c-.45.344-.398.826.11 1.08L15 8.5 13.858.992c-.083-.547-.514-.714-.963-.37l-1.532 1.172A6.825 6.825 0 0 0 6.723 0z",
+      d: 'M6.724 0C3.01 0 0 2.91 0 6.5c0 2.316 1.253 4.35 3.14 5.5H5.17v-1.256C3.364 10.126 2.07 8.46 2.07 6.5 2.07 4.015 4.152 2 6.723 2c1.14 0 2.184.396 2.993 1.053L8.31 4.13c-.45.344-.398.826.11 1.08L15 8.5 13.858.992c-.083-.547-.514-.714-.963-.37l-1.532 1.172A6.825 6.825 0 0 0 6.723 0z',
       fill: '#fff',
       id: 'turnRight'
     }),
     el('path', {
-      d: "M3.637 1.794A6.825 6.825 0 0 1 8.277 0C11.99 0 15 2.91 15 6.5c0 2.316-1.253 4.35-3.14 5.5H9.83v-1.256c1.808-.618 3.103-2.285 3.103-4.244 0-2.485-2.083-4.5-4.654-4.5-1.14 0-2.184.396-2.993 1.053L6.69 4.13c.45.344.398.826-.11 1.08L0 8.5 1.142.992c.083-.547.514-.714.963-.37l1.532 1.172z",
+      d: 'M3.637 1.794A6.825 6.825 0 0 1 8.277 0C11.99 0 15 2.91 15 6.5c0 2.316-1.253 4.35-3.14 5.5H9.83v-1.256c1.808-.618 3.103-2.285 3.103-4.244 0-2.485-2.083-4.5-4.654-4.5-1.14 0-2.184.396-2.993 1.053L6.69 4.13c.45.344.398.826-.11 1.08L0 8.5 1.142.992c.083-.547.514-.714.963-.37l1.532 1.172z',
       fill: '#fff',
       id: 'turnLeft'
     }),
     el('path', {
-      d: "M0 0L4 4L0 8Z",
+      d: 'M0 0L4 4L0 8Z',
       fill: '#111',
       id: 'addInput'
     }),
     el('path', {
-      d: "M4 0L4 8L0 4Z",
+      d: 'M4 0L4 8L0 4Z',
       fill: '#111',
       id: 'delInput'
     }),
     setProps(group([
       el('path', {
-        d: "M8 0l2 -2l0 -3l3 0l-4 -5l-4 5l3 0l0 3l-8 0l0 2",
+        d: 'M8 0l2 -2l0 -3l3 0l-4 -5l-4 5l3 0l0 3l-8 0l0 2',
         fill: '#000',
         opacity: '0.3',
       }),
       move(-1, -1, el('path', {
-        d: "M8 0l2 -2l0 -3l3 0l-4 -5l-4 5l3 0l0 3l-8 0l0 2",
+        d: 'M8 0l2 -2l0 -3l3 0l-4 -5l-4 5l3 0l0 3l-8 0l0 2',
         fill: '#fff',
         opacity: '0.9',
       })),
@@ -1556,55 +1568,55 @@ var Filter = function(id, props) {
 Filter.prototype.fe = function(name, props, children) {
   var shortName = name.toLowerCase().replace(/gaussian|osite/, '');
   var id = [shortName, '-', ++this.highestId].join('');
-  this.el.appendChild(withChildren(el("fe" + name, extend(props, {
+  this.el.appendChild(withChildren(el('fe' + name, extend(props, {
     result: id,
   })), children || []));
   return id;
-}
+};
 Filter.prototype.comp = function(op, in1, in2, props) {
   return this.fe('Composite', extend(props, {
     operator: op,
     in: in1,
     in2: in2,
   }));
-}
+};
 Filter.prototype.subtract = function(in1, in2) {
   return this.comp('arithmetic', in1, in2, { k2: +1, k3: -1 });
-}
+};
 Filter.prototype.offset = function(dx, dy, in1) {
   return this.fe('Offset', {
     in: in1,
     dx: dx,
     dy: dy,
   });
-}
+};
 Filter.prototype.flood = function(color, opacity, in1) {
   return this.fe('Flood', {
     in: in1,
     'flood-color': color,
     'flood-opacity': opacity,
   });
-}
-Filter.prototype.blur = function(dev, in1) {
+};
+Filter.prototype.blur = function(dev) {
   return this.fe('GaussianBlur', {
     'in': 'SourceAlpha',
     stdDeviation: [dev, dev].join(' '),
   });
-}
+};
 Filter.prototype.merge = function(children) {
   this.fe('Merge', {}, children.map(function(name) {
     return el('feMergeNode', {
       in: name,
     });
   }));
-}
+};
 
 function bevelFilter(id, inset) {
   var f = new Filter(id);
 
   var alpha = 'SourceAlpha';
   var s = inset ? -1 : 1;
-  var blur = f.blur(1, alpha);
+  var blur = f.blur(1);
 
   f.merge([
     'SourceGraphic',
@@ -1642,25 +1654,14 @@ function darkRect(w, h, category, el) {
   ]), { width: w, height: h });
 }
 
-
-/* layout */
-
-function draw(o) {
-  o.draw();
-}
-
-var Metrics = function(width) {
-  this.width = width;
-};
-
 /* Label */
 
 function measureText(text, font) {
-    // re-use canvas object for better performance
-    var canvas = measureText.canvas || (measureText.canvas = newCanvas());
-    var context = canvas.getContext("2d");
-    context.font = font;
-    return context.measureText(text);
+  // re-use canvas object for better performance
+  var canvas = measureText.canvas || (measureText.canvas = newCanvas());
+  var context = canvas.getContext('2d');
+  context.font = font;
+  return context.measureText(text);
 }
 
 var allLabels = [];
@@ -1676,9 +1677,9 @@ var Label = function(value, cls) {
 Label.prototype.isLabel = true;
 
 Label.prototype.stringify = function() {
-  if (this.value === "<" || this.value === ">") return this.value;
+  if (this.value === '<' || this.value === '>') return this.value;
   return (this.value
-    .replace(/([<>[\](){}])/g, "\\$1")
+    .replace(/([<>[\](){}])/g, '\\$1')
   );
 };
 
@@ -1714,13 +1715,13 @@ var Icon = function(name) {
   this.isArrow = name === 'loopArrow';
 
   var info = Icon.icons[name];
-  assert(info, "no info for icon " + name);
+  assert(info, 'no info for icon ' + name);
   extend(info, this);
 };
 Icon.prototype.isIcon = true;
 
 Icon.prototype.stringify = function() {
-  return unicodeIcons["@" + this.name] || "";
+  return unicodeIcons['@' + this.name] || '';
 };
 
 Icon.icons = {
@@ -1771,7 +1772,7 @@ Input.fromJSON = function(lang, value, part) {
     c: 'color',
   }[part[1]];
 
-  var value = value ? ""+value : "";
+  value = value ? ''+value : '';
   if (shape === 'color') {
     if (!value) value = parseInt(Math.random() * 256 * 256 * 256);
     if (value < 0) value = 0xFFFFFFFF + value + 1;
@@ -1784,14 +1785,14 @@ Input.fromJSON = function(lang, value, part) {
     value = '#' + hex;
   } else if (shape === 'dropdown') {
     value = {
-      _mouse_: "mouse-pointer",
-      _myself_: "myself",
-      _stage_: "Stage",
-      _edge_: "edge",
-      _random_: "random position",
+      _mouse_: 'mouse-pointer',
+      _myself_: 'myself',
+      _stage_: 'Stage',
+      _edge_: 'edge',
+      _random_: 'random position',
     }[value] || value;
   } else if (shape === 'number') {
-    value = value || "0";
+    value = value || '0';
   }
   if (shape === 'dropdown' || shape === 'number-dropdown') {
     var menu = value;
@@ -1813,11 +1814,11 @@ Input.prototype.toJSON = function() {
     var value = this.menu || this.value;
     if (this.shape === 'dropdown') {
       value = {
-        "mouse-pointer": "_mouse_",
-        "myself": "_myself",
-        "Stage": "_stage_",
-        "edge": "_edge_",
-        "random position": "_random_",
+        'mouse-pointer': '_mouse_',
+        'myself': '_myself',
+        'Stage': '_stage_',
+        'edge': '_edge_',
+        'random position': '_random_',
       }[value] || value;
     }
     return value;
@@ -1828,17 +1829,17 @@ Input.prototype.toJSON = function() {
 Input.prototype.stringify = function() {
   if (this.isColor) {
     assert(this.value[0] === '#');
-    return "[" + this.value + "]";
+    return '[' + this.value + ']';
   }
-  var text = ((this.value ? "" + this.value : "")
-    .replace(/ v$/, " \\v")
-    .replace(/([\]\\])/g, "\\$1")
+  var text = ((this.value ? '' + this.value : '')
+    .replace(/ v$/, ' \\v')
+    .replace(/([\]\\])/g, '\\$1')
   );
-  if (this.hasArrow) text += " v";
-  return this.isRound ? "(" + text + ")"
-        : this.isSquare ? "[" + text + "]"
-        : this.isBoolean ? "<>"
-        : this.isStacK ? "{}"
+  if (this.hasArrow) text += ' v';
+  return this.isRound ? '(' + text + ')'
+        : this.isSquare ? '[' + text + ']'
+        : this.isBoolean ? '<>'
+        : this.isStacK ? '{}'
         : text;
 };
 
@@ -1863,11 +1864,12 @@ Input.shapes = {
 };
 
 Input.prototype.draw = function(parent) {
+  var w;
   if (this.hasLabel) {
     var label = this.label.draw();
-    var w = Math.max(14, this.label.width + (this.shape === 'string' || this.shape === 'number-dropdown' ? 6 : 9));
+    w = Math.max(14, this.label.width + (this.shape === 'string' || this.shape === 'number-dropdown' ? 6 : 9));
   } else {
-    var w = this.isInset ? 30 : this.isColor ? 13 : null;
+    w = this.isInset ? 30 : this.isColor ? 13 : null;
   }
   if (this.hasArrow) w += 10;
   this.width = w;
@@ -1943,17 +1945,18 @@ var Block = function(info, children, comment) {
 };
 Block.prototype.isBlock = true;
 
-Block.fromJSON = function(lang, array, part) {
+Block.fromJSON = function(lang, array) {
   var args = array.slice();
   var selector = args.shift();
+  var spec, info, parts, children;
   if (selector === 'procDef') {
-    var spec = args[0];
+    spec = args[0];
     var inputNames = args[1].slice();
     // var defaultValues = args[2];
     // var isAtomic = args[3]; // TODO
 
-    var info = parseSpec(spec);
-    var children = info.parts.map(function(part) {
+    info = parseSpec(spec);
+    children = info.parts.map(function(part) {
       if (inputPat.test(part)) {
         var label = new Label(inputNames.shift());
         return new Block({
@@ -1968,7 +1971,7 @@ Block.fromJSON = function(lang, array, part) {
       shape: 'outline',
     }, children);
 
-    var children = [new Label(lang.define[0]), outline];
+    children = [new Label(lang.define[0]), outline];
     return new Block({
       shape: 'define-hat',
       category: 'custom',
@@ -1979,19 +1982,19 @@ Block.fromJSON = function(lang, array, part) {
     }, children);
 
   } else if (selector === 'call') {
-    var spec = args.shift();
-    var info = extend(parseSpec(spec), {
+    spec = args.shift();
+    info = extend(parseSpec(spec), {
       category: 'custom',
       shape: 'stack',
       selector: 'call',
       call: spec,
       language: lang,
     });
-    var parts = info.parts;
+    parts = info.parts;
 
   } else if (selector === 'readVariable' || selector === 'contentsOfList:' || selector === 'getParam') {
     var shape = selector === 'getParam' && args.pop() === 'b' ? 'boolean' : 'reporter';
-    var info = {
+    info = {
       selector: selector,
       shape: shape,
       category: {
@@ -2000,18 +2003,18 @@ Block.fromJSON = function(lang, array, part) {
         'getParam': 'custom-arg',
       }[selector],
       language: lang,
-    }
+    };
     return new Block(info, [new Label(args[0])]);
 
   } else {
-    var info = extend(blocksBySelector[selector], {
+    info = extend(blocksBySelector[selector], {
       language: lang,
     });
-    assert(info, "unknown selector: " + selector);
-    var spec = lang.commands[info.spec] || spec;
-    var parts = spec ? parseSpec(spec).parts : info.parts;
+    assert(info, 'unknown selector: ' + selector);
+    spec = lang.commands[info.spec] || spec;
+    parts = spec ? parseSpec(spec).parts : info.parts;
   }
-  var children = parts.map(function(part) {
+  children = parts.map(function(part) {
     if (inputPat.test(part)) {
       var arg = args.shift();
       return (isArray(arg) ? Block : Input).fromJSON(lang, arg, part);
@@ -2025,7 +2028,7 @@ Block.fromJSON = function(lang, array, part) {
     assert(isArray(list));
     children.push(new Script(list.map(Block.fromJSON.bind(null, lang))));
     if (selector === 'doIfElse' && index === 0) {
-      children.push(new Label(lang.commands["else"]));
+      children.push(new Label(lang.commands['else']));
     }
   });
   // TODO loop arrows
@@ -2042,7 +2045,7 @@ Block.prototype.toJSON = function() {
     var info = parseSpec(spec);
     var defaultValues = info.inputs.map(function(input) {
       return input === '%n' ? 1
-            : input === '%b' ? false : "";
+            : input === '%b' ? false : '';
     });
     var isAtomic = false; // TODO 'define-atomic' ??
     return ['procDef', spec, inputNames, defaultValues, isAtomic];
@@ -2064,7 +2067,7 @@ Block.prototype.toJSON = function() {
       return ['call', this.info.call].concat(args);
     }
   }
-  if (!selector) throw "unknown block: " + this.info.hash;
+  if (!selector) throw 'unknown block: ' + this.info.hash;
   return [selector].concat(args);
 };
 
@@ -2075,15 +2078,14 @@ Block.prototype.stringify = function() {
     if (child.isIcon) checkAlias = true;
     if (child.isInput && !firstInput) firstInput = child;
 
-    return child.isScript ? "\n" + indent(child.stringify()) + "\n"
-                          : child.stringify().trim() + " ";
-  }).join("").trim();
+    return child.isScript ? '\n' + indent(child.stringify()) + '\n'
+                          : child.stringify().trim() + ' ';
+  }).join('').trim();
 
   var lang = this.info.language;
   if (checkAlias && lang && this.info.selector) {
     var type = blocksBySelector[this.info.selector];
-    var spec = type.spec;
-    var alias = lang.nativeAliases[type.spec]
+    var alias = lang.nativeAliases[type.spec];
     if (alias) {
       // TODO make translate() not in-place, and use that
       if (inputPat.test(alias)) {
@@ -2095,11 +2097,11 @@ Block.prototype.stringify = function() {
 
   if ((this.info.shape === 'reporter' && this.info.category === 'list')
     || (this.info.category === 'custom' && this.info.shape === 'stack')) {
-    text += " :: " + this.info.category;
+    text += ' :: ' + this.info.category;
   }
-  return this.hasScript ? text + "\nend"
-        : this.info.shape === 'reporter' ? "(" + text + ")"
-        : this.info.shape === 'boolean' ? "<" + text + ">"
+  return this.hasScript ? text + '\nend'
+        : this.info.shape === 'reporter' ? '(' + text + ')'
+        : this.info.shape === 'boolean' ? '<' + text + '>'
         : text;
 };
 
@@ -2122,7 +2124,7 @@ Block.prototype.translate = function(lang, isShallow) {
     child.translate(lang);
   });
   this.children = nativeInfo.parts.map(function(part) {
-    var part = part.trim();
+    part = part.trim();
     if (!part) return;
     return inputPat.test(part) ? args.shift()
           : iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part);
@@ -2177,7 +2179,7 @@ Block.prototype.drawSelf = function(w, h, lines) {
   }
 
   var func = Block.shapes[this.info.shape];
-  assert(func, "no shape func: " + this.info.shape);
+  assert(func, 'no shape func: ' + this.info.shape);
   return func(w, h, {
     class: ['sb-' + this.info.category, 'sb-bevel'].join(' '),
   });
@@ -2219,9 +2221,9 @@ Block.prototype.draw = function() {
   var children = this.children;
 
   var padding = Block.padding[this.info.shape] || Block.padding[null];
-  var pt = padding[0],
-      px = padding[1],
-      pb = padding[2];
+  var pt = padding[0];
+  var px = padding[1];
+  var pb = padding[2];
 
   var y = 0;
   var Line = function(y) {
@@ -2254,7 +2256,8 @@ Block.prototype.draw = function() {
         .concat(children.slice(i))
       );
     }.bind(this);
-    for (var i=0; i<children.length; i++) {
+    var i;
+    for (i=0; i<children.length; i++) {
       if (children[i].isScript) {
         flip();
         start = i + 1;
@@ -2265,7 +2268,7 @@ Block.prototype.draw = function() {
   }
 
   var lines = [];
-  for (var i=0; i<children.length; i++) {
+  for (i=0; i<children.length; i++) {
     var child = children[i];
     child.el = child.draw(this);
 
@@ -2314,35 +2317,35 @@ Block.prototype.draw = function() {
 
   var objects = [];
 
-  for (var i=0; i<lines.length; i++) {
-    var line = lines[i];
-    if (line.isScript) {
-      objects.push(move(15, line.y, line.el));
+  for (i=0; i<lines.length; i++) {
+    var line_ = lines[i];
+    if (line_.isScript) {
+      objects.push(move(15, line_.y, line_.el));
       continue;
     }
 
-    var h = line.height;
+    var h = line_.height;
 
-    for (var j=0; j<line.children.length; j++) {
-      var child = line.children[j];
-      if (child.isArrow) {
-        objects.push(move(innerWidth - 15, this.height - 3, child.el));
+    for (var j=0; j<line_.children.length; j++) {
+      var child_ = line_.children[j];
+      if (child_.isArrow) {
+        objects.push(move(innerWidth - 15, this.height - 3, child_.el));
         continue;
       }
 
-      var y = pt + (h - child.height - pt - pb) / 2 - 1;
-      if (isDefine && child.isLabel) {
-        y += 3;
-      } else if (child.isIcon) {
-        y += child.dy | 0;
+      var y_ = pt + (h - child_.height - pt - pb) / 2 - 1;
+      if (isDefine && child_.isLabel) {
+        y_ += 3;
+      } else if (child_.isIcon) {
+        y_ += child_.dy | 0;
       }
       if (this.isRing) {
-        child.y = line.y + y|0;
-        if (child.isInset) {
+        child_.y = line_.y + y_|0;
+        if (child_.isInset) {
           continue;
         }
       }
-      objects.push(move(px + child.x, line.y + y|0, child.el));
+      objects.push(move(px + child_.x, line_.y + y_|0, child_.el));
     }
   }
 
@@ -2370,7 +2373,7 @@ Comment.lineLength = 12;
 Comment.prototype.height = 20;
 
 Comment.prototype.stringify = function() {
-  return "// " + this.label.value;
+  return '// ' + this.label.value;
 };
 
 Comment.prototype.draw = function() {
@@ -2412,9 +2415,9 @@ Script.prototype.toJSON = function() {
 Script.prototype.stringify = function() {
   return this.blocks.map(function(block) {
     var line = block.stringify();
-    if (block.comment) line += " " + block.comment.stringify();
+    if (block.comment) line += ' ' + block.comment.stringify();
     return line;
-  }).join("\n");
+  }).join('\n');
 };
 
 Script.prototype.translate = function(lang) {
@@ -2462,7 +2465,7 @@ var Document = function(scripts) {
 };
 
 Document.fromJSON = function(scriptable, lang) {
-  var lang = lang || english;
+  lang = lang || english;
   var scripts = scriptable.scripts.map(function(array) {
     var script = Script.fromJSON(lang, array[2]);
     script.x = array[0];
@@ -2488,7 +2491,7 @@ Document.prototype.toJSON = function() {
 Document.prototype.stringify = function() {
   return this.scripts.map(function(script) {
     return script.stringify();
-  }).join("\n\n");
+  }).join('\n\n');
 };
 
 Document.prototype.translate = function(lang) {
@@ -2516,9 +2519,9 @@ Document.prototype.render = function() {
   // return SVG
   var svg = newSVG(width, height);
   svg.appendChild(withChildren(el('defs'), [
-      bevelFilter('bevelFilter', false),
-      bevelFilter('inputBevelFilter', true),
-      darkFilter('inputDarkFilter'),
+    bevelFilter('bevelFilter', false),
+    bevelFilter('inputBevelFilter', true),
+    darkFilter('inputDarkFilter'),
   ].concat(makeIcons())));
 
   svg.appendChild(group(elements));
@@ -2527,6 +2530,41 @@ Document.prototype.render = function() {
   this.el = svg;
   return svg;
 };
+
+Document.prototype.exportSVG = function() {
+  assert(this.el, 'call draw() first');
+
+  var style = makeStyle();
+  this.el.appendChild(style);
+  var xml = new XMLSerializer().serializeToString(this.el);
+  this.el.removeChild(style);
+
+  return 'data:image/svg+xml;utf8,' + xml.replace(
+    /[#]/g, encodeURIComponent
+  );
+};
+
+Document.prototype.exportPNG = function(cb) {
+  var canvas = newCanvas();
+  canvas.width = this.width;
+  canvas.height = this.height;
+  var context = canvas.getContext('2d');
+
+  var image = new Image;
+  image.src = this.exportSVG();
+  image.onload = function() {
+    context.drawImage(image, 0, 0);
+
+    if (URL && URL.createObjectURL && Blob && canvas.toBlob) {
+      canvas.toBlob(function(blob) {
+        cb(URL.createObjectURL(blob));
+      }, 'image/png');
+    } else {
+      cb(canvas.toDataURL('image/png'));
+    }
+  };
+};
+
 
 /***************************************************************************/
 
@@ -2563,14 +2601,14 @@ disambig('computeFunction:of:', 'getAttribute:of:', function(children, lang) {
   return lang.math.indexOf(name) > -1;
 });
 
-disambig('lineCountOfList:', 'stringLength:', function(children, lang) {
+disambig('lineCountOfList:', 'stringLength:', function(children) {
   // List block if dropdown, otherwise operators
   var last = children[children.length - 1];
   if (!last.isInput) return;
   return last.shape === 'dropdown';
 });
 
-disambig('penColor:', 'setPenHueTo:', function(children, lang) {
+disambig('penColor:', 'setPenHueTo:', function(children) {
   // Color block if color input, otherwise numeric
   var last = children[children.length - 1];
   // If variable, assume color input, since the RGBA hack is common.
@@ -2588,13 +2626,9 @@ blocksBySelector['stopScripts'].specialCase = function(info, children, lang) {
       shape: 'stack',
     });
   }
-}
+};
 
 loadLanguage('en', english);
-{
-  // TODO: load languages explicit on client?
-}
-
 
 /**
  * Exports
@@ -2604,11 +2638,11 @@ loadLanguage('en', english);
  * Render scratch code as SVG.
  *
  * @param str {string} Scratch code.
- * @returns {Element} SVG element.
+ * @returns {string} SVG as string.
  */
-module.exports = function (str) {
+function render (str, options) {
   allLabels = [];  // TODO: keep ref to labels in doc
-  var doc = parse(str);
+  var doc = parse(str, options);
   /**
    * Labels are not initialized with whole strings in parsing,
    * so we need to measure their size after parsing.
@@ -2619,17 +2653,97 @@ module.exports = function (str) {
    * Defs self-closing tags -> closing tags,
    * see http://stackoverflow.com/questions/12686247/safari-6-svg-tag-use-issues
    */
-  var strSvg = new XMLSerializer().serializeToString(svg)
+  var strSvg = new XMLSerializer().serializeToString(svg);
   // strSvg = strSvg.replace(/sbRemoveMe/g, '');
   return strSvg;
+}
+module.exports = render;
+
+/**
+ * Render all matching elements in page to shiny scratch blocks.
+ * Accepts a CSS selector as an argument.
+ *
+ *  scratchblocks.renderMatching("pre.blocks");
+ *
+ * Like the old 'scratchblocks2.parse().
+ */
+module.exports.renderMatching = function (selector, options) {
+  selector = selector || 'pre.blocks';
+  options = extend({
+    inline: false,
+    languages: ['en'],
+
+
+    read: readCode, // function(el, options) => code
+    parse: parse,   // function(code, options) => doc
+    render: render, // function(doc, cb) => svg string
+    replace: replace, // function(el, svg, doc, options)    read: readCode, //
+  }, options);
+
+  // find elements
+  var results = [].slice.apply(document.querySelectorAll(selector));
+  results.forEach(function(el) {
+    var code = options.read(el, options);
+
+    var doc = options.parse(code, options);
+
+    var svg = options.render(doc);
+
+    options.replace(el, svg, doc, options);
+  });
+
+  /**
+   * read code from a DOM element
+   *
+   * @parameter el {Element}
+   * @parameter options {object}
+   * @returns {string} Code inside `el`.
+   */
+  function readCode(el, options) {
+    options = extend({
+      inline: false,
+    }, options);
+
+    var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/ig, '\n');
+    var pre = document.createElement('pre');
+    pre.innerHTML = html;
+    var code = pre.textContent;
+    if (options.inline) {
+      code = code.replace('\n', '');
+    }
+    return code;
+  }
+
+  /**
+   * insert 'svg' into 'el', with appropriate wrapper elements
+   *
+   */
+  function replace(el, svg, scripts, options) {
+    var container;
+    if (options.inline) {
+      container = document.createElement('span');
+      var cls = 'scratchblocks scratchblocks-inline';
+      if (scripts[0] && !scripts[0].isEmpty) {
+        cls += ' scratchblocks-inline-' + scripts[0].blocks[0].shape;
+      }
+      container.className = cls;
+      container.style.display = 'inline-block';
+      container.style.verticalAlign = 'middle';
+    } else {
+      container = document.createElement('div');
+      container.className = 'scratchblocks';
+    }
+    container.insertAdjacentHTML('beforeend', svg);
+
+    el.innerHTML = '';
+    el.appendChild(container);
+  }
 };
 
 module.exports.loadLanguages = loadLanguages;
-
-// allLanguages: allLanguages, // read-only
-// fromJSON: Document.fromJSON,
-// toJSON: function(doc) { return doc.toJSON(); },
-// stringify: function(doc) { return doc.stringify(); },
+module.exports.fromJSON = Document.fromJSON;
+module.exports.toJSON = function(doc) { return doc.toJSON(); };
+module.exports.stringify = function(doc) { return doc.stringify(); };
 
 },{"./commands.js":1}]},{},[2])(2)
 });

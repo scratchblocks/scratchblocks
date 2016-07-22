@@ -11,7 +11,6 @@ var fs = require('fs');
 
 // root declarations
 var newCanvas;
-var document = document;
 
 if (process.env.SB_TARGET === 'client') {
   newCanvas = function () {
@@ -22,7 +21,7 @@ if (process.env.SB_TARGET === 'client') {
   var XMLSerializer = xmldom.XMLSerializer;
   var DOMParser = xmldom.DOMParser;
   var DOMImplementation = xmldom.DOMImplementation;
-  document = new DOMImplementation().createDocument();
+  var document = new DOMImplementation().createDocument();
   var Canvas = require('canvas');
   newCanvas = function () {
     return new Canvas();
@@ -170,7 +169,7 @@ function loadLanguage(code, language) {
   });
 
   language.nativeAliases = {};
-  Object.keys(language.aliases).forEach(function(alias) {
+  Object.keys(language.aliases || []).forEach(function(alias) {
     var spec = language.aliases[alias];
     var block = blocksBySpec[spec];
 
@@ -2458,9 +2457,17 @@ blocksBySelector['stopScripts'].specialCase = function(info, children, lang) {
 
 loadLanguage('en', english);
 if (process.env.SB_TARGET !== 'client') {
-  loadLanguages(require('./locales/de.json'));
-} else {
-  // TODO: load languages explicit on client?
+  var locales = fs.readdirSync(__dirname + '/locales/');
+  locales = locales.filter(f => f.search(/\.json$/) !== -1);
+  locales = locales.map(f => __dirname + '/locales/' + f);
+  locales.forEach(filename => {
+    try {
+      var lang = fs.readFileSync(filename, 'utf8');
+      loadLanguages(JSON.parse(lang));
+    } catch (e) {
+      console.error(e);
+    }
+  });
 }
 
 /**
