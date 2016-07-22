@@ -8,7 +8,7 @@
     "browser-min": "uglifyjs browser/scratchblocks.js > browser/scratchblocks.min.js",
     "browser-watch": "SB_TARGET='client' watchify --standalone scratchblocks -t envify -t unreachable-branch-transform  -t brfs src/scratchblocks.js -o browser/scratchblocks.js",
     "fetch-translations": "node src/fetch_translations.js",
-    "lint": "eslint",
+    "lint": "eslint src",
     "pre-publish": "npm run browser && npm run browser-min",
     "server": "http-server ./browser",
     "start": "concurrently \"npm run browser-watch\" \"npm run server\"",
