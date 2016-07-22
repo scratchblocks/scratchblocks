@@ -9,7 +9,7 @@ Make pictures of Scratch blocks from text.
 **scratchblocks** is used to write Scratch scripts:
 
 - in [Scratch Forum](http://scratch.mit.edu/discuss/topic/14772/) posts
-- in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles 
+- in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles
 - in the [Code Club](https://www.codeclub.org.uk) project guides
 
 It's MIT licensed, so you can use it in your projects. (But do send me a link
