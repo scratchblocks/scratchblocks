@@ -47,22 +47,6 @@
     return dest;
   }
 
-  // deep clone dictionaries/lists.
-  function clone(val) {
-    if (val == null) return val;
-    if (val.constructor == Array) {
-      return val.map(clone);
-    } else if (typeof val == "object") {
-      var result = {}
-      for (var key in val) {
-        result[clone(key)] = clone(val[key]);
-      }
-      return result;
-    } else {
-      return val;
-    }
-  }
-
   function indent(text) {
     return text.split("\n").map(function(line) {
       return "  " + line;
