@@ -17,7 +17,7 @@ When **reporting an issue**, please do the following:
 
 For **pull requests**:
 
-* Make sure you have [node.js](https://nodejs.org/) installed.
+* Make sure you have [node.js](https://nodejs.org/) >= 4.0 installed.
 
 * Install packages:
 
