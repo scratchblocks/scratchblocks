@@ -347,7 +347,7 @@ function getWhenDistance (blocks) {
  */
 function translate (lang, specs, x, y) {
   y = y || {};
-  var translations = {}
+  var translations = {};
   specs.forEach(spec => {
     var langSpec = x[spec] || y[spec];
     if (langSpec) {
