@@ -911,12 +911,15 @@ function recogniseStuff(scripts) {
     });
   });
 }
-
+/**
+ * @parameter code {string}
+ * @parameter options {object}
+ * @returns {Document}
+ */
 function parse(code, options) {
-  // TODO: options on sb.initialize -> state?
   options = extend({
     inline: false,
-    languages: ['en'],
+    languages: Object.keys(allLanguages),
   }, options);
 
   if (options.inline) {
@@ -2356,6 +2359,41 @@ Document.prototype.render = function() {
   return svg;
 };
 
+Document.prototype.exportSVG = function() {
+  assert(this.el, 'call draw() first');
+
+  var style = makeStyle();
+  this.el.appendChild(style);
+  var xml = new XMLSerializer().serializeToString(this.el);
+  this.el.removeChild(style);
+
+  return 'data:image/svg+xml;utf8,' + xml.replace(
+    /[#]/g, encodeURIComponent
+  );
+};
+
+Document.prototype.exportPNG = function(cb) {
+  var canvas = newCanvas();
+  canvas.width = this.width;
+  canvas.height = this.height;
+  var context = canvas.getContext('2d');
+
+  var image = new Image;
+  image.src = this.exportSVG();
+  image.onload = function() {
+    context.drawImage(image, 0, 0);
+
+    if (URL && URL.createObjectURL && Blob && canvas.toBlob) {
+      canvas.toBlob(function(blob) {
+        cb(URL.createObjectURL(blob));
+      }, 'image/png');
+    } else {
+      cb(canvas.toDataURL('image/png'));
+    }
+  };
+};
+
+
 /***************************************************************************/
 
 /**
@@ -2425,7 +2463,6 @@ if (process.env.SB_TARGET !== 'client') {
   // TODO: load languages explicit on client?
 }
 
-
 /**
  * Exports
  */
@@ -2434,9 +2471,9 @@ if (process.env.SB_TARGET !== 'client') {
  * Render scratch code as SVG.
  *
  * @param str {string} Scratch code.
- * @returns {Element} SVG element.
+ * @returns {string} SVG as string.
  */
-module.exports = function (str, options) {
+function render (str, options) {
   allLabels = [];  // TODO: keep ref to labels in doc
   var doc = parse(str, options);
   /**
@@ -2452,11 +2489,91 @@ module.exports = function (str, options) {
   var strSvg = new XMLSerializer().serializeToString(svg);
   // strSvg = strSvg.replace(/sbRemoveMe/g, '');
   return strSvg;
+}
+module.exports = render;
+
+/**
+ * Render all matching elements in page to shiny scratch blocks.
+ * Accepts a CSS selector as an argument.
+ *
+ *  scratchblocks.renderMatching("pre.blocks");
+ *
+ * Like the old 'scratchblocks2.parse().
+ */
+module.exports.renderMatching = function (selector, options) {
+  selector = selector || 'pre.blocks';
+  options = extend({
+    inline: false,
+    languages: ['en'],
+
+
+    read: readCode, // function(el, options) => code
+    parse: parse,   // function(code, options) => doc
+    render: render, // function(doc, cb) => svg string
+    replace: replace, // function(el, svg, doc, options)    read: readCode, //
+  }, options);
+
+  // find elements
+  var results = [].slice.apply(document.querySelectorAll(selector));
+  results.forEach(function(el) {
+    var code = options.read(el, options);
+
+    var doc = options.parse(code, options);
+
+    var svg = options.render(doc);
+
+    options.replace(el, svg, doc, options);
+  });
+
+  /**
+   * read code from a DOM element
+   *
+   * @parameter el {Element}
+   * @parameter options {object}
+   * @returns {string} Code inside `el`.
+   */
+  function readCode(el, options) {
+    options = extend({
+      inline: false,
+    }, options);
+
+    var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/ig, '\n');
+    var pre = document.createElement('pre');
+    pre.innerHTML = html;
+    var code = pre.textContent;
+    if (options.inline) {
+      code = code.replace('\n', '');
+    }
+    return code;
+  }
+
+  /**
+   * insert 'svg' into 'el', with appropriate wrapper elements
+   *
+   */
+  function replace(el, svg, scripts, options) {
+    var container;
+    if (options.inline) {
+      container = document.createElement('span');
+      var cls = 'scratchblocks scratchblocks-inline';
+      if (scripts[0] && !scripts[0].isEmpty) {
+        cls += ' scratchblocks-inline-' + scripts[0].blocks[0].shape;
+      }
+      container.className = cls;
+      container.style.display = 'inline-block';
+      container.style.verticalAlign = 'middle';
+    } else {
+      container = document.createElement('div');
+      container.className = 'scratchblocks';
+    }
+    container.insertAdjacentHTML('beforeend', svg);
+
+    el.innerHTML = '';
+    el.appendChild(container);
+  }
 };
 
 module.exports.loadLanguages = loadLanguages;
-
-// allLanguages: allLanguages, // read-only
-// fromJSON: Document.fromJSON,
-// toJSON: function(doc) { return doc.toJSON(); },
-// stringify: function(doc) { return doc.stringify(); },
+module.exports.fromJSON = Document.fromJSON;
+module.exports.toJSON = function(doc) { return doc.toJSON(); };
+module.exports.stringify = function(doc) { return doc.stringify(); };
