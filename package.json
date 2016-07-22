@@ -7,12 +7,12 @@
     "browser": "SB_TARGET='client' browserify --standalone scratchblocks -t envify -t unreachable-branch-transform  -t brfs src/scratchblocks.js -o browser/scratchblocks.js",
     "browser-min": "uglifyjs browser/scratchblocks.js > browser/scratchblocks.min.js",
     "browser-watch": "SB_TARGET='client' watchify --standalone scratchblocks -t envify -t unreachable-branch-transform  -t brfs src/scratchblocks.js -o browser/scratchblocks.js",
-    "fetch-translations": "node src/fetch_translations.js",
     "lint": "eslint src",
-    "pre-publish": "npm run browser && npm run browser-min",
+    "pre-publish": "npm run translations -- all && npm run translations && npm run browser && npm run browser-min",
     "server": "http-server ./browser",
     "start": "concurrently \"npm run browser-watch\" \"npm run server\"",
-    "test": "npm run fetch-translations && node tests/test.js"
+    "test": "npm run translations && node tests/test.js",
+    "translations": "node src/package_translations.js"
   },
   "repository": {
     "type": "git",

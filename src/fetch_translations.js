@@ -118,12 +118,14 @@ if (args.length > 3 || args[2] === '--help') {
 
 /**
  * Flow:
+ * - clean locales
  * - fetch
  * - add special cases
  * - transform translations
  * - print statistics
  * - write to JSON
  */
+cleanLocales();
 BUILD_LANGS.forEach(lang => {
   fetchTranslations(lang)
     .then(addEnd)
@@ -132,6 +134,16 @@ BUILD_LANGS.forEach(lang => {
     .then(writeJSON)
     .catch(e => console.error(e));
 });
+
+/**
+ * Removes all .json files in ./locales
+ */
+function cleanLocales () {
+  var files = fs.readdirSync(__dirname + '/locales');
+  files = files.filter(f => f.search(/\.json$/) !== -1);
+  files = files.map(f => __dirname + '/locales/' + f);
+  files.forEach(fs.unlinkSync);
+}
 
 /**
  * Fetches translations for given language.

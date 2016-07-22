@@ -35,6 +35,6 @@ For **pull requests**:
 
 * Before you send a PR, run `npm test` and take a look at the output in the `tests` folder.
 
-To refetch the translations (eg. to take into account new updates on [Pootle](translate.scratch.mit.edu/)), use `npm run fetch-translations`.
+To refetch the translations (eg. to take into account new updates on [Pootle](translate.scratch.mit.edu/)), use `npm run translations`.
 
 To modify the homepage, send a PR to the [scratchblocks/scratchblocks.github.io](https://github.com/scratchblocks/scratchblocks.github.io) repo.

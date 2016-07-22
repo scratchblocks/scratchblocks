@@ -101,7 +101,7 @@ In the browser, include [`translations.js`](https://github.com/tjvr/scratchblock
 
 `translations-all.js` contains all the languages Scratch supports.
 
-If you want to build your own language pack, use `scratchblocks.loadLanguage(lang)` where lang is the contents of `src/locales/lang.json`.
+If you want to build your own language pack, use `npm run translations -- languageCode`.
 
 Please note that scratchblocks **requires** some [additional words](https://github.com/tjvr/scratchblocks/blob/master/src/locales/extra_aliases.js) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
 
