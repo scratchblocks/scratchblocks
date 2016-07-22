@@ -236,6 +236,8 @@ function lookupHash(hash, info, children, languages) {
     var lang = languages[i];
     if (lang.blocksByHash.hasOwnProperty(hash)) {
       var block = lang.blocksByHash[hash];
+      if (info.shape === 'reporter' && block.shape !== 'reporter') continue;
+      if (info.shape === 'boolean' && block.shape !== 'boolean') continue;
       if (block.specialCase) {
         block = block.specialCase(info, children, lang) || block;
       }
@@ -347,6 +349,7 @@ function parseLines(code, languages) {
       if (code[i] !== ' ') return code[i];
     }
   }
+  var sawNL;
 
   var define = [];
   languages.map(function(lang) {
@@ -432,7 +435,11 @@ function parseLines(code, languages) {
             name += tok;
             next();
           }
-          children.push(Icon.icons.hasOwnProperty(name) ? new Icon(name) : new Label('@' + name));
+          if (name === 'cloud') {
+            children.push(new Label('☁'));
+          } else {
+            children.push(Icon.icons.hasOwnProperty(name) ? new Icon(name) : new Label('@' + name));
+          }
           label = null;
           break;
         case '\\':
@@ -477,7 +484,10 @@ function parseLines(code, languages) {
 
   function pBlock(end) {
     var children = pParts(end);
-    if (tok && tok === '\n') next();
+    if (tok && tok === '\n') {
+      sawNL = true;
+      next();
+    }
     if (children.length === 0) return;
 
     // define hats
@@ -550,7 +560,8 @@ function parseLines(code, languages) {
       var first = block.children[0];
       if (first && first.isInput && first.shape === 'number' && first.value === '') {
         block.children[0] = new Input('reporter');
-      } else if (first && first.isScript && first.isEmpty) {
+      } else if ((first && first.isScript && first.isEmpty)
+              || (first && first.isBlock && !first.children.length)) {
         block.children[0] = new Input('stack');
       }
     }
@@ -571,6 +582,7 @@ function parseLines(code, languages) {
   function pEmbedded() {
     next(); // '{'
 
+    sawNL = false;
     var f = function() {
       while (tok && tok !== '}') {
         var block = pBlock('}');
@@ -584,6 +596,10 @@ function parseLines(code, languages) {
     });
 
     if (tok === '}') next();
+    if (!sawNL) {
+      assert(blocks.length <= 1);
+      return blocks.length ? blocks[0] : makeBlock('stack', []);
+    }
     return new Script(blocks);
   }
 
@@ -1599,9 +1615,11 @@ Input.fromJSON = function(lang, value, part) {
     c: 'color',
   }[part[1]];
 
-  value = value ? ''+value : '';
   if (shape === 'color') {
-    if (!value) value = parseInt(Math.random() * 256 * 256 * 256);
+    if (!value && value !== 0) {
+      value = parseInt(Math.random() * 256 * 256 * 256);
+    }
+    value = +value;
     if (value < 0) value = 0xFFFFFFFF + value + 1;
     var hex = value.toString(16);
     hex = hex.slice(Math.max(0, hex.length - 6)); // last 6 characters
@@ -1618,15 +1636,13 @@ Input.fromJSON = function(lang, value, part) {
       _edge_: 'edge',
       _random_: 'random position',
     }[value] || value;
-  } else if (shape === 'number') {
-    value = value || '0';
-  }
-  if (shape === 'dropdown' || shape === 'number-dropdown') {
     var menu = value;
-    value = lang.dropdowns[value] || value;
+    value = lang.dropdowns[value] || value ;
+  } else if (shape === 'number-dropdown') {
+    value = lang.dropdowns[value] || value ;
   }
 
-  return new Input(shape, value, menu);
+  return new Input(shape, ''+value, menu);
 };
 
 Input.prototype.toJSON = function() {
@@ -1666,7 +1682,7 @@ Input.prototype.stringify = function() {
   return this.isRound ? '(' + text + ')'
         : this.isSquare ? '[' + text + ']'
         : this.isBoolean ? '<>'
-        : this.isStacK ? '{}'
+        : this.isStack ? '{}'
         : text;
 };
 
@@ -1674,7 +1690,7 @@ Input.prototype.translate = function(lang) {
   if (this.hasArrow) {
     var value = this.menu || this.value;
     this.value = lang.dropdowns[value] || value;
-    this.label = new Label(this.value, 'literal-' + this.shape);
+    this.label = new Label(this.value, ['sb-literal-' + this.shape]);
   }
 };
 
@@ -1852,6 +1868,7 @@ Block.fromJSON = function(lang, array) {
     }
   });
   args.forEach(function(list, index) {
+    list = list || [];
     assert(isArray(list));
     children.push(new Script(list.map(Block.fromJSON.bind(null, lang))));
     if (selector === 'doIfElse' && index === 0) {
@@ -1903,7 +1920,7 @@ Block.prototype.stringify = function() {
   var checkAlias = false;
   var text = this.children.map(function(child) {
     if (child.isIcon) checkAlias = true;
-    if (child.isInput && !firstInput) firstInput = child;
+    if (!firstInput && !(child.isLabel || child.isIcon)) firstInput = child;
 
     return child.isScript ? '\n' + indent(child.stringify()) + '\n'
                           : child.stringify().trim() + ' ';
@@ -1915,7 +1932,7 @@ Block.prototype.stringify = function() {
     var alias = lang.nativeAliases[type.spec];
     if (alias) {
       // TODO make translate() not in-place, and use that
-      if (inputPat.test(alias)) {
+      if (inputPat.test(alias) && firstInput) {
         alias = alias.replace(inputPat, firstInput.stringify());
       }
       return alias;
@@ -2289,6 +2306,7 @@ var Document = function(scripts) {
   this.width = null;
   this.height = null;
   this.el = null;
+  this.defs = null;
 };
 
 Document.fromJSON = function(scriptable, lang) {
@@ -2345,7 +2363,7 @@ Document.prototype.render = function() {
 
   // return SVG
   var svg = newSVG(width, height);
-  svg.appendChild(withChildren(el('defs'), [
+  svg.appendChild(this.defs = withChildren(el('defs'), [
     bevelFilter('bevelFilter', false),
     bevelFilter('inputBevelFilter', true),
     darkFilter('inputDarkFilter'),
@@ -2362,9 +2380,9 @@ Document.prototype.exportSVG = function() {
   assert(this.el, 'call draw() first');
 
   var style = makeStyle();
-  this.el.appendChild(style);
+  this.defs.appendChild(style);
   var xml = new XMLSerializer().serializeToString(this.el);
-  this.el.removeChild(style);
+  this.defs.removeChild(style);
 
   return 'data:image/svg+xml;utf8,' + xml.replace(
     /[#]/g, encodeURIComponent
