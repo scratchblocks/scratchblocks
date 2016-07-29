@@ -3,16 +3,7 @@
 
 <title>dev : [scratchblocks]</title>
 
-<script>
-$(document).ready(function() {
-  $("#tester-status").css({ color: 'red' });
-
-  if (/file:\/\//.test(window.location)) {
-    // Warn we need localhost
-    $("#tester-status").css({ color: 'red' });
-  }
-});
-</script>
+<!-- TODO: remove? -->
 
 <style>
 h1 {
@@ -80,7 +71,7 @@ a {
 
 <p id="tester-status">You need to serve this page from a local web server.</p>
 
-<textarea id="code"></textarea>
+<textarea id="code">turn left (15) degrees</textarea>
 
 <div>
   <button id="render">Render</button>
@@ -112,8 +103,7 @@ a {
 
 <pre id="preview" class="blocks"></pre>
 
-<script src="diacritics.js"></script>
-<script src="scratchblocks2.js"></script>
+<script src="scratchblocks.js"></script>
 <script src="translations.js"></script>
 
 <script>
@@ -139,16 +129,9 @@ function refresh (e) {
   location.hash = '#'+encodeURIComponent(script);
   oldHash = location.hash;
 
-  // empty preview
-  var child;
-  while (child = preview.lastChild) {
-    preview.removeChild(child);
-  }
-
   // add script
-  preview.appendChild(document.createTextNode(script))
-
-  scratchblocks2.parse("pre.blocks");
+  var svg = scratchblocks(script);
+  preview.innerHTML = svg;
 }
 
 function checkHash() {

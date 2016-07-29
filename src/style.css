@@ -1,12 +1,10 @@
-
 .sb-label {
-  font-family: Lucida Grande, Verdana, Arial, DejaVu Sans, sans-serif;
+  font-family: Lucida Grande, Lucida Sans Unicode, Verdana, Arial, sans-serif;
   font-weight: bold;
   fill: #fff;
   font-size: 10px;
   word-spacing: +1px;
 }
-
 .sb-obsolete { fill: #d42828; }
 .sb-motion { fill: #4a6cd4; }
 .sb-looks { fill: #8a55d7; }
@@ -22,11 +20,9 @@
 .sb-custom-arg { fill: #5947b1; }
 .sb-extension { fill: #4b4a60; }
 .sb-grey { fill: #969696; }
-
 .sb-bevel {
   filter: url(#bevelFilter);
 }
-
 .sb-input {
   filter: url(#inputBevelFilter);
 }
@@ -48,24 +44,20 @@
 .sb-literal-number-dropdown {
   fill: #000;
 }
-
 .sb-darker {
   filter: url(#inputDarkFilter);
 }
-
 .sb-outline {
   stroke: #fff;
   stroke-opacity: 0.2;
   stroke-width: 2;
   fill: none;
 }
-
 .sb-define-hat-cap {
   stroke: #632d99;
   stroke-width: 1;
   fill: #8e2ec2;
 }
-
 .sb-comment {
   fill: #ffffa5;
   stroke: #d0d1d2;
@@ -75,10 +67,9 @@
   fill: #ffff80;
 }
 .sb-comment-label {
-  font-family: Helevetica, Arial, DejaVu Sans, sans-serif;
+  font-family: DejaVu Sans, Helvetica, Arial, sans-serif;
   font-weight: bold;
   fill: #5c5d5f;
   word-spacing: 0;
   font-size: 12px;
 }
-

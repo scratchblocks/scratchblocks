@@ -9,7 +9,7 @@ Make pictures of Scratch blocks from text.
 **scratchblocks** is used to write Scratch scripts:
 
 - in [Scratch Forum](http://scratch.mit.edu/discuss/topic/14772/) posts
-- in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles 
+- in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles
 - in the [Code Club](https://www.codeclub.org.uk) project guides
 
 It's MIT licensed, so you can use it in your projects. (But do send me a link
@@ -35,39 +35,45 @@ This would probably be a good way to write a Scratch book.
 
 ## Markdown
 
-By using [codeclub_lesson_builder](https://github.com/arve0/codeclub_lesson_builder) you can include scratch code directly in markdown codeblocks like this:
-
+Inline code in your markdown like this:
     ```blocks
     when flag clicked
     go to x:(-50) y:(0)
     ```
 
-The markdown builds to HTML and PDF.
+Then use [markdown-it](https://github.com/markdown-it/markdown-it) or similar, and hook into the `highlight` option:
+
+```js
+var md = require('markdown-it')({
+  // Highlighter function. Should return escaped HTML,
+  // or '' if the source string is not changed and should be escaped externaly.
+  // If result starts with <pre... internal wrapper is skipped.
+  highlight: function (str, lang) {
+    if (lang === 'blocks') {
+      return scratchblocks(str);  // returns SVG as a string
+    }
+    // other languages
+    return '';
+  }
+});
+```
 
 ## HTML
 
 Include the scratchblocks JS file on your webpage:
 
 ```html
-<script src="//scratchblocks.github.io/js/scratchblocks-3.x-min.js"></script>
+<script src="https://scratchblocks.github.io/js/scratchblocks-3.x-min.js"></script>
 ```
 
-Then just call `scratchblocks.renderMatching` after the page has loaded, which
+Then call `scratchblocks.renderMatching` after the page has loaded, which
 will render matching page elements to shiny scratch blocks. Its sole argument
 is the CSS-style selector for the elements that contain the scratchblocks code.
 It uses `pre.blocks` by default.
 
 ```js
-scratchblocks.renderMatching("pre.blocks");
+scratchblocks.renderMatching('pre.blocks');
 ```
-
-Use `make`, or your preferred build tool, to minify the assets. You'll need to
-install some dependencies first:
-
-- Try `npm install`
-- Try `brew install zopfli`, or the equivalent command for your preferred package manager.
-
-See the [release notes](https://github.com/tjvr/scratchblocks/releases) for more details.
 
 ### Inline blocks
 
@@ -83,18 +89,35 @@ I'm rather fond of the <code class="b">stamp</code> block in Scratch.
 scratchblocks.renderMatching("code.b", {inline: true});
 ```
 
+See the [release notes](https://github.com/tjvr/scratchblocks/releases) for more details.
+
 # Languages
 
-[`translations.js`](https://github.com/tjvr/scratchblocks/blob/master/src/translations.js) contains all the languages needed [on the Scratch Forums](http://scratch.mit.edu/discuss/#category_head_6).
+In node, all languages in [`src/locales`](https://github.com/tjvr/scratchblocks/blob/master/src/locales) will be loaded.
+
+In the browser, include [`translations.js`](https://github.com/tjvr/scratchblocks/blob/master/browser/translations.js), [`all-translations.js`](https://github.com/tjvr/scratchblocks/blob/master/browser/translations.js) or build your own language pack.
+
+`translations.js` contains all the languages needed [on the Scratch Forums](http://scratch.mit.edu/discuss/#category_head_6).
 
 `translations-all.js` contains all the languages Scratch supports.
 
-scratchblocks also requires some [additional words](https://github.com/tjvr/scratchblocks/blob/master/src/extra_strings.py) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
+If you want to build your own language pack, use `npm run translations -- languageCode`.
+
+Please note that scratchblocks **requires** some [additional words](https://github.com/tjvr/scratchblocks/blob/master/src/locales/extra_aliases.js) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
 
 
 # Development
 
-See [`CONTRIBUTING.md`](https://github.com/tjvr/scratchblocks/blob/master/.github/CONTRIBUTING.md).
+This should set you up and start a http-server for development:
+
+```
+npm install
+npm start
+```
+
+Then open `http://localhost:8080/`
+
+For more details, see [`CONTRIBUTING.md`](https://github.com/tjvr/scratchblocks/blob/master/.github/CONTRIBUTING.md).
 
 
 # Credits
@@ -107,4 +130,4 @@ Many, many thanks to the [contributors](https://github.com/tjvr/scratchblocks/gr
 * JSO designed the syntax and wrote the original [Block Plugin](http://wiki.scratch.mit.edu/wiki/Block_Plugin_\(1.4\))
 * Help with translation code from [joooni](http://scratch.mit.edu/users/joooni/)
 * Block translations from the [Scratch translation server](http://translate.scratch.mit.edu/)
-
+* Ported to node by [arve0](https://github.com/arve0)

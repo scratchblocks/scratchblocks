@@ -1,3 +1,27 @@
+#preview:before {
+  position: relative;
+  min-width: 400px;
+  min-height: 300px;
+}
+.cmp #preview:before,
+.diff #preview:before {
+  position: absolute;
+  display: block;
+  content: "";
+  background: url(screenshot.png) no-repeat;
+}
+.cmp.diff #preview:before {
+  -webkit-filter: invert(100%) opacity(50%);
+}
+.diff #preview:before {
+  -webkit-filter: opacity(50%);
+}
+.cmp img {
+  display: none;
+}
+body {
+  background: #dddede;
+}
 * {
   box-sizing: border-box;
 }
