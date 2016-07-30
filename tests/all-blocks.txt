@@ -1,12 +1,12 @@
 // Motion
 
 move (10) steps
-turn cw (15) degrees 
-turn right (15) degrees 
-turn ↻ (15) degrees 
-turn ccw (15) degrees 
-turn left (15) degrees 
-turn ↺ (15) degrees 
+turn cw (15) degrees
+turn right (15) degrees
+turn ↻ (15) degrees
+turn ccw (15) degrees
+turn left (15) degrees
+turn ↺ (15) degrees
 
 point in direction (90 v)
 point towards [ v]
@@ -138,17 +138,17 @@ hide list [list v]
 
 // Events
 
-when gf clicked 
-when green flag clicked 
-when flag clicked 
+when gf clicked
+when green flag clicked
+when flag clicked
 when ⚑ clicked
-when [space v] key pressed 
-when this sprite clicked 
-when backdrop switches to [backdrop1 v] 
+when [space v] key pressed
+when this sprite clicked
+when backdrop switches to [backdrop1 v]
 
-when [loudness v] > (10) 
+when [loudness v] > (10)
 
-when I receive [message1 v] 
+when I receive [message1 v]
 broadcast [message1 v]
 broadcast [message1 v] and wait
 
@@ -158,27 +158,27 @@ broadcast [message1 v] and wait
 
 wait (1) secs
 
-repeat (10) 
+repeat (10)
 end
 
-forever 
+forever
 end
 
 if <> then
 end
 
-if <> then 
-else 
-end 
+if <> then
+else
+end
 
 wait until <>
 
-repeat until <> 
+repeat until <>
 end
 
 // caps!
 
-stop [all v] 
+stop [all v]
 
 stop [this script v]
 
@@ -188,9 +188,9 @@ stop [other scripts in sprite v]
 
 stop [other scripts in stage v]
 
-when I start as a clone 
+when I start as a clone
 create clone of [myself v]
-delete this clone 
+delete this clone
 
 
 
@@ -239,6 +239,8 @@ reset timer
 <[] < []>
 <[] = []>
 <[] > []>
+&lt;[] &lt; []&gt;
+&lt;[] &gt; []&gt;
 
 <<> and <>>
 <<> or <>>
