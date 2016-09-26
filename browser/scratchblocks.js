@@ -303,9 +303,10 @@ function minifyHash(hash) {
       .replace(/ +/g, ' ')
       .replace(/[,%?:]/g, '')
       .replace(/ß/g, 'ss')
-      .replace(/ä/g,'a')
-      .replace(/ö/g,'o')
-      .replace(/ü/g,'u')
+      .replace(/ä/g, 'a')
+      .replace(/ö/g, 'o')
+      .replace(/ü/g, 'u')
+      .replace(/’/g, "'")
       .replace('. . .', '...')
       .replace(/^…$/, '...')
   ).trim().toLowerCase();
