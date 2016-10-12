@@ -1,5 +1,9 @@
 .DS_Store
 *.swp
+
 node_modules
-tests/*.svg
 npm-debug.log
+yarn.lock
+
+tests/*.svg
+
