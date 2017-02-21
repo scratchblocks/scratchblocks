@@ -15932,7 +15932,7 @@ scratchblocks.loadLanguages({
       "舞台上的其他脚本"
     ]
   },
-  "zh_CN": {
+  "zh_TW": {
     "aliases": {
       "左轉 %n 度": "turn @turnLeft %n degrees",
       "右轉 %n 度": "turn @turnRight %n degrees",
@@ -16094,7 +16094,7 @@ scratchblocks.loadLanguages({
       "brightness": "亮度",
       "button pressed": "按鈕被按下",
       "C connected": "C 已連接",
-      "color": "颜色",
+      "color": "顏色",
       "costume name": "造型名稱",
       "D connected": "D 已連接",
       "date": "日",
