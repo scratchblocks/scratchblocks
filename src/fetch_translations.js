@@ -22,7 +22,7 @@ var ALL_LANGS = ['ar', 'an', 'hy', 'ast', 'eu', 'bn_IN', 'nb', 'bg', 'zh_CN',
                  'th', 'cs', 'tr', 'ug', 'uk', 'hu', 'vi'];
 
 // ISO Codes for all the language forums.
-var FORUM_LANGS = ['de', 'es', 'fr', 'zh_CN', 'pl', 'ja', 'nl' , 'pt', 'it',
+var FORUM_LANGS = ['de', 'es', 'fr', 'zh_CN', 'zh_TW', 'pl', 'ja', 'nl' , 'pt', 'it',
                    'he', 'ko', 'nb', 'tr', 'el', 'ru', 'ca', 'id'];
 
 var ENGLISH_COMMANDS = require('./commands.js');
