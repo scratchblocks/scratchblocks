@@ -59,6 +59,13 @@ module.exports = {
     '结束': 'end',
   },
 
+  zh_TW: { // Chinese (traditional)
+    '左轉 %n 度': 'turn @turnLeft %n degrees',
+    '右轉 %n 度': 'turn @turnRight %n degrees',
+    '當綠旗被點擊時': 'when @greenFlag clicked',
+    '結束': 'end',
+  },  
+  
   he: { // Hebrew
     'הסתובב שמאל %n מעלות': 'turn @turnLeft %n degrees',
     'הסתובב ימינה %n מעלות': 'turn @turnRight %n degrees',
