@@ -1,7 +1,9 @@
 {
   "name": "scratchblocks",
   "version": "3.0.0",
-  "description": "Render Scratch blocks code to SVG.",
+  "description": "Render scratchblocks code to SVG images.",
+  "main": "headless.js",
+  "browser": "browser.js",
   "directories": {
     "test": "tests"
   },
@@ -26,5 +28,9 @@
   "devDependencies": {
     "uglify-js": "^2.6.1",
     "clean-css": "^3.4.9"
+  },
+  "dependencies": {
+    "canvas": "1.4.0",
+    "xmldom": "^0.1.22"
   }
 }

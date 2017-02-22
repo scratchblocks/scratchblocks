@@ -19,6 +19,11 @@
 }(function(window, makeCanvas) {
   'use strict';
 
+  var document = window.document;
+  var XMLSerializer = window.XMLSerializer;
+  var DOMParser = window.DOMParser;
+
+
   /* utils */
 
   function assert(bool, message) {
