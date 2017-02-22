@@ -7,3 +7,7 @@ yarn.lock
 
 tests/*.svg
 
+*.pyc
+src/_cache
+build/
+

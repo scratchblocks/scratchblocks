@@ -17,24 +17,18 @@ When **reporting an issue**, please do the following:
 
 For **pull requests**:
 
-* Make sure you have [node.js](https://nodejs.org/) >= 4.0 installed.
+* When developing, you'll want to run a local web server, eg.
 
-* Install packages:
+    ```
+    python2 -m SimpleHTTPServer 8000
+    ```
 
-  ```
-  npm install
-  ```
+* Browse to <http://localhost:8000/src/> to access the development version.
 
-* Start the web-server:
+* If you make a change in `src/defs.css`, run `make css` to update the JS file.
 
-  ```
-  npm start
-  ```
+* Before you send a PR, run `make` to check that the JS minifies correctly.
 
-* Browse to <http://localhost:8080/> to access the development version.
+To rebuild the translations (eg. to take into account new updates on Pootle), use `make translations`.
 
-* Before you send a PR, run `npm test` and take a look at the output in the `tests` folder.
-
-To refetch the translations (eg. to take into account new updates on [Pootle](translate.scratch.mit.edu/)), use `npm run translations`.
-
-To modify the homepage, send a PR to the [scratchblocks/scratchblocks.github.io](https://github.com/scratchblocks/scratchblocks.github.io) repo.
+To modify the homepage, send a PR to the [scratchblocks/scratchblocks.github.io](//github.com/scratchblocks/scratchblocks.github.io) repo.

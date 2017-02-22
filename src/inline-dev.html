@@ -72,11 +72,13 @@ a {
 
 <p id="tester-status">You need to serve this page from a local web server.</p>
 
-<textarea id="code">turn left (15) degrees</textarea>
+<textarea id="code"></textarea>
 
 <button id="render">Render</button>
 
-<p>Paragraph with inline <code id="preview" class="b"></code> block.</p>
+This is a sentence preceding the most interesting statement in this paragraph.
+This paragraph contains a <code id="preview" class="b"></code> block, oh yes
+it does. I'm very fond of this block; it's always been my friend.
 
 <script>
 if(typeof(String.prototype.trim) === "undefined") {
@@ -101,9 +103,16 @@ function refresh (e) {
   location.hash = '#'+encodeURIComponent(script);
   oldHash = location.hash;
 
+  // empty preview
+  var child;
+  while (child = preview.lastChild) {
+    preview.removeChild(child);
+  }
+
   // add script
-  var svg = scratchblocks(script);
-  preview.innerHTML = svg;
+  preview.appendChild(document.createTextNode(script))
+
+  scratchblocks.renderMatching("code.b", { inline: true });
 }
 
 function checkHash() {
