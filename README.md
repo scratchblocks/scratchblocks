@@ -87,7 +87,7 @@ scratchblocks.renderMatching("code.b", {inline: true});
 
 There's an experimental Node port thanks to @arve0.
 
-Usage:
+Example usage:
 
 ```js
 var scratchblocks = require('scratchblocks');
@@ -100,7 +100,23 @@ doc.render(svg => {
 })
 ```
 
-    $ node test.js > foo.xml
+```sh
+$node test.js > foo.xml
+```
+
+## Browserify
+
+You can even use `scratchblocks` with browserify, if you're into that sort of
+thing.
+
+Once you've got browserify set up to build a client-side bundle from your app
+code, you can just add `scratchblocks` to your dependencies, and everything
+should Just Work™.
+
+```js
+var scratchblocks = require('scratchblocks');
+scratchblocks.renderMatching('pre.blocks');
+```
 
 # Languages
 
