@@ -1409,6 +1409,7 @@
   /* definitions */
 
   var cssContent = ".sb-label{font-family:Lucida Grande,Verdana,Arial,DejaVu Sans,sans-serif;font-weight:700;fill:#fff;font-size:10px;word-spacing:+1px}.sb-obsolete{fill:#d42828}.sb-motion{fill:#4a6cd4}.sb-looks{fill:#8a55d7}.sb-sound{fill:#bb42c3}.sb-pen{fill:#0e9a6c}.sb-events{fill:#c88330}.sb-control{fill:#e1a91a}.sb-sensing{fill:#2ca5e2}.sb-operators{fill:#5cb712}.sb-variables{fill:#ee7d16}.sb-list{fill:#cc5b22}.sb-custom{fill:#632d99}.sb-custom-arg{fill:#5947b1}.sb-extension{fill:#4b4a60}.sb-grey{fill:#969696}.sb-bevel{filter:url(#bevelFilter)}.sb-input{filter:url(#inputBevelFilter)}.sb-input-number,.sb-input-number-dropdown,.sb-input-string{fill:#fff}.sb-literal-dropdown,.sb-literal-number,.sb-literal-number-dropdown,.sb-literal-string{font-weight:400;font-size:9px;word-spacing:0}.sb-literal-number,.sb-literal-number-dropdown,.sb-literal-string{fill:#000}.sb-darker{filter:url(#inputDarkFilter)}.sb-outline{stroke:#fff;stroke-opacity:.2;stroke-width:2;fill:none}.sb-define-hat-cap{stroke:#632d99;stroke-width:1;fill:#8e2ec2}.sb-comment{fill:#ffffa5;stroke:#d0d1d2;stroke-width:1}.sb-comment-line{fill:#ffff80}.sb-comment-label{font-family:Helevetica,Arial,DejaVu Sans,sans-serif;font-weight:700;fill:#5c5d5f;word-spacing:0;font-size:12px}";
+  var defaultFontFamily = 'Lucida Grande, Verdana, Arial, DejaVu Sans, sans-serif';
 
   function makeStyle() {
     var style = el('style');
@@ -1566,10 +1567,6 @@
     o.draw();
   }
 
-  var Metrics = function(width) {
-    this.width = width;
-  };
-
   /* Label */
 
   var Label = function(value, cls) {
@@ -1600,20 +1597,8 @@
   });
 
   Label.measuring = (function() {
-    var svg = setProps(newSVG(1, 1), {
-      class: 'sb-measure',
-    });
-    svg.style.visibility = 'hidden';
-    svg.style.position = 'absolute';
-    svg.style.top = '-1px';
-    svg.style.left = '-1px';
-    svg.style.width = '1px';
-    svg.style.height = '1px';
-    svg.style.visibility = 'hidden';
-    svg.style.overflow = 'hidden';
-    svg.style.pointerEvents = 'none';
-    document.body.appendChild(svg);
-    return svg;
+    var canvas = makeCanvas();
+    return canvas.getContext('2d');
   }());
 
   Label.metricsCache = {};
@@ -1630,37 +1615,24 @@
     if (!cache) {
       cache = Label.metricsCache[cls] = Object.create(null);
     }
+
     if (Object.hasOwnProperty.call(cache, value)) {
       this.metrics = cache[value];
     } else {
-      this.metrics = cache[value] = Label.measure(this);
+      var font = /sb-comment-label/.test(this.cls) ? 'bold 12px Helevetica, Arial, DejaVu Sans, sans-serif'
+               : /sb-literal/.test(this.cls) ? 'normal 9px ' + defaultFontFamily
+               : 'bold 10px ' + defaultFontFamily;
+      this.metrics = cache[value] = Label.measure(value, font);
+      // TODO: word-spacing? (fortunately it seems to have no effect!)
     }
   };
 
-  Label.measure = function(label) {
-    Label.measuring.appendChild(label.el);
-    Label.toMeasure.push(label);
-    return new Metrics();
-  };
-  Label.endMeasuring = function(cb) {
-    var toMeasure = Label.toMeasure;
-    Label.toMeasure = [];
-
-    setTimeout(Label.measureAll.bind(null, toMeasure, cb), 0);
-  };
-  Label.measureAll = function(toMeasure, cb) {
-    for (var i=0; i<toMeasure.length; i++) {
-      var label = toMeasure[i];
-      var metrics = label.metrics;
-      var bbox = label.el.getBBox();
-      metrics.width = (bbox.width + 0.5) | 0;
-
-      var trailingSpaces = / *$/.exec(label.value)[0].length || 0;
-      for (var j=0; j<trailingSpaces; j++) {
-        metrics.width += 4.15625;
-      }
-    }
-    cb();
+  Label.measure = function(value, font) {
+    var context = Label.measuring;
+    context.font = font;
+    var textMetrics = context.measureText(value);
+    var width = (textMetrics.width + 0.5) | 0;
+    return { width: width };
   };
 
 
@@ -2485,11 +2457,7 @@
     // measure strings
     this.measure();
 
-    // finish measuring & render
-    Label.endMeasuring(this.drawScripts.bind(this, cb));
-  };
-
-  Document.prototype.drawScripts = function(cb) {
+    // TODO: separate layout + render steps.
     // render each script
     var width = 0;
     var height = 0;
@@ -2515,6 +2483,9 @@
 
     svg.appendChild(group(elements));
     this.el = svg;
+
+    // nb: async API only for backwards/forwards compatibility reasons.
+    // despite appearances, it runs synchronously
     cb(svg);
   };
 
