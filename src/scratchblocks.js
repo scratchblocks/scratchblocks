@@ -2489,14 +2489,20 @@
     cb(svg);
   };
 
-  Document.prototype.exportSVG = function() {
+  /* Export SVG image as XML string */
+  Document.prototype.exportSVGString = function() {
     assert(this.el, "call draw() first");
 
     var style = makeStyle();
     this.defs.appendChild(style);
     var xml = new XMLSerializer().serializeToString(this.el);
     this.defs.removeChild(style);
+    return xml;
+  };
 
+  /* Export SVG image as data URI */
+  Document.prototype.exportSVG = function() {
+    var xml = this.exportSVGString();
     return 'data:image/svg+xml;utf8,' + xml.replace(
       /[#]/g, encodeURIComponent
     );

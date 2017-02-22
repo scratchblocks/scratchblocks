@@ -83,6 +83,25 @@ I'm rather fond of the <code class="b">stamp</code> block in Scratch.
 scratchblocks.renderMatching("code.b", {inline: true});
 ```
 
+## Server-side (Node)
+
+There's an experimental Node port thanks to @arve0.
+
+Usage:
+
+```js
+var scratchblocks = require('scratchblocks');
+var doc = scratchblocks.parse(`
+when flag clicked
+`)
+doc.render(svg => {
+  var content = doc.exportSVGString()
+  console.log(content);
+})
+```
+
+    $ node test.js > foo.xml
+
 # Languages
 
 [`translations.js`](https://github.com/tjvr/scratchblocks/blob/master/src/translations.js) contains all the languages needed [on the Scratch Forums](http://scratch.mit.edu/discuss/#category_head_6).
