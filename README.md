@@ -50,7 +50,7 @@ var md = require('markdown-it')({
   // If result starts with <pre... internal wrapper is skipped.
   highlight: function (str, lang) {
     if (lang === 'blocks') {
-      return scratchblocks(str);  // returns SVG as a string
+      return scratchblocks.renderSVGString(str);  // returns SVG as a string
     }
     // other languages
     return '';
