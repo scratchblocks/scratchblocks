@@ -6,7 +6,17 @@
  * @license MIT
  * http://opensource.org/licenses/MIT
  */
-var scratchblocks = function () {
+(function (mod) {
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = mod;
+  } else {
+    var makeCanvas = function() { return document.createElement('canvas'); };
+    var scratchblocks = window.scratchblocks = mod(window, makeCanvas);
+
+    // add our CSS to the page
+    document.head.appendChild(scratchblocks.makeStyle());
+  }
+}(function(window, makeCanvas) {
   'use strict';
 
   /* utils */
@@ -2517,7 +2527,7 @@ var scratchblocks = function () {
   }
 
   Document.prototype.exportPNG = function(cb) {
-    var canvas = document.createElement('canvas');
+    var canvas = makeCanvas();
     canvas.width = this.width;
     canvas.height = this.height;
     var context = canvas.getContext("2d");
@@ -2615,9 +2625,6 @@ var scratchblocks = function () {
     });
   };
 
-  // add our CSS to the page 
-  document.head.appendChild(makeStyle());
-
 
   return {
     allLanguages: allLanguages, // read-only
@@ -2640,6 +2647,8 @@ var scratchblocks = function () {
     render: render,
     replace: replace,
     renderMatching: renderMatching,
+
+    makeStyle: makeStyle,
   };
 
-}();
+}));
