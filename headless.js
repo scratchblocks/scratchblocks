@@ -12,5 +12,5 @@ function makeCanvas() {
   return new Canvas();
 }
 
-module.exports = require('./src/scratchblocks.js')(window, makeCanvas);
+module.exports = require('./lib/')(window, makeCanvas);
 
