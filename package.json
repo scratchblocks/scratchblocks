@@ -9,8 +9,7 @@
   },
   "scripts": {
     "test": "node tests/test.js",
-    "build-make": "sh -c 'make all'",
-    "build": "npm run build-make",
+    "build": "browserify browser.js -o build/scratchblocks.min.js -t [ babelify --presets [ es2015 babili ] ]",
     "start": "beefy browser.js:bundle.js --live --port 8000"
   },
   "repository": {
@@ -27,10 +26,11 @@
   },
   "homepage": "https://scratchblocks.github.io/",
   "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "babelify": "^7.3.0",
+    "babili": "^0.0.11",
     "beefy": "^2.1.8",
-    "browserify": "^14.1.0",
-    "clean-css": "^3.4.9",
-    "uglify-js": "^2.6.1"
+    "browserify": "^14.1.0"
   },
   "dependencies": {
     "canvas": "1.4.0",
