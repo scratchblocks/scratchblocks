@@ -1011,6 +1011,12 @@
 
   function el(name, props) {
     var el = document.createElementNS("http://www.w3.org/2000/svg", name);
+    /* xmldom bug apparently */
+    if (name === 'svg') {
+      // explicit set namespace, see https://github.com/jindw/xmldom/issues/97
+      el.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      el.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
+    }
     return setProps(el, props);
   }
 
@@ -1022,10 +1028,8 @@
       var value = '' + props[key];
       if (directProps[key]) {
         el[key] = value;
-      } else if (/^xlink:/.test(key)) {
-        el.setAttributeNS("http://www.w3.org/1999/xlink", key.slice(6), value);
       } else if (props[key] !== null && props.hasOwnProperty(key)) {
-        el.setAttributeNS(null, key, value);
+        el.setAttribute(key, value);
       }
     }
     return el;
