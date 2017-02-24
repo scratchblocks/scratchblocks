@@ -1,3 +1,4 @@
+module.exports =
 [
 
   ["move %n steps",                               " ", 1,   "forward:"],
@@ -65,7 +66,7 @@
   ["repeat %n",                                   "c", 6,   "doRepeat"],
   ["forever",                                     "cf",6,   "doForever"],
   ["if %b then",                                  "c", 6,   "doIf"],
-  ["if %b then",                                  "e", 6,   "doIfElse"],
+//  ["if %b then",                                  "e", 6,   "doIfElse"],
   ["wait until %b",                               " ", 6,   "doWaitUntil"],
   ["repeat until %b",                             "c", 6,   "doUntil"],
   ["stop %m.stop",                                "f", 6,   "stopScripts"],
@@ -149,6 +150,8 @@
   ["distance",                                      "r", 20,  ""],
   ["tilt",                                          "r", 20,  ""],
 
+  ["else", "else", 6, ""],
+  ["end", "end", 6, ""],
   ["turn %m.motor on for %n seconds",               " ", 20,  ""],
   ["set light color to %n",                         " ", 20,  ""],
   ["play note %n for %n seconds",                   " ", 20,  ""],
