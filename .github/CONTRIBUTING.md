@@ -17,15 +17,13 @@ When **reporting an issue**, please do the following:
 
 For **pull requests**:
 
-* When developing, you'll want to run a local web server, eg.
+* When developing, you need to run a local web server:
 
     ```
-    python2 -m SimpleHTTPServer 8000
+    npm start
     ```
 
-* Browse to <http://localhost:8000/src/> to access the development version.
-
-* If you make a change in `src/defs.css`, run `make css` to update the JS file.
+* Browse to <http://localhost:8000/> to access the development version.
 
 * Before you send a PR, run `make` to check that the JS minifies correctly.
 

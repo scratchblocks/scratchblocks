@@ -10,7 +10,8 @@
   "scripts": {
     "test": "node tests/test.js",
     "build-make": "sh -c 'make all'",
-    "build": "npm run build-make"
+    "build": "npm run build-make",
+    "start": "beefy browser.js:bundle.js --live --port 8000"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,8 @@
   },
   "homepage": "https://scratchblocks.github.io/",
   "devDependencies": {
+    "beefy": "^2.1.8",
+    "browserify": "^14.1.0",
     "clean-css": "^3.4.9",
     "uglify-js": "^2.6.1"
   },
