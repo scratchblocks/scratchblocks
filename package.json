@@ -30,7 +30,8 @@
     "babelify": "^7.3.0",
     "babili": "^0.0.11",
     "beefy": "^2.1.8",
-    "browserify": "^14.1.0"
+    "browserify": "^14.1.0",
+    "jest": "^19.0.2"
   },
   "dependencies": {
     "canvas": "1.4.0",
