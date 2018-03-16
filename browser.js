@@ -1,11 +1,12 @@
-
 function makeCanvas() {
-  return document.createElement('canvas');
+  return document.createElement("canvas")
 }
 
-var scratchblocks = window.scratchblocks = module.exports = require('./lib/')(window, makeCanvas);
+var scratchblocks = (window.scratchblocks = module.exports = require("./lib/")(
+  window,
+  makeCanvas
+))
 
 // add our CSS to the page
-var style = scratchblocks.makeStyle();
-document.head.appendChild(style);
-
+var style = scratchblocks.makeStyle()
+document.head.appendChild(style)
