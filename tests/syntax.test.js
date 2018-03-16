@@ -1,6 +1,5 @@
 
-const scratchblocks = require('../headless.js')
-const { parse, fromJSON } = scratchblocks
+const { parse, fromJSON } = require('../syntax')
 
 function getBlock(doc) {
   expect(doc.scripts.length).toBe(1)
