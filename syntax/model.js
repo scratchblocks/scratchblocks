@@ -30,18 +30,6 @@ function maybeNumber(v) {
   return v
 }
 
-var SVG = require("./draw.js")
-
-var {
-  defaultFontFamily,
-  makeStyle,
-  makeIcons,
-  darkRect,
-  bevelFilter,
-  darkFilter,
-  desaturateFilter,
-} = require("./style.js")
-
 var {
   blocksBySelector,
   parseSpec,
@@ -86,9 +74,6 @@ Label.toMeasure = []
 Label.prototype.measure = function() {
   var value = this.value
   var cls = this.cls
-  this.el = SVG.text(0, 10, value, {
-    class: "sb-label " + cls,
-  })
 
   var cache = Label.metricsCache[cls]
   if (!cache) {
@@ -185,8 +170,7 @@ Input.fromJSON = function(lang, value, part) {
   }[part[1]]
 
   if (shape === "color") {
-    if (!value && value !== 0)
-      value = parseInt(Math.random() * 256 * 256 * 256)
+    if (!value && value !== 0) value = parseInt(Math.random() * 256 * 256 * 256)
     value = +value
     if (value < 0) value = 0xffffffff + value + 1
     var hex = value.toString(16)
@@ -273,15 +257,14 @@ Input.prototype.measure = function() {
 }
 
 Input.shapes = {
-  string: SVG.rect,
-  number: SVG.roundedRect,
-  "number-dropdown": SVG.roundedRect,
-  color: SVG.rect,
-  dropdown: SVG.rect,
-
-  boolean: SVG.pointedRect,
-  stack: SVG.stackRect,
-  reporter: SVG.roundedRect,
+  string: true,
+  number: true,
+  "number-dropdown": true,
+  color: true,
+  dropdown: true,
+  boolean: true,
+  stack: true,
+  reporter: true,
 }
 
 Input.prototype.draw = function(parent) {
@@ -541,7 +524,7 @@ Block.prototype.stringify = function(extras) {
 
   var overrides = extras || ""
   if (
-    (this.info.shape === "reporter" && this.isReporter) ||
+    this.info.categoryIsDefault === false ||
     (this.info.category === "custom-arg" &&
       (this.isReporter || this.isBoolean)) ||
     (this.info.category === "custom" && this.info.shape === "stack")
@@ -605,18 +588,18 @@ Block.prototype.measure = function() {
 }
 
 Block.shapes = {
-  stack: SVG.stackRect,
-  "c-block": SVG.stackRect,
-  "if-block": SVG.stackRect,
-  celse: SVG.stackRect,
-  cend: SVG.stackRect,
+  stack: true,
+  "c-block": true,
+  "if-block": true,
+  celse: true,
+  cend: true,
 
-  cap: SVG.capRect,
-  reporter: SVG.roundedRect,
-  boolean: SVG.pointedRect,
-  hat: SVG.hatRect,
-  "define-hat": SVG.procHatRect,
-  ring: SVG.roundedRect,
+  cap: true,
+  reporter: true,
+  boolean: true,
+  hat: true,
+  "define-hat": true,
+  ring: true,
 }
 
 Block.prototype.drawSelf = function(w, h, lines) {
@@ -668,9 +651,7 @@ Block.prototype.minDistance = function(child) {
     return (child.isInput && child.isRound) ||
       ((child.isReporter || child.isBoolean) && !child.hasScript)
       ? 0
-      : child.isLabel
-        ? (2 + child.height / 2) | 0
-        : (-2 + child.height / 2) | 0
+      : child.isLabel ? (2 + child.height / 2) | 0 : (-2 + child.height / 2) | 0
   }
   return 0
 }
@@ -756,9 +737,7 @@ Block.prototype.draw = function() {
     } else {
       var cmw = i > 0 ? 30 : 0 // 27
       var md = this.isCommand ? 0 : this.minDistance(child)
-      var mw = this.isCommand
-        ? child.isBlock || child.isInput ? cmw : 0
-        : md
+      var mw = this.isCommand ? (child.isBlock || child.isInput ? cmw : 0) : md
       if (mw && !lines.length && line.width < mw - px) {
         line.width = mw - px
       }
@@ -781,9 +760,7 @@ Block.prototype.draw = function() {
       : this.isCommand || this.isOutline || this.isRing ? 39 : 20
   )
   this.height = y
-  this.width = scriptWidth
-    ? Math.max(innerWidth, 15 + scriptWidth)
-    : innerWidth
+  this.width = scriptWidth ? Math.max(innerWidth, 15 + scriptWidth) : innerWidth
   if (isDefine) {
     var p = Math.min(26, (3.5 + 0.13 * innerWidth) | 0) - 18
     this.height += p

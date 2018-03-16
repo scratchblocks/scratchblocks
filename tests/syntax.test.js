@@ -98,7 +98,7 @@ describe('disambiguation', () => {
   })
 
   test('orange: length of list', () => {
-    let b = testBlock('(length of [list v] :: list)', ['lineCountOfList:', 'list'])
+    let b = testBlock('(length of [list v])', ['lineCountOfList:', 'list'])
     expect(b.info.category).toBe('list')
   })
 
