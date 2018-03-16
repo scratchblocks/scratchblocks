@@ -662,16 +662,21 @@ DocumentView.prototype.exportSVG = function() {
   return "data:image/svg+xml;utf8," + xml.replace(/[#]/g, encodeURIComponent)
 }
 
-DocumentView.prototype.exportPNG = function(cb) {
+DocumentView.prototype.exportPNG = function(cb, scale) {
+  scale = scale || 1.0
+
   var canvas = SVG.makeCanvas()
-  canvas.width = this.width
-  canvas.height = this.height
+  canvas.width = this.width * scale
+  canvas.height = this.height * scale
   var context = canvas.getContext("2d")
 
   var image = new Image()
   image.src = this.exportSVG()
   image.onload = function() {
+    context.save()
+    context.scale(scale, scale)
     context.drawImage(image, 0, 0)
+    context.restore()
 
     if (URL && URL.createObjectURL && Blob && canvas.toBlob) {
       var blob = canvas.toBlob(function(blob) {
