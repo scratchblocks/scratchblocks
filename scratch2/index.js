@@ -6,19 +6,7 @@
  * @license MIT
  * http://opensource.org/licenses/MIT
  */
-;(function(mod) {
-  if (typeof module !== "undefined" && module.exports) {
-    module.exports = mod
-  } else {
-    var makeCanvas = function() {
-      return document.createElement("canvas")
-    }
-    var scratchblocks = (window.scratchblocks = mod(window, makeCanvas))
-
-    // add our CSS to the page
-    document.head.appendChild(scratchblocks.makeStyle())
-  }
-})(function(window, makeCanvas) {
+module.exports = function(window, makeCanvas) {
   "use strict"
 
   var document = window.document
@@ -184,4 +172,4 @@
     renderSVGString: renderSVGString,
     makeStyle: style.makeStyle,
   }
-})
+}
