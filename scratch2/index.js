@@ -19,15 +19,11 @@ module.exports = function(window, makeCanvas) {
 
   /*****************************************************************************/
 
-  var { allLanguages, loadLanguages } = require("./blocks.js")
+  const syntax = require("../syntax")
+  const {
+    allLanguages,
+    loadLanguages,
 
-  var parse = require("./syntax.js").parse
-
-  var style = require("./style.js")
-
-  /*****************************************************************************/
-
-  var {
     Label,
     Icon,
     Input,
@@ -35,23 +31,34 @@ module.exports = function(window, makeCanvas) {
     Comment,
     Script,
     Document,
-  } = require("./model.js")
+  } = syntax
 
   /*****************************************************************************/
+
+  var style = require("./style.js")
 
   var SVG = require("./draw.js")
   SVG.init(window, makeCanvas)
 
-  Label.measuring = (function() {
+  const {
+    newView,
+    LabelView,
+  } = require("./blocks")
+
+  LabelView.measuring = (function() {
     var canvas = SVG.makeCanvas()
     return canvas.getContext("2d")
   })()
 
-  /*****************************************************************************/
-
-  function render(doc, cb) {
-    return doc.render(cb)
+  function parse(code, options) {
+    const doc = syntax.parse(code, options)
+    const view = newView(doc)
+    view.stringify = doc.stringify.bind(doc)
+    view.toJSON = doc.toJSON.bind(doc)
+    return view
   }
+
+  /*****************************************************************************/
 
   /*** Render ***/
 
@@ -110,9 +117,9 @@ module.exports = function(window, makeCanvas) {
         languages: ["en"],
 
         read: readCode, // function(el, options) => code
-        parse: parse, // function(code, options) => doc
+        parse: parse, // function(code, options) => docView
         render: render, // function(doc, cb) => svg
-        replace: replace, // function(el, svg, doc, options)
+        replace: replace, // function(el, svg, docView, options)
       },
       options
     )
@@ -165,7 +172,6 @@ module.exports = function(window, makeCanvas) {
 
     read: readCode,
     parse: parse,
-    // render: render, // REMOVED since doc.render(cb) makes much more sense
     replace: replace,
     renderMatching: renderMatching,
 

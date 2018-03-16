@@ -115,14 +115,12 @@ var allBlocks = scratchCommands.map(function(command) {
     shape: typeShapes[command[1]], // /[ bcefhr]|cf/
     category: categoriesById[command[2] % 100],
     selector: command[3],
-    hasLoopArrow:
-      ["doRepeat", "doUntil", "doForever"].indexOf(command[3]) > -1,
+    hasLoopArrow: ["doRepeat", "doUntil", "doForever"].indexOf(command[3]) > -1,
   })
   if (info.selector) {
     // nb. command order matters!
     // Scratch 1.4 blocks are listed last
-    if (!blocksBySelector[info.selector])
-      blocksBySelector[info.selector] = info
+    if (!blocksBySelector[info.selector]) blocksBySelector[info.selector] = info
   }
   return (blocksBySpec[info.spec] = info)
 })

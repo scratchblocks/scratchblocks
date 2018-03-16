@@ -61,9 +61,7 @@ function paintBlock(info, children, languages) {
     info.isRTL = rtlLanguages.indexOf(lang.code) > -1
 
     if (
-      type.shape === "ring"
-        ? info.shape === "reporter"
-        : info.shape === "stack"
+      type.shape === "ring" ? info.shape === "reporter" : info.shape === "stack"
     ) {
       info.shape = type.shape
     }
@@ -630,9 +628,7 @@ function parseScripts(getLine) {
         var children = []
         if (last && last.isGlow) {
           blocks.pop()
-          var children = last.child.isScript
-            ? last.child.blocks
-            : [last.child]
+          var children = last.child.isScript ? last.child.blocks : [last.child]
         }
         children.push(b)
         blocks.push(new Glow(new Script(children)))
@@ -721,9 +717,7 @@ function recogniseStuff(scripts) {
       } else if (block.info.selector === "doIfElse") {
         var last2 = block.children[block.children.length - 2]
         block.info.selector =
-          last2 && last2.isLabel && last2.value === "else"
-            ? "doIfElse"
-            : "doIf"
+          last2 && last2.isLabel && last2.value === "else" ? "doIfElse" : "doIf"
 
         // custom arguments
       } else if (
@@ -754,10 +748,7 @@ function recogniseStuff(scripts) {
   scripts.forEach(function(script) {
     eachBlock(script, function(block) {
       // custom blocks
-      if (
-        block.info.categoryIsDefault &&
-        block.info.category === "obsolete"
-      ) {
+      if (block.info.categoryIsDefault && block.info.category === "obsolete") {
         var info = customBlocksByHash[block.info.hash]
         if (info) {
           block.info.selector = "call"
