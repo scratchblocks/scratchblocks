@@ -118,7 +118,63 @@ module.exports = {
     'Όταν στην πράσινη σημαία γίνει κλικ': 'when @greenFlag clicked',
     'τέλος': 'end',
   },
+  
+  cy: { // Welsh
+    'troi %n gradd i\'r chwith': 'turn @turnLeft %n degrees',
+    'troi %n gradd i\'r dde': 'turn @turnRight %n degrees',
+    'pan fo\'r flag werdd yn cael ei glicio': 'when @greenFlag clicked',
+    'diwedd': 'end',
+  },
 
+  hi: { // Hindi
+    '%n डिग्री से बाएं घूम जाए': 'turn @turnLeft %n degrees',
+    '%n डिग्री से दाएं घूम जाए': 'turn @turnRight %n degrees',
+    'जब झंडे को क्लिक किया गया हो': 'when @greenFlag clicked',
+    'अंत': 'end',
+  },
+  
+  ro: { // Romanian
+    'rotește la stânga %n grade': 'turn @turnLeft %n degrees',
+    'rotește la dreapta %n grade': 'turn @turnRight %n degrees',
+    'când se face click pe stegulețul verde': 'when @greenFlag clicked',
+    'terminare': 'end',
+  },
+  
+  id: { // Indonesian
+    'putar ke kiri %n derajat': 'turn @turnLeft %n degrees',
+    'putar ke kanan %n derajat': 'turn @turnRight %n degrees',
+    'ketika bendera hijau diklik': 'when @greenFlag clicked', 
+    'selesai': 'end',
+  },
+
+  hr: { // Croatian
+    'skreni lijevo %n stupnjeva': 'turn @turnLeft %n degrees',
+    'skreni desno %n stupnjeva': 'turn @turnRight %n degrees',
+    'kada je zelena zastava kliknut': 'when @greenFlag clicked',
+    'kraj': 'end',
+  },
+  
+  cs: { // Czech
+    'otoč se o %n stupňů doleva': 'turn @turnLeft %n degrees',
+    'otoč se o %n stupňů doprava': 'turn @turnRight %n degrees',
+    'po kliknutí na zelenou vlajku': 'when @greenFlag clicked',
+    'konec': 'end',
+  },
+  
+  sl: { // Slovenian
+    'obrni se za %n stopinj v levo': 'turn @turnLeft %n degrees',
+    'obrni se za %n stopinj v desno': 'turn @turnRight %n degrees',
+    'ko je kliknjena zelena zastavica': 'when @greenFlag clicked',
+    'ustavi': 'end',
+  },
+  
+  fa: { // Persian
+    'به اندازه %n درجه به چپ بچرخ': 'turn @turnLeft %n degrees',
+    'به اندازه %n درجه به راست بچرخ': 'turn @turnRight %n degrees',
+    'وقتی که پرچم کلیک شد': 'when @greenFlag clicked',
+    'آخر': 'end',
+  },
+  
   // : { // template
   //   '': 'turn @turnLeft %n degrees',
   //   '': 'turn @turnRight %n degrees',
