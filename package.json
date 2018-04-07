@@ -2,18 +2,16 @@
   "name": "scratchblocks",
   "version": "3.1.2",
   "description": "Render scratchblocks code to SVG images.",
-  "main": "headless.js",
   "browser": "browser.js",
   "directories": {
     "test": "tests"
   },
   "prettier": {
-      "semi": false,
-      "trailingComma": "es5"
+    "semi": false,
+    "trailingComma": "es5"
   },
   "scripts": {
     "test": "jest",
-    "test-headless": "node tests/headless.js",
     "build": "browserify browser.js -o build/scratchblocks.min.js -t [ babelify --presets [ es2015 babili ] ]",
     "fmt": "prettier --write *.js syntax/*.js scratch2/*.js",
     "start": "beefy browser.js:bundle.js --live --port 8000"
@@ -40,8 +38,5 @@
     "jest": "^19.0.2",
     "prettier": "1.7.4"
   },
-  "dependencies": {
-    "canvas": "1.4.0",
-    "xmldom": "^0.1.22"
-  }
+  "dependencies": {}
 }
