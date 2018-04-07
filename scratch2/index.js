@@ -40,10 +40,7 @@ module.exports = function(window, makeCanvas) {
   var SVG = require("./draw.js")
   SVG.init(window, makeCanvas)
 
-  const {
-    newView,
-    LabelView,
-  } = require("./blocks")
+  const { newView, LabelView } = require("./blocks")
 
   LabelView.measuring = (function() {
     var canvas = SVG.makeCanvas()

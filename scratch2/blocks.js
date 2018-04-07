@@ -1,14 +1,13 @@
-
 const {
-    Label,
-    Icon,
-    Input,
-    Block,
-    Comment,
-    Glow,
-    Script,
-    Document,
-} = require('../syntax')
+  Label,
+  Icon,
+  Input,
+  Block,
+  Comment,
+  Glow,
+  Script,
+  Document,
+} = require("../syntax")
 
 const SVG = require("./draw.js")
 
@@ -709,7 +708,7 @@ const viewFor = node => {
     case Document:
       return DocumentView
     default:
-      throw new Error('no view for ' + node.constructor.name)
+      throw new Error("no view for " + node.constructor.name)
   }
 }
 
