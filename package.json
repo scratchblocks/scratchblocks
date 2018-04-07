@@ -19,10 +19,11 @@
   },
   "scripts": {
     "build": "browserify browser.js -o build/scratchblocks.min.js -t [ babelify --presets [ es2015 babili ] ]",
-    "fmt": "prettier --write *.js syntax/*.js scratch2/*.js",
+    "fmt": "prettier --write *.js syntax/*.js scratch2/*.js locales-src/*.js",
     "postinstall": "npm run build -- -s Scratchblocks",
     "lint:staged": "lint-staged",
     "start": "beefy browser.js:bundle.js --live --port 8000",
+    "locales": "node locales-src/build-locales.js",
     "test": "jest"
   },
   "dependencies": {
@@ -37,6 +38,7 @@
     "lint-staged": "^7.1.2",
     "prettier": "1.7.4",
     "prettier-package-json": "^1.6.0",
+    "pofile": "^1.0.10",
     "scratchr2_translations": "git://github.com/LLK/scratchr2_translations.git#master"
   },
   "keywords": [
