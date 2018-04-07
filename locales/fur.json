@@ -110,7 +110,6 @@
     "%m.attribute of %m.spriteOrStage": "%m.attribute di %m.spriteOrStage",
     "current %m.timeAndDate": "%m.timeAndDate di cumò",
     "days since 2000": "zornadis passadis dal 2000",
-    "username": "username",
     "pick random %n to %n": "numar a câs tra %n e %n",
     "%b and %b": "%b e %b",
     "%b or %b": "%b o %b",
@@ -135,7 +134,6 @@
     "set %m.motor2 direction to %m.motorDirection": "puarte direzion %m.motor2 a %m.motorDirection",
     "when distance %m.lessMore %n": "cuant distance %m.lessMore %n",
     "when tilt %m.eNe %n": "cuant inclinazion %m.eNe %n",
-    "distance": "distance",
     "tilt": "inclinazion",
     "else": "se no"
   },
@@ -166,7 +164,6 @@
     "light": "lûs",
     "minute": "minût",
     "month": "mês",
-    "mosaic": "mosaic",
     "motion": "moviment",
     "mouse-pointer": "pontadôr dal mouse",
     "myself": "me stes",
@@ -213,27 +210,15 @@
     "variable": "variabile",
     "list": "liste",
     "Events": "Situazions",
-    "Control": "Control",
     "Sensing": "Sensôrs",
     "Operators": "Operadôrs",
     "More Blocks": "Altris Blocs",
     "Tips": "Sugjeriments"
   },
   "math": [
-    "abs",
     "intîr inferiôr",
     "intîr superiôr",
-    "radq",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "radq"
   ],
   "aliases": {},
   "_name": "Furlan"

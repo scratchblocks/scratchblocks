@@ -210,20 +210,10 @@
     "Tips": "טיפים"
   },
   "math": [
-    "abs",
     "רצפה",
     "תקרה",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
     "פנימה",
-    "log",
-    " ^e",
-    "10 ^"
+    " ^e"
   ],
   "aliases": {
     "הסתובב שמאל %n מעלות": "turn @turnLeft %n degrees",

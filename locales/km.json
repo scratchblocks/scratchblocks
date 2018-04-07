@@ -165,7 +165,6 @@
     "random position": "ទីតាំង​ចៃ​ដន្យ",
     "right arrow": "ព្រួញ​ស្ដាំ",
     "second": "វិនាទី",
-    "slider": "slider",
     "sound": "សម្លេង",
     "space": "ប៊ូតុងដក​ឃ្លា",
     "that way": "របៀប​នោះ",
@@ -194,19 +193,7 @@
     "More Blocks": "Blocks ផ្សេងទៀត"
   },
   "math": [
-    "abs",
-    "floor",
-    "ឫស​ការ៉េ",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "ឫស​ការ៉េ"
   ],
   "aliases": {},
   "_name": "សំលៀកបំពាក"

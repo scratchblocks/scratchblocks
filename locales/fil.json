@@ -18,19 +18,14 @@
     "change %m.var by %n": "para mapalitan ang %m.var gamitin ang %n",
     "add %s to %m.list": "idagdag ang %s sa %m.list",
     "direction": "direksyon",
-    "tempo": "tempo",
     "answer": "sagot",
     "mouse down?": "ibaba ang mouse?",
-    "mouse x": "mouse x",
-    "mouse y": "mouse y",
     "loudness": "kalakasan",
     "timer": "orasan",
     "%m.attribute of %m.spriteOrStage": "%m.attribute ng %m.spriteOrStage",
     "%b and %b": "%b at %b",
     "%b or %b": "%b o %b",
-    "%n mod %n": "%n mod %n",
-    "%m.mathOp of %n": "%m.mathOp ng %n",
-    "%m.sensor sensor value": "%m.sensor sensor value"
+    "%m.mathOp of %n": "%m.mathOp ng %n"
   },
   "ignorelt": [],
   "dropdowns": {

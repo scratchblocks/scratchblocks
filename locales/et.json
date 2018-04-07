@@ -94,7 +94,6 @@
     "backdrop name": "tausta nimi",
     "backdrop #": "tausta #",
     "volume": "helitugevus",
-    "tempo": "tempo",
     "touching %m.touching?": "puudutab %m.touching?",
     "touching color %c?": "puudutab värvi %c?",
     "color %c is touching %c?": "värv %c puudutab värvi %c?",
@@ -118,7 +117,6 @@
     "join %s %s": "%s & %s",
     "letter %n of %s": "märk %n sõnas %s",
     "length of %s": "%s pikkus",
-    "%n mod %n": "%n mod %n",
     "round %n": "ümarda %n",
     "%m.mathOp of %n": "%m.mathOp %n",
     "item %d.listItem of %m.list": "%d.listItem loendis %m.list",
@@ -217,22 +215,7 @@
     "More Blocks": "Lisaplokid",
     "Tips": "Selgitused"
   },
-  "math": [
-    "abs",
-    "floor",
-    "ceiling",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
-  ],
+  "math": [],
   "aliases": {},
   "_name": "Eesti"
 }

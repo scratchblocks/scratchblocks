@@ -118,7 +118,6 @@
     "join %s %s": "kunligi %s kaj %s",
     "letter %n of %s": "%n-a litero el %s",
     "length of %s": "longo de %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "rondigi %n",
     "%m.mathOp of %n": "%m.mathOp de %n",
     "item %d.listItem of %m.list": "%d.listItem-a ero de %m.list",
@@ -212,20 +211,9 @@
     "Tips": "Helpetoj"
   },
   "math": [
-    "abs",
     "planko",
     "plafono",
-    "radiko",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "radiko"
   ],
   "aliases": {},
   "_name": "Esperanto"

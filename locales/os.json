@@ -56,7 +56,6 @@
     "join %s %s": "баиу кӕнын %s %s",
     "letter %n of %s": "%s-ы дамгъӕ %n",
     "length of %s": "%s-ы дӕргъ",
-    "%n mod %n": "%n mod %n",
     "item %d.listItem of %m.list": "%m.list-ы иуӕг %d.listItem",
     "length of %m.list": "%m.list-ы дӕргъ",
     "%m.sensor sensor value": "%m.sensor сенсоры бӕрц",
@@ -88,11 +87,7 @@
     "More Blocks": "Фылдӕр блоктӕ"
   },
   "math": [
-    "модул",
-    "asin",
-    "acos",
-    "atan",
-    "10 ^"
+    "модул"
   ],
   "aliases": {},
   "_name": "Ирон"

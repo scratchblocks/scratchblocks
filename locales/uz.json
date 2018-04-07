@@ -190,17 +190,8 @@
     "modul",
     "pol",
     "shift",
-    "sqrt",
     "gunoh",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "Ichida",
-    "log",
-    "e ^",
-    "10 ^"
+    "Ichida"
   ],
   "aliases": {},
   "_name": ""

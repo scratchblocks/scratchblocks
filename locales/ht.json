@@ -118,7 +118,6 @@
     "join %s %s": "mete %s %s ansanm",
     "letter %n of %s": "lèt nimewo %n pami %s",
     "length of %s": "longè mo a %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "awondi %n",
     "%m.mathOp of %n": "%m.mathOp sou %n",
     "item %d.listItem of %m.list": "eleman %d.listItem nan %m.list",
@@ -205,7 +204,6 @@
     "Tips": "Poul"
   },
   "math": [
-    "abs",
     "plafon",
     "rasin",
     "sinis envès",

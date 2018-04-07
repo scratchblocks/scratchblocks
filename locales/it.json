@@ -93,8 +93,6 @@
     "size": "dimensione",
     "backdrop name": "nome dello sfondo",
     "backdrop #": "numero dello sfondo",
-    "volume": "volume",
-    "tempo": "tempo",
     "touching %m.touching?": "sta toccando %m.touching",
     "touching color %c?": "sta toccando il colore %c",
     "color %c is touching %c?": "il colore %c sta toccando il colore %c",
@@ -110,7 +108,6 @@
     "%m.attribute of %m.spriteOrStage": "%m.attribute di %m.spriteOrStage",
     "current %m.timeAndDate": "%m.timeAndDate attuale",
     "days since 2000": "giorni trascorsi dal 2000",
-    "username": "username",
     "pick random %n to %n": "numero a caso tra %n e %n",
     "%b and %b": "%b e %b",
     "%b or %b": "%b o %b",
@@ -187,7 +184,6 @@
     "slider": "cursore",
     "sound": "suono",
     "space": "spazio",
-    "Stage": "Stage",
     "that way": "da quella parte",
     "this script": "questo script",
     "this sprite": "questo sprite",
@@ -220,20 +216,9 @@
     "Tips": "Suggerimenti"
   },
   "math": [
-    "abs",
     "intero inferiore",
     "intero superiore",
-    "radq",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "radq"
   ],
   "aliases": {
     "ruota in senso antiorario di %n gradi": "turn @turnLeft %n degrees",

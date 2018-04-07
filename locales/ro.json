@@ -213,7 +213,6 @@
     "variable": "variabilă",
     "list": "listă",
     "Events": "Evenimente",
-    "Control": "Control",
     "Sensing": "Detecție",
     "Operators": "Operatori",
     "More Blocks": "Mai Multe Blocuri",
@@ -223,17 +222,7 @@
     "modul",
     "partea întreagă",
     "rotunjire prin adaos",
-    "radical",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "radical"
   ],
   "aliases": {
     "rotește la stânga %n grade": "turn @turnLeft %n degrees",

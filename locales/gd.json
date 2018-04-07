@@ -220,7 +220,6 @@
     "Tips": "Oidheaman"
   },
   "math": [
-    "abs",
     "cuairteachadh sìos",
     "cuairteachadh suas",
     "freumh ceàrnagach",
@@ -231,9 +230,7 @@
     "àrc-cho-shìneas",
     "àrc-bheantan",
     "log-àireamh nàdarra",
-    "log-àireamh",
-    "e ^",
-    "10 ^"
+    "log-àireamh"
   ],
   "aliases": {},
   "_name": "Gàidhlig"

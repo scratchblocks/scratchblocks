@@ -94,7 +94,6 @@
     "backdrop name": "meno pozadia",
     "backdrop #": "číslo pozadia",
     "volume": "hlasitosť",
-    "tempo": "tempo",
     "touching %m.touching?": "dotýkaš sa %m.touching?",
     "touching color %c?": "dotýkaš sa %c?",
     "color %c is touching %c?": "%c sa dotýkaš %c?",
@@ -220,20 +219,14 @@
     "Tips": "Tipy"
   },
   "math": [
-    "abs",
     "zaokrúhli nadol",
     "zaokrúhli nahor",
     "odmocnina",
-    "sin",
-    "cos",
     "tg",
     "arcsin",
     "arccos",
     "arctg",
-    "ln",
-    "log",
-    "exp",
-    "10 ^"
+    "exp"
   ],
   "aliases": {},
   "_name": "Slovenčina"

@@ -94,7 +94,6 @@
     "backdrop name": "taustan nimi",
     "backdrop #": "tausta #",
     "volume": "äänenvoimakkuus",
-    "tempo": "tempo",
     "touching %m.touching?": "koskettaako %m.touching?",
     "touching color %c?": "koskettaako väriä %c?",
     "color %c is touching %c?": "koskeeko väri %c väriä %c?",
@@ -222,16 +221,8 @@
     "pyöristä alaspäin",
     "pyöristys ylös",
     "neliöjuuri",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
     "luonnollinen logaritmi",
-    "10-logaritmi",
-    "e ^",
-    "10 ^"
+    "10-logaritmi"
   ],
   "aliases": {},
   "_name": "Suomi"

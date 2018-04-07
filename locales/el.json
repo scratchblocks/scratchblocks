@@ -118,7 +118,6 @@
     "join %s %s": "ένωσε το %s με το %s",
     "letter %n of %s": "το %n ° γράμμα του %s",
     "length of %s": "το μήκος του %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "στρογγυλοποίησε το %n",
     "%m.mathOp of %n": "%m.mathOp από %n",
     "item %d.listItem of %m.list": "το στοιχείο %d.listItem της λίστας %m.list",
@@ -186,7 +185,6 @@
     "second": "δευτερόλεπτο",
     "slider": "Γραμμή κύλισης",
     "sound": "Ήχος",
-    "space": "space",
     "Stage": "Σκηνικό",
     "that way": "προς εκείνη την κατεύθυνση",
     "this script": "αυτό το σενάριο",
@@ -221,19 +219,7 @@
   },
   "math": [
     "ΑπόλυτηΤιμή",
-    "floor",
-    "ceiling",
-    "ΤετΡίζα",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "ΤετΡίζα"
   ],
   "aliases": {
     "στρίψε αριστερά %n μοίρες": "turn @turnLeft %n degrees",

@@ -118,7 +118,6 @@
     "join %s %s": "hlanganisa %s %s",
     "letter %n of %s": "inhlamvu %n ye %s",
     "length of %s": "ubude be %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "rawunda %n",
     "%m.mathOp of %n": "%m.mathOp ye %n",
     "item %d.listItem of %m.list": "into %d.listItem ye %m.list",
@@ -166,7 +165,6 @@
     "light": "ukukhanya",
     "minute": "umzuzu",
     "month": "inyanga",
-    "mosaic": "mosaic",
     "motion": "ukunyakaza",
     "mouse-pointer": "imows-poynta",
     "myself": "mina",
@@ -174,7 +172,6 @@
     "on": "ivulekile",
     "on-flipped": "kwe-phendukile ",
     "other scripts in sprite": "omunye umdlalo womlingisi",
-    "pixelate": "pixelate",
     "previous backdrop": "indawo edlule",
     "random position": "indawo engajwayelekile",
     "resistance-A": "umnqabi-A",
@@ -220,20 +217,8 @@
     "Tips": "Usizo"
   },
   "math": [
-    "abs",
     "phansi",
-    "valela",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "valela"
   ],
   "aliases": {},
   "_name": "isiZulu"

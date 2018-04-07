@@ -67,7 +67,6 @@
     "if %b then": "más %b ansin",
     "wait until %b": "fan go %b",
     "repeat until %b": "athdhéan go %b",
-    "stop %m.stop": "stop %m.stop",
     "when I start as a clone": "nuair a thosaím mar chóip",
     "create clone of %m.spriteOnly": "cruthaigh cóip de %m.spriteOnly",
     "delete this clone": "scrios an chóip seo",
@@ -118,7 +117,6 @@
     "join %s %s": "ceangail %s %s",
     "letter %n of %s": "litir %n de %s",
     "length of %s": "fad %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "slánaigh %n",
     "%m.mathOp of %n": "%m.mathOp de %n",
     "item %d.listItem of %m.list": "mír %d.listItem i %m.list",
@@ -220,20 +218,8 @@
     "Tips": "Leideanna"
   },
   "math": [
-    "abs",
     "urlár",
-    "síleáil",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "síleáil"
   ],
   "aliases": {},
   "_name": "Gaeilge"

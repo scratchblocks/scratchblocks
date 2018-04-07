@@ -94,7 +94,6 @@
     "backdrop name": "anv an drekleur",
     "backdrop #": "drekleur #",
     "volume": "live ar son",
-    "tempo": "tempo",
     "touching %m.touching?": "%m.touching stoket ?",
     "touching color %c?": "liv %c stoket ?",
     "color %c is touching %c?": "al liv %c stok ouzh %c?",
@@ -118,7 +117,6 @@
     "join %s %s": "strollañ %s %s",
     "letter %n of %s": "lizherenn %n eus %s",
     "length of %s": "hirder %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "nesaat %n",
     "%m.mathOp of %n": "%m.mathOp %n",
     "item %d.listItem of %m.list": "elfenn %d.listItem eus %m.list",
@@ -206,12 +204,8 @@
     "Tips": "Alioù"
   },
   "math": [
-    "abs",
     "leur",
-    "gwrizienn",
-    "acos",
-    "e ^",
-    "10 ^"
+    "gwrizienn"
   ],
   "aliases": {},
   "_name": ""

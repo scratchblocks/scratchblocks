@@ -118,7 +118,6 @@
     "join %s %s": "együtt %s %s",
     "letter %n of %s": "%n betűje: %s",
     "length of %s": "%s hossza",
-    "%n mod %n": "%n mod %n",
     "round %n": "kerekítve %n",
     "%m.mathOp of %n": "%m.mathOp%n",
     "item %d.listItem of %m.list": "%d.listItem eleme: %m.list",
@@ -224,16 +223,10 @@
     "lefelé kerekítve",
     "felfelé kerekítve",
     "gyök",
-    "sin",
-    "cos",
     "tg",
     "arcsin",
     "arccos",
-    "arctg",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "arctg"
   ],
   "aliases": {},
   "_name": "Magyar"

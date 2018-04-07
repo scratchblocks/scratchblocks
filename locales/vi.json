@@ -118,7 +118,6 @@
     "join %s %s": "nối %s và %s",
     "letter %n of %s": "chữ cái thứ %n của %s",
     "length of %s": "độ dài của %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "làm tròn %n",
     "%m.mathOp of %n": "%m.mathOp của %n",
     "item %d.listItem of %m.list": "phần tử %d.listItem của %m.list",
@@ -220,20 +219,11 @@
     "Tips": "Thủ thuật"
   },
   "math": [
-    "abs",
     "làm tròn xuống",
     "trần",
     "căn",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
     "trong",
-    "nhật ký",
-    "e ^",
-    "10 ^"
+    "nhật ký"
   ],
   "aliases": {},
   "_name": "Tên ngôn ngữ"

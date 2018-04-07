@@ -184,7 +184,6 @@
     "reverse": "mbrapsht",
     "right arrow": "shigjeta djathtas",
     "second": "i dytë",
-    "slider": "slider",
     "sound": "tingull",
     "space": "hapësirë",
     "Stage": "Skenë",
@@ -220,20 +219,9 @@
     "Tips": "Këshilla"
   },
   "math": [
-    "abs",
     "dysheme",
     "tavan",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "Në",
-    "log",
-    "e ^",
-    "10 ^"
+    "Në"
   ],
   "aliases": {},
   "_name": "Shqip"

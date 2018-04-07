@@ -118,7 +118,6 @@
     "join %s %s": "sameina %s %s",
     "letter %n of %s": "stafur %n í %s",
     "length of %s": "lengd %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "rúnna %n",
     "%m.mathOp of %n": "%m.mathOp af %n",
     "item %d.listItem of %m.list": "hlutur %d.listItem í %m.list",
@@ -220,20 +219,8 @@
     "Tips": "Ábendingar"
   },
   "math": [
-    "abs",
     "gólf",
-    "loft",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "loft"
   ],
   "aliases": {},
   "_name": "Íslenska"

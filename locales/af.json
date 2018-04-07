@@ -18,13 +18,11 @@
     "size": "grootte",
     "backdrop name": "agtergrond naam",
     "backdrop #": "agtergrond #",
-    "volume": "volume",
     "answer": "antwoord",
     "loudness": "hardheid",
     "%m.attribute of %m.spriteOrStage": "%m.attribute van %m.spriteOrStage",
     "%b and %b": "%b en %b",
     "%b or %b": "%b of %b",
-    "%n mod %n": "%n mod %n",
     "%m.mathOp of %n": "%m.mathOp van %n",
     "%m.list contains %s?": "%m.list bevat %s?",
     "%m.sensor sensor value": "waarde van sensor %m.sensor"
@@ -56,7 +54,6 @@
     "month": "maand",
     "mosaic": "mosaïek",
     "motion": "beweging",
-    "myself": "myself",
     "off": "af",
     "on": "aan",
     "previous backdrop": "vorige agtergrond",
@@ -83,26 +80,13 @@
   "palette": {
     "Motion": "Beweging",
     "Sound": "Klank",
-    "Pen": "Pen",
-    "Data": "Data",
     "variable": "veranderlike",
     "list": "lys",
     "More Blocks": "Meer blokke",
     "Tips": "Wenke"
   },
   "math": [
-    "abs",
-    "vierkantswortel",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "vierkantswortel"
   ],
   "aliases": {},
   "_name": ""

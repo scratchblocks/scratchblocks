@@ -118,7 +118,6 @@
     "join %s %s": "uno %s %s",
     "letter %n of %s": "llythyren %n o %s",
     "length of %s": "hyd %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "talgrynnu %n",
     "%m.mathOp of %n": "%m.mathOp o %n",
     "item %d.listItem of %m.list": "eitem %d.listItem o %m.list",
@@ -209,7 +208,6 @@
     "Looks": "Edrychiad",
     "Sound": "Sain",
     "Pen": "Pin",
-    "Data": "Data",
     "variable": "newidyn",
     "list": "rhestr",
     "Events": "Digwyddiadau",
@@ -220,20 +218,10 @@
     "Tips": "Awgrymiadau"
   },
   "math": [
-    "abs",
     "llawr",
     "nenfwd",
     "ail isradd",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "Yn",
-    "log",
-    "e ^",
-    "10 ^"
+    "Yn"
   ],
   "aliases": {
     "troi %n gradd i'r chwith": "turn @turnLeft %n degrees",

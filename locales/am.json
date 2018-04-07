@@ -158,7 +158,6 @@
     "don't rotate": "አትሽከርከር",
     "down arrow": "ወደታች ጠቋሚ ቀስት",
     "edge": "ዳር",
-    "fisheye": "fisheye",
     "ghost": "መንፈስ",
     "hour": "ሰዓት",
     "left arrow": "ወደ ግራ ጠቋሚ ቀስት",
@@ -220,20 +219,11 @@
     "Tips": "ጠቃሚ ምክሮች"
   },
   "math": [
-    "abs",
     "መሬት",
     "ጣራ",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
     "ውስጥ",
     "ግባ",
-    "e^",
-    "10 ^"
+    "e^"
   ],
   "aliases": {},
   "_name": "ስም"

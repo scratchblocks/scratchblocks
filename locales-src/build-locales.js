@@ -163,7 +163,7 @@ const lookupEachIn = dictionary => items => {
   const output = []
   for (let text of items) {
     const result = dictionary[text]
-    if (result) { // && result !== text) {
+    if (result && result !== text) {
       output.push(dictionary[text])
     }
   }
@@ -174,7 +174,7 @@ const translateEachIn = dictionary => items => {
   const output = {}
   for (let text of items) {
     const result = dictionary[text]
-    if (result) { // && result !== text) {
+    if (result && result !== text) {
       output[text] = dictionary[text]
     }
   }

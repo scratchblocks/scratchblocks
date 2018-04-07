@@ -118,7 +118,6 @@
     "join %s %s": "иеиҧшьтәуп %s%s",
     "letter %n of %s": "анбан %n %s аҟны",
     "length of %s": "ацәаҳәа аура %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "ихаргежьтәуп %n",
     "%m.mathOp of %n": "%m.mathOp %n аҟынтә",
     "item %d.listItem of %m.list": "аелемент %d.listItem %m.list аҟынтәи",
@@ -222,18 +221,7 @@
   "math": [
     "амодуль",
     "еиҵоу еибгоу",
-    "еиҳау еибгоу",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "еиҳау еибгоу"
   ],
   "aliases": {},
   "_name": "Абызшәа ахьӡ"

@@ -94,7 +94,6 @@
     "backdrop name": "latlhela morago leina",
     "backdrop #": "latlhela morago #",
     "volume": "maemo a modumo",
-    "tempo": "tempo",
     "touching %m.touching?": "ama %m.touching?",
     "touching color %c?": "mmala o ama maikutlo %c?",
     "color %c is touching %c?": "mmala %c o ama maikutlo %c",
@@ -103,7 +102,6 @@
     "key %m.key pressed?": "tobetsa %m.key e tobeditswe?",
     "mouse down?": "mouse ko tlase?",
     "mouse x": "mouse x ",
-    "mouse y": "mouse y",
     "loudness": "modumo",
     "video %m.videoMotionType on %m.stageOrThis": "video %m.videoMotionType go %m.stageOrThis",
     "timer": "tshupanako",
@@ -118,9 +116,7 @@
     "join %s %s": "gokafanya %s %s",
     "letter %n of %s": "mokwalo %n wa %s",
     "length of %s": "botelele jwa %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "gobokanya %n",
-    "%m.mathOp of %n": "%m.mathOp of %n",
     "item %d.listItem of %m.list": "ntlha %d.listItem ya %m.list",
     "length of %m.list": "botelele jwa %m.list",
     "%m.list contains %s?": "%m.list lenaane %s?",
@@ -214,19 +210,7 @@
     "Tips": "Dikaelo"
   },
   "math": [
-    "abs",
-    "bodilo",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "bodilo"
   ],
   "aliases": {},
   "_name": "Setswana"

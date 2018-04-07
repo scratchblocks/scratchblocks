@@ -118,7 +118,6 @@
     "join %s %s": "కలుపు %s %s",
     "letter %n of %s": "అక్షరము %n లో %s ",
     "length of %s": "పొడవు %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "గుండ్రము %n",
     "%m.mathOp of %n": "%m.mathOp లో %n",
     "item %d.listItem of %m.list": "అంశము %d.జాబితాఅంశము లో %m.జాబితా",

@@ -118,7 +118,6 @@
     "join %s %s": "spoji %s %s",
     "letter %n of %s": "slovo %n od %s",
     "length of %s": "dužina od %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "zaokruži %n",
     "%m.mathOp of %n": "%m.mathOp od %n",
     "item %d.listItem of %m.list": "element %d.listItem iz %m.list",
@@ -212,17 +211,7 @@
     "apsolutno",
     "donja vrijednost",
     "gornja vrijednost",
-    "korijen",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "korijen"
   ],
   "aliases": {
     "skreni lijevo %n stupnjeva": "turn @turnLeft %n degrees",

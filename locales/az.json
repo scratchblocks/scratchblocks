@@ -118,7 +118,6 @@
     "join %s %s": "%s ilə %s birləşdir",
     "letter %n of %s": "%s ifadəsində hərf %n",
     "length of %s": "%s uzunluğu",
-    "%n mod %n": "%n mod %n",
     "round %n": "%n ədədini yuvarlaqlaşdır",
     "%m.mathOp of %n": "%m.mathOp %n",
     "item %d.listItem of %m.list": "%m.list listinin %d sırasındakı element",
@@ -223,17 +222,7 @@
     "modul",
     "aşağı yuvarlaqlaşdır",
     "yuxarı yuvarlaqlaşdır",
-    "kvadrat kökalma",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "kvadrat kökalma"
   ],
   "aliases": {},
   "_name": "Dil"

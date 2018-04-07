@@ -33,7 +33,6 @@
     "%m.attribute of %m.spriteOrStage": "%m.attribute tlen %m.spriteOrStage",
     "%b and %b": "%b uan %b",
     "%b or %b": "%b o %b",
-    "%n mod %n": "%n mod %n",
     "%m.mathOp of %n": "%m.mathOp tlen %n",
     "%m.sensor sensor value": "%m.sensor kenijki kipia"
   },

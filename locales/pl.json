@@ -94,7 +94,6 @@
     "backdrop name": "nazwa tła",
     "backdrop #": "tło #",
     "volume": "głośność",
-    "tempo": "tempo",
     "touching %m.touching?": "dotyka %m.touching?",
     "touching color %c?": "dotyka koloru %c?",
     "color %c is touching %c?": "czy kolor %c dotyka %c?",
@@ -118,7 +117,6 @@
     "join %s %s": "połącz %s i %s",
     "letter %n of %s": "litera %n z %s",
     "length of %s": "długość %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "zaokrąglij %n",
     "%m.mathOp of %n": "%m.mathOp z %n",
     "item %d.listItem of %m.list": "element %d.listItem z %m.list",
@@ -224,16 +222,9 @@
     "podłoga",
     "sufit",
     "pierwiastek kwadratowy",
-    "sin",
-    "cos",
-    "tan",
     "arcsin",
     "arccos",
-    "arctan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "arctan"
   ],
   "aliases": {
     "obróć w lewo o %n stopni": "turn @turnLeft %n degrees",

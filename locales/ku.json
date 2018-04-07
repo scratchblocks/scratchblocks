@@ -69,7 +69,6 @@
     "costume #": "kostum #",
     "size": "mezintî",
     "volume": "deng",
-    "tempo": "tempo",
     "touching %m.touching?": "berve %m.touching diçe ?",
     "touching color %c?": "berve reng %c diçe ?",
     "color %c is touching %c?": "%c nêzîkê %c dibe?",
@@ -89,7 +88,6 @@
     "join %s %s": "tevli %s %s be",
     "letter %n of %s": "tîp %n ji %s",
     "length of %s": "dirêjbûn a %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "%n girdîne",
     "%m.mathOp of %n": "%m.mathOp ji %n",
     "item %d.listItem of %m.list": "tiştê %d.listItem ji %m.list",
@@ -136,10 +134,7 @@
     "Sensing": "têgihîn",
     "Operators": "operator"
   },
-  "math": [
-    "abs",
-    "sqrt"
-  ],
+  "math": [],
   "aliases": {},
   "_name": "Kurdî"
 }

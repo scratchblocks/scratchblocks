@@ -174,7 +174,6 @@
     "on": "kā",
     "on-flipped": "ina-whakawhitia",
     "other scripts in sprite": "hōtuhi kē i roto i te parehe",
-    "pixelate": "pixelate",
     "previous backdrop": "ārai tuarongo o mua",
     "random position": "tūnga matapōkere",
     "resistance-A": "parenga-A",
@@ -220,20 +219,9 @@
     "Tips": "Ngā Tīwhiri"
   },
   "math": [
-    "abs",
     "papa",
     "tuanui",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "Kei roto",
-    "log",
-    "e ^",
-    "10 ^"
+    "Kei roto"
   ],
   "aliases": {},
   "_name": "Ingoa-reo"

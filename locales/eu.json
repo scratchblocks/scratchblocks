@@ -118,7 +118,6 @@
     "join %s %s": "elkartu %s %s",
     "letter %n of %s": "%n hizkia %s katean",
     "length of %s": "%s (r)en luzera",
-    "%n mod %n": "%n mod %n",
     "round %n": "biribildu %n",
     "%m.mathOp of %n": "%m.mathOp -- %n",
     "item %d.listItem of %m.list": "%d.listItem itema %m.list zerrendan",
@@ -220,20 +219,10 @@
     "Tips": "Laguntza"
   },
   "math": [
-    "abs",
     "solairua",
     "sabaia",
     "erro karratua",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "Barruan",
-    "log",
-    "e ^",
-    "10 ^"
+    "Barruan"
   ],
   "aliases": {},
   "_name": "Euskara"

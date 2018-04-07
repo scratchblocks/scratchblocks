@@ -100,7 +100,6 @@
     "join %s %s": "coniunge %s %s",
     "letter %n of %s": "littera %n de %s",
     "length of %s": "longitudo de %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "conclude %n",
     "%m.mathOp of %n": "%m.mathOp de %n",
     "item %d.listItem of %m.list": "pars %d.listItem de %m.list",
@@ -119,14 +118,11 @@
     "brightness": "splendor",
     "button pressed": "globulus pressus",
     "C connected": "C coniunctus est",
-    "color": "color",
     "D connected": "D coniunctus est",
     "down arrow": "deorsa sagitta"
   },
   "osis": [],
-  "define": [
-    "define"
-  ],
+  "define": [],
   "palette": {
     "Motion": "motio",
     "Looks": "videt",
@@ -139,13 +135,7 @@
     "Operators": "exercentes",
     "More Blocks": "Magis quadrata"
   },
-  "math": [
-    "abs",
-    "asin",
-    "acos",
-    "atan",
-    "10 ^"
-  ],
+  "math": [],
   "aliases": {},
   "_name": "Latina"
 }

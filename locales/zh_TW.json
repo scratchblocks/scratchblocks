@@ -223,17 +223,7 @@
     "絕對值",
     "無條件捨去",
     "無條件進入",
-    "平方根",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "平方根"
   ],
   "aliases": {
     "左轉 %n 度": "turn @turnLeft %n degrees",

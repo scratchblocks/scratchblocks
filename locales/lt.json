@@ -217,16 +217,11 @@
     "apvalink žemyn",
     "apvalink aukštyn",
     "šaknis iš",
-    "sin",
-    "cos",
     "tg",
     "arcsin",
     "arccos",
     "arctg",
-    "ln",
-    "lg",
-    "e ^",
-    "10 ^"
+    "lg"
   ],
   "aliases": {},
   "_name": "Lietuvių"

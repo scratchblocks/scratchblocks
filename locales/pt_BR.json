@@ -93,8 +93,6 @@
     "size": "tamanho",
     "backdrop name": "nome do pano de fundo",
     "backdrop #": "n° do pano de fundo",
-    "volume": "volume",
-    "tempo": "tempo",
     "touching %m.touching?": "tocando em %m.touching?",
     "touching color %c?": "tocando na cor %c?",
     "color %c is touching %c?": "a cor %c está tocando na cor %c?",
@@ -230,10 +228,7 @@
     "arco seno",
     "arco cosseno",
     "arco tangente",
-    "ln",
-    "logaritmo",
-    "e ^",
-    "10 ^"
+    "logaritmo"
   ],
   "aliases": {},
   "_name": "Português Brasileiro"

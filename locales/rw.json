@@ -90,7 +90,6 @@
     "size": "ingano",
     "backdrop name": "имя фона",
     "volume": "Ubunini",
-    "tempo": "tempo",
     "touching %m.touching?": "gufata %m.touching?",
     "touching color %c?": "gufata irange %c?",
     "color %c is touching %c?": "irangi %c rirafata %c?",
@@ -114,7 +113,6 @@
     "join %s %s": "sanga %s %s",
     "letter %n of %s": "inyuguti %n ya %s",
     "length of %s": "uburebure bwa %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "inshuro %n",
     "%m.mathOp of %n": "%m.mathOp ya %n",
     "item %d.listItem of %m.list": "igikoresho %d.listItem cya %m.list",
@@ -138,24 +136,17 @@
     "color": "irangi",
     "down arrow": "akerekezo kareba hasi",
     "edge": "umusozo",
-    "fisheye": "fisheye",
     "ghost": "Umwuka",
     "left arrow": "Akerekezo kaganisha ibumoso",
     "light": "Urumuri",
-    "mosaic": "mosaic",
-    "mouse-pointer": "mouse-pointer",
     "off": "kuzimya",
     "on": "kwatsa",
-    "pixelate": "pixelate",
-    "reverse": "reverse",
     "right arrow": "Akerekezo kerekana iburyo",
-    "slider": "slider",
     "space": "Umwanya",
     "Stage": "Ihuriro",
     "that way": "buriya buryo",
     "this way": "ubu buryo",
-    "up arrow": "akarekezo kereka hejuru",
-    "whirl": "whirl"
+    "up arrow": "akarekezo kereka hejuru"
   },
   "osis": [],
   "define": [
@@ -173,10 +164,7 @@
     "Operators": "operators",
     "More Blocks": "Другие блоки"
   },
-  "math": [
-    "abs",
-    "sqrt"
-  ],
+  "math": [],
   "aliases": {},
   "_name": "Kinyarwanda"
 }

@@ -230,8 +230,7 @@
     "o arco-tangente",
     "o logaritmo natural",
     "o logaritmo",
-    "a exponencial",
-    "10 ^"
+    "a exponencial"
   ],
   "aliases": {
     "gira para a esquerda %n º": "turn @turnLeft %n degrees",

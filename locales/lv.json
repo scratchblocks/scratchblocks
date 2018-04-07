@@ -158,7 +158,6 @@
     "don't rotate": "nerotēt",
     "down arrow": "bulta uz leju",
     "edge": "mala",
-    "fisheye": "fisheye",
     "ghost": "spoks",
     "hour": "stunda",
     "left arrow": "bulta pa kreisi",
@@ -221,18 +220,7 @@
   "math": [
     "modulis (absolūtā vērtība)",
     "apaļot uz leju",
-    "apaļot uz augšu",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "apaļot uz augšu"
   ],
   "aliases": {},
   "_name": "Latviešu"

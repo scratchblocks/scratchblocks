@@ -220,20 +220,8 @@
     "Tips": "Consìgios"
   },
   "math": [
-    "abs",
     "rotunda a s'intreu a suta",
-    "rotunda a s'intreu a subra de",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^"
+    "rotunda a s'intreu a subra de"
   ],
   "aliases": {},
   "_name": "Sardu"

@@ -93,8 +93,6 @@
     "size": "tamaño",
     "backdrop name": "nome de fondo",
     "backdrop #": "fondo #",
-    "volume": "volume",
-    "tempo": "tempo",
     "touching %m.touching?": "tocando %m.touching?",
     "touching color %c?": "tocando a cor %c?",
     "color %c is touching %c?": "cor %c tocando sobre %c?",
@@ -118,7 +116,6 @@
     "join %s %s": "xuntar %s %s",
     "letter %n of %s": "letra %n de %s",
     "length of %s": "lonxitude de %s",
-    "%n mod %n": "%n mod %n",
     "round %n": "redondear %n",
     "%m.mathOp of %n": "%m.mathOp de %n",
     "item %d.listItem of %m.list": "elemento %d.listItem de %m.list",
@@ -209,10 +206,8 @@
     "Sound": "Son",
     "Pen": "Lapis",
     "Data": "Datos",
-    "variable": "variable",
     "list": "lista",
     "Events": "Eventos",
-    "Control": "Control",
     "Sensing": "Sensores",
     "Operators": "Operadores",
     "More Blocks": "Máis Bloques",
@@ -230,9 +225,7 @@
     "arco coseno",
     "arco tanxente",
     "Dentro",
-    "log",
-    "e elevado a",
-    "10 ^"
+    "e elevado a"
   ],
   "aliases": {},
   "_name": "Galego"

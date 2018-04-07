@@ -93,8 +93,6 @@
     "size": "tamañu",
     "backdrop name": "nombre de fondu",
     "backdrop #": "núm. de fondu",
-    "volume": "volume",
-    "tempo": "tempo",
     "touching %m.touching?": "¿tocando %m.touching?",
     "touching color %c?": "¿tocando'l color %c?",
     "color %c is touching %c?": "¿el color %c ta tocando %c?",
@@ -149,7 +147,6 @@
     "brightness": "brillu",
     "button pressed": "botón calcáu",
     "C connected": "C coneutáu",
-    "color": "color",
     "costume name": "nome del disfraz"
   },
   "osis": [],
@@ -163,19 +160,12 @@
     "Pen": "Llápiz",
     "Data": "Datos",
     "Events": "Socesos",
-    "Control": "Control",
     "Sensing": "Sensores",
     "Operators": "Operadores",
     "More Blocks": "Más Bloques"
   },
   "math": [
-    "abs",
-    "techu",
-    "cos",
-    "asin",
-    "acos",
-    "atan",
-    "10 ^"
+    "techu"
   ],
   "aliases": {},
   "_name": "Asturianu"
