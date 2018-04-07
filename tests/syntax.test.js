@@ -1,6 +1,5 @@
 
-const scratchblocks = require('../headless.js')
-const { parse, fromJSON } = scratchblocks
+const { parse, fromJSON } = require('../syntax')
 
 function getBlock(doc) {
   expect(doc.scripts.length).toBe(1)
@@ -99,7 +98,7 @@ describe('disambiguation', () => {
   })
 
   test('orange: length of list', () => {
-    let b = testBlock('(length of [list v] :: list)', ['lineCountOfList:', 'list'])
+    let b = testBlock('(length of [list v])', ['lineCountOfList:', 'list'])
     expect(b.info.category).toBe('list')
   })
 
