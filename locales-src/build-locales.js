@@ -198,7 +198,7 @@ const buildLocale = (code, dictionary) => {
     math: listFor(mathFuncs),
     aliases: aliases || {},
 
-    _name: dictionary['Language-Name'],
+    _name: dictionary["Language-Name"],
   }
 
   const commandCount = Object.keys(locale.commands).length
@@ -206,7 +206,9 @@ const buildLocale = (code, dictionary) => {
     return
   }
   const frac = commandCount / scratchSelectors.length
-  console.log(`${(code + ':').padEnd(8)} ${(frac * 100).toFixed(1).padStart(5)}%`)
+  console.log(
+    `${(code + ":").padEnd(8)} ${(frac * 100).toFixed(1).padStart(5)}%`
+  )
 
   if (aliases) {
     locale.commands["end"] = aliases["end"]
