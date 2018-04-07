@@ -19,6 +19,8 @@
   },
   "scripts": {
     "build": "browserify browser.js -o build/scratchblocks.min.js -t [ babelify --presets [ es2015 babili ] ]",
+    "build-translations": "browserify locales-src/translations.js -o build/translations.min.js -t [ babelify --presets [ es2015 babili ] ]",
+    "build-translations-all": "browserify locales-src/translations-all.js -o build/translations-all.min.js -t [ babelify --presets [ es2015 babili ] ]",
     "fmt": "prettier --write *.js syntax/*.js scratch2/*.js locales-src/*.js",
     "postinstall": "npm run build -- -s Scratchblocks",
     "lint:staged": "lint-staged",
