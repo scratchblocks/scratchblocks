@@ -2,7 +2,8 @@
   "name": "scratchblocks",
   "version": "3.1.2",
   "description": "Render scratchblocks code to SVG images.",
-  "browser": "browser.js",
+  "browser": "build/scratchblocks.min.js",
+  "main": "build/scratchblocks.min.js",
   "directories": {
     "test": "tests"
   },
