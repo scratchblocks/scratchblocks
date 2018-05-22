@@ -1,42 +1,29 @@
 {
   "name": "scratchblocks",
-  "version": "3.1.2",
   "description": "Render scratchblocks code to SVG images.",
-  "browser": "build/scratchblocks.min.js",
-  "main": "build/scratchblocks.min.js",
-  "directories": {
-    "test": "tests"
-  },
-  "prettier": {
-    "semi": false,
-    "trailingComma": "es5"
-  },
-  "scripts": {
-    "test": "jest",
-    "build": "browserify browser.js -o build/scratchblocks.min.js -t [ babelify --presets [ es2015 babili ] ]",
-    "fmt": "prettier --write *.js syntax/*.js scratch2/*.js",
-    "start": "beefy browser.js:bundle.js --live --port 8000",
-    "postinstall": "npm run build -- -s Scratchblocks",
-    "lint:staged": "lint-staged"
-  },
+  "license": "MIT",
+  "author": "tjvr",
+  "homepage": "https://scratchblocks.github.io/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tjvr/scratchblocks.git"
   },
-  "keywords": [
-    "scratch"
-  ],
-  "author": "tjvr",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tjvr/scratchblocks/issues"
   },
-  "homepage": "https://scratchblocks.github.io/",
-  "devDependencies": {
-    "jest": "^19.0.2",
-    "prettier": "1.7.4",
-    "lint-staged": "^7.1.2",
-    "prettier-package-json": "^1.6.0"
+  "version": "3.1.2",
+  "main": "build/scratchblocks.min.js",
+  "browser": "build/scratchblocks.min.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "browserify browser.js -o build/scratchblocks.min.js -t [ babelify --presets [ es2015 babili ] ]",
+    "fmt": "prettier --write *.js syntax/*.js scratch2/*.js",
+    "postinstall": "npm run build -- -s Scratchblocks",
+    "lint:staged": "lint-staged",
+    "start": "beefy browser.js:bundle.js --live --port 8000",
+    "test": "jest"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.22.0",
@@ -45,6 +32,15 @@
     "beefy": "^2.1.8",
     "browserify": "^14.1.0"
   },
+  "devDependencies": {
+    "jest": "^19.0.2",
+    "lint-staged": "^7.1.2",
+    "prettier": "1.7.4",
+    "prettier-package-json": "^1.6.0"
+  },
+  "keywords": [
+    "scratch"
+  ],
   "lint-staged": {
     "package.json": [
       "prettier-package-json --write",
@@ -55,5 +51,9 @@
       "git add"
     ]
   },
-  "pre-commit": "lint:staged"
+  "pre-commit": "lint:staged",
+  "prettier": {
+    "semi": false,
+    "trailingComma": "es5"
+  }
 }
