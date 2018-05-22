@@ -14,7 +14,8 @@
     "test": "jest",
     "build": "browserify browser.js -o build/scratchblocks.min.js -t [ babelify --presets [ es2015 babili ] ]",
     "fmt": "prettier --write *.js syntax/*.js scratch2/*.js",
-    "start": "beefy browser.js:bundle.js --live --port 8000"
+    "start": "beefy browser.js:bundle.js --live --port 8000",
+    "postinstall": "npm run build -- -s Scratchblocks"
   },
   "repository": {
     "type": "git",
