@@ -30,12 +30,12 @@
     "babelify": "^7.3.0",
     "babili": "^0.0.11",
     "beefy": "^2.1.8",
-    "browserify": "^14.1.0"
+    "browserify": "^14.1.0",
+    "n-deep-merge": "0.0.2"
   },
   "devDependencies": {
     "jest": "^19.0.2",
     "lint-staged": "^7.1.2",
-    "n-deep-merge": "0.0.2",
     "prettier": "1.7.4",
     "prettier-package-json": "^1.6.0"
   },
