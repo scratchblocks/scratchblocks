@@ -16,7 +16,8 @@
     "build": "browserify browser.js -o build/scratchblocks.min.js -t [ babelify --presets [ es2015 babili ] ]",
     "fmt": "prettier --write *.js syntax/*.js scratch2/*.js",
     "start": "beefy browser.js:bundle.js --live --port 8000",
-    "postinstall": "npm run build -- -s Scratchblocks"
+    "postinstall": "npm run build -- -s Scratchblocks",
+    "lint:staged": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -33,13 +34,21 @@
   "homepage": "https://scratchblocks.github.io/",
   "devDependencies": {
     "jest": "^19.0.2",
-    "prettier": "1.7.4"
+    "prettier": "1.7.4",
+    "lint-staged": "^7.1.2"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.22.0",
     "babelify": "^7.3.0",
     "babili": "^0.0.11",
     "beefy": "^2.1.8",
-    "browserify": "^14.1.0",
-  }
+    "browserify": "^14.1.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "pre-commit": "lint:staged"
 }
