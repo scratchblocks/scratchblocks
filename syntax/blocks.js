@@ -1,11 +1,10 @@
+var merge = require("n-deep-merge")
+
 function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")
 }
 function isArray(o) {
   return o && o.constructor === Array
-}
-function extend(src, dest) {
-  return Object.assign({}, dest, src)
 }
 
 // List of classes we're allowed to override.
@@ -111,7 +110,7 @@ function minifyHash(hash) {
 var blocksBySelector = {}
 var blocksBySpec = {}
 var allBlocks = scratchCommands.map(function(command) {
-  var info = extend(parseSpec(command[0]), {
+  var info = merge(parseSpec(command[0]), {
     shape: typeShapes[command[1]], // /[ bcefhr]|cf/
     category: categoriesById[command[2] % 100],
     selector: command[3],
@@ -267,7 +266,7 @@ blocksBySelector["stopScripts"].specialCase = function(info, children, lang) {
   if (!last.isInput) return
   var value = last.value
   if (lang.osis.indexOf(value) > -1) {
-    return extend(blocksBySelector["stopScripts"], {
+    return merge(blocksBySelector["stopScripts"], {
       shape: "stack",
     })
   }

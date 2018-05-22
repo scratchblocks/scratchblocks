@@ -6,16 +6,12 @@
  * @license MIT
  * http://opensource.org/licenses/MIT
  */
+var merge = require("n-deep-merge")
+
 module.exports = function(window, makeCanvas) {
   "use strict"
 
   var document = window.document
-
-  /* utils */
-
-  function extend(src, dest) {
-    return Object.assign({}, dest, src)
-  }
 
   /*****************************************************************************/
 
@@ -61,7 +57,7 @@ module.exports = function(window, makeCanvas) {
 
   // read code from a DOM element
   function readCode(el, options) {
-    var options = extend(
+    var options = merge(
       {
         inline: false,
       },
@@ -108,7 +104,7 @@ module.exports = function(window, makeCanvas) {
    */
   var renderMatching = function(selector, options) {
     var selector = selector || "pre.blocks"
-    var options = extend(
+    var options = merge(
       {
         inline: false,
         languages: ["en"],

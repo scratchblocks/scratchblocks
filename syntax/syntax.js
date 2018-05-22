@@ -1,6 +1,5 @@
-function extend(src, dest) {
-  return Object.assign({}, dest, src)
-}
+var merge = require("n-deep-merge")
+
 function isArray(o) {
   return o && o.constructor === Array
 }
@@ -542,7 +541,7 @@ function parseScripts(getLine) {
 
         if (b.isElse || b.isEnd) {
           b = new Block(
-            extend(b.info, {
+            merge(b.info, {
               shape: "stack",
             }),
             b.children
@@ -780,7 +779,7 @@ function recogniseStuff(scripts) {
 }
 
 function parse(code, options) {
-  var options = extend(
+  var options = merge(
     {
       inline: false,
       languages: ["en"],
