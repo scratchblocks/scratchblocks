@@ -1,11 +1,10 @@
+var merge = require("n-deep-merge")
+
 function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")
 }
 function isArray(o) {
   return o && o.constructor === Array
-}
-function extend(src, dest) {
-  return Object.assign({}, dest, src)
 }
 
 function indent(text) {
@@ -271,7 +270,7 @@ Block.fromJSON = function(lang, array, part) {
     )
   } else if (selector === "call") {
     var spec = args.shift()
-    var info = extend(parseSpec(spec), {
+    var info = merge(parseSpec(spec), {
       category: "custom",
       shape: "stack",
       selector: "call",
@@ -298,7 +297,7 @@ Block.fromJSON = function(lang, array, part) {
     }
     return new Block(info, [new Label(args[0])])
   } else {
-    var info = extend(blocksBySelector[selector], {
+    var info = merge(blocksBySelector[selector], {
       language: lang,
     })
     assert(info, "unknown selector: " + selector)

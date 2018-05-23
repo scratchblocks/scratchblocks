@@ -1,13 +1,10 @@
-function extend(src, dest) {
-  return Object.assign({}, dest, src)
-}
-
+var merge = require("n-deep-merge")
 var SVG = require("./draw.js")
 
 var Filter = function(id, props) {
   this.el = SVG.el(
     "filter",
-    extend(props, {
+    merge(props, {
       id: id,
       x0: "-50%",
       y0: "-50%",
@@ -24,7 +21,7 @@ Filter.prototype.fe = function(name, props, children) {
     SVG.withChildren(
       SVG.el(
         "fe" + name,
-        extend(props, {
+        merge(props, {
           result: id,
         })
       ),
@@ -36,7 +33,7 @@ Filter.prototype.fe = function(name, props, children) {
 Filter.prototype.comp = function(op, in1, in2, props) {
   return this.fe(
     "Composite",
-    extend(props, {
+    merge(props, {
       operator: op,
       in: in1,
       in2: in2,

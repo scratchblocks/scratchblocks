@@ -1,13 +1,8 @@
-.DS_Store
+*.pyc
 *.swp
-
+.DS_Store
+build/
 node_modules
 npm-debug.log
-
-tests/*.svg
-
-*.pyc
 src/_cache
-build/
-
 tests/*.svg

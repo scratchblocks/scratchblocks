@@ -1,8 +1,7 @@
 /* for constucting SVGs */
 
-function extend(src, dest) {
-  return Object.assign({}, dest, src)
-}
+var merge = require("n-deep-merge")
+
 function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")
 }
@@ -70,7 +69,7 @@ var SVG = (module.exports = {
   polygon(props) {
     return SVG.el(
       "polygon",
-      extend(props, {
+      merge(props, {
         points: props.points.join(" "),
       })
     )
@@ -79,7 +78,7 @@ var SVG = (module.exports = {
   path(props) {
     return SVG.el(
       "path",
-      extend(props, {
+      merge(props, {
         path: null,
         d: props.path.join(" "),
       })
@@ -89,7 +88,7 @@ var SVG = (module.exports = {
   text(x, y, content, props) {
     var text = SVG.el(
       "text",
-      extend(props, {
+      merge(props, {
         x: x,
         y: y,
         textContent: content,
@@ -141,7 +140,7 @@ var SVG = (module.exports = {
   rect(w, h, props) {
     return SVG.el(
       "rect",
-      extend(props, {
+      merge(props, {
         x: 0,
         y: 0,
         width: w,
@@ -153,7 +152,7 @@ var SVG = (module.exports = {
   ellipse(w, h, props) {
     return SVG.el(
       "ellipse",
-      extend(props, {
+      merge(props, {
         cx: w / 2,
         cy: h / 2,
         rx: w / 2,
@@ -186,7 +185,7 @@ var SVG = (module.exports = {
 
   roundedRect(w, h, props) {
     return SVG.path(
-      extend(props, {
+      merge(props, {
         path: SVG.roundedPath(w, h),
       })
     )
@@ -224,7 +223,7 @@ var SVG = (module.exports = {
 
   pointedRect(w, h, props) {
     return SVG.path(
-      extend(props, {
+      merge(props, {
         path: SVG.pointedPath(w, h),
       })
     )
@@ -336,7 +335,7 @@ var SVG = (module.exports = {
 
   stackRect(w, h, props) {
     return SVG.path(
-      extend(props, {
+      merge(props, {
         path: [SVG.getTop(w), SVG.getRightAndBottom(w, h, true, 0), "Z"],
       })
     )
@@ -352,7 +351,7 @@ var SVG = (module.exports = {
 
   capRect(w, h, props) {
     return SVG.path(
-      extend(props, {
+      merge(props, {
         path: SVG.capPath(w, h),
       })
     )
@@ -360,7 +359,7 @@ var SVG = (module.exports = {
 
   hatRect(w, h, props) {
     return SVG.path(
-      extend(props, {
+      merge(props, {
         path: [
           "M",
           0,
@@ -392,7 +391,7 @@ var SVG = (module.exports = {
     // TODO use arc()
     var archRoundness = Math.min(0.2, 35 / w)
     return SVG.path(
-      extend(props, {
+      merge(props, {
         path: [
           "M",
           0,
@@ -470,7 +469,7 @@ var SVG = (module.exports = {
       p.push(SVG.getRightAndBottom(w, y, hasNotch, inset))
     }
     return SVG.path(
-      extend(props, {
+      merge(props, {
         path: p,
       })
     )
@@ -485,7 +484,7 @@ var SVG = (module.exports = {
           ? SVG.pointedPath
           : cw < 40 ? SVG.ringCapPath : SVG.capPath
     return SVG.path(
-      extend(props, {
+      merge(props, {
         path: [
           "M",
           r,
@@ -505,7 +504,7 @@ var SVG = (module.exports = {
   commentRect(w, h, props) {
     var r = 6
     return SVG.path(
-      extend(props, {
+      merge(props, {
         class: "sb-comment",
         path: [
           "M",
@@ -528,7 +527,7 @@ var SVG = (module.exports = {
       SVG.rect(
         width,
         2,
-        extend(props, {
+        merge(props, {
           class: "sb-comment-line",
         })
       )
@@ -537,7 +536,7 @@ var SVG = (module.exports = {
 
   strikethroughLine(w, props) {
     return SVG.path(
-      extend(props, {
+      merge(props, {
         path: ["M", 0, 0, "L", w, 0],
         class: "sb-diff sb-diff-del",
       })
