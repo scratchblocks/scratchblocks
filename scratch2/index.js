@@ -61,12 +61,9 @@ module.exports = function(window, makeCanvas) {
 
   // read code from a DOM element
   function readCode(el, options) {
-    var options = extend(
-      {
-        inline: false,
-      },
-      options
-    )
+    var options = extend(options, {
+      inline: false,
+    })
 
     var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/gi, "\n")
     var pre = document.createElement("pre")
@@ -108,18 +105,15 @@ module.exports = function(window, makeCanvas) {
    */
   var renderMatching = function(selector, options) {
     var selector = selector || "pre.blocks"
-    var options = extend(
-      {
-        inline: false,
-        languages: ["en"],
+    var options = extend(options, {
+      inline: false,
+      languages: ["en"],
 
-        read: readCode, // function(el, options) => code
-        parse: parse, // function(code, options) => docView
-        render: render, // function(doc, cb) => svg
-        replace: replace, // function(el, svg, docView, options)
-      },
-      options
-    )
+      read: readCode, // function(el, options) => code
+      parse: parse, // function(code, options) => docView
+      render: render, // function(doc, cb) => svg
+      replace: replace, // function(el, svg, docView, options)
+    })
 
     // find elements
     var results = [].slice.apply(document.querySelectorAll(selector))
