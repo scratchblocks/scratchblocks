@@ -1,0 +1,61 @@
+{
+  "commands": {
+    "change x by %n": "შეცვალე x-ი %n-ით",
+    "change y by %n": "შეცვალე y-ი %n-ით",
+    "say %s for %n secs": "თქვი %s %n წუთის განმავლობაში",
+    "say %s": "თქვი %s",
+    "show": "ჩვენება",
+    "hide": "დამალვა",
+    "change %m.effect effect by %n": "შეცვალე %m.effect ეფექტი %n-ით",
+    "change size by %n": "შეცვალე ზომა %n-ით",
+    "go back %n layers": "უკან დაბრუნება %n შრით",
+    "change volume by %n": "შეცვალე მოცულობა %n-ით",
+    "change tempo by %n": "შეცვალე ტემპი %n-ით",
+    "clear": "გასუფთავება",
+    "change pen size by %n": "შეცვალე კალმის ზომა %n-ით",
+    "repeat %n": "გაიმეორე %n",
+    "forever": "სამუდამოდ",
+    "if %b then": "თუ %b, მაშინ",
+    "repeat until %b": "გაიმეორე სანამ %b",
+    "change %m.var by %n": "შეცვალე %m.var %n-ით",
+    "hide variable %m.var": "დამალე ცვლადი %m.var",
+    "hide list %m.list": "დამალე სია %m.list",
+    "direction": "მიმართულება",
+    "size": "ზომის შეცვლა",
+    "volume": "ხმა",
+    "answer": "პასუხი",
+    "mouse x": "მაუსი x",
+    "mouse y": "მაუსი y",
+    "%b and %b": "%b და %b",
+    "%b or %b": "%b, ან %b",
+    "length of %s": "%s-ის სიგრძე",
+    "length of %m.list": "%m.list-ის სიგრძე",
+    "distance": "მანძილი"
+  },
+  "ignorelt": [],
+  "dropdowns": {
+    "brightness": "სიკაშკაშე",
+    "edge": "კიდე",
+    "left arrow": "მარცხენა ისარი",
+    "right arrow": "მარჯვენა ისარი",
+    "slider": "ცოცია",
+    "space": "სივრცე"
+  },
+  "osis": [],
+  "define": [],
+  "palette": {
+    "Motion": "მოძრაობა",
+    "Sound": "ხმა",
+    "Pen": "კალამი",
+    "Data": "მონაცემი",
+    "list": "სია",
+    "Events": "მოვლენები",
+    "More Blocks": "მეტი ბლოკი",
+    "Tips": "რჩევები"
+  },
+  "math": [
+    "ჟურნალი"
+  ],
+  "aliases": {},
+  "_name": ""
+}

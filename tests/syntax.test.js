@@ -1,5 +1,5 @@
 
-const { parse, fromJSON } = require('../syntax')
+const { parse, fromJSON, loadLanguages } = require('../syntax')
 
 function getBlock(doc) {
   expect(doc.scripts.length).toBe(1)
@@ -8,8 +8,8 @@ function getBlock(doc) {
   return script.blocks[0]
 }
 
-function parseBlock(code) {
-  return getBlock(parse(code))
+function parseBlock(code, options) {
+  return getBlock(parse(code, options))
 }
 
 function blockFromJSON(json) {
@@ -161,8 +161,16 @@ describe('comparison ops: < and > ', () => {
 // TODO test { } handling
 
 describe('other languages', () => {
+  const forums = require('../locales/forums.js')
+  loadLanguages(forums)
 
-  // scratchblocks.loadLanguages(scratchblocks.allLanguages.de)
+  // Japanese
+  test('Japanese', () => {
+      const options = {languages: ['en', 'ja']}
+      expect(parseBlock('⚑ がクリックされたとき', options).toJSON()).toEqual([
+              'whenGreenFlag',
+      ])
+  })
 
   /*
   // German

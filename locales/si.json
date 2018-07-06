@@ -1,0 +1,32 @@
+{
+  "commands": {
+    "clear": "පැහැදිලි කරනවා",
+    "delete this clone": "මේ ක්ලෝනය ඉවත් කරන්න",
+    "direction": "දිශාව",
+    "answer": "පිළිතුර",
+    "days since 2000": "2000 සිට දින ",
+    "%b and %b": "%b සහ %b",
+    "%b or %b": "%b හෝ %b",
+    "distance": "පරතරය"
+  },
+  "ignorelt": [],
+  "dropdowns": {},
+  "osis": [],
+  "define": [
+    "අර්ථ දක්වනවා"
+  ],
+  "palette": {
+    "Motion": "චලනය",
+    "Looks": "බලනවා",
+    "Sound": "ශබ්දය",
+    "Pen": "පෑන",
+    "Data": "දත්ත",
+    "Events": "අවස්ථා",
+    "Control": "හසුරුවනවා",
+    "Operators": "ක්‍රියාකරුවන්",
+    "More Blocks": "තවත් බ්ලොක්ස්"
+  },
+  "math": [],
+  "aliases": {},
+  "_name": ""
+}

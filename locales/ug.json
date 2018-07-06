@@ -1,0 +1,54 @@
+{
+  "commands": {
+    "show": "كۆرسىتىش",
+    "hide": "يوشۇرۇش",
+    "clear graphic effects": "رەسىم ئۈنۈمىنى تازىلاش",
+    "go to front": "ئالدىغا قايتىش",
+    "stop all sounds": "بارلىق ئاۋازنى توختىتىش",
+    "clear": "تازىلاش",
+    "broadcast %m.broadcast": "رادىئو %m.broadcast",
+    "forever": "مەڭگۈ",
+    "add %s to %m.list": "%s نى %m.list گە قوشۇش",
+    "x position": "X ئورنى",
+    "y position": "Y ئورنى",
+    "direction": "يۆنىلىش",
+    "size": "چوڭ-كىچىكلىكى",
+    "backdrop name": "تەگلىك ئىسمى",
+    "backdrop #": "تەگلىك نۇمۇرۇى",
+    "volume": "ئاۋاز چوڭلۇقى",
+    "tempo": "تىمپا",
+    "distance to %m.spriteOrMouse": " گىچە ئارلىق %m.spriteOrMouse",
+    "answer": "جاۋاب",
+    "timer": "ۋاقىت سانىغۇچ",
+    "%b and %b": "%b ۋە %b",
+    "%b or %b": "%b ياكى %b",
+    "%n mod %n": "%n نى %n گە بۆلگەندىكى قالدۇق",
+    "%m.sensor sensor value": "سەزگۈچىنىڭ قىممىتى %m.sensor",
+    "else": "ئۇنداق بولمىسا"
+  },
+  "ignorelt": [],
+  "dropdowns": {
+    "A connected": "A ئۇلاندى",
+    "all": "بارلىق",
+    "brightness": "يورۇقلۇقى",
+    "button pressed": "كونۇپكا بىسلدى",
+    "color": "رەڭ",
+    "slider": "سىيرىغۇچ"
+  },
+  "osis": [],
+  "define": [],
+  "palette": {
+    "Motion": "ھەرىكەت",
+    "Looks": "كۆرۈنۈشلەر",
+    "Sound": "ئاۋاز",
+    "Pen": "sh",
+    "Control": "كونتروللاش",
+    "Sensing": "سىزىش",
+    "Operators": "مەشغۇلاتچىلار"
+  },
+  "math": [
+    "مۇتلەق قىممەت"
+  ],
+  "aliases": {},
+  "_name": "Uyghur"
+}
