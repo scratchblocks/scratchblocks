@@ -124,6 +124,18 @@ describe('disambiguation', () => {
   })
 })
 
+describe('disambiguation', () => {
+  test('stop block: cap', () => {
+    let b = testBlock('stop [all v]', ['stopScripts', 'all'])
+    expect(b.info.shape).toBe('cap')
+  })
+
+  test('stop block: cap', () => {
+    let b = testBlock('stop [other scripts in sprite v]', ['stopScripts', 'other scripts in sprite'])
+    expect(b.info.shape).toBe('stack')
+  })
+})
+
 describe('standalone blocks', () => {
   test('reporters may stand alone', () => {
     expect(parseBlock('(variable)').info.shape).toBe('reporter')
