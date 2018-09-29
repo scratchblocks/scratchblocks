@@ -158,6 +158,17 @@ describe('standalone blocks', () => {
 
 })
 
+describe('c blocks', () => {
+  test('if else', () => {
+    testBlock('if <> then \n  \nelse\nend', ['doIfElse', false, [], []])
+  })
+
+  test('standalone else', () => {
+    expect(parseBlock('else').info.shape).toBe('stack')
+    expect(parseBlock('end').info.shape).toBe('stack')
+  })
+})
+
 describe('comparison ops: < and > ', () => {
   test('ahahahaha', () => {
     expect(parseBlock('<[10]<(foo)>').toJSON()).toEqual(['<', '10', getFoo])
