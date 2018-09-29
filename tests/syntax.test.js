@@ -87,7 +87,12 @@ describe('literals', () => {
 })
 
 describe('color literals', () => {
-  // TODO this is gonna be fun
+  test('work', () => {
+    let b = testBlock('<touching color [#f0f] ?>', ["touchingColor:", 16711935])
+    const color = b.children[2]
+    expect(color.shape).toBe('color')
+    expect(color.value).toBe('#f0f')
+  })
 })
 
 describe('disambiguation', () => {
