@@ -13,10 +13,6 @@ module.exports = function(window, makeCanvas) {
 
   /* utils */
 
-  function extend(src, dest) {
-    return Object.assign({}, dest, src)
-  }
-
   /*****************************************************************************/
 
   const syntax = require("../syntax")
@@ -61,9 +57,9 @@ module.exports = function(window, makeCanvas) {
 
   // read code from a DOM element
   function readCode(el, options) {
-    var options = extend(options, {
+    var options = Object.assign({
       inline: false,
-    })
+    }, options)
 
     var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/gi, "\n")
     var pre = document.createElement("pre")
@@ -105,7 +101,7 @@ module.exports = function(window, makeCanvas) {
    */
   var renderMatching = function(selector, options) {
     var selector = selector || "pre.blocks"
-    var options = extend(options, {
+    var options = Object.assign({
       inline: false,
       languages: ["en"],
 
@@ -113,7 +109,7 @@ module.exports = function(window, makeCanvas) {
       parse: parse, // function(code, options) => docView
       render: render, // function(doc, cb) => svg
       replace: replace, // function(el, svg, docView, options)
-    })
+    }, options)
 
     // find elements
     var results = [].slice.apply(document.querySelectorAll(selector))

@@ -1,7 +1,7 @@
 /* for constucting SVGs */
 
 function extend(src, dest) {
-  return Object.assign({}, dest, src)
+  return Object.assign({}, src, dest)
 }
 function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")

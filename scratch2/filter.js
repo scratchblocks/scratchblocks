@@ -1,5 +1,5 @@
 function extend(src, dest) {
-  return Object.assign({}, dest, src)
+  return Object.assign({}, src, dest)
 }
 
 var SVG = require("./draw.js")
