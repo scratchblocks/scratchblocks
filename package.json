@@ -37,10 +37,10 @@
   },
   "devDependencies": {
     "jest": "^19.0.2",
-    "lint-staged": "^7.1.2",
+    "lint-staged": "^7.3.0",
+    "pofile": "^1.0.10",
     "prettier": "1.7.4",
     "prettier-package-json": "^1.6.0",
-    "pofile": "^1.0.10",
     "scratchr2_translations": "git://github.com/LLK/scratchr2_translations.git#master"
   },
   "keywords": [
