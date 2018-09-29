@@ -112,7 +112,7 @@ IconView.icons = {
 
 var InputView = function(input) {
   Object.assign(this, input)
-  if (input.shape !== 'color') {
+  if (input.label) {
     this.label = newView(input.label)
   }
 
