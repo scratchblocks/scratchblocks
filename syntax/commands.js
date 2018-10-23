@@ -7,14 +7,17 @@ module.exports = [
   ["go to x:%n y:%n", " ", 1, "gotoX:y:"],
   ["go to %m.location", " ", 1, "gotoSpriteOrMouse:"],
   ["glide %n secs to x:%n y:%n", " ", 1, "glideSecs:toX:y:elapsed:from:"],
+  ["glide %n secs to %m.location", " ", 1, ""], // New in Scratch 3
   ["change x by %n", " ", 1, "changeXposBy:"],
   ["set x to %n", " ", 1, "xpos:"],
   ["change y by %n", " ", 1, "changeYposBy:"],
   ["set y to %n", " ", 1, "ypos:"],
   ["set rotation style %m.rotationStyle", " ", 1, "setRotationStyle"],
   ["say %s for %n secs", " ", 2, "say:duration:elapsed:from:"],
+  ["say %s for %n seconds", " ", 2, "say:duration:elapsed:from:"], // Renamed in Scratch 3
   ["say %s", " ", 2, "say:"],
   ["think %s for %n secs", " ", 2, "think:duration:elapsed:from:"],
+  ["think %s for %n seconds", " ", 2, "think:duration:elapsed:from:"], // Renamed in Scratch 3
   ["think %s", " ", 2, "think:"],
   ["show", " ", 2, "show"],
   ["hide", " ", 2, "hide"],
@@ -29,8 +32,14 @@ module.exports = [
   ["change size by %n", " ", 2, "changeSizeBy:"],
   ["set size to %n%", " ", 2, "setSizeTo:"],
   ["go to front", " ", 2, "comeToFront"],
+  ["go to %m layer", " ", 2, ""], // Scratch 3
   ["go back %n layers", " ", 2, "goBackByLayers:"],
+  ["go %m %n layers", " ", 2, ""], // Scratch 3
   ["play sound %m.sound", " ", 3, "playSound:"],
+  ["start sound %m", " ", 3, "playSound:"], // Renamed in Scratch 3
+  ["change %m effect by %n", " ", 3, "sb3:sound_changeeffectby"], // New in Scratch 3
+  ["set %m effect to %n", " ", 3, "sb3:sound_seteffectto"], // New in Scratch 3
+  ["clear sound effects", " ", 3, "sb3:sound_cleareffects"], // New in Scratch 3
   ["play sound %m.sound until done", " ", 3, "doPlaySoundAndWait"],
   ["stop all sounds", " ", 3, "stopAllSounds"],
   ["play drum %d.drum for %n beats", " ", 3, "playDrum"],
@@ -42,6 +51,7 @@ module.exports = [
   ["change tempo by %n", " ", 3, "changeTempoBy:"],
   ["set tempo to %n bpm", " ", 3, "setTempoTo:"],
   ["clear", " ", 4, "clearPenTrails"],
+  ["erase all", " ", 4, "clearPenTrails"], // Renamed in Scratch 3
   ["stamp", " ", 4, "stampCostume"],
   ["pen down", " ", 4, "putPenDown"],
   ["pen up", " ", 4, "putPenUp"],
@@ -61,6 +71,7 @@ module.exports = [
   ["broadcast %m.broadcast", " ", 5, "broadcast:"],
   ["broadcast %m.broadcast and wait", " ", 5, "doBroadcastAndWait"],
   ["wait %n secs", " ", 6, "wait:elapsed:from:"],
+  ["wait %n seconds", " ", 6, "wait:elapsed:from:"], // Scratch 3
   ["repeat %n", "c", 6, "doRepeat"],
   ["forever", "cf", 6, "doForever"],
   ["if %b then", "c", 6, "doIf"],
@@ -81,6 +92,7 @@ module.exports = [
   ["hide variable %m.var", " ", 9, "hideVariable:"],
   ["add %s to %m.list", " ", 12, "append:toList:"],
   ["delete %d.listDeleteItem of %m.list", " ", 12, "deleteLine:ofList:"],
+  ["delete all of %m.list", " ", 12, ""], // New in Scratch 3
   ["if on edge, bounce", " ", 1, "bounceOffEdge"],
   ["insert %s at %d.listItem of %m.list", " ", 12, "insert:at:ofList:"],
   [
@@ -96,8 +108,10 @@ module.exports = [
   ["y position", "r", 1, "ypos"],
   ["direction", "r", 1, "heading"],
   ["costume #", "r", 2, "costumeIndex"],
+  ["costume %m", "r", 2, ""], // New in Scratch 3
   ["size", "r", 2, "scale"],
   ["backdrop name", "r", 102, "sceneName"],
+  ["backdrop %m", "r", 1, ""], // New in Scratch 3
   ["backdrop #", "r", 102, "backgroundIndex"],
   ["volume", "r", 3, "volume"],
   ["tempo", "r", 3, "tempo"],
@@ -110,6 +124,7 @@ module.exports = [
   ["mouse down?", "b", 7, "mousePressed"],
   ["mouse x", "r", 7, "mouseX"],
   ["mouse y", "r", 7, "mouseY"],
+  ["set drag mode %m", " ", 7, ""], // New in Scratch 3
   ["loudness", "r", 7, "soundLevel"],
   ["video %m.videoMotionType on %m.stageOrThis", "r", 7, "senseVideoMotion"],
   ["timer", "r", 7, "timer"],
@@ -134,7 +149,9 @@ module.exports = [
   ["%n mod %n", "r", 8, "%"],
   ["round %n", "r", 8, "rounded"],
   ["%m.mathOp of %n", "r", 8, "computeFunction:of:"],
+  ["%s contains %s?", "b", 8, "sb3:operator_contains"], // New in Scratch 3
   ["item %d.listItem of %m.list", "r", 12, "getLine:ofList:"],
+  ["item # of %s in %m.list", "r", 12, ""], // New in Scratch 3
   ["length of %m.list", "r", 12, "lineCountOfList:"],
   ["%m.list contains %s?", "b", 12, "list:contains:"],
 

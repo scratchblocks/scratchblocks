@@ -29,10 +29,25 @@ function testScript(code, json, options) {
   return fromCode
 }
 
+function testScriptScratch3(code, json) {
+  let script = getScript(parse(code, {
+    dialect: 'scratch3',
+  }))
+  expect(script.toJSON()).toEqual(json)
+}
+
 function testBlock(code, json, options) {
   let script = testScript(code, [json], options)
   expect(script.blocks.length).toBe(1)
   return script.blocks[0]
+}
+
+function testBlockScratch3(code, json) {
+  let block = parseBlock(code, {
+    dialect: 'scratch3',
+  })
+  expect(block.toJSON()).toEqual(json)
+  return block
 }
 
 /* * */
