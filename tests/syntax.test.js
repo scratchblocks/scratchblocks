@@ -99,6 +99,33 @@ describe('color literals', () => {
   })
 })
 
+describe('recognise lists', () => {
+  test('not a list', () => {
+    testBlock('say (list)', ['say:', ['readVariable', 'list']])
+  })
+
+  test('from add command', () => {
+    testScript('say (list)\nadd [x] to [list v]', [
+      ['say:', ['contentsOfList:', 'list']],
+      ['append:toList:', 'x', 'list'],
+    ])
+  })
+
+  test('from insert command', () => {
+    testScript('say (list)\ninsert [x] at (99 v) of [list v]', [
+      ['say:', ['contentsOfList:', 'list']],
+      ['insert:at:ofList:', 'x', 99, 'list'],
+    ])
+  })
+
+  test('from show command', () => {
+    testScript('say (list)\nshow list [list v]', [
+      ['say:', ['contentsOfList:', 'list']],
+      ['showList:', 'list'],
+    ])
+  })
+})
+
 describe('disambiguation', () => {
   test('green: length of string', () => {
     let b = testBlock('(length of [world])', ['stringLength:', 'world'])

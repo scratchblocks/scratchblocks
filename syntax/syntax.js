@@ -666,11 +666,14 @@ var listBlocks = {
 }
 
 function recogniseStuff(scripts) {
-  var customBlocksByHash = {}
-  var listNames = {}
+  // Object.create(null) is JS magic for an "empty dictionary"
+  // In ES6-land a Set would be more appropriate
+  var customBlocksByHash = Object.create(null)
+  var listNames = Object.create(null)
+  var variableNames = Object.create(null)
 
   scripts.forEach(function(script) {
-    var customArgs = {}
+    var customArgs = Object.create(null)
 
     eachBlock(script, function(block) {
       // custom blocks
