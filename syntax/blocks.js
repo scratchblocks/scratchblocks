@@ -250,6 +250,13 @@ disambig("lineCountOfList:", "stringLength:", function(children, lang) {
   return last.shape === "dropdown"
 })
 
+disambig("list:contains:", "sb3:operator_contains", function(children, lang) {
+  // List block if dropdown, otherwise operators
+  var first = children[0]
+  if (!first.isInput) return
+  return first.shape === "dropdown"
+})
+
 disambig("penColor:", "setPenHueTo:", function(children, lang) {
   // Color block if color input, otherwise numeric
   var last = children[children.length - 1]

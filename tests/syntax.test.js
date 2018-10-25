@@ -168,6 +168,19 @@ describe('disambiguation', () => {
     // invalid --not a math function
     expect(parseBlock('([e^ v] of (9)').info.category).toBe('sensing')
   })
+
+  test('red: list contains', () => {
+    let b = testBlock('<[list v] contains [f] ?>', ['list:contains:', 'list', 'f'])
+    expect(b.info.category).toBe('list')
+  })
+
+  test('green: string contains', () => {
+    let b = testBlock('<[foo] contains [f] ?>', ['sb3:operator_contains', 'foo', 'f'])
+    expect(b.info.category).toBe('operators')
+    testBlock('<(foo) contains [f] ?>', ['sb3:operator_contains', ['readVariable', 'foo'], 'f'])
+  })
+
+
 })
 
 describe('disambiguation', () => {
