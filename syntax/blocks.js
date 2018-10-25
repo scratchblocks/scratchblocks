@@ -210,6 +210,9 @@ var english = {
     "10 ^",
   ],
 
+  // Valid arguments to "sound effect" dropdown, for resolving ambiguous situations
+  soundEffects: ["pitch", "pan left/right"],
+
   // For detecting the "stop" cap / stack block
   osis: ["other scripts in sprite", "other scripts in stage"],
 
@@ -241,6 +244,36 @@ disambig("computeFunction:of:", "getAttribute:of:", function(children, lang) {
   if (!first.isInput) return
   var name = first.value
   return lang.math.indexOf(name) > -1
+})
+
+disambig("sb3:sound_changeeffectby", "changeGraphicEffect:by:", function(
+  children,
+  lang
+) {
+  // Sound if sound effect, otherwise default to graphic effect
+  for (var i = 0; i < children.length; i++) {
+    var child = children[i]
+    if (child.shape === "dropdown") {
+      var name = child.value
+      return lang.soundEffects.indexOf(name) > -1
+    }
+  }
+  return false
+})
+
+disambig("sb3:sound_seteffectto", "setGraphicEffect:to:", function(
+  children,
+  lang
+) {
+  // Sound if sound effect, otherwise default to graphic effect
+  for (var i = 0; i < children.length; i++) {
+    var child = children[i]
+    if (child.shape === "dropdown") {
+      var name = child.value
+      return lang.soundEffects.indexOf(name) > -1
+    }
+  }
+  return false
 })
 
 disambig("lineCountOfList:", "stringLength:", function(children, lang) {

@@ -169,6 +169,23 @@ describe('disambiguation', () => {
     expect(parseBlock('([e^ v] of (9)').info.category).toBe('sensing')
   })
 
+  test('looks: graphic effects', () => {
+    let b = testBlock('set [ghost v] effect to (100)', ['setGraphicEffect:to:', 'ghost', 100])
+    expect(b.info.category).toBe('looks')
+
+    b = testBlock('change [ghost v] effect by (5)', ['changeGraphicEffect:by:', 'ghost', 5])
+    expect(b.info.category).toBe('looks')
+  })
+
+  test('sound: sound effects', () => {
+    let b = testBlock('set [pitch v] effect to (100)', ['sb3:sound_seteffectto', 'pitch', 100])
+    expect(b.info.category).toBe('sound')
+    testBlock('set [pan left/right v] effect to (100)', ['sb3:sound_seteffectto', 'pan left/right', 100])
+
+    b = testBlock('change [pitch v] effect by (5)', ['sb3:sound_changeeffectby', 'pitch', 5])
+    expect(b.info.category).toBe('sound')
+  })
+
   test('red: list contains', () => {
     let b = testBlock('<[list v] contains [f] ?>', ['list:contains:', 'list', 'f'])
     expect(b.info.category).toBe('list')
@@ -180,7 +197,7 @@ describe('disambiguation', () => {
     testBlock('<(foo) contains [f] ?>', ['sb3:operator_contains', ['readVariable', 'foo'], 'f'])
   })
 
-
+  // TODO test disambiguation for other languages
 })
 
 describe('disambiguation', () => {
