@@ -313,6 +313,9 @@ function parseLines(code, languages) {
       if (/^[0-9e.-]*$/.test(value)) {
         return new Input("number", value)
       }
+      if (hexColorPat.test(value)) {
+        return new Input("color", value)
+      }
     }
 
     // number-dropdown

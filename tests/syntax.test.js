@@ -112,6 +112,10 @@ describe('color literals', () => {
     expect(color.shape).toBe('color')
     expect(color.value).toBe('#f0f')
   })
+
+  test('can be round', () => {
+    expect(parseBlock('<touching color (#f0f)?>').toJSON()).toEqual(["touchingColor:", 16711935])
+  })
 })
 
 describe('recognise lists', () => {
