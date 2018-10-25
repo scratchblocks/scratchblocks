@@ -89,6 +89,7 @@ function paintBlock(info, children, languages, couldBeString) {
   if (couldBeString) {
     var input = new Input("string", string)
     // Store info in case this turns out to be a standalone reporter
+    input.stringBlockInfo = info
     return input
   }
 
@@ -299,6 +300,16 @@ function parseLines(code, languages, dialect) {
         (child.isReporter || child.isBoolean || child.isRing)
       ) {
         return child
+      }
+
+      // In scratch3 dialect strings can be in round parentheses
+      // but if we see this at the top-level, we cheat and assume it's a variable reporter
+      if (child.stringBlockInfo) {
+        var info = child.stringBlockInfo
+        info.category = "variables"
+        var block = new Block(info, [new Label(child.value)])
+        // nb. we skip image replacement here because we _probably_ don't need it
+        return block
       }
     }
 

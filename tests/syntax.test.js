@@ -113,6 +113,11 @@ describe('scratch3 dialect', () => {
   test('define hats', () => {
     testBlockScratch3('define foo (num) if <bool>', ['procDef', 'foo %n if %b', ['num', 'bool'], [1, false], false])
   })
+
+  test('standalone reporters', () => {
+    testBlock('(foo)', ['readVariable', 'foo'])
+    testBlockScratch3('(foo)', ['readVariable', 'foo'])
+  })
 })
 
 
