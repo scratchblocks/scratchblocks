@@ -676,13 +676,14 @@ function parseScripts(getLine) {
 
 function eachBlock(x, cb) {
   if (x.isScript) {
-    x.blocks.forEach(function(block) {
+    x.blocks = x.blocks.map(function(block) {
       eachBlock(block, cb)
+      return cb(block) || block
     })
   } else if (x.isBlock) {
-    cb(x)
-    x.children.forEach(function(child) {
+    x.children = x.children.map(function(child) {
       eachBlock(child, cb)
+      return cb(child) || child
     })
   } else if (x.isGlow) {
     eachBlock(x.child, cb)
@@ -698,7 +699,14 @@ var listBlocks = {
   "hideList:": 0,
 }
 
-function recogniseStuff(scripts) {
+var variableBlocks = {
+  "setVar:to:": 0,
+  "changeVar:by:": 0,
+  "showVariable:": 0,
+  "hideVariable:": 0,
+}
+
+function recogniseStuff(scripts, dialect) {
   // Object.create(null) is JS magic for an "empty dictionary"
   // In ES6-land a Set would be more appropriate
   var customBlocksByHash = Object.create(null)
@@ -709,6 +717,8 @@ function recogniseStuff(scripts) {
     var customArgs = Object.create(null)
 
     eachBlock(script, function(block) {
+      if (!block.isBlock) return
+
       // custom blocks
       if (block.info.shape === "define-hat") {
         var outline = block.children[1]
@@ -774,14 +784,32 @@ function recogniseStuff(scripts) {
         if (input && input.isInput) {
           listNames[input.value] = true
         }
+
+        // variable names
+      } else if (
+        dialect === DialectScratch3 &&
+        variableBlocks.hasOwnProperty(block.info.selector)
+      ) {
+        var argIndex = variableBlocks[block.info.selector]
+        var inputs = block.children.filter(function(child) {
+          return !child.isLabel
+        })
+        var input = inputs[argIndex]
+        if (input && input.isInput) {
+          variableNames[input.value] = true
+        }
       }
     })
   })
 
   scripts.forEach(function(script) {
     eachBlock(script, function(block) {
-      // custom blocks
-      if (block.info.categoryIsDefault && block.info.category === "obsolete") {
+      if (
+        block.info &&
+        block.info.categoryIsDefault &&
+        block.info.category === "obsolete"
+      ) {
+        // custom blocks
         var info = customBlocksByHash[block.info.hash]
         if (info) {
           block.info.selector = "call"
@@ -789,25 +817,54 @@ function recogniseStuff(scripts) {
           block.info.names = info.names
           block.info.category = "custom"
         }
-
-        // list reporters
-      } else if (block.isReporter) {
-        var name = blockName(block)
-        if (!name) return
-        if (
-          block.info.category === "variables" &&
-          listNames[name] &&
-          block.info.categoryIsDefault
-        ) {
-          block.info.category = "list"
-          block.info.categoryIsDefault = false
-        }
-        if (block.info.category === "list") {
-          block.info.selector = "contentsOfList:"
-        } else if (block.info.category === "variables") {
-          block.info.selector = "readVariable"
-        }
+        return
       }
+
+      if (
+        block.isReporter &&
+        block.info.category === "variables" &&
+        block.info.categoryIsDefault
+      ) {
+        // We set the selector here for some reason
+        block.info.selector = "readVariable"
+      }
+
+      var name, info
+      if (
+        dialect === DialectClassic &&
+        block.isReporter &&
+        block.info.category === "variables" &&
+        block.info.categoryIsDefault
+      ) {
+        name = blockName(block)
+        info = block.info
+      } else if (dialect === DialectScratch3 && block.stringBlockInfo) {
+        name = block.value
+        info = block.stringBlockInfo
+      }
+      if (!name) return
+
+      // list reporters
+      if (listNames[name]) {
+        info.category = "list"
+        info.categoryIsDefault = false
+        info.selector = "contentsOfList:"
+
+        // variable reporters
+      } else if (variableNames[name]) {
+        info.category = "variables"
+        info.categoryIsDefault = false
+        info.selector = "readVariable"
+      } else {
+        return
+      }
+
+      // fix input
+      if (dialect === DialectClassic) {
+        return // already done
+      }
+      var block = new Block(info, [new Label(name)])
+      return block
     })
   })
 }
@@ -836,7 +893,7 @@ function parse(code, options) {
 
   var f = parseLines(code, languages, options.dialect)
   var scripts = parseScripts(f)
-  recogniseStuff(scripts)
+  recogniseStuff(scripts, options.dialect)
   return new Document(scripts)
 }
 
