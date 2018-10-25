@@ -29,7 +29,7 @@ var {
   blockName,
 } = require("./blocks.js")
 
-function paintBlock(info, children, languages) {
+function paintBlock(info, children, languages, couldBeString) {
   var overrides = []
   if (isArray(children[children.length - 1])) {
     overrides = children.pop()
@@ -43,14 +43,17 @@ function paintBlock(info, children, languages) {
       words.push(child.value)
     } else if (child.isIcon) {
       words.push("@" + child.name)
+      couldBeString = false
     } else {
       words.push("_")
+      couldBeString = false
     }
   }
-  var hash = (info.hash = minifyHash(words.join(" ")))
+  var string = words.join(" ")
+  var shortHash = (info.hash = minifyHash(string))
 
   // paint
-  var o = lookupHash(hash, info, children, languages)
+  var o = lookupHash(shortHash, info, children, languages)
   if (o) {
     var lang = o.lang
     var type = o.type
@@ -71,6 +74,8 @@ function paintBlock(info, children, languages) {
     if (type.spec === ". . .") {
       children = [new Label(". . .")]
     }
+
+    couldBeString = false
   }
 
   // overrides
@@ -79,6 +84,12 @@ function paintBlock(info, children, languages) {
   // loop arrows
   if (info.hasLoopArrow) {
     children.push(new Icon("loopArrow"))
+  }
+
+  if (couldBeString) {
+    var input = new Input("string", string)
+    // Store info in case this turns out to be a standalone reporter
+    return input
   }
 
   var block = new Block(info, children)
@@ -97,7 +108,9 @@ function paintBlock(info, children, languages) {
   return block
 }
 
-function parseLines(code, languages) {
+function parseLines(code, languages, dialect) {
+  if (!dialect) dialect = DialectClassic
+
   var tok = code[0]
   var index = 0
   function next() {
@@ -126,16 +139,22 @@ function parseLines(code, languages) {
     var hasInputs = !!children.filter(function(x) {
       return !x.isLabel
     }).length
+
     var info = {
       shape: shape,
       category:
         shape === "define-hat"
           ? "custom"
-          : shape === "reporter" && !hasInputs ? "variables" : "obsolete",
+          : dialect === DialectClassic && shape === "reporter" && !hasInputs
+            ? "variables"
+            : "obsolete",
       categoryIsDefault: true,
       hasLoopArrow: false,
     }
-    return paintBlock(info, children, languages)
+
+    var couldBeString = dialect === DialectScratch3 && shape === "reporter"
+
+    return paintBlock(info, children, languages, couldBeString)
   }
 
   function makeMenu(shape, value) {
@@ -267,7 +286,7 @@ function parseLines(code, languages) {
     var first = children[0]
     if (first && first.isLabel && isDefine(first.value)) {
       if (children.length < 2) {
-        children.push(makeBlock("outline", []))
+        children.push(makeBlock("outline"))
       }
       return makeBlock("define-hat", children)
     }
@@ -340,7 +359,7 @@ function parseLines(code, languages) {
     var block = makeBlock("reporter", children)
 
     // rings
-    if (block.info.shape === "ring") {
+    if (block.info && block.info.shape === "ring") {
       var first = block.children[0]
       if (
         first &&
@@ -787,6 +806,7 @@ function parse(code, options) {
     {
       inline: false,
       languages: ["en"],
+      dialect: DialectClassic,
     },
     options
   )
@@ -803,12 +823,17 @@ function parse(code, options) {
 
   /* * */
 
-  var f = parseLines(code, languages)
+  var f = parseLines(code, languages, options.dialect)
   var scripts = parseScripts(f)
   recogniseStuff(scripts)
   return new Document(scripts)
 }
 
+var DialectClassic = "classic"
+var DialectScratch3 = "scratch3"
+
 module.exports = {
   parse: parse,
+  DialectClassic: DialectClassic,
+  DialectScratch3: DialectScratch3,
 }

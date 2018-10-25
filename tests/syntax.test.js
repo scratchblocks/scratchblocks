@@ -105,6 +105,17 @@ describe('literals', () => {
 
 })
 
+describe('scratch3 dialect', () => {
+  test('parses parentheses as strings', () => {
+    testBlockScratch3('say (Hello!) for (foo) secs', ['say:duration:elapsed:from:', 'Hello!', 'foo'])
+  })
+
+  test('define hats', () => {
+    testBlockScratch3('define foo (num) if <bool>', ['procDef', 'foo %n if %b', ['num', 'bool'], [1, false], false])
+  })
+})
+
+
 describe('color literals', () => {
   test('work', () => {
     let b = testBlock('<touching color [#f0f] ?>', ["touchingColor:", 16711935])
