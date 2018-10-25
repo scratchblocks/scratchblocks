@@ -777,10 +777,13 @@ function recogniseStuff(scripts) {
 }
 
 function parse(code, options) {
-  var options = Object.assign({
-    inline: false,
-    languages: ["en"],
-  }, options)
+  var options = Object.assign(
+    {
+      inline: false,
+      languages: ["en"],
+    },
+    options
+  )
 
   code = code.replace(/&lt;/g, "<")
   code = code.replace(/&gt;/g, ">")
