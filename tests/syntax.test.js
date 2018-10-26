@@ -1,34 +1,38 @@
 
 const { parse, fromJSON, loadLanguages } = require('../syntax')
 
-function getBlock(doc) {
+function getScript(doc) {
   expect(doc.scripts.length).toBe(1)
-  let script = doc.scripts[0]
+  return doc.scripts[0]
+}
+
+function parseBlock(code, options) {
+  let script = getScript(parse(code, options))
   expect(script.blocks.length).toBe(1)
   return script.blocks[0]
 }
 
-function parseBlock(code, options) {
-  return getBlock(parse(code, options))
-}
-
-function blockFromJSON(json) {
+function scriptFromJSON(json) {
   let obj = {
     scripts: [
-      [0, 0, [json]],
+      [0, 0, json],
     ],
   }
-  return getBlock(fromJSON(obj))
+  return fromJSON(obj)
 }
 
-function testBlock(code, json) {
-  let fromCode = parseBlock(code)
+function testScript(code, json, options) {
+  let fromCode = getScript(parse(code, options))
   expect(fromCode.toJSON()).toEqual(json)
-  //expect(fromCode.stringify()).toBe(code)
-  let fromJSON = blockFromJSON(json)
+  let fromJSON = scriptFromJSON(json)
   expect(fromJSON.stringify()).toBe(code)
-  //expect(fromJSON.toJSON()).toEqual(json)
   return fromCode
+}
+
+function testBlock(code, json, options) {
+  let script = testScript(code, [json], options)
+  expect(script.blocks.length).toBe(1)
+  return script.blocks[0]
 }
 
 /* * */
@@ -155,7 +159,6 @@ describe('standalone blocks', () => {
     expect(parseBlock('[thing] (123) (variable)').info.shape).toBe('stack')
     // expect(parseBlock('[attribute v] of [Stage v]').info.shape).toBe('stack') // oops v3 changed this
   })
-
 })
 
 describe('c blocks', () => {
