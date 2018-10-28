@@ -1,10 +1,5 @@
-function makeCanvas() {
-  return document.createElement("canvas")
-}
-
-var scratchblocks = (window.scratchblocks = module.exports = require("./index")(
-  window,
-  makeCanvas
+var scratchblocks = (window.scratchblocks = module.exports = require("./scratch2")(
+  window
 ))
 
 // add our CSS to the page

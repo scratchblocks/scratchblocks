@@ -6,7 +6,7 @@
  * @license MIT
  * http://opensource.org/licenses/MIT
  */
-module.exports = function(window, makeCanvas) {
+module.exports = function(window) {
   "use strict"
 
   var document = window.document
@@ -34,7 +34,7 @@ module.exports = function(window, makeCanvas) {
   var style = require("./style.js")
 
   var SVG = require("./draw.js")
-  SVG.init(window, makeCanvas)
+  SVG.init(window)
 
   const { newView, LabelView } = require("./blocks")
 
