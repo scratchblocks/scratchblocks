@@ -425,3 +425,279 @@ when Sprite1 clicked
 
 `
 )
+
+/*****************************************************************************/
+
+test(
+  "scratch3",
+  "motion",
+  `
+
+// Motion
+
+move (10) steps
+turn cw (15) degrees
+turn ccw (15) degrees
+
+go to (random position v)
+go to x: (10) y: (0)
+glide (1) secs to (random position v)
+glide (1) secs to x: (10) y: (0)
+
+point in direction (90)
+point towards (mouse-pointer v)
+change x by (10)
+set x to (10)
+change y by (10)
+set y to (0)
+
+if on edge, bounce
+
+set rotation style [left-right v]
+
+(x position)
+(y position)
+(direction)
+
+`
+)
+
+test(
+  "scratch3",
+  "looks",
+  `
+
+// Looks
+
+say [Hello!] for (2) seconds
+say [Hello!]
+think [Hmm...] for (2) seconds
+think [Hmm...]
+
+switch costume to (costume1 v)
+next costume
+switch backdrop to (backdrop1 v)
+next backdrop
+
+change size by (10)
+set size to (100) %
+
+change [color v] effect by (25)
+set [color v] effect to (0)
+clear graphic effects
+
+show
+hide
+
+go to [front v] layer
+go [forward v] (1) layers
+
+(costume [number v])
+
+`
+)
+
+test(
+  "scratch3",
+  "sound",
+  `
+
+// Sound
+
+play sound (meow v) until done
+start sound (meow v)
+stop all sounds
+
+change [pitch v] effect by (10)
+set [pitch v] effect to (100)
+clear sound effects
+
+change volume by (-10)
+set volume to (100) %
+
+volume
+
+`
+)
+
+test(
+  "scratch3",
+  "events",
+  `
+
+// Events
+
+when flag clicked
+when [space v] key pressed
+when this sprite clicked
+when backdrop switches to [backdrop1 v]
+
+when [loudness v] > (10)
+
+when i receive [message1 v]
+broadcast (message1 v)
+broadcast (message1 v) and wait
+
+`
+)
+
+test(
+  "scratch3",
+  "control",
+  `
+
+// Control
+
+wait (1) seconds
+
+repeat (10)
+end
+
+forever
+end
+
+if <> then
+end
+
+if <> then
+else
+end
+
+wait until <>
+
+repeat until <>
+end
+
+stop [all v]
+
+when i start as a clone
+create clone of (myself v)
+delete this clone 
+
+`
+)
+
+test(
+  "scratch3",
+  "sensing",
+  `
+
+// Sensing
+
+<touching (mouse-pointer v)?>
+<touching color [#555]?>
+<touching color (#555)?>
+<color [#0f0] is touching [#f0f]?>
+<color (#0f0) is touching (#f0f)?>
+(distance to (mouse-pointer v))
+
+ask (What's your name?) and wait
+
+(answer)
+
+<key (space v) pressed?>
+<mouse down?>
+(mouse x)
+(mouse y)
+
+set drag mode [draggable v]
+
+(loudness)
+
+(timer)
+reset timer
+
+([x position v] of (Stage v))
+
+(current [year v])
+(days since 2000)
+(username)
+
+`
+)
+
+test(
+  "scratch3",
+  "operators",
+  `
+
+// Operators
+
+(() + ())
+(() - ())
+(() * ())
+(() / ())
+
+(pick random (1) to (10)
+
+<() > (50)>
+<() < (50)>
+<() = (50)>
+
+<<> and <>>
+<<> or <>>
+<not <>>
+
+(join (apple) (banana))
+(letter (1) of (apple))
+(length of (apple))
+<(apple) contains (a)?>
+
+(() mod ())
+(round ())
+
+([abs v] of ())
+
+`
+)
+
+test(
+  "scratch3",
+  "variables",
+  `
+
+// Variables
+
+(foo)
+
+set [foo v] to (0)
+change [foo v] by (1)
+show variable [foo v]
+hide variable [foo v]
+
+// Lists
+
+(list)
+
+add (thing) to [list v]
+delete (1) of [list v]
+delete all of [list v]
+insert (1) at (1) of [list v]
+replace item (1) of [list v] with (1)
+
+(item (1) of [list v])
+(item # of (thing) in [list v])
+(length of [list v])
+<[list v] contains (thing)?>
+
+show list [list v]
+hide list [list v]
+
+`
+)
+
+test(
+  "scratch3",
+  "custom",
+  `
+
+// Custom
+
+foo () if <>
+
+define foo (num) if <bool>
+
+`
+)
+
+// TODO extensions

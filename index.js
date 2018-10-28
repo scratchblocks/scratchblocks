@@ -34,6 +34,9 @@ module.exports = function(window) {
   var scratch2 = require("./scratch2")
   scratch2.init(window)
 
+  var scratch3 = require("./scratch3")
+  scratch3.init(window)
+
   function parse(code, options) {
     return syntax.parse(code, options)
   }
@@ -45,10 +48,14 @@ module.exports = function(window) {
       },
       options
     )
-    if (options.style !== "scratch2") {
-      throw new Error("Only the scratch2 style is implemented")
+    switch (options.style) {
+      case "scratch2":
+        return scratch2.newView(doc)
+      case "scratch3":
+        return scratch3.newView(doc)
+      default:
+        throw new Error("Unknown style: " + options.style)
     }
-    return scratch2.newView(doc)
   }
 
   function render(doc, options) {
