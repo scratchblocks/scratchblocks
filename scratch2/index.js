@@ -51,6 +51,10 @@ module.exports = function(window) {
     return view
   }
 
+  function render(doc, cb) {
+    return doc.render(cb)
+  }
+
   /*****************************************************************************/
 
   /*** Render ***/
