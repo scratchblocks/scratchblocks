@@ -15,7 +15,7 @@ module.exports = function(window) {
 
   /*****************************************************************************/
 
-  const syntax = require("../syntax")
+  const syntax = require("./syntax")
   const {
     allLanguages,
     loadLanguages,
@@ -31,28 +31,42 @@ module.exports = function(window) {
 
   /*****************************************************************************/
 
-  var style = require("./style.js")
+  var style = require("./scratch2/style")
 
-  var SVG = require("./draw.js")
+  var SVG = require("./scratch2/draw")
   SVG.init(window)
 
-  const { newView, LabelView } = require("./blocks")
+  const scratch2 = require("./scratch2/blocks")
 
-  LabelView.measuring = (function() {
+  scratch2.LabelView.measuring = (function() {
     var canvas = SVG.makeCanvas()
     return canvas.getContext("2d")
   })()
 
   function parse(code, options) {
-    const doc = syntax.parse(code, options)
-    const view = newView(doc)
-    view.stringify = doc.stringify.bind(doc)
-    view.toJSON = doc.toJSON.bind(doc)
-    return view
+    return syntax.parse(code, options)
   }
 
-  function render(doc, cb) {
-    return doc.render(cb)
+  function newView(doc, options) {
+    var options = Object.assign(
+      {
+        style: "scratch2",
+      },
+      options
+    )
+    if (options.style !== "scratch2") {
+      throw new Error("Only the scratch2 style is implemented")
+    }
+    return scratch2.newView(doc)
+  }
+
+  function render(doc, options) {
+    if (typeof options === "function") {
+      throw new Error("render() no longer takes a callback")
+    }
+    var view = newView(doc, options)
+    var svg = view.render()
+    return svg
   }
 
   /*****************************************************************************/
@@ -79,12 +93,12 @@ module.exports = function(window) {
   }
 
   // insert 'svg' into 'el', with appropriate wrapper elements
-  function replace(el, svg, scripts, options) {
+  function replace(el, svg, doc, options) {
     if (options.inline) {
       var container = document.createElement("span")
       var cls = "scratchblocks scratchblocks-inline"
-      if (scripts[0] && !scripts[0].isEmpty) {
-        cls += " scratchblocks-inline-" + scripts[0].blocks[0].shape
+      if (doc.scripts[0] && !doc.scripts[0].isEmpty) {
+        cls += " scratchblocks-inline-" + doc.scripts[0].blocks[0].shape
       }
       container.className = cls
       container.style.display = "inline-block"
@@ -110,13 +124,14 @@ module.exports = function(window) {
     var selector = selector || "pre.blocks"
     var options = Object.assign(
       {
+        style: "scratch2",
         inline: false,
         languages: ["en"],
 
         read: readCode, // function(el, options) => code
-        parse: parse, // function(code, options) => docView
-        render: render, // function(doc, cb) => svg
-        replace: replace, // function(el, svg, docView, options)
+        parse: parse, // function(code, options) => doc
+        render: render, // function(doc) => svg
+        replace: replace, // function(el, svg, doc, options)
       },
       options
     )
@@ -128,9 +143,9 @@ module.exports = function(window) {
 
       var doc = options.parse(code, options)
 
-      options.render(doc, function(svg) {
-        options.replace(el, svg, doc, options)
-      })
+      var svg = options.render(doc, options)
+
+      options.replace(el, svg, doc, options)
     })
   }
 
@@ -154,9 +169,11 @@ module.exports = function(window) {
     Script,
     Document,
 
+    newView: newView,
     read: readCode,
     parse: parse,
     replace: replace,
+    render: render,
     renderMatching: renderMatching,
 
     makeStyle: style.makeStyle,

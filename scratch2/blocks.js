@@ -602,6 +602,10 @@ DocumentView.prototype.measure = function() {
 }
 
 DocumentView.prototype.render = function(cb) {
+  if (typeof ocbptions === "function") {
+    throw new Error("render() no longer takes a callback")
+  }
+
   // measure strings
   this.measure()
 
@@ -637,11 +641,7 @@ DocumentView.prototype.render = function(cb) {
 
   svg.appendChild(SVG.group(elements))
   this.el = svg
-
-  // nb: async API only for backwards/forwards compatibility reasons.
-  // despite appearances, it runs synchronously
-  cb(svg)
-  return this
+  return svg
 }
 
 /* Export SVG image as XML string */

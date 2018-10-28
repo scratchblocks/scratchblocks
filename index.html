@@ -274,43 +274,43 @@ function objUpdated() {
   // });
 
   console.log(scratchblocks.stringify(doc));
-  doc.render(function(svg) {
-    preview.innerHTML = "";
-    preview.appendChild(svg);
+  var docView = scratchblocks.newView(doc);
+  var svg = docView.render();
+  preview.innerHTML = "";
+  preview.appendChild(svg);
 
-    // add export link
-    setTimeout(function() {
-      if (exportSVGLink) document.body.removeChild(exportSVGLink);
-      var link = exportSVGLink = document.createElement('a');
-      link.href = doc.exportSVG();
-      link.setAttribute('download', 'scratchblocks.svg');
-      link.textContent = "Export SVG";
+  // add export link
+  setTimeout(function() {
+    if (exportSVGLink) document.body.removeChild(exportSVGLink);
+    var link = exportSVGLink = document.createElement('a');
+    link.href = docView.exportSVG();
+    link.setAttribute('download', 'scratchblocks.svg');
+    link.textContent = "Export SVG";
+    link.className = 'export-link';
+    document.body.appendChild(link);
+
+    if (exportPNGLink) document.body.removeChild(exportPNGLink);
+    docView.exportPNG(function(pngDataURL) {
+      var link = exportPNGLink = document.createElement('a');
+      link.href = pngDataURL;
+      link.setAttribute('download', 'scratchblocks.png');
+      link.textContent = "Export PNG";
       link.className = 'export-link';
       document.body.appendChild(link);
+    }, 2);
+  }, 0);
 
-      if (exportPNGLink) document.body.removeChild(exportPNGLink);
-      doc.exportPNG(function(pngDataURL) {
-        var link = exportPNGLink = document.createElement('a');
-        link.href = pngDataURL;
-        link.setAttribute('download', 'scratchblocks.png');
-        link.textContent = "Export PNG";
-        link.className = 'export-link';
-        document.body.appendChild(link);
-      }, 2);
-    }, 0);
-
-    try {
-      var j = doc.toJSON();
-    } catch (e) {
-      console.error("toJSON: " + e);
-    }
-    if (j) {
-      console.log(j.scripts);
-      console.log(j.scripts.map(function(s) {
-        return s[2].map(JSON.stringify).join("\n");
-      }).join("\n\n"));
-    }
-  });
+  try {
+    var j = doc.toJSON();
+  } catch (e) {
+    console.error("toJSON: " + e);
+  }
+  if (j) {
+    console.log(j.scripts);
+    console.log(j.scripts.map(function(s) {
+      return s[2].map(JSON.stringify).join("\n");
+    }).join("\n\n"));
+  }
 
   // update language dropdown
   var isIncomplete = incompleteLangs.indexOf(obj.lang) > -1;
