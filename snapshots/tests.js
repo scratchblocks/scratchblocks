@@ -1,7 +1,8 @@
 const { test } = require("./runner")
 
 test(
-  "scratch2/motion",
+  "scratch2",
+  "motion",
   `
 
 // Motion
@@ -38,7 +39,8 @@ set rotation style [left-right v]
 )
 
 test(
-  "scratch2/looks",
+  "scratch2",
+  "looks",
   `
 
 // Looks
@@ -80,7 +82,8 @@ next backdrop
 )
 
 test(
-  "scratch2/sound",
+  "scratch2",
+  "sound",
   `
 
 // Sound
@@ -107,7 +110,8 @@ set tempo to (60) bpm
 )
 
 test(
-  "scratch2/pen",
+  "scratch2",
+  "pen",
   `
 
 // Pen
@@ -133,7 +137,8 @@ set pen size to (1)
 )
 
 test(
-  "scratch2/data",
+  "scratch2",
+  "data",
   `
 
 // Variables
@@ -162,7 +167,8 @@ hide list [list v]
 )
 
 test(
-  "scratch2/events",
+  "scratch2",
+  "events",
   `
 
 // Events
@@ -185,7 +191,8 @@ broadcast [message1 v] and wait
 )
 
 test(
-  "scratch2/control",
+  "scratch2",
+  "control",
   `
 
 // Control
@@ -230,7 +237,8 @@ delete this clone
 )
 
 test(
-  "scratch2/sensing",
+  "scratch2",
+  "sensing",
   `
 
 // Sensing
@@ -269,7 +277,8 @@ reset timer
 )
 
 test(
-  "scratch2/operators",
+  "scratch2",
+  "operators",
   `
 
 // Operators
@@ -304,7 +313,8 @@ test(
 )
 
 test(
-  "scratch2/extensions",
+  "scratch2",
+  "extensions",
   `
 
 // PicoBoard
@@ -365,7 +375,8 @@ when tilted
 )
 
 test(
-  "scratch2/obsolete",
+  "scratch2",
+  "obsolete",
   `
 
 // Obsolete Scratch 1.4 blocks:

@@ -2,8 +2,9 @@ const path = require("path")
 
 const tests = []
 
-function test(name, source, lang) {
+function test(style, name, source, lang) {
   tests.push({
+    style,
     name,
     source,
     lang: lang || "en",
@@ -15,11 +16,16 @@ function runTests(r) {
     tests.map(tc => {
       const outputPath = path.join(
         "snapshots",
+        tc.style,
         tc.name.replace(/ /g, "-") + ".png"
       )
       console.log("running", tc.name)
       return (async () => {
-        await r.snapshotToFile(tc.source, tc.lang, outputPath)
+        const options = {
+          lang: tc.lang,
+          style: tc.style,
+        }
+        await r.snapshotToFile(tc.source, options, outputPath)
         console.log("✓ wrote", outputPath)
       })()
     })

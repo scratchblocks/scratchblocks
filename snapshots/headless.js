@@ -65,8 +65,8 @@ class Renderer {
     await this.page.setContent(html)
   }
 
-  async snapshot(script, lang) {
-    const args = [script, lang, this.scale]
+  async snapshot(script, options) {
+    const args = [script, options, this.scale]
       .map(x => JSON.stringify(x))
       .join(", ")
     const dataURL = await this.page.evaluate("render(" + args + ")")
@@ -74,8 +74,8 @@ class Renderer {
     return buffer
   }
 
-  async snapshotToFile(script, lang, path) {
-    const buffer = await this.snapshot(script, lang, this.scale)
+  async snapshotToFile(script, options, path) {
+    const buffer = await this.snapshot(script, options, this.scale)
     await fs_writeFile(path, buffer)
   }
 
