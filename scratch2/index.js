@@ -130,19 +130,6 @@ module.exports = function(window, makeCanvas) {
     })
   }
 
-  /* Parse scratchblocks code and return XML string.
-   *
-   * Convenience function for Node, really.
-   */
-  var renderSVGString = function(code, options) {
-    var doc = parse(code, options)
-
-    // WARN: Document.render() may become async again in future :-(
-    doc.render(function() {})
-
-    return doc.exportSVGString()
-  }
-
   return {
     allLanguages: allLanguages, // read-only
     loadLanguages: loadLanguages,
@@ -168,7 +155,6 @@ module.exports = function(window, makeCanvas) {
     replace: replace,
     renderMatching: renderMatching,
 
-    renderSVGString: renderSVGString,
     makeStyle: style.makeStyle,
   }
 }
