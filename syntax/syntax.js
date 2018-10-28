@@ -879,6 +879,15 @@ function parse(code, options) {
     options
   )
 
+  switch (options.dialect) {
+    case DialectClassic:
+      break
+    case DialectScratch3:
+      break
+    default:
+      throw new Error("Unknown dialect: " + options.dialect)
+  }
+
   code = code.replace(/&lt;/g, "<")
   code = code.replace(/&gt;/g, ">")
   if (options.inline) {
