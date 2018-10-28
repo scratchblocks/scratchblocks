@@ -3,7 +3,7 @@ var Filter = require("./filter.js")
 
 var Style = (module.exports = {
   cssContent: `
-    .sb-label {
+    .sb3-label {
       font-family: Lucida Grande, Verdana, Arial, DejaVu Sans, sans-serif;
       font-weight: bold;
       fill: #fff;
@@ -11,77 +11,77 @@ var Style = (module.exports = {
       word-spacing: +1px;
     }
 
-    .sb-obsolete { fill: #d42828; }
-    .sb-motion { fill: #4a6cd4; }
-    .sb-looks { fill: #8a55d7; }
-    .sb-sound { fill: #bb42c3; }
-    .sb-pen { fill: #0e9a6c;  }
-    .sb-events { fill: #c88330; }
-    .sb-control { fill: #e1a91a; }
-    .sb-sensing { fill: #2ca5e2; }
-    .sb-operators { fill: #5cb712; }
-    .sb-variables { fill: #ee7d16; }
-    .sb-list { fill: #cc5b22 }
-    .sb-custom { fill: #632d99; }
-    .sb-custom-arg { fill: #5947b1; }
-    .sb-extension { fill: #4b4a60; }
-    .sb-grey { fill: #969696; }
+    .sb3-obsolete { fill: #d42828; }
+    .sb3-motion { fill: #4a6cd4; }
+    .sb3-looks { fill: #8a55d7; }
+    .sb3-sound { fill: #bb42c3; }
+    .sb3-pen { fill: #0e9a6c;  }
+    .sb3-events { fill: #c88330; }
+    .sb3-control { fill: #e1a91a; }
+    .sb3-sensing { fill: #2ca5e2; }
+    .sb3-operators { fill: #5cb712; }
+    .sb3-variables { fill: #ee7d16; }
+    .sb3-list { fill: #cc5b22 }
+    .sb3-custom { fill: #632d99; }
+    .sb3-custom-arg { fill: #5947b1; }
+    .sb3-extension { fill: #4b4a60; }
+    .sb3-grey { fill: #969696; }
 
-    .sb-bevel {
+    .sb3-bevel {
       filter: url(#bevelFilter);
     }
 
-    .sb-input {
+    .sb3-input {
       filter: url(#inputBevelFilter);
     }
-    .sb-input-number,
-    .sb-input-string,
-    .sb-input-number-dropdown {
+    .sb3-input-number,
+    .sb3-input-string,
+    .sb3-input-number-dropdown {
       fill: #fff;
     }
-    .sb-literal-number,
-    .sb-literal-string,
-    .sb-literal-number-dropdown,
-    .sb-literal-dropdown {
+    .sb3-literal-number,
+    .sb3-literal-string,
+    .sb3-literal-number-dropdown,
+    .sb3-literal-dropdown {
       font-weight: normal;
       font-size: 9px;
       word-spacing: 0;
     }
-    .sb-literal-number,
-    .sb-literal-string,
-    .sb-literal-number-dropdown {
+    .sb3-literal-number,
+    .sb3-literal-string,
+    .sb3-literal-number-dropdown {
       fill: #000;
     }
 
-    .sb-darker {
+    .sb3-darker {
       filter: url(#inputDarkFilter);
     }
-    .sb-desaturate {
+    .sb3-desaturate {
       filter: url(#desaturateFilter);
     }
 
-    .sb-outline {
+    .sb3-outline {
       stroke: #fff;
       stroke-opacity: 0.2;
       stroke-width: 2;
       fill: none;
     }
 
-    .sb-define-hat-cap {
+    .sb3-define-hat-cap {
       stroke: #632d99;
       stroke-width: 1;
       fill: #8e2ec2;
     }
 
-    .sb-comment {
+    .sb3-comment {
       fill: #ffffa5;
       stroke: #d0d1d2;
       stroke-width: 1;
     }
-    .sb-comment-line {
+    .sb3-comment-line {
       fill: #ffff80;
     }
-    .sb-comment-label {
+    .sb3-comment-label {
       font-family: Helevetica, Arial, DejaVu Sans, sans-serif;
       font-weight: bold;
       fill: #5c5d5f;
@@ -89,14 +89,14 @@ var Style = (module.exports = {
       font-size: 12px;
     }
 
-    .sb-diff {
+    .sb3-diff {
       fill: none;
       stroke: #000;
     }
-    .sb-diff-ins {
+    .sb3-diff-ins {
       stroke-width: 2px;
     }
-    .sb-diff-del {
+    .sb3-diff-del {
       stroke-width: 3px;
     }
   `.replace(/[ \n]+/, " "),
@@ -231,7 +231,7 @@ var Style = (module.exports = {
     return SVG.setProps(
       SVG.group([
         SVG.setProps(el, {
-          class: ["sb-" + category, "sb-darker"].join(" "),
+          class: ["sb3-" + category, "sb3-darker"].join(" "),
         }),
       ]),
       { width: w, height: h }

@@ -37,6 +37,11 @@ module.exports = function(window) {
   var scratch3 = require("./scratch3")
   scratch3.init(window)
 
+  function appendStyles() {
+    document.head.appendChild(scratch2.makeStyle())
+    document.head.appendChild(scratch3.makeStyle())
+  }
+
   function parse(code, options) {
     return syntax.parse(code, options)
   }
@@ -174,6 +179,6 @@ module.exports = function(window) {
     render: render,
     renderMatching: renderMatching,
 
-    makeStyle: scratch2.makeStyle,
+    appendStyles: appendStyles,
   }
 }

@@ -274,7 +274,9 @@ function objUpdated() {
   // });
 
   console.log(scratchblocks.stringify(doc));
-  var docView = scratchblocks.newView(doc);
+  var docView = scratchblocks.newView(doc, {
+    style: "scratch3",
+  });
   var svg = docView.render();
   preview.innerHTML = "";
   preview.appendChild(svg);

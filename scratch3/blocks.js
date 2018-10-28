@@ -50,7 +50,7 @@ LabelView.prototype.measure = function() {
   var value = this.value
   var cls = this.cls
   this.el = SVG.text(0, 10, value, {
-    class: "sb-label " + cls,
+    class: "sb3-label " + cls,
   })
 
   var cache = LabelView.metricsCache[cls]
@@ -61,9 +61,9 @@ LabelView.prototype.measure = function() {
   if (Object.hasOwnProperty.call(cache, value)) {
     this.metrics = cache[value]
   } else {
-    var font = /sb-comment-label/.test(this.cls)
+    var font = /sb3-comment-label/.test(this.cls)
       ? "bold 12px Helevetica, Arial, DejaVu Sans, sans-serif"
-      : /sb-literal/.test(this.cls)
+      : /sb3-literal/.test(this.cls)
         ? "normal 9px " + defaultFontFamily
         : "bold 10px " + defaultFontFamily
     this.metrics = cache[value] = LabelView.measure(value, font)
@@ -167,7 +167,7 @@ InputView.prototype.draw = function(parent) {
 
   var result = SVG.group([
     SVG.setProps(el, {
-      class: ["sb-input", "sb-input-" + this.shape].join(" "),
+      class: ["sb3-input", "sb3-input-" + this.shape].join(" "),
     }),
   ])
   if (this.hasLabel) {
@@ -232,14 +232,14 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
   // mouths
   if (lines.length > 1) {
     return SVG.mouthRect(w, h, this.isFinal, lines, {
-      class: ["sb-" + this.info.category, "sb-bevel"].join(" "),
+      class: ["sb3-" + this.info.category, "sb3-bevel"].join(" "),
     })
   }
 
   // outlines
   if (this.info.shape === "outline") {
     return SVG.setProps(SVG.stackRect(w, h), {
-      class: "sb-outline",
+      class: "sb3-outline",
     })
   }
 
@@ -251,7 +251,7 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
         ? "stack"
         : child.isInput ? child.shape : child.info.shape
       return SVG.ringRect(w, h, child.y, child.width, child.height, shape, {
-        class: ["sb-" + this.info.category, "sb-bevel"].join(" "),
+        class: ["sb3-" + this.info.category, "sb3-bevel"].join(" "),
       })
     }
   }
@@ -261,7 +261,7 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
     throw new Error("no shape func: " + this.info.shape)
   }
   return func(w, h, {
-    class: ["sb-" + this.info.category, "sb-bevel"].join(" "),
+    class: ["sb3-" + this.info.category, "sb3-bevel"].join(" "),
   })
 }
 
@@ -471,7 +471,7 @@ CommentView.prototype.draw = function() {
   return SVG.group([
     SVG.commentLine(this.hasBlock ? CommentView.lineLength : 0, 6),
     SVG.commentRect(this.width, this.height, {
-      class: "sb-comment",
+      class: "sb3-comment",
     }),
     SVG.move(8, 4, labelEl),
   ])
@@ -510,7 +510,7 @@ GlowView.prototype.drawSelf = function() {
     var el = c.drawSelf(w, h, [])
   }
   return SVG.setProps(el, {
-    class: "sb-diff sb-diff-ins",
+    class: "sb3-diff sb3-diff-ins",
   })
 }
 // TODO how can we always raise Glows above their parents?

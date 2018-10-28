@@ -437,7 +437,7 @@ var SVG = (module.exports = {
         SVG.curve(0, 16, -1, 13, 0.6),
         "Z",
       ],
-      class: "sb-define-hat-cap",
+      class: "sb3-define-hat-cap",
     })
   },
 
@@ -508,7 +508,7 @@ var SVG = (module.exports = {
     var r = 6
     return SVG.path(
       extend(props, {
-        class: "sb-comment",
+        class: "sb3-comment",
         path: [
           "M",
           r,
@@ -531,7 +531,7 @@ var SVG = (module.exports = {
         width,
         2,
         extend(props, {
-          class: "sb-comment-line",
+          class: "sb3-comment-line",
         })
       )
     )
@@ -541,7 +541,7 @@ var SVG = (module.exports = {
     return SVG.path(
       extend(props, {
         path: ["M", 0, 0, "L", w, 0],
-        class: "sb-diff sb-diff-del",
+        class: "sb3-diff sb3-diff-del",
       })
     )
   },
