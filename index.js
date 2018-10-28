@@ -31,17 +31,8 @@ module.exports = function(window) {
 
   /*****************************************************************************/
 
-  var style = require("./scratch2/style")
-
-  var SVG = require("./scratch2/draw")
-  SVG.init(window)
-
-  const scratch2 = require("./scratch2/blocks")
-
-  scratch2.LabelView.measuring = (function() {
-    var canvas = SVG.makeCanvas()
-    return canvas.getContext("2d")
-  })()
+  var scratch2 = require("./scratch2")
+  scratch2.init(window)
 
   function parse(code, options) {
     return syntax.parse(code, options)
@@ -176,6 +167,6 @@ module.exports = function(window) {
     render: render,
     renderMatching: renderMatching,
 
-    makeStyle: style.makeStyle,
+    makeStyle: scratch2.makeStyle,
   }
 }
