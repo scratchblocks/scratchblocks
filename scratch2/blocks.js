@@ -663,7 +663,7 @@ DocumentView.prototype.exportSVG = function() {
   return "data:image/svg+xml;utf8," + xml.replace(/[#]/g, encodeURIComponent)
 }
 
-DocumentView.prototype.exportPNG = function(cb, scale) {
+DocumentView.prototype.toCanvas = function(cb, scale) {
   scale = scale || 1.0
 
   var canvas = SVG.makeCanvas()
@@ -679,6 +679,12 @@ DocumentView.prototype.exportPNG = function(cb, scale) {
     context.drawImage(image, 0, 0)
     context.restore()
 
+    cb(canvas)
+  }
+}
+
+DocumentView.prototype.exportPNG = function(cb, scale) {
+  this.toCanvas(function(canvas) {
     if (URL && URL.createObjectURL && Blob && canvas.toBlob) {
       var blob = canvas.toBlob(function(blob) {
         cb(URL.createObjectURL(blob))
@@ -686,7 +692,7 @@ DocumentView.prototype.exportPNG = function(cb, scale) {
     } else {
       cb(canvas.toDataURL("image/png"))
     }
-  }
+  }, scale)
 }
 
 /* view */

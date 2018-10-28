@@ -21,26 +21,28 @@
     "build": "browserify browser.js -o build/scratchblocks.min.js -t [ babelify --presets [ es2015 babili ] ]",
     "build-translations": "browserify locales-src/translations.js -o build/translations.min.js -t [ babelify --presets [ es2015 babili ] ]",
     "build-translations-all": "browserify locales-src/translations-all.js -o build/translations-all.min.js -t [ babelify --presets [ es2015 babili ] ]",
-    "fmt": "prettier --write *.js syntax/*.js scratch2/*.js locales-src/*.js",
+    "fmt": "prettier --write *.js syntax/*.js scratch2/*.js locales-src/*.js snapshots/*.js",
     "postinstall": "npm run build -- -s Scratchblocks",
     "lint:staged": "lint-staged",
     "start": "beefy browser.js:bundle.js --live --port 8000",
     "locales": "node locales-src/build-locales.js",
-    "test": "jest"
+    "test": "jest",
+    "snapshots": "node ./snapshots/"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.22.0",
     "babelify": "^7.3.0",
     "babili": "^0.0.11",
-    "beefy": "^2.1.8",
     "browserify": "^14.1.0"
   },
   "devDependencies": {
+    "ava": "^0.25.0",
     "jest": "^19.0.2",
     "lint-staged": "^7.3.0",
     "pofile": "^1.0.10",
     "prettier": "1.7.4",
     "prettier-package-json": "^1.6.0",
+    "puppeteer": "^1.9.0",
     "scratchr2_translations": "git://github.com/LLK/scratchr2_translations.git#master"
   },
   "keywords": [
