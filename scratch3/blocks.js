@@ -48,7 +48,7 @@ LabelView.toMeasure = []
 
 LabelView.prototype.measure = function() {
   var value = this.value
-  var cls = this.cls
+  var cls = "sb3-" + this.cls
   this.el = SVG.text(0, 10, value, {
     class: "sb3-label " + cls,
   })
@@ -61,9 +61,9 @@ LabelView.prototype.measure = function() {
   if (Object.hasOwnProperty.call(cache, value)) {
     this.metrics = cache[value]
   } else {
-    var font = /sb3-comment-label/.test(this.cls)
+    var font = /comment-label/.test(this.cls)
       ? "bold 12px Helevetica, Arial, DejaVu Sans, sans-serif"
-      : /sb3-literal/.test(this.cls)
+      : /literal/.test(this.cls)
         ? "normal 9px " + defaultFontFamily
         : "bold 10px " + defaultFontFamily
     this.metrics = cache[value] = LabelView.measure(value, font)

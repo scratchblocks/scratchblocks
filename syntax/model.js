@@ -99,7 +99,7 @@ var Input = function(shape, value, menu) {
 
   this.hasLabel = !(this.isColor || this.isInset)
   this.label = this.hasLabel
-    ? new Label(value, ["sb-literal-" + this.shape])
+    ? new Label(value, "literal-" + this.shape)
     : null
   this.x = 0
 }
@@ -194,7 +194,7 @@ Input.prototype.translate = function(lang) {
   if (this.hasArrow) {
     var value = this.menu || this.value
     this.value = lang.dropdowns[value] || value
-    this.label = new Label(this.value, ["sb-literal-" + this.shape])
+    this.label = new Label(this.value, "literal-" + this.shape)
   }
 }
 
@@ -451,7 +451,7 @@ Block.prototype.translate = function(lang, isShallow) {
 /* Comment */
 
 var Comment = function(value, hasBlock) {
-  this.label = new Label(value, ["sb-comment-label"])
+  this.label = new Label(value, "comment-label")
   this.width = null
   this.hasBlock = hasBlock
 }
