@@ -1,5 +1,4 @@
 var SVG = require("./draw.js")
-var Filter = require("./filter.js")
 
 var Style = (module.exports = {
   cssContent: `
@@ -9,19 +8,31 @@ var Style = (module.exports = {
       word-spacing: +1px;
     }
 
+    .sb3-motion { fill: #4c97ff; stroke: #3373cc; }
+    .sb3-motion-alt { fill: #4280d7; }
+    .sb3-looks { fill: #9966ff; stroke: #774dcb; }
+    .sb3-looks-alt { fill: #855cd6; }
+    .sb3-sound { fill: #cf63cf; stroke: #bd42bd; }
+    .sb3-sound-alt { fill: #c94fc9; }
+    .sb3-control { fill: #ffab19; stroke: #cf8b17; }
+    .sb3-control-alt { fill: #ec9c13; }
+    .sb3-events { fill: #ffbf00; stroke: #cc9900; }
+    .sb3-events-alt { fill: #e6ac00; }
+    .sb3-sensing { fill: #5cb1d6; stroke: #2e8eb8; }
+    .sb3-sensing-alt { fill: #47a8d1; }
+    .sb3-pen { fill: #0fbd8c; stroke: #0b8e69; }
+    .sb3-pen-alt { fill: #0da57a; }
+    .sb3-operators { fill: #59c059; stroke: #389438; }
+    .sb3-operators-alt { fill: #46b946; }
+    .sb3-variables { fill: #ff8c1a; stroke: #db6e00; }
+    .sb3-variables-alt { fill: #ff8000; }
+    .sb3-list { fill: #ff661a; stroke: #e64d00; }
+    .sb3-list-alt { fill: #ff5500; }
+    .sb3-custom { fill: #ff6680; stroke: #ff3355; }
+    .sb3-custom-arg { fill: #ff6680; stroke: #ff3355; }
+    .sb3-custom-alt { fill: #ff4d6a; }
+
     .sb3-obsolete { fill: #d42828; }
-    .sb3-motion { fill: #4a6cd4; }
-    .sb3-looks { fill: #8a55d7; }
-    .sb3-sound { fill: #bb42c3; }
-    .sb3-pen { fill: #0e9a6c;  }
-    .sb3-events { fill: #c88330; }
-    .sb3-control { fill: #e1a91a; }
-    .sb3-sensing { fill: #2ca5e2; }
-    .sb3-operators { fill: #5cb712; }
-    .sb3-variables { fill: #ee7d16; }
-    .sb3-list { fill: #cc5b22 }
-    .sb3-custom { fill: #632d99; }
-    .sb3-custom-arg { fill: #5947b1; }
     .sb3-extension { fill: #4b4a60; }
     .sb3-grey { fill: #969696; }
 
@@ -38,10 +49,6 @@ var Style = (module.exports = {
     .sb3-literal-number,
     .sb3-literal-string {
       fill: #575e75;
-    }
-
-    .sb3-darker {
-      filter: url(#inputDarkFilter);
     }
 
     .sb3-outline {
@@ -141,28 +148,6 @@ var Style = (module.exports = {
     var style = SVG.el("style")
     style.appendChild(SVG.cdata(Style.cssContent))
     return style
-  },
-
-  darkFilter(id) {
-    var f = new Filter(id)
-
-    f.merge([
-      "SourceGraphic",
-      f.comp("in", f.flood("#000", 0.2), "SourceAlpha"),
-    ])
-
-    return f.el
-  },
-
-  darkRect(w, h, category, el) {
-    return SVG.setProps(
-      SVG.group([
-        SVG.setProps(el, {
-          class: ["sb3-" + category, "sb3-darker"].join(" "),
-        }),
-      ]),
-      { width: w, height: h }
-    )
   },
 
   defaultFont: "500 12px Helevetica Neue, Helvetica, sans-serif",

@@ -471,6 +471,7 @@ var SVG = (module.exports = {
       y += lines[i + 1].height + 3
       p.push(SVG.getRightAndBottom(w, y, hasNotch, inset))
     }
+    p.push("Z")
     return SVG.path(
       extend(props, {
         path: p,

@@ -11,14 +11,7 @@ const {
 
 const SVG = require("./draw.js")
 
-const {
-  defaultFont,
-  commentFont,
-  makeStyle,
-  makeIcons,
-  darkRect,
-  darkFilter,
-} = require("./style.js")
+const { defaultFont, commentFont, makeStyle, makeIcons } = require("./style.js")
 
 /* Label */
 
@@ -147,28 +140,39 @@ InputView.prototype.draw = function(parent) {
   var h = (this.height = this.isRound || this.isColor ? 13 : 14)
 
   var el = InputView.shapes[this.shape](w, h)
+  SVG.setProps(el, {
+    class: [
+      "sb3-" + parent.info.category,
+      "sb3-input",
+      "sb3-input-" + this.shape,
+    ].join(" "),
+  })
+
   if (this.isColor) {
     SVG.setProps(el, {
       fill: this.value,
     })
-  } else if (
-    this.shape === "dropdown" ||
-    this.shape === "number-dropdown" ||
-    this.shape === "boolean"
-  ) {
-    el = darkRect(w, h, parent.info.category, el)
+  } else if (this.shape === "dropdown") {
+    // custom colors
     if (parent.info.color) {
       SVG.setProps(el, {
         fill: parent.info.color,
+        stroke: "rgba(0, 0, 0, 0.2)",
+      })
+    }
+  } else if (this.shape === "number-dropdown" || this.shape === "boolean") {
+    el.classList.add("sb3-" + parent.info.category + "-alt")
+
+    // custom colors
+    if (parent.info.color) {
+      SVG.setProps(el, {
+        fill: "rgba(0, 0, 0, 0.1)",
+        stroke: "rgba(0, 0, 0, 0.15)", // combines with fill...
       })
     }
   }
 
-  var result = SVG.group([
-    SVG.setProps(el, {
-      class: ["sb3-input", "sb3-input-" + this.shape].join(" "),
-    }),
-  ])
+  var result = SVG.group([el])
   if (this.hasLabel) {
     var x = this.isRound ? 5 : 4
     result.appendChild(SVG.move(x, 0, label))
@@ -440,6 +444,7 @@ BlockView.prototype.draw = function() {
   if (this.info.color) {
     SVG.setProps(el, {
       fill: this.info.color,
+      stroke: "rgba(0, 0, 0, 0.2)",
     })
   }
 
@@ -626,12 +631,7 @@ DocumentView.prototype.render = function(cb) {
 
   // return SVG
   var svg = SVG.newSVG(width, height)
-  svg.appendChild(
-    (this.defs = SVG.withChildren(
-      SVG.el("defs"),
-      [darkFilter("inputDarkFilter")].concat(makeIcons())
-    ))
-  )
+  svg.appendChild((this.defs = SVG.withChildren(SVG.el("defs"), makeIcons())))
 
   svg.appendChild(SVG.group(elements))
   this.el = svg
