@@ -98,9 +98,7 @@ var Input = function(shape, value, menu) {
     shape === "string" || shape === "color" || shape === "dropdown"
 
   this.hasLabel = !(this.isColor || this.isInset)
-  this.label = this.hasLabel
-    ? new Label(value, "literal-" + this.shape)
-    : null
+  this.label = this.hasLabel ? new Label(value, "literal-" + this.shape) : null
   this.x = 0
 }
 Input.prototype.isInput = true
