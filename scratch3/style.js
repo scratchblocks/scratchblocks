@@ -58,12 +58,6 @@ var Style = (module.exports = {
       fill: none;
     }
 
-    .sb3-define-hat-cap {
-      stroke: #632d99;
-      stroke-width: 1;
-      fill: #8e2ec2;
-    }
-
     .sb3-comment {
       fill: #ffffa5;
       stroke: #d0d1d2;

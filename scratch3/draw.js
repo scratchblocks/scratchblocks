@@ -419,42 +419,13 @@ var SVG = (module.exports = {
     )
   },
 
-  procHatCap(w, h, archRoundness) {
-    // TODO use arc()
-    // TODO this doesn't look quite right
-    return SVG.path({
-      path: [
-        "M",
-        -1,
-        13,
-        "Q",
-        SVG.curve(-1, 13, w + 1, 13, archRoundness),
-        "Q",
-        SVG.curve(w + 1, 13, w, 16, 0.6),
-        "Q",
-        SVG.curve(w, 16, 0, 16, -archRoundness),
-        "Q",
-        SVG.curve(0, 16, -1, 13, 0.6),
-        "Z",
-      ],
-      class: "sb3-define-hat-cap",
-    })
-  },
-
   procHatRect(w, h, props) {
     var q = 52
     var y = h - q
 
     var archRoundness = Math.min(0.2, 35 / w)
 
-    return SVG.move(
-      0,
-      y,
-      SVG.group([
-        SVG.procHatBase(w, q, archRoundness, props),
-        SVG.procHatCap(w, q, archRoundness),
-      ])
-    )
+    return SVG.move(0, y, SVG.procHatBase(w, q, archRoundness, props))
   },
 
   mouthRect(w, h, isFinal, lines, props) {
