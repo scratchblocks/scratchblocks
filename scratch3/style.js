@@ -4,10 +4,8 @@ var Filter = require("./filter.js")
 var Style = (module.exports = {
   cssContent: `
     .sb3-label {
-      font-family: Lucida Grande, Verdana, Arial, DejaVu Sans, sans-serif;
-      font-weight: bold;
+      font: 500 12px Helevetica Neue, Helvetica, sans-serif;
       fill: #fff;
-      font-size: 10px;
       word-spacing: +1px;
     }
 
@@ -35,22 +33,18 @@ var Style = (module.exports = {
       filter: url(#inputBevelFilter);
     }
     .sb3-input-number,
-    .sb3-input-string,
-    .sb3-input-number-dropdown {
+    .sb3-input-string {
       fill: #fff;
     }
     .sb3-literal-number,
     .sb3-literal-string,
     .sb3-literal-number-dropdown,
     .sb3-literal-dropdown {
-      font-weight: normal;
-      font-size: 9px;
       word-spacing: 0;
     }
     .sb3-literal-number,
-    .sb3-literal-string,
-    .sb3-literal-number-dropdown {
-      fill: #000;
+    .sb3-literal-string {
+      fill: #575e75;
     }
 
     .sb3-darker {
@@ -82,11 +76,9 @@ var Style = (module.exports = {
       fill: #ffff80;
     }
     .sb3-comment-label {
-      font-family: Helevetica, Arial, DejaVu Sans, sans-serif;
-      font-weight: bold;
-      fill: #5c5d5f;
+      font: 400 12px Helevetica Neue, Helvetica, sans-serif;
+      fill: #000;
       word-spacing: 0;
-      font-size: 12px;
     }
 
     .sb3-diff {
@@ -238,5 +230,6 @@ var Style = (module.exports = {
     )
   },
 
-  defaultFontFamily: "Lucida Grande, Verdana, Arial, DejaVu Sans, sans-serif",
+  defaultFont: "500 12px Helevetica Neue, Helvetica, sans-serif",
+  commentFont: "400 12px Helevetica Neue, Helvetica, sans-serif",
 })

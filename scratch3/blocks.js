@@ -12,7 +12,8 @@ const {
 const SVG = require("./draw.js")
 
 const {
-  defaultFontFamily,
+  defaultFont,
+  commentFont,
   makeStyle,
   makeIcons,
   darkRect,
@@ -61,11 +62,7 @@ LabelView.prototype.measure = function() {
   if (Object.hasOwnProperty.call(cache, value)) {
     this.metrics = cache[value]
   } else {
-    var font = /comment-label/.test(this.cls)
-      ? "bold 12px Helevetica, Arial, DejaVu Sans, sans-serif"
-      : /literal/.test(this.cls)
-        ? "normal 9px " + defaultFontFamily
-        : "bold 10px " + defaultFontFamily
+    var font = /comment-label/.test(this.cls) ? commentFont : defaultFont
     this.metrics = cache[value] = LabelView.measure(value, font)
     // TODO: word-spacing? (fortunately it seems to have no effect!)
   }
@@ -156,7 +153,11 @@ InputView.prototype.draw = function(parent) {
     SVG.setProps(el, {
       fill: this.value,
     })
-  } else if (this.isDarker) {
+  } else if (
+    this.shape === "dropdown" ||
+    this.shape === "number-dropdown" ||
+    this.shape === "boolean"
+  ) {
     el = darkRect(w, h, parent.info.category, el)
     if (parent.info.color) {
       SVG.setProps(el, {
