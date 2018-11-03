@@ -25,13 +25,6 @@ var Style = (module.exports = {
     .sb3-extension { fill: #4b4a60; }
     .sb3-grey { fill: #969696; }
 
-    .sb3-bevel {
-      filter: url(#bevelFilter);
-    }
-
-    .sb3-input {
-      filter: url(#inputBevelFilter);
-    }
     .sb3-input-number,
     .sb3-input-string {
       fill: #fff;
@@ -148,30 +141,6 @@ var Style = (module.exports = {
     var style = SVG.el("style")
     style.appendChild(SVG.cdata(Style.cssContent))
     return style
-  },
-
-  bevelFilter(id, inset) {
-    var f = new Filter(id)
-
-    var alpha = "SourceAlpha"
-    var s = inset ? -1 : 1
-    var blur = f.blur(1, alpha)
-
-    f.merge([
-      "SourceGraphic",
-      f.comp(
-        "in",
-        f.flood("#fff", 0.15),
-        f.subtract(alpha, f.offset(+s, +s, blur))
-      ),
-      f.comp(
-        "in",
-        f.flood("#000", 0.7),
-        f.subtract(alpha, f.offset(-s, -s, blur))
-      ),
-    ])
-
-    return f.el
   },
 
   darkFilter(id) {

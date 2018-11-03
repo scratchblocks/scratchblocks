@@ -17,7 +17,6 @@ const {
   makeStyle,
   makeIcons,
   darkRect,
-  bevelFilter,
   darkFilter,
 } = require("./style.js")
 
@@ -232,7 +231,7 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
   // mouths
   if (lines.length > 1) {
     return SVG.mouthRect(w, h, this.isFinal, lines, {
-      class: ["sb3-" + this.info.category, "sb3-bevel"].join(" "),
+      class: ["sb3-" + this.info.category].join(" "),
     })
   }
 
@@ -251,7 +250,7 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
         ? "stack"
         : child.isInput ? child.shape : child.info.shape
       return SVG.ringRect(w, h, child.y, child.width, child.height, shape, {
-        class: ["sb3-" + this.info.category, "sb3-bevel"].join(" "),
+        class: ["sb3-" + this.info.category].join(" "),
       })
     }
   }
@@ -261,7 +260,7 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
     throw new Error("no shape func: " + this.info.shape)
   }
   return func(w, h, {
-    class: ["sb3-" + this.info.category, "sb3-bevel"].join(" "),
+    class: ["sb3-" + this.info.category].join(" "),
   })
 }
 
@@ -630,11 +629,7 @@ DocumentView.prototype.render = function(cb) {
   svg.appendChild(
     (this.defs = SVG.withChildren(
       SVG.el("defs"),
-      [
-        bevelFilter("bevelFilter", false),
-        bevelFilter("inputBevelFilter", true),
-        darkFilter("inputDarkFilter"),
-      ].concat(makeIcons())
+      [darkFilter("inputDarkFilter")].concat(makeIcons())
     ))
   )
 
