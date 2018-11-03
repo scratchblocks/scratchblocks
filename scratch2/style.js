@@ -56,9 +56,6 @@ var Style = (module.exports = {
     .sb-darker {
       filter: url(#inputDarkFilter);
     }
-    .sb-desaturate {
-      filter: url(#desaturateFilter);
-    }
 
     .sb-outline {
       stroke: #fff;
@@ -191,37 +188,6 @@ var Style = (module.exports = {
     f.merge([
       "SourceGraphic",
       f.comp("in", f.flood("#000", 0.2), "SourceAlpha"),
-    ])
-
-    return f.el
-  },
-
-  desaturateFilter(id) {
-    var f = new Filter(id)
-
-    var q = 0.333
-    var s = 0.333
-    f.colorMatrix("SourceGraphic", [
-      q,
-      s,
-      s,
-      0,
-      0,
-      s,
-      q,
-      s,
-      0,
-      0,
-      s,
-      s,
-      q,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      0,
     ])
 
     return f.el

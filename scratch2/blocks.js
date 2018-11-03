@@ -18,7 +18,6 @@ const {
   darkRect,
   bevelFilter,
   darkFilter,
-  desaturateFilter,
 } = require("./style.js")
 
 /* Label */
@@ -634,7 +633,6 @@ DocumentView.prototype.render = function(cb) {
         bevelFilter("bevelFilter", false),
         bevelFilter("inputBevelFilter", true),
         darkFilter("inputDarkFilter"),
-        desaturateFilter("desaturateFilter"),
       ].concat(makeIcons())
     ))
   )
