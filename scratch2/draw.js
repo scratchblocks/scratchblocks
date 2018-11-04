@@ -470,6 +470,7 @@ var SVG = (module.exports = {
       var inset = isLast ? 0 : 15
       y += lines[i + 1].height + 3
       p.push(SVG.getRightAndBottom(w, y, hasNotch, inset))
+      p.push("L", 0, 3)
     }
     return SVG.path(
       extend(props, {
