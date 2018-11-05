@@ -41,7 +41,7 @@ LabelView.toMeasure = []
 LabelView.prototype.measure = function() {
   var value = this.value
   var cls = "sb3-" + this.cls
-  this.el = SVG.text(0, 10, value, {
+  this.el = SVG.text(0, 13, value, {
     class: "sb3-label " + cls,
   })
 
@@ -126,18 +126,14 @@ InputView.shapes = {
 InputView.prototype.draw = function(parent) {
   if (this.hasLabel) {
     var label = this.label.draw()
-    var w = Math.max(
-      14,
-      this.label.width +
-        (this.shape === "string" || this.shape === "number-dropdown" ? 6 : 9)
-    )
+    var w = Math.max(40, this.label.width + 22)
   } else {
     var w = this.isInset ? 30 : this.isColor ? 13 : null
   }
-  if (this.hasArrow) w += 10
+  if (this.hasArrow) w += 20
   this.width = w
 
-  var h = (this.height = this.isRound || this.isColor ? 13 : 14)
+  var h = (this.height = 32)
 
   var el = InputView.shapes[this.shape](w, h)
   SVG.setProps(el, {
@@ -174,19 +170,17 @@ InputView.prototype.draw = function(parent) {
 
   var result = SVG.group([el])
   if (this.hasLabel) {
-    var x = this.isRound ? 5 : 4
-    result.appendChild(SVG.move(x, 0, label))
+    var x = 11
+    result.appendChild(SVG.move(x, 9, label))
   }
   if (this.hasArrow) {
-    var y = this.shape === "dropdown" ? 5 : 4
     result.appendChild(
       SVG.move(
-        w - 10,
-        y,
-        SVG.polygon({
-          points: [7, 0, 3.5, 4, 0, 0],
-          fill: "#000",
-          opacity: "0.6",
+        w - 24,
+        13,
+        SVG.symbol("#dropdownArrow", {
+          //width: 12.71,
+          //height: 8.79,
         })
       )
     )
@@ -269,7 +263,9 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
 }
 
 BlockView.prototype.minDistance = function(child) {
-  if (this.isBoolean) {
+  if (this.isCommand) {
+    return 0
+  } else if (this.isBoolean) {
     return child.isReporter
       ? (4 + child.height / 4) | 0
       : child.isLabel
@@ -277,8 +273,7 @@ BlockView.prototype.minDistance = function(child) {
         : child.isBoolean || child.shape === "boolean"
           ? 5
           : (2 + child.height / 2) | 0
-  }
-  if (this.isReporter) {
+  } else if (this.isReporter) {
     return (child.isInput && child.isRound) ||
       ((child.isReporter || child.isBoolean) && !child.hasScript)
       ? 0
@@ -288,15 +283,15 @@ BlockView.prototype.minDistance = function(child) {
 }
 
 BlockView.padding = {
-  hat: [15, 6, 2],
-  "define-hat": [21, 8, 9],
-  reporter: [3, 4, 1],
-  boolean: [3, 4, 2],
-  cap: [6, 6, 2],
-  "c-block": [3, 6, 2],
-  "if-block": [3, 6, 2],
-  ring: [4, 4, 2],
-  null: [4, 6, 2],
+  // hat: [15, 6, 2],
+  // "define-hat": [21, 8, 9],
+  // reporter: [3, 4, 1],
+  // boolean: [3, 4, 2],
+  // cap: [6, 6, 2],
+  // "c-block": [6, 8, 4],
+  // "if-block": [3, 6, 2],
+  // ring: [4, 4, 2],
+  null: [4, 8, 4],
 }
 
 BlockView.prototype.draw = function() {
@@ -308,11 +303,12 @@ BlockView.prototype.draw = function() {
     px = padding[1],
     pb = padding[2]
 
+  var isCommand = this.isCommand
   var y = 0
   var Line = function(y) {
     this.y = y
     this.width = 0
-    this.height = y ? 13 : 16
+    this.height = isCommand ? 40 : 32
     this.children = []
   }
 
@@ -366,16 +362,19 @@ BlockView.prototype.draw = function() {
     } else if (child.isArrow) {
       line.children.push(child)
     } else {
-      var cmw = i > 0 ? 30 : 0 // 27
-      var md = this.isCommand ? 0 : this.minDistance(child)
+      var cmw = i > 0 ? 30 : 0
+      var md = this.minDistance(child)
       var mw = this.isCommand ? (child.isBlock || child.isInput ? cmw : 0) : md
       if (mw && !lines.length && line.width < mw - px) {
         line.width = mw - px
       }
+      if (child.shape === "number-dropdown") {
+        line.width += 3
+      }
       child.x = line.width
       line.width += child.width
       innerWidth = Math.max(innerWidth, line.width + Math.max(0, md - px))
-      line.width += 4
+      line.width += 5
       if (!child.isLabel) {
         line.height = Math.max(line.height, child.height)
       }
@@ -391,12 +390,8 @@ BlockView.prototype.draw = function() {
       : this.isCommand || this.isOutline || this.isRing ? 39 : 20
   )
   this.height = y
+
   this.width = scriptWidth ? Math.max(innerWidth, 15 + scriptWidth) : innerWidth
-  if (isDefine) {
-    var p = Math.min(26, (3.5 + 0.13 * innerWidth) | 0) - 18
-    this.height += p
-    pt += 2 * p
-  }
   this.firstLine = lines[0]
   this.innerWidth = innerWidth
 
@@ -418,7 +413,7 @@ BlockView.prototype.draw = function() {
         continue
       }
 
-      var y = pt + (h - child.height - pt - pb) / 2 - 1
+      var y = pt + (h - child.height - pt - pb) / 2
       if (isDefine && child.isLabel) {
         y += 3
       } else if (child.isIcon) {
@@ -548,7 +543,7 @@ ScriptView.prototype.measure = function() {
 
 ScriptView.prototype.draw = function(inside) {
   var children = []
-  var y = 0
+  var y = 1
   this.width = 0
   for (var i = 0; i < this.blocks.length; i++) {
     var block = this.blocks[i]

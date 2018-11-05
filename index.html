@@ -11,17 +11,23 @@
 <link rel=stylesheet href="index.css">
 
 <style>
+#preview > svg {
+}
 #preview:before {
   position: relative;
-  min-width: 400px;
-  min-height: 300px;
+  left: 1px;
+  min-width: 695px;
+  min-height: 792px;
+  z-index: 1;
+  transform: scale(0.66666);
+  transform-origin: 0 0;
 }
 .cmp #preview:before,
 .diff #preview:before {
   position: absolute;
   display: block;
   content: "";
-  background: url(screenshot.png) no-repeat;
+  background: url(screenshot.png) no-repeat 0 -168px;
 }
 .cmp.diff #preview:before {
   -webkit-filter: invert(100%) opacity(50%);

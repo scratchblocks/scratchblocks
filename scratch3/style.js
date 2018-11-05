@@ -3,9 +3,9 @@ var SVG = require("./draw.js")
 var Style = (module.exports = {
   cssContent: `
     .sb3-label {
-      font: 500 12px Helevetica Neue, Helvetica, sans-serif;
+      font: 500 12pt Helevetica Neue, Helvetica, sans-serif;
       fill: #fff;
-      word-spacing: +1px;
+      word-spacing: +1pt;
     }
 
     .sb3-motion { fill: #4c97ff; stroke: #3373cc; }
@@ -67,7 +67,7 @@ var Style = (module.exports = {
       fill: #ffff80;
     }
     .sb3-comment-label {
-      font: 400 12px Helevetica Neue, Helvetica, sans-serif;
+      font: 400 12pt Helevetica Neue, Helvetica, sans-serif;
       fill: #000;
       word-spacing: 0;
     }
@@ -102,6 +102,25 @@ var Style = (module.exports = {
         {
           id: "greenFlag",
           transform: "scale(0.75)", // TODO
+        }
+      ),
+      SVG.setProps(
+        SVG.group([
+          SVG.el("path", {
+            d:
+              "M12.71 2.44A2.41 2.41 0 0 1 12 4.16L8.08 8.08a2.45 2.45 0 0 1-3.45 0L.72 4.16A2.42 2.42 0 0 1 0 2.44 2.48 2.48 0 0 1 .71.71C1 .47 1.43 0 6.36 0s5.39.46 5.64.71a2.44 2.44 0 0 1 .71 1.73z",
+            fill: "#231f20",
+            opacity: ".1",
+          }),
+          SVG.el("path", {
+            d:
+              "M6.36 7.79a1.43 1.43 0 0 1-1-.42L1.42 3.45a1.44 1.44 0 0 1 0-2c.56-.56 9.31-.56 9.87 0a1.44 1.44 0 0 1 0 2L7.37 7.37a1.43 1.43 0 0 1-1.01.42z",
+            fill: "#fff",
+          }),
+        ]),
+        {
+          id: "dropdownArrow",
+          transform: 'scale(0.944)',
         }
       ),
       SVG.el("path", {
@@ -156,6 +175,6 @@ var Style = (module.exports = {
     return style
   },
 
-  defaultFont: "500 12px Helevetica Neue, Helvetica, sans-serif",
-  commentFont: "400 12px Helevetica Neue, Helvetica, sans-serif",
+  defaultFont: "500 12pt Helevetica Neue, Helvetica, sans-serif",
+  commentFont: "400 12pt Helevetica Neue, Helvetica, sans-serif",
 })

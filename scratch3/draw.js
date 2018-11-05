@@ -234,30 +234,18 @@ var SVG = (module.exports = {
 
   getTop(w) {
     return [
-      "M",
-      0,
-      3,
-      "L",
-      3,
-      0,
-      "L",
-      13,
-      0,
-      "L",
-      16,
-      3,
-      "L",
-      24,
-      3,
-      "L",
-      27,
-      0,
-      "L",
-      w - 3,
-      0,
-      "L",
-      w,
-      3,
+      "M 0 4",
+      "A 4 4 0 0 1 4 0",
+      "H 12",
+      "c 2 0 3 1 4 2",
+      "l 4 4",
+      "c 1 1 2 2 4 2",
+      "h 12",
+      "c 2 0 3 -1 4 -2",
+      "l 4 -4",
+      "c 1 -1 2 -2 4 -2",
+      ["L", w - 4, 0].join(" "),
+      "a 4 4 0 0 1 4 4",
     ].join(" ")
   },
 
@@ -294,27 +282,26 @@ var SVG = (module.exports = {
     if (typeof inset === "undefined") {
       inset = 0
     }
-    var arr = ["L", w, y - 3, "L", w - 3, y]
+
+    var arr = [["L", w, y - 4].join(" "), ["a", 4, 4, 0, 0, 1, -4, 4].join(" ")]
+
     if (hasNotch) {
       arr = arr.concat([
-        "L",
-        inset + 27,
-        y,
-        "L",
-        inset + 24,
-        y + 3,
-        "L",
-        inset + 16,
-        y + 3,
-        "L",
-        inset + 13,
-        y,
+        ["L", inset + 48, y].join(" "),
+        "c -2 0 -3 1 -4 2",
+        "l -4 4",
+        "c -1 1 -2 2 -4 2",
+        "h -12",
+        "c -2 0 -3 -1 -4 -2",
+        "l -4 -4",
+        "c -1 -1 -2 -2 -4 -2",
       ])
     }
-    if (inset > 0) {
-      arr = arr.concat(["L", inset + 2, y, "L", inset, y + 2])
+    if (inset === 0) {
+      arr.push("L", inset + 4, y)
+      arr.push("a 4,4 0 0,1 -4,-4")
     } else {
-      arr = arr.concat(["L", inset + 3, y, "L", 0, y - 3])
+      //arr.push("a 4,4 0 0,1 -4,4")
     }
     return arr.join(" ")
   },
