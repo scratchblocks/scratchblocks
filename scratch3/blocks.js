@@ -295,7 +295,7 @@ BlockView.prototype.minDistance = function(child) {
 }
 
 BlockView.padding = {
-  // hat: [15, 6, 2],
+  hat: [24, 8, 8],
   // "define-hat": [21, 8, 9],
   // reporter: [3, 4, 1],
   // boolean: [3, 4, 2],

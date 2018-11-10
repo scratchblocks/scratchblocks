@@ -350,23 +350,19 @@ var SVG = (module.exports = {
     )
   },
 
+  getHatTop(w) {
+    return [
+      "M 0 16",
+      "c 25,-22 71,-22 96,0",
+      ["L", w - 4, 16].join(" "),
+      "a 4 4 0 0 1 4 4",
+    ].join(" ")
+  },
+
   hatRect(w, h, props) {
     return SVG.path(
       extend(props, {
-        path: [
-          "M",
-          0,
-          12,
-          SVG.arc(0, 12, 80, 10, 80, 80),
-          "L",
-          w - 3,
-          10,
-          "L",
-          w,
-          10 + 3,
-          SVG.getRightAndBottom(w, h, true),
-          "Z",
-        ],
+        path: [SVG.getHatTop(w), SVG.getRightAndBottom(w, h, true, 0), "Z"],
       })
     )
   },

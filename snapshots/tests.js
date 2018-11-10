@@ -572,7 +572,7 @@ end
 
 stop [all v]
 
-when i start as a clone
+when I start as a clone
 create clone of (myself v)
 delete this clone 
 
