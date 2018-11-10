@@ -105,6 +105,22 @@ describe('literals', () => {
 
 })
 
+describe('scratch3 dialect', () => {
+  test('parses parentheses as strings', () => {
+    testBlockScratch3('say (Hello!) for (foo) secs', ['say:duration:elapsed:from:', 'Hello!', 'foo'])
+  })
+
+  test('define hats', () => {
+    testBlockScratch3('define foo (num) if <bool>', ['procDef', 'foo %n if %b', ['num', 'bool'], [1, false], false])
+  })
+
+  test('standalone reporters', () => {
+    testBlock('(foo)', ['readVariable', 'foo'])
+    testBlockScratch3('(foo)', ['readVariable', 'foo'])
+  })
+})
+
+
 describe('color literals', () => {
   test('work', () => {
     let b = testBlock('<touching color [#f0f] ?>', ["touchingColor:", 16711935])
@@ -143,7 +159,42 @@ describe('recognise lists', () => {
       ['showList:', 'list'],
     ])
   })
+
+  test('in scratch3 dialect', () => {
+    testScriptScratch3('say (list)\nshow list [list v]', [
+      ['say:', ['contentsOfList:', 'list']],
+      ['showList:', 'list'],
+    ])
+  })
 })
+
+describe('recognise scratch3 variables', () => {
+  test('not a variable', () => {
+    testBlockScratch3('say (string)', ['say:', 'string'])
+  })
+
+  test('from set command', () => {
+    testScriptScratch3('say (foo)\nset [foo v] to (quxx)', [
+      ['say:', ['readVariable', 'foo']],
+      ['setVar:to:', 'foo', 'quxx'],
+    ])
+  })
+
+  test('from show command', () => {
+    testScriptScratch3('say (foo)\nshow variable [foo v]', [
+      ['say:', ['readVariable', 'foo']],
+      ['showVariable:', 'foo'],
+    ])
+  })
+
+  test('ignore square strings', () => {
+    testScriptScratch3('say [foo]\nshow variable [foo v]', [
+      ['say:', 'foo'],
+      ['showVariable:', 'foo'],
+    ])
+  })
+})
+
 
 describe('disambiguation', () => {
   test('green: length of string', () => {

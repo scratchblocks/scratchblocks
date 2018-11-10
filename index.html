@@ -271,6 +271,7 @@ function objUpdated() {
 
   var doc = window.doc = scratchblocks.parse(obj.script, {
     languages: obj.lang ? ['en', obj.lang] : ['en'],
+    dialect: 'scratch3',
   });
 
   // doc.translate(scratchblocks.allLanguages['de']);
