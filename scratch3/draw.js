@@ -174,22 +174,21 @@ var SVG = (module.exports = {
     return ["L", p1x, p1y, "A", rx, ry, 0, 0, 0, p2x, p2y].join(" ")
   },
 
-  roundedPath(w, h) {
-    var r = h / 2
-    return [
-      "M",
-      r,
-      0,
-      SVG.arc(w - r, 0, w - r, h, r, r),
-      SVG.arc(r, h, r, 0, r, r),
-      "Z",
-    ]
+  roundRect(w, h, props) {
+    return SVG.rect(w, h,
+      extend(props, {
+        rx: 4,
+        ry: 4,
+      })
+    )
   },
 
-  roundedRect(w, h, props) {
-    return SVG.path(
+  pillRect(w, h, props) {
+    var r = h / 2
+    return SVG.rect(w, h,
       extend(props, {
-        path: SVG.roundedPath(w, h),
+        rx: r,
+        ry: r,
       })
     )
   },

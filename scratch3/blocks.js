@@ -113,14 +113,14 @@ InputView.prototype.measure = function() {
 
 InputView.shapes = {
   string: SVG.rect,
-  number: SVG.roundedRect,
-  "number-dropdown": SVG.roundedRect,
+  number: SVG.pillRect,
+  "number-dropdown": SVG.pillRect,
   color: SVG.rect,
-  dropdown: SVG.rect,
+  dropdown: SVG.roundRect,
 
   boolean: SVG.pointedRect,
   stack: SVG.stackRect,
-  reporter: SVG.roundedRect,
+  reporter: SVG.pillRect,
 }
 
 InputView.prototype.draw = function(parent) {
@@ -229,11 +229,11 @@ BlockView.shapes = {
   cend: SVG.stackRect,
 
   cap: SVG.capRect,
-  reporter: SVG.roundedRect,
+  reporter: SVG.pillRect,
   boolean: SVG.pointedRect,
   hat: SVG.hatRect,
   "define-hat": SVG.procHatRect,
-  ring: SVG.roundedRect,
+  ring: SVG.pillRect,
 }
 
 BlockView.prototype.drawSelf = function(w, h, lines) {
