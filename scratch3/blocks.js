@@ -362,11 +362,11 @@ BlockView.prototype.draw = function() {
     if (child.isScript && this.isCommand) {
       this.hasScript = true
       pushLine()
-      child.y = y
+      child.y = y - 1
       lines.push(child)
       scriptWidth = Math.max(scriptWidth, Math.max(1, child.width))
       child.height = Math.max(12, child.height) + 3
-      y += child.height
+      y += child.height - 1
       line = new Line(y)
     } else if (child.isArrow) {
       line.children.push(child)
