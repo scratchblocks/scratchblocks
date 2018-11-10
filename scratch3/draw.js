@@ -250,12 +250,7 @@ var SVG = (module.exports = {
   },
 
   getTop(w) {
-    return [
-      "M 0 4",
-      "A 4 4 0 0 1 4 0",
-      "H 12",
-      SVG.topNotch(w, 0),
-    ].join(" ")
+    return ["M 0 4", "A 4 4 0 0 1 4 0", "H 12", SVG.topNotch(w, 0)].join(" ")
   },
 
   getRingTop(w) {

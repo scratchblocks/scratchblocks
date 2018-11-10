@@ -330,8 +330,8 @@ BlockView.prototype.draw = function() {
     if (lines.length === 0) {
       line.height += pt + pb
     } else {
-      line.height += isLast ? 0 : +2
-      line.y -= 1
+      line.height -= 11
+      line.y -= 2
     }
     y += line.height
     lines.push(line)
@@ -400,8 +400,8 @@ BlockView.prototype.draw = function() {
     innerWidth + px * 2,
     this.hasScript ? 160 : 64
     //this.isHat || this.hasScript
-      //? 83
-      //: this.isCommand || this.isOutline || this.isRing ? 39 : 20
+    //? 83
+    //: this.isCommand || this.isOutline || this.isRing ? 39 : 20
   )
   this.height = y
 
