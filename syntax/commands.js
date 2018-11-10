@@ -111,7 +111,7 @@ module.exports = [
   ["costume %m", "r", 2, ""], // New in Scratch 3
   ["size", "r", 2, "scale"],
   ["backdrop name", "r", 102, "sceneName"],
-  ["backdrop %m", "r", 1, ""], // New in Scratch 3
+  ["backdrop %m", "r", 102, ""], // New in Scratch 3
   ["backdrop #", "r", 102, "backgroundIndex"],
   ["volume", "r", 3, "volume"],
   ["tempo", "r", 3, "tempo"],

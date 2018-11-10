@@ -493,6 +493,8 @@ go to [front v] layer
 go [forward v] (1) layers
 
 (costume [number v])
+(backdrop [number v])
+(size)
 
 `
 )
@@ -504,8 +506,8 @@ test(
 
 // Sound
 
-play sound (meow v) until done
-start sound (meow v)
+play sound (Meow v) until done
+start sound (Meow v)
 stop all sounds
 
 change [pitch v] effect by (10)
