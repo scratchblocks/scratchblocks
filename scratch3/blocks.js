@@ -106,6 +106,7 @@ var InputView = function(input) {
 
   this.x = 0
 }
+InputView.prototype.isInput = true
 
 InputView.prototype.measure = function() {
   if (this.hasLabel) this.label.measure()
@@ -373,7 +374,7 @@ BlockView.prototype.draw = function() {
     } else if (child.isArrow) {
       line.children.push(child)
     } else {
-      var cmw = i > 0 ? 30 : 0
+      var cmw = i > 0 ? 48 : 0
       var md = this.minDistance(child)
       var mw = this.isCommand ? (child.isBlock || child.isInput ? cmw : 0) : md
       if (mw && !lines.length && line.width < mw - px) {
