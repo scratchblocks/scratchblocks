@@ -175,7 +175,9 @@ var SVG = (module.exports = {
   },
 
   roundRect(w, h, props) {
-    return SVG.rect(w, h,
+    return SVG.rect(
+      w,
+      h,
       extend(props, {
         rx: 4,
         ry: 4,
@@ -185,7 +187,9 @@ var SVG = (module.exports = {
 
   pillRect(w, h, props) {
     var r = h / 2
-    return SVG.rect(w, h,
+    return SVG.rect(
+      w,
+      h,
       extend(props, {
         rx: r,
         ry: r,

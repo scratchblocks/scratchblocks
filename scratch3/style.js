@@ -131,7 +131,7 @@ var Style = (module.exports = {
         ]),
         {
           id: "dropdownArrow",
-          transform: 'scale(0.944)',
+          transform: "scale(0.944)",
         }
       ),
       SVG.el("path", {
