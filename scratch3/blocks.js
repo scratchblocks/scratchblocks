@@ -397,9 +397,10 @@ BlockView.prototype.draw = function() {
 
   innerWidth = Math.max(
     innerWidth + px * 2,
-    this.isHat || this.hasScript
-      ? 83
-      : this.isCommand || this.isOutline || this.isRing ? 39 : 20
+    64
+    //this.isHat || this.hasScript
+      //? 83
+      //: this.isCommand || this.isOutline || this.isRing ? 39 : 20
   )
   this.height = y
 
