@@ -112,7 +112,7 @@ InputView.prototype.measure = function() {
 }
 
 InputView.shapes = {
-  string: SVG.rect,
+  string: SVG.pillRect,
   number: SVG.pillRect,
   "number-dropdown": SVG.pillRect,
   color: SVG.rect,
