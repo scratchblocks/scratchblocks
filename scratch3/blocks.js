@@ -156,7 +156,7 @@ InputView.prototype.draw = function(parent) {
         stroke: "rgba(0, 0, 0, 0.2)",
       })
     }
-  } else if (this.shape === "number-dropdown" || this.shape === "boolean") {
+  } else if (this.shape === "number-dropdown") {
     el.classList.add("sb3-" + parent.info.category + "-alt")
 
     // custom colors
@@ -164,6 +164,15 @@ InputView.prototype.draw = function(parent) {
       SVG.setProps(el, {
         fill: "rgba(0, 0, 0, 0.1)",
         stroke: "rgba(0, 0, 0, 0.15)", // combines with fill...
+      })
+    }
+  } else if (this.shape === "boolean") {
+    el.classList.add("sb3-" + parent.info.category + "-dark")
+
+    // custom colors
+    if (parent.info.color) {
+      SVG.setProps(el, {
+        fill: "rgba(0, 0, 0, 0.15)",
       })
     }
   }
