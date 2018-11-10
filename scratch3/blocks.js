@@ -124,7 +124,9 @@ InputView.shapes = {
 }
 
 InputView.prototype.draw = function(parent) {
-  if (this.hasLabel) {
+  if (this.isBoolean) {
+    var w = 48
+  } else if (this.hasLabel) {
     var label = this.label.draw()
     var w = Math.max(40, this.label.width + 22)
   } else {
