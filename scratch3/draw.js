@@ -235,11 +235,8 @@ var SVG = (module.exports = {
     )
   },
 
-  getTop(w) {
+  topNotch(w, y) {
     return [
-      "M 0 4",
-      "A 4 4 0 0 1 4 0",
-      "H 12",
       "c 2 0 3 1 4 2",
       "l 4 4",
       "c 1 1 2 2 4 2",
@@ -247,8 +244,17 @@ var SVG = (module.exports = {
       "c 2 0 3 -1 4 -2",
       "l 4 -4",
       "c 1 -1 2 -2 4 -2",
-      ["L", w - 4, 0].join(" "),
+      ["L", w - 4, y].join(" "),
       "a 4 4 0 0 1 4 4",
+    ].join(" ")
+  },
+
+  getTop(w) {
+    return [
+      "M 0 4",
+      "A 4 4 0 0 1 4 0",
+      "H 12",
+      SVG.topNotch(w, 0),
     ].join(" ")
   },
 
@@ -302,27 +308,32 @@ var SVG = (module.exports = {
     }
     if (inset === 0) {
       arr.push("L", inset + 4, y)
-      arr.push("a 4,4 0 0,1 -4,-4")
+      arr.push("a 4 4 0 0 1 -4 -4")
     } else {
-      //arr.push("a 4,4 0 0,1 -4,4")
+      arr.push("L", inset + 4, y)
+      arr.push("a 4 4 0 0 0 -4 4")
     }
     return arr.join(" ")
   },
 
   getArm(w, armTop) {
     return [
-      "L",
-      15,
-      armTop - 2,
-      "L",
-      15 + 2,
-      armTop,
-      "L",
-      w - 3,
-      armTop,
-      "L",
-      w,
-      armTop + 3,
+      ["L", 16, armTop - 4].join(" "),
+      "a 4 4 0 0 0 4 4",
+
+      ["L", 28, armTop].join(" "),
+
+      SVG.topNotch(w, armTop),
+      // "c 2 0 3 1 4 2",
+      // "l 4 4",
+      // "c 1 1 2 2 4 2",
+      // "h 12",
+      // "c 2 0 3 -1 4 -2",
+      // "l 4 -4",
+      // "c 1 -1 2 -2 4 -2",
+
+      // ["L", w - 4, armTop].join(" "),
+      // "a 4 4 0 0 1 4 4",
     ].join(" ")
   },
 
@@ -416,7 +427,7 @@ var SVG = (module.exports = {
 
   mouthRect(w, h, isFinal, lines, props) {
     var y = lines[0].height
-    var p = [SVG.getTop(w), SVG.getRightAndBottom(w, y, true, 15)]
+    var p = [SVG.getTop(w), SVG.getRightAndBottom(w, y, true, 16)]
     for (var i = 1; i < lines.length; i += 2) {
       var isLast = i + 2 === lines.length
 
@@ -424,7 +435,7 @@ var SVG = (module.exports = {
       p.push(SVG.getArm(w, y))
 
       var hasNotch = !(isLast && isFinal)
-      var inset = isLast ? 0 : 15
+      var inset = isLast ? 0 : 16
       y += lines[i + 1].height + 3
       p.push(SVG.getRightAndBottom(w, y, hasNotch, inset))
     }

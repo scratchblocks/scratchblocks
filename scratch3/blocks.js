@@ -301,7 +301,6 @@ BlockView.padding = {
   // boolean: [3, 4, 2],
   // cap: [6, 6, 2],
   // "c-block": [6, 8, 4],
-  // "if-block": [3, 6, 2],
   // ring: [4, 4, 2],
   null: [4, 8, 4],
 }
@@ -368,8 +367,8 @@ BlockView.prototype.draw = function() {
       child.y = y - 1
       lines.push(child)
       scriptWidth = Math.max(scriptWidth, Math.max(1, child.width))
-      child.height = Math.max(12, child.height) + 3
-      y += child.height - 1
+      child.height = Math.max(28, child.height + 3) - 1
+      y += child.height
       line = new Line(y)
     } else if (child.isArrow) {
       line.children.push(child)
@@ -389,6 +388,8 @@ BlockView.prototype.draw = function() {
       line.width += 5
       if (!child.isLabel) {
         line.height = Math.max(line.height, child.height)
+      } else {
+        line.height = Math.max(isCommand ? 40 : 32)
       }
       line.children.push(child)
     }
@@ -397,7 +398,7 @@ BlockView.prototype.draw = function() {
 
   innerWidth = Math.max(
     innerWidth + px * 2,
-    64
+    this.hasScript ? 160 : 64
     //this.isHat || this.hasScript
       //? 83
       //: this.isCommand || this.isOutline || this.isRing ? 39 : 20
@@ -413,7 +414,7 @@ BlockView.prototype.draw = function() {
   for (var i = 0; i < lines.length; i++) {
     var line = lines[i]
     if (line.isScript) {
-      objects.push(SVG.move(15, line.y, line.el))
+      objects.push(SVG.move(16, line.y, line.el))
       continue
     }
 
