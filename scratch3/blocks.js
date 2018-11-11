@@ -588,9 +588,9 @@ ScriptView.prototype.draw = function(inside) {
       this.width = Math.max(this.width, cx + comment.width)
     }
   }
-  this.height = y
+  this.height = y + 1
   if (!inside && !this.isFinal) {
-    this.height += 3
+    this.height += 8
   }
   if (!inside && block.isGlow) {
     this.height += 2 // TODO unbreak this
