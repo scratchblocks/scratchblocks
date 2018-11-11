@@ -47,6 +47,10 @@ var Style = (module.exports = {
     .sb3-extension { fill: #4b4a60; }
     .sb3-grey { fill: #969696; }
 
+    .sb3-input-color {
+      stroke: #fff;
+    }
+
     .sb3-input-number,
     .sb3-input-string {
       fill: #fff;

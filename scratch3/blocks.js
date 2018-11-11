@@ -116,7 +116,7 @@ InputView.shapes = {
   string: SVG.pillRect,
   number: SVG.pillRect,
   "number-dropdown": SVG.pillRect,
-  color: SVG.rect,
+  color: SVG.pillRect,
   dropdown: SVG.roundRect,
 
   boolean: SVG.pointedRect,
@@ -127,11 +127,13 @@ InputView.shapes = {
 InputView.prototype.draw = function(parent) {
   if (this.isBoolean) {
     var w = 48
+  } else if (this.isColor) {
+    var w = 40
   } else if (this.hasLabel) {
     var label = this.label.draw()
     var w = Math.max(40, this.label.width + 22)
   } else {
-    var w = this.isInset ? 30 : this.isColor ? 13 : null
+    var w = this.isInset ? 30 : null
   }
   if (this.hasArrow) w += 20
   this.width = w
@@ -141,7 +143,7 @@ InputView.prototype.draw = function(parent) {
   var el = InputView.shapes[this.shape](w, h)
   SVG.setProps(el, {
     class: [
-      "sb3-" + parent.info.category,
+      this.isColor ? "" : "sb3-" + parent.info.category,
       "sb3-input",
       "sb3-input-" + this.shape,
     ].join(" "),
