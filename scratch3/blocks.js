@@ -91,7 +91,7 @@ IconView.icons = {
   greenFlag: { width: 20, height: 21, dy: -2 },
   turnLeft: { width: 15, height: 12, dy: +1 },
   turnRight: { width: 15, height: 12, dy: +1 },
-  loopArrow: { width: 14, height: 11 },
+  loopArrow: { width: 24, height: 24 },
   addInput: { width: 4, height: 8 },
   delInput: { width: 4, height: 8 },
 }
@@ -425,7 +425,7 @@ BlockView.prototype.draw = function() {
     for (var j = 0; j < line.children.length; j++) {
       var child = line.children[j]
       if (child.isArrow) {
-        objects.push(SVG.move(innerWidth - 15, this.height - 3, child.el))
+        objects.push(SVG.move(innerWidth - 32, this.height - 28, child.el))
         continue
       }
 
