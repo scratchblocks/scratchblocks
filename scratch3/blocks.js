@@ -369,7 +369,7 @@ BlockView.prototype.draw = function() {
       child.y = y - 1
       lines.push(child)
       scriptWidth = Math.max(scriptWidth, Math.max(1, child.width))
-      child.height = Math.max(28, child.height + 3) - 1
+      child.height = Math.max(28, child.height + 3) - 2
       y += child.height
       line = new Line(y)
     } else if (child.isArrow) {
