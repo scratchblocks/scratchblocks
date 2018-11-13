@@ -103,6 +103,9 @@ var InputView = function(input) {
   if (input.label) {
     this.label = newView(input.label)
   }
+  this.isBoolean = this.shape === "boolean"
+  this.isDropdown = this.shape === "dropdown"
+  this.isRound = !(this.isBoolean || this.isDropdown)
 
   this.x = 0
 }
@@ -193,13 +196,7 @@ InputView.prototype.draw = function(parent) {
     result.appendChild(label)
   }
   if (this.hasArrow) {
-    result.appendChild(
-      SVG.move(
-        w - 24,
-        13,
-        SVG.symbol("#dropdownArrow", {})
-      )
-    )
+    result.appendChild(SVG.move(w - 24, 13, SVG.symbol("#dropdownArrow", {})))
   }
   return result
 }
@@ -209,6 +206,7 @@ InputView.prototype.draw = function(parent) {
 var BlockView = function(block) {
   Object.assign(this, block)
   this.children = block.children.map(newView)
+  this.isRound = this.isReporter
 
   this.x = 0
   this.width = null
@@ -310,25 +308,39 @@ BlockView.padding = {
 }
 
 BlockView.prototype.horizontalPadding = function(child) {
-  if (this.isReporter && (child.isReporter || child.isRound)) {
-    return 4
-  } else if (this.isReporter && child.isLabel) {
-    return 12
-  } else if (this.isReporter && child.isBoolean) {
-    return 12
-  } else if (this.isBoolean && child.isInput && child.isRound) {
-    return 20
-  } else if (this.isBoolean && child.isReporter) {
-    return 24
+  if (this.isRound) {
+    if (child.isLabel) {
+      return 12 // text in circle: 3 units
+    } else if (child.isDropdown) {
+      return 12 // square in circle: 3 units
+    } else if (child.isBoolean) {
+      return 12 // hexagon in circle: 3 units
+    } else if (child.isRound) {
+      return 4 // circle in circle: 1 unit
+    }
+  } else if (this.isBoolean) {
+    if (child.isLabel) {
+      return 20 // text in hexagon: 5 units
+    } else if (child.isDropdown) {
+      return 20 // square in hexagon: 5 units
+    } else if (child.isRound && child.isBlock) {
+      return 24 // circle in hexagon: 5 + 1 units
+    } else if (child.isRound) {
+      return 20 // circle in hexagon: 5 units
+    } else if (child.isBoolean) {
+      return 8 // hexagon in hexagon: 2 units
+    }
   }
-  return 8
+  return 8 // default: 2 units
 }
 
 BlockView.prototype.marginBetween = function(a, b) {
+  // Consecutive labels should be rendered as a single text element.
+  // For now, approximate the size of one space
   if (a.isLabel && b.isLabel) {
     return 5
   }
-  return 8
+  return 8 // default: 2 units
 }
 
 BlockView.prototype.draw = function() {
