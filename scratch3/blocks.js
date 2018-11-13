@@ -375,18 +375,18 @@ BlockView.prototype.draw = function() {
     } else if (child.isArrow) {
       line.children.push(child)
     } else {
-      var cmw = i > 0 ? 48 : 0
-      var md = this.minDistance(child)
-      var mw = this.isCommand ? (child.isBlock || child.isInput ? cmw : 0) : md
-      if (mw && !lines.length && line.width < mw - px) {
-        line.width = mw - px
+      // Align first input with right of notch
+      var cmw = 48
+      if (this.isCommand && child.isInput && line.width < cmw) {
+        line.width = cmw - px
       }
+
       if (child.shape === "number-dropdown") {
         line.width += 3
       }
       child.x = line.width
       line.width += child.width
-      innerWidth = Math.max(innerWidth, line.width + Math.max(0, md - px))
+      innerWidth = Math.max(innerWidth, line.width + px * 2)
       line.width += 5
       if (!child.isLabel) {
         line.height = Math.max(line.height, child.height)
@@ -398,12 +398,10 @@ BlockView.prototype.draw = function() {
   }
   pushLine(true)
 
+  // Commands have a minimum width
   innerWidth = Math.max(
-    innerWidth + px * 2,
-    this.hasScript ? 160 : 64
-    //this.isHat || this.hasScript
-    //? 83
-    //: this.isCommand || this.isOutline || this.isRing ? 39 : 20
+    this.hasScript ? 160 : this.isCommand ? 64 : 0,
+    innerWidth
   )
   this.height = y
 
@@ -430,16 +428,12 @@ BlockView.prototype.draw = function() {
       }
 
       var y = pt + (h - child.height - pt - pb) / 2
-      if (isDefine && child.isLabel) {
+      if (child.isLabel) {
+        y -= 1
+      } else if (isDefine && child.isLabel) {
         y += 3
       } else if (child.isIcon) {
         y += child.dy | 0
-      }
-      if (this.isRing) {
-        child.y = (line.y + y) | 0
-        if (child.isInset) {
-          continue
-        }
       }
       objects.push(SVG.move(px + child.x, (line.y + y) | 0, child.el))
 
