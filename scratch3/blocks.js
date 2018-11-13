@@ -297,14 +297,29 @@ BlockView.prototype.minDistance = function(child) {
 }
 
 BlockView.padding = {
-  hat: [24, 8, 8],
+  hat: [24, 8],
   // "define-hat": [21, 8, 9],
   // reporter: [3, 4, 1],
   // boolean: [3, 4, 2],
   // cap: [6, 6, 2],
   // "c-block": [6, 8, 4],
   // ring: [4, 4, 2],
-  null: [4, 8, 4],
+  stack: [4, 4],
+  cap: [8, 8],
+  null: [4, 4],
+}
+
+BlockView.prototype.horizontalPadding = function(child) {
+  if (this.isReporter && (child.isReporter || child.isRound)) {
+    return 4
+  } else if (this.isReporter && child.isLabel) {
+    return 12
+  } else if (this.isReporter && child.isBoolean) {
+    return 12
+  } else if (this.isBoolean && (child.isReporter || child.isRound)) {
+    return 20
+  }
+  return 8
 }
 
 BlockView.prototype.draw = function() {
@@ -313,22 +328,21 @@ BlockView.prototype.draw = function() {
 
   var padding = BlockView.padding[this.info.shape] || BlockView.padding[null]
   var pt = padding[0],
-    px = padding[1],
-    pb = padding[2]
+    pb = padding[1]
 
-  var isCommand = this.isCommand
+  var _this = this
   var y = 0
   var Line = function(y) {
     this.y = y
     this.width = 0
-    this.height = isCommand ? 40 : 32
+    this.height = 32
     this.children = []
   }
 
   var innerWidth = 0
   var scriptWidth = 0
   var line = new Line(y)
-  function pushLine(isLast) {
+  function pushLine() {
     if (lines.length === 0) {
       line.height += pt + pb
     } else {
@@ -359,6 +373,7 @@ BlockView.prototype.draw = function() {
   }
 
   var lines = []
+  var lastChild
   for (var i = 0; i < children.length; i++) {
     var child = children[i]
     child.el = child.draw(this)
@@ -375,10 +390,15 @@ BlockView.prototype.draw = function() {
     } else if (child.isArrow) {
       line.children.push(child)
     } else {
+      // Remember the last child on the first line
+      if (!lines.length) {
+        lastChild = child
+      }
+
       // Align first input with right of notch
-      var cmw = 48
+      var cmw = 48 - this.horizontalPadding(children[0])
       if (this.isCommand && child.isInput && line.width < cmw) {
-        line.width = cmw - px
+        line.width = cmw
       }
 
       if (child.shape === "number-dropdown") {
@@ -386,17 +406,19 @@ BlockView.prototype.draw = function() {
       }
       child.x = line.width
       line.width += child.width
-      innerWidth = Math.max(innerWidth, line.width + px * 2)
+      innerWidth = Math.max(innerWidth, line.width)
       line.width += 5
       if (!child.isLabel) {
         line.height = Math.max(line.height, child.height)
-      } else {
-        line.height = Math.max(isCommand ? 40 : 32)
       }
       line.children.push(child)
     }
   }
-  pushLine(true)
+  pushLine()
+
+  var padLeft = this.horizontalPadding(children[0])
+  var padRight = this.horizontalPadding(lastChild)
+  innerWidth += padLeft + padRight
 
   // Commands have a minimum width
   innerWidth = Math.max(
@@ -435,11 +457,11 @@ BlockView.prototype.draw = function() {
       } else if (child.isIcon) {
         y += child.dy | 0
       }
-      objects.push(SVG.move(px + child.x, (line.y + y) | 0, child.el))
+      objects.push(SVG.move(padLeft + child.x, (line.y + y) | 0, child.el))
 
       if (child.diff === "+") {
         var ellipse = SVG.insEllipse(child.width, child.height)
-        objects.push(SVG.move(px + child.x, (line.y + y) | 0, ellipse))
+        objects.push(SVG.move(padLeft + child.x, (line.y + y) | 0, ellipse))
       }
     }
   }
@@ -584,7 +606,7 @@ ScriptView.prototype.draw = function(inside) {
   }
   this.height = y + 1
   if (!inside && !this.isFinal) {
-    this.height += 8
+    this.height += block.hasPuzzle ? 44 : 36
   }
   if (!inside && block.isGlow) {
     this.height += 2 // TODO unbreak this
