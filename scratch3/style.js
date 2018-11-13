@@ -45,7 +45,9 @@ var Style = (module.exports = {
 
     .sb3-obsolete { fill: #d42828; }
     .sb3-extension { fill: #4b4a60; }
-    .sb3-grey { fill: #969696; }
+    .sb3-grey { fill: #bfbfbf; stroke: #909090; }
+    .sb3-grey-alt { fill: #b2b2b2; }
+    .sb3-grey-dark { fill: #909090; }
 
     .sb3-input-color {
       stroke: #fff;
