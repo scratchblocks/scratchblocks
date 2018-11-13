@@ -125,6 +125,7 @@ InputView.shapes = {
 }
 
 InputView.prototype.draw = function(parent) {
+  var labelX = 11
   if (this.isBoolean) {
     var w = 48
   } else if (this.isColor) {
@@ -132,6 +133,11 @@ InputView.prototype.draw = function(parent) {
   } else if (this.hasLabel) {
     var label = this.label.draw()
     var w = Math.max(40, this.label.width + 22)
+    var x = 11
+    if (this.label.width + 22 < 40) {
+      var x = 11
+    }
+    label = SVG.move(x, 9, label)
   } else {
     var w = this.isInset ? 30 : null
   }
@@ -184,18 +190,14 @@ InputView.prototype.draw = function(parent) {
 
   var result = SVG.group([el])
   if (this.hasLabel) {
-    var x = 11
-    result.appendChild(SVG.move(x, 9, label))
+    result.appendChild(label)
   }
   if (this.hasArrow) {
     result.appendChild(
       SVG.move(
         w - 24,
         13,
-        SVG.symbol("#dropdownArrow", {
-          //width: 12.71,
-          //height: 8.79,
-        })
+        SVG.symbol("#dropdownArrow", {})
       )
     )
   }
@@ -304,8 +306,6 @@ BlockView.padding = {
   // cap: [6, 6, 2],
   // "c-block": [6, 8, 4],
   // ring: [4, 4, 2],
-  stack: [4, 4],
-  cap: [8, 8],
   null: [4, 4],
 }
 
@@ -316,8 +316,17 @@ BlockView.prototype.horizontalPadding = function(child) {
     return 12
   } else if (this.isReporter && child.isBoolean) {
     return 12
-  } else if (this.isBoolean && (child.isReporter || child.isRound)) {
+  } else if (this.isBoolean && child.isInput && child.isRound) {
     return 20
+  } else if (this.isBoolean && child.isReporter) {
+    return 24
+  }
+  return 8
+}
+
+BlockView.prototype.marginBetween = function(a, b) {
+  if (a.isLabel && b.isLabel) {
+    return 5
   }
   return 8
 }
@@ -373,6 +382,7 @@ BlockView.prototype.draw = function() {
   }
 
   var lines = []
+  var previousChild
   var lastChild
   for (var i = 0; i < children.length; i++) {
     var child = children[i]
@@ -401,18 +411,21 @@ BlockView.prototype.draw = function() {
         line.width = cmw
       }
 
-      if (child.shape === "number-dropdown") {
-        line.width += 3
+      // Leave space between inputs
+      if (previousChild) {
+        line.width += this.marginBetween(previousChild, child)
       }
+
       child.x = line.width
       line.width += child.width
       innerWidth = Math.max(innerWidth, line.width)
-      line.width += 5
       if (!child.isLabel) {
         line.height = Math.max(line.height, child.height)
       }
       line.children.push(child)
     }
+
+    previousChild = child
   }
   pushLine()
 
