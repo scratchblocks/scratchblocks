@@ -373,51 +373,22 @@ var SVG = (module.exports = {
     )
   },
 
-  curve(p1x, p1y, p2x, p2y, roundness) {
-    var roundness = roundness || 0.42
-    var midX = (p1x + p2x) / 2.0
-    var midY = (p1y + p2y) / 2.0
-    var cx = Math.round(midX + roundness * (p2y - p1y))
-    var cy = Math.round(midY - roundness * (p2x - p1x))
-    return [cx, cy, p2x, p2y].join(" ")
-  },
-
-  procHatBase(w, h, archRoundness, props) {
-    // TODO use arc()
-    var archRoundness = Math.min(0.2, 35 / w)
-    return SVG.path(
-      extend(props, {
-        path: [
-          "M",
-          0,
-          15,
-          "Q",
-          SVG.curve(0, 15, w, 15, archRoundness),
-          SVG.getRightAndBottom(w, h, true),
-          "M",
-          -1,
-          13,
-          "Q",
-          SVG.curve(-1, 13, w + 1, 13, archRoundness),
-          "Q",
-          SVG.curve(w + 1, 13, w, 16, 0.6),
-          "Q",
-          SVG.curve(w, 16, 0, 16, -archRoundness),
-          "Q",
-          SVG.curve(0, 16, -1, 13, 0.6),
-          "Z",
-        ],
-      })
-    )
+  getProcHatTop(w) {
+    return [
+      "M 0 20",
+      "a 20 20 0 0 1 20 -20",
+      ["L", w - 20, 0].join(" "),
+      "a 20,20 0 0,1 20,20",
+    ].join(" ")
+    //v 60  a 4,4 0 0,1 -4,4 H 48   c -2,0 -3,1 -4,2 l -4,4 c -1,1 -2,2 -4,2 h -12 c -2,0 -3,-1 -4,-2 l -4,-4 c -1,-1 -2,-2 -4,-2 H 4 a 4,4 0 0,1 -4,-4 z
   },
 
   procHatRect(w, h, props) {
-    var q = 52
-    var y = h - q
-
-    var archRoundness = Math.min(0.2, 35 / w)
-
-    return SVG.move(0, y, SVG.procHatBase(w, q, archRoundness, props))
+    return SVG.path(
+      extend(props, {
+        path: [SVG.getProcHatTop(w), SVG.getRightAndBottom(w, h, true, 0), "Z"],
+      })
+    )
   },
 
   mouthRect(w, h, isFinal, lines, props) {

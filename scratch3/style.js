@@ -68,13 +68,6 @@ var Style = (module.exports = {
       fill: #575e75;
     }
 
-    .sb3-outline {
-      stroke: #fff;
-      stroke-opacity: 0.2;
-      stroke-width: 2;
-      fill: none;
-    }
-
     .sb3-comment {
       fill: #ffffa5;
       stroke: #d0d1d2;

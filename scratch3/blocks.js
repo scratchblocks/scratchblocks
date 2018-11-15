@@ -250,7 +250,10 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
   // outlines
   if (this.info.shape === "outline") {
     return SVG.setProps(SVG.stackRect(w, h), {
-      class: "sb3-outline",
+      class: [
+        "sb3-" + this.info.category,
+        "sb3-" + this.info.category + "-alt",
+      ].join(" "),
     })
   }
 
@@ -276,29 +279,9 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
   })
 }
 
-BlockView.prototype.minDistance = function(child) {
-  if (this.isCommand) {
-    return 0
-  } else if (this.isBoolean) {
-    return child.isReporter
-      ? (4 + child.height / 4) | 0
-      : child.isLabel
-        ? (5 + child.height / 2) | 0
-        : child.isBoolean || child.shape === "boolean"
-          ? 5
-          : (2 + child.height / 2) | 0
-  } else if (this.isReporter) {
-    return (child.isInput && child.isRound) ||
-      ((child.isReporter || child.isBoolean) && !child.hasScript)
-      ? 0
-      : child.isLabel ? (2 + child.height / 2) | 0 : (-2 + child.height / 2) | 0
-  }
-  return 0
-}
-
 BlockView.padding = {
   hat: [24, 8],
-  // "define-hat": [21, 8, 9],
+  "define-hat": [20, 16],
   // reporter: [3, 4, 1],
   // boolean: [3, 4, 2],
   // cap: [6, 6, 2],
@@ -424,7 +407,7 @@ BlockView.prototype.draw = function() {
 
       // Align first input with right of notch
       var cmw = 48 - this.horizontalPadding(children[0])
-      if (this.isCommand && child.isInput && line.width < cmw) {
+      if ((this.isCommand || this.isOutline) && !child.isLabel && line.width < cmw) {
         line.width = cmw
       }
 
