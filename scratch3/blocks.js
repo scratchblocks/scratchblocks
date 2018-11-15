@@ -135,12 +135,11 @@ InputView.prototype.draw = function(parent) {
     var w = 40
   } else if (this.hasLabel) {
     var label = this.label.draw()
-    var w = Math.max(40, this.label.width + 22)
-    var x = 11
-    if (this.label.width + 22 < 40) {
-      var x = 11
-    }
-    label = SVG.move(x, 9, label)
+    // Minimum padding of 11
+    // Minimum width of 40, at which point we center the label
+    var px = this.label.width >= 18 ? 11 : (40 - this.label.width) / 2
+    var w = this.label.width + 2 * px
+    label = SVG.move(px, 9, label)
   } else {
     var w = this.isInset ? 30 : null
   }
