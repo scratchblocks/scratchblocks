@@ -407,7 +407,11 @@ BlockView.prototype.draw = function() {
 
       // Align first input with right of notch
       var cmw = 48 - this.horizontalPadding(children[0])
-      if ((this.isCommand || this.isOutline) && !child.isLabel && line.width < cmw) {
+      if (
+        (this.isCommand || this.isOutline) &&
+        !child.isLabel &&
+        line.width < cmw
+      ) {
         line.width = cmw
       }
 
