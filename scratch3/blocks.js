@@ -417,15 +417,15 @@ BlockView.prototype.draw = function() {
         lastChild = child
       }
 
+      // Leave space between inputs
+      if (previousChild) {
+        line.width += this.marginBetween(previousChild, child)
+      }
+
       // Align first input with right of notch
       var cmw = 48 - this.horizontalPadding(children[0])
       if (this.isCommand && child.isInput && line.width < cmw) {
         line.width = cmw
-      }
-
-      // Leave space between inputs
-      if (previousChild) {
-        line.width += this.marginBetween(previousChild, child)
       }
 
       child.x = line.width
