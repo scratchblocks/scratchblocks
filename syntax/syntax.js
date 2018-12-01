@@ -33,6 +33,7 @@ function paintBlock(info, children, languages, couldBeString) {
   var overrides = []
   if (isArray(children[children.length - 1])) {
     overrides = children.pop()
+    couldBeString = false
   }
 
   // build hash

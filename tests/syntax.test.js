@@ -170,7 +170,17 @@ describe('recognise lists', () => {
 
 describe('recognise scratch3 variables', () => {
   test('not a variable', () => {
-    testBlockScratch3('say (string)', ['say:', 'string'])
+    let block = testBlockScratch3('say (string)', ['say:', 'string'])
+    expect(block.children[1].isInput).toBe(true)
+  })
+
+  test('manually specify variable', () => {
+    let script = getScript(parse('say (foo :: variables)'), {
+      dialect: 'scratch3',
+    })
+    let foo = script.blocks[0].children[1]
+    expect(foo.isBlock).toBe(true)
+    expect(foo.info.category).toBe('variables')
   })
 
   test('from set command', () => {
