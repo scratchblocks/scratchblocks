@@ -10,13 +10,19 @@ import serve from "rollup-plugin-serve"
 let { buildTarget } = process.env
 
 if (typeof buildTarget === "undefined") {
+  console.log('buildTarget undefined - setting to "DEV"')
   buildTarget = "DEV"
 }
+
+console.log(`buildTarget: ${buildTarget}`)
 
 const env = {
   dev: buildTarget === "DEV",
   prod: buildTarget === "PROD",
 }
+
+console.log(`env.dev: ${env.dev}`)
+console.log(`env.prod: ${env.prod}`)
 
 const banner = `/*
   ${pkg.name} v${pkg.version}
