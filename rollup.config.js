@@ -39,12 +39,12 @@ export default [
         file: pkg.main,
         format: "iife",
         name: "scratchblocks",
-        sourcemap: true,
+        sourcemap: env.prod,
       },
       {
         file: pkg.module,
         format: "esm",
-        sourcemap: true,
+        sourcemap: env.prod,
       },
     ],
     plugins: [
