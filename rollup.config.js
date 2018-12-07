@@ -18,6 +18,13 @@ const env = {
   prod: buildTarget === "PROD",
 }
 
+const banner = `/*
+  ${pkg.name} v${pkg.version}
+  ${pkg.description}
+*/`
+
+console.log(banner)
+
 export default [
   {
     input: "browser.js",
