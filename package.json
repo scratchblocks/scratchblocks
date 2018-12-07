@@ -18,9 +18,7 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "rollup -c",
-    "build-translations": "browserify locales-src/translations.js -o build/translations.min.js -t [ babelify --presets [ es2015 babili ] ]",
-    "build-translations-all": "browserify locales-src/translations-all.js -o build/translations-all.min.js -t [ babelify --presets [ es2015 babili ] ]",
+    "build": "rollup -c --environment buildTarget:PROD; exit 0;",
     "postinstall": "npm run build",
     "lint:staged": "lint-staged",
     "start": "rollup -c -w",
@@ -32,6 +30,7 @@
   "devDependencies": {
     "@babel/cli": "^7.2.0",
     "@babel/core": "^7.2.0",
+    "@babel/plugin-external-helpers": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
     "jest": "^19.0.2",
     "lint-staged": "^7.3.0",
@@ -43,6 +42,9 @@
     "rollup-plugin-babel": "^4.0.3",
     "rollup-plugin-babel-minify": "^6.2.0",
     "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-conditional": "^2.2.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-serve": "^0.6.0",
     "scratchr2_translations": "git://github.com/LLK/scratchr2_translations.git#master"
