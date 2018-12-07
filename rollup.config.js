@@ -41,16 +41,18 @@ export default [
       babel(),
       globals(),
       builtins(),
-      minify({
-        comments: false,
-      }),
-      conditional(env.dev, () => [
+      env.prod &&
+        minify({
+          banner: banner,
+          bannerNewLine: true,
+          comments: false,
+        }),
+      env.dev &&
         serve({
           contentBase: ".",
           open: true,
           port: 8000,
         }),
-      ]),
     ],
   },
 ]
