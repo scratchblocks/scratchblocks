@@ -41,13 +41,13 @@ export default [
       babel(),
       globals(),
       builtins(),
-      // // minify({
-      // //   comments: false,
-      // // }),
+      minify({
+        comments: false,
+      }),
       conditional(env.dev, () => [
         serve({
           contentBase: ".",
-          // open: true,
+          open: true,
           port: 8000,
         }),
       ]),
