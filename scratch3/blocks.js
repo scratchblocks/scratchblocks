@@ -94,6 +94,7 @@ IconView.icons = {
   loopArrow: { width: 24, height: 24 },
   addInput: { width: 4, height: 8 },
   delInput: { width: 4, height: 8 },
+  musicBlock: { width: 40, height: 40, dy: 4 },
 }
 
 /* Input */
@@ -206,6 +207,13 @@ var BlockView = function(block) {
   Object.assign(this, block)
   this.children = block.children.map(newView)
   this.isRound = this.isReporter
+
+  switch (block.info.category) {
+    case "sound": // TODO music
+      this.children.unshift(new IconView({ name: "musicBlock" }))
+      block.info.category = "pen" // TODO rename
+      break
+  }
 
   this.x = 0
   this.width = null
