@@ -702,4 +702,31 @@ define foo (num) if <bool>
 `
 )
 
-// TODO extensions
+test(
+  "scratch3",
+  "pen",
+  `
+
+// Pen
+
+erase all
+
+stamp
+
+pen down
+pen up
+
+set pen color to [#f696e6]
+
+change pen (color v) by (10)
+set pen (color v) to (50)
+
+change pen size by (1)
+set pen size to (1)
+
+`
+)
+
+// TODO music
+
+// TODO video

@@ -57,6 +57,8 @@ module.exports = [
   ["pen up", " ", 4, "putPenUp"],
   ["set pen color to %c", " ", 4, "penColor:"],
   ["change pen color by %n", " ", 4, "changePenHueBy:"],
+  ["set pen %m.color to %c", " ", 4, ""], // New in Scratch 3
+  ["change pen %m.color by %n", " ", 4, ""], // New in Scratch 3
   ["set pen color to %n", " ", 4, "setPenHueTo:"],
   ["change pen shade by %n", " ", 4, "changePenShadeBy:"],
   ["set pen shade to %n", " ", 4, "setPenShadeTo:"],
