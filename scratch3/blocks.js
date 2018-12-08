@@ -319,6 +319,7 @@ BlockView.prototype.marginBetween = function(a, b) {
   if (a.isLabel && b.isLabel) {
     return 5
   }
+
   return 8 // default: 2 units
 }
 
@@ -406,6 +407,7 @@ BlockView.prototype.draw = function() {
       if (
         (this.isCommand || this.isOutline) &&
         !child.isLabel &&
+        !child.isIcon &&
         line.width < cmw
       ) {
         line.width = cmw
@@ -465,6 +467,7 @@ BlockView.prototype.draw = function() {
       } else if (child.isIcon) {
         y += child.dy | 0
       }
+
       objects.push(SVG.move(padLeft + child.x, (line.y + y) | 0, child.el))
 
       if (child.diff === "+") {
