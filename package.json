@@ -34,6 +34,7 @@
     "@babel/plugin-external-helpers": "^7.2.0",
     "@babel/plugin-transform-object-assign": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
+    "browserify": "^16.2.3",
     "jest": "^19.0.2",
     "lint-staged": "^7.3.0",
     "pofile": "^1.0.10",
