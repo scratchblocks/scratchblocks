@@ -97,6 +97,29 @@ IconView.icons = {
   musicBlock: { width: 40, height: 40, dy: 4 },
 }
 
+/* Line */
+
+var LineView = function() {
+  this.width = 1
+  this.height = 40
+  this.x = 0
+}
+LineView.prototype.isLine = true
+
+LineView.prototype.measure = function() {}
+
+LineView.prototype.draw = function(parent) {
+  var category = parent.info.category
+  return SVG.el("line", {
+    class: "sb3-" + category + "-line",
+    "stroke-linecap": "round",
+    x1: 0,
+    y1: 0,
+    x2: 0,
+    y2: 40,
+  })
+}
+
 /* Input */
 
 var InputView = function(input) {
@@ -210,6 +233,7 @@ var BlockView = function(block) {
 
   switch (block.info.category) {
     case "sound": // TODO music
+      this.children.unshift(new LineView())
       this.children.unshift(new IconView({ name: "musicBlock" }))
       block.info.category = "pen" // TODO rename
       break

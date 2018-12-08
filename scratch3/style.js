@@ -26,9 +26,6 @@ var Style = (module.exports = {
     .sb3-sensing { fill: #5cb1d6; stroke: #2e8eb8; }
     .sb3-sensing-alt { fill: #47a8d1; }
     .sb3-sensing-dark { fill: #2e8eb8; }
-    .sb3-pen { fill: #0fbd8c; stroke: #0b8e69; }
-    .sb3-pen-alt { fill: #0da57a; }
-    .sb3-pen-dark { fill: #0b8e69; }
     .sb3-operators { fill: #59c059; stroke: #389438; }
     .sb3-operators-alt { fill: #46b946; }
     .sb3-operators-dark { fill: #389438; }
@@ -42,6 +39,12 @@ var Style = (module.exports = {
     .sb3-custom-alt { fill: #ff4d6a; }
     .sb3-custom-dark { fill: #ff3355; }
     .sb3-custom-arg { fill: #ff6680; stroke: #ff3355; }
+
+    /* extension blocks, e.g. pen */
+    .sb3-pen { fill: #0fbd8c; stroke: #0b8e69; }
+    .sb3-pen-alt { fill: #0da57a; }
+    .sb3-pen-line { stroke: #0da57a; }
+    .sb3-pen-dark { fill: #0b8e69; }
 
     .sb3-obsolete { fill: #d42828; }
     .sb3-extension { fill: #4b4a60; }
