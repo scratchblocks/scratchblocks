@@ -95,6 +95,7 @@ IconView.icons = {
   addInput: { width: 4, height: 8 },
   delInput: { width: 4, height: 8 },
   musicBlock: { width: 40, height: 40, dy: 4 },
+  penBlock: { width: 40, height: 40, dy: 4 },
 }
 
 /* Line */
@@ -236,6 +237,10 @@ var BlockView = function(block) {
       this.children.unshift(new LineView())
       this.children.unshift(new IconView({ name: "musicBlock" }))
       block.info.category = "pen" // TODO rename
+      break
+    case "pen":
+      this.children.unshift(new LineView())
+      this.children.unshift(new IconView({ name: "penBlock" }))
       break
   }
 
