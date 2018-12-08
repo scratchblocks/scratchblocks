@@ -19,6 +19,7 @@
   },
   "scripts": {
     "build": "rollup -c --environment buildTarget:PROD; exit 0;",
+    "fmt": "prettier --write *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js",
     "postinstall": "npm run build",
     "lint:staged": "lint-staged",
     "start": "rollup -c -w",
