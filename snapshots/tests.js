@@ -727,6 +727,22 @@ set pen size to (1)
 `
 )
 
-// TODO music
+test(
+  "scratch3",
+  "music",
+  `
+
+// Music
+
+play drum (\(1\) Snare drum v) for (0.5) beats
+rest for (0.25) beats
+play note (60) for (0.25) beats
+set instrument to (\(1\) Piano v)
+set tempo to (60)
+change tempo by (20)
+(tempo)
+
+`
+)
 
 // TODO video
