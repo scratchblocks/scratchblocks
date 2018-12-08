@@ -281,11 +281,8 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
 BlockView.padding = {
   hat: [24, 8],
   "define-hat": [20, 16],
-  // reporter: [3, 4, 1],
-  // boolean: [3, 4, 2],
-  // cap: [6, 6, 2],
-  // "c-block": [6, 8, 4],
-  // ring: [4, 4, 2],
+  stack: [8, 8],
+  cap: [8, 8],
   null: [4, 4],
 }
 
