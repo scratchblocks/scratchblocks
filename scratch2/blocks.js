@@ -196,6 +196,10 @@ var BlockView = function(block) {
   Object.assign(this, block)
   this.children = block.children.map(newView)
 
+  if (this.info.category === "music") {
+    this.info.category = "sound"
+  }
+
   this.x = 0
   this.width = null
   this.height = null

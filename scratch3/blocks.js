@@ -94,8 +94,8 @@ IconView.icons = {
   loopArrow: { width: 24, height: 24 },
   addInput: { width: 4, height: 8 },
   delInput: { width: 4, height: 8 },
-  musicBlock: { width: 40, height: 40, dy: 4 },
-  penBlock: { width: 40, height: 40, dy: 4 },
+  musicBlock: { width: 40, height: 40 },
+  penBlock: { width: 40, height: 40 },
 }
 
 /* Line */
@@ -233,7 +233,7 @@ var BlockView = function(block) {
   this.isRound = this.isReporter
 
   switch (block.info.category) {
-    case "sound": // TODO music
+    case "music":
       this.children.unshift(new LineView())
       this.children.unshift(new IconView({ name: "musicBlock" }))
       block.info.category = "pen" // TODO rename
@@ -318,14 +318,16 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
 BlockView.padding = {
   hat: [24, 8],
   "define-hat": [20, 16],
-  stack: [8, 8],
+  stack: [8, 8], // TODO no padding; larger min line height
   cap: [8, 8],
   null: [4, 4],
 }
 
 BlockView.prototype.horizontalPadding = function(child) {
   if (this.isRound) {
-    if (child.isLabel) {
+    if (child.isIcon) {
+      return 16
+    } else if (child.isLabel) {
       return 12 // text in circle: 3 units
     } else if (child.isDropdown) {
       return 12 // square in circle: 3 units
@@ -449,6 +451,8 @@ BlockView.prototype.draw = function() {
       ) {
         line.width = cmw
       }
+
+      // TODO v-align icons below notch
 
       child.x = line.width
       line.width += child.width

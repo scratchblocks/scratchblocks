@@ -47,6 +47,7 @@ var categoriesById = {
   11: "parameter",
   12: "list",
   20: "extension",
+  30: "music",
   42: "grey",
 }
 

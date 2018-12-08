@@ -42,14 +42,15 @@ module.exports = [
   ["clear sound effects", " ", 3, "sb3:sound_cleareffects"], // New in Scratch 3
   ["play sound %m.sound until done", " ", 3, "doPlaySoundAndWait"],
   ["stop all sounds", " ", 3, "stopAllSounds"],
-  ["play drum %d.drum for %n beats", " ", 3, "playDrum"],
-  ["rest for %n beats", " ", 3, "rest:elapsed:from:"],
-  ["play note %d.note for %n beats", " ", 3, "noteOn:duration:elapsed:from:"],
-  ["set instrument to %d.instrument", " ", 3, "instrument:"],
+  ["play drum %d.drum for %n beats", " ", 30, "playDrum"],
+  ["rest for %n beats", " ", 30, "rest:elapsed:from:"],
+  ["play note %d.note for %n beats", " ", 30, "noteOn:duration:elapsed:from:"],
+  ["set instrument to %d.instrument", " ", 30, "instrument:"],
   ["change volume by %n", " ", 3, "changeVolumeBy:"],
   ["set volume to %n%", " ", 3, "setVolumeTo:"],
-  ["change tempo by %n", " ", 3, "changeTempoBy:"],
+  ["change tempo by %n", " ", 30, "changeTempoBy:"],
   ["set tempo to %n bpm", " ", 3, "setTempoTo:"],
+  ["set tempo to %n", " ", 30, "setTempoTo:"], // Renamed in Scratch 3
   ["clear", " ", 4, "clearPenTrails"],
   ["erase all", " ", 4, "clearPenTrails"], // Renamed in Scratch 3
   ["stamp", " ", 4, "stampCostume"],
@@ -116,7 +117,7 @@ module.exports = [
   ["backdrop %m", "r", 102, ""], // New in Scratch 3
   ["backdrop #", "r", 102, "backgroundIndex"],
   ["volume", "r", 3, "volume"],
-  ["tempo", "r", 3, "tempo"],
+  ["tempo", "r", 30, "tempo"],
   ["touching %m.touching?", "b", 7, "touching:"],
   ["touching color %c?", "b", 7, "touchingColor:"],
   ["color %c is touching %c?", "b", 7, "color:sees:"],
