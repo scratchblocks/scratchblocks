@@ -191,6 +191,7 @@ var Style = (module.exports = {
         ]),
         {
           id: "loopArrow",
+          transform: "scale(0.85) translate(6 5)"
         }
       ),
     ]
