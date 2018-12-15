@@ -238,16 +238,17 @@ var BlockView = function(block) {
     case "music":
       this.children.unshift(new LineView())
       this.children.unshift(new IconView({ name: "musicBlock" }))
-      block.info.category = "pen" // TODO rename
+      block.info.category = "extension"
       break
     case "pen":
       this.children.unshift(new LineView())
       this.children.unshift(new IconView({ name: "penBlock" }))
+      block.info.category = "extension"
       break
     case "video":
       this.children.unshift(new LineView())
       this.children.unshift(new IconView({ name: "videoBlock" }))
-      block.info.category = "pen" // TODO rename
+      block.info.category = "extension"
       break
   }
 

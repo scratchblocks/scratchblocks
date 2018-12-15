@@ -41,10 +41,10 @@ var Style = (module.exports = {
     .sb3-custom-arg { fill: #ff6680; stroke: #ff3355; }
 
     /* extension blocks, e.g. pen */
-    .sb3-pen { fill: #0fbd8c; stroke: #0b8e69; }
-    .sb3-pen-alt { fill: #0da57a; }
-    .sb3-pen-line { stroke: #0da57a; }
-    .sb3-pen-dark { fill: #0b8e69; }
+    .sb3-extension { fill: #0fbd8c; stroke: #0b8e69; }
+    .sb3-extension-alt { fill: #0da57a; }
+    .sb3-extension-line { stroke: #0da57a; }
+    .sb3-extension-dark { fill: #0b8e69; }
 
     /* obsolete colors: chosen by hand, indicates invalid blocks */ 
     .sb3-obsolete { fill: #ed4242; stroke: #ca2b2b; }
@@ -55,8 +55,6 @@ var Style = (module.exports = {
     .sb3-grey { fill: #bfbfbf; stroke: #909090; }
     .sb3-grey-alt { fill: #b2b2b2; }
     .sb3-grey-dark { fill: #909090; }
-
-    .sb3-extension { fill: #4b4a60; } /* unused? */
 
     .sb3-input-color {
       stroke: #fff;
