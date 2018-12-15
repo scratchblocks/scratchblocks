@@ -318,8 +318,6 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
 BlockView.padding = {
   hat: [24, 8],
   "define-hat": [20, 16],
-  stack: [8, 8], // TODO no padding; larger min line height
-  cap: [8, 8],
   null: [4, 4],
 }
 
@@ -365,6 +363,7 @@ BlockView.prototype.marginBetween = function(a, b) {
 BlockView.prototype.draw = function() {
   var isDefine = this.info.shape === "define-hat"
   var children = this.children
+  var isCommand = this.isCommand
 
   var padding = BlockView.padding[this.info.shape] || BlockView.padding[null]
   var pt = padding[0],
@@ -375,7 +374,7 @@ BlockView.prototype.draw = function() {
   var Line = function(y) {
     this.y = y
     this.width = 0
-    this.height = 32
+    this.height = isCommand ? 40 : 32
     this.children = []
   }
 
