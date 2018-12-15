@@ -205,6 +205,7 @@ InputView.prototype.draw = function(parent) {
       })
     }
   } else if (this.shape === "boolean") {
+    el.classList.remove("sb3-" + parent.info.category)
     el.classList.add("sb3-" + parent.info.category + "-dark")
 
     // custom colors
