@@ -745,4 +745,17 @@ change tempo by (20)
 `
 )
 
-// TODO video
+test(
+  "scratch3",
+  "video",
+  `
+
+// Video
+
+when video motion > (10)
+(video (motion v) on (sprite v))
+turn video (on v)
+set video transparency to (50)
+
+`
+)

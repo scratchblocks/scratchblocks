@@ -86,8 +86,9 @@ module.exports = [
   ["create clone of %m.spriteOnly", " ", 6, "createCloneOf"],
   ["delete this clone", "f", 6, "deleteClone"],
   ["ask %s and wait", " ", 7, "doAsk"],
-  ["turn video %m.videoState", " ", 7, "setVideoState"],
-  ["set video transparency to %n%", " ", 7, "setVideoTransparency"],
+  ["turn video %m.videoState", " ", 31, "setVideoState"],
+  ["set video transparency to %n%", " ", 31, "setVideoTransparency"],
+  ["when video motion > %n", "h", 31, ""], // New in Scratch 3
   ["reset timer", " ", 7, "timerReset"],
   ["set %m.var to %s", " ", 9, "setVar:to:"],
   ["change %m.var by %n", " ", 9, "changeVar:by:"],
@@ -129,7 +130,7 @@ module.exports = [
   ["mouse y", "r", 7, "mouseY"],
   ["set drag mode %m", " ", 7, ""], // New in Scratch 3
   ["loudness", "r", 7, "soundLevel"],
-  ["video %m.videoMotionType on %m.stageOrThis", "r", 7, "senseVideoMotion"],
+  ["video %m.videoMotionType on %m.stageOrThis", "r", 31, "senseVideoMotion"],
   ["timer", "r", 7, "timer"],
   ["%m.attribute of %m.spriteOrStage", "r", 7, "getAttribute:of:"],
   ["current %m.timeAndDate", "r", 7, "timeAndDate"],

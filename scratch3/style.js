@@ -263,6 +263,46 @@ var Style = (module.exports = {
           "stroke-linejoin": "round",
         }
       ),
+
+      SVG.setProps(
+        SVG.group([
+          SVG.el("circle", {
+            opacity: 0.25,
+            cx: 32,
+            cy: 16,
+            r: 4.5,
+          }),
+          SVG.el("circle", {
+            opacity: 0.5,
+            cx: 32,
+            cy: 12,
+            r: 4.5,
+          }),
+          SVG.el("circle", {
+            opacity: 0.75,
+            cx: 32,
+            cy: 8,
+            r: 4.5,
+          }),
+          SVG.el("circle", {
+            cx: 32,
+            cy: 4,
+            r: 4.5,
+          }),
+          SVG.el("path", {
+            d:
+              "M22.672 4.42l-6.172 4V6.1c0-2.01-1.563-3.6-3.5-3.6H4.1C2.076 2.5.5 4.076.5 6.1V14c0 1.927 1.584 3.512 3.6 3.6H13c1.902 0 3.5-1.653 3.5-3.6v-2.283l6.257 3.754.097.075c.02.02.098.054.146.054.267 0 .5-.217.5-.5V4.8c0 .037-.056-.094-.129-.243-.145-.242-.43-.299-.7-.137z",
+            fill: "#4D4D4D",
+            "stroke-linejoin": "round",
+          }),
+        ]),
+        {
+          id: "videoBlock",
+          stroke: "#000",
+          fill: "#FFF",
+          "stroke-opacity": 0.15,
+        }
+      ),
     ]
   },
 

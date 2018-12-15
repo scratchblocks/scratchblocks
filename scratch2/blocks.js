@@ -196,8 +196,13 @@ var BlockView = function(block) {
   Object.assign(this, block)
   this.children = block.children.map(newView)
 
-  if (this.info.category === "music") {
-    this.info.category = "sound"
+  switch (this.info.category) {
+    case "music":
+      this.info.category = "sound"
+      break
+    case "video":
+      this.info.category = "sensing"
+      break
   }
 
   this.x = 0

@@ -24,6 +24,7 @@ var overrideCategories = [
   "grey",
   "obsolete",
   "music",
+  "video",
 ]
 var overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "ring"]
 
@@ -49,6 +50,7 @@ var categoriesById = {
   12: "list",
   20: "extension",
   30: "music",
+  31: "video",
   42: "grey",
 }
 
