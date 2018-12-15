@@ -23,6 +23,7 @@ var overrideCategories = [
   "extension",
   "grey",
   "obsolete",
+  "music",
 ]
 var overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "ring"]
 
