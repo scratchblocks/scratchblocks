@@ -195,6 +195,7 @@ InputView.prototype.draw = function(parent) {
 var BlockView = function(block) {
   Object.assign(this, block)
   this.children = block.children.map(newView)
+  this.comment = this.comment ? newView(this.comment) : null
 
   switch (this.info.category) {
     case "music":
