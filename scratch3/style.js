@@ -46,11 +46,17 @@ var Style = (module.exports = {
     .sb3-pen-line { stroke: #0da57a; }
     .sb3-pen-dark { fill: #0b8e69; }
 
-    .sb3-obsolete { fill: #d42828; }
-    .sb3-extension { fill: #4b4a60; }
+    /* obsolete colors: chosen by hand, indicates invalid blocks */ 
+    .sb3-obsolete { fill: #ed4242; stroke: #ca2b2b; }
+    .sb3-obsolete-alt { fill: #db3333; }
+    .sb3-obsolete-dark { fill: #ca2b2b; }
+
+    /* grey: special color from the Scratch 3.0 design mockups */
     .sb3-grey { fill: #bfbfbf; stroke: #909090; }
     .sb3-grey-alt { fill: #b2b2b2; }
     .sb3-grey-dark { fill: #909090; }
+
+    .sb3-extension { fill: #4b4a60; } /* unused? */
 
     .sb3-input-color {
       stroke: #fff;
