@@ -530,11 +530,6 @@ BlockView.prototype.draw = function() {
       }
 
       objects.push(SVG.move(padLeft + child.x, (line.y + y) | 0, child.el))
-
-      if (child.diff === "+") {
-        var ellipse = SVG.insEllipse(child.width, child.height)
-        objects.push(SVG.move(padLeft + child.x, (line.y + y) | 0, ellipse))
-      }
     }
   }
 

@@ -113,31 +113,6 @@ var SVG = (module.exports = {
     return el
   },
 
-  translatePath(dx, dy, path) {
-    var isX = true
-    var parts = path.split(" ")
-    var out = []
-    for (var i = 0; i < parts.length; i++) {
-      var part = parts[i]
-      if (part === "A") {
-        var j = i + 5
-        out.push("A")
-        while (i < j) {
-          out.push(parts[++i])
-        }
-        continue
-      } else if (/[A-Za-z]/.test(part)) {
-        assert(isX)
-      } else {
-        part = +part
-        part += isX ? dx : dy
-        isX = !isX
-      }
-      out.push(part)
-    }
-    return out.join(" ")
-  },
-
   /* shapes */
 
   rect(w, h, props) {
@@ -200,29 +175,11 @@ var SVG = (module.exports = {
   pointedPath(w, h) {
     var r = h / 2
     return [
-      "M",
-      r,
-      0,
-      "L",
-      w - r,
-      0,
-      w,
-      r,
-      "L",
-      w,
-      r,
-      w - r,
-      h,
-      "L",
-      r,
-      h,
-      0,
-      r,
-      "L",
-      0,
-      r,
-      r,
-      0,
+      ["M", r, 0].join(" "),
+      ["L", w - r, 0, w, r].join(" "),
+      ["L", w, r, w - r, h].join(" "),
+      ["L", r, h, 0, r].join(" "),
+      ["L", 0, r, r, 0].join(" "),
       "Z",
     ]
   },
@@ -378,7 +335,6 @@ var SVG = (module.exports = {
       ["L", w - 20, 0].join(" "),
       "a 20,20 0 0,1 20,20",
     ].join(" ")
-    //v 60  a 4,4 0 0,1 -4,4 H 48   c -2,0 -3,1 -4,2 l -4,4 c -1,1 -2,2 -4,2 h -12 c -2,0 -3,-1 -4,-2 l -4,-4 c -1,-1 -2,-2 -4,-2 H 4 a 4,4 0 0,1 -4,-4 z
   },
 
   procHatRect(w, h, props) {
@@ -413,32 +369,6 @@ var SVG = (module.exports = {
     return SVG.path(
       extend(props, {
         path: p,
-      })
-    )
-  },
-
-  ringRect(w, h, cy, cw, ch, shape, props) {
-    var r = 8
-    var func =
-      shape === "reporter"
-        ? SVG.roundedPath
-        : shape === "boolean"
-          ? SVG.pointedPath
-          : cw < 40 ? SVG.ringCapPath : SVG.capPath
-    return SVG.path(
-      extend(props, {
-        path: [
-          "M",
-          r,
-          0,
-          SVG.arcw(r, 0, 0, r, r, r),
-          SVG.arcw(0, h - r, r, h, r, r),
-          SVG.arcw(w - r, h, w, h - r, r, r),
-          SVG.arcw(w, r, w - r, 0, r, r),
-          "Z",
-          SVG.translatePath(4, cy || 4, func(cw, ch).join(" ")),
-        ],
-        "fill-rule": "even-odd",
       })
     )
   },
