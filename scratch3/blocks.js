@@ -425,11 +425,13 @@ BlockView.prototype.draw = function() {
       child.y = y - 1
       lines.push(child)
       scriptWidth = Math.max(scriptWidth, Math.max(1, child.width))
-      child.height = Math.max(28, child.height + 3) - 2
+      child.height = Math.max(29, child.height + 3) - 2
       y += child.height
       line = new Line(y)
+      previousChild = null
     } else if (child.isArrow) {
       line.children.push(child)
+      previousChild = child
     } else {
       // Remember the last child on the first line
       if (!lines.length) {
@@ -464,9 +466,8 @@ BlockView.prototype.draw = function() {
         line.height = Math.max(line.height, child.height)
       }
       line.children.push(child)
+      previousChild = child
     }
-
-    previousChild = child
   }
   pushLine()
 
@@ -504,7 +505,9 @@ BlockView.prototype.draw = function() {
       }
 
       var y = pt + (h - child.height - pt - pb) / 2
-      if (child.isLabel) {
+      if (child.isLabel && i === 0) {
+        // We only do this for the first line so that the `else` label is
+        // correctly aligned
         y -= 1
       } else if (isDefine && child.isLabel) {
         y += 3
