@@ -451,7 +451,10 @@ BlockView.prototype.draw = function() {
         line.width = cmw
       }
 
-      // TODO v-align icons below notch
+      // Align extension category icons below notch
+      if (child.isIcon && i === 0 && this.isCommand) {
+        line.height = Math.max(line.height, child.height + 8)
+      }
 
       child.x = line.width
       line.width += child.width
@@ -506,6 +509,9 @@ BlockView.prototype.draw = function() {
         y += 3
       } else if (child.isIcon) {
         y += child.dy | 0
+        if (this.isCommand && i === 0 && j === 0) {
+          y += 4
+        }
       }
 
       objects.push(SVG.move(padLeft + child.x, (line.y + y) | 0, child.el))
