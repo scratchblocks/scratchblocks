@@ -315,20 +315,18 @@ var SVG = (module.exports = {
     return [
       ["L", 16, armTop - 4].join(" "),
       "a 4 4 0 0 0 4 4",
-
       ["L", 28, armTop].join(" "),
-
       SVG.topNotch(w, armTop),
-      // "c 2 0 3 1 4 2",
-      // "l 4 4",
-      // "c 1 1 2 2 4 2",
-      // "h 12",
-      // "c 2 0 3 -1 4 -2",
-      // "l 4 -4",
-      // "c 1 -1 2 -2 4 -2",
+    ].join(" ")
+  },
 
-      // ["L", w - 4, armTop].join(" "),
-      // "a 4 4 0 0 1 4 4",
+  getArmNoNotch(w, armTop) {
+    return [
+      ["L", 16, armTop - 4].join(" "),
+      "a 4 4 0 0 0 4 4",
+      ["L", 28, armTop].join(" "),
+      ["L", w - 4, armTop].join(" "),
+      "a 4 4 0 0 1 4 4",
     ].join(" ")
   },
 
@@ -397,8 +395,14 @@ var SVG = (module.exports = {
     for (var i = 1; i < lines.length; i += 2) {
       var isLast = i + 2 === lines.length
 
-      y += lines[i].height - 3
-      p.push(SVG.getArm(w, y))
+      var line = lines[i]
+      y += line.height - 3
+
+      if (line.isFinal) {
+        p.push(SVG.getArmNoNotch(w, y))
+      } else {
+        p.push(SVG.getArm(w, y))
+      }
 
       var hasNotch = !(isLast && isFinal)
       var inset = isLast ? 0 : 16
