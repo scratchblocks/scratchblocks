@@ -476,8 +476,11 @@ BlockView.prototype.draw = function() {
   innerWidth += padLeft + padRight
 
   // Commands have a minimum width
+  // The minimum width for outlines is actually really small and looks silly,
+  // so in the hope that the Scratch 3.0 will resolve this I've used a nicer
+  // value
   innerWidth = Math.max(
-    this.hasScript ? 160 : this.isCommand ? 64 : 0,
+    this.hasScript ? 160 : this.isCommand || this.isOutline ? 64 : 0,
     innerWidth
   )
   this.height = y
