@@ -127,28 +127,6 @@ var SVG = (module.exports = {
     )
   },
 
-  ellipse(w, h, props) {
-    return SVG.el(
-      "ellipse",
-      extend(props, {
-        cx: w / 2,
-        cy: h / 2,
-        rx: w / 2,
-        ry: h / 2,
-      })
-    )
-  },
-
-  arc(p1x, p1y, p2x, p2y, rx, ry) {
-    var r = p2y - p1y
-    return ["L", p1x, p1y, "A", rx, ry, 0, 0, 1, p2x, p2y].join(" ")
-  },
-
-  arcw(p1x, p1y, p2x, p2y, rx, ry) {
-    var r = p2y - p1y
-    return ["L", p1x, p1y, "A", rx, ry, 0, 0, 0, p2x, p2y].join(" ")
-  },
-
   roundRect(w, h, props) {
     return SVG.rect(
       w,
@@ -375,19 +353,11 @@ var SVG = (module.exports = {
 
   commentRect(w, h, props) {
     var r = 6
-    return SVG.path(
+    return SVG.roundRect(
+      w,
+      h,
       extend(props, {
         class: "sb3-comment",
-        path: [
-          "M",
-          r,
-          0,
-          SVG.arc(w - r, 0, w, r, r, r),
-          SVG.arc(w, h - r, w - r, h, r, r),
-          SVG.arc(r, h, 0, h - r, r, r),
-          SVG.arc(0, r, r, 0, r, r),
-          "Z",
-        ],
       })
     )
   },
