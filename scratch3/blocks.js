@@ -308,7 +308,9 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
     if (child && (child.isInput || child.isBlock || child.isScript)) {
       var shape = child.isScript
         ? "stack"
-        : child.isInput ? child.shape : child.info.shape
+        : child.isInput
+        ? child.shape
+        : child.info.shape
       return SVG.ringRect(w, h, child.y, child.width, child.height, shape, {
         class: ["sb3-" + this.info.category].join(" "),
       })
@@ -489,7 +491,11 @@ BlockView.prototype.draw = function() {
   innerWidth = Math.max(
     this.hasScript
       ? 160
-      : this.isHat ? 108 : this.isCommand || this.isOutline ? 64 : 0,
+      : this.isHat
+      ? 108
+      : this.isCommand || this.isOutline
+      ? 64
+      : 0,
     innerWidth
   )
   this.height = y

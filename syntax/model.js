@@ -169,7 +169,9 @@ Input.prototype.toJSON = function() {
   }
   return this.isBoolean
     ? false
-    : this.isRound ? maybeNumber(this.value) : this.value
+    : this.isRound
+    ? maybeNumber(this.value)
+    : this.value
 }
 
 Input.prototype.stringify = function() {
@@ -184,8 +186,12 @@ Input.prototype.stringify = function() {
   return this.isRound
     ? "(" + text + ")"
     : this.isSquare
-      ? "[" + text + "]"
-      : this.isBoolean ? "<>" : this.isStack ? "{}" : text
+    ? "[" + text + "]"
+    : this.isBoolean
+    ? "<>"
+    : this.isStack
+    ? "{}"
+    : text
 }
 
 Input.prototype.translate = function(lang) {
@@ -405,8 +411,10 @@ Block.prototype.stringify = function(extras) {
   return this.hasScript
     ? text + "\nend"
     : this.info.shape === "reporter"
-      ? "(" + text + ")"
-      : this.info.shape === "boolean" ? "<" + text + ">" : text
+    ? "(" + text + ")"
+    : this.info.shape === "boolean"
+    ? "<" + text + ">"
+    : text
 }
 
 Block.prototype.translate = function(lang, isShallow) {
@@ -434,7 +442,9 @@ Block.prototype.translate = function(lang, isShallow) {
       if (!part) return
       return inputPat.test(part)
         ? args.shift()
-        : iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part)
+        : iconPat.test(part)
+        ? new Icon(part.slice(1))
+        : new Label(part)
     })
     .filter(x => !!x)
   args.forEach(
