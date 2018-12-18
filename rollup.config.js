@@ -2,6 +2,7 @@ import babel from "rollup-plugin-babel"
 import builtins from "rollup-plugin-node-builtins"
 import commonjs from "rollup-plugin-commonjs"
 import globals from "rollup-plugin-node-globals"
+import json from "rollup-plugin-json"
 import minify from "rollup-plugin-babel-minify"
 import pkg from "./package.json"
 import resolve from "rollup-plugin-node-resolve"
@@ -21,13 +22,14 @@ const env = {
   prod: buildTarget === "PROD",
 }
 
-console.log(`env.dev: ${env.dev}`)
-console.log(`env.prod: ${env.prod}`)
-
-const banner = `/*
-  ${pkg.name} v${pkg.version}
-  ${pkg.description}
-*/`
+const banner = `/**
+ * ${pkg.name} v${pkg.version}
+ * ${pkg.homepage}
+ * ${pkg.description}
+ *
+ * Copyright 2013–${new Date().getFullYear()}, ${pkg.author.name}
+ * @license ${pkg.license}
+ */`
 
 console.log(banner)
 
@@ -62,9 +64,29 @@ export default [
       env.dev &&
         serve({
           contentBase: ".",
-          open: true,
           port: 8000,
         }),
     ],
+  },
+  {
+    input: "locales-src/translations.js",
+    output: {
+      exports: "named",
+      file: "build/translations.js",
+      format: "iife",
+      name: "translations",
+      sourcemap: false,
+    },
+    plugins: [resolve(), json(), commonjs(), babel()],
+  },
+  {
+    input: "locales-src/translations-all.js",
+    output: {
+      file: "build/translations-all.js",
+      format: "iife",
+      name: "translationsAll",
+      sourcemap: false,
+    },
+    plugins: [resolve(), json(), commonjs(), babel()],
   },
 ]
