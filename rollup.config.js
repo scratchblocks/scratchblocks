@@ -77,7 +77,18 @@ export default [
       name: "translations",
       sourcemap: false,
     },
-    plugins: [resolve(), json(), commonjs(), babel()],
+    plugins: [
+      resolve(),
+      json(),
+      commonjs(),
+      babel(),
+      env.prod &&
+        minify({
+          banner: banner,
+          bannerNewLine: true,
+          comments: false,
+        }),
+    ],
   },
   {
     input: "locales-src/translations-all.js",
@@ -87,6 +98,17 @@ export default [
       name: "translationsAll",
       sourcemap: false,
     },
-    plugins: [resolve(), json(), commonjs(), babel()],
+    plugins: [
+      resolve(),
+      json(),
+      commonjs(),
+      babel(),
+      env.prod &&
+        minify({
+          banner: banner,
+          bannerNewLine: true,
+          comments: false,
+        }),
+    ],
   },
 ]
