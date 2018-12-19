@@ -148,8 +148,8 @@ function parseLines(code, languages, dialect) {
         shape === "define-hat"
           ? "custom"
           : dialect === DialectClassic && shape === "reporter" && !hasInputs
-          ? "variables"
-          : "obsolete",
+            ? "variables"
+            : "obsolete",
       categoryIsDefault: true,
       hasLoopArrow: false,
     }
