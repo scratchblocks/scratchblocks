@@ -9,7 +9,7 @@ Make pictures of Scratch blocks from text.
 **scratchblocks** is used to write Scratch scripts:
 
 - in [Scratch Forum](http://scratch.mit.edu/discuss/topic/14772/) posts
-- in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles 
+- in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles
 - in the [Code Club](https://www.codeclub.org.uk) project guides
 
 It's MIT licensed, so you can use it in your projects. (But do send me a link
@@ -101,9 +101,9 @@ scratchblocks.renderMatching('pre.blocks');
 
 # Languages
 
-In node, all languages in [`src/locales`](https://github.com/tjvr/scratchblocks/blob/master/src/locales) will be loaded.
+In node, all languages in [`src/locales`](https://github.com/tjvr/scratchblocks/blob/master/locales) will be loaded.
 
-In the browser, include [`translations.js`](https://github.com/tjvr/scratchblocks/blob/master/browser/translations.js), [`all-translations.js`](https://github.com/tjvr/scratchblocks/blob/master/browser/translations.js) or build your own language pack.
+In the browser, include [`translations.js`](https://github.com/tjvr/scratchblocks/blob/master/build/translations.js), [`translations-all.js`](https://github.com/tjvr/scratchblocks/blob/master/build/translations-all.js) or build your own language pack.
 
 `translations.js` contains all the languages needed [on the Scratch Forums](http://scratch.mit.edu/discuss/#category_head_6).
 
@@ -111,7 +111,7 @@ In the browser, include [`translations.js`](https://github.com/tjvr/scratchblock
 
 If you want to build your own language pack, use `scratchblocks.loadLanguage(lang)` where lang is the contents of `src/locales/lang.json`.
 
-Please note that scratchblocks **requires** some [additional words](https://github.com/tjvr/scratchblocks/blob/master/src/locales/extra_aliases.js) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
+Please note that scratchblocks **requires** some [additional words](https://github.com/tjvr/scratchblocks/blob/master/locales-src/extra_aliases.js) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
 
 
 # Development
