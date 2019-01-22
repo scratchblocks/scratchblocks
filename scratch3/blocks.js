@@ -237,21 +237,23 @@ var BlockView = function(block) {
   this.comment = this.comment ? newView(this.comment) : null
   this.isRound = this.isReporter
 
-  switch (block.info.category) {
+  // Avoid accidental mutation
+  this.info = Object.assign({}, block.info)
+  switch (this.info.category) {
     case "music":
       this.children.unshift(new LineView())
       this.children.unshift(new IconView({ name: "musicBlock" }))
-      block.info.category = "extension"
+      this.info.category = "extension"
       break
     case "pen":
       this.children.unshift(new LineView())
       this.children.unshift(new IconView({ name: "penBlock" }))
-      block.info.category = "extension"
+      this.info.category = "extension"
       break
     case "video":
       this.children.unshift(new LineView())
       this.children.unshift(new IconView({ name: "videoBlock" }))
-      block.info.category = "extension"
+      this.info.category = "extension"
       break
   }
 
