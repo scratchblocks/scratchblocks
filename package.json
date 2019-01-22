@@ -13,7 +13,7 @@
   "bugs": {
     "url": "https://github.com/tjvr/scratchblocks/issues"
   },
-  "version": "3.2.0",
+  "version": "3.3.0",
   "main": "build/scratchblocks.min.js",
   "module": "build/scratchblocks.min.es.js",
   "directories": {
