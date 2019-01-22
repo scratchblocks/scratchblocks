@@ -81,7 +81,7 @@ var IconView = function(icon) {
 IconView.prototype.isIcon = true
 
 IconView.prototype.draw = function() {
-  return SVG.symbol("#" + this.name, {
+  return SVG.symbol("#sb3-" + this.name, {
     width: this.width,
     height: this.height,
   })
@@ -222,7 +222,9 @@ InputView.prototype.draw = function(parent) {
     result.appendChild(label)
   }
   if (this.hasArrow) {
-    result.appendChild(SVG.move(w - 24, 13, SVG.symbol("#dropdownArrow", {})))
+    result.appendChild(
+      SVG.move(w - 24, 13, SVG.symbol("#sb3-dropdownArrow", {}))
+    )
   }
   return result
 }

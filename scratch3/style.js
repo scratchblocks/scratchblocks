@@ -117,7 +117,7 @@ var Style = (module.exports = {
           }),
         ]),
         {
-          id: "greenFlag",
+          id: "sb3-greenFlag",
         }
       ),
 
@@ -136,7 +136,7 @@ var Style = (module.exports = {
           }),
         ]),
         {
-          id: "dropdownArrow",
+          id: "sb3-dropdownArrow",
           transform: "scale(0.944)",
         }
       ),
@@ -155,7 +155,7 @@ var Style = (module.exports = {
           }),
         ]),
         {
-          id: "turnRight",
+          id: "sb3-turnRight",
         }
       ),
 
@@ -173,20 +173,20 @@ var Style = (module.exports = {
           }),
         ]),
         {
-          id: "turnLeft",
+          id: "sb3-turnLeft",
         }
       ),
 
       SVG.el("path", {
         d: "M0 0L4 4L0 8Z",
         fill: "#111",
-        id: "addInput",
+        id: "sb3-addInput",
       }),
 
       SVG.el("path", {
         d: "M4 0L4 8L0 4Z",
         fill: "#111",
-        id: "delInput",
+        id: "sb3-delInput",
       }),
 
       SVG.setProps(
@@ -203,7 +203,7 @@ var Style = (module.exports = {
           }),
         ]),
         {
-          id: "loopArrow",
+          id: "sb3-loopArrow",
         }
       ),
 
@@ -222,7 +222,7 @@ var Style = (module.exports = {
           }),
         ]),
         {
-          id: "musicBlock",
+          id: "sb3-musicBlock",
           fill: "none",
         }
       ),
@@ -255,7 +255,7 @@ var Style = (module.exports = {
           }),
         ]),
         {
-          id: "penBlock",
+          id: "sb3-penBlock",
           stroke: "#575E75",
           fill: "none",
           "stroke-linejoin": "round",
@@ -295,7 +295,7 @@ var Style = (module.exports = {
           }),
         ]),
         {
-          id: "videoBlock",
+          id: "sb3-videoBlock",
           stroke: "#000",
           fill: "#FFF",
           "stroke-opacity": 0.15,
