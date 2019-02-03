@@ -102,6 +102,7 @@ IconView.icons = {
   wedoBlock: { width: 40, height: 40 },
   ev3Block: { width: 40, height: 40 },
   microbitBlock: { width: 40, height: 40 },
+  makeymakeyBlock: { width: 40, height: 40 },
 }
 
 /* Line */
@@ -265,6 +266,7 @@ var BlockView = function(block) {
     case "wedo":
     case "ev3":
     case "microbit":
+    case "makeymakey":
       this.children.unshift(new LineView())
       this.children.unshift(
         new IconView({ name: this.info.category + "Block" })

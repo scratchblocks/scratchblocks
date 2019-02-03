@@ -777,8 +777,8 @@ set language to (English v) :: tts
 
 // Makey Makey
 
-when (space v) key pressed
-when (left up right v) pressed in order
+when (space v) key pressed :: makeymakey hat
+when (left up right v) pressed in order :: makeymakey hat
 
 // micro:bit
 

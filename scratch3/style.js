@@ -603,6 +603,67 @@ var Style = (module.exports = {
           id: "sb3-ev3Block",
         }
       ),
+
+      SVG.setProps(
+        SVG.group([
+          SVG.el("path", {
+            d:
+              "M35 28H5a1 1 0 0 1-1-1V12c0-.6.4-1 1-1h30c.5 0 1 .4 1 1v15c0 .5-.5 1-1 1z",
+            fill: "#fff",
+          }),
+          SVG.el("path", {
+            fill: "red",
+            d:
+              "M4 25h32v2.7H4zm9-1h-2.2a1 1 0 0 1-1-1v-9.7c0-.6.4-1 1-1H13c.6 0 1 .4 1 1V23c0 .6-.5 1-1 1z",
+          }),
+          SVG.el("path", {
+            fill: "red",
+            d:
+              "M6.1 19.3v-2.2c0-.5.4-1 1-1h9.7c.5 0 1 .5 1 1v2.2c0 .5-.5 1-1 1H7.1a1 1 0 0 1-1-1z",
+          }),
+          SVG.el("circle", { fill: "red", cx: "22.8", cy: "18.2", r: "3.4" }),
+          SVG.el("circle", { fill: "red", cx: "30.6", cy: "18.2", r: "3.4" }),
+          SVG.el("path", { fill: "red", d: "M4.2 27h31.9v.7H4.2z" }),
+          SVG.el("circle", {
+            fill: "#e0e0e0",
+            cx: "22.8",
+            cy: "18.2",
+            r: "2.3",
+          }),
+          SVG.el("circle", {
+            fill: "#e0e0e0",
+            cx: "30.6",
+            cy: "18.2",
+            r: "2.3",
+          }),
+          SVG.el("path", {
+            fill: "#e0e0e0",
+            d:
+              "M12.5 22.9h-1.2c-.3 0-.5-.2-.5-.5V14c0-.3.2-.5.5-.5h1.2c.3 0 .5.2.5.5v8.4c0 .3-.2.5-.5.5z",
+          }),
+          SVG.el("path", {
+            fill: "#e0e0e0",
+            d:
+              "M7.2 18.7v-1.2c0-.3.2-.5.5-.5h8.4c.3 0 .5.2.5.5v1.2c0 .3-.2.5-.5.5H7.7c-.3 0-.5-.2-.5-.5zM4 26h32v2H4z",
+          }),
+          SVG.el("path", {
+            stroke: "#666",
+            "stroke-width": ".5",
+            d:
+              "M35.2 27.9H4.8a1 1 0 0 1-1-1V12.1c0-.6.5-1 1-1h30.5c.5 0 1 .4 1 1V27a1 1 0 0 1-1.1.9z",
+          }),
+          SVG.el("path", {
+            stroke: "#666",
+            "stroke-width": ".5",
+            d:
+              "M35.2 27.9H4.8a1 1 0 0 1-1-1V12.1c0-.6.5-1 1-1h30.5c.5 0 1 .4 1 1V27a1 1 0 0 1-1.1.9z",
+          }),
+        ]),
+        {
+          id: "sb3-makeymakeyBlock",
+          fill: "none",
+        }
+      ),
     ]
   },
 

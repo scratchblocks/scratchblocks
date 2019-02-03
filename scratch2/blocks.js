@@ -209,6 +209,7 @@ var BlockView = function(block) {
     case "wedo":
     case "ev3":
     case "microbit":
+    case "makeymakey":
       this.info.category = "extension"
       break
   }
