@@ -97,7 +97,7 @@ IconView.icons = {
   musicBlock: { width: 40, height: 40 },
   penBlock: { width: 40, height: 40 },
   videoBlock: { width: 40, height: 40, dy: 10 },
-  ttsBlock: { width: 40, height: 40, dx: 4, dy: 4 },
+  ttsBlock: { width: 40, height: 40 },
   translateBlock: { width: 40, height: 40 },
 }
 
