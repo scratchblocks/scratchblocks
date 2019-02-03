@@ -29,6 +29,7 @@ var overrideCategories = [
   "translate",
   "wedo",
   "ev3",
+  "microbit",
 ]
 var overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "ring"]
 

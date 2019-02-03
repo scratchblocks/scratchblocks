@@ -782,20 +782,20 @@ when (left up right v) pressed in order
 
 // micro:bit
 
-when (A v) button pressed
-<(A v) button pressed?>
+when (A v) button pressed :: microbit hat
+<(A v) button pressed? :: microbit>
 
-when (moved)
+when (moved v) :: microbit hat
 
-display (♥ v)
-display text (Hello!)
-clear display
+display (♥ v) :: microbit
+display text [Hello!] :: microbit
+clear display :: microbit
 
-when tilted (any v)
-<tilted (any v)?>
-(tilt angle (front v))
+when tilted (any v) :: microbit hat
+<tilted (any v)? :: microbit>
+(tilt angle (front v) :: microbit)
 
-when pin (0 v) connected
+when pin (0 v) connected :: microbit hat
 
 // LEGO EV3
 
