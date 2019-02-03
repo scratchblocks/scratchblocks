@@ -26,6 +26,7 @@ var overrideCategories = [
   "music",
   "video",
   "tts",
+  "translate",
 ]
 var overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "ring"]
 

@@ -205,6 +205,7 @@ var BlockView = function(block) {
       this.info.category = "sensing"
       break
     case "tts":
+    case "translate":
       this.info.category = "extension"
       break
   }

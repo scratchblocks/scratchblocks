@@ -772,8 +772,8 @@ set language to (English v) :: tts
 
 // Translate
 
-(translate (hello) to (Galician v)
-(language)
+(translate (hello) to (Galician v) :: translate
+(language :: translate)
 
 // Makey Makey
 
