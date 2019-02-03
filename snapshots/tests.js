@@ -759,3 +759,69 @@ set video transparency to (50)
 
 `
 )
+
+test(
+  "scratch3",
+  "extensions",
+  `
+// Text to Speech
+
+speak (hello)
+set voice to (alto v)
+set language to (English v)
+
+// Translate
+
+(translate (hello) to (Galician v)
+(language)
+
+// Makey Makey
+
+when (space v) key pressed
+when (left up right v) pressed in order
+
+// micro:bit
+
+when (A v) button pressed
+<(A v) button pressed?>
+
+when (moved)
+
+display (♥ v)
+display text (Hello!)
+clear display
+
+when tilted (any v)
+<tilted (any v)?>
+(tilt angle (front v))
+
+when pin (0 v) connected
+
+// LEGO EV3
+
+motor (A v) turn this way for (1) seconds
+motor (A v) turn that way for (1) seconds
+motor (A v) set power (100)%
+(motor (A v) position)
+when button (1 v) pressed
+when distance < (5)
+when brightness < (50)
+<button (1 v) pressed?>
+(distance)
+(brightness)
+beep note (60) for (0.5) secs
+
+// WeDo 2.0
+
+turn (motor v) on for (1) seconds
+turn (motor v) on
+turn (motor v) off
+set (motor v) power to (100)
+set (motor v) direction to (this way v)
+set light color to (50)
+when distance (< v) (50)
+when tilted (any v)
+(distance)
+<tilted (any v)?>
+(tilt angle (up v))
+`)
