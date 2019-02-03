@@ -99,6 +99,7 @@ IconView.icons = {
   videoBlock: { width: 40, height: 40, dy: 10 },
   ttsBlock: { width: 40, height: 40 },
   translateBlock: { width: 40, height: 40 },
+  wedoBlock: { width: 40, height: 40 },
 }
 
 /* Line */
@@ -258,13 +259,12 @@ var BlockView = function(block) {
       this.info.category = "extension"
       break
     case "tts":
-      this.children.unshift(new LineView())
-      this.children.unshift(new IconView({ name: "ttsBlock" }))
-      this.info.category = "extension"
-      break
     case "translate":
+    case "wedo":
       this.children.unshift(new LineView())
-      this.children.unshift(new IconView({ name: "translateBlock" }))
+      this.children.unshift(
+        new IconView({ name: this.info.category + "Block" })
+      )
       this.info.category = "extension"
       break
   }

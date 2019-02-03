@@ -206,6 +206,7 @@ var BlockView = function(block) {
       break
     case "tts":
     case "translate":
+    case "wedo":
       this.info.category = "extension"
       break
   }

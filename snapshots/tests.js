@@ -772,7 +772,7 @@ set language to (English v) :: tts
 
 // Translate
 
-(translate (hello) to (Galician v) :: translate
+(translate (hello) to (Galician v) :: translate)
 (language :: translate)
 
 // Makey Makey
@@ -813,16 +813,16 @@ beep note (60) for (0.5) secs
 
 // WeDo 2.0
 
-turn (motor v) on for (1) seconds
-turn (motor v) on
-turn (motor v) off
-set (motor v) power to (100)
-set (motor v) direction to (this way v)
-set light color to (50)
-when distance (< v) (50)
-when tilted (any v)
-(distance)
-<tilted (any v)?>
-(tilt angle (up v))
+turn (motor v) on for (1) seconds :: wedo
+turn (motor v) on :: wedo
+turn (motor v) off :: wedo
+set (motor v) power to (100) :: wedo
+set (motor v) direction to (this way v) :: wedo
+set light color to (50) :: wedo
+when distance (\\< v) (50) :: wedo
+when tilted (any v) :: wedo
+(distance :: wedo)
+<tilted (any v)? :: wedo>
+(tilt angle (up v) :: wedo)
 `
 )
