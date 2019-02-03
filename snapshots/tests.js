@@ -799,17 +799,17 @@ when pin (0 v) connected
 
 // LEGO EV3
 
-motor (A v) turn this way for (1) seconds
-motor (A v) turn that way for (1) seconds
-motor (A v) set power (100)%
-(motor (A v) position)
-when button (1 v) pressed
-when distance < (5)
-when brightness < (50)
-<button (1 v) pressed?>
-(distance)
-(brightness)
-beep note (60) for (0.5) secs
+motor (A v) turn this way for (1) seconds :: ev3
+motor (A v) turn that way for (1) seconds :: ev3
+motor (A v) set power (100)% :: ev3
+(motor (A v) position :: ev3)
+when button (1 v) pressed :: ev3 hat
+when distance \\< (5) :: ev3 hat
+when brightness \\< (50) :: ev3 hat
+<button (1 v) pressed? :: ev3>
+(distance :: ev3)
+(brightness :: ev3)
+beep note (60) for (0.5) secs :: ev3
 
 // WeDo 2.0
 
