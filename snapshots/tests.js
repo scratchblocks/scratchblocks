@@ -766,9 +766,9 @@ test(
   `
 // Text to Speech
 
-speak (hello)
-set voice to (alto v)
-set language to (English v)
+speak (hello) :: tts
+set voice to (alto v) :: tts
+set language to (English v) :: tts
 
 // Translate
 
@@ -824,4 +824,5 @@ when tilted (any v)
 (distance)
 <tilted (any v)?>
 (tilt angle (up v))
-`)
+`
+)

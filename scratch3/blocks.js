@@ -97,6 +97,7 @@ IconView.icons = {
   musicBlock: { width: 40, height: 40 },
   penBlock: { width: 40, height: 40 },
   videoBlock: { width: 40, height: 40, dy: 10 },
+  ttsBlock: { width: 40, height: 40, dx: 4, dy: 4 },
 }
 
 /* Line */
@@ -253,6 +254,11 @@ var BlockView = function(block) {
     case "video":
       this.children.unshift(new LineView())
       this.children.unshift(new IconView({ name: "videoBlock" }))
+      this.info.category = "extension"
+      break
+    case "tts":
+      this.children.unshift(new LineView())
+      this.children.unshift(new IconView({ name: "ttsBlock" }))
       this.info.category = "extension"
       break
   }
@@ -534,7 +540,12 @@ BlockView.prototype.draw = function() {
         }
       }
 
-      objects.push(SVG.move(padLeft + child.x, (line.y + y) | 0, child.el))
+      var x = padLeft + child.x
+      if (child.dx) {
+        x += child.dx
+      }
+
+      objects.push(SVG.move(x, (line.y + y) | 0, child.el))
     }
   }
 

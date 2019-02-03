@@ -204,6 +204,9 @@ var BlockView = function(block) {
     case "video":
       this.info.category = "sensing"
       break
+    case "tts":
+      this.info.category = "extension"
+      break
   }
 
   this.x = 0
