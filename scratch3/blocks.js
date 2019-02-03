@@ -362,7 +362,9 @@ BlockView.prototype.horizontalPadding = function(child) {
       return 4 // circle in circle: 1 unit
     }
   } else if (this.isBoolean) {
-    if (child.isLabel) {
+    if (child.isIcon) {
+      return 24 // icon in hexagon: ???
+    } else if (child.isLabel) {
       return 20 // text in hexagon: 5 units
     } else if (child.isDropdown) {
       return 20 // square in hexagon: 5 units
