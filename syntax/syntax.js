@@ -288,7 +288,7 @@ function parseLines(code, languages, dialect) {
     var first = children[0]
     if (first && first.isLabel && isDefine(first.value)) {
       if (children.length < 2) {
-        children.push(makeBlock("outline"))
+        children.push(makeBlock("outline", []))
       }
       return makeBlock("define-hat", children)
     }
