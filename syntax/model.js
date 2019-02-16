@@ -248,6 +248,7 @@ Block.fromJSON = function(lang, array, part) {
     var outline = new Block(
       {
         shape: "outline",
+        category: "custom",
       },
       children
     )
