@@ -331,7 +331,7 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
       var shape = child.isScript
         ? "stack"
         : child.isInput ? child.shape : child.info.shape
-      return SVG.ringRect(w, h, child.y, child.width, child.height, shape, {
+      return SVG.roundRect(w, h, {
         class: ["sb3-" + this.info.category].join(" "),
       })
     }
