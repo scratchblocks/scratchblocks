@@ -127,6 +127,11 @@
     "when %m.booleanSensor": "כאשר %m.booleanSensor",
     "sensor %m.booleanSensor?": "חישן %m.booleanSensor ?",
     "%m.sensor sensor value": "ערך חישן %m.sensor",
+    "turn %m.motor on for %n secs": "הפעל %m.motor ל %n שניות",
+    "turn %m.motor on": "הפעל %m.motor",
+    "turn %m.motor off": "כבה %m.motor",
+    "set %m.motor power to %n": "קבע כוח %m.motor ל %n",
+    "set %m.motor2 direction to %m.motorDirection": "קבע כיוון %m.motor2 ל %m.motorDirection",
     "distance": "מרחק",
     "tilt": "הטיה",
     "else": "ואם לא"

@@ -1,17 +1,27 @@
 {
   "commands": {
     "clear": "පැහැදිලි කරනවා",
+    "forever": "සදහටම",
+    "when I start as a clone": "මා ක්ලෝනයක් ලෙස පටන් ගත් විට",
     "delete this clone": "මේ ක්ලෝනය ඉවත් කරන්න",
     "direction": "දිශාව",
     "answer": "පිළිතුර",
     "days since 2000": "2000 සිට දින ",
     "%b and %b": "%b සහ %b",
     "%b or %b": "%b හෝ %b",
-    "distance": "පරතරය"
+    "distance": "පරතරය",
+    "else": "නැතිනම්"
   },
   "ignorelt": [],
-  "dropdowns": {},
-  "osis": [],
+  "dropdowns": {
+    "all": "සියල්ල",
+    "myself": "මම ම",
+    "other scripts in sprite": "වස්තුවේ අනිත් කේත",
+    "this script": "මෙම කේතය"
+  },
+  "osis": [
+    "වස්තුවේ අනිත් කේත"
+  ],
   "define": [
     "අර්ථ දක්වනවා"
   ],

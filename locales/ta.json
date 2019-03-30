@@ -142,8 +142,15 @@
   "ignorelt": [],
   "dropdowns": {
     "A connected": "A இணைக்கப்பட்டிருக்கிறது",
+    "all": "அனைத்தும்",
     "B connected": "B இணைக்கப்பட்டிருக்கிறது",
-    "C connected": "C இணைக்கப்பட்டிருக்கிறது"
+    "brightness": "பிரகாசம்",
+    "C connected": "C இணைக்கப்பட்டிருக்கிறது",
+    "color": "நிறம்",
+    "ghost": "பேய்",
+    "hour": "மணி",
+    "minute": "நிமிடம்",
+    "second": "விநாடி"
   },
   "osis": [],
   "define": [

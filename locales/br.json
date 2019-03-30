@@ -147,12 +147,14 @@
     "button pressed": "bouton pouezet",
     "C connected": "C kevreet",
     "color": "liv",
+    "costume name": "anv an dilhiad",
     "D connected": "D kevreet",
     "date": "deiziad",
     "day of week": "deiz eus ar sizhun",
     "don't rotate": "ne dro ket",
     "down arrow": "bir traoñ",
     "edge": "bord",
+    "fisheye": "lagad ar pesk",
     "ghost": "tasmant",
     "hour": "eur",
     "left arrow": "bir kleiz",
@@ -175,11 +177,13 @@
     "second": "segondenn",
     "slider": "potañsiometr",
     "sound": "son",
+    "space": "barrenn esaouiñ",
     "Stage": "Leurenn",
     "this script": "ar skript-mañ",
     "this sprite": "al lutun-mañ",
     "up arrow": "bir krec'h",
-    "whirl": "troidellat"
+    "whirl": "troidellat",
+    "year": "bloavezh"
   },
   "osis": [
     "skriptoù all al lutun",
@@ -205,6 +209,7 @@
   },
   "math": [
     "leur",
+    "d'an nec'h",
     "gwrizienn"
   ],
   "aliases": {},

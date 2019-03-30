@@ -232,6 +232,11 @@
     "log-àireamh nàdarra",
     "log-àireamh"
   ],
-  "aliases": {},
+  "aliases": {
+    "cuairtich @turnLeft le %n ceum": "turn @turnLeft %n degrees",
+    "cuairtich @turnRight le %n ceum": "turn @turnRight %n degrees",
+    "le briogadh air @greenFlag": "when @greenFlag clicked",
+    "deireadh": "end"
+  },
   "_name": "Gàidhlig"
 }

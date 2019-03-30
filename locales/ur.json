@@ -142,7 +142,17 @@
   "ignorelt": [
     "جب فاصلہ undefined"
   ],
-  "dropdowns": {},
+  "dropdowns": {
+    "A connected": "A منسلک ہو گیا ہے",
+    "all": "تمام",
+    "B connected": "B منسلک ہو گیا ہے",
+    "C connected": "C منسلک ہو گیا ہے",
+    "color": "رنگ",
+    "D connected": "D منسلک ہو گیا ہے",
+    "date": "تاریخ",
+    "month": "مہینہ",
+    "year": "سال"
+  },
   "osis": [],
   "define": [
     "تعریف"

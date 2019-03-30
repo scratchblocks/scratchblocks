@@ -55,6 +55,7 @@
     "set pen size to %n": "ตั้งค่าขนาดปากกาเป็น %n",
     "when @greenFlag clicked": "เมื่อ @greenFlag ถูกคลิก",
     "when %m.key key pressed": "เมื่อคีย์ %m.key ถูกกด",
+    "when this sprite clicked": "เมื่อตัวละครนี้ถูกคลิก",
     "when backdrop switches to %m.backdrop": "เมื่อฉากหลังเปลี่ยนเป็น %m.backdrop",
     "when %m.triggerSensor > %n": "เมื่อ %m.triggerSensor > %n",
     "when I receive %m.broadcast": "เมื่อฉันได้รับ %m.broadcast",
@@ -69,7 +70,7 @@
     "stop %m.stop": "หยุด %m.stop",
     "when I start as a clone": "เมื่อฉันเริ่มในฐานะโคลน",
     "create clone of %m.spriteOnly": "สร้างตัวโคลนของ %m.spriteOnly",
-    "delete this clone": "ลบโคลนนี้",
+    "delete this clone": "ลบโคลนตัวนี้",
     "ask %s and wait": "ถาม %s และคอย",
     "turn video %m.videoState": "เปิดวิดีโอ %m.videoState",
     "set video transparency to %n%": "ตั้งค่าความโปร่งใสเป็น %n%",
@@ -131,7 +132,9 @@
     "turn %m.motor on": "เปิด %m.motor ขึ้น",
     "turn %m.motor off": "ปิด %m.motor ลง",
     "set %m.motor power to %n": "ตั้งแรง %m.motor เป็น %n",
+    "set %m.motor2 direction to %m.motorDirection": "ตั้งค่าทิศทางของ %m.motor2 ไปยัง %m.motorDirection",
     "when distance %m.lessMore %n": "เมื่อระยะทาง %m.lessMore %n",
+    "when tilt %m.eNe %n": "เมื่อการเอียง %m.eNe %n",
     "distance": "ระยะห่าง",
     "tilt": "เอียง",
     "else": "มิฉะนั้น"
@@ -146,8 +149,10 @@
     "B connected": "B เชื่อมต่อแล้ว",
     "brightness": "ความสว่าง",
     "button pressed": "ปุ่มที่ถูกกด",
+    "C connected": "C เชื่อมต่อแล้ว",
     "color": "สี",
     "costume name": "ชื่อคอสตูม",
+    "D connected": "D เชื่อมต่อแล้ว",
     "date": "วันที่",
     "day of week": "วันของสัปดาห์",
     "don't rotate": "ห้ามหมุน",
@@ -170,12 +175,17 @@
     "other scripts in sprite": "สริปต์อื่นในตัวละคร",
     "pixelate": "แยกพิกเซล",
     "previous backdrop": "ฉากหลังก่อนหน้า",
+    "random position": "ตำแหน่งสุ่ม",
+    "resistance-A": "ตัวต้านทาน-A",
+    "resistance-B": "ตัวต้านทาน-B",
+    "resistance-C": "ตัวต้านทาน-C",
+    "resistance-D": "ตัวต้านทาน-D",
     "reverse": "ย้อนกลับ",
     "right arrow": "ลูกศรชี้ขวา",
     "second": "วินาที",
     "slider": "ตัวเลื่อน",
     "sound": "เสียง",
-    "space": "พื้นที่ว่าง",
+    "space": "สเปซบาร์",
     "Stage": "ฉาก",
     "that way": "ทางนั้น",
     "this script": "สคริปต์นี้",
@@ -186,7 +196,8 @@
     "year": "ปี"
   },
   "osis": [
-    "สริปต์อื่นในตัวละคร"
+    "สริปต์อื่นในตัวละคร",
+    "สคริปต์อื่นในฉาก"
   ],
   "define": [
     "กำหนด"
@@ -201,7 +212,7 @@
     "list": "รายการ",
     "Events": "เหตุการณ์",
     "Control": "ควบคุม",
-    "Sensing": "กำลังรับรู้",
+    "Sensing": "การรับรู้",
     "Operators": "โอเปอร์เรเตอร์",
     "More Blocks": "บล็อกเพิ่มเติม",
     "Tips": "เคล็ดลับ"

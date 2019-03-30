@@ -173,7 +173,7 @@
     "off": "關閉",
     "on": "開啟",
     "on-flipped": "翻轉",
-    "other scripts in sprite": "角色的其他程式",
+    "other scripts in sprite": "角色的其它程式",
     "pixelate": "像素化",
     "previous backdrop": "上一個背景",
     "random position": "隨機",
@@ -198,7 +198,7 @@
     "year": "年"
   },
   "osis": [
-    "角色的其他程式",
+    "角色的其它程式",
     "舞台上的其他程式"
   ],
   "define": [

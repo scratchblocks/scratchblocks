@@ -138,9 +138,44 @@
     "B connected": "B जुड़ा हुआ हैं",
     "brightness": "चमक",
     "button pressed": "बटन दबाया",
-    "color": "रंग"
+    "color": "रंग",
+    "costume name": "पोशाख का नाम",
+    "date": "तारीख",
+    "day of week": "दिन",
+    "don't rotate": "मत घूमे ",
+    "down arrow": "निचला एरो ",
+    "edge": "किनार",
+    "fisheye": "मोतियाबिन्द ",
+    "ghost": "भूतिया ",
+    "hour": "घंटा",
+    "left arrow": "बया एरो  ",
+    "left-right": "बाये से दाहे",
+    "minute": "मिनट",
+    "month": "महीना",
+    "mosaic": "कुट्टीभचित्र ",
+    "motion": "गति",
+    "mouse-pointer": "माउस-पॉइंटर ",
+    "myself": "स्वताः  ",
+    "off": "बंद",
+    "on": "चालू",
+    "other scripts in sprite": "पात्र के लिये दुसरि",
+    "pixelate": "धुंधला ",
+    "previous backdrop": "पिछली पृष्ठभूमि",
+    "random position": "अव्यवस्थित स्थिति ",
+    "reverse": "उलटी दिशामे ",
+    "right arrow": "दाहिना एरो",
+    "second": "सेकंद",
+    "Stage": "पड़ाव ",
+    "that way": "इस प्रकारसे",
+    "this script": "यह लिपि",
+    "this way": "इस प्रकारसे ",
+    "up arrow": "उपरा एरो ",
+    "whirl": "घूमर ",
+    "year": "वर्ष"
   },
-  "osis": [],
+  "osis": [
+    "पात्र के लिये दुसरि"
+  ],
   "define": [
     "स्पष्ट अर्थ बताइए"
   ],
@@ -154,10 +189,15 @@
     "Control": "कंट्रोल",
     "Sensing": "महसूस",
     "Operators": "ऑपरेटर्स",
-    "More Blocks": "अधिक ब्लॉक"
+    "More Blocks": "अधिक ब्लॉक",
+    "Tips": "सुझाव"
   },
   "math": [
+    "भूमि",
+    "छत",
     "असिन",
+    "cosec ",
+    "cot",
     "10^"
   ],
   "aliases": {

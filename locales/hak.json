@@ -1,0 +1,16 @@
+{
+  "commands": {
+    "forever": "循环",
+    "else": "否则"
+  },
+  "ignorelt": [],
+  "dropdowns": {},
+  "osis": [],
+  "define": [],
+  "palette": {
+    "Sound": "聲音"
+  },
+  "math": [],
+  "aliases": {},
+  "_name": ""
+}

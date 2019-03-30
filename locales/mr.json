@@ -98,6 +98,7 @@
     "length of %m.list": "%m.list ची लांबी",
     "sensor %m.booleanSensor?": "सेन्सर %m.booleanSensor?",
     "%m.sensor sensor value": "%m.sensor चे मुल्य",
+    "distance": "अंतर",
     "else": "नसल्यास"
   },
   "ignorelt": [],
@@ -124,6 +125,7 @@
     "space": "स्पेस",
     "Stage": "पायरी",
     "that way": "त्या मार्गे",
+    "this script": "ही स्किप्ट",
     "this way": "या मार्गे",
     "up arrow": "वरचा बाण",
     "whirl": "गोलाकार"

@@ -54,6 +54,7 @@
     "forever": "सधैको लागि",
     "wait until %b": "%b सम्म पर्ख",
     "repeat until %b": "%b सम्म दोहोर्‍याऊ",
+    "delete this clone": "यो क्लोन डिलिट गर्नुहोस्",
     "ask %s and wait": "%s शोध र पर्ख",
     "reset timer": "समय गणक पुन सुरु",
     "set %m.var to %s": "%m.var लाई %n बनाऊ",
@@ -92,6 +93,7 @@
     "length of %m.list": "%m.list को लंबाई",
     "sensor %m.booleanSensor?": "मापक %m.booleanSensor?",
     "%m.sensor sensor value": "मापकको गणना %m.sensor ",
+    "tilt": "झुकाव",
     "else": "अथवा"
   },
   "ignorelt": [],
@@ -115,6 +117,7 @@
     "slider": "सार्ने",
     "space": "खाली ठाउँ",
     "Stage": "मञ्च",
+    "this script": "यो  स्क्रिप्ट",
     "up arrow": "उँभो धर्सो",
     "whirl": "घुम्नु"
   },

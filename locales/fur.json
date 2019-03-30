@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %n steps": "fâs %n pas",
-    "turn @turnRight %n degrees": "zire di @turnRight %n ponts",
-    "turn @turnLeft %n degrees": "zire di @turnLeft %n ponts",
+    "turn @turnRight %n degrees": "zire di @turnRight %n grâts",
+    "turn @turnLeft %n degrees": "zire di @turnLeft %n grâts",
     "point in direction %d.direction": "ponte in direzion %d.direction",
     "point towards %m.spriteOrMouse": "ponte viars %m.spriteOrMouse",
     "go to x:%n y:%n": "va a x:%n y:%n",
