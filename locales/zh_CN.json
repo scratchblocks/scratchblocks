@@ -231,5 +231,6 @@
     "点击绿旗时": "when @greenFlag clicked",
     "结束": "end"
   },
-  "_name": "简体中文"
+  "_name": "简体中文",
+  "_altName": "Chinese (China)"
 }

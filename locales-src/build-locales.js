@@ -242,6 +242,11 @@ const convertFile = async poPath => {
     return
   }
 
+  const teamMatch = /Language-Team: (.*) \(.*/.exec(po)
+  if (teamMatch) {
+    locale._altName = teamMatch[1]
+  }
+
   const outputPath = path.join("locales", `${code}.json`)
   await writeJSON(outputPath, locale)
 

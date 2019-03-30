@@ -224,5 +224,6 @@
     "wanneer groene vlag wordt aangeklikt": "when @greenFlag clicked",
     "einde": "end"
   },
-  "_name": "Nederlands"
+  "_name": "Nederlands",
+  "_altName": "Dutch"
 }

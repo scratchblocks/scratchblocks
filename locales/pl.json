@@ -232,5 +232,6 @@
     "kiedy kliknięto zieloną flagę": "when @greenFlag clicked",
     "koniec": "end"
   },
-  "_name": "Nazwa języka"
+  "_name": "Nazwa języka",
+  "_altName": "Polish"
 }

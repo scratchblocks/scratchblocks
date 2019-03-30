@@ -226,5 +226,6 @@
     "quando si clicca sulla bandiera verde": "when @greenFlag clicked",
     "fine": "end"
   },
-  "_name": "Italiano"
+  "_name": "Italiano",
+  "_altName": "Italian"
 }

@@ -238,5 +238,6 @@
     "Quando alguém clicar na bandeira verde": "when @greenFlag clicked",
     "fim": "end"
   },
-  "_name": "Português"
+  "_name": "Português",
+  "_altName": "Portuguese"
 }

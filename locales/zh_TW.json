@@ -231,5 +231,6 @@
     "當綠旗被點擊時": "when @greenFlag clicked",
     "結束": "end"
   },
-  "_name": "正體中文"
+  "_name": "正體中文",
+  "_altName": "Chinese (Taiwan)"
 }
