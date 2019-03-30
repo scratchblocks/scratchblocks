@@ -41,6 +41,14 @@ module.exports = {
     fin: "end",
   },
 
+  gd: {
+    // Scottish Gaelic
+    "cuairtich @turnLeft le %n ceum": "turn @turnLeft %n degrees",
+    "cuairtich @turnRight le %n ceum": "turn @turnRight %n degrees",
+    "le briogadh air @greenFlag": "when @greenFlag clicked",
+    deireadh: "end",
+  },
+
   es: {
     // Spanish
     "girar a la izquierda %n grados": "turn @turnLeft %n degrees",
