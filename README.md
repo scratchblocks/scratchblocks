@@ -101,7 +101,11 @@ scratchblocks.renderMatching('pre.blocks');
 
 # Languages
 
-In node, all languages in [`src/locales`](https://github.com/tjvr/scratchblocks/blob/master/locales) will be loaded.
+To update the translations:
+```sh
+npm upgrade scratchr2_translations
+npm run locales
+```
 
 In the browser, include [`translations.js`](https://github.com/tjvr/scratchblocks/blob/master/build/translations.js), [`translations-all.js`](https://github.com/tjvr/scratchblocks/blob/master/build/translations-all.js) or build your own language pack.
 
@@ -111,8 +115,11 @@ In the browser, include [`translations.js`](https://github.com/tjvr/scratchblock
 
 If you want to build your own language pack, use `scratchblocks.loadLanguage(lang)` where lang is the contents of `src/locales/lang.json`.
 
-Please note that scratchblocks **requires** some [additional words](https://github.com/tjvr/scratchblocks/blob/master/locales-src/extra_aliases.js) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those!
+## Adding a language
 
+Each language **requires** some [additional words](https://github.com/tjvr/scratchblocks/blob/master/locales-src/extra_aliases.js) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those! You'll need to rebuild the translations with `npm run locales` after editing the aliases.
+
+New languages should be added to [the dropdown on the website](https://github.com/scratchblocks/scratchblocks.github.io/blob/master/index.html#L56), as well as [the page for local development](https://github.com/scratchblocks/scratchblocks/blob/master/index.html#L84).
 
 # Development
 
