@@ -258,8 +258,16 @@ const convertFile = async poPath => {
   return [code, locale]
 }
 
-const filterLocales = (locales, set) => {
-  return locales.filter(([code, locale]) => set.has(code))
+const writeIndex = async (codes) => {
+  let contents = ""
+  contents += "module.exports = {\n"
+  for (let code of codes) {
+    contents += `  ${code.replace(/-/g, "_")}: require("./${code}.json"),\n`
+  }
+  contents += "}\n"
+
+  const outputPath = path.join("locales", "all.js")
+  await writeFile(outputPath, contents, "utf-8")
 }
 
 const main = async () => {
@@ -273,6 +281,10 @@ const main = async () => {
   for (const code in extraAliases) {
     if (!seen.has(code)) console.error(`extra_aliases: '${code}' not used`)
   }
+
+  const codes = Array.from(seen)
+  codes.sort()
+  await writeIndex(codes)
 }
 
 main()

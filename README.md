@@ -119,8 +119,6 @@ If you want to build your own language pack, use `scratchblocks.loadLanguage(lan
 
 Each language **requires** some [additional words](https://github.com/tjvr/scratchblocks/blob/master/locales-src/extra_aliases.js) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those! You'll need to rebuild the translations with `npm run locales` after editing the aliases.
 
-New languages should be added to [the dropdown on the website](https://github.com/scratchblocks/scratchblocks.github.io/blob/master/index.html#L56), as well as [the page for local development](https://github.com/scratchblocks/scratchblocks/blob/master/index.html#L84).
-
 # Development
 
 This should set you up and start a http-server for development:
