@@ -229,6 +229,7 @@
     "e elevado a"
   ],
   "aliases": {},
-  "_name": "Galego",
-  "_altName": "Galician"
+  "name": "Galego",
+  "percentTranslated": 98,
+  "altName": "Galician"
 }

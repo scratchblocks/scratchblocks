@@ -170,6 +170,7 @@
   },
   "math": [],
   "aliases": {},
-  "_name": "தமிழ்",
-  "_altName": "Tamil"
+  "name": "தமிழ்",
+  "percentTranslated": 100,
+  "altName": "Tamil"
 }

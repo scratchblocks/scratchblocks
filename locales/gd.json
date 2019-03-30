@@ -238,6 +238,7 @@
     "le briogadh air @greenFlag": "when @greenFlag clicked",
     "deireadh": "end"
   },
-  "_name": "Gàidhlig",
-  "_altName": "Gaelic, Scottish"
+  "name": "Gàidhlig",
+  "percentTranslated": 100,
+  "altName": "Gaelic, Scottish"
 }

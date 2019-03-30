@@ -233,6 +233,7 @@
     "логаритам"
   ],
   "aliases": {},
-  "_name": "Македонски",
-  "_altName": "Macedonian"
+  "name": "Македонски",
+  "percentTranslated": 100,
+  "altName": "Macedonian"
 }

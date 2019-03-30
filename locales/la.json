@@ -137,6 +137,7 @@
   },
   "math": [],
   "aliases": {},
-  "_name": "Latina",
-  "_altName": "Latin"
+  "name": "Latina",
+  "percentTranslated": 78,
+  "altName": "Latin"
 }

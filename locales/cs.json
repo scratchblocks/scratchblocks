@@ -233,6 +233,7 @@
     "po kliknutí na zelenou vlajku": "when @greenFlag clicked",
     "konec": "end"
   },
-  "_name": "Česky",
-  "_altName": "Czech"
+  "name": "Česky",
+  "percentTranslated": 100,
+  "altName": "Czech"
 }

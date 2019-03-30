@@ -234,6 +234,7 @@
     "^ 10"
   ],
   "aliases": {},
-  "_name": "العربية",
-  "_altName": "Arabic"
+  "name": "العربية",
+  "percentTranslated": 100,
+  "altName": "Arabic"
 }

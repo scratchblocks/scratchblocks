@@ -224,6 +224,7 @@
     "rotunda a s'intreu a subra de"
   ],
   "aliases": {},
-  "_name": "Sardu",
-  "_altName": "Sardinian"
+  "name": "Sardu",
+  "percentTranslated": 100,
+  "altName": "Sardinian"
 }

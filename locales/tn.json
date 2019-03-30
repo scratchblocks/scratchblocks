@@ -213,6 +213,7 @@
     "bodilo"
   ],
   "aliases": {},
-  "_name": "Setswana",
-  "_altName": "Tswana"
+  "name": "Setswana",
+  "percentTranslated": 97,
+  "altName": "Tswana"
 }

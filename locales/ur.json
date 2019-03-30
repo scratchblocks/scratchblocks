@@ -171,6 +171,7 @@
   },
   "math": [],
   "aliases": {},
-  "_name": "اردو",
-  "_altName": "Urdu"
+  "name": "اردو",
+  "percentTranslated": 100,
+  "altName": "Urdu"
 }

@@ -222,6 +222,7 @@
     "quand le drapeau vert pressé": "when @greenFlag clicked",
     "fin": "end"
   },
-  "_name": "Français",
-  "_altName": "French"
+  "name": "Français",
+  "percentTranslated": 96,
+  "altName": "French"
 }

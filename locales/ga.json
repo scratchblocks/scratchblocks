@@ -222,6 +222,7 @@
     "síleáil"
   ],
   "aliases": {},
-  "_name": "Gaeilge",
-  "_altName": "Irish"
+  "name": "Gaeilge",
+  "percentTranslated": 99,
+  "altName": "Irish"
 }

@@ -226,6 +226,7 @@
     "へいほうこん"
   ],
   "aliases": {},
-  "_name": "にほんご",
-  "_altName": "Japanese (Hiragana)"
+  "name": "にほんご",
+  "percentTranslated": 100,
+  "altName": "Japanese (Hiragana)"
 }

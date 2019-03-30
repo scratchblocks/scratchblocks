@@ -220,6 +220,7 @@
     "radiz quadrada"
   ],
   "aliases": {},
-  "_name": "Aragonés",
-  "_altName": "Aragonese"
+  "name": "Aragonés",
+  "percentTranslated": 100,
+  "altName": "Aragonese"
 }

@@ -221,6 +221,7 @@
     "radq"
   ],
   "aliases": {},
-  "_name": "Furlan",
-  "_altName": "Friulian"
+  "name": "Furlan",
+  "percentTranslated": 99,
+  "altName": "Friulian"
 }

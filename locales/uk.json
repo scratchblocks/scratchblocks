@@ -226,6 +226,7 @@
     "корінь"
   ],
   "aliases": {},
-  "_name": "Українська",
-  "_altName": "Ukrainian"
+  "name": "Українська",
+  "percentTranslated": 100,
+  "altName": "Ukrainian"
 }

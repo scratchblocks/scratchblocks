@@ -219,6 +219,7 @@
   },
   "math": [],
   "aliases": {},
-  "_name": "Eesti",
-  "_altName": "Estonian"
+  "name": "Eesti",
+  "percentTranslated": 99,
+  "altName": "Estonian"
 }

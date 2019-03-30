@@ -90,6 +90,7 @@
     "модул"
   ],
   "aliases": {},
-  "_name": "Ирон",
-  "_altName": "Ossetic"
+  "name": "Ирон",
+  "percentTranslated": 44,
+  "altName": "Ossetic"
 }

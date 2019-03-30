@@ -227,6 +227,7 @@
     "10-logaritmi"
   ],
   "aliases": {},
-  "_name": "Suomi",
-  "_altName": "Finnish"
+  "name": "Suomi",
+  "percentTranslated": 100,
+  "altName": "Finnish"
 }

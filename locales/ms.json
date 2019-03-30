@@ -218,6 +218,7 @@
     "siling"
   ],
   "aliases": {},
-  "_name": "Bahasa Melayu",
-  "_altName": "Malay"
+  "name": "Bahasa Melayu",
+  "percentTranslated": 98,
+  "altName": "Malay"
 }

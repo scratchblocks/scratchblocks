@@ -221,6 +221,7 @@
     "En"
   ],
   "aliases": {},
-  "_name": "Español (Latino)",
-  "_altName": "Spanish (Latin America)"
+  "name": "Español (Latino)",
+  "percentTranslated": 99,
+  "altName": "Spanish (Latin America)"
 }

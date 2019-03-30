@@ -198,7 +198,7 @@ const buildLocale = (code, dictionary) => {
     math: listFor(mathFuncs),
     aliases: aliases || {},
 
-    _name: dictionary["Language-Name"],
+    name: dictionary["Language-Name"],
   }
 
   const commandCount = Object.keys(locale.commands).length
@@ -209,6 +209,9 @@ const buildLocale = (code, dictionary) => {
   console.log(
     `${(code + ":").padEnd(8)} ${(frac * 100).toFixed(1).padStart(5)}%`
   )
+
+  // Approximate fraction of blocks translated
+  locale.percentTranslated = Math.round(frac / 0.74 * 100)
 
   if (aliases) {
     locale.commands["end"] = aliases["end"]
@@ -244,7 +247,7 @@ const convertFile = async poPath => {
 
   const teamMatch = /Language-Team: (.*) \(.*/.exec(po)
   if (teamMatch) {
-    locale._altName = teamMatch[1]
+    locale.altName = teamMatch[1]
   }
 
   const outputPath = path.join("locales", `${code}.json`)

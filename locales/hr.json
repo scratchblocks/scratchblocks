@@ -221,6 +221,7 @@
     "kada je zelena zastava kliknut": "when @greenFlag clicked",
     "kraj": "end"
   },
-  "_name": "Hrvatski",
-  "_altName": "Croatian"
+  "name": "Hrvatski",
+  "percentTranslated": 94,
+  "altName": "Croatian"
 }

@@ -146,6 +146,7 @@
   },
   "math": [],
   "aliases": {},
-  "_name": "မြန်မာဘာသာ",
-  "_altName": "Burmese"
+  "name": "မြန်မာဘာသာ",
+  "percentTranslated": 89,
+  "altName": "Burmese"
 }

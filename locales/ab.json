@@ -224,6 +224,7 @@
     "еиҳау еибгоу"
   ],
   "aliases": {},
-  "_name": "Абызшәа ахьӡ",
-  "_altName": "Abkhaz"
+  "name": "Абызшәа ахьӡ",
+  "percentTranslated": 100,
+  "altName": "Abkhaz"
 }

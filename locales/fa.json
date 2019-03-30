@@ -233,6 +233,7 @@
     "وقتی که پرچم کلیک شد": "when @greenFlag clicked",
     "آخر": "end"
   },
-  "_name": "فارسی",
-  "_altName": "Persian"
+  "name": "فارسی",
+  "percentTranslated": 100,
+  "altName": "Persian"
 }

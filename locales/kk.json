@@ -226,6 +226,7 @@
     "квадрат түбірі"
   ],
   "aliases": {},
-  "_name": "Тілдің атауы",
-  "_altName": "Kazakh"
+  "name": "Тілдің атауы",
+  "percentTranslated": 100,
+  "altName": "Kazakh"
 }

@@ -224,6 +224,7 @@
     "Në"
   ],
   "aliases": {},
-  "_name": "Shqip",
-  "_altName": "Albanian"
+  "name": "Shqip",
+  "percentTranslated": 100,
+  "altName": "Albanian"
 }

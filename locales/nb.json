@@ -229,6 +229,7 @@
     "når grønt flagg klikkes": "when @greenFlag clicked",
     "slutt": "end"
   },
-  "_name": "Norsk Bokmål",
-  "_altName": "Norwegian Bokmål"
+  "name": "Norsk Bokmål",
+  "percentTranslated": 98,
+  "altName": "Norwegian Bokmål"
 }

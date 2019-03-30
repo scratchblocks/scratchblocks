@@ -212,6 +212,7 @@
     "tanjant envès"
   ],
   "aliases": {},
-  "_name": "Kreyòl",
-  "_altName": "Haitian (Haitian Creole)"
+  "name": "Kreyòl",
+  "percentTranslated": 100,
+  "altName": "Haitian (Haitian Creole)"
 }

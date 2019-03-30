@@ -136,6 +136,7 @@
   },
   "math": [],
   "aliases": {},
-  "_name": "Malti",
-  "_altName": "Maltese"
+  "name": "Malti",
+  "percentTranslated": 82,
+  "altName": "Maltese"
 }

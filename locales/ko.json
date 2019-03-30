@@ -226,6 +226,7 @@
     "제곱근"
   ],
   "aliases": {},
-  "_name": "한국어",
-  "_altName": "Korean"
+  "name": "한국어",
+  "percentTranslated": 100,
+  "altName": "Korean"
 }

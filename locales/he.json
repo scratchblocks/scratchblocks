@@ -226,6 +226,7 @@
     "כאשר לוחצים על דגל ירוק": "when @greenFlag clicked",
     "סוף": "end"
   },
-  "_name": "עִבְרִית",
-  "_altName": "Hebrew"
+  "name": "עִבְרִית",
+  "percentTranslated": 98,
+  "altName": "Hebrew"
 }

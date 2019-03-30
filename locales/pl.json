@@ -232,6 +232,7 @@
     "kiedy kliknięto zieloną flagę": "when @greenFlag clicked",
     "koniec": "end"
   },
-  "_name": "Nazwa języka",
-  "_altName": "Polish"
+  "name": "Nazwa języka",
+  "percentTranslated": 99,
+  "altName": "Polish"
 }

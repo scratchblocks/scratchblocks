@@ -197,6 +197,7 @@
     "tanjenti"
   ],
   "aliases": {},
-  "_name": "luga-jina",
-  "_altName": "Swahili"
+  "name": "luga-jina",
+  "percentTranslated": 91,
+  "altName": "Swahili"
 }

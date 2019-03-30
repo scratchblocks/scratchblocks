@@ -50,6 +50,7 @@
     "مۇتلەق قىممەت"
   ],
   "aliases": {},
-  "_name": "Uyghur",
-  "_altName": "Uighur"
+  "name": "Uyghur",
+  "percentTranslated": 18,
+  "altName": "Uighur"
 }

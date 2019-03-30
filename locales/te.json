@@ -233,6 +233,7 @@
     "10^"
   ],
   "aliases": {},
-  "_name": "భాష పేరు",
-  "_altName": "Telugu"
+  "name": "భాష పేరు",
+  "percentTranslated": 100,
+  "altName": "Telugu"
 }

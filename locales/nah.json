@@ -57,6 +57,7 @@
   },
   "math": [],
   "aliases": {},
-  "_name": "Nahuatl",
-  "_altName": "Nahuatl"
+  "name": "Nahuatl",
+  "percentTranslated": 25,
+  "altName": "Nahuatl"
 }

@@ -232,6 +232,7 @@
     "Wenn die grüne Flagge angeklickt": "when @greenFlag clicked",
     "Ende": "end"
   },
-  "_name": "Deutsch",
-  "_altName": "German"
+  "name": "Deutsch",
+  "percentTranslated": 100,
+  "altName": "German"
 }

@@ -225,6 +225,7 @@
     "Barruan"
   ],
   "aliases": {},
-  "_name": "Euskara",
-  "_altName": "Basque"
+  "name": "Euskara",
+  "percentTranslated": 100,
+  "altName": "Basque"
 }

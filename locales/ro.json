@@ -230,6 +230,7 @@
     "când se face click pe stegulețul verde": "when @greenFlag clicked",
     "terminare": "end"
   },
-  "_name": "Română",
-  "_altName": "Romanian"
+  "name": "Română",
+  "percentTranslated": 100,
+  "altName": "Romanian"
 }

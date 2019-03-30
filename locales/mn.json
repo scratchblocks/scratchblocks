@@ -225,6 +225,7 @@
     "квадрат язгуур"
   ],
   "aliases": {},
-  "_name": "Монгол хэл",
-  "_altName": "Mongolian"
+  "name": "Монгол хэл",
+  "percentTranslated": 100,
+  "altName": "Mongolian"
 }

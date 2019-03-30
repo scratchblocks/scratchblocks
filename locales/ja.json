@@ -226,6 +226,7 @@
     "平方根"
   ],
   "aliases": {},
-  "_name": "日本語",
-  "_altName": "Japanese"
+  "name": "日本語",
+  "percentTranslated": 100,
+  "altName": "Japanese"
 }

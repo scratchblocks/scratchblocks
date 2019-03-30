@@ -224,6 +224,7 @@
     "quan la bandera verda es premi": "when @greenFlag clicked",
     "fi": "end"
   },
-  "_name": "Català",
-  "_altName": "Catalan"
+  "name": "Català",
+  "percentTranslated": 99,
+  "altName": "Catalan"
 }

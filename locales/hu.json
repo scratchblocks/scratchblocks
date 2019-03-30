@@ -229,6 +229,7 @@
     "arctg"
   ],
   "aliases": {},
-  "_name": "Magyar",
-  "_altName": "Hungarian"
+  "name": "Magyar",
+  "percentTranslated": 100,
+  "altName": "Hungarian"
 }

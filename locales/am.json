@@ -226,6 +226,7 @@
     "e^"
   ],
   "aliases": {},
-  "_name": "ስም",
-  "_altName": "Amharic"
+  "name": "ስም",
+  "percentTranslated": 100,
+  "altName": "Amharic"
 }

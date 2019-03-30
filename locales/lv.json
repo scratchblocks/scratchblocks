@@ -224,6 +224,7 @@
     "apaļot uz augšu"
   ],
   "aliases": {},
-  "_name": "Latviešu",
-  "_altName": "Latvian"
+  "name": "Latviešu",
+  "percentTranslated": 100,
+  "altName": "Latvian"
 }

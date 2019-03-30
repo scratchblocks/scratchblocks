@@ -235,6 +235,7 @@
     "Όταν στην πράσινη σημαία γίνει κλικ": "when @greenFlag clicked",
     "τέλος": "end"
   },
-  "_name": "Ελληνικά",
-  "_altName": "Greek"
+  "name": "Ελληνικά",
+  "percentTranslated": 100,
+  "altName": "Greek"
 }

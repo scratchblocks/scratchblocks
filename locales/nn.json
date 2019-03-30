@@ -225,6 +225,7 @@
     "10^"
   ],
   "aliases": {},
-  "_name": "Norsk (nynorsk)",
-  "_altName": "Norwegian Nynorsk"
+  "name": "Norsk (nynorsk)",
+  "percentTranslated": 98,
+  "altName": "Norwegian Nynorsk"
 }

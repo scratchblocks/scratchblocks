@@ -226,6 +226,7 @@
     "nhật ký"
   ],
   "aliases": {},
-  "_name": "Tên ngôn ngữ",
-  "_altName": "Vietnamese"
+  "name": "Tên ngôn ngữ",
+  "percentTranslated": 100,
+  "altName": "Vietnamese"
 }

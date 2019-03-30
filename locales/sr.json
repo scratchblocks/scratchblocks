@@ -232,6 +232,7 @@
     "10 на степен"
   ],
   "aliases": {},
-  "_name": "Српски",
-  "_altName": "Serbian"
+  "name": "Српски",
+  "percentTranslated": 100,
+  "altName": "Serbian"
 }

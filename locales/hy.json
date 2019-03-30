@@ -218,6 +218,7 @@
     "Մուտք"
   ],
   "aliases": {},
-  "_name": "Հայերեն",
-  "_altName": "Armenian"
+  "name": "Հայերեն",
+  "percentTranslated": 94,
+  "altName": "Armenian"
 }

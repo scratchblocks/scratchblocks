@@ -160,6 +160,7 @@
     "১০ ^"
   ],
   "aliases": {},
-  "_name": "বাংলা",
-  "_altName": "Bengali"
+  "name": "বাংলা",
+  "percentTranslated": 63,
+  "altName": "Bengali"
 }

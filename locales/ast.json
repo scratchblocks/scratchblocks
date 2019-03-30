@@ -168,6 +168,7 @@
     "techu"
   ],
   "aliases": {},
-  "_name": "Asturianu",
-  "_altName": "Asturian"
+  "name": "Asturianu",
+  "percentTranslated": 98,
+  "altName": "Asturian"
 }

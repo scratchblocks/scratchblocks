@@ -226,6 +226,7 @@
     "al presionar bandera verde": "when @greenFlag clicked",
     "fin": "end"
   },
-  "_name": "Español",
-  "_altName": "Spanish"
+  "name": "Español",
+  "percentTranslated": 99,
+  "altName": "Spanish"
 }

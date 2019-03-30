@@ -221,6 +221,7 @@
     "valela"
   ],
   "aliases": {},
-  "_name": "isiZulu",
-  "_altName": "Zulu"
+  "name": "isiZulu",
+  "percentTranslated": 100,
+  "altName": "Zulu"
 }

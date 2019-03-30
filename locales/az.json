@@ -225,6 +225,7 @@
     "kvadrat kökalma"
   ],
   "aliases": {},
-  "_name": "Dil",
-  "_altName": "Azerbaijani"
+  "name": "Dil",
+  "percentTranslated": 100,
+  "altName": "Azerbaijani"
 }

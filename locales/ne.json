@@ -136,6 +136,7 @@
     "वर्गमूल"
   ],
   "aliases": {},
-  "_name": "नेपाली",
-  "_altName": "Nepali"
+  "name": "नेपाली",
+  "percentTranslated": 69,
+  "altName": "Nepali"
 }

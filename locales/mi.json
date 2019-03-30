@@ -223,6 +223,7 @@
     "tuanui"
   ],
   "aliases": {},
-  "_name": "Ingoa-Reo",
-  "_altName": "Maori"
+  "name": "Ingoa-Reo",
+  "percentTranslated": 100,
+  "altName": "Maori"
 }

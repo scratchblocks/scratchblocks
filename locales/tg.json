@@ -225,6 +225,7 @@
     "решаи квадратӣ"
   ],
   "aliases": {},
-  "_name": "Номи забон",
-  "_altName": "Tajik"
+  "name": "Номи забон",
+  "percentTranslated": 100,
+  "altName": "Tajik"
 }

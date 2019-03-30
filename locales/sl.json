@@ -229,6 +229,7 @@
     "ko je kliknjena zelena zastavica": "when @greenFlag clicked",
     "ustavi": "end"
   },
-  "_name": "Slovenščina",
-  "_altName": "Slovenian"
+  "name": "Slovenščina",
+  "percentTranslated": 100,
+  "altName": "Slovenian"
 }

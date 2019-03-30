@@ -218,6 +218,7 @@
     "tak"
   ],
   "aliases": {},
-  "_name": "Svenska",
-  "_altName": "Swedish"
+  "name": "Svenska",
+  "percentTranslated": 98,
+  "altName": "Swedish"
 }

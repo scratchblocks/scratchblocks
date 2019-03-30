@@ -226,6 +226,7 @@
     "ใน"
   ],
   "aliases": {},
-  "_name": "ไทย",
-  "_altName": "Thai"
+  "name": "ไทย",
+  "percentTranslated": 100,
+  "altName": "Thai"
 }

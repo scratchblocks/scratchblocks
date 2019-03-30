@@ -216,6 +216,7 @@
     "radiko"
   ],
   "aliases": {},
-  "_name": "Esperanto",
-  "_altName": "Esperanto"
+  "name": "Esperanto",
+  "percentTranslated": 94,
+  "altName": "Esperanto"
 }

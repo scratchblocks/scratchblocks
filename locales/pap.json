@@ -213,6 +213,7 @@
     "wòrtel"
   ],
   "aliases": {},
-  "_name": "Idoma-Nòmber",
-  "_altName": "Papiamento"
+  "name": "Idoma-Nòmber",
+  "percentTranslated": 97,
+  "altName": "Papiamento"
 }

@@ -223,6 +223,7 @@
     "loft"
   ],
   "aliases": {},
-  "_name": "Íslenska",
-  "_altName": "Icelandic"
+  "name": "Íslenska",
+  "percentTranslated": 100,
+  "altName": "Icelandic"
 }

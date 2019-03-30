@@ -231,6 +231,7 @@
     "لۆگاریتم"
   ],
   "aliases": {},
-  "_name": "ناوی زمان",
-  "_altName": "Central Kurdish"
+  "name": "ناوی زمان",
+  "percentTranslated": 100,
+  "altName": "Central Kurdish"
 }

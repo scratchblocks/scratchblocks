@@ -225,6 +225,7 @@
     "10 ^മലയാളം"
   ],
   "aliases": {},
-  "_name": "മലയാളം",
-  "_altName": "Malayalam"
+  "name": "മലയാളം",
+  "percentTranslated": 98,
+  "altName": "Malayalam"
 }

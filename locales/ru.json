@@ -231,6 +231,7 @@
     "когда щёлкнут по зелёному флагу": "when @greenFlag clicked",
     "конец": "end"
   },
-  "_name": "Название языка",
-  "_altName": "Russian"
+  "name": "Название языка",
+  "percentTranslated": 100,
+  "altName": "Russian"
 }

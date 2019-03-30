@@ -227,6 +227,7 @@
     "e^"
   ],
   "aliases": {},
-  "_name": "Български",
-  "_altName": "Bulgarian"
+  "name": "Български",
+  "percentTranslated": 100,
+  "altName": "Bulgarian"
 }

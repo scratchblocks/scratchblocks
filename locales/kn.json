@@ -180,6 +180,7 @@
     "ವರ್ಗಮೂಲ"
   ],
   "aliases": {},
-  "_name": "ಭಾಷೆ-ಹೆಸರು",
-  "_altName": "Kannada"
+  "name": "ಭಾಷೆ-ಹೆಸರು",
+  "percentTranslated": 94,
+  "altName": "Kannada"
 }

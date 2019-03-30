@@ -217,6 +217,7 @@
     "ketika bendera hijau diklik": "when @greenFlag clicked",
     "selesai": "end"
   },
-  "_name": "Bahasa Indonesia",
-  "_altName": "Indonesian"
+  "name": "Bahasa Indonesia",
+  "percentTranslated": 95,
+  "altName": "Indonesian"
 }

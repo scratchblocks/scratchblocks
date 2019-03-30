@@ -229,6 +229,7 @@
     "exp"
   ],
   "aliases": {},
-  "_name": "Slovenčina",
-  "_altName": "Slovak"
+  "name": "Slovenčina",
+  "percentTranslated": 100,
+  "altName": "Slovak"
 }

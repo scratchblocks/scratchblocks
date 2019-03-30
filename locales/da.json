@@ -220,6 +220,7 @@
     "kvrod"
   ],
   "aliases": {},
-  "_name": "Dansk",
-  "_altName": "Danish"
+  "name": "Dansk",
+  "percentTranslated": 98,
+  "altName": "Danish"
 }

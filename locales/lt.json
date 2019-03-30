@@ -226,6 +226,7 @@
     "lg"
   ],
   "aliases": {},
-  "_name": "Lietuvių",
-  "_altName": "Lithuanian"
+  "name": "Lietuvių",
+  "percentTranslated": 98,
+  "altName": "Lithuanian"
 }

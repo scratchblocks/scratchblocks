@@ -166,6 +166,7 @@
   },
   "math": [],
   "aliases": {},
-  "_name": "Kinyarwanda",
-  "_altName": "Kinyarwanda"
+  "name": "Kinyarwanda",
+  "percentTranslated": 92,
+  "altName": "Kinyarwanda"
 }

@@ -136,6 +136,7 @@
   },
   "math": [],
   "aliases": {},
-  "_name": "Kurdî",
-  "_altName": "Kurdish"
+  "name": "Kurdî",
+  "percentTranslated": 69,
+  "altName": "Kurdish"
 }

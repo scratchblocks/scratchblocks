@@ -52,6 +52,7 @@
   },
   "math": [],
   "aliases": {},
-  "_name": "Føroyskt",
-  "_altName": "Faroese"
+  "name": "Føroyskt",
+  "percentTranslated": 27,
+  "altName": "Faroese"
 }
