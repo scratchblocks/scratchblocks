@@ -248,15 +248,6 @@ const convertFile = async poPath => {
   return [code, locale]
 }
 
-const writeAllLocales = async (name, locales) => {
-  const allTranslations = {}
-  for (let [code, locale] of locales) {
-    allTranslations[code] = locale
-  }
-  const outputPath = path.join("locales", name)
-  await writeJSON(outputPath, allTranslations)
-}
-
 const filterLocales = (locales, set) => {
   return locales.filter(([code, locale]) => set.has(code))
 }
@@ -266,10 +257,6 @@ const main = async () => {
   const fileNames = dir.map(n => path.join(localePath, n))
   const locales = await Promise.all(fileNames.map(convertFile))
   const validLocales = locales.filter(x => !!x)
-  await writeAllLocales(
-    "_forums.js",
-    filterLocales(validLocales, new Set(forumLangs))
-  )
 
   // check every extra language was used
   const seen = new Set(validLocales.map(([code, locale]) => code))
