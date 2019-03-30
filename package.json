@@ -32,21 +32,21 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/core": "^7.4.0",
     "@babel/plugin-external-helpers": "^7.2.0",
     "@babel/plugin-transform-object-assign": "^7.2.0",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-env": "^7.4.2",
     "browserify": "^16.2.3",
-    "jest": "^19.0.2",
+    "jest": "^24.5.0",
     "lint-staged": "^7.3.0",
     "pofile": "^1.0.10",
     "prettier": "1.7.4",
     "prettier-package-json": "^1.6.0",
-    "puppeteer": "^1.12.1",
+    "puppeteer": "^1.14.0",
     "rollup": "^0.67.4",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-babel-minify": "^6.2.0",
-    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-commonjs": "^9.2.2",
     "rollup-plugin-json": "^3.1.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
@@ -73,6 +73,6 @@
     "trailingComma": "es5"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.2.5"
+    "@babel/polyfill": "^7.4.0"
   }
 }
