@@ -11,6 +11,7 @@ const extraAliases = require("./extra_aliases")
 
 const localePath =
   "node_modules/scratchr2_translations/legacy/editor/static/locale/"
+const soundEffects = ["pitch", "pan left/right"]
 const osis = ["other scripts in sprite", "other scripts in stage"]
 const scratchSelectors = scratchCommands.map(block => block[0])
 const palette = [
@@ -192,6 +193,7 @@ const buildLocale = (code, dictionary) => {
     commands: dictionaryWith(scratchSelectors),
     ignorelt: [],
     dropdowns: dictionaryWith(dropdownValues), // used for translate()
+    soundEffects: listFor(soundEffects),
     osis: listFor(osis),
     define: listFor(["define"]),
     palette: dictionaryWith(palette), // used for forum menu
