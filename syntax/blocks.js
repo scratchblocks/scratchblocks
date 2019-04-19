@@ -74,7 +74,7 @@ var typeShapes = {
   ring: "ring",
 }
 
-var inputPat = /(%[a-zA-Z](?:\.[a-zA-Z0-9]+)?)/
+var inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
 var inputPatGlobal = new RegExp(inputPat.source, "g")
 var iconPat = /(@[a-zA-Z]+)/
 var splitPat = new RegExp(
@@ -166,6 +166,9 @@ function loadLanguage(code, language) {
     var block = blocksBySpec[spec]
 
     var aliasHash = hashSpec(alias)
+    if (block === undefined) {
+      throw new Error("Invalid alias '" + alias + "'")
+    }
     blocksByHash[aliasHash] = block
 
     language.nativeAliases[spec] = alias
@@ -188,10 +191,10 @@ function loadLanguages(languages) {
 
 var english = {
   aliases: {
-    "turn left %n degrees": "turn @turnLeft %n degrees",
-    "turn ccw %n degrees": "turn @turnLeft %n degrees",
-    "turn right %n degrees": "turn @turnRight %n degrees",
-    "turn cw %n degrees": "turn @turnRight %n degrees",
+    "turn left %2 degrees": "turn @turnLeft %2 degrees",
+    "turn ccw %2 degrees": "turn @turnLeft %2 degrees",
+    "turn right %2 degrees": "turn @turnRight %2 degrees",
+    "turn cw %2 degrees": "turn @turnRight %2 degrees",
     "when gf clicked": "when @greenFlag clicked",
     "when flag clicked": "when @greenFlag clicked",
     "when green flag clicked": "when @greenFlag clicked",

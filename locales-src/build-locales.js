@@ -11,7 +11,6 @@ const extraAliases = require("./extra_aliases")
 
 const localeNames = require('scratch-l10n').default
 const englishLocale = require('scratch-l10n/editor/blocks/en')
-const compat = require('./scratch3-compat')
 
 const rawLocales = []
 for (let code in localeNames) {
@@ -195,7 +194,7 @@ const buildLocale = (code, dictionary) => {
     math: listFor(mathFuncs),
     aliases: aliases || {},
 
-    name: dictionary["Language-Name"],
+    name: localeNames[code].name,
   }
 
   const commandCount = Object.keys(locale.commands).length
@@ -231,14 +230,24 @@ const buildLocale = (code, dictionary) => {
   return locale
 }
 
+const fixup = (key, value) => {
+  switch (key) {
+    case 'EVENT_WHENFLAGCLICKED':
+      return value.replace('%1', '@greenFlag')
+    case 'MOTION_TURNLEFT':
+      return value.replace('%1', '@turnLeft')
+    case 'MOTION_TURNRIGHT':
+      return value.replace('%1', '@turnRight')
+    default:
+      return value
+  }
+}
+
 const makeDictionary = mappings => {
   const dict = {}
   for (let key in mappings) {
-    const english = compat[key]
-    const translated = mappings[key]
-    if (!english) {
-      continue
-    }
+    const english = fixup(key, englishLocale[key])
+    const translated = fixup(key, mappings[key])
     dict[english] = translated
   }
   return dict
