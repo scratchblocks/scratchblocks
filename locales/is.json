@@ -149,7 +149,9 @@
   "osis": [
     "önnur forrit á karakter"
   ],
-  "define": [],
+  "define": [
+    "skilgreina"
+  ],
   "palette": {
     "Motion": "Hreyfing",
     "Looks": "Útlit",

@@ -149,7 +149,9 @@
   "osis": [
     "andere scripts in sprite"
   ],
-  "define": [],
+  "define": [
+    "definieer"
+  ],
   "palette": {
     "Motion": "Beweging",
     "Looks": "Uiterlijken",

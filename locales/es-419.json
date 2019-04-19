@@ -149,7 +149,9 @@
   "osis": [
     "otros programas en el objeto"
   ],
-  "define": [],
+  "define": [
+    "definir"
+  ],
   "palette": {
     "Motion": "Movimiento",
     "Looks": "Apariencia",

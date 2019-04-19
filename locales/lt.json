@@ -143,7 +143,9 @@
   "osis": [
     "kitus veikėjo scenarijus"
   ],
-  "define": [],
+  "define": [
+    "apibrėžti komandą"
+  ],
   "palette": {
     "Motion": "Judėjimas",
     "Looks": "Išvaizda",

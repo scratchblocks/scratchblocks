@@ -149,7 +149,9 @@
   "osis": [
     "druge programe lika"
   ],
-  "define": [],
+  "define": [
+    "definiraj"
+  ],
   "palette": {
     "Motion": "Kretanje",
     "Looks": "Izgled",

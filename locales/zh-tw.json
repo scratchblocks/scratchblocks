@@ -150,7 +150,9 @@
   "osis": [
     "這個物件的其它程式"
   ],
-  "define": [],
+  "define": [
+    "定義"
+  ],
   "palette": {
     "Motion": "動作",
     "Looks": "外觀",

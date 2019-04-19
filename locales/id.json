@@ -148,7 +148,9 @@
   "osis": [
     "skrip lain di sprite ini"
   ],
-  "define": [],
+  "define": [
+    "artikan"
+  ],
   "palette": {
     "Motion": "Gerakan",
     "Looks": "Tampilan",

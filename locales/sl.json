@@ -149,7 +149,9 @@
   "osis": [
     "ostale ukaze za to figuro"
   ],
-  "define": [],
+  "define": [
+    "definiraj"
+  ],
   "palette": {
     "Motion": "Gibanje",
     "Looks": "Videzi",

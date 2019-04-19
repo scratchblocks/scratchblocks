@@ -152,7 +152,9 @@
   "osis": [
     "os teus outros guiões"
   ],
-  "define": [],
+  "define": [
+    "Define"
+  ],
   "palette": {
     "Motion": "Movimento",
     "Looks": "Aparência",

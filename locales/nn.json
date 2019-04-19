@@ -152,7 +152,9 @@
   "osis": [
     "andre skript i figuren"
   ],
-  "define": [],
+  "define": [
+    "definer"
+  ],
   "palette": {
     "Motion": "Rørsle",
     "Looks": "Utsjånad",

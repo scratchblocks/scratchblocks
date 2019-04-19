@@ -238,6 +238,8 @@ const fixup = (key, value) => {
       return value.replace('%1', '@turnLeft')
     case 'MOTION_TURNRIGHT':
       return value.replace('%1', '@turnRight')
+    case 'PROCEDURES_DEFINITION':
+      return value.replace(/ ?\%1 ?/, '')
     default:
       return value
   }

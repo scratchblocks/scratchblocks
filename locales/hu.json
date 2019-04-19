@@ -150,7 +150,9 @@
   "osis": [
     "szereplő többi feladata"
   ],
-  "define": [],
+  "define": [
+    "\"meghatározása"
+  ],
   "palette": {
     "Motion": "Mozgás",
     "Looks": "Kinézet",

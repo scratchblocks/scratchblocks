@@ -150,7 +150,9 @@
   "osis": [
     "các kịch bản khác cho đối tượng "
   ],
-  "define": [],
+  "define": [
+    "định nghĩa"
+  ],
   "palette": {
     "Motion": "Chuyển động",
     "Looks": "Hiển thị",

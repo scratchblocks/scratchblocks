@@ -149,7 +149,9 @@
   "osis": [
     "teised spraidi skriptid"
   ],
-  "define": [],
+  "define": [
+    "defineeri"
+  ],
   "palette": {
     "Motion": "Liikumine",
     "Looks": "Välimus",

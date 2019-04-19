@@ -147,7 +147,9 @@
   "osis": [
     "omunye umdlalo womlingisi"
   ],
-  "define": [],
+  "define": [
+    "chaza"
+  ],
   "palette": {
     "Motion": "Ukunyakaza",
     "Looks": "Ukubukeka",

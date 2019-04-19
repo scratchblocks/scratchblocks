@@ -150,7 +150,9 @@
   "osis": [
     "citi skripti gariņā"
   ],
-  "define": [],
+  "define": [
+    "definēt"
+  ],
   "palette": {
     "Motion": "Kustība",
     "Looks": "Izskats",

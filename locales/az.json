@@ -149,7 +149,9 @@
   "osis": [
     "spraytın digər skriptləri"
   ],
-  "define": [],
+  "define": [
+    "təyin et"
+  ],
   "palette": {
     "Motion": "Hərəkət",
     "Looks": "Görünüş",

@@ -149,7 +149,9 @@
   "osis": [
     "sgriptiau eraill yn y ciplun"
   ],
-  "define": [],
+  "define": [
+    "diffinio"
+  ],
   "palette": {
     "Motion": "Symudiad",
     "Looks": "Edrychiad",

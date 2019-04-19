@@ -150,7 +150,9 @@
   "osis": [
     "jiné scénáře postavy"
   ],
-  "define": [],
+  "define": [
+    "scénář pro"
+  ],
   "palette": {
     "Motion": "Pohyb",
     "Looks": "Vzhled",

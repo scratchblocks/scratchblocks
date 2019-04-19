@@ -150,7 +150,9 @@
   "osis": [
     "该角色的其他脚本"
   ],
-  "define": [],
+  "define": [
+    "定义"
+  ],
   "palette": {
     "Motion": "运动",
     "Looks": "外观",

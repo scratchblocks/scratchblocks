@@ -149,7 +149,9 @@
   "osis": [
     "scripteanna eile sa sprid"
   ],
-  "define": [],
+  "define": [
+    "sainmhínigh"
+  ],
   "palette": {
     "Motion": "Gluaiseacht",
     "Looks": "Cuma",

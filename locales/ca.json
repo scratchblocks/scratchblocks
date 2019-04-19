@@ -147,7 +147,9 @@
   "osis": [
     "altres programes del personatge"
   ],
-  "define": [],
+  "define": [
+    "defineix"
+  ],
   "palette": {
     "Motion": "Moviment",
     "Looks": "Aspecte",

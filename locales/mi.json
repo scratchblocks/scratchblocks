@@ -150,7 +150,9 @@
   "osis": [
     "hōtuhi kē i roto i te parehe"
   ],
-  "define": [],
+  "define": [
+    "tautuhia"
+  ],
   "palette": {
     "Motion": "Nekehanga",
     "Looks": "Āhua",

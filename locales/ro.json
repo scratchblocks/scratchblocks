@@ -149,7 +149,9 @@
   "osis": [
     "alte scripturi pentru personaj"
   ],
-  "define": [],
+  "define": [
+    "definește"
+  ],
   "palette": {
     "Motion": "Mișcare",
     "Looks": "Aspect",

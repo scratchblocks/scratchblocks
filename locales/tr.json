@@ -149,7 +149,9 @@
   "osis": [
     "Kukladaki diğer diziler"
   ],
-  "define": [],
+  "define": [
+    "tanımla"
+  ],
   "palette": {
     "Motion": "Hareket",
     "Looks": "Görünüm",

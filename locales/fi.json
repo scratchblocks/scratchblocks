@@ -150,7 +150,9 @@
   "osis": [
     "hahmon muut skriptit"
   ],
-  "define": [],
+  "define": [
+    "määrittele"
+  ],
   "palette": {
     "Motion": "Liike",
     "Looks": "Ulkonäkö",

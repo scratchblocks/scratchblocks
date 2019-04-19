@@ -151,7 +151,9 @@
   "osis": [
     "sgriobtaichean eile na sprìde"
   ],
-  "define": [],
+  "define": [
+    "mìnich"
+  ],
   "palette": {
     "Motion": "Gluasad",
     "Looks": "Coltas",

@@ -151,7 +151,9 @@
   "osis": [
     "outros programas na figura"
   ],
-  "define": [],
+  "define": [
+    "definir"
+  ],
   "palette": {
     "Motion": "Movemento",
     "Looks": "Aparencia",

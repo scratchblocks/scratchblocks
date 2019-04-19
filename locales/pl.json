@@ -150,7 +150,9 @@
   "osis": [
     "inne skrypty duszka"
   ],
-  "define": [],
+  "define": [
+    "definiuj"
+  ],
   "palette": {
     "Motion": "Ruch",
     "Looks": "Wygląd",

@@ -150,7 +150,9 @@
   "osis": [
     "moje iné scenáre"
   ],
-  "define": [],
+  "define": [
+    "blok"
+  ],
   "palette": {
     "Motion": "Pohyb",
     "Looks": "Vzhľad",
