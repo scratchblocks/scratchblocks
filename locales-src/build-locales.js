@@ -5,12 +5,22 @@ const readDir = promisify(fs.readdir)
 const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 
-const PO = require("pofile")
 const scratchCommands = require("../syntax/commands")
+const blocks = require("../syntax/blocks")
 const extraAliases = require("./extra_aliases")
 
-const localePath =
-  "node_modules/scratchr2_translations/legacy/editor/static/locale/"
+const localeNames = require('scratch-l10n').default
+const englishLocale = require('scratch-l10n/editor/blocks/en')
+const compat = require('./scratch3-compat')
+
+const rawLocales = []
+for (let code in localeNames) {
+  rawLocales.push({
+    code: code,
+    mappings: require('scratch-l10n/editor/blocks/' + code),
+  })
+}
+
 const soundEffects = ["pitch", "pan left/right"]
 const osis = ["other scripts in sprite", "other scripts in stage"]
 const scratchSelectors = scratchCommands.map(block => block[0])
@@ -132,21 +142,6 @@ const dropdownValues = [
   "year",
 ]
 
-const poToDict = po => {
-  const dictionary = {}
-  for (let item of po.items) {
-    const english = item.msgid
-    const result = item.msgstr[0]
-    dictionary[english] = result
-  }
-  return dictionary
-}
-
-const parseFile = async poPath => {
-  const contents = await readFile(poPath, "utf-8")
-  return PO.parse(contents)
-}
-
 const writeJSON = async (outputPath, obj) => {
   const contents = JSON.stringify(obj, null, "  ")
   await writeFile(outputPath, contents, "utf-8")
@@ -236,20 +231,25 @@ const buildLocale = (code, dictionary) => {
   return locale
 }
 
-const convertFile = async poPath => {
-  const po = await parseFile(poPath)
+const makeDictionary = mappings => {
+  const dict = {}
+  for (let key in mappings) {
+    const english = compat[key]
+    const translated = mappings[key]
+    if (!english) {
+      continue
+    }
+    dict[english] = translated
+  }
+  return dict
+}
 
-  const code = po.headers["Language"] || path.basename(poPath, ".po")
-  const dictionary = poToDict(po)
+const convertFile = async ({code, mappings}) => {
+  const dictionary = makeDictionary(mappings)
 
   const locale = buildLocale(code, dictionary)
   if (!locale) {
     return
-  }
-
-  const teamMatch = /Language-Team: (.*) \(.*/.exec(po)
-  if (teamMatch) {
-    locale.altName = teamMatch[1]
   }
 
   const outputPath = path.join("locales", `${code}.json`)
@@ -271,9 +271,7 @@ const writeIndex = async (codes) => {
 }
 
 const main = async () => {
-  const dir = await readDir(localePath)
-  const fileNames = dir.map(n => path.join(localePath, n))
-  const locales = await Promise.all(fileNames.map(convertFile))
+  const locales = await Promise.all(rawLocales.map(convertFile))
   const validLocales = locales.filter(x => !!x)
 
   // check every extra language was used

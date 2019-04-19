@@ -39,7 +39,6 @@
     "browserify": "^16.2.3",
     "jest": "^24.5.0",
     "lint-staged": "^7.3.0",
-    "pofile": "^1.0.10",
     "prettier": "1.7.4",
     "prettier-package-json": "^1.6.0",
     "puppeteer": "^1.14.0",
@@ -52,7 +51,7 @@
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-serve": "^0.6.1",
-    "scratchr2_translations": "git://github.com/LLK/scratchr2_translations.git#master"
+    "scratch-l10n": "^3.1.20190328114324"
   },
   "keywords": [
     "scratch"
