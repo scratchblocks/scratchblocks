@@ -35,7 +35,7 @@ var overrideCategories = [
 var overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "ring"]
 
 // languages that should be displayed right to left
-var rtlLanguages = ["ar", "fa", "he"]
+var rtlLanguages = ["ar", "ckb", "fa", "he"]
 
 // List of commands taken from Scratch
 var scratchCommands = require("./commands.js")
