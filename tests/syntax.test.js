@@ -29,25 +29,10 @@ function testScript(code, json, options) {
   return fromCode
 }
 
-function testScriptScratch3(code, json) {
-  let script = getScript(parse(code, {
-    dialect: 'scratch3',
-  }))
-  expect(script.toJSON()).toEqual(json)
-}
-
 function testBlock(code, json, options) {
   let script = testScript(code, [json], options)
   expect(script.blocks.length).toBe(1)
   return script.blocks[0]
-}
-
-function testBlockScratch3(code, json) {
-  let block = parseBlock(code, {
-    dialect: 'scratch3',
-  })
-  expect(block.toJSON()).toEqual(json)
-  return block
 }
 
 /* * */
@@ -105,22 +90,6 @@ describe('literals', () => {
 
 })
 
-describe('scratch3 dialect', () => {
-  test('parses parentheses as strings', () => {
-    testBlockScratch3('say (Hello!) for (foo) secs', ['say:duration:elapsed:from:', 'Hello!', 'foo'])
-  })
-
-  test('define hats', () => {
-    testBlockScratch3('define foo (num) if <bool>', ['procDef', 'foo %n if %b', ['num', 'bool'], [1, false], false])
-  })
-
-  test('standalone reporters', () => {
-    testBlock('(foo)', ['readVariable', 'foo'])
-    testBlockScratch3('(foo)', ['readVariable', 'foo'])
-  })
-})
-
-
 describe('color literals', () => {
   test('work', () => {
     let b = testBlock('<touching color [#f0f] ?>', ["touchingColor:", 16711935])
@@ -159,52 +128,7 @@ describe('recognise lists', () => {
       ['showList:', 'list'],
     ])
   })
-
-  test('in scratch3 dialect', () => {
-    testScriptScratch3('say (list)\nshow list [list v]', [
-      ['say:', ['contentsOfList:', 'list']],
-      ['showList:', 'list'],
-    ])
-  })
 })
-
-describe('recognise scratch3 variables', () => {
-  test('not a variable', () => {
-    let block = testBlockScratch3('say (string)', ['say:', 'string'])
-    expect(block.children[1].isInput).toBe(true)
-  })
-
-  test('manually specify variable', () => {
-    let script = getScript(parse('say (foo :: variables)'), {
-      dialect: 'scratch3',
-    })
-    let foo = script.blocks[0].children[1]
-    expect(foo.isBlock).toBe(true)
-    expect(foo.info.category).toBe('variables')
-  })
-
-  test('from set command', () => {
-    testScriptScratch3('say (foo)\nset [foo v] to (quxx)', [
-      ['say:', ['readVariable', 'foo']],
-      ['setVar:to:', 'foo', 'quxx'],
-    ])
-  })
-
-  test('from show command', () => {
-    testScriptScratch3('say (foo)\nshow variable [foo v]', [
-      ['say:', ['readVariable', 'foo']],
-      ['showVariable:', 'foo'],
-    ])
-  })
-
-  test('ignore square strings', () => {
-    testScriptScratch3('say [foo]\nshow variable [foo v]', [
-      ['say:', 'foo'],
-      ['showVariable:', 'foo'],
-    ])
-  })
-})
-
 
 describe('disambiguation', () => {
   test('green: length of string', () => {
