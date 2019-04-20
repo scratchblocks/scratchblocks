@@ -40,6 +40,7 @@ var rtlLanguages = ["ar", "ckb", "fa", "he"]
 // List of commands taken from Scratch
 var scratchCommands = require("./commands.js")
 
+var inputNumberPat = /\%([0-9]+)/
 var inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
 var inputPatGlobal = new RegExp(inputPat.source, "g")
 var iconPat = /(@[a-zA-Z]+)/
@@ -50,15 +51,21 @@ var splitPat = new RegExp(
 
 var hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/
 
+function parseInputNumber(part) {
+  var m = inputNumberPat.exec(part)
+  return m ? +m[1] : 0
+}
+
 // used for procDefs
 function parseSpec(spec) {
   var parts = spec.split(splitPat).filter(x => !!x)
+  var inputs = parts.filter(function(p) {
+    return inputPat.test(p)
+  })
   return {
     spec: spec,
     parts: parts,
-    inputs: parts.filter(function(p) {
-      return inputPat.test(p)
-    }),
+    inputs: inputs,
     hash: hashSpec(spec),
   }
 }
@@ -361,6 +368,7 @@ module.exports = {
 
   blocksBySelector,
   parseSpec,
+  parseInputNumber,
   inputPat,
   unicodeIcons,
   english,

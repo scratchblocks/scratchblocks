@@ -31,6 +31,7 @@ var {
   blocksBySelector,
   parseSpec,
   inputPat,
+  parseInputNumber,
   iconPat,
   rtlLanguages,
   unicodeIcons,
@@ -200,7 +201,7 @@ Input.prototype.translate = function(lang) {
 
 var Block = function(info, children, comment) {
   assert(info)
-  this.info = info
+  this.info = Object.assign({}, info)
   this.children = children
   this.comment = comment || null
   this.diff = null
@@ -304,11 +305,13 @@ Block.fromJSON = function(lang, array, part) {
     var inputs = info.inputs
   }
   var children = parts.map(function(part) {
-    var m = /\%([0-9])/.exec(part)
-    if (m) {
-      var childIndex = +m[1]
-      var input = inputs[childIndex - 1]
-      var arg = args.shift()
+    var number = parseInputNumber(part)
+    if (selector === 'turnLeft:' || selector === 'turnRight:') {
+      number -= 1 // TODO this doesn't work :'(
+    }
+    if (number) {
+      var input = inputs[number - 1]
+      var arg = args.shift() // TODO
       return (isArray(arg) ? Block : Input).fromJSON(lang, arg, input)
     } else if (iconPat.test(part)) {
       return new Icon(part.slice(1))
@@ -422,37 +425,52 @@ Block.prototype.translate = function(lang, isShallow) {
     assert(this.children[0].isLabel)
     this.children[0] = new Label(lang.define[0] || english.define[0])
   }
+
   var block = blocksBySelector[selector]
   if (!block) return
   var nativeSpec = lang.commands[block.spec]
   if (!nativeSpec) return
   var nativeInfo = parseSpec(nativeSpec)
-  var args = this.children.filter(function(child) {
+
+  var oldSpec = this.info.language.commands[block.spec]
+
+  // Work out indexes of existing children
+  var rawArgs = this.children.filter(function(child) {
     return !child.isLabel && !child.isIcon
   })
+  var oldParts = parseSpec(oldSpec).parts
+  var oldInputOrder = oldParts
+    .map(part => parseInputNumber(part))
+    .filter(x => !!x)
+  var args = oldInputOrder.map(number => rawArgs[number - 1])
+
   if (!isShallow) {
     args.forEach(function(child) {
       child.translate(lang)
     })
   }
+
+  // Get new children by index
   this.children = nativeInfo.parts
     .map(function(part) {
       var part = part.trim()
       if (!part) return
-      var m = /\%([0-9])/.exec(part)
-      if (m) {
-        var childIndex = +m[1]
-        return args.splice(childIndex - 1, 1)[0]
+      var number = parseInputNumber(part)
+      if (number) {
+        return args[number - 1]
       } else {
         return iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part)
       }
     })
     .filter(x => !!x)
-  args.forEach(arg => {
-    this.children.push(arg)
-  })
+
+  // Push any remaining children??
+  // args.forEach(arg => {
+  //   this.children.push(arg)
+  // })
   this.info.language = lang
   this.info.isRTL = rtlLanguages.indexOf(lang.code) > -1
+  this.info.categoryIsDefault = true
 }
 
 /* Comment */

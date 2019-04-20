@@ -251,10 +251,18 @@ describe('comparison ops: < and > ', () => {
 })
 
 describe('translate', () => {
-  test('reorders arguments', () => {
+  test('reorders arguments: en -> de', () => {
     const b = parseBlock('go [back v] (1) layers')
     b.translate(allLanguages.de)
     expect(b.stringify()).toEqual('gehe (1) Ebenen [back v]')
+  })
+
+  test('reorders arguments: de -> en', () => {
+    const b = parseBlock('gehe (1) Ebenen [back v]', {
+      languages: ['de'],
+    })
+    b.translate(allLanguages.en)
+    expect(b.stringify()).toEqual('go [back v] (1) layers')
   })
 })
 
