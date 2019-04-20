@@ -117,19 +117,14 @@ function minifyHash(hash) {
 
 var blocksBySelector = {}
 var blocksBySpec = {}
-var allBlocks = scratchCommands.map(function(command) {
-  var info = Object.assign(parseSpec(command[0]), {
-    shape: typeShapes[command[1]], // /[ bcefhr]|cf/
-    category: categoriesById[command[2] % 100],
-    selector: command[3],
-    hasLoopArrow: ["doRepeat", "doUntil", "doForever"].indexOf(command[3]) > -1,
-  })
+var allBlocks = scratchCommands.map(function(info) {
+  info.hasLoopArrow = !!info.hasLoopArrow
   if (info.selector) {
     // nb. command order matters!
     // Scratch 1.4 blocks are listed last
     if (!blocksBySelector[info.selector]) blocksBySelector[info.selector] = info
   }
-  return (blocksBySpec[info.spec] = info)
+  return blocksBySpec[info.spec] = info
 })
 
 var unicodeIcons = {
@@ -164,11 +159,10 @@ function loadLanguage(code, language) {
   Object.keys(language.aliases).forEach(function(alias) {
     var spec = language.aliases[alias]
     var block = blocksBySpec[spec]
-
-    var aliasHash = hashSpec(alias)
     if (block === undefined) {
       throw new Error("Invalid alias '" + alias + "'")
     }
+    var aliasHash = hashSpec(alias)
     blocksByHash[aliasHash] = block
 
     language.nativeAliases[spec] = alias
