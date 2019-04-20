@@ -10,14 +10,19 @@ const blocks = require("../syntax/blocks")
 const extraAliases = require("./extra_aliases")
 
 const localeNames = require("scratch-l10n").default
-const englishLocale = require("scratch-l10n/editor/blocks/en")
 
+let english
 const rawLocales = []
 for (let code in localeNames) {
-  rawLocales.push({
+  const raw = {
     code: code,
     mappings: require("scratch-l10n/editor/blocks/" + code),
-  })
+    extensionMappings: require("scratch-l10n/editor/extensions/" + code),
+  }
+  rawLocales.push(raw)
+  if (code === 'en') {
+    english = raw
+  }
 }
 
 const soundEffects = [
@@ -91,44 +96,47 @@ const reverseDict = d => {
   return o
 }
 
-const translateKey = (mappings, key) => {
-  const result = mappings[key]
+const translateKey = (raw, key) => {
+  const result = raw.mappings[key] || raw.extensionMappings[key]
+  const englishResult = english.mappings[key] || english.extensionMappings[key]
+  if (!englishResult) {
+    throw new Error("Unknown key: '" + key + "'")
+  }
   if (!result) return
-  const englishResult = englishLocale[key]
-  if (result === englishResult) return
-  return fixup(key, result)
+  //if (result === englishResult) return
+  return fixup(key, result, englishResult)
 }
 
-const lookupEachIn = dictionary => items => {
+const lookupEachIn = raw => items => {
   const output = []
   for (let key of items) {
-    const result = translateKey(dictionary, key)
+    const result = translateKey(raw, key)
     if (!result) continue
     output.push(result)
   }
   return output
 }
 
-const translateEachIn = dictionary => items => {
+const translateEachIn = raw => items => {
   const output = {}
   for (let key of items) {
-    const result = translateKey(dictionary, key)
-    const englishResult = englishLocale[key]
+    const result = translateKey(raw, key)
+    const englishResult = english.mappings[key]
     if (!result) continue
     output[englishResult] = result
   }
   return output
 }
 
-const buildLocale = (code, mappings) => {
-  const lookup = k => mappings[k] || ""
-  const listFor = lookupEachIn(mappings)
-  const dictionaryWith = translateEachIn(mappings)
+const buildLocale = (code, rawLocale) => {
+  const listFor = lookupEachIn(rawLocale)
+  const dictionaryWith = translateEachIn(rawLocale)
 
   const aliases = extraAliases[code]
 
   const locale = {
     commands: {},
+    dropdowns: {},
     ignorelt: [],
     soundEffects: listFor(soundEffects),
     osis: listFor(osis),
@@ -141,13 +149,15 @@ const buildLocale = (code, mappings) => {
   }
 
   for (let command of scratchCommands) {
-    const result = translateKey(mappings, command.scratch3_selector)
+    if (!command.scratch3_selector) continue
+    const result = translateKey(rawLocale, command.scratch3_selector)
     if (!result) continue
     locale.commands[command.scratch2_spec] = result
   }
 
   const commandCount = Object.keys(locale.commands).length
   if (commandCount === 0) {
+    console.log("No blocks: " + localeNames[code].name)
     return
   }
   const frac = commandCount / scratchSpecs.length
@@ -162,15 +172,24 @@ const buildLocale = (code, mappings) => {
     locale.commands["end"] = aliases["end"]
   }
 
-  const whenDistance = lookup("when distance < %1")
-  if (whenDistance.indexOf(" < %1") !== -1) {
-    locale.ignorelt.push(whenDistance.replace(/ \< \%1.*$/))
-  }
+  // TODO does this block still exist?
+  //const whenDistance = translateKey("when distance < %1")
+  //if (whenDistance.indexOf(" < %1") !== -1) {
+    //locale.ignorelt.push(whenDistance.replace(/ \< \%1.*$/))
+  //}
 
   return locale
 }
 
-const fixup = (key, value) => {
+const fixup = (key, value, englishValue) => {
+  let number = 0
+  var variables = {}
+  englishValue.replace(/\[[^\]]+\]/g, key => {
+    variables[key] = "%" + (++number)
+  })
+
+  value = value.replace(/\[[^\]]+\]/g, key => variables[key])
+
   switch (key) {
     case "EVENT_WHENFLAGCLICKED":
       return value.replace("%1", "@greenFlag")
@@ -185,8 +204,9 @@ const fixup = (key, value) => {
   }
 }
 
-const convertFile = async ({ code, mappings }) => {
-  const locale = buildLocale(code, mappings)
+const convertFile = async (rawLocale) => {
+  const code = rawLocale.code
+  const locale = buildLocale(code, rawLocale)
   if (!locale) {
     return
   }
