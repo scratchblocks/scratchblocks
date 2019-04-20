@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "%1 adım git",
-    "turn @turnRight %2 degrees": "@turnRight %2 derece dön",
-    "turn @turnLeft %2 degrees": "@turnLeft %2 derece dön",
+    "turn @turnRight %1 degrees": "@turnRight %1 derece dön",
+    "turn @turnLeft %1 degrees": "@turnLeft %1 derece dön",
     "point in direction %1": "%1 yönüne yönel",
     "point towards %1": "%1 yönüne doğru yönel",
     "go to %1": "%1'e git",
@@ -168,10 +168,10 @@
     "karekök"
   ],
   "aliases": {
-    "_ derece sola dön": "turn @turnLeft %2 degrees",
-    "_ derece sağa dön": "turn @turnRight %2 degrees",
-    "_ derece saatin tersi yönde dön": "turn @turnLeft %2 degrees",
-    "_ derece saat yönünde dön": "turn @turnRight %2 degrees",
+    "_ derece sola dön": "turn @turnLeft %1 degrees",
+    "_ derece sağa dön": "turn @turnRight %1 degrees",
+    "_ derece saatin tersi yönde dön": "turn @turnLeft %1 degrees",
+    "_ derece saat yönünde dön": "turn @turnRight %1 degrees",
     "yeşil bayrak tıklandığında": "when @greenFlag clicked",
     "son": "end"
   },

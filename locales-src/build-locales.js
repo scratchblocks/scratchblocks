@@ -22,7 +22,7 @@ for (let code in localeNames) {
 
 const soundEffects = ["pitch", "pan left/right"]
 const osis = ["other scripts in sprite", "other scripts in stage"]
-const scratchSelectors = scratchCommands.map(block => block[0])
+const scratchSpecs = scratchCommands.map(block => block.spec)
 const palette = [
   "Motion",
   "Looks",
@@ -184,7 +184,7 @@ const buildLocale = (code, dictionary) => {
   const aliases = extraAliases[code]
 
   const locale = {
-    commands: dictionaryWith(scratchSelectors),
+    commands: dictionaryWith(scratchSpecs),
     ignorelt: [],
     dropdowns: dictionaryWith(dropdownValues), // used for translate()
     soundEffects: listFor(soundEffects),
@@ -201,7 +201,7 @@ const buildLocale = (code, dictionary) => {
   if (commandCount === 0) {
     return
   }
-  const frac = commandCount / scratchSelectors.length
+  const frac = commandCount / scratchSpecs.length
   console.log(
     `${(code + ":").padEnd(8)} ${(frac * 100).toFixed(1).padStart(5)}%`
   )
@@ -218,13 +218,12 @@ const buildLocale = (code, dictionary) => {
     locale.ignorelt.push(whenDistance.replace(/ \< \%n.*$/))
   }
 
-  for (let block of scratchCommands) {
-    const selector = block[0]
-    const translation = dictionary[selector]
-    if (!translation || translation === selector) {
+  for (let spec of scratchSpecs) {
+    const translation = dictionary[spec]
+    if (!translation || translation === spec) {
       continue
     }
-    locale.commands[selector] = translation
+    locale.commands[spec] = translation
   }
 
   return locale
@@ -235,9 +234,9 @@ const fixup = (key, value) => {
     case "EVENT_WHENFLAGCLICKED":
       return value.replace("%1", "@greenFlag")
     case "MOTION_TURNLEFT":
-      return value.replace("%1", "@turnLeft")
+      return value.replace("%1", "@turnLeft").replace("%2", "%1")
     case "MOTION_TURNRIGHT":
-      return value.replace("%1", "@turnRight")
+      return value.replace("%1", "@turnRight").replace("%2", "%1")
     case "PROCEDURES_DEFINITION":
       return value.replace(/ ?\%1 ?/, "")
     default:

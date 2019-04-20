@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "dopredu %1",
-    "turn @turnRight %2 degrees": "vpravo @turnRight %2",
-    "turn @turnLeft %2 degrees": "vľavo @turnLeft %2",
+    "turn @turnRight %1 degrees": "vpravo @turnRight %1",
+    "turn @turnLeft %1 degrees": "vľavo @turnLeft %1",
     "point in direction %1": "smerom %1",
     "point towards %1": "smerom k %1",
     "go to %1": "skoč na %1",

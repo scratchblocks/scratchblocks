@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "dopředu o %1 kroků",
-    "turn @turnRight %2 degrees": "otoč se @turnRight o %2 stupňů",
-    "turn @turnLeft %2 degrees": "otoč se @turnLeft o %2 stupňů",
+    "turn @turnRight %1 degrees": "otoč se @turnRight o %1 stupňů",
+    "turn @turnLeft %1 degrees": "otoč se @turnLeft o %1 stupňů",
     "point in direction %1": "nastav směr %1",
     "point towards %1": "nastav směr k %1",
     "go to %1": "skoč na %1",
@@ -172,8 +172,8 @@
     "arctg"
   ],
   "aliases": {
-    "otoč se o %2 stupňů doleva": "turn @turnLeft %2 degrees",
-    "otoč se o %2 stupňů doprava": "turn @turnRight %2 degrees",
+    "otoč se o %1 stupňů doleva": "turn @turnLeft %1 degrees",
+    "otoč se o %1 stupňů doprava": "turn @turnRight %1 degrees",
     "po kliknutí na zelenou vlajku": "when @greenFlag clicked",
     "konec": "end"
   },

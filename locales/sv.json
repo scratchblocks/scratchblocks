@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "gå %1 steg",
-    "turn @turnRight %2 degrees": "rotera @turnRight %2 grader",
-    "turn @turnLeft %2 degrees": "rotera @turnLeft %2 grader",
+    "turn @turnRight %1 degrees": "rotera @turnRight %1 grader",
+    "turn @turnLeft %1 degrees": "rotera @turnLeft %1 grader",
     "point in direction %1": "peka i riktning %1",
     "point towards %1": "peka mot %1",
     "go to %1": "gå till %1",

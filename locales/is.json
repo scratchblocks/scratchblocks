@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "fara %1 skref",
-    "turn @turnRight %2 degrees": "snúa til @turnRight um %2 gráður",
-    "turn @turnLeft %2 degrees": "snúa til @turnLeft um %2 gráður",
+    "turn @turnRight %1 degrees": "snúa til @turnRight um %1 gráður",
+    "turn @turnLeft %1 degrees": "snúa til @turnLeft um %1 gráður",
     "point in direction %1": "stefna í %1 gráður",
     "point towards %1": "stefna í átt að %1",
     "go to %1": "fara til %1",

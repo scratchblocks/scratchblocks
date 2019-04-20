@@ -164,10 +164,10 @@ function loadLanguages(languages) {
 
 var english = {
   aliases: {
-    "turn left %2 degrees": "turn @turnLeft %2 degrees",
-    "turn ccw %2 degrees": "turn @turnLeft %2 degrees",
-    "turn right %2 degrees": "turn @turnRight %2 degrees",
-    "turn cw %2 degrees": "turn @turnRight %2 degrees",
+    "turn left %1 degrees": "turn @turnLeft %1 degrees",
+    "turn ccw %1 degrees": "turn @turnLeft %1 degrees",
+    "turn right %1 degrees": "turn @turnRight %1 degrees",
+    "turn cw %1 degrees": "turn @turnRight %1 degrees",
     "when gf clicked": "when @greenFlag clicked",
     "when flag clicked": "when @greenFlag clicked",
     "when green flag clicked": "when @greenFlag clicked",

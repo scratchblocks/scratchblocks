@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "κινήσου %1 βήματα",
-    "turn @turnRight %2 degrees": "στρίψε @turnRight %2 μοίρες",
-    "turn @turnLeft %2 degrees": "στρίψε @turnLeft %2 μοίρες",
+    "turn @turnRight %1 degrees": "στρίψε @turnRight %1 μοίρες",
+    "turn @turnLeft %1 degrees": "στρίψε @turnLeft %1 μοίρες",
     "point in direction %1": "δείξε προς κατεύθυνση %1",
     "point towards %1": "δείξε προς %1",
     "go to %1": "πήγαινε σε %1",
@@ -175,10 +175,10 @@
     "τοξεφ"
   ],
   "aliases": {
-    "στρίψε αριστερά %2 μοίρες": "turn @turnLeft %2 degrees",
-    "στρίψε αριστερόστροφα %2 μοίρες": "turn @turnLeft %2 degrees",
-    "στρίψε δεξιά %2 μοίρες": "turn @turnRight %2 degrees",
-    "στρίψε δεξιόστροφα %2 μοίρες": "turn @turnRight %2 degrees",
+    "στρίψε αριστερά %1 μοίρες": "turn @turnLeft %1 degrees",
+    "στρίψε αριστερόστροφα %1 μοίρες": "turn @turnLeft %1 degrees",
+    "στρίψε δεξιά %1 μοίρες": "turn @turnRight %1 degrees",
+    "στρίψε δεξιόστροφα %1 μοίρες": "turn @turnRight %1 degrees",
     "Όταν στην πράσινη σημαία γίνει κλικ": "when @greenFlag clicked",
     "τέλος": "end"
   },

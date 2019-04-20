@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "mou-te %1 passos",
-    "turn @turnRight %2 degrees": "gira @turnRight %2 graus",
-    "turn @turnLeft %2 degrees": "gira @turnLeft %2 graus",
+    "turn @turnRight %1 degrees": "gira @turnRight %1 graus",
+    "turn @turnLeft %1 degrees": "gira @turnLeft %1 graus",
     "point in direction %1": "apunta en direcció %1",
     "point towards %1": "apunta cap a %1",
     "go to %1": "vés a %1",
@@ -164,8 +164,8 @@
     "arrel quadrada"
   ],
   "aliases": {
-    "gira a l'esquerra %2 graus": "turn @turnLeft %2 degrees",
-    "gira a la dreta %2 graus": "turn @turnRight %2 degrees",
+    "gira a l'esquerra %1 graus": "turn @turnLeft %1 degrees",
+    "gira a la dreta %1 graus": "turn @turnRight %1 degrees",
     "quan la bandera verda es premi": "when @greenFlag clicked",
     "fi": "end"
   },

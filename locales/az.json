@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "%1 addım at",
-    "turn @turnRight %2 degrees": "dön @turnRight %2 dərəcə",
-    "turn @turnLeft %2 degrees": "dön @turnLeft %2 dərəcə",
+    "turn @turnRight %1 degrees": "dön @turnRight %1 dərəcə",
+    "turn @turnLeft %1 degrees": "dön @turnLeft %1 dərəcə",
     "point in direction %1": "%1 istiqamətində dön",
     "point towards %1": "%1 tərəfinə dön",
     "go to %1": "keç: %1",

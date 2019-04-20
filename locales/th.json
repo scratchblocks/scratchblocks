@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "เคลื่อนที่ %1 ก้าว",
-    "turn @turnRight %2 degrees": "หัน @turnRight %2 องศา",
-    "turn @turnLeft %2 degrees": "หัน @turnLeft %2 องศา",
+    "turn @turnRight %1 degrees": "หัน @turnRight %1 องศา",
+    "turn @turnLeft %1 degrees": "หัน @turnLeft %1 องศา",
     "point in direction %1": "หันในทิศทาง %1",
     "point towards %1": "หันไปทาง %1",
     "go to %1": "ไปที่ %1",

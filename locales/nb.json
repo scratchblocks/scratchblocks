@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "gå %1 steg",
-    "turn @turnRight %2 degrees": "snu @turnRight %2 grader",
-    "turn @turnLeft %2 degrees": "snu @turnLeft %2 grader",
+    "turn @turnRight %1 degrees": "snu @turnRight %1 grader",
+    "turn @turnLeft %1 degrees": "snu @turnLeft %1 grader",
     "point in direction %1": "pek i retning %1",
     "point towards %1": "pek mot %1",
     "go to %1": "gå til %1",
@@ -171,8 +171,8 @@
     "arctan"
   ],
   "aliases": {
-    "vend venstre %2 grader": "turn @turnLeft %2 degrees",
-    "vend høyre %2 grader": "turn @turnRight %2 degrees",
+    "vend venstre %1 grader": "turn @turnLeft %1 degrees",
+    "vend høyre %1 grader": "turn @turnRight %1 degrees",
     "når grønt flagg klikkes": "when @greenFlag clicked",
     "slutt": "end"
   },

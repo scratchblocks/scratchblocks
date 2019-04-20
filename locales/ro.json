@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "mergi %1 pași",
-    "turn @turnRight %2 degrees": "rotește-te @turnRight %2 grade",
-    "turn @turnLeft %2 degrees": "rotește-te @turnLeft %2 grade",
+    "turn @turnRight %1 degrees": "rotește-te @turnRight %1 grade",
+    "turn @turnLeft %1 degrees": "rotește-te @turnLeft %1 grade",
     "point in direction %1": "orientează-te în direcția %1",
     "point towards %1": "orientează-te spre %1",
     "go to %1": "mergi la %1",
@@ -167,8 +167,8 @@
     "radical"
   ],
   "aliases": {
-    "rotește la stânga %2 grade": "turn @turnLeft %2 degrees",
-    "rotește la dreapta %2 grade": "turn @turnRight %2 degrees",
+    "rotește la stânga %1 grade": "turn @turnLeft %1 degrees",
+    "rotește la dreapta %1 grade": "turn @turnRight %1 degrees",
     "când se face click pe stegulețul verde": "when @greenFlag clicked",
     "terminare": "end"
   },

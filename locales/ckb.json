@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "جوڵان %1 هەنگاو",
-    "turn @turnRight %2 degrees": "بیسوڕێنەوە @turnRight %2 پلە",
-    "turn @turnLeft %2 degrees": "بیسوڕێنەوە @turnLeft %2 پلە",
+    "turn @turnRight %1 degrees": "بیسوڕێنەوە @turnRight %1 پلە",
+    "turn @turnLeft %1 degrees": "بیسوڕێنەوە @turnLeft %1 پلە",
     "point in direction %1": "خاڵ بە ئاڕاستەی %1",
     "point towards %1": "خاڵ بەرەو %1",
     "go to %1": "بڕۆ بۆ %1",

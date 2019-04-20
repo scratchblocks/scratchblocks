@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "gerak %1 langkah",
-    "turn @turnRight %2 degrees": "putar @turnRight %2 derajat",
-    "turn @turnLeft %2 degrees": "putar @turnLeft %2 derajat",
+    "turn @turnRight %1 degrees": "putar @turnRight %1 derajat",
+    "turn @turnLeft %1 degrees": "putar @turnLeft %1 derajat",
     "point in direction %1": "mengarah ke arah %1",
     "point towards %1": "mengarah ke %1",
     "go to %1": "pergi ke %1",
@@ -165,8 +165,8 @@
     "akar kuadrat"
   ],
   "aliases": {
-    "putar ke kiri %2 derajat": "turn @turnLeft %2 degrees",
-    "putar ke kanan %2 derajat": "turn @turnRight %2 degrees",
+    "putar ke kiri %1 derajat": "turn @turnLeft %1 degrees",
+    "putar ke kanan %1 derajat": "turn @turnRight %1 degrees",
     "ketika bendera hijau diklik": "when @greenFlag clicked",
     "selesai": "end"
   },

@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "mova %1 passos",
-    "turn @turnRight %2 degrees": "gire @turnRight %2 graus",
-    "turn @turnLeft %2 degrees": "gire @turnLeft %2 graus",
+    "turn @turnRight %1 degrees": "gire @turnRight %1 graus",
+    "turn @turnLeft %1 degrees": "gire @turnLeft %1 graus",
     "point in direction %1": "aponte  para a direção %1",
     "point towards %1": "aponte para %1",
     "go to %1": "vá para %1",

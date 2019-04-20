@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "anda %1 passos",
-    "turn @turnRight %2 degrees": "gira @turnRight %2 °",
-    "turn @turnLeft %2 degrees": "gira @turnLeft %2 °",
+    "turn @turnRight %1 degrees": "gira @turnRight %1 °",
+    "turn @turnLeft %1 degrees": "gira @turnLeft %1 °",
     "point in direction %1": "altera a tua direcção para %1 °",
     "point towards %1": "aponta em direcção a %1",
     "go to %1": "vai para %1",
@@ -180,8 +180,8 @@
     "a exponencial"
   ],
   "aliases": {
-    "gira para a esquerda %2 º": "turn @turnLeft %2 degrees",
-    "gira para a direita %2 º": "turn @turnRight %2 degrees",
+    "gira para a esquerda %1 º": "turn @turnLeft %1 degrees",
+    "gira para a direita %1 º": "turn @turnRight %1 degrees",
     "Quando alguém clicar na bandeira verde": "when @greenFlag clicked",
     "fim": "end"
   },

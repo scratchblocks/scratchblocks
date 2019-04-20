@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "%1 만큼 움직이기",
-    "turn @turnRight %2 degrees": "@turnRight 방향으로 %2 도 회전하기",
-    "turn @turnLeft %2 degrees": "@turnLeft 방향으로 %2 도 회전하기",
+    "turn @turnRight %1 degrees": "@turnRight 방향으로 %1 도 회전하기",
+    "turn @turnLeft %1 degrees": "@turnLeft 방향으로 %1 도 회전하기",
     "point in direction %1": "%1 도 방향 보기",
     "point towards %1": "%1 쪽 보기",
     "go to %1": "%1 (으)로 이동하기",

@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "%1 گام حرکت کن",
-    "turn @turnRight %2 degrees": "%2 درجه @turnRight بچرخ",
-    "turn @turnLeft %2 degrees": "%2 درجه @turnLeft بچرخ",
+    "turn @turnRight %1 degrees": "%1 درجه @turnRight بچرخ",
+    "turn @turnLeft %1 degrees": "%1 درجه @turnLeft بچرخ",
     "point in direction %1": "در جهت %1 قرار بگیر",
     "point towards %1": "به سمت %1 قرار بگیر",
     "go to %1": "به %1 برو",
@@ -169,8 +169,8 @@
     "جذر"
   ],
   "aliases": {
-    "به اندازه %2 درجه به چپ بچرخ": "turn @turnLeft %2 degrees",
-    "به اندازه %2 درجه به راست بچرخ": "turn @turnRight %2 degrees",
+    "به اندازه %1 درجه به چپ بچرخ": "turn @turnLeft %1 degrees",
+    "به اندازه %1 درجه به راست بچرخ": "turn @turnRight %1 degrees",
     "وقتی که پرچم کلیک شد": "when @greenFlag clicked",
     "آخر": "end"
   },

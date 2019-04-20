@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "hlehlisa %1 izitebhisi",
-    "turn @turnRight %2 degrees": "phendula @turnRight %2 wehlise",
-    "turn @turnLeft %2 degrees": "phendula @turnLeft %2 wehlise",
+    "turn @turnRight %1 degrees": "phendula @turnRight %1 wehlise",
+    "turn @turnLeft %1 degrees": "phendula @turnLeft %1 wehlise",
     "point in direction %1": "khomba ngasendleleni %1",
     "point towards %1": "khomba ubhekise %1",
     "go to %1": "hamba uye %1",

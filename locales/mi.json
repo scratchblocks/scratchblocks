@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "nekehia kia %1 ngā takahanga",
-    "turn @turnRight %2 degrees": "hurihia @turnRight, kia %2 putu",
-    "turn @turnLeft %2 degrees": "hurihia @turnLeft, kia %2 putu",
+    "turn @turnRight %1 degrees": "hurihia @turnRight, kia %1 putu",
+    "turn @turnLeft %1 degrees": "hurihia @turnLeft, kia %1 putu",
     "point in direction %1": "atatohua ki %1",
     "point towards %1": "atatohua ki %1",
     "go to %1": "neke ki %1",

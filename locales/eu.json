@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "mugitu %1 pausu ",
-    "turn @turnRight %2 degrees": "biratu @turnRight %2 gradu",
-    "turn @turnLeft %2 degrees": "biratu @turnLeft %2 gradu",
+    "turn @turnRight %1 degrees": "biratu @turnRight %1 gradu",
+    "turn @turnLeft %1 degrees": "biratu @turnLeft %1 gradu",
     "point in direction %1": "apuntatu norabidea: %1",
     "point towards %1": "jarri hona begira: %1",
     "go to %1": "joan hona %1",

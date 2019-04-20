@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "иди %1 корака",
-    "turn @turnRight %2 degrees": "окрет @turnRight за %2 степени",
-    "turn @turnLeft %2 degrees": "окрет @turnLeft за %2 степени",
+    "turn @turnRight %1 degrees": "окрет @turnRight за %1 степени",
+    "turn @turnLeft %1 degrees": "окрет @turnLeft за %1 степени",
     "point in direction %1": "усмери се ка %1",
     "point towards %1": "усмери се ка %1",
     "go to %1": "иди до %1",

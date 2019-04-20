@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "symud %1 cam",
-    "turn @turnRight %2 degrees": "troi @turnRight %2 gradd",
-    "turn @turnLeft %2 degrees": "troi @turnLeft %2 gradd",
+    "turn @turnRight %1 degrees": "troi @turnRight %1 gradd",
+    "turn @turnLeft %1 degrees": "troi @turnLeft %1 gradd",
     "point in direction %1": "pwyntio i gyfeiriad %1",
     "point towards %1": "pwyntio tuag at %1",
     "go to %1": "mynd i %1",
@@ -168,8 +168,8 @@
     "Yn"
   ],
   "aliases": {
-    "troi %2 gradd i'r chwith": "turn @turnLeft %2 degrees",
-    "troi %2 gradd i'r dde": "turn @turnRight %2 degrees",
+    "troi %1 gradd i'r chwith": "turn @turnLeft %1 degrees",
+    "troi %1 gradd i'r dde": "turn @turnRight %1 degrees",
     "pan fo'r flag werdd yn cael ei glicio": "when @greenFlag clicked",
     "diwedd": "end"
   },

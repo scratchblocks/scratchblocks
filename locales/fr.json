@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "avancer de %1 pas",
-    "turn @turnRight %2 degrees": "tourner @turnRight de %2 degrés",
-    "turn @turnLeft %2 degrees": "tourner @turnLeft de %2 degrés",
+    "turn @turnRight %1 degrees": "tourner @turnRight de %1 degrés",
+    "turn @turnLeft %1 degrees": "tourner @turnLeft de %1 degrés",
     "point in direction %1": "s'orienter en direction de %1",
     "point towards %1": "s'orienter vers %1",
     "go to %1": "aller à %1",
@@ -165,8 +165,8 @@
     "10^"
   ],
   "aliases": {
-    "tourner gauche de %2 degrés": "turn @turnLeft %2 degrees",
-    "tourner droite de %2 degrés": "turn @turnRight %2 degrees",
+    "tourner gauche de %1 degrés": "turn @turnLeft %1 degrees",
+    "tourner droite de %1 degrés": "turn @turnRight %1 degrees",
     "quand le drapeau vert pressé": "when @greenFlag clicked",
     "fin": "end"
   },

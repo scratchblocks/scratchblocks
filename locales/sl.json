@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "pojdi %1 korakov",
-    "turn @turnRight %2 degrees": "obrni se za @turnRight %2 stopinj",
-    "turn @turnLeft %2 degrees": "obrni se za @turnLeft %2 stopinj",
+    "turn @turnRight %1 degrees": "obrni se za @turnRight %1 stopinj",
+    "turn @turnLeft %1 degrees": "obrni se za @turnLeft %1 stopinj",
     "point in direction %1": "obrni se v smer %1",
     "point towards %1": "obrni se proti %1",
     "go to %1": "pojdi na %1",
@@ -172,8 +172,8 @@
     "arctg"
   ],
   "aliases": {
-    "obrni se za %2 stopinj v levo": "turn @turnLeft %2 degrees",
-    "obrni se za %2 stopinj v desno": "turn @turnRight %2 degrees",
+    "obrni se za %1 stopinj v levo": "turn @turnLeft %1 degrees",
+    "obrni se za %1 stopinj v desno": "turn @turnRight %1 degrees",
     "ko je kliknjena zelena zastavica": "when @greenFlag clicked",
     "ustavi": "end"
   },

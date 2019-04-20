@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "przesuń o %1 kroków",
-    "turn @turnRight %2 degrees": "obróć @turnRight o %2 stopni",
-    "turn @turnLeft %2 degrees": "obróć @turnLeft o %2 stopni",
+    "turn @turnRight %1 degrees": "obróć @turnRight o %1 stopni",
+    "turn @turnLeft %1 degrees": "obróć @turnLeft o %1 stopni",
     "point in direction %1": "ustaw kierunek na %1",
     "point towards %1": "ustaw w kierunku duszka %1",
     "go to %1": "idź do %1",
@@ -176,8 +176,8 @@
     "logarytm naturalny"
   ],
   "aliases": {
-    "obróć w lewo o %2 stopni": "turn @turnLeft %2 degrees",
-    "obróć w prawo o %2 stopni": "turn @turnRight %2 degrees",
+    "obróć w lewo o %1 stopni": "turn @turnLeft %1 degrees",
+    "obróć w prawo o %1 stopni": "turn @turnRight %1 degrees",
     "kiedy kliknięto zieloną flagę": "when @greenFlag clicked",
     "koniec": "end"
   },

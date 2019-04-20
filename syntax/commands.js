@@ -7,14 +7,14 @@ module.exports = [
     selector: "forward:",
   },
   {
-    spec: "turn @turnRight %2 degrees",
+    spec: "turn @turnRight %1 degrees",
     inputs: ["%n"],
     shape: "stack",
     category: "motion",
     selector: "turnRight:",
   },
   {
-    spec: "turn @turnLeft %2 degrees",
+    spec: "turn @turnLeft %1 degrees",
     inputs: ["%n"],
     shape: "stack",
     category: "motion",

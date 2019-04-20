@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "liigu %1 punkti",
-    "turn @turnRight %2 degrees": "pööra @turnRight %2 kraadi",
-    "turn @turnLeft %2 degrees": "pööra @turnLeft %2 kraadi",
+    "turn @turnRight %1 degrees": "pööra @turnRight %1 kraadi",
+    "turn @turnLeft %1 degrees": "pööra @turnLeft %1 kraadi",
     "point in direction %1": "osuta suunas %1",
     "point towards %1": "osuta %1-le",
     "go to %1": "mine %1",

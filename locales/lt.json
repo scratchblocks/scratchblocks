@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "eik %1 žingsnius",
-    "turn @turnRight %2 degrees": "pasisuk @turnRight %2 laipsnių",
-    "turn @turnLeft %2 degrees": "pasisuk @turnLeft %2 laipsnių",
+    "turn @turnRight %1 degrees": "pasisuk @turnRight %1 laipsnių",
+    "turn @turnLeft %1 degrees": "pasisuk @turnLeft %1 laipsnių",
     "point in direction %1": "žiūrėk %1 laipsnių kryptimi",
     "point towards %1": "žiūrėk į %1",
     "go to %1": "eik į %1",

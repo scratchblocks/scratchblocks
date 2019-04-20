@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "%1 እርምጃዎች ተንቀሳቀስ",
-    "turn @turnRight %2 degrees": "ዙር @turnRight %2 ድግሪዎች",
-    "turn @turnLeft %2 degrees": "ዙር @turnLeft %2 ድግሪዎች",
+    "turn @turnRight %1 degrees": "ዙር @turnRight %1 ድግሪዎች",
+    "turn @turnLeft %1 degrees": "ዙር @turnLeft %1 ድግሪዎች",
     "point in direction %1": "ወደ %1 አቅጣጫ ደግን",
     "point towards %1": "ወደ %1 ደግን",
     "go to %1": "ወደ %1 ሂድ",

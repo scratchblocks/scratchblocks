@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "idi %1 koraka",
-    "turn @turnRight %2 degrees": "skreni @turnRight %2 stupnjeva",
-    "turn @turnLeft %2 degrees": "skreni @turnLeft %2 stupnjeva",
+    "turn @turnRight %1 degrees": "skreni @turnRight %1 stupnjeva",
+    "turn @turnLeft %1 degrees": "skreni @turnLeft %1 stupnjeva",
     "point in direction %1": "okreni se u smjeru %1",
     "point towards %1": "okreni se prema %1",
     "go to %1": "idi do %1",
@@ -168,8 +168,8 @@
     "korijen"
   ],
   "aliases": {
-    "skreni lijevo %2 stupnjeva": "turn @turnLeft %2 degrees",
-    "skreni desno %2 stupnjeva": "turn @turnRight %2 degrees",
+    "skreni lijevo %1 stupnjeva": "turn @turnLeft %1 degrees",
+    "skreni desno %1 stupnjeva": "turn @turnRight %1 degrees",
     "kada je zelena zastava kliknut": "when @greenFlag clicked",
     "kraj": "end"
   },

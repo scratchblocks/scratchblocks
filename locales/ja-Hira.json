@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "%1 ほうごかす",
-    "turn @turnRight %2 degrees": "@turnRight %2 どまわす",
-    "turn @turnLeft %2 degrees": "@turnLeft %2 どまわす",
+    "turn @turnRight %1 degrees": "@turnRight %1 どまわす",
+    "turn @turnLeft %1 degrees": "@turnLeft %1 どまわす",
     "point in direction %1": "%1 どにむける",
     "point towards %1": "%1 へむける",
     "go to %1": "%1 へいく",

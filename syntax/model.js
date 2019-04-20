@@ -306,9 +306,6 @@ Block.fromJSON = function(lang, array, part) {
   }
   var children = parts.map(function(part) {
     var number = parseInputNumber(part)
-    if (number && (selector === "turnLeft:" || selector === "turnRight:")) {
-      number -= 1
-    }
     if (number) {
       var input = inputs[number - 1]
       var arg = args.shift() // TODO
@@ -441,10 +438,7 @@ Block.prototype.translate = function(lang, isShallow) {
   var oldParts = parseSpec(oldSpec).parts
   var oldInputOrder = oldParts
     .map(
-      part =>
-        selector === "turnLeft:" || selector === "turnRight:"
-          ? 1
-          : parseInputNumber(part)
+      part => parseInputNumber(part)
     )
     .filter(x => !!x)
   var args = oldInputOrder.map(number => rawArgs[number - 1])

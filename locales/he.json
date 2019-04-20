@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "זוז %1 צעדים",
-    "turn @turnRight %2 degrees": "הסתובב @turnRight %2 מעלות",
-    "turn @turnLeft %2 degrees": "הסתובב @turnLeft %2 מעלות",
+    "turn @turnRight %1 degrees": "הסתובב @turnRight %1 מעלות",
+    "turn @turnLeft %1 degrees": "הסתובב @turnLeft %1 מעלות",
     "point in direction %1": "פנה לכיוון %1",
     "point towards %1": "פנה לכיוון של %1",
     "go to %1": "קפוץ אל %1",
@@ -173,8 +173,8 @@
     "‏10 בחזקה"
   ],
   "aliases": {
-    "הסתובב שמאל %2 מעלות": "turn @turnLeft %2 degrees",
-    "הסתובב ימינה %2 מעלות": "turn @turnRight %2 degrees",
+    "הסתובב שמאל %1 מעלות": "turn @turnLeft %1 degrees",
+    "הסתובב ימינה %1 מעלות": "turn @turnRight %1 degrees",
     "כאשר לוחצים על דגל ירוק": "when @greenFlag clicked",
     "סוף": "end"
   },

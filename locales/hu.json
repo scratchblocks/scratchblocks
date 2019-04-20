@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "menj %1 lépést",
-    "turn @turnRight %2 degrees": "fordulj @turnRight %2 fokot",
-    "turn @turnLeft %2 degrees": "fordulj @turnLeft %2 fokot",
+    "turn @turnRight %1 degrees": "fordulj @turnRight %1 fokot",
+    "turn @turnLeft %1 degrees": "fordulj @turnLeft %1 fokot",
     "point in direction %1": "nézz %1 fokos irányba",
     "point towards %1": "nézz %1 felé",
     "go to %1": "ugorj %1 helyére",

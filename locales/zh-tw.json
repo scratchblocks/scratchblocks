@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "移動 %1 點",
-    "turn @turnRight %2 degrees": "右轉 @turnRight %2 度",
-    "turn @turnLeft %2 degrees": "左轉 @turnLeft %2 度",
+    "turn @turnRight %1 degrees": "右轉 @turnRight %1 度",
+    "turn @turnLeft %1 degrees": "左轉 @turnLeft %1 度",
     "point in direction %1": "面朝 %1 度",
     "point towards %1": "面朝 %1 向",
     "go to %1": "定位到 %1 位置",

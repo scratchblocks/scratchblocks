@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "gluais le %1 ceum",
-    "turn @turnRight %2 degrees": "cuairtich @turnRight le %2 ceum",
-    "turn @turnLeft %2 degrees": "cuairtich @turnLeft le %2 ceum",
+    "turn @turnRight %1 degrees": "cuairtich @turnRight le %1 ceum",
+    "turn @turnLeft %1 degrees": "cuairtich @turnLeft le %1 ceum",
     "point in direction %1": "cuir d’ aghaidh ri %1",
     "point towards %1": "cuir d’ aghaidh an comhair %1",
     "go to %1": "rach gu %1",
@@ -178,8 +178,8 @@
     "an log-àireamh"
   ],
   "aliases": {
-    "cuairtich @turnLeft le %2 ceum": "turn @turnLeft %2 degrees",
-    "cuairtich @turnRight le %2 ceum": "turn @turnRight %2 degrees",
+    "cuairtich @turnLeft le %1 ceum": "turn @turnLeft %1 degrees",
+    "cuairtich @turnRight le %1 ceum": "turn @turnRight %1 degrees",
     "le briogadh air @greenFlag": "when @greenFlag clicked",
     "deireadh": "end"
   },

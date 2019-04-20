@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "pārvietoties %1 soļus",
-    "turn @turnRight %2 degrees": "pagriezties @turnRight par %2 grādiem",
-    "turn @turnLeft %2 degrees": "pagriezties @turnLeft par %2 grādiem",
+    "turn @turnRight %1 degrees": "pagriezties @turnRight par %1 grādiem",
+    "turn @turnLeft %1 degrees": "pagriezties @turnLeft par %1 grādiem",
     "point in direction %1": "pagriezt virzienā %1",
     "point towards %1": "pagriezt uz %1",
     "go to %1": "iet uz %1",

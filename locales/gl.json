@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "mover %1 pasos",
-    "turn @turnRight %2 degrees": "xirar @turnRight %2 graos",
-    "turn @turnLeft %2 degrees": "xirar @turnLeft %2 graos",
+    "turn @turnRight %1 degrees": "xirar @turnRight %1 graos",
+    "turn @turnLeft %1 degrees": "xirar @turnLeft %1 graos",
     "point in direction %1": "apuntar na dirección %1",
     "point towards %1": "apuntar cara a %1",
     "go to %1": "ir para %1",

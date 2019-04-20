@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "идти %1 шагов",
-    "turn @turnRight %2 degrees": "повернуть @turnRight на %2 градусов",
-    "turn @turnLeft %2 degrees": "повернуть @turnLeft на %2 градусов",
+    "turn @turnRight %1 degrees": "повернуть @turnRight на %1 градусов",
+    "turn @turnLeft %1 degrees": "повернуть @turnLeft на %1 градусов",
     "point in direction %1": "повернуться в направлении %1",
     "point towards %1": "повернуться к %1",
     "go to %1": "перейти на %1",
@@ -169,8 +169,8 @@
     "квадратный корень"
   ],
   "aliases": {
-    "повернуть влево на %2 градусов": "turn @turnLeft %2 degrees",
-    "повернуть вправо на %2 градусов": "turn @turnRight %2 degrees",
+    "повернуть влево на %1 градусов": "turn @turnLeft %1 degrees",
+    "повернуть вправо на %1 градусов": "turn @turnRight %1 degrees",
     "когда щёлкнут по зелёному флагу": "when @greenFlag clicked",
     "конец": "end"
   },

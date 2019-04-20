@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "liiku %1 askelta",
-    "turn @turnRight %2 degrees": "käänny @turnRight %2 astetta",
-    "turn @turnLeft %2 degrees": "käänny @turnLeft %2 astetta",
+    "turn @turnRight %1 degrees": "käänny @turnRight %1 astetta",
+    "turn @turnLeft %1 degrees": "käänny @turnLeft %1 astetta",
     "point in direction %1": "osoita suuntaan %1",
     "point towards %1": "osoita kohti %1",
     "go to %1": "mene sijaintiin %1",

@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "fai %1 passi",
-    "turn @turnRight %2 degrees": "ruota @turnRight di %2 gradi",
-    "turn @turnLeft %2 degrees": "ruota @turnLeft di %2 gradi",
+    "turn @turnRight %1 degrees": "ruota @turnRight di %1 gradi",
+    "turn @turnLeft %1 degrees": "ruota @turnLeft di %1 gradi",
     "point in direction %1": "punta in direzione %1",
     "point towards %1": "punta verso %1",
     "go to %1": "raggiungi %1",
@@ -169,8 +169,8 @@
     "arctan"
   ],
   "aliases": {
-    "ruota in senso antiorario di %2 gradi": "turn @turnLeft %2 degrees",
-    "ruota in senso orario di %2 gradi": "turn @turnRight %2 degrees",
+    "ruota in senso antiorario di %1 gradi": "turn @turnLeft %1 degrees",
+    "ruota in senso orario di %1 gradi": "turn @turnRight %1 degrees",
     "quando si clicca sulla bandiera verde": "when @greenFlag clicked",
     "fine": "end"
   },

@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "تحرك%1 خطوات",
-    "turn @turnRight %2 degrees": "إستدر @turnRight %2 درجة",
-    "turn @turnLeft %2 degrees": "إستدر @turnLeft %2 درجة",
+    "turn @turnRight %1 degrees": "إستدر @turnRight %1 درجة",
+    "turn @turnLeft %1 degrees": "إستدر @turnLeft %1 درجة",
     "point in direction %1": "أشر في الاتجاه%1",
     "point towards %1": "أشر نحو%1",
     "go to %1": "انتقل إلى%1",

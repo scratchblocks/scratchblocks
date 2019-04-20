@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "neem %1 stappen",
-    "turn @turnRight %2 degrees": "draai @turnRight %2 graden",
-    "turn @turnLeft %2 degrees": "draai @turnLeft %2 graden",
+    "turn @turnRight %1 degrees": "draai @turnRight %1 graden",
+    "turn @turnLeft %1 degrees": "draai @turnLeft %1 graden",
     "point in direction %1": "richt naar %1 graden",
     "point towards %1": "richt naar %1",
     "go to %1": "ga naar %1",
@@ -171,8 +171,8 @@
     "arctan"
   ],
   "aliases": {
-    "draai %2 graden naar links": "turn @turnLeft %2 degrees",
-    "draai %2 graden naar rechts": "turn @turnRight %2 degrees",
+    "draai %1 graden naar links": "turn @turnLeft %1 degrees",
+    "draai %1 graden naar rechts": "turn @turnRight %1 degrees",
     "wanneer groene vlag wordt aangeklikt": "when @greenFlag clicked",
     "einde": "end"
   },

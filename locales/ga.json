@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "bog %1 coiscéim",
-    "turn @turnRight %2 degrees": "rothlaigh @turnRight %2 céim",
-    "turn @turnLeft %2 degrees": "rothlaigh @turnLeft %2 céim",
+    "turn @turnRight %1 degrees": "rothlaigh @turnRight %1 céim",
+    "turn @turnLeft %1 degrees": "rothlaigh @turnLeft %1 céim",
     "point in direction %1": "tabhair aghaidh ar %1",
     "point towards %1": "tabhair aghaidh i dtreo %1",
     "go to %1": "téigh go %1",

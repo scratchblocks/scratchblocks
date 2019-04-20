@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "di chuyển %1 bước",
-    "turn @turnRight %2 degrees": "xoay @turnRight %2 độ",
-    "turn @turnLeft %2 degrees": "xoay @turnLeft %2 độ",
+    "turn @turnRight %1 degrees": "xoay @turnRight %1 độ",
+    "turn @turnLeft %1 degrees": "xoay @turnLeft %1 độ",
     "point in direction %1": "hướng về phía %1",
     "point towards %1": "hướng về vị trí %1",
     "go to %1": "đi tới %1",

@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "ицатәуп %1 шьаҿак",
-    "turn @turnRight %2 degrees": "иргьежьтәуп @turnRight %2 градус рыла ",
-    "turn @turnLeft %2 degrees": "иргьежьтәуп  @turnLeft %2 градус рыла ",
+    "turn @turnRight %1 degrees": "иргьежьтәуп @turnRight %1 градус рыла ",
+    "turn @turnLeft %1 degrees": "иргьежьтәуп  @turnLeft %1 градус рыла ",
     "point in direction %1": "инарҳәтәуп %1 ахь",
     "point towards %1": "%1 ахь инаҳәтәуп",
     "go to %1": "ииастәуп %1 ахь",

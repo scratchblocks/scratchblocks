@@ -1,8 +1,8 @@
 {
   "commands": {
     "move %1 steps": "перемістити на %1 кроків",
-    "turn @turnRight %2 degrees": "поворот @turnRight на %2 градусів",
-    "turn @turnLeft %2 degrees": "поворот @turnLeft на %2 градусів",
+    "turn @turnRight %1 degrees": "поворот @turnRight на %1 градусів",
+    "turn @turnLeft %1 degrees": "поворот @turnLeft на %1 градусів",
     "point in direction %1": "повернути в напрямку %1",
     "point towards %1": "слідувати за %1",
     "go to %1": "перейти до %1",
