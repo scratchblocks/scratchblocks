@@ -96,7 +96,7 @@ var allBlocks = scratchCommands.map(function(info) {
     // Scratch 1.4 blocks are listed last
     if (!blocksBySelector[info.selector]) blocksBySelector[info.selector] = info
   }
-  return blocksBySpec[info.spec] = info
+  return (blocksBySpec[info.spec] = info)
 })
 
 var unicodeIcons = {

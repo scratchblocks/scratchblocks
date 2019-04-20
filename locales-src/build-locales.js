@@ -9,14 +9,14 @@ const scratchCommands = require("../syntax/commands")
 const blocks = require("../syntax/blocks")
 const extraAliases = require("./extra_aliases")
 
-const localeNames = require('scratch-l10n').default
-const englishLocale = require('scratch-l10n/editor/blocks/en')
+const localeNames = require("scratch-l10n").default
+const englishLocale = require("scratch-l10n/editor/blocks/en")
 
 const rawLocales = []
 for (let code in localeNames) {
   rawLocales.push({
     code: code,
-    mappings: require('scratch-l10n/editor/blocks/' + code),
+    mappings: require("scratch-l10n/editor/blocks/" + code),
   })
 }
 
@@ -232,14 +232,14 @@ const buildLocale = (code, dictionary) => {
 
 const fixup = (key, value) => {
   switch (key) {
-    case 'EVENT_WHENFLAGCLICKED':
-      return value.replace('%1', '@greenFlag')
-    case 'MOTION_TURNLEFT':
-      return value.replace('%1', '@turnLeft')
-    case 'MOTION_TURNRIGHT':
-      return value.replace('%1', '@turnRight')
-    case 'PROCEDURES_DEFINITION':
-      return value.replace(/ ?\%1 ?/, '')
+    case "EVENT_WHENFLAGCLICKED":
+      return value.replace("%1", "@greenFlag")
+    case "MOTION_TURNLEFT":
+      return value.replace("%1", "@turnLeft")
+    case "MOTION_TURNRIGHT":
+      return value.replace("%1", "@turnRight")
+    case "PROCEDURES_DEFINITION":
+      return value.replace(/ ?\%1 ?/, "")
     default:
       return value
   }
@@ -255,7 +255,7 @@ const makeDictionary = mappings => {
   return dict
 }
 
-const convertFile = async ({code, mappings}) => {
+const convertFile = async ({ code, mappings }) => {
   const dictionary = makeDictionary(mappings)
 
   const locale = buildLocale(code, dictionary)
@@ -269,7 +269,7 @@ const convertFile = async ({code, mappings}) => {
   return [code, locale]
 }
 
-const writeIndex = async (codes) => {
+const writeIndex = async codes => {
   let contents = ""
   contents += "module.exports = {\n"
   for (let code of codes) {
