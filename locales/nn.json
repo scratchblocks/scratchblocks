@@ -111,40 +111,6 @@
     "loud?": "høg lyd?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "alle",
-    "all around": "roter fritt",
-    "brightness": "lysstyrke",
-    "color": "farge",
-    "costume name": "draktnamn",
-    "date": "datoen",
-    "day of week": "vekedagen",
-    "don't rotate": "ikkje roter",
-    "down arrow": "pil ned",
-    "edge": "kant",
-    "fisheye": "fiskeauge",
-    "ghost": "gjennomsiktig",
-    "hour": "timen",
-    "left arrow": "pil venstre",
-    "left-right": "venstre–høgre",
-    "minute": "minuttet",
-    "month": "månaden",
-    "mosaic": "mosaikk",
-    "mouse-pointer": "musepeikar",
-    "myself": "meg",
-    "other scripts in sprite": "andre skript i figuren",
-    "pixelate": "pikselering",
-    "previous backdrop": "førre bakgrunn",
-    "random position": "tilfeldig plassering",
-    "right arrow": "pil høgre",
-    "second": "sekundet",
-    "space": "mellomrom",
-    "Stage": "Scene",
-    "this script": "dette skriptet",
-    "up arrow": "pil opp",
-    "whirl": "kvervel",
-    "year": "året"
-  },
   "soundEffects": [
     "tonehøgd",
     "venstre–høgre-panorering"
@@ -162,7 +128,9 @@
     "Events": "Hendingar",
     "Control": "Styring",
     "Sensing": "Sansing",
-    "Operators": "Operatorar"
+    "Operators": "Operatorar",
+    "Variables": "Variablar",
+    "My Blocks": "Mine klossar"
   },
   "math": [
     "golv",

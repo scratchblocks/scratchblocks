@@ -110,40 +110,6 @@
     "loud?": "an fhuaim air"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "na h-uile",
-    "all around": "cuairt shlàn",
-    "brightness": "soilleireachd",
-    "color": "datha",
-    "costume name": "ainm an dreacha",
-    "date": "an ceann-là",
-    "day of week": "latha na seachdaine",
-    "don't rotate": "gun chuairteachadh",
-    "down arrow": "saighde sìos",
-    "edge": "an oir",
-    "fisheye": "sùil èisg",
-    "ghost": "taibhse",
-    "hour": "an uair",
-    "left arrow": "saighde gu clì",
-    "left-right": "clì is deas",
-    "minute": "a’ mhionaid",
-    "month": "am mìos",
-    "mosaic": "mosàig",
-    "mouse-pointer": "tomhaire na luchaige",
-    "myself": "dhut fhèin",
-    "other scripts in sprite": "sgriobtaichean eile na sprìde",
-    "pixelate": "phiogsailean",
-    "previous backdrop": "a’ chùlaibh roimhe",
-    "random position": "ionad air thuaiream",
-    "right arrow": "saighde gu deas",
-    "second": "an diog",
-    "space": "spàis",
-    "Stage": "Àrd-ùrlar",
-    "this script": "an sgriobt seo",
-    "up arrow": "saighde suas",
-    "whirl": "cuairteige",
-    "year": "am bliadhna"
-  },
   "soundEffects": [
     "gleusa",
     "panachaidh gu clì/deas"
@@ -161,7 +127,9 @@
     "Events": "Tachartas",
     "Control": "Smachd",
     "Sensing": "Mothachadh",
-    "Operators": "Gnìomharaiche"
+    "Operators": "Gnìomharaiche",
+    "Variables": "Caochladairean",
+    "My Blocks": "Bloca agamsa"
   },
   "math": [
     "an luach absaloideach",

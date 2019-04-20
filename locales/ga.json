@@ -108,40 +108,6 @@
     "loud?": "os ard?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "uile",
-    "all around": "timpeall ar fad",
-    "brightness": "gile",
-    "color": "dath",
-    "costume name": "ainm na culaithe",
-    "date": "dáta",
-    "day of week": "lá den tseachtain",
-    "don't rotate": "ná rothlaigh",
-    "down arrow": "saighead síos",
-    "edge": "ciumhais",
-    "fisheye": "súil an éisc",
-    "ghost": "taibhse",
-    "hour": "uair",
-    "left arrow": "saighead chlé",
-    "left-right": "clé-deas",
-    "minute": "nóiméad",
-    "month": "mí",
-    "mosaic": "mósáic",
-    "mouse-pointer": "pointeoir-luiche",
-    "myself": "mise féin",
-    "other scripts in sprite": "scripteanna eile sa sprid",
-    "pixelate": "picteilíniú",
-    "previous backdrop": "cúlra roimhe seo",
-    "random position": "ionad randamach",
-    "right arrow": "saighead dheas",
-    "second": "soicind",
-    "space": "spás",
-    "Stage": "Stáitse",
-    "this script": "an script seo",
-    "up arrow": "saighead suas",
-    "whirl": "rothlú",
-    "year": "bliain"
-  },
   "soundEffects": [
     "tuinairde",
     "peanáil ar chlé/ar dheis"
@@ -159,7 +125,9 @@
     "Events": "Teagmhais",
     "Control": "Rialú",
     "Sensing": "Brath",
-    "Operators": "Oibreoirí"
+    "Operators": "Oibreoirí",
+    "Variables": "Athróga",
+    "My Blocks": "Mo Chuid Blocanna"
   },
   "math": [
     "urlár",

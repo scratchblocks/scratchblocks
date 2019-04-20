@@ -109,40 +109,6 @@
     "loud?": "hlasný?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "všetko",
-    "all around": "podľa smeru",
-    "brightness": "jas",
-    "color": "farba",
-    "costume name": "meno kostýmu",
-    "date": "deň v mesiaci",
-    "day of week": "deň v týždni",
-    "don't rotate": "žiadne",
-    "down arrow": "šípka dole",
-    "edge": "okraj",
-    "fisheye": "rybie oko",
-    "ghost": "duch",
-    "hour": "hod",
-    "left arrow": "šípka vľavo",
-    "left-right": "vľavo-vpravo",
-    "minute": "min",
-    "month": "mesiac",
-    "mosaic": "mozaika",
-    "mouse-pointer": "myš",
-    "myself": "seba",
-    "other scripts in sprite": "moje iné scenáre",
-    "pixelate": "štvorčeky",
-    "previous backdrop": "predchádzajúce pozadie",
-    "random position": "náhodná pozícia",
-    "right arrow": "šípka vpravo",
-    "second": "s",
-    "space": "medzerník",
-    "Stage": "Scéna",
-    "this script": "tento scenár",
-    "up arrow": "šípka hore",
-    "whirl": "zvírenie",
-    "year": "rok"
-  },
   "soundEffects": [
     "frekvencia",
     "stereo"
@@ -160,7 +126,9 @@
     "Events": "Udalosti",
     "Control": "Riadenie",
     "Sensing": "Zisťovanie",
-    "Operators": "Operácie"
+    "Operators": "Operácie",
+    "Variables": "Premenné",
+    "My Blocks": "Nové bloky"
   },
   "math": [
     "zaokrúhli nadol",

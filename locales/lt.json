@@ -103,40 +103,6 @@
     "loud?": "garsiai?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "viskas",
-    "all around": "aplinkui",
-    "brightness": "šviesumas",
-    "color": "spalva",
-    "costume name": "kaukės pavadinimas",
-    "date": "data",
-    "day of week": "savaitės diena",
-    "don't rotate": "nesisukti",
-    "down arrow": "rodyklė žemyn",
-    "edge": "kraštą",
-    "fisheye": "lęšis",
-    "ghost": "permatomumas",
-    "hour": "valanda",
-    "left arrow": "rodyklė kairėn",
-    "left-right": "kairėn-dešinėn",
-    "minute": "minutė",
-    "month": "mėnuo",
-    "mosaic": "mozaika",
-    "mouse-pointer": "pelės žymeklio",
-    "myself": "savęs",
-    "other scripts in sprite": "kitus veikėjo scenarijus",
-    "pixelate": "stambinti taškus",
-    "previous backdrop": "ankstesnis fonas",
-    "random position": "atsitiktinės pozicijos",
-    "right arrow": "rodyklė dešinėn",
-    "second": "sekundė",
-    "space": "tarpas",
-    "Stage": "Scena",
-    "this script": "šį scenarijų",
-    "up arrow": "rodyklė aukštyn",
-    "whirl": "susukimas",
-    "year": "metai"
-  },
   "soundEffects": [
     "garso aukštis"
   ],
@@ -153,7 +119,9 @@
     "Events": "Įvykiai",
     "Control": "Valdymas",
     "Sensing": "Jutimas",
-    "Operators": "Matematiniai simboliai"
+    "Operators": "Matematiniai simboliai",
+    "Variables": "Kintamieji",
+    "My Blocks": "Mano Blokai"
   },
   "math": [
     "modulis",

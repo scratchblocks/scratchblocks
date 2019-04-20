@@ -105,39 +105,6 @@
     "loud?": "högt ljud?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "alla",
-    "all around": "rotera",
-    "brightness": "ljusstyrka",
-    "color": "färg ",
-    "costume name": "klädselnamn",
-    "date": "dag ",
-    "day of week": "veckodag ",
-    "don't rotate": "rotera inte",
-    "down arrow": "nedåtpil",
-    "edge": "kant",
-    "ghost": "genomskinlighet",
-    "hour": "timmar ",
-    "left arrow": "vänsterpil",
-    "left-right": "vänster-höger",
-    "minute": "minuter ",
-    "month": "månad ",
-    "mosaic": "mosaik",
-    "mouse-pointer": "muspekare ",
-    "myself": "mig själv",
-    "other scripts in sprite": "andra skript i sprajten",
-    "pixelate": "pixla",
-    "previous backdrop": "föregående bakgrund",
-    "random position": "slumpmässig position",
-    "right arrow": "högerpil",
-    "second": "sekunder ",
-    "space": "mellanslag",
-    "Stage": "Scen",
-    "this script": "detta skript",
-    "up arrow": "uppåtpil",
-    "whirl": "virvel",
-    "year": "år "
-  },
   "soundEffects": [
     "tonhöjd",
     "panorera vänster/höger"
@@ -155,7 +122,9 @@
     "Events": "Händelser",
     "Control": "Kontroll",
     "Sensing": "Känna av",
-    "Operators": "Operatorer"
+    "Operators": "Operatorer",
+    "Variables": "Variabler",
+    "My Blocks": "Mina block"
   },
   "math": [
     "golv",

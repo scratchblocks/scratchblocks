@@ -107,40 +107,6 @@
     "loud?": "بەدەنگی بەرز؟"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "هەموو",
-    "all around": "بەدەوری",
-    "brightness": "ڕووناکی",
-    "color": "ڕەنگ",
-    "costume name": "ناوی بەرگ",
-    "date": "بەروار",
-    "day of week": "ڕۆژی هەفتە",
-    "don't rotate": "مەیسوڕێنە",
-    "down arrow": "تیری خواروو",
-    "edge": "لێوار",
-    "fisheye": "چاوماسی",
-    "ghost": "خێو",
-    "hour": "کاتژمێر",
-    "left arrow": "تیری چەپ",
-    "left-right": "چەپ-ڕاست",
-    "minute": "خولەک",
-    "month": "مانگ",
-    "mosaic": "موزایک",
-    "mouse-pointer": "نیشاندەری ماوس",
-    "myself": "خۆم",
-    "other scripts in sprite": "سکریپتەکانی تر لە تەن",
-    "pixelate": "وێنەخاڵکردن",
-    "previous backdrop": "پاشبنەمای پێشتر",
-    "random position": "شوێنی هەڕەمەکی",
-    "right arrow": "تیری ڕاست",
-    "second": "چرکە",
-    "space": "بۆشایی",
-    "Stage": "سەکۆ",
-    "this script": "ئەم سکریپتە",
-    "up arrow": "تیری سەروو",
-    "whirl": "خولانەوە",
-    "year": "ساڵ"
-  },
   "soundEffects": [
     "بەرزی دەنگ",
     "سوڕانەوە چەپ/ڕاست"
@@ -158,7 +124,9 @@
     "Events": "چالاکییەکان",
     "Control": "کۆنتڕۆڵ",
     "Sensing": "هەستکردن",
-    "Operators": "كرده‌هێماکان"
+    "Operators": "كرده‌هێماکان",
+    "Variables": "گۆڕاوەکان",
+    "My Blocks": "بلۆکەکانم"
   },
   "math": [
     "ڕەگی دووجا",

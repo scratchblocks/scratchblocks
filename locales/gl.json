@@ -110,40 +110,6 @@
     "loud?": "forte?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "todos",
-    "all around": "en todas as direccións",
-    "brightness": "luminosidade",
-    "color": "cor",
-    "costume name": "nome da vestimenta",
-    "date": "data",
-    "day of week": "día da semana",
-    "don't rotate": "non rotar",
-    "down arrow": "frecha abaixo",
-    "edge": "bordo",
-    "fisheye": "ollo de peixe",
-    "ghost": "desaparecer",
-    "hour": "hora",
-    "left arrow": "frecha esquerda",
-    "left-right": "esquerda-dereita",
-    "minute": "minuto",
-    "month": "mes",
-    "mosaic": "mosaico",
-    "mouse-pointer": "punteiro do rato",
-    "myself": "min mesmo",
-    "other scripts in sprite": "outros programas na figura",
-    "pixelate": "pixelar",
-    "previous backdrop": "fondo anterior",
-    "random position": "posición aleatoria",
-    "right arrow": "frecha dereita",
-    "second": "segundo",
-    "space": "espazo",
-    "Stage": "Escenario",
-    "this script": "este programa",
-    "up arrow": "frecha arriba",
-    "whirl": "remuiño",
-    "year": "ano"
-  },
   "soundEffects": [
     "ton",
     "canle esquerda/dereita"
@@ -160,7 +126,9 @@
     "Sound": "Son",
     "Events": "Eventos",
     "Sensing": "Sensores",
-    "Operators": "Operadores"
+    "Operators": "Operadores",
+    "Variables": "Variábeis",
+    "My Blocks": "Os meus bloques"
   },
   "math": [
     "valor absoluto",

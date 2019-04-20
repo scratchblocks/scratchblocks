@@ -82,36 +82,6 @@
     "loud?": "шумно ли е?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "всички",
-    "all around": "във всички посоки",
-    "brightness": "яркост",
-    "color": "цвят",
-    "costume name": "име на костюм",
-    "date": "дата",
-    "day of week": "ден от седмицата",
-    "don't rotate": "без въртене",
-    "down arrow": "стрелка надолу",
-    "edge": "ръб",
-    "hour": "час",
-    "left arrow": "лява стрелка",
-    "left-right": "наляво-надясно",
-    "minute": "минута",
-    "month": "месец",
-    "mosaic": "мозайка",
-    "mouse-pointer": "показалец на мишката",
-    "myself": "себе си",
-    "other scripts in sprite": "другите скриптове на спрайта",
-    "previous backdrop": "предишен декор",
-    "random position": "случайна позиция",
-    "right arrow": "дясна стрелка",
-    "second": "секунда",
-    "space": "интервал",
-    "Stage": "Сцена",
-    "this script": "този скрипт",
-    "up arrow": "стрелка нагоре",
-    "year": "година"
-  },
   "soundEffects": [
     "промяна на тона",
     "ляво/дясно"
@@ -129,7 +99,9 @@
     "Events": "Събития",
     "Control": "Контрол",
     "Sensing": "Сетива",
-    "Operators": "Оператори"
+    "Operators": "Оператори",
+    "Variables": "Променливи",
+    "My Blocks": "Моите Блокове"
   },
   "math": [
     "абсолютна стойност",

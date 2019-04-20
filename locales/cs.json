@@ -109,40 +109,6 @@
     "loud?": "hlasité?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "všechno",
-    "all around": "dokola",
-    "brightness": "jas",
-    "color": "barva",
-    "costume name": "název kostýmu",
-    "date": "den v měsíci",
-    "day of week": "den týdne",
-    "don't rotate": "neotáčet",
-    "down arrow": "šipka dolů",
-    "edge": "okraje",
-    "fisheye": "rybí oko",
-    "ghost": "průhlednost",
-    "hour": "hodina",
-    "left arrow": "šipka vlevo",
-    "left-right": "vlevo-vpravo",
-    "minute": "minuta",
-    "month": "měsíc",
-    "mosaic": "mozaika",
-    "mouse-pointer": "ukazateli myši",
-    "myself": "sebe",
-    "other scripts in sprite": "jiné scénáře postavy",
-    "pixelate": "kostičkování",
-    "previous backdrop": "předchozí pozadí",
-    "random position": "náhodná pozice",
-    "right arrow": "šipka vpravo",
-    "second": "sekunda",
-    "space": "mezerník",
-    "Stage": "Scéna",
-    "this script": "tento scénář",
-    "up arrow": "šipka nahoru",
-    "whirl": "víření",
-    "year": "rok"
-  },
   "soundEffects": [
     "poloha",
     "stereo vlevo/vpravo"
@@ -160,7 +126,9 @@
     "Events": "Události",
     "Control": "Ovládání",
     "Sensing": "Vnímání",
-    "Operators": "Operátory"
+    "Operators": "Operátory",
+    "Variables": "Proměnné",
+    "My Blocks": "Moje bloky"
   },
   "math": [
     "zaokr. dolů",

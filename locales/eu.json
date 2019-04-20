@@ -109,40 +109,6 @@
     "loud?": "ozen?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "dena",
-    "all around": "norabide guztietara",
-    "brightness": "distira",
-    "color": "kolorea",
-    "costume name": "tankeraren izena",
-    "date": "data",
-    "day of week": "asteko eguna",
-    "don't rotate": "ez biratu",
-    "down arrow": "behera gezia",
-    "edge": "ertza",
-    "fisheye": "arrain-begia",
-    "ghost": "mamua",
-    "hour": "ordua",
-    "left arrow": "ezkerrera gezia",
-    "left-right": "ezker-eskuin",
-    "minute": "minutua",
-    "month": "hilabetea",
-    "mosaic": "mosaikoa",
-    "mouse-pointer": "saguaren erakuslea",
-    "myself": "nire burua",
-    "other scripts in sprite": "pertsonaiaren beste script batzuk",
-    "pixelate": "pixelatu",
-    "previous backdrop": "aurreko atzeko oihala",
-    "random position": "ausazko kokapena",
-    "right arrow": "eskuinera gezia",
-    "second": "segundoa",
-    "space": "zuriunea",
-    "Stage": "Eszena",
-    "this script": "script hau",
-    "up arrow": "gora gezia",
-    "whirl": "zurrunbiloa",
-    "year": "urtea"
-  },
   "soundEffects": [
     "tonua",
     "ezker/eskuin balantzea"
@@ -160,7 +126,9 @@
     "Events": "Gertaerak",
     "Control": "Kontrola",
     "Sensing": "Sentsoreak",
-    "Operators": "Eragileak"
+    "Operators": "Eragileak",
+    "Variables": "Aldagaiak",
+    "My Blocks": "Nire blokeak"
   },
   "math": [
     "balio absolutu",

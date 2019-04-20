@@ -109,40 +109,6 @@
     "loud?": "kova äänentaso?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "kaikki",
-    "all around": "joka suuntaan",
-    "brightness": "kirkkaus",
-    "color": "väri",
-    "costume name": "asusteen nimi",
-    "date": "päiväys",
-    "day of week": "viikonpäivä",
-    "don't rotate": "älä kierrä",
-    "down arrow": "nuoli alas",
-    "edge": "reuna",
-    "fisheye": "kalansilmä",
-    "ghost": "haamu",
-    "hour": "tunti",
-    "left arrow": "nuoli vasemmalle",
-    "left-right": "vasen-oikea",
-    "minute": "minuutti",
-    "month": "kuukausi",
-    "mosaic": "mosaiikki",
-    "mouse-pointer": "hiiren osoitin",
-    "myself": "minä itse",
-    "other scripts in sprite": "hahmon muut skriptit",
-    "pixelate": "pikselöi",
-    "previous backdrop": "edellinen tausta",
-    "random position": "satunnainen sijainti",
-    "right arrow": "nuoli oikealle",
-    "second": "sekunti",
-    "space": "välilyönti",
-    "Stage": "Esiintymislava",
-    "this script": "tämä skripti",
-    "up arrow": "nuoli ylös",
-    "whirl": "pyörre",
-    "year": "vuosi"
-  },
   "soundEffects": [
     "sävelkorkeus",
     "panoroi vasen/oikea"
@@ -160,7 +126,9 @@
     "Events": "Tapahtumat",
     "Control": "Ohjaus",
     "Sensing": "Tuntoaisti",
-    "Operators": "Toiminnot"
+    "Operators": "Toiminnot",
+    "Variables": "Muuttujat",
+    "My Blocks": "Lohkoni"
   },
   "math": [
     "itseisarvo",

@@ -109,40 +109,6 @@
     "loud?": "响声？"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "全部",
-    "all around": "任意旋转",
-    "brightness": "亮度",
-    "color": "颜色",
-    "costume name": "造型名称",
-    "date": "日",
-    "day of week": "星期",
-    "don't rotate": "不可旋转",
-    "down arrow": "↓",
-    "edge": "舞台边缘",
-    "fisheye": "鱼眼",
-    "ghost": "虚像",
-    "hour": "时",
-    "left arrow": "←",
-    "left-right": "左右翻转",
-    "minute": "分",
-    "month": "月",
-    "mosaic": "马赛克",
-    "mouse-pointer": "鼠标指针",
-    "myself": "自己",
-    "other scripts in sprite": "该角色的其他脚本",
-    "pixelate": "像素化",
-    "previous backdrop": "上一个背景",
-    "random position": "随机位置",
-    "right arrow": "→",
-    "second": "秒",
-    "space": "空格",
-    "Stage": "舞台",
-    "this script": "这个脚本",
-    "up arrow": "↑",
-    "whirl": "漩涡",
-    "year": "年"
-  },
   "soundEffects": [
     "音调",
     "左右平衡"
@@ -160,7 +126,9 @@
     "Events": "事件",
     "Control": "控制",
     "Sensing": "侦测",
-    "Operators": "运算"
+    "Operators": "运算",
+    "Variables": "变量",
+    "My Blocks": "自制积木"
   },
   "math": [
     "绝对值",

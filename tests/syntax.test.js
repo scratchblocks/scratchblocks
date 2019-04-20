@@ -167,11 +167,11 @@ describe('disambiguation', () => {
   })
 
   test('sound: sound effects', () => {
-    let b = testBlock('set [pitch v] effect to (100)', ['sb3:sound_seteffectto', 'pitch', 100])
+    let b = testBlock('set [pitch v] effect to (100)', ['sb3:SOUND_SETEFFECTO', 'pitch', 100])
     expect(b.info.category).toBe('sound')
-    testBlock('set [pan left/right v] effect to (100)', ['sb3:sound_seteffectto', 'pan left/right', 100])
+    testBlock('set [pan left/right v] effect to (100)', ['sb3:SOUND_SETEFFECTO', 'pan left/right', 100])
 
-    b = testBlock('change [pitch v] effect by (5)', ['sb3:sound_changeeffectby', 'pitch', 5])
+    b = testBlock('change [pitch v] effect by (5)', ['sb3:SOUND_CHANGEEFFECTBY', 'pitch', 5])
     expect(b.info.category).toBe('sound')
   })
 
@@ -181,9 +181,9 @@ describe('disambiguation', () => {
   })
 
   test('green: string contains', () => {
-    let b = testBlock('<[foo] contains [f] ?>', ['sb3:operator_contains', 'foo', 'f'])
+    let b = testBlock('<[foo] contains [f] ?>', ['sb3:OPERATORS_CONTAINS', 'foo', 'f'])
     expect(b.info.category).toBe('operators')
-    testBlock('<(foo) contains [f] ?>', ['sb3:operator_contains', ['readVariable', 'foo'], 'f'])
+    testBlock('<(foo) contains [f] ?>', ['sb3:OPERATORS_CONTAINS', ['readVariable', 'foo'], 'f'])
   })
 
   // TODO test disambiguation for other languages

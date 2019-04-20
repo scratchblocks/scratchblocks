@@ -111,40 +111,6 @@
     "loud?": "עוצמת קול?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "הכל",
-    "all around": "מסביב",
-    "brightness": "בהירות",
-    "color": "צבע",
-    "costume name": "שם תלבושת",
-    "date": "תאריך",
-    "day of week": "יום בשבוע",
-    "don't rotate": "בטל סיבוב",
-    "down arrow": "חץ מטה",
-    "edge": "קצה",
-    "fisheye": "עין דג",
-    "ghost": "רוח רפאים",
-    "hour": "שעה",
-    "left arrow": "חץ שמאלי",
-    "left-right": "שמאל-ימין",
-    "minute": "דקה",
-    "month": "חודש",
-    "mosaic": "פסיפס",
-    "mouse-pointer": "סמן העכבר",
-    "myself": "עצמי",
-    "other scripts in sprite": "תסריטים אחרים בדמות",
-    "pixelate": "פיקסלים",
-    "previous backdrop": "הרקע הקודם",
-    "random position": "מיקום אקראי",
-    "right arrow": "חץ ימני",
-    "second": "שניה",
-    "space": "רווח",
-    "Stage": "במה",
-    "this script": "תסריט זה",
-    "up arrow": "חץ מעלה",
-    "whirl": "סחרור",
-    "year": "שנה"
-  },
   "soundEffects": [
     "גובה צליל",
     "ערוץ שמע שמאלי/ימני"
@@ -162,7 +128,9 @@
     "Events": "אירועים",
     "Control": "בקרה",
     "Sensing": "חיישנים",
-    "Operators": "מפעילים"
+    "Operators": "מפעילים",
+    "Variables": "משתנים",
+    "My Blocks": "הלבנים שלי"
   },
   "math": [
     "ערך מוחלט",

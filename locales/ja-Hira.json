@@ -109,40 +109,6 @@
     "loud?": "うるさい"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "すべて",
-    "all around": "じゆうにかいてん",
-    "brightness": "あかるさ",
-    "color": "いろ",
-    "costume name": "コスチュームめい",
-    "date": "ひ",
-    "day of week": "ようび",
-    "don't rotate": "かいてんしない",
-    "down arrow": "したむきやじるし",
-    "edge": "はし",
-    "fisheye": "ぎょがんレンズ",
-    "ghost": "ゆうれい",
-    "hour": "とき",
-    "left arrow": "ひだりむきやじるし",
-    "left-right": "さゆうのみ",
-    "minute": "ぶん",
-    "month": "つき",
-    "mosaic": "モザイク",
-    "mouse-pointer": "マウスのポインター",
-    "myself": "じぶんじしん",
-    "other scripts in sprite": "スプライトのほかのスクリプトをとめる",
-    "pixelate": "ピクセルか",
-    "previous backdrop": "まえのはいけい",
-    "random position": "どこかのばしょ",
-    "right arrow": "みぎむきやじるし",
-    "second": "びょう",
-    "space": "スペース",
-    "Stage": "ステージ",
-    "this script": "このスクリプトをとめる",
-    "up arrow": "うわむきやじるし",
-    "whirl": "うずまき",
-    "year": "とし"
-  },
   "soundEffects": [
     "ピッチ",
     "さゆうにパン"
@@ -160,7 +126,9 @@
     "Events": "イベント",
     "Control": "せいぎょ",
     "Sensing": "しらべる",
-    "Operators": "えんざん"
+    "Operators": "えんざん",
+    "Variables": "へんすう",
+    "My Blocks": "ブロックていぎ"
   },
   "math": [
     "ぜったいち",

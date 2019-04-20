@@ -108,40 +108,6 @@
     "loud?": "yüksek ses?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "tümü",
-    "all around": "tüm yönlere",
-    "brightness": "parlaklık",
-    "color": "renk",
-    "costume name": "kostüm ismi",
-    "date": "tarih",
-    "day of week": "haftanın günü",
-    "don't rotate": "döndürme",
-    "down arrow": "aşağı ok",
-    "edge": "kenara",
-    "fisheye": "balık gözü",
-    "ghost": "hayalet",
-    "hour": "saat",
-    "left arrow": "sol ok",
-    "left-right": "sol-sağ",
-    "minute": "dakika",
-    "month": "ay",
-    "mosaic": "mozaik",
-    "mouse-pointer": "fare-imleci",
-    "myself": "kendim",
-    "other scripts in sprite": "Kukladaki diğer diziler",
-    "pixelate": "benekleştir",
-    "previous backdrop": "önceki dekor",
-    "random position": "rastgele konum",
-    "right arrow": "sağ ok",
-    "second": "saniye",
-    "space": "boşluk",
-    "Stage": "Sahne",
-    "this script": "bu dizi",
-    "up arrow": "yukarı ok",
-    "whirl": "fırıl fırıl döndür",
-    "year": "yıl"
-  },
   "soundEffects": [
     "ses perdesi",
     "sağa-sola kaydır"
@@ -159,7 +125,9 @@
     "Events": "Olaylar",
     "Control": "Kontrol",
     "Sensing": "Algılama",
-    "Operators": "Operatörler"
+    "Operators": "Operatörler",
+    "Variables": "Değişkenler",
+    "My Blocks": "Bloklarım"
   },
   "math": [
     "mutlak değer",

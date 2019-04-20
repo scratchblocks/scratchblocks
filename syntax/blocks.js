@@ -91,19 +91,28 @@ function minifyHash(hash) {
 
 var blocksBySelector = {}
 var blocksBySpec = {}
-var allBlocks = scratchCommands.map(function(info) {
-  Object.assign(info, {
-    hasLoopArrow: !!info.hasLoopArrow,
-    parts: info.spec.split(splitPat).filter(x => !!x),
-    hash: hashSpec(info.spec),
-  })
+var allBlocks = scratchCommands.map(function(def) {
+  var spec = def.scratch2_spec
+  var selector = def.scratch2_selector || ('sb3:' + def.scratch3_selector)
 
-  if (info.selector) {
-    // nb. command order matters!
-    // Scratch 1.4 blocks are listed last
-    if (!blocksBySelector[info.selector]) blocksBySelector[info.selector] = info
+  if (!spec) throw new Error("Missing spec: '" + selector + "'")
+  if (!selector) throw new Error("Missing selector: '" + spec + "'")
+
+  var info = {
+    selector,
+    spec,
+    parts: spec.split(splitPat).filter(x => !!x),
+    hash: hashSpec(spec),
+    inputs: def.inputs,
+    shape: def.shape,
+    category: def.category,
+    hasLoopArrow: !!def.hasLoopArrow,
   }
-  return (blocksBySpec[info.spec] = info)
+
+  // nb. command order matters!
+  // Scratch 1.4 blocks are listed last
+  if (!blocksBySelector[selector]) blocksBySelector[selector] = info
+  return (blocksBySpec[spec] = info)
 })
 
 var unicodeIcons = {
@@ -232,7 +241,7 @@ disambig("computeFunction:of:", "getAttribute:of:", function(children, lang) {
   return lang.math.indexOf(name) > -1
 })
 
-disambig("sb3:sound_changeeffectby", "changeGraphicEffect:by:", function(
+disambig("sb3:SOUND_CHANGEEFFECTBY", "changeGraphicEffect:by:", function(
   children,
   lang
 ) {
@@ -247,7 +256,7 @@ disambig("sb3:sound_changeeffectby", "changeGraphicEffect:by:", function(
   return false
 })
 
-disambig("sb3:sound_seteffectto", "setGraphicEffect:to:", function(
+disambig("sb3:SOUND_SETEFFECTO", "setGraphicEffect:to:", function(
   children,
   lang
 ) {
@@ -269,7 +278,7 @@ disambig("lineCountOfList:", "stringLength:", function(children, lang) {
   return last.shape === "dropdown"
 })
 
-disambig("list:contains:", "sb3:operator_contains", function(children, lang) {
+disambig("list:contains:", "sb3:OPERATORS_CONTAINS", function(children, lang) {
   // List block if dropdown, otherwise operators
   var first = children[0]
   if (!first.isInput) return

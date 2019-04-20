@@ -109,40 +109,6 @@
     "loud?": "δυνατά;"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "όλα",
-    "all around": "τριγύρω",
-    "brightness": "φωτεινότητας",
-    "color": "χρώματος",
-    "costume name": "όνομα ενδυμασίας",
-    "date": "ημερομηνία",
-    "day of week": "μέρα της εβδομάδας",
-    "don't rotate": "μην περιστρέψεις",
-    "down arrow": "κάτω βέλος",
-    "edge": "όριο",
-    "fisheye": "κυρτότητας",
-    "ghost": "φαντάσματος",
-    "hour": "ώρα",
-    "left arrow": "αριστερό βέλος",
-    "left-right": "αριστερά-δεξιά",
-    "minute": "λεπτό",
-    "month": "μήνας",
-    "mosaic": "ψηφιδωτού",
-    "mouse-pointer": "δείκτη ποντικιού",
-    "myself": "εαυτού μου",
-    "other scripts in sprite": "άλλα σενάρια σε αυτό το αντικείμενο",
-    "pixelate": "εικονοστοιχειοποίησης",
-    "previous backdrop": "προηγούμενο υπόβαθρο",
-    "random position": "τυχαία θέση",
-    "right arrow": "δεξί βέλος",
-    "second": "δευτερόλεπτο",
-    "space": "διάστημα",
-    "Stage": "Σκηνή",
-    "this script": "αυτό το σενάριο",
-    "up arrow": "πάνω βέλος",
-    "whirl": "δίνης",
-    "year": "έτος"
-  },
   "soundEffects": [
     "τόνος",
     "μετατόπιση αριστερά/δεξιά"
@@ -160,7 +126,9 @@
     "Events": "Συμβάντα",
     "Control": "Έλεγχος",
     "Sensing": "Αισθητήρες",
-    "Operators": "Τελεστές"
+    "Operators": "Τελεστές",
+    "Variables": "Μεταβλητές",
+    "My Blocks": "Οι Εντολές μου"
   },
   "math": [
     "απόλυτη τιμή",

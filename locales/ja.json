@@ -109,40 +109,6 @@
     "loud?": "うるさい"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "すべて",
-    "all around": "自由に回転",
-    "brightness": "明るさ",
-    "color": "色",
-    "costume name": "コスチューム名",
-    "date": "日",
-    "day of week": "曜日",
-    "don't rotate": "回転しない",
-    "down arrow": "下向き矢印",
-    "edge": "端",
-    "fisheye": "魚眼レンズ",
-    "ghost": "幽霊",
-    "hour": "時",
-    "left arrow": "左向き矢印",
-    "left-right": "左右のみ",
-    "minute": "分",
-    "month": "月",
-    "mosaic": "モザイク",
-    "mouse-pointer": "マウスのポインター",
-    "myself": "自分自身",
-    "other scripts in sprite": "スプライトの他のスクリプトを止める",
-    "pixelate": "ピクセル化",
-    "previous backdrop": "前の背景",
-    "random position": "どこかの場所",
-    "right arrow": "右向き矢印",
-    "second": "秒",
-    "space": "スペース",
-    "Stage": "ステージ",
-    "this script": "このスクリプトを止める",
-    "up arrow": "上向き矢印",
-    "whirl": "渦巻き",
-    "year": "年"
-  },
   "soundEffects": [
     "ピッチ",
     "左右にパン"
@@ -160,7 +126,9 @@
     "Events": "イベント",
     "Control": "制御",
     "Sensing": "調べる",
-    "Operators": "演算"
+    "Operators": "演算",
+    "Variables": "変数",
+    "My Blocks": "ブロック定義"
   },
   "math": [
     "絶対値",

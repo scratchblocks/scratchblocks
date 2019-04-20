@@ -109,40 +109,6 @@
     "loud?": "hangos?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "minden",
-    "all around": "foroghat",
-    "brightness": "fényerő",
-    "color": "szín",
-    "costume name": "jelmez neve",
-    "date": "nap",
-    "day of week": "hét napja",
-    "don't rotate": "nem foroghat",
-    "down arrow": "lefele nyíl",
-    "edge": "játéktér széle",
-    "fisheye": "halszem",
-    "ghost": "szellem",
-    "hour": "óra",
-    "left arrow": "balra nyíl",
-    "left-right": "balra-jobbra nézhet",
-    "minute": "perc",
-    "month": "hónap",
-    "mosaic": "mozaik",
-    "mouse-pointer": "egérmutató",
-    "myself": "magadról",
-    "other scripts in sprite": "szereplő többi feladata",
-    "pixelate": "pixeles",
-    "previous backdrop": "előző háttér",
-    "random position": "véletlen hely",
-    "right arrow": "jobbra nyíl",
-    "second": "másodperc",
-    "space": "szóköz",
-    "Stage": "Színpad",
-    "this script": "ez a feladat",
-    "up arrow": "felfele nyíl",
-    "whirl": "örvény",
-    "year": "év"
-  },
   "soundEffects": [
     "hangmagasság",
     "pásztázás balra/jobbra"
@@ -160,7 +126,9 @@
     "Events": "Események",
     "Control": "Vezérlés",
     "Sensing": "Érzékelés",
-    "Operators": "Műveletek"
+    "Operators": "Műveletek",
+    "Variables": "Változók",
+    "My Blocks": "Blokkjaim"
   },
   "math": [
     "abszolut értéke",

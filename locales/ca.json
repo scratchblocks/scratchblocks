@@ -109,38 +109,6 @@
     "loud?": "so fort?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "tot",
-    "all around": "al voltant",
-    "brightness": "brillantor",
-    "costume name": "nom del vestit",
-    "date": "data",
-    "day of week": "dia de la setmana",
-    "don't rotate": "no giris",
-    "down arrow": "fletxa avall",
-    "edge": "vora",
-    "fisheye": "ull de peix",
-    "ghost": "transparència",
-    "hour": "hora",
-    "left arrow": "fletxa esquerra",
-    "left-right": "esquerra-dreta",
-    "minute": "minut",
-    "month": "mes",
-    "mouse-pointer": "punter del ratolí",
-    "myself": "jo mateix",
-    "other scripts in sprite": "altres programes del personatge",
-    "pixelate": "pixelar",
-    "previous backdrop": "fons anterior",
-    "random position": "posició aleatòria",
-    "right arrow": "fletxa dreta",
-    "second": "segon",
-    "space": "espai",
-    "Stage": "Escenari",
-    "this script": "aquest programa",
-    "up arrow": "fletxa amunt",
-    "whirl": "remolí",
-    "year": "any"
-  },
   "soundEffects": [
     "pan esquerra/dreta"
   ],
@@ -156,7 +124,8 @@
     "Sound": "So",
     "Events": "Esdeveniments",
     "Sensing": "Sensors",
-    "Operators": "Operadors"
+    "Operators": "Operadors",
+    "My Blocks": "Els meus blocs"
   },
   "math": [
     "part sencera",

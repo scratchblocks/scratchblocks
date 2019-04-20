@@ -111,40 +111,6 @@
     "loud?": "소리가 큰가?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "모두",
-    "all around": "회전하기",
-    "brightness": "밝기",
-    "color": "색깔",
-    "costume name": "모양 이름",
-    "date": "일",
-    "day of week": "요일",
-    "don't rotate": "회전하지 않기",
-    "down arrow": "아래쪽 화살표",
-    "edge": "벽",
-    "fisheye": "어안 렌즈",
-    "ghost": "투명도",
-    "hour": "시",
-    "left arrow": "왼쪽 화살표",
-    "left-right": "왼쪽-오른쪽",
-    "minute": "분",
-    "month": "월",
-    "mosaic": "모자이크",
-    "mouse-pointer": "마우스 포인터",
-    "myself": "나 자신",
-    "other scripts in sprite": "이 스프라이트에 있는 다른 스크립트",
-    "pixelate": "픽셀화",
-    "previous backdrop": "이전 배경",
-    "random position": "무작위 위치",
-    "right arrow": "오른쪽 화살표",
-    "second": "초",
-    "space": "스페이스",
-    "Stage": "무대",
-    "this script": "이 스크립트",
-    "up arrow": "위쪽 화살표",
-    "whirl": "소용돌이",
-    "year": "년"
-  },
   "soundEffects": [
     "음 높이",
     "음향 위치 왼쪽/오른쪽"
@@ -162,7 +128,9 @@
     "Events": "이벤트",
     "Control": "제어",
     "Sensing": "감지",
-    "Operators": "연산"
+    "Operators": "연산",
+    "Variables": "변수",
+    "My Blocks": "나만의 블록"
   },
   "math": [
     "절댓값",

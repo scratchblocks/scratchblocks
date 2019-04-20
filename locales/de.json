@@ -108,40 +108,6 @@
     "loud?": "laut?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "alles",
-    "all around": "rundherum",
-    "brightness": "Helligkeit",
-    "color": "Farbe",
-    "costume name": "Kostümname",
-    "date": "Datum",
-    "day of week": "Wochentag",
-    "don't rotate": "nicht drehen",
-    "down arrow": "Pfeil nach unten",
-    "edge": "Rand",
-    "fisheye": "Fischauge",
-    "ghost": "Durchsichtigkeit",
-    "hour": "Stunde",
-    "left arrow": "Pfeil nach links",
-    "left-right": "links-rechts",
-    "minute": "Minute",
-    "month": "Monat",
-    "mosaic": "Mosaik",
-    "mouse-pointer": "Mauszeiger",
-    "myself": "mir selbst",
-    "other scripts in sprite": "andere Skripte der Figur",
-    "pixelate": "Pixel",
-    "previous backdrop": "vorheriges Bühnenbild",
-    "random position": "Zufallsposition",
-    "right arrow": "Pfeil nach rechts",
-    "second": "Sekunde",
-    "space": "Leertaste",
-    "Stage": "Bühne",
-    "this script": "dieses Skript",
-    "up arrow": "Pfeil nach oben",
-    "whirl": "Wirbel",
-    "year": "Jahr"
-  },
   "soundEffects": [
     "Höhe",
     "Aussteuern links/rechts"
@@ -159,7 +125,9 @@
     "Events": "Ereignisse",
     "Control": "Steuerung",
     "Sensing": "Fühlen",
-    "Operators": "Operatoren"
+    "Operators": "Operatoren",
+    "Variables": "Variablen",
+    "My Blocks": "Meine Blöcke"
   },
   "math": [
     "Betrag",

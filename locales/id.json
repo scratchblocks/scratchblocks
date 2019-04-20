@@ -107,40 +107,6 @@
     "loud?": "nyaring?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "semua",
-    "all around": "seluruh",
-    "brightness": "kecerahan",
-    "color": "warna",
-    "costume name": "nama kostum",
-    "date": "tanggal",
-    "day of week": "nama hari",
-    "don't rotate": "jangan berputar",
-    "down arrow": "panah bawah",
-    "edge": "pinggir",
-    "fisheye": "mata ikan",
-    "ghost": "bayangan",
-    "hour": "jam",
-    "left arrow": "panah kiri",
-    "left-right": "kiri-kanan",
-    "minute": "menit",
-    "month": "bulan",
-    "mosaic": "mosaik",
-    "mouse-pointer": "penunujuk tetikus",
-    "myself": "diriku",
-    "other scripts in sprite": "skrip lain di sprite ini",
-    "pixelate": "pixelasi",
-    "previous backdrop": "latar sebelumnya",
-    "random position": "posisi sembarang",
-    "right arrow": "panah kanan",
-    "second": "detik",
-    "space": "spasi",
-    "Stage": "Panggung",
-    "this script": "skrip ini",
-    "up arrow": "panah atas",
-    "whirl": "pusaran",
-    "year": "tahun"
-  },
   "soundEffects": [
     "nada",
     "pan kiri/kanan"
@@ -158,7 +124,9 @@
     "Events": "Kejadian",
     "Control": "Kontrol",
     "Sensing": "Sensor",
-    "Operators": "Operator"
+    "Operators": "Operator",
+    "Variables": "Variabel",
+    "My Blocks": "Balok Saya"
   },
   "math": [
     "ceil",

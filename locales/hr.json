@@ -108,40 +108,6 @@
     "loud?": "glasno?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "sve",
-    "all around": "sve unaokolo",
-    "brightness": "osvjetljenje",
-    "color": "boja",
-    "costume name": "naziv kostima",
-    "date": "dan",
-    "day of week": "dan u tjednu",
-    "don't rotate": "ne rotiraj",
-    "down arrow": "strelica dolje",
-    "edge": "rub",
-    "fisheye": "riblje oko",
-    "ghost": "duh",
-    "hour": "sat",
-    "left arrow": "strelica lijevo",
-    "left-right": "lijevo-desno",
-    "minute": "minuta",
-    "month": "mjesec",
-    "mosaic": "mozaik",
-    "mouse-pointer": "pokazivač miša",
-    "myself": "ja",
-    "other scripts in sprite": "druge programe lika",
-    "pixelate": "pozrnati",
-    "previous backdrop": "prethodna pozadina",
-    "random position": "nasumična pozicija",
-    "right arrow": "strelica desno",
-    "second": "sekunda",
-    "space": "razmaknica",
-    "Stage": "Pozornica",
-    "this script": "ovaj program",
-    "up arrow": "strelica gore",
-    "whirl": "vrtlog",
-    "year": "godina"
-  },
   "soundEffects": [
     "visina tona",
     "kretanje lijevo/desno"
@@ -159,7 +125,9 @@
     "Events": "Događaji",
     "Control": "Upravljanje",
     "Sensing": "Očitanja",
-    "Operators": "Operacije"
+    "Operators": "Operacije",
+    "Variables": "Varijable",
+    "My Blocks": "Moji Blokovi"
   },
   "math": [
     "apsolutno",

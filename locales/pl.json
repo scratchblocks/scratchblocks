@@ -109,40 +109,6 @@
     "loud?": "głośno?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "wszystko",
-    "all around": "dookoła",
-    "brightness": "jasność",
-    "color": "kolor",
-    "costume name": "nazwa kostiumu",
-    "date": "data",
-    "day of week": "dzień tygodnia",
-    "don't rotate": "nie obracaj",
-    "down arrow": "strzałka w dół",
-    "edge": "krawędź",
-    "fisheye": "rybie oko",
-    "ghost": "duch",
-    "hour": "godzina",
-    "left arrow": "strzałka w lewo",
-    "left-right": "lewo-prawo",
-    "minute": "minuta",
-    "month": "miesiąc",
-    "mosaic": "mozaika",
-    "mouse-pointer": "wskaźnik myszy",
-    "myself": "siebie",
-    "other scripts in sprite": "inne skrypty duszka",
-    "pixelate": "zniekształć",
-    "previous backdrop": "poprzednie tło",
-    "random position": "losowa pozycja",
-    "right arrow": "strzałka w prawo",
-    "second": "sekunda",
-    "space": "spacja",
-    "Stage": "scena",
-    "this script": "ten skrypt",
-    "up arrow": "strzałka w górę",
-    "whirl": "wir",
-    "year": "rok"
-  },
   "soundEffects": [
     "płynność dźwięku",
     "przesuń w lewo/prawo"
@@ -160,7 +126,9 @@
     "Events": "Zdarzenia",
     "Control": "Kontrola",
     "Sensing": "Czujniki",
-    "Operators": "Wyrażenia"
+    "Operators": "Wyrażenia",
+    "Variables": "Zmienne",
+    "My Blocks": "Moje bloki"
   },
   "math": [
     "wartość bezwzględna",

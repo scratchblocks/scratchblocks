@@ -108,40 +108,6 @@
     "loud?": "høy lyd?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "alle",
-    "all around": "fri rotasjon",
-    "brightness": "lysstyrke",
-    "color": "farge",
-    "costume name": "draktnavn",
-    "date": "dato",
-    "day of week": "ukedag",
-    "don't rotate": "ikke roter",
-    "down arrow": "pil ned",
-    "edge": "kant",
-    "fisheye": "fiskeøye",
-    "ghost": "gjennomsiktig",
-    "hour": "time",
-    "left arrow": "pil venstre",
-    "left-right": "vend sideveis",
-    "minute": "minutt",
-    "month": "måned",
-    "mosaic": "mosaikk",
-    "mouse-pointer": "musepeker",
-    "myself": "meg",
-    "other scripts in sprite": "andre skript i figuren",
-    "pixelate": "piksel",
-    "previous backdrop": "forrige bakgrunn",
-    "random position": "tilfeldig sted",
-    "right arrow": "pil høyre",
-    "second": "sekund",
-    "space": "mellomrom",
-    "Stage": "Scene",
-    "this script": "dette skriptet",
-    "up arrow": "pil opp",
-    "whirl": "virvel",
-    "year": "år"
-  },
   "soundEffects": [
     "tonehøyde",
     "retning"
@@ -159,7 +125,9 @@
     "Events": "Hendelser",
     "Control": "Styring",
     "Sensing": "Sansing",
-    "Operators": "Operatorer"
+    "Operators": "Operatorer",
+    "Variables": "Variabler",
+    "My Blocks": "Mine klosser"
   },
   "math": [
     "absoluttverdi",

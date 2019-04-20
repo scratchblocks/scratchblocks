@@ -107,40 +107,6 @@
     "loud?": "صوت عالي"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "الكل",
-    "all around": "في جميع الاتجاهات",
-    "brightness": "شدة الإضاءة",
-    "color": "اللون",
-    "costume name": "اسم المظهر",
-    "date": "تاريخ اليوم",
-    "day of week": "يوم الأسبوع",
-    "don't rotate": "لا دوران",
-    "down arrow": "السهم السفلي",
-    "edge": "الحافة",
-    "fisheye": "عين السمكة",
-    "ghost": "الشبح",
-    "hour": "الساعة",
-    "left arrow": "السهم الأيسر",
-    "left-right": "يمين - يسار",
-    "minute": "الدقيقة",
-    "month": "الشهر",
-    "mosaic": "الموزاييك",
-    "mouse-pointer": "مؤشر الفأرة",
-    "myself": "نفسي",
-    "other scripts in sprite": "المقاطع البرمجية الاخرى",
-    "pixelate": "البكسلة",
-    "previous backdrop": "الخلفية السابقة",
-    "random position": "موضع عشوائي",
-    "right arrow": "السهم الأيمن",
-    "second": "الثانية",
-    "space": "المسافة",
-    "Stage": "المنصة",
-    "this script": "المقطع البرمجي الحالي",
-    "up arrow": "السهم العلوي",
-    "whirl": "الدوامة",
-    "year": "السنة"
-  },
   "soundEffects": [
     "طبقة الصوت",
     "عموم يسار / يمين"
@@ -158,7 +124,9 @@
     "Events": "الأحداث",
     "Control": "التحكم",
     "Sensing": "التحسس",
-    "Operators": "العمليات"
+    "Operators": "العمليات",
+    "Variables": "المتغيرات",
+    "My Blocks": "لبنات "
   },
   "math": [
     "القيمة المطلقة",

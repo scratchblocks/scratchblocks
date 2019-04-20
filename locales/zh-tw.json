@@ -109,40 +109,6 @@
     "loud?": "大聲？"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "全部",
-    "all around": "不設限",
-    "brightness": "亮度",
-    "color": "顏色",
-    "costume name": "造型名稱",
-    "date": "日",
-    "day of week": "週",
-    "don't rotate": "不旋轉",
-    "down arrow": "向下",
-    "edge": "邊緣",
-    "fisheye": "魚眼",
-    "ghost": "幻影",
-    "hour": "時",
-    "left arrow": "向左",
-    "left-right": "左-右",
-    "minute": "分",
-    "month": "月",
-    "mosaic": "馬賽克",
-    "mouse-pointer": "鼠標",
-    "myself": "自己",
-    "other scripts in sprite": "這個物件的其它程式",
-    "pixelate": "像素化",
-    "previous backdrop": "上一個背景",
-    "random position": "隨機",
-    "right arrow": "向右",
-    "second": "秒",
-    "space": "空白",
-    "Stage": "舞台",
-    "this script": "這個程式",
-    "up arrow": "向上",
-    "whirl": "漩渦",
-    "year": "年"
-  },
   "soundEffects": [
     "音高",
     "聲道左/右"
@@ -160,7 +126,9 @@
     "Events": "事件",
     "Control": "控制",
     "Sensing": "偵測",
-    "Operators": "運算"
+    "Operators": "運算",
+    "Variables": "變數",
+    "My Blocks": "函式積木"
   },
   "math": [
     "絕對值",

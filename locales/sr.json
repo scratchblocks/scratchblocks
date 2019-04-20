@@ -109,40 +109,6 @@
     "loud?": "гласно?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "све",
-    "all around": "на све стране",
-    "brightness": "осветљеност",
-    "color": "боја",
-    "costume name": "име костима",
-    "date": "датум",
-    "day of week": "дан у недељи",
-    "don't rotate": "без окретања",
-    "down arrow": "стрелица доле",
-    "edge": "ивица",
-    "fisheye": "рибље око",
-    "ghost": "дух",
-    "hour": "сат",
-    "left arrow": "стрелица лево",
-    "left-right": "лево-десно",
-    "minute": "минут",
-    "month": "месец",
-    "mosaic": "мозаик",
-    "mouse-pointer": "показивач миша",
-    "myself": "мене",
-    "other scripts in sprite": "друге програме лика",
-    "pixelate": "позрнати",
-    "previous backdrop": "претходна позадина",
-    "random position": "случајан положај",
-    "right arrow": "стрелица десно",
-    "second": "секунда",
-    "space": "размак",
-    "Stage": "Позорница",
-    "this script": "овај програм",
-    "up arrow": "стрелица горе",
-    "whirl": "вртлог",
-    "year": "година"
-  },
   "soundEffects": [
     "висина тона",
     "померање лево/десно"
@@ -160,7 +126,9 @@
     "Events": "Догађаји",
     "Control": "Управљање",
     "Sensing": "Осећаји",
-    "Operators": "Оператори"
+    "Operators": "Оператори",
+    "Variables": "Променљиве",
+    "My Blocks": "Моји блокови"
   },
   "math": [
     "абс",

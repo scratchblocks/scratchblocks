@@ -109,39 +109,6 @@
     "loud?": "гучно?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "все",
-    "all around": "навколо",
-    "brightness": "яскравість",
-    "color": "колір",
-    "costume name": "ім’я образу",
-    "date": "дата",
-    "day of week": "день тижня",
-    "don't rotate": "не обертати",
-    "down arrow": "стрілка вниз",
-    "edge": "межа",
-    "fisheye": "роздуття",
-    "ghost": "привид",
-    "hour": "година",
-    "left arrow": "стрілка ліворуч",
-    "left-right": "зліва-направо",
-    "minute": "хвилина ",
-    "month": "місяць",
-    "mosaic": "мозаїка",
-    "mouse-pointer": "вказівник",
-    "other scripts in sprite": "інші скрипти цього спрайту",
-    "pixelate": "пікселями",
-    "previous backdrop": "попереднє тло",
-    "random position": "випадкова позиція",
-    "right arrow": "стрілка праворуч",
-    "second": "секунда",
-    "space": "пропуск",
-    "Stage": "Сцена",
-    "this script": "цей скрипт",
-    "up arrow": "стрілка вгору",
-    "whirl": "закручування",
-    "year": "рік"
-  },
   "soundEffects": [
     "висота",
     "панорама"
@@ -159,7 +126,9 @@
     "Events": "Події",
     "Control": "Керування",
     "Sensing": "Датчики",
-    "Operators": "Оператори"
+    "Operators": "Оператори",
+    "Variables": "Змінні",
+    "My Blocks": "Мої блоки"
   },
   "math": [
     "менше ціле",

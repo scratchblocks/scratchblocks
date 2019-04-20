@@ -109,40 +109,6 @@
     "loud?": "skaļš?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "viss",
-    "all around": "jebkurā virzienā",
-    "brightness": "gaišums",
-    "color": "krāsa",
-    "costume name": "tērpa nosaukums",
-    "date": "datums",
-    "day of week": "nedēļas diena",
-    "don't rotate": "negriezties",
-    "down arrow": "apakšējā bulta",
-    "edge": "mala",
-    "fisheye": "zivsacs",
-    "ghost": "spoks",
-    "hour": "stunda",
-    "left arrow": "kreisā bulta",
-    "left-right": "pa kreisi - pa labi",
-    "minute": "minūte",
-    "month": "mēnesis",
-    "mosaic": "mozaīka",
-    "mouse-pointer": "peles kursors",
-    "myself": "savu",
-    "other scripts in sprite": "citi skripti gariņā",
-    "pixelate": "pikseļi",
-    "previous backdrop": "iepriekšējais fons",
-    "random position": "nejauša pozīcija",
-    "right arrow": "labā bulta",
-    "second": "sekunde",
-    "space": "atstarpe",
-    "Stage": "Skatuve",
-    "this script": "šis skripts",
-    "up arrow": "augšējā bulta",
-    "whirl": "virpuļi",
-    "year": "gads"
-  },
   "soundEffects": [
     "augstums",
     "bīdīt pa labi/pa kreisi"
@@ -160,7 +126,9 @@
     "Events": "Notikumi",
     "Control": "Vadība",
     "Sensing": "Uztveršana",
-    "Operators": "Operatori"
+    "Operators": "Operatori",
+    "Variables": "Mainīgie",
+    "My Blocks": "Mani bloki"
   },
   "math": [
     "modulis (absolūtā vērtība)",

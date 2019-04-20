@@ -108,40 +108,6 @@
     "loud?": "tare?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "totul",
-    "all around": "de jur împrejur",
-    "brightness": "strălucire",
-    "color": "culoare",
-    "costume name": "denumire costum",
-    "date": "data",
-    "day of week": "ziua săptămânii",
-    "don't rotate": "nu te roti",
-    "down arrow": "săgeată jos",
-    "edge": "marginea",
-    "fisheye": "ochi de pește",
-    "ghost": "fantomă",
-    "hour": "ora",
-    "left arrow": "săgeată stânga",
-    "left-right": "stânga-dreapta",
-    "minute": "minutul",
-    "month": "luna",
-    "mosaic": "mozaic",
-    "mouse-pointer": "cursorul mouse-ului",
-    "myself": "eu",
-    "other scripts in sprite": "alte scripturi pentru personaj",
-    "pixelate": "pixelare",
-    "previous backdrop": "decorul anterior",
-    "random position": "poziție aleatoare",
-    "right arrow": "săgeată dreapta",
-    "second": "secunda",
-    "space": "spațiu",
-    "Stage": "Scenă",
-    "this script": "acest script",
-    "up arrow": "săgeată în sus",
-    "whirl": "vârtej",
-    "year": "anul"
-  },
   "soundEffects": [
     "înălțimea sunetului",
     "deplasare la stânga/dreapta"
@@ -158,7 +124,9 @@
     "Sound": "Sunet",
     "Events": "Evenimente",
     "Sensing": "Detectare",
-    "Operators": "Operatori"
+    "Operators": "Operatori",
+    "Variables": "Variabile",
+    "My Blocks": "Blocurile mele"
   },
   "math": [
     "modul",

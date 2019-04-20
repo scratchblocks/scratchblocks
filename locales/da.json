@@ -107,40 +107,6 @@
     "loud?": "højt?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "alle",
-    "all around": "alle retninger",
-    "brightness": "lysstyrke",
-    "color": "farve",
-    "costume name": "navn på kostume",
-    "date": "dato",
-    "day of week": "ugedag",
-    "don't rotate": "drej ikke",
-    "down arrow": "pil nedad",
-    "edge": "kant",
-    "fisheye": "fiskeøje",
-    "ghost": "spøgelse",
-    "hour": "time",
-    "left arrow": "venstre pil",
-    "left-right": "venstre-højre",
-    "minute": "minut",
-    "month": "måned",
-    "mosaic": "mosaik",
-    "mouse-pointer": "musepil",
-    "myself": "mig selv",
-    "other scripts in sprite": "andre scripts i sprite",
-    "pixelate": "pixeler",
-    "previous backdrop": "forrige baggrund",
-    "random position": "tilfældig position",
-    "right arrow": "højre pil",
-    "second": "sekund",
-    "space": "mellemrum",
-    "Stage": "Scene",
-    "this script": "dette script",
-    "up arrow": "pil opad",
-    "whirl": "vrid",
-    "year": "år"
-  },
   "soundEffects": [
     "tonehøjde",
     "balance venstre/højre"
@@ -158,7 +124,9 @@
     "Events": "Hændelser",
     "Control": "Kontrol",
     "Sensing": "Registrering",
-    "Operators": "Operatorer"
+    "Operators": "Operatorer",
+    "Variables": "Variabler",
+    "My Blocks": "Mine brikker"
   },
   "math": [
     "rund ned",

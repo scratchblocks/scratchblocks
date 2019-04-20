@@ -109,40 +109,6 @@
     "loud?": "tiếng to?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "tất cả",
-    "all around": "xung quanh",
-    "brightness": "độ sáng",
-    "color": "màu",
-    "costume name": "tên thiết kế",
-    "date": "ngày",
-    "day of week": "ngày trong tuần",
-    "don't rotate": "không xoay",
-    "down arrow": "mũi tên xuống",
-    "edge": "cạnh",
-    "fisheye": "gương cầu",
-    "ghost": "bóng ma",
-    "hour": "giờ",
-    "left arrow": "mũi tên trái",
-    "left-right": "trái - phải",
-    "minute": "phút",
-    "month": "tháng",
-    "mosaic": "khảm",
-    "mouse-pointer": "con trỏ chuột",
-    "myself": "bản thân tôi",
-    "other scripts in sprite": "các kịch bản khác cho đối tượng ",
-    "pixelate": "nhòe",
-    "previous backdrop": "phông nền trước",
-    "random position": "vị trí ngẫu nhiên",
-    "right arrow": "mũi tên phải",
-    "second": "giây",
-    "space": "phím trắng",
-    "Stage": "Sân khấu",
-    "this script": "kịch bản này",
-    "up arrow": "mũi tên lên",
-    "whirl": "xoay",
-    "year": "năm"
-  },
   "soundEffects": [
     "cao độ",
     "pan trái/phải"
@@ -160,7 +126,9 @@
     "Events": "Sự kiện",
     "Control": "Điều khiển",
     "Sensing": "Cảm biến",
-    "Operators": "Các phép toán"
+    "Operators": "Các phép toán",
+    "Variables": "Các biến số",
+    "My Blocks": "Khối của tôi"
   },
   "math": [
     "giá trị tuyệt đối",

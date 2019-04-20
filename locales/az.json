@@ -108,40 +108,6 @@
     "loud?": "ucadır?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "bütün",
-    "all around": "hər tərəfə",
-    "brightness": "parlaqlıq",
-    "color": "rəng",
-    "costume name": "libasın adı",
-    "date": "tarix",
-    "day of week": "həftənin günü",
-    "don't rotate": "dönməmək",
-    "down arrow": "aşağı ox",
-    "edge": "kənar",
-    "fisheye": "qabarma",
-    "ghost": "ruh",
-    "hour": "saat",
-    "left arrow": "sol ox",
-    "left-right": "sol-sağ",
-    "minute": "dəqiqə",
-    "month": "ay",
-    "mosaic": "mozaika",
-    "mouse-pointer": "siçanın göstəricisi",
-    "myself": "özümün",
-    "other scripts in sprite": "spraytın digər skriptləri",
-    "pixelate": "piksel",
-    "previous backdrop": "əvvəlki fon",
-    "random position": "təsadüfi mövqe",
-    "right arrow": "sağ ox",
-    "second": "saniyə",
-    "space": "boşluq",
-    "Stage": "Səhnə",
-    "this script": "bu skript",
-    "up arrow": "yuxarı ox",
-    "whirl": "burulma",
-    "year": "il"
-  },
   "soundEffects": [
     "kökləmək",
     "tas sol/sağ"
@@ -159,7 +125,9 @@
     "Events": "Hadisələr",
     "Control": "İdarəetmə",
     "Sensing": "Sensorlar",
-    "Operators": "Operatorlar"
+    "Operators": "Operatorlar",
+    "Variables": "Dəyişənlər",
+    "My Blocks": "Mənim Bloklarım"
   },
   "math": [
     "modul",

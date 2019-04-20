@@ -109,40 +109,6 @@
     "loud?": "hoihoi?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "katoa",
-    "all around": "huri noa",
-    "brightness": "pīataata",
-    "color": "tae",
-    "costume name": "ingoa kākahu",
-    "date": "te rā",
-    "day of week": "te rangi o te wiki",
-    "don't rotate": "kaua e takahuri",
-    "down arrow": "pere whakararo",
-    "edge": "taitapa",
-    "fisheye": "karu ika",
-    "ghost": "kēhua",
-    "hour": "haora",
-    "left arrow": "pere mauī",
-    "left-right": "mauī-ki-katau",
-    "minute": "miniti",
-    "month": "marama",
-    "mosaic": "toi rōpinepine",
-    "mouse-pointer": "atatohu-kiore",
-    "myself": "ahau anō",
-    "other scripts in sprite": "hōtuhi kē i roto i te parehe",
-    "pixelate": "whakatongitongi",
-    "previous backdrop": "ārai tuarongo o mua",
-    "random position": "tūnga matapōkere",
-    "right arrow": "pere katau",
-    "second": "hēkona",
-    "space": "mokowā",
-    "Stage": "Atamira",
-    "this script": "tēnei hōtuhi",
-    "up arrow": "pere whakarunga",
-    "whirl": "kōriporipo",
-    "year": "tau"
-  },
   "soundEffects": [
     "hauoro",
     "huri whakatemauī/whakatekatau"
@@ -160,7 +126,9 @@
     "Events": "Takahanga",
     "Control": "Whakatina",
     "Sensing": "Paerongo",
-    "Operators": "Tohutūmahi"
+    "Operators": "Tohutūmahi",
+    "Variables": "Ngā Taurangi",
+    "My Blocks": "Aku Paraka"
   },
   "math": [
     "papa",

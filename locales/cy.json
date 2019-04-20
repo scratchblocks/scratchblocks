@@ -108,40 +108,6 @@
     "loud?": "sain gref?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "y cyfan",
-    "all around": "o amgylch",
-    "brightness": "disgleirdeb",
-    "color": "lliw",
-    "costume name": "enw'r wisg",
-    "date": "dyddiad",
-    "day of week": "diwrnod o'r wythnos",
-    "don't rotate": "peidio troi",
-    "down arrow": "saeth i lawr",
-    "edge": "ymyl",
-    "fisheye": "llygad pysgodyn",
-    "ghost": "ysbryd",
-    "hour": "awr",
-    "left arrow": "saeth chwith",
-    "left-right": "chwith-dde",
-    "minute": "munud",
-    "month": "mis",
-    "mosaic": "mosaig",
-    "mouse-pointer": "pwyntydd llygoden",
-    "myself": "fi fy hun",
-    "other scripts in sprite": "sgriptiau eraill yn y ciplun",
-    "pixelate": "picseleiddio",
-    "previous backdrop": "cefnlen flaenorol",
-    "random position": "safle ar hap",
-    "right arrow": "saeth de",
-    "second": "eiliad",
-    "space": "bwlch",
-    "Stage": "Llwyfan",
-    "this script": "y sgript hon",
-    "up arrow": "saeth i fyny",
-    "whirl": "chwyrliad",
-    "year": "blwyddyn"
-  },
   "soundEffects": [
     "traw",
     "troi chwith/de"
@@ -159,7 +125,9 @@
     "Events": "Digwyddiadau",
     "Control": "Rheoli",
     "Sensing": "Synhwyro",
-    "Operators": "Gweithredwyr"
+    "Operators": "Gweithredwyr",
+    "Variables": "Newidynnau",
+    "My Blocks": "Fy Mlociau"
   },
   "math": [
     "llawr",

@@ -106,38 +106,6 @@
     "loud?": "fort ?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "tout",
-    "all around": "tout autour",
-    "brightness": "luminosité",
-    "color": "couleur",
-    "costume name": "nom du costume",
-    "day of week": "jour de la semaine",
-    "don't rotate": "ne tourne pas",
-    "down arrow": "flèche bas",
-    "edge": "bord",
-    "fisheye": "œil de poisson",
-    "ghost": "fantôme",
-    "hour": "heure",
-    "left arrow": "flèche gauche",
-    "left-right": "gauche-droite",
-    "month": "mois",
-    "mosaic": "mosaïque",
-    "mouse-pointer": "pointeur de souris",
-    "myself": "moi-même",
-    "other scripts in sprite": "autres scripts dans sprite",
-    "pixelate": "pixeliser",
-    "previous backdrop": "arrière-plan précédent",
-    "random position": "position aléatoire",
-    "right arrow": "flèche droite",
-    "second": "seconde",
-    "space": "espace",
-    "Stage": "la scène",
-    "this script": "ce script",
-    "up arrow": "flèche haut",
-    "whirl": "tournoyer",
-    "year": "année"
-  },
   "soundEffects": [
     "hauteur",
     "stéréo gauche/droite"
@@ -155,7 +123,8 @@
     "Events": "Événements",
     "Control": "Contrôle",
     "Sensing": "Capteurs",
-    "Operators": "Opérateurs"
+    "Operators": "Opérateurs",
+    "My Blocks": "Mes Blocs"
   },
   "math": [
     "plancher",

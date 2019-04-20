@@ -108,40 +108,6 @@
     "loud?": "hávær?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "allt",
-    "all around": "allan hringinn",
-    "brightness": "birtustig",
-    "color": "litur",
-    "costume name": "nafn búnings",
-    "date": "dagsetning",
-    "day of week": "vikudagur",
-    "don't rotate": "ekki snúast",
-    "down arrow": "niður ör",
-    "edge": "brún",
-    "fisheye": "fiskauga",
-    "ghost": "draugur",
-    "hour": "klukkustund",
-    "left arrow": "vinstri ör",
-    "left-right": "vinstri-hægri",
-    "minute": "mínúta",
-    "month": "mánuður",
-    "mosaic": "mósaík",
-    "mouse-pointer": "músarbendill",
-    "myself": "sjálfum mér",
-    "other scripts in sprite": "önnur forrit á karakter",
-    "pixelate": "pixla",
-    "previous backdrop": "síðasti bakgrunnur",
-    "random position": "handahófskend staðsetning",
-    "right arrow": "hægri ör",
-    "second": "sekúnda",
-    "space": "bilslá",
-    "Stage": "Svið",
-    "this script": "þetta forrit",
-    "up arrow": "upp ör",
-    "whirl": "þyrla",
-    "year": "ár"
-  },
   "soundEffects": [
     "tónhæð",
     "skima til vinstri/hægri"
@@ -159,7 +125,9 @@
     "Events": "Atburðir",
     "Control": "Stjórn",
     "Sensing": "Mæling",
-    "Operators": "Virkjar"
+    "Operators": "Virkjar",
+    "Variables": "Breytur",
+    "My Blocks": "Mínir kubbar"
   },
   "math": [
     "rúna niður",

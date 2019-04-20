@@ -109,40 +109,6 @@
     "loud?": "صدا بلند است؟"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "همه",
-    "all around": "همه طرف",
-    "brightness": "روشنایی",
-    "color": "رنگ",
-    "costume name": "نام حالت",
-    "date": "تاریخ",
-    "day of week": "روز هفته",
-    "don't rotate": "چرخش نکردن",
-    "down arrow": "جهت پایین",
-    "edge": "لبه",
-    "fisheye": "چشم ماهی",
-    "ghost": "روح",
-    "hour": "ساعت",
-    "left arrow": "جهت چپ",
-    "left-right": "چپ - راست",
-    "minute": "دقیقه",
-    "month": "ماه",
-    "mosaic": "موزاييک بندی",
-    "mouse-pointer": "اشاره گر ماوس",
-    "myself": "خودم",
-    "other scripts in sprite": "سایر دستور های این شکلک",
-    "pixelate": "پیکسل بندی",
-    "previous backdrop": "پس زمینه ی قبلی",
-    "random position": "مکان تصادفی",
-    "right arrow": "جهت راست",
-    "second": "ثانیه",
-    "space": "فضا",
-    "Stage": "صحنه",
-    "this script": "این دستور",
-    "up arrow": "جهت بالا",
-    "whirl": "چرخش گردابی",
-    "year": "سال"
-  },
   "soundEffects": [
     "گام ",
     "قاب چپ/راست"
@@ -160,7 +126,9 @@
     "Events": "رویدادها",
     "Control": "کنترل کردن",
     "Sensing": "حس کردن",
-    "Operators": "عملگرها"
+    "Operators": "عملگرها",
+    "Variables": "متغیرها",
+    "My Blocks": "قطعه های من"
   },
   "math": [
     "قدر مطلق",

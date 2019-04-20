@@ -109,40 +109,6 @@
     "loud?": "เสียงดัง?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "ทั้งหมด",
-    "all around": "รอบด้าน",
-    "brightness": "ความสว่าง",
-    "color": "สี",
-    "costume name": "ชื่อคอสตูม",
-    "date": "วันที่",
-    "day of week": "วันของสัปดาห์",
-    "don't rotate": "ห้ามหมุน",
-    "down arrow": "ลูกศรชี้ลง",
-    "edge": "ขอบ",
-    "fisheye": "ตาปลา",
-    "ghost": "ล่องหน",
-    "hour": "ชั่วโมง",
-    "left arrow": "ลูกศรชี้ทางซ้าย",
-    "left-right": "ซ้าย-ขวา",
-    "minute": "นาที",
-    "month": "เดือน",
-    "mosaic": "โมเสก",
-    "mouse-pointer": "ตัวชี้เมาส์",
-    "myself": "ตัวฉันเอง",
-    "other scripts in sprite": "สริปต์อื่นในตัวละคร",
-    "pixelate": "แยกพิกเซล",
-    "previous backdrop": "ฉากหลังก่อนหน้า",
-    "random position": "ตำแหน่งสุ่ม",
-    "right arrow": "ลูกศรชี้ขวา",
-    "second": "วินาที",
-    "space": "สเปซบาร์",
-    "Stage": "เวที",
-    "this script": "สคริปต์นี้",
-    "up arrow": "ลูกศรขึ้น",
-    "whirl": "หมุนวน",
-    "year": "ปี"
-  },
   "soundEffects": [
     "เสียงสูงต่ำ",
     "แพนเสียงซ้าย/ขวา"
@@ -160,7 +126,9 @@
     "Events": "เหตุการณ์",
     "Control": "ควบคุม",
     "Sensing": "ตรวจจับ",
-    "Operators": "ตัวดำเนินการ"
+    "Operators": "ตัวดำเนินการ",
+    "Variables": "ตัวแปร",
+    "My Blocks": "บล็อกของฉัน"
   },
   "math": [
     "ค่าสัมบูรณ์",

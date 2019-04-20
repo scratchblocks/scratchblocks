@@ -109,40 +109,6 @@
     "loud?": "громко?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "все",
-    "all around": "кругом",
-    "brightness": "яркость",
-    "color": "цвет",
-    "costume name": "имя костюма",
-    "date": "дата",
-    "day of week": "день недели",
-    "don't rotate": "не вращать",
-    "down arrow": "стрелка вниз",
-    "edge": "край",
-    "fisheye": "рыбий глаз",
-    "ghost": "прозрачность",
-    "hour": "час",
-    "left arrow": "стрелка влево",
-    "left-right": "влево-вправо",
-    "minute": "минута",
-    "month": "месяц",
-    "mosaic": "мозаика",
-    "mouse-pointer": "указатель мыши",
-    "myself": "самого себя",
-    "other scripts in sprite": "другие скрипты спрайта",
-    "pixelate": "укрупнение пикселей",
-    "previous backdrop": "предыдущий фон",
-    "random position": "случайное положение",
-    "right arrow": "стрелка вправо",
-    "second": "секунда",
-    "space": "пробел",
-    "Stage": "Сцена",
-    "this script": "этот скрипт",
-    "up arrow": "стрелка вверх",
-    "whirl": "завихрение",
-    "year": "год"
-  },
   "soundEffects": [
     "питч",
     "положение слева/справа"
@@ -160,7 +126,9 @@
     "Events": "События",
     "Control": "Управление",
     "Sensing": "Сенсоры",
-    "Operators": "Операторы"
+    "Operators": "Операторы",
+    "Variables": "Переменные",
+    "My Blocks": "Другие блоки"
   },
   "math": [
     "модуль",

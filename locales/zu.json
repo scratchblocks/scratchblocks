@@ -108,38 +108,6 @@
     "loud?": "kukhulu umsindo?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "yonke",
-    "all around": "yonke indawo",
-    "brightness": "ukukhanya",
-    "color": "umbala",
-    "costume name": "igama lempahla",
-    "date": "usuku",
-    "day of week": "usuku lwesonto",
-    "don't rotate": "ungajikelezi",
-    "down arrow": "umcibisholo ophansi",
-    "edge": "ikhona",
-    "fisheye": "ihlo likafishi",
-    "ghost": "isipoki",
-    "hour": "ihora",
-    "left arrow": "umcibisholo kwesobunxele",
-    "left-right": "isinxele-esokudla",
-    "minute": "umzuzu",
-    "month": "inyanga",
-    "mouse-pointer": "imows-poynta",
-    "myself": "mina",
-    "other scripts in sprite": "omunye umdlalo womlingisi",
-    "previous backdrop": "indawo edlule",
-    "random position": "indawo engajwayelekile",
-    "right arrow": "umcibilisholo kwesokudla",
-    "second": "umzuzwana",
-    "space": "isikhala",
-    "Stage": "Isigaba",
-    "this script": "lo mbhalo",
-    "up arrow": "umcibilisholo phezulu",
-    "whirl": "phenduka",
-    "year": "unyaka"
-  },
   "soundEffects": [
     "izinga elidlulele",
     "jikisa isinxele-nangakwesokudla"
@@ -157,7 +125,9 @@
     "Events": "Izehlakalo",
     "Control": "Lawula",
     "Sensing": "Ukuzwa",
-    "Operators": "Abalawuli"
+    "Operators": "Abalawuli",
+    "Variables": "I-variables",
+    "My Blocks": "Amabhulokisi ami"
   },
   "math": [
     "phansi",

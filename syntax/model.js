@@ -135,9 +135,9 @@ Input.fromJSON = function(lang, value, part) {
         _random_: "random position",
       }[value] || value
     var menu = value
-    value = lang.dropdowns[value] || value
+    // TODO translate dropdown value
   } else if (shape === "number-dropdown") {
-    value = lang.dropdowns[value] || value
+    // TODO translate dropdown value
   }
 
   return new Input(shape, "" + value, menu)
@@ -192,7 +192,7 @@ Input.prototype.stringify = function() {
 Input.prototype.translate = function(lang) {
   if (this.hasArrow) {
     var value = this.menu || this.value
-    this.value = lang.dropdowns[value] || value
+    this.value = value // TODO translate dropdown value
     this.label = new Label(this.value, "literal-" + this.shape)
   }
 }

@@ -20,25 +20,25 @@ for (let code in localeNames) {
   })
 }
 
-const soundEffects = ["pitch", "pan left/right"]
-const osis = ["other scripts in sprite", "other scripts in stage"]
+const soundEffects = [
+  "SOUND_EFFECTS_PITCH",
+  "SOUND_EFFECTS_PAN",
+]
+const osis = [
+  "CONTROL_STOP_OTHER",
+]
 const scratchSpecs = scratchCommands.map(block => block.spec)
+
 const palette = [
-  "Motion",
-  "Looks",
-  "Sound",
-  "Pen",
-  "Data",
-  "variables",
-  "variable",
-  "lists",
-  "list",
-  "Events",
-  "Control",
-  "Sensing",
-  "Operators",
-  "More Blocks",
-  "Tips",
+  "CATEGORY_MOTION",
+  "CATEGORY_LOOKS",
+  "CATEGORY_SOUND",
+  "CATEGORY_EVENTS",
+  "CATEGORY_CONTROL",
+  "CATEGORY_SENSING",
+  "CATEGORY_OPERATORS",
+  "CATEGORY_VARIABLES",
+  "CATEGORY_MYBLOCKS",
 ]
 
 const forumLangs = [
@@ -62,83 +62,20 @@ const forumLangs = [
 ]
 
 const mathFuncs = [
-  "abs",
-  "floor",
-  "ceiling",
-  "sqrt",
-  "sin",
-  "cos",
-  "tan",
-  "asin",
-  "acos",
-  "atan",
-  "ln",
-  "log",
-  "e ^",
-  "10 ^",
-]
-
-const dropdownValues = [
-  "A connected",
-  "all",
-  "all around",
-  "all motors",
-  "B connected",
-  "brightness",
-  "button pressed",
-  "C connected",
-  "color",
-  "costume name",
-  "D connected",
-  "date",
-  "day of week",
-  "don't rotate",
-  "down arrow",
-  "edge",
-  "everything",
-  "fisheye",
-  "ghost",
-  "hour",
-  "left arrow",
-  "left-right",
-  "light",
-  "lights",
-  "minute",
-  "month",
-  "mosaic",
-  "motion",
-  "motor",
-  "motor A",
-  "motor B",
-  "mouse-pointer",
-  "myself",
-  "not =",
-  "off",
-  "on",
-  "on-flipped",
-  "other scripts in sprite",
-  "pixelate",
-  "previous backdrop",
-  "random position",
-  "resistance-A",
-  "resistance-B",
-  "resistance-C",
-  "resistance-D",
-  "reverse",
-  "right arrow",
-  "second",
-  "slider",
-  "sound",
-  "space",
-  "Stage",
-  "that way",
-  "this script",
-  "this sprite",
-  "this way",
-  "up arrow",
-  "video motion",
-  "whirl",
-  "year",
+  "OPERATORS_MATHOP_ABS",
+  "OPERATORS_MATHOP_FLOOR",
+  "OPERATORS_MATHOP_CEILING",
+  "OPERATORS_MATHOP_SQRT",
+  "OPERATORS_MATHOP_SIN",
+  "OPERATORS_MATHOP_COS",
+  "OPERATORS_MATHOP_TAN",
+  "OPERATORS_MATHOP_ASIN",
+  "OPERATORS_MATHOP_ACOS",
+  "OPERATORS_MATHOP_ATAN",
+  "OPERATORS_MATHOP_LN",
+  "OPERATORS_MATHOP_LOG",
+  "OPERATORS_MATHOP_EEXP",
+  "OPERATORS_MATHOP_10EXP",
 ]
 
 const writeJSON = async (outputPath, obj) => {
@@ -154,47 +91,59 @@ const reverseDict = d => {
   return o
 }
 
+const translateKey = (mappings, key) => {
+  const result = mappings[key]
+  if (!result) return
+  const englishResult = englishLocale[key]
+  if (result === englishResult) return
+  return fixup(key, result)
+}
+
 const lookupEachIn = dictionary => items => {
   const output = []
-  for (let text of items) {
-    const result = dictionary[text]
-    if (result && result !== text) {
-      output.push(dictionary[text])
-    }
+  for (let key of items) {
+    const result = translateKey(dictionary, key)
+    if (!result) continue
+    output.push(result)
   }
   return output
 }
 
 const translateEachIn = dictionary => items => {
   const output = {}
-  for (let text of items) {
-    const result = dictionary[text]
-    if (result && result !== text) {
-      output[text] = dictionary[text]
-    }
+  for (let key of items) {
+    const result = translateKey(dictionary, key)
+    const englishResult = englishLocale[key]
+    if (!result) continue
+    output[englishResult] = result
   }
   return output
 }
 
-const buildLocale = (code, dictionary) => {
-  const lookup = k => dictionary[k] || ""
-  const listFor = lookupEachIn(dictionary)
-  const dictionaryWith = translateEachIn(dictionary)
+const buildLocale = (code, mappings) => {
+  const lookup = k => mappings[k] || ""
+  const listFor = lookupEachIn(mappings)
+  const dictionaryWith = translateEachIn(mappings)
 
   const aliases = extraAliases[code]
 
   const locale = {
-    commands: dictionaryWith(scratchSpecs),
+    commands: {},
     ignorelt: [],
-    dropdowns: dictionaryWith(dropdownValues), // used for translate()
     soundEffects: listFor(soundEffects),
     osis: listFor(osis),
-    define: listFor(["define"]),
+    define: listFor(["PROCEDURES_DEFINITION"]),
     palette: dictionaryWith(palette), // used for forum menu
     math: listFor(mathFuncs),
     aliases: aliases || {},
 
     name: localeNames[code].name,
+  }
+
+  for (let command of scratchCommands) {
+    const result = translateKey(mappings, command.scratch3_selector)
+    if (!result) continue
+    locale.commands[command.scratch2_spec] = result
   }
 
   const commandCount = Object.keys(locale.commands).length
@@ -213,17 +162,9 @@ const buildLocale = (code, dictionary) => {
     locale.commands["end"] = aliases["end"]
   }
 
-  const whenDistance = lookup("when distance < %n")
-  if (whenDistance.indexOf(" < %n") !== -1) {
-    locale.ignorelt.push(whenDistance.replace(/ \< \%n.*$/))
-  }
-
-  for (let spec of scratchSpecs) {
-    const translation = dictionary[spec]
-    if (!translation || translation === spec) {
-      continue
-    }
-    locale.commands[spec] = translation
+  const whenDistance = lookup("when distance < %1")
+  if (whenDistance.indexOf(" < %1") !== -1) {
+    locale.ignorelt.push(whenDistance.replace(/ \< \%1.*$/))
   }
 
   return locale
@@ -244,20 +185,8 @@ const fixup = (key, value) => {
   }
 }
 
-const makeDictionary = mappings => {
-  const dict = {}
-  for (let key in mappings) {
-    const english = fixup(key, englishLocale[key])
-    const translated = fixup(key, mappings[key])
-    dict[english] = translated
-  }
-  return dict
-}
-
 const convertFile = async ({ code, mappings }) => {
-  const dictionary = makeDictionary(mappings)
-
-  const locale = buildLocale(code, dictionary)
+  const locale = buildLocale(code, mappings)
   if (!locale) {
     return
   }

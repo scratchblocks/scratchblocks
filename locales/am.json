@@ -108,39 +108,6 @@
     "loud?": "ጮክ ነው?"
   },
   "ignorelt": [],
-  "dropdowns": {
-    "all": "ሁሉም",
-    "all around": "በአካባቢው በሙሉ",
-    "brightness": "የብርሀን መጠን",
-    "color": "ቀለም",
-    "costume name": "የአልባሳት ስም",
-    "date": "ቀን",
-    "day of week": "የሳምንቱ ቀን",
-    "don't rotate": "አትሽከርከር",
-    "down arrow": "ወደታች ጠቋሚ ቀስት",
-    "edge": "ዳር",
-    "ghost": "መንፈስ",
-    "hour": "ሰዓት",
-    "left arrow": "ወደ ግራ ጠቋሚ ቀስት",
-    "left-right": "ግራ-ቀኝ",
-    "minute": "ደቂቃ",
-    "month": "ወር",
-    "mosaic": "ሞዚያክ",
-    "mouse-pointer": "የማውሱ መጠቆሚያ",
-    "myself": "ራሴ",
-    "other scripts in sprite": "ሌሎች በስፕራይት ላይ ያሉ ስክሪፕቶች",
-    "pixelate": "ፒክሰሌት",
-    "previous backdrop": "ቀድሞ የነበረው የጀርባ ምስል",
-    "random position": "የማይታወቅ ቦታ",
-    "right arrow": "የቀኝ አቅጣጫ ጠቋሚ ቀስት",
-    "second": "ሁለተኛ",
-    "space": "ቦታ",
-    "Stage": "መድረክ",
-    "this script": "ይሄ ስክሪፕት",
-    "up arrow": "ወደ ላይ አቅጣጫ ጠቋሚ ቀስት",
-    "whirl": "መሽከርከር",
-    "year": "አመት"
-  },
   "soundEffects": [
     "ፒች",
     "ሸብልል ወደ ግራ/ቀኝ"
@@ -158,7 +125,9 @@
     "Events": "ክስተት",
     "Control": "ቁጥጥር",
     "Sensing": "ስሜት",
-    "Operators": "ስሌቶች"
+    "Operators": "ስሌቶች",
+    "Variables": "ተለዋዋጮች",
+    "My Blocks": "የኔ ጥምሮች"
   },
   "math": [
     "መሬት",
