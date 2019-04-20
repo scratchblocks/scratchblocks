@@ -275,6 +275,7 @@ Block.fromJSON = function(lang, array, part) {
       language: lang,
     })
     var parts = info.parts
+    var inputs = info.inputs
   } else if (
     selector === "readVariable" ||
     selector === "contentsOfList:" ||
@@ -300,11 +301,15 @@ Block.fromJSON = function(lang, array, part) {
     assert(info, "unknown selector: " + selector)
     var spec = lang.commands[info.spec] || spec
     var parts = spec ? parseSpec(spec).parts : info.parts
+    var inputs = info.inputs
   }
   var children = parts.map(function(part) {
-    if (inputPat.test(part)) {
+    var m = /\%([0-9])/.exec(part)
+    if (m) {
+      var childIndex = +m[1]
+      var input = inputs[childIndex - 1]
       var arg = args.shift()
-      return (isArray(arg) ? Block : Input).fromJSON(lang, arg, part)
+      return (isArray(arg) ? Block : Input).fromJSON(lang, arg, input)
     } else if (iconPat.test(part)) {
       return new Icon(part.slice(1))
     } else {

@@ -40,40 +40,6 @@ var rtlLanguages = ["ar", "ckb", "fa", "he"]
 // List of commands taken from Scratch
 var scratchCommands = require("./commands.js")
 
-var categoriesById = {
-  0: "obsolete",
-  1: "motion",
-  2: "looks",
-  3: "sound",
-  4: "pen",
-  5: "events",
-  6: "control",
-  7: "sensing",
-  8: "operators",
-  9: "variables",
-  10: "custom",
-  11: "parameter",
-  12: "list",
-  20: "extension",
-  30: "music",
-  31: "video",
-  42: "grey",
-}
-
-var typeShapes = {
-  " ": "stack",
-  b: "boolean",
-  c: "c-block",
-  e: "if-block",
-  f: "cap",
-  h: "hat",
-  r: "reporter",
-  cf: "c-block cap",
-  else: "celse",
-  end: "cend",
-  ring: "ring",
-}
-
 var inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
 var inputPatGlobal = new RegExp(inputPat.source, "g")
 var iconPat = /(@[a-zA-Z]+)/
@@ -84,6 +50,7 @@ var splitPat = new RegExp(
 
 var hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/
 
+// used for procDefs
 function parseSpec(spec) {
   var parts = spec.split(splitPat).filter(x => !!x)
   return {
@@ -118,7 +85,12 @@ function minifyHash(hash) {
 var blocksBySelector = {}
 var blocksBySpec = {}
 var allBlocks = scratchCommands.map(function(info) {
-  info.hasLoopArrow = !!info.hasLoopArrow
+  Object.assign(info, {
+    hasLoopArrow: !!info.hasLoopArrow,
+    parts: info.spec.split(splitPat).filter(x => !!x),
+    hash: hashSpec(info.spec),
+  })
+
   if (info.selector) {
     // nb. command order matters!
     // Scratch 1.4 blocks are listed last
