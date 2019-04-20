@@ -264,6 +264,20 @@ describe('translate', () => {
     b.translate(allLanguages.en)
     expect(b.stringify()).toEqual('go [back v] (1) layers')
   })
+
+  test('turn left: en -> de', () => {
+    const b = parseBlock('turn cw (45) degrees')
+    b.translate(allLanguages.de)
+    expect(b.stringify()).toEqual('drehe dich nach rechts um (45) Grad')
+  })
+
+  test('turn left: de -> en', () => {
+    const b = parseBlock('drehe dich nach rechts um (45) Grad', {
+      languages: ['de'],
+    })
+    b.translate(allLanguages.en)
+    expect(b.stringify()).toEqual('turn cw (45) degrees')
+  })
 })
 
 // TODO test { } handling
