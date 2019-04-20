@@ -1,5 +1,5 @@
 
-const { parse, fromJSON, loadLanguages } = require('../syntax')
+const { parse, fromJSON, loadLanguages, allLanguages } = require('../syntax')
 
 function getScript(doc) {
   expect(doc.scripts.length).toBe(1)
@@ -248,6 +248,14 @@ describe('comparison ops: < and > ', () => {
   })
 
   // TODO add that test case from that issue
+})
+
+describe('translate', () => {
+  test('reorders arguments', () => {
+    const b = parseBlock('go [back v] (1) layers')
+    b.translate(allLanguages.de)
+    expect(b.stringify()).toEqual('gehe (1) Ebenen [back v]')
+  })
 })
 
 // TODO test { } handling

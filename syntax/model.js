@@ -430,24 +430,27 @@ Block.prototype.translate = function(lang, isShallow) {
   var args = this.children.filter(function(child) {
     return !child.isLabel && !child.isIcon
   })
-  if (!isShallow)
+  if (!isShallow) {
     args.forEach(function(child) {
       child.translate(lang)
     })
+  }
   this.children = nativeInfo.parts
     .map(function(part) {
       var part = part.trim()
       if (!part) return
-      return inputPat.test(part)
-        ? args.shift()
-        : iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part)
+      var m = /\%([0-9])/.exec(part)
+      if (m) {
+        var childIndex = +m[1]
+        return args.splice(childIndex - 1, 1)[0]
+      } else {
+        return iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part)
+      }
     })
     .filter(x => !!x)
-  args.forEach(
-    function(arg) {
-      this.children.push(arg)
-    }.bind(this)
-  )
+  args.forEach(arg => {
+    this.children.push(arg)
+  })
   this.info.language = lang
   this.info.isRTL = rtlLanguages.indexOf(lang.code) > -1
 }
