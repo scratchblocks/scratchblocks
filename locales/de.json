@@ -14,9 +14,9 @@
     "change y by %1": "ändere y um %1",
     "set y to %1": "setze y auf %1",
     "set rotation style %1": "setze Drehtyp auf %1",
-    "say %1 for %2 secs": "sage %1 für %2 Sekunden",
+    "say %1 for %2 seconds": "sage %1 für %2 Sekunden",
     "say %1": "sage %1",
-    "think %1 for %2 secs": "denke %1 für %2 Sekunden",
+    "think %1 for %2 seconds": "denke %1 für %2 Sekunden",
     "think %1": "denke %1",
     "show": "zeige dich",
     "hide": "verstecke dich",
@@ -32,7 +32,7 @@
     "set size to %1%": "setze Größe auf %1",
     "go to %1 layer": "gehe zu %1 Ebene",
     "go %1 %2 layers": "gehe %2 Ebenen %1",
-    "play sound %1": "spiele Klang %1",
+    "start sound %1": "spiele Klang %1",
     "clear sound effects": "schalte Klangeffekte aus",
     "play sound %1 until done": "spiele Klang %1 ganz",
     "stop all sounds": "stoppe alle Klänge",
@@ -44,7 +44,7 @@
     "set volume to %1%": "setze Lautstärke auf %1%",
     "change tempo by %1": "ändere Tempo um %1",
     "set tempo to %1": "setze Tempo auf %1",
-    "clear": "lösche alles",
+    "erase all": "lösche alles",
     "stamp": "hinterlasse Abdruck",
     "pen down": "schalte Stift ein",
     "pen up": "schalte Stift aus",
@@ -64,7 +64,7 @@
     "when I receive %1": "Wenn ich %1 empfange",
     "broadcast %1": "sende %1 an alle",
     "broadcast %1 and wait": "sende %1 an alle und warte",
-    "wait %1 secs": "warte %1 Sekunden",
+    "wait %1 seconds": "warte %1 Sekunden",
     "repeat %1": "wiederhole %1 mal",
     "forever": "wiederhole fortlaufend",
     "if %1 then": "falls %1, dann",
@@ -199,5 +199,5 @@
     "Ende": "end"
   },
   "name": "Deutsch",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

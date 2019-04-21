@@ -14,9 +14,9 @@
     "change y by %1": "sumar a y %1",
     "set y to %1": "dar a y el valor %1",
     "set rotation style %1": "fijar estilo de rotación a %1",
-    "say %1 for %2 secs": "decir %1 durante %2 segundos",
+    "say %1 for %2 seconds": "decir %1 durante %2 segundos",
     "say %1": "decir %1",
-    "think %1 for %2 secs": "pensar %1 durante %2 segundos",
+    "think %1 for %2 seconds": "pensar %1 durante %2 segundos",
     "think %1": "pensar %1",
     "show": "mostrar",
     "hide": "esconder",
@@ -32,7 +32,7 @@
     "set size to %1%": "fijar tamaño al %1 %",
     "go to %1 layer": "ir a capa %1",
     "go %1 %2 layers": "ir %2 capas hacia %1",
-    "play sound %1": "iniciar sonido %1",
+    "start sound %1": "iniciar sonido %1",
     "clear sound effects": "quitar efectos de sonido",
     "play sound %1 until done": "tocar sonido %1 hasta que termine",
     "stop all sounds": "detener todos los sonidos",
@@ -44,7 +44,7 @@
     "set volume to %1%": "fijar volumen al %1%",
     "change tempo by %1": "cambiar tempo por %1",
     "set tempo to %1": "dar al tempo el valor %1",
-    "clear": "borrar todo",
+    "erase all": "borrar todo",
     "stamp": "sellar",
     "pen down": "bajar lápiz",
     "pen up": "subir lápiz",
@@ -64,7 +64,7 @@
     "when I receive %1": "al recibir %1",
     "broadcast %1": "enviar %1",
     "broadcast %1 and wait": "enviar %1 y esperar",
-    "wait %1 secs": "esperar %1 segundos",
+    "wait %1 seconds": "esperar %1 segundos",
     "repeat %1": "repetir %1",
     "forever": "por siempre",
     "if %1 then": "si %1 entonces",
@@ -199,5 +199,5 @@
     "fin": "end"
   },
   "name": "Español",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

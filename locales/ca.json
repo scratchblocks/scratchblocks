@@ -14,9 +14,9 @@
     "change y by %1": "suma %1 a y",
     "set y to %1": "assigna el valor %1 a y",
     "set rotation style %1": "fixa el tipus de rotació %1",
-    "say %1 for %2 secs": "digues %1 durant %2 segons",
+    "say %1 for %2 seconds": "digues %1 durant %2 segons",
     "say %1": "digues %1",
-    "think %1 for %2 secs": "pensa %1 durant %2 segons",
+    "think %1 for %2 seconds": "pensa %1 durant %2 segons",
     "think %1": "pensa %1",
     "show": "mostra't",
     "hide": "amaga't",
@@ -32,7 +32,7 @@
     "set size to %1%": "fixa la mida a %1 %",
     "go to %1 layer": "vés a la capa %1",
     "go %1 %2 layers": "vés %1 %2 capes",
-    "play sound %1": "inicia el so %1",
+    "start sound %1": "inicia el so %1",
     "clear sound effects": "treu els efectes sonors",
     "play sound %1 until done": "toca el so %1 fins que acabi",
     "stop all sounds": "atura tots els sons",
@@ -44,7 +44,7 @@
     "set volume to %1%": "fixa el volum a %1%",
     "change tempo by %1": "augmenta %1 el tempo",
     "set tempo to %1": "fixa el tempo a %1",
-    "clear": "esborra-ho tot",
+    "erase all": "esborra-ho tot",
     "stamp": "estampa",
     "pen down": "baixa el llapis",
     "pen up": "puja el llapis",
@@ -64,7 +64,7 @@
     "when I receive %1": "quan rebi %1",
     "broadcast %1": "envia a tots %1",
     "broadcast %1 and wait": "envia a tots %1 i espera",
-    "wait %1 secs": "espera %1 segons",
+    "wait %1 seconds": "espera %1 segons",
     "repeat %1": "repeteix %1",
     "forever": "per sempre",
     "if %1 then": "si %1 llavors",
@@ -199,5 +199,5 @@
     "fi": "end"
   },
   "name": "Català",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

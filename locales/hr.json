@@ -14,9 +14,9 @@
     "change y by %1": "promijeni y za %1",
     "set y to %1": "postavi y na %1",
     "set rotation style %1": "postavi stil rotacije %1",
-    "say %1 for %2 secs": "govori %1 %2 sekundi",
+    "say %1 for %2 seconds": "govori %1 %2 sekundi",
     "say %1": "reci %1",
-    "think %1 for %2 secs": "razmišljaj %1 %2 sekundi",
+    "think %1 for %2 seconds": "razmišljaj %1 %2 sekundi",
     "think %1": "misli %1",
     "show": "prikaži",
     "hide": "sakrij",
@@ -32,7 +32,7 @@
     "set size to %1%": "postavi veličinu na %1 %",
     "go to %1 layer": "idi na sloj %1",
     "go %1 %2 layers": "idi %1 %2 sloja",
-    "play sound %1": "sviraj zvuk %1",
+    "start sound %1": "sviraj zvuk %1",
     "clear sound effects": "očisti sve efekte zvuka",
     "play sound %1 until done": "sviraj zvuk %1 do kraja",
     "stop all sounds": "zaustavi sve zvukove",
@@ -44,7 +44,7 @@
     "set volume to %1%": "postavi glasnoću na %1%",
     "change tempo by %1": "promijeni tempo za %1",
     "set tempo to %1": "postavi tempo na %1",
-    "clear": "izbriši sve",
+    "erase all": "izbriši sve",
     "stamp": "žig",
     "pen down": "spusti olovku",
     "pen up": "podigni olovku",
@@ -64,7 +64,7 @@
     "when I receive %1": "kada primim %1",
     "broadcast %1": "pošalji %1",
     "broadcast %1 and wait": "pošalji %1 i čekaj",
-    "wait %1 secs": "čekaj %1 sekundi",
+    "wait %1 seconds": "čekaj %1 sekundi",
     "repeat %1": "ponovi %1",
     "forever": "ponavljaj",
     "if %1 then": "ako %1 onda",
@@ -199,5 +199,5 @@
     "kraj": "end"
   },
   "name": "Hrvatski",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

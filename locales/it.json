@@ -14,9 +14,9 @@
     "change y by %1": "cambia y di %1",
     "set y to %1": "vai dove y è %1",
     "set rotation style %1": "usa stile rotazione %1",
-    "say %1 for %2 secs": "dire %1 per %2 secondi",
+    "say %1 for %2 seconds": "dire %1 per %2 secondi",
     "say %1": "dire %1",
-    "think %1 for %2 secs": "pensa %1 per %2 secondi",
+    "think %1 for %2 seconds": "pensa %1 per %2 secondi",
     "think %1": "pensa %1",
     "show": "mostra",
     "hide": "nascondi",
@@ -32,7 +32,7 @@
     "set size to %1%": "porta dimensione a %1 %",
     "go to %1 layer": "vai in %1 piano",
     "go %1 %2 layers": "vai %1 di %2 livelli",
-    "play sound %1": "avvia riproduzione suono %1",
+    "start sound %1": "avvia riproduzione suono %1",
     "clear sound effects": "rimuovi effetti audio",
     "play sound %1 until done": "riproduci suono %1 e attendi la fine",
     "stop all sounds": "ferma tutti i suoni",
@@ -44,7 +44,7 @@
     "set volume to %1%": "porta volume a %1%",
     "change tempo by %1": "cambia tempo di %1",
     "set tempo to %1": "imposta tempo a %1 bpm",
-    "clear": "pulisci",
+    "erase all": "pulisci",
     "stamp": "timbra",
     "pen down": "penna giù",
     "pen up": "penna su",
@@ -64,7 +64,7 @@
     "when I receive %1": "quando ricevo %1",
     "broadcast %1": "invia a tutti %1",
     "broadcast %1 and wait": "invia a tutti %1 e attendi",
-    "wait %1 secs": "attendi %1 secondi",
+    "wait %1 seconds": "attendi %1 secondi",
     "repeat %1": "ripeti %1  volte",
     "forever": "per sempre",
     "if %1 then": "se %1 allora",
@@ -199,5 +199,5 @@
     "fine": "end"
   },
   "name": "Italiano",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

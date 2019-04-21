@@ -14,9 +14,9 @@
     "change y by %1": "שנה את ערך y ב %1",
     "set y to %1": "קבע את ערך y ל %1",
     "set rotation style %1": "קבע אופן סיבוב %1",
-    "say %1 for %2 secs": "אמור %1 למשך %2 שניות",
+    "say %1 for %2 seconds": "אמור %1 למשך %2 שניות",
     "say %1": "אמור %1",
-    "think %1 for %2 secs": "חשוב %1 למשך %2 שניות",
+    "think %1 for %2 seconds": "חשוב %1 למשך %2 שניות",
     "think %1": "חשוב %1",
     "show": "הצג",
     "hide": "הסתר",
@@ -32,7 +32,7 @@
     "set size to %1%": "קבע גודל ל %1 %",
     "go to %1 layer": "העבר לשכבה ה %1",
     "go %1 %2 layers": "העבר %2 שכבות %1",
-    "play sound %1": "נגן צליל %1",
+    "start sound %1": "נגן צליל %1",
     "clear sound effects": "נקה אפקטים קוליים",
     "play sound %1 until done": "נגן צליל %1 עד לסיום",
     "stop all sounds": "הפסק את כל הצלילים",
@@ -44,7 +44,7 @@
     "set volume to %1%": "קבע עוצמת קול ל %1%",
     "change tempo by %1": "שנה קצב ב %1",
     "set tempo to %1": "קבע קצב ל %1",
-    "clear": "מחק הכל",
+    "erase all": "מחק הכל",
     "stamp": "חתום",
     "pen down": "עט מטה",
     "pen up": "עט מעלה",
@@ -64,7 +64,7 @@
     "when I receive %1": "כאשר מתקבל מסר %1",
     "broadcast %1": "שדר מסר %1",
     "broadcast %1 and wait": "שדר מסר %1 וחכה",
-    "wait %1 secs": "חכה %1 שניות",
+    "wait %1 seconds": "חכה %1 שניות",
     "repeat %1": "חזור  %1 פעמים",
     "forever": "לעולמים",
     "if %1 then": "אם %1 אז",
@@ -199,5 +199,5 @@
     "סוף": "end"
   },
   "name": "עִבְרִית",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

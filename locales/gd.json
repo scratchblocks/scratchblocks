@@ -14,9 +14,9 @@
     "change y by %1": "atharraich y le %1",
     "set y to %1": "suidhich y air %1",
     "set rotation style %1": "suidhich stoidhle na cuairte air %1",
-    "say %1 for %2 secs": "can %1 fad %2 diog",
+    "say %1 for %2 seconds": "can %1 fad %2 diog",
     "say %1": "can %1",
-    "think %1 for %2 secs": "smaoinich %1 fad %2 diog",
+    "think %1 for %2 seconds": "smaoinich %1 fad %2 diog",
     "think %1": "smaoinich %1",
     "show": "seall",
     "hide": "falaich",
@@ -32,7 +32,7 @@
     "set size to %1%": "suidhich do mheud air %1 %",
     "go to %1 layer": "rach gu breath %1",
     "go %1 %2 layers": "rach %2 breath %1",
-    "play sound %1": "tòisich air fuaim %1 a chluich",
+    "start sound %1": "tòisich air fuaim %1 a chluich",
     "clear sound effects": "falamhaich èifeachdan na fuaime",
     "play sound %1 until done": "cluich fuaim %1 gu lèir",
     "stop all sounds": "cuir stad air a h-uile fuaim",
@@ -44,7 +44,7 @@
     "set volume to %1%": "suidhich àirde na fuaime air %1%",
     "change tempo by %1": "atharraich an luaths le %1",
     "set tempo to %1": "suidhich an luaths air %1",
-    "clear": "suath às na h‑uile",
+    "erase all": "suath às na h‑uile",
     "stamp": "stampa",
     "pen down": "peann sìos",
     "pen up": "peann suas",
@@ -64,7 +64,7 @@
     "when I receive %1": "nuair a gheibh thu %1",
     "broadcast %1": "craol %1",
     "broadcast %1 and wait": "craol %1 is fan",
-    "wait %1 secs": "fan fad %1 diog",
+    "wait %1 seconds": "fan fad %1 diog",
     "repeat %1": "dèan seo %1 turas",
     "forever": "gu buan",
     "if %1 then": "ma tha %1 a-rèiste",
@@ -199,5 +199,5 @@
     "deireadh": "end"
   },
   "name": "Gàidhlig",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

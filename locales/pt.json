@@ -14,9 +14,9 @@
     "change y by %1": "adiciona %1 ao teu y",
     "set y to %1": "altera o teu y para %1",
     "set rotation style %1": "altera o teu estilo de rotação para %1",
-    "say %1 for %2 secs": "diz %1 durante %2 s",
+    "say %1 for %2 seconds": "diz %1 durante %2 s",
     "say %1": "diz %1",
-    "think %1 for %2 secs": "pensa %1 durante %2 s",
+    "think %1 for %2 seconds": "pensa %1 durante %2 s",
     "think %1": "pensa %1",
     "show": "mostra-te",
     "hide": "esconde-te",
@@ -32,7 +32,7 @@
     "set size to %1%": "altera o teu tamanho para %1 %",
     "go to %1 layer": "vai para a camada %1",
     "go %1 %2 layers": "%1 %2 camadas",
-    "play sound %1": "toca o som %1",
+    "start sound %1": "toca o som %1",
     "clear sound effects": "cancela todos os teus efeitos sonoros",
     "play sound %1 until done": "toca o som %1 até terminar",
     "stop all sounds": "pára todos os sons",
@@ -44,7 +44,7 @@
     "set volume to %1%": "altera o teu volume para %1%",
     "change tempo by %1": "adiciona %1 bpm ao teu andamento",
     "set tempo to %1": "altera o teu andamento para %1 bpm",
-    "clear": "apaga tudo do palco",
+    "erase all": "apaga tudo do palco",
     "stamp": "carimba-te",
     "pen down": "baixa a tua caneta",
     "pen up": "levanta a tua caneta",
@@ -64,7 +64,7 @@
     "when I receive %1": "Quando receberes a mensagem %1",
     "broadcast %1": "difunde a mensagem %1",
     "broadcast %1 and wait": "difunde a mensagem %1 e espera",
-    "wait %1 secs": "espera %1 s",
+    "wait %1 seconds": "espera %1 s",
     "repeat %1": "repete %1 vezes",
     "forever": "repete para sempre",
     "if %1 then": "se %1 , então",
@@ -199,5 +199,5 @@
     "fim": "end"
   },
   "name": "Português",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

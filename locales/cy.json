@@ -14,9 +14,9 @@
     "change y by %1": "newid y gan %1",
     "set y to %1": "gosod y i %1",
     "set rotation style %1": "gosod steil cylchdroi %1",
-    "say %1 for %2 secs": "dweud %1 am %2 eiliad",
+    "say %1 for %2 seconds": "dweud %1 am %2 eiliad",
     "say %1": "dweud %1",
-    "think %1 for %2 secs": "meddwl %1 am %2 eiliad",
+    "think %1 for %2 seconds": "meddwl %1 am %2 eiliad",
     "think %1": "meddwl %1",
     "show": "dangos",
     "hide": "cuddio",
@@ -32,7 +32,7 @@
     "set size to %1%": "gosod maint i %1 %",
     "go to %1 layer": "mynd i haen %1",
     "go %1 %2 layers": "mynd i haenau %1 %2",
-    "play sound %1": "cychwyn sain %1",
+    "start sound %1": "cychwyn sain %1",
     "clear sound effects": "clirio effeithiau sain",
     "play sound %1 until done": "chwarae sain %1 tan y diwedd",
     "stop all sounds": "atal pob sain",
@@ -44,7 +44,7 @@
     "set volume to %1%": "gosod lefel sain i %1%",
     "change tempo by %1": "Newid tempo gan %1",
     "set tempo to %1": "gosod tempo %1",
-    "clear": "dileu popeth",
+    "erase all": "dileu popeth",
     "stamp": "stampio",
     "pen down": "pin i lawr",
     "pen up": "pin i fyny",
@@ -64,7 +64,7 @@
     "when I receive %1": "pan rwy'n derbyn %1",
     "broadcast %1": "darlledu  %1",
     "broadcast %1 and wait": "darlledu %1 ac aros",
-    "wait %1 secs": "aros %1 eiliad",
+    "wait %1 seconds": "aros %1 eiliad",
     "repeat %1": "ailadrodd %1",
     "forever": "am byth",
     "if %1 then": "os %1 yna",
@@ -199,5 +199,5 @@
     "diwedd": "end"
   },
   "name": "Cymraeg",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

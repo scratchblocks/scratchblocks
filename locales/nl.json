@@ -14,9 +14,9 @@
     "change y by %1": "verander y met %1",
     "set y to %1": "maak y %1",
     "set rotation style %1": "maak draaistijl %1",
-    "say %1 for %2 secs": "zeg %1 %2 sec.",
+    "say %1 for %2 seconds": "zeg %1 %2 sec.",
     "say %1": "zeg %1",
-    "think %1 for %2 secs": "denk %1 %2 sec.",
+    "think %1 for %2 seconds": "denk %1 %2 sec.",
     "think %1": "denk %1",
     "show": "verschijn",
     "hide": "verdwijn",
@@ -32,7 +32,7 @@
     "set size to %1%": "maak grootte %1 %",
     "go to %1 layer": "ga naar laag %1",
     "go %1 %2 layers": "ga %1 %2 lagen",
-    "play sound %1": "start geluid %1",
+    "start sound %1": "start geluid %1",
     "clear sound effects": "zet alle effecten uit",
     "play sound %1 until done": "start geluid %1 en wacht",
     "stop all sounds": "stop alle geluiden",
@@ -44,7 +44,7 @@
     "set volume to %1%": "zet volume op %1%",
     "change tempo by %1": "verander tempo met %1",
     "set tempo to %1": "maak tempo %1",
-    "clear": "wis alles",
+    "erase all": "wis alles",
     "stamp": "stempel",
     "pen down": "pen neer",
     "pen up": "pen op",
@@ -64,7 +64,7 @@
     "when I receive %1": "wanneer ik signaal %1 ontvang",
     "broadcast %1": "zend signaal %1",
     "broadcast %1 and wait": "zend signaal %1 en wacht",
-    "wait %1 secs": "wacht %1 sec.",
+    "wait %1 seconds": "wacht %1 sec.",
     "repeat %1": "herhaal %1",
     "forever": "herhaal",
     "if %1 then": "als %1 dan",
@@ -199,5 +199,5 @@
     "einde": "end"
   },
   "name": "Nederlands",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

@@ -14,9 +14,9 @@
     "change y by %1": "ajouter %1 à y",
     "set y to %1": "mettre y à %1",
     "set rotation style %1": "fixer le sens de rotation %1",
-    "say %1 for %2 secs": "dire %1 pendant %2 secondes",
+    "say %1 for %2 seconds": "dire %1 pendant %2 secondes",
     "say %1": "dire %1",
-    "think %1 for %2 secs": "penser à %1 pendant %2 secondes",
+    "think %1 for %2 seconds": "penser à %1 pendant %2 secondes",
     "think %1": "penser à %1",
     "show": "montrer",
     "hide": "cacher",
@@ -32,7 +32,7 @@
     "set size to %1%": "mettre la taille à %1 % de la taille initiale",
     "go to %1 layer": "aller à l'%1 plan",
     "go %1 %2 layers": "déplacer de %2 plans vers l'%1",
-    "play sound %1": "jouer le son %1",
+    "start sound %1": "jouer le son %1",
     "clear sound effects": "annuler tous les effets sonores",
     "play sound %1 until done": "jouer le son %1 jusqu'au bout",
     "stop all sounds": "arrêter tous les sons",
@@ -44,7 +44,7 @@
     "set volume to %1%": "mettre le volume à %1%",
     "change tempo by %1": "ajouter %1 au tempo",
     "set tempo to %1": "mettre le tempo à %1",
-    "clear": "effacer tout",
+    "erase all": "effacer tout",
     "stamp": "estampiller",
     "pen down": "stylo en position d'écriture",
     "pen up": "relever le stylo",
@@ -64,7 +64,7 @@
     "when I receive %1": "quand je reçois %1",
     "broadcast %1": "envoyer à tous %1",
     "broadcast %1 and wait": "envoyer à tous %1 et attendre",
-    "wait %1 secs": "attendre %1 secondes",
+    "wait %1 seconds": "attendre %1 secondes",
     "repeat %1": "répéter %1 fois",
     "forever": "répéter indéfiniment",
     "if %1 then": "si %1 alors",
@@ -199,5 +199,5 @@
     "fin": "end"
   },
   "name": "Français",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

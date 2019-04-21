@@ -14,9 +14,9 @@
     "change y by %1": "změň y o %1",
     "set y to %1": "nastav y na %1",
     "set rotation style %1": "nastav otáčení %1",
-    "say %1 for %2 secs": "bublina %1 %2 sekund",
+    "say %1 for %2 seconds": "bublina %1 %2 sekund",
     "say %1": "bublina %1",
-    "think %1 for %2 secs": "myšlenka %1 %2 sekund",
+    "think %1 for %2 seconds": "myšlenka %1 %2 sekund",
     "think %1": "myšlenka %1",
     "show": "ukaž se",
     "hide": "skryj se",
@@ -32,7 +32,7 @@
     "set size to %1%": "nastav velikost na %1 %",
     "go to %1 layer": "přejdi na vrstvu %1",
     "go %1 %2 layers": "jdi %1 o %2",
-    "play sound %1": "začni hrát zvuk %1",
+    "start sound %1": "začni hrát zvuk %1",
     "clear sound effects": "zruš zvukové efekty",
     "play sound %1 until done": "přehraj zvuk %1 až do konce",
     "stop all sounds": "zastav všechny zvuky",
@@ -44,7 +44,7 @@
     "set volume to %1%": "nastav hlasitost na %1%",
     "change tempo by %1": "změň tempo o %1",
     "set tempo to %1": "nastav tempo na %1",
-    "clear": "smaž",
+    "erase all": "smaž",
     "stamp": "otiskni se",
     "pen down": "pero zapni",
     "pen up": "pero vypni",
@@ -64,7 +64,7 @@
     "when I receive %1": "po obdržení zprávy %1",
     "broadcast %1": "vyšli zprávu %1",
     "broadcast %1 and wait": "vyšli zprávu %1 a čekej",
-    "wait %1 secs": "čekej %1 sekund",
+    "wait %1 seconds": "čekej %1 sekund",
     "repeat %1": "opakuj %1 krát",
     "forever": "opakuj stále",
     "if %1 then": "když %1 tak",
@@ -199,5 +199,5 @@
     "konec": "end"
   },
   "name": "Česky",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

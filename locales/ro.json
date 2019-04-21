@@ -14,9 +14,9 @@
     "change y by %1": "modifică y cu %1",
     "set y to %1": "setează y la %1",
     "set rotation style %1": "setează stilul de rotație %1",
-    "say %1 for %2 secs": "spune %1 pentru %2 secunde",
+    "say %1 for %2 seconds": "spune %1 pentru %2 secunde",
     "say %1": "spune %1",
-    "think %1 for %2 secs": "gândește %1 pentru %2 secunde ",
+    "think %1 for %2 seconds": "gândește %1 pentru %2 secunde ",
     "think %1": "gândește %1",
     "show": "arată",
     "hide": "ascunde",
@@ -32,7 +32,7 @@
     "set size to %1%": "setează mărimea la %1 %",
     "go to %1 layer": "mergi la stratul %1",
     "go %1 %2 layers": "mergi %1 %2 straturi",
-    "play sound %1": "pornește sunetul %1",
+    "start sound %1": "pornește sunetul %1",
     "clear sound effects": "șterge efectele audio",
     "play sound %1 until done": "redă sunetul %1 până la final",
     "stop all sounds": "oprește toate sunetele",
@@ -44,7 +44,7 @@
     "set volume to %1%": "setează volumul la %1%",
     "change tempo by %1": "schimbă ritmul cu %1",
     "set tempo to %1": "setează viteaza la %1",
-    "clear": "șterge tot",
+    "erase all": "șterge tot",
     "stamp": "ștampila",
     "pen down": "stilou jos",
     "pen up": "stilou sus",
@@ -64,7 +64,7 @@
     "when I receive %1": "când primesc %1",
     "broadcast %1": "difuzează %1",
     "broadcast %1 and wait": "difuzează %1 și așteaptă",
-    "wait %1 secs": "așteaptă %1 secunde",
+    "wait %1 seconds": "așteaptă %1 secunde",
     "repeat %1": "repetă %1",
     "forever": "la infinit",
     "if %1 then": "dacă %1 atunci",
@@ -199,5 +199,5 @@
     "terminare": "end"
   },
   "name": "Română",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

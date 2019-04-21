@@ -14,9 +14,9 @@
     "change y by %1": "spremeni y za %1",
     "set y to %1": "nastavi y na %1",
     "set rotation style %1": "Način vrtenja %1",
-    "say %1 for %2 secs": "reci %1 za %2 sekund",
+    "say %1 for %2 seconds": "reci %1 za %2 sekund",
     "say %1": "reci %1",
-    "think %1 for %2 secs": "pomisli %1 za %2 sekund",
+    "think %1 for %2 seconds": "pomisli %1 za %2 sekund",
     "think %1": "pomisli %1",
     "show": "pokaži",
     "hide": "skrij",
@@ -32,7 +32,7 @@
     "set size to %1%": "nastavi velikost na %1 %",
     "go to %1 layer": "pojdi na %1 plast",
     "go %1 %2 layers": "pojdi %1 %2 plasti",
-    "play sound %1": "predvajaj zvok %1",
+    "start sound %1": "predvajaj zvok %1",
     "clear sound effects": "izbriši zvočne učinke",
     "play sound %1 until done": "predvajaj zvok %1 do konca",
     "stop all sounds": "ustavi vse zvoke",
@@ -44,7 +44,7 @@
     "set volume to %1%": "nastavi glasnost na %1%",
     "change tempo by %1": "spremeni tempo za %1",
     "set tempo to %1": "nastavi tempo na %1",
-    "clear": "izbriši vse",
+    "erase all": "izbriši vse",
     "stamp": "žig",
     "pen down": "spusti pero",
     "pen up": "dvigni pero",
@@ -64,7 +64,7 @@
     "when I receive %1": "ko prejmem %1",
     "broadcast %1": "objavi %1",
     "broadcast %1 and wait": "objavi %1 in čakaj",
-    "wait %1 secs": "počakaj %1 sekund",
+    "wait %1 seconds": "počakaj %1 sekund",
     "repeat %1": "ponovi %1 krat",
     "forever": "ponavljaj",
     "if %1 then": "če %1 potem",
@@ -199,5 +199,5 @@
     "ustavi": "end"
   },
   "name": "Slovenščina",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

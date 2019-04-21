@@ -14,9 +14,9 @@
     "change y by %1": "zmień y o %1",
     "set y to %1": "ustaw y na %1",
     "set rotation style %1": "ustaw styl obrotu na %1",
-    "say %1 for %2 secs": "powiedz %1 przez %2 sekund",
+    "say %1 for %2 seconds": "powiedz %1 przez %2 sekund",
     "say %1": "powiedz %1",
-    "think %1 for %2 secs": "pomyśl %1 przez %2 sekund",
+    "think %1 for %2 seconds": "pomyśl %1 przez %2 sekund",
     "think %1": "pomyśl %1",
     "show": "pokaż",
     "hide": "ukryj",
@@ -32,7 +32,7 @@
     "set size to %1%": "ustaw rozmiar na %1 %",
     "go to %1 layer": "przesuń na %1",
     "go %1 %2 layers": "przesuń %1 o %2 warstw",
-    "play sound %1": "zagraj dźwięk %1",
+    "start sound %1": "zagraj dźwięk %1",
     "clear sound effects": "usuń efekty dźwiękowe",
     "play sound %1 until done": "graj dźwięk %1 aż się skończy",
     "stop all sounds": "zakończ wszystkie dźwięki",
@@ -44,7 +44,7 @@
     "set volume to %1%": "ustaw głośność na %1%",
     "change tempo by %1": "zmień tempo na %1",
     "set tempo to %1": "ustaw tempo na %1",
-    "clear": "wyczyść wszystko ",
+    "erase all": "wyczyść wszystko ",
     "stamp": "Stempluj",
     "pen down": "Przyłóż pisak",
     "pen up": "Podnieś pisak ",
@@ -64,7 +64,7 @@
     "when I receive %1": "kiedy otrzymam %1",
     "broadcast %1": "nadaj komunikat %1",
     "broadcast %1 and wait": "nadaj komunikat %1 i czekaj",
-    "wait %1 secs": "czekaj %1 sekund",
+    "wait %1 seconds": "czekaj %1 sekund",
     "repeat %1": "powtarzaj %1",
     "forever": "zawsze",
     "if %1 then": "jeżeli %1 to",
@@ -199,5 +199,5 @@
     "koniec": "end"
   },
   "name": "Polski",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

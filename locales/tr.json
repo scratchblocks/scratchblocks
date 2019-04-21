@@ -14,9 +14,9 @@
     "change y by %1": "y konumunu %1 değiştir",
     "set y to %1": "y konumunu %1 yap",
     "set rotation style %1": "dönüş stilini %1 yap",
-    "say %1 for %2 secs": "%2 saniye boyunca %1 de ",
+    "say %1 for %2 seconds": "%2 saniye boyunca %1 de ",
     "say %1": "%1 de",
-    "think %1 for %2 secs": "%2 saniye boyunca %1 diye düşün",
+    "think %1 for %2 seconds": "%2 saniye boyunca %1 diye düşün",
     "think %1": "%1 diye düşün",
     "show": "göster",
     "hide": "gizle",
@@ -32,7 +32,7 @@
     "set size to %1%": "boyutu % %1 yap",
     "go to %1 layer": "%1 katmanına git",
     "go %1 %2 layers": "%2 katman %1 git",
-    "play sound %1": "%1 sesini başlat",
+    "start sound %1": "%1 sesini başlat",
     "clear sound effects": "ses etkilerini temizle",
     "play sound %1 until done": "%1 sesini bitene kadar çal",
     "stop all sounds": "tüm sesleri durdur",
@@ -44,7 +44,7 @@
     "set volume to %1%": "ses düzeyini %1% yap",
     "change tempo by %1": "tempoyu %1 yap",
     "set tempo to %1": "tempoyu %1 yap",
-    "clear": "tümünü sil",
+    "erase all": "tümünü sil",
     "stamp": "damgala",
     "pen down": "kalemi bastır",
     "pen up": "kalemi kaldır",
@@ -64,7 +64,7 @@
     "when I receive %1": "%1 haberini aldığımda",
     "broadcast %1": "%1 haberini sal",
     "broadcast %1 and wait": "%1 haberini sal ve bekle",
-    "wait %1 secs": "%1 saniye bekle",
+    "wait %1 seconds": "%1 saniye bekle",
     "repeat %1": "%1 defa tekrarla",
     "forever": "sürekli tekrarla",
     "if %1 then": "eğer %1 ise",
@@ -201,5 +201,5 @@
     "son": "end"
   },
   "name": "Türkçe",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

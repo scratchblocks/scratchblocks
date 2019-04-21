@@ -111,9 +111,16 @@ module.exports = [
     category: "motion",
   },
   {
-    scratch3_selector: "LOOKS_SAYFORSECS",
     scratch2_selector: "say:duration:elapsed:from:",
     scratch2_spec: "say %1 for %2 secs",
+    inputs: ["%s", "%n"],
+    shape: "stack",
+    category: "looks",
+  },
+  {
+    scratch3_selector: "LOOKS_SAYFORSECS",
+    scratch2_selector: "say:duration:elapsed:from:",
+    scratch2_spec: "say %1 for %2 seconds", // New name in Scratch 3
     inputs: ["%s", "%n"],
     shape: "stack",
     category: "looks",
@@ -127,9 +134,16 @@ module.exports = [
     category: "looks",
   },
   {
-    scratch3_selector: "LOOKS_THINKFORSECS",
     scratch2_selector: "think:duration:elapsed:from:",
     scratch2_spec: "think %1 for %2 secs",
+    inputs: ["%s", "%n"],
+    shape: "stack",
+    category: "looks",
+  },
+  {
+    scratch3_selector: "LOOKS_THINKFORSECS",
+    scratch2_selector: "think:duration:elapsed:from:",
+    scratch2_spec: "think %1 for %2 seconds", // New name in Scratch 3
     inputs: ["%s", "%n"],
     shape: "stack",
     category: "looks",
@@ -267,9 +281,16 @@ module.exports = [
     category: "looks",
   },
   {
-    scratch3_selector: "SOUND_PLAY",
     scratch2_selector: "playSound:",
     scratch2_spec: "play sound %1",
+    inputs: ["%m.sound"],
+    shape: "stack",
+    category: "sound",
+  },
+  {
+    scratch3_selector: "SOUND_PLAY",
+    scratch2_selector: "playSound:",
+    scratch2_spec: "start sound %1", // New name in Scratch 3
     inputs: ["%m.sound"],
     shape: "stack",
     category: "sound",
@@ -383,9 +404,16 @@ module.exports = [
     category: "music",
   },
   {
-    scratch3_selector: "pen.clear",
     scratch2_selector: "clearPenTrails",
     scratch2_spec: "clear",
+    inputs: [],
+    shape: "stack",
+    category: "pen",
+  },
+  {
+    scratch3_selector: "pen.clear",
+    scratch2_selector: "clearPenTrails",
+    scratch2_spec: "erase all", // New name in Scratch 3
     inputs: [],
     shape: "stack",
     category: "pen",
@@ -549,9 +577,16 @@ module.exports = [
     category: "events",
   },
   {
-    scratch3_selector: "CONTROL_WAIT",
     scratch2_selector: "wait:elapsed:from:",
     scratch2_spec: "wait %1 secs",
+    inputs: ["%n"],
+    shape: "stack",
+    category: "control",
+  },
+  {
+    scratch3_selector: "CONTROL_WAIT",
+    scratch2_selector: "wait:elapsed:from:",
+    scratch2_spec: "wait %1 seconds", // New name in Scratch 3
     inputs: ["%n"],
     shape: "stack",
     category: "control",

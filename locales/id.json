@@ -14,9 +14,9 @@
     "change y by %1": "ubah y sebesar %1",
     "set y to %1": "atur y ke %1",
     "set rotation style %1": "atur gaya rotasi %1",
-    "say %1 for %2 secs": "katakan %1 selama %2 detik",
+    "say %1 for %2 seconds": "katakan %1 selama %2 detik",
     "say %1": "katakan %1",
-    "think %1 for %2 secs": "pikirkan %1 selama %2 detik",
+    "think %1 for %2 seconds": "pikirkan %1 selama %2 detik",
     "think %1": "pikirkan %1",
     "show": "tampilkan",
     "hide": "sembunyikan",
@@ -32,7 +32,7 @@
     "set size to %1%": "atur ukuran ke %1 %",
     "go to %1 layer": "pergi ke lapisan %1",
     "go %1 %2 layers": "pergi %1 %2 lapisan",
-    "play sound %1": "mulai suara %1",
+    "start sound %1": "mulai suara %1",
     "clear sound effects": "hapus semua efek suara",
     "play sound %1 until done": "mainkan suara %1 sampai selesai",
     "stop all sounds": "hentikan semua suara",
@@ -44,7 +44,7 @@
     "set volume to %1%": "atur volume ke %1%",
     "change tempo by %1": "ubah tempo sebesar %1",
     "set tempo to %1": "atur tempo ke %1",
-    "clear": "hapus semua",
+    "erase all": "hapus semua",
     "stamp": "cap",
     "pen down": "tekan pena",
     "pen up": "angkat pena",
@@ -64,7 +64,7 @@
     "when I receive %1": "ketika aku menerima %1",
     "broadcast %1": "siarkan %1",
     "broadcast %1 and wait": "siarkan %1 dan tunggu",
-    "wait %1 secs": "tunggu %1 detik",
+    "wait %1 seconds": "tunggu %1 detik",
     "repeat %1": "ulangi %1 kali",
     "forever": "selamanya",
     "if %1 then": "jika %1 maka",
@@ -199,5 +199,5 @@
     "selesai": "end"
   },
   "name": "Bahasa Indonesia",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

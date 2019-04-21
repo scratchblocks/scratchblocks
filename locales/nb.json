@@ -14,9 +14,9 @@
     "change y by %1": "endre y med %1",
     "set y to %1": "sett y til %1",
     "set rotation style %1": "begrens rotasjon %1",
-    "say %1 for %2 secs": "si %1 i %2 sekunder",
+    "say %1 for %2 seconds": "si %1 i %2 sekunder",
     "say %1": "si %1",
-    "think %1 for %2 secs": "tenk %1 i %2 sekunder",
+    "think %1 for %2 seconds": "tenk %1 i %2 sekunder",
     "think %1": "tenk %1",
     "show": "vis",
     "hide": "skjul",
@@ -32,7 +32,7 @@
     "set size to %1%": "sett størrelse til %1 %",
     "go to %1 layer": "legg %1",
     "go %1 %2 layers": "gå %1 %2 lag",
-    "play sound %1": "start lyden %1",
+    "start sound %1": "start lyden %1",
     "clear sound effects": "fjern lydeffekter",
     "play sound %1 until done": "spill lyden %1 til den er ferdig",
     "stop all sounds": "stopp alle lyder",
@@ -44,7 +44,7 @@
     "set volume to %1%": "sett volum %1%",
     "change tempo by %1": "endre tempo med %1",
     "set tempo to %1": "sett tempo til %1",
-    "clear": "slett alt",
+    "erase all": "slett alt",
     "stamp": "stemple avtrykk",
     "pen down": "penn på",
     "pen up": "penn av",
@@ -64,7 +64,7 @@
     "when I receive %1": "når jeg mottar %1",
     "broadcast %1": "send melding %1",
     "broadcast %1 and wait": "send melding %1 og vent",
-    "wait %1 secs": "vent %1 sekunder",
+    "wait %1 seconds": "vent %1 sekunder",
     "repeat %1": "gjenta %1 ganger",
     "forever": "gjenta for alltid",
     "if %1 then": "hvis %1",
@@ -199,5 +199,5 @@
     "slutt": "end"
   },
   "name": "Norsk Bokmål",
-  "percentTranslated": 113
+  "percentTranslated": 110
 }

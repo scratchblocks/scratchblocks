@@ -284,6 +284,41 @@ describe('comparison ops: < and > ', () => {
   // TODO add that test case from that issue
 })
 
+// Test that blocks renamed between Scratch 2 and Scratch 3 work in either form.
+describe('renamed blocks', () => {
+  test('say for secs', () => {
+    const json = ['say:duration:elapsed:from:', 'Hello!', 2]
+    testBlock('say [Hello!] for (2) secs', json)
+    // We can't use testBlock because the Scratch 2 wording is still (rightly!)
+    // the default for fromJSON
+    expect(parseBlock('say [Hello!] for (2) seconds').toJSON()).toEqual(json)
+  })
+
+  test('think for secs', () => {
+    const json = ['think:duration:elapsed:from:', "Hmm...", 2]
+    testBlock('think [Hmm...] for (2) secs', json)
+    expect(parseBlock('think [Hmm...] for (2) seconds').toJSON()).toEqual(json)
+  })
+
+  test('play sound', () => {
+    const json = ['playSound:', 'moo']
+    testBlock('play sound [moo v]', json)
+    expect(parseBlock('start sound [moo v]').toJSON()).toEqual(json)
+  })
+
+  test('clear', () => {
+    const json = ['clearPenTrails']
+    testBlock('clear', json)
+    expect(parseBlock('erase all').toJSON()).toEqual(json)
+  })
+
+  test('wait secs', () => {
+    const json = ['wait:elapsed:from:', 1]
+    testBlock('wait (1) secs', json)
+    expect(parseBlock('wait (1) seconds').toJSON()).toEqual(json)
+  })
+})
+
 describe('translate', () => {
   const optionsDe = {
     languages: ['en', 'de'],

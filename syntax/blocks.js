@@ -112,6 +112,11 @@ var allBlocks = scratchCommands.map(function(def) {
   // nb. command order matters!
   // Scratch 1.4 blocks are listed last
   if (!blocksBySelector[selector]) blocksBySelector[selector] = info
+
+  // Always add the Scratch 3 selector if it is listed
+  if (def.scratch3_selector && !blocksBySelector[def.scratch3_selector]) {
+    blocksBySelector[def.scratch3_selector] = info
+  }
   return (blocksBySpec[spec] = info)
 })
 
