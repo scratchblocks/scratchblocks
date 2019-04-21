@@ -2,7 +2,7 @@ const { test } = require("./runner")
 
 test(
   "scratch2",
-  "motion",
+  "en-motion",
   `
 
 // Motion
@@ -40,7 +40,7 @@ set rotation style [left-right v]
 
 test(
   "scratch2",
-  "looks",
+  "en-looks",
   `
 
 // Looks
@@ -83,7 +83,7 @@ next backdrop
 
 test(
   "scratch2",
-  "sound",
+  "en-sound",
   `
 
 // Sound
@@ -111,7 +111,7 @@ set tempo to (60) bpm
 
 test(
   "scratch2",
-  "pen",
+  "en-pen",
   `
 
 // Pen
@@ -138,7 +138,7 @@ set pen size to (1)
 
 test(
   "scratch2",
-  "data",
+  "en-data",
   `
 
 // Variables
@@ -168,7 +168,7 @@ hide list [list v]
 
 test(
   "scratch2",
-  "events",
+  "en-events",
   `
 
 // Events
@@ -192,7 +192,7 @@ broadcast [message1 v] and wait
 
 test(
   "scratch2",
-  "control",
+  "en-control",
   `
 
 // Control
@@ -238,7 +238,7 @@ delete this clone
 
 test(
   "scratch2",
-  "sensing",
+  "en-sensing",
   `
 
 // Sensing
@@ -278,7 +278,7 @@ reset timer
 
 test(
   "scratch2",
-  "operators",
+  "en-operators",
   `
 
 // Operators
@@ -314,7 +314,7 @@ test(
 
 test(
   "scratch2",
-  "extensions",
+  "en-extensions",
   `
 
 // PicoBoard
@@ -376,7 +376,7 @@ when tilted
 
 test(
   "scratch2",
-  "obsolete",
+  "en-obsolete",
   `
 
 // Obsolete Scratch 1.4 blocks:
@@ -430,7 +430,7 @@ when Sprite1 clicked
 
 test(
   "scratch3",
-  "motion",
+  "en-motion",
   `
 
 // Motion
@@ -464,7 +464,7 @@ set rotation style [left-right v]
 
 test(
   "scratch3",
-  "looks",
+  "en-looks",
   `
 
 // Looks
@@ -501,7 +501,7 @@ go [forward v] (1) layers
 
 test(
   "scratch3",
-  "sound",
+  "en-sound",
   `
 
 // Sound
@@ -524,7 +524,7 @@ volume
 
 test(
   "scratch3",
-  "events",
+  "en-events",
   `
 
 // Events
@@ -545,7 +545,7 @@ broadcast (message1 v) and wait
 
 test(
   "scratch3",
-  "control",
+  "en-control",
   `
 
 // Control
@@ -581,7 +581,7 @@ delete this clone
 
 test(
   "scratch3",
-  "sensing",
+  "en-sensing",
   `
 
 // Sensing
@@ -620,7 +620,7 @@ reset timer
 
 test(
   "scratch3",
-  "operators",
+  "en-operators",
   `
 
 // Operators
@@ -655,7 +655,7 @@ test(
 
 test(
   "scratch3",
-  "variables",
+  "en-variables",
   `
 
 // Variables
@@ -690,7 +690,7 @@ hide list [list v]
 
 test(
   "scratch3",
-  "custom",
+  "en-custom",
   `
 
 // Custom
@@ -704,7 +704,7 @@ define foo (num) if <bool>
 
 test(
   "scratch3",
-  "pen",
+  "en-pen",
   `
 
 // Pen
@@ -729,7 +729,7 @@ set pen size to (1)
 
 test(
   "scratch3",
-  "music",
+  "en-music",
   `
 
 // Music
@@ -747,7 +747,7 @@ change tempo by (20)
 
 test(
   "scratch3",
-  "video",
+  "en-video",
   `
 
 // Video
@@ -762,7 +762,7 @@ set video transparency to (50)
 
 test(
   "scratch3",
-  "extensions",
+  "en-extensions",
   `
 // Text to Speech
 
