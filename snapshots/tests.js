@@ -593,7 +593,7 @@ test(
 <color (#0f0) is touching (#f0f)?>
 (distance to (mouse-pointer v))
 
-ask (What's your name?) and wait
+ask [What's your name?] and wait
 
 (answer)
 
@@ -640,10 +640,10 @@ test(
 <<> or <>>
 <not <>>
 
-(join (apple) (banana))
-(letter (1) of (apple))
-(length of (apple))
-<(apple) contains (a)?>
+(join [apple] [banana])
+(letter (1) of [apple])
+(length of [apple])
+<[apple] contains [a]?>
 
 (() mod ())
 (round ())
@@ -671,16 +671,16 @@ hide variable [foo v]
 
 (list)
 
-add (thing) to [list v]
+add [thing] to [list v]
 delete (1) of [list v]
 delete all of [list v]
 insert (1) at (1) of [list v]
 replace item (1) of [list v] with (1)
 
 (item (1) of [list v])
-(item # of (thing) in [list v])
+(item # of [thing] in [list v])
 (length of [list v])
-<[list v] contains (thing)?>
+<[list v] contains [thing]?>
 
 show list [list v]
 hide list [list v]
@@ -766,13 +766,13 @@ test(
   `
 // Text to Speech
 
-speak (hello) :: tts
+speak [hello] :: tts
 set voice to (alto v) :: tts
 set language to (English v) :: tts
 
 // Translate
 
-(translate (hello) to (Galician v) :: translate)
+(translate [hello] to (Galician v) :: translate)
 (language :: translate)
 
 // Makey Makey
