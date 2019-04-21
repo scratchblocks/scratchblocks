@@ -439,9 +439,7 @@ Block.prototype.translate = function(lang, isShallow) {
   })
   var oldParts = parseSpec(oldSpec).parts
   var oldInputOrder = oldParts
-    .map(
-      part => parseInputNumber(part)
-    )
+    .map(part => parseInputNumber(part))
     .filter(x => !!x)
   var args = oldInputOrder.map(number => rawArgs[number - 1])
 

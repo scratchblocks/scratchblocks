@@ -93,7 +93,7 @@ var blocksBySelector = {}
 var blocksBySpec = {}
 var allBlocks = scratchCommands.map(function(def) {
   var spec = def.scratch2_spec
-  var selector = def.scratch2_selector || ('sb3:' + def.scratch3_selector)
+  var selector = def.scratch2_selector || "sb3:" + def.scratch3_selector
 
   if (!spec) throw new Error("Missing spec: '" + selector + "'")
   if (!selector) throw new Error("Missing selector: '" + spec + "'")

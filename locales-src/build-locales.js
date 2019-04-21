@@ -20,18 +20,13 @@ for (let code in localeNames) {
     extensionMappings: require("scratch-l10n/editor/extensions/" + code),
   }
   rawLocales.push(raw)
-  if (code === 'en') {
+  if (code === "en") {
     english = raw
   }
 }
 
-const soundEffects = [
-  "SOUND_EFFECTS_PITCH",
-  "SOUND_EFFECTS_PAN",
-]
-const osis = [
-  "CONTROL_STOP_OTHER",
-]
+const soundEffects = ["SOUND_EFFECTS_PITCH", "SOUND_EFFECTS_PAN"]
+const osis = ["CONTROL_STOP_OTHER"]
 const scratchSpecs = scratchCommands.map(block => block.spec)
 
 const palette = [
@@ -175,7 +170,7 @@ const buildLocale = (code, rawLocale) => {
   // TODO does this block still exist?
   //const whenDistance = translateKey("when distance < %1")
   //if (whenDistance.indexOf(" < %1") !== -1) {
-    //locale.ignorelt.push(whenDistance.replace(/ \< \%1.*$/))
+  //locale.ignorelt.push(whenDistance.replace(/ \< \%1.*$/))
   //}
 
   return locale
@@ -185,7 +180,7 @@ const fixup = (key, value, englishValue) => {
   let number = 0
   var variables = {}
   englishValue.replace(/\[[^\]]+\]/g, key => {
-    variables[key] = "%" + (++number)
+    variables[key] = "%" + ++number
   })
 
   value = value.replace(/\[[^\]]+\]/g, key => variables[key])
@@ -204,7 +199,7 @@ const fixup = (key, value, englishValue) => {
   }
 }
 
-const convertFile = async (rawLocale) => {
+const convertFile = async rawLocale => {
   const code = rawLocale.code
   const locale = buildLocale(code, rawLocale)
   if (!locale) {
