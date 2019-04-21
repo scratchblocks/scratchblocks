@@ -363,7 +363,7 @@ Block.prototype.toJSON = function() {
       return ["call", this.info.call].concat(args)
     }
   }
-  if (!selector) throw "unknown block: " + this.info.hash
+  if (!selector) throw new Error("unknown block: " + this.info.hash)
   return [selector].concat(args)
 }
 
@@ -416,6 +416,8 @@ Block.prototype.stringify = function(extras) {
 }
 
 Block.prototype.translate = function(lang, isShallow) {
+  if (!lang) throw new Error("Missing language")
+
   var selector = this.info.selector
   if (!selector) return
   if (selector === "procDef") {

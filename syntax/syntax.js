@@ -64,7 +64,7 @@ function paintBlock(info, children, languages) {
       info.shape = type.shape
     }
     info.category = type.category
-    info.categoryIsDefault = false
+    info.categoryIsDefault = true
     if (type.selector) info.selector = type.selector // for toJSON
     info.hasLoopArrow = type.hasLoopArrow
 
@@ -835,7 +835,9 @@ function parse(code, options) {
   }
 
   var languages = options.languages.map(function(code) {
-    return allLanguages[code]
+    var lang = allLanguages[code]
+    if (!lang) throw new Error("Unknown language: '" + code + "'")
+    return lang
   })
 
   /* * */

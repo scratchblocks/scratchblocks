@@ -116,11 +116,11 @@ var allBlocks = scratchCommands.map(function(def) {
 })
 
 var unicodeIcons = {
-  "@greenFlag": "⚑",
-  "@turnRight": "↻",
-  "@turnLeft": "↺",
-  "@addInput": "▸",
-  "@delInput": "◂",
+  "@greenflag": "⚑",
+  "@turnright": "↻",
+  "@turnleft": "↺",
+  "@addinput": "▸",
+  "@delinput": "◂",
 }
 
 var allLanguages = {}
@@ -138,7 +138,7 @@ function loadLanguage(code, language) {
     var m = iconPat.exec(spec)
     if (m) {
       var image = m[0]
-      var hash = nativeHash.replace(image, unicodeIcons[image])
+      var hash = nativeHash.replace(iconPat, image => unicodeIcons[image])
       blocksByHash[hash] = block
     }
   })

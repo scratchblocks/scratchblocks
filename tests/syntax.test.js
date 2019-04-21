@@ -1,6 +1,13 @@
 
 const { parse, fromJSON, loadLanguages, allLanguages } = require('../syntax')
 
+loadLanguages({
+  de: require('../locales/de'),
+})
+const optionsDe = {
+  languages: ['en', 'de'],
+}
+
 function getScript(doc) {
   expect(doc.scripts.length).toBe(1)
   return doc.scripts[0]
@@ -12,25 +19,29 @@ function parseBlock(code, options) {
   return script.blocks[0]
 }
 
-function scriptFromJSON(json) {
+function scriptFromJSON(json, lang) {
   let obj = {
     scripts: [
       [0, 0, json],
     ],
   }
-  return fromJSON(obj)
+  return fromJSON(obj, lang)
 }
 
 function testScript(code, json, options) {
   let fromCode = getScript(parse(code, options))
-  expect(fromCode.toJSON()).toEqual(json)
-  let fromJSON = scriptFromJSON(json)
-  expect(fromJSON.stringify()).toBe(code)
+  if (json === null) {
+    expect(fromCode.stringify()).toBe(code)
+  } else {
+    expect(fromCode.toJSON()).toEqual(json)
+    let fromJSON = scriptFromJSON(json, options && options.languages ? allLanguages[options.languages[1]] : null)
+    expect(fromJSON.stringify()).toBe(code)
+  }
   return fromCode
 }
 
 function testBlock(code, json, options) {
-  let script = testScript(code, [json], options)
+  let script = testScript(code, json === null ? null : [json], options)
   expect(script.blocks.length).toBe(1)
   return script.blocks[0]
 }
@@ -44,6 +55,8 @@ describe('blocks with symbols', () => {
   test('when flag clicked', () => {
     let json = ['whenGreenFlag']
     testBlock('when green flag clicked', json)
+    // 'when green flag clicked' is the default used by stringify(), so we
+    // can't use testBlock for the other aliases.
     expect(parseBlock('when flag clicked').toJSON()).toEqual(json)
     expect(parseBlock('when gf clicked').toJSON()).toEqual(json)
   })
@@ -60,6 +73,27 @@ describe('blocks with symbols', () => {
     testBlock('turn cw (15) degrees', json)
     expect(parseBlock('turn right (15) degrees').toJSON()).toEqual(json)
     expect(parseBlock('turn @turnRight (15) degrees').toJSON()).toEqual(json)
+  })
+
+  test('when flag clicked: de', () => {
+    const json = ['whenGreenFlag']
+    testBlock('Wenn die grüne Flagge angeklickt', json, optionsDe)
+    expect(parseBlock('Wenn ⚑ angeklickt wird', optionsDe).toJSON()).toEqual(json)
+    expect(parseBlock('Wenn @greenFlag angeklickt wird', optionsDe).toJSON()).toEqual(json)
+  })
+
+  test('turn left: de', () => {
+    const json = ['turnLeft:', 15]
+    testBlock('drehe dich nach links um (15) Grad', json, optionsDe)
+    expect(parseBlock('drehe dich ↺ um (15) Grad', optionsDe).toJSON()).toEqual(json)
+    expect(parseBlock('drehe dich @turnLeft um (15) Grad', optionsDe).toJSON()).toEqual(json)
+  })
+
+  test('turn right: de', () => {
+    const json = ['turnRight:', 15]
+    testBlock('drehe dich nach rechts um (15) Grad', json, optionsDe)
+    expect(parseBlock('drehe dich ↻ um (15) Grad', optionsDe).toJSON()).toEqual(json)
+    expect(parseBlock('drehe dich @turnRight um (15) Grad', optionsDe).toJSON()).toEqual(json)
   })
 
 })
@@ -251,6 +285,10 @@ describe('comparison ops: < and > ', () => {
 })
 
 describe('translate', () => {
+  const optionsDe = {
+    languages: ['en', 'de'],
+  }
+
   test('reorders arguments: en -> de', () => {
     const b = parseBlock('go [back v] (1) layers')
     b.translate(allLanguages.de)
@@ -258,9 +296,7 @@ describe('translate', () => {
   })
 
   test('reorders arguments: de -> en', () => {
-    const b = parseBlock('gehe (1) Ebenen [back v]', {
-      languages: ['de'],
-    })
+    const b = parseBlock('gehe (1) Ebenen [back v]', optionsDe)
     b.translate(allLanguages.en)
     expect(b.stringify()).toEqual('go [back v] (1) layers')
   })
@@ -272,9 +308,7 @@ describe('translate', () => {
   })
 
   test('turn left: de -> en', () => {
-    const b = parseBlock('drehe dich nach rechts um (45) Grad', {
-      languages: ['de'],
-    })
+    const b = parseBlock('drehe dich nach rechts um (45) Grad', optionsDe)
     b.translate(allLanguages.en)
     expect(b.stringify()).toEqual('turn cw (45) degrees')
   })
@@ -282,48 +316,3 @@ describe('translate', () => {
 
 // TODO test { } handling
 
-describe('other languages', () => {
-  const forums = require('../locales/forums.js')
-  loadLanguages(forums)
-
-  // Japanese
-  test('Japanese', () => {
-      const options = {languages: ['en', 'ja']}
-      expect(parseBlock('⚑ がクリックされたとき', options).toJSON()).toEqual([
-              'whenGreenFlag',
-      ])
-  })
-
-  /*
-  // German
-
-  wenn die grune flagge angeklickt
-  gehe (10) er-Schritt
-  drehe dich nach rechts um (15) Grad
-
-  // Spanish
-
-  al presionar bandera verde
-  por siempre
-  girar a la izquierda (7) grados
-  girar a la derecha (11) grados
-  fin
-
-  // Chinese
-
-  点击绿旗时
-  转动CCW (15)度
-  转动CW (15)度
-  如果 <声音响亮？> 那么
-  结束
-
-  // Polish
-
-  kiedy kliknięto zieloną flagę
-  obróć w lewo o (10) stopni
-  obróć w prawo o (10) stopni
-  forever
-  koniec
-
-  */
-})
