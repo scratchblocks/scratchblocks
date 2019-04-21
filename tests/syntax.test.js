@@ -317,6 +317,12 @@ describe('renamed blocks', () => {
     testBlock('wait (1) secs', json)
     expect(parseBlock('wait (1) seconds').toJSON()).toEqual(json)
   })
+
+  test('set tempo', () => {
+    const json = ['setTempoTo:', 120]
+    testBlock('set tempo to (120) bpm', json)
+    expect(parseBlock('set tempo to (120)').toJSON()).toEqual(json)
+  })
 })
 
 describe('translate', () => {
