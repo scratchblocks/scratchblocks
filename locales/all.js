@@ -11,7 +11,6 @@ module.exports = {
   da: require("./da.json"),
   de: require("./de.json"),
   el: require("./el.json"),
-  en: require("./en.json"),
   es: require("./es.json"),
   es_419: require("./es-419.json"),
   et: require("./et.json"),

@@ -19,9 +19,10 @@ for (let code in localeNames) {
     mappings: require("scratch-l10n/editor/blocks/" + code),
     extensionMappings: require("scratch-l10n/editor/extensions/" + code),
   }
-  rawLocales.push(raw)
   if (code === "en") {
     english = raw
+  } else {
+    rawLocales.push(raw)
   }
 }
 
