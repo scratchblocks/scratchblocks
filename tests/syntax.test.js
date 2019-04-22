@@ -224,13 +224,23 @@ describe('disambiguation', () => {
 })
 
 describe('disambiguation', () => {
-  test('stop block: cap', () => {
+  test('stop block cap', () => {
     let b = testBlock('stop [all v]', ['stopScripts', 'all'])
     expect(b.info.shape).toBe('cap')
   })
 
-  test('stop block: cap', () => {
+  test('stop block stack', () => {
     let b = testBlock('stop [other scripts in sprite v]', ['stopScripts', 'other scripts in sprite'])
+    expect(b.info.shape).toBe('stack')
+  })
+
+  test('stop block cap: de', () => {
+    let b = testBlock('stoppe [alles v]', ['stopScripts', 'alles'], optionsDe)
+    expect(b.info.shape).toBe('cap')
+  })
+
+  test('stop block stack: de', () => {
+    let b = testBlock('stoppe [andere Skripte der Figur v]', ['stopScripts', 'andere Skripte der Figur'], optionsDe)
     expect(b.info.shape).toBe('stack')
   })
 })

@@ -70,7 +70,7 @@
     "if %1 then": "nếu %1 thì",
     "wait until %1": "đợi đến khi %1",
     "repeat until %1": "lặp lại cho đến khi %1",
-    "stop %1": "dừng lại",
+    "stop %1": "dừng lại %1",
     "when I start as a clone": "khi tôi bắt đầu là một bản sao",
     "create clone of %1": "tạo bản sao của %1",
     "delete this clone": "xóa bản sao này",
@@ -149,7 +149,7 @@
     "play note %1 for %2 seconds": "play note %1 for %2 seconds",
     "when tilted %1": "when tilted %1",
     "tilt angle %1": "tilt angle %1",
-    "else": "nếu không thì ",
+    "else": "nếu không thì",
     "user id": "id người dùng",
     "loud?": "tiếng to?"
   },
@@ -160,7 +160,7 @@
     "pan trái/phải"
   ],
   "osis": [
-    "các kịch bản khác cho đối tượng "
+    "các kịch bản khác cho đối tượng"
   ],
   "define": [
     "định nghĩa"

@@ -70,7 +70,7 @@
     "if %1 then": "si %1 llavors",
     "wait until %1": "espera fins %1",
     "repeat until %1": "repeteix fins %1",
-    "stop %1": "atura",
+    "stop %1": "atura %1",
     "when I start as a clone": "quan una còpia meva comenci",
     "create clone of %1": "crea una còpia de %1",
     "delete this clone": "esborra aquesta còpia",

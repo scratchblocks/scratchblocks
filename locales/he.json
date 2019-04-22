@@ -70,7 +70,7 @@
     "if %1 then": "אם %1 אז",
     "wait until %1": "חכה עד ש %1",
     "repeat until %1": "חזור עד ש %1",
-    "stop %1": "עצור",
+    "stop %1": "עצור %1",
     "when I start as a clone": "כאשר מופעל ככפיל",
     "create clone of %1": "צור כפיל של %1",
     "delete this clone": "מחק כפיל זה",

@@ -70,7 +70,7 @@
     "if %1 then": "más %1 ansin",
     "wait until %1": "fan go %1",
     "repeat until %1": "athdhéan go %1",
-    "stop %1": "stop",
+    "stop %1": "stop %1",
     "when I start as a clone": "nuair a thosaím mar chóip",
     "create clone of %1": "cruthaigh cóip de %1",
     "delete this clone": "scrios an chóip seo",

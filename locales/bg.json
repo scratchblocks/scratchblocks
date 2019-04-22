@@ -70,7 +70,7 @@
     "if %1 then": "ако %1 тогава",
     "wait until %1": "чакай докато %1",
     "repeat until %1": "repeat until %1",
-    "stop %1": "stop",
+    "stop %1": "stop %1",
     "when I start as a clone": "when I start as a clone",
     "create clone of %1": "create clone of %1",
     "delete this clone": "delete this clone",

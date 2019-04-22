@@ -70,7 +70,7 @@
     "if %1 then": "viss %1",
     "wait until %1": "vent til %1",
     "repeat until %1": "gjenta til %1",
-    "stop %1": "stopp",
+    "stop %1": "stopp %1",
     "when I start as a clone": "når eg startar som klon",
     "create clone of %1": "lag klon av %1",
     "delete this clone": "slett denne klonen",

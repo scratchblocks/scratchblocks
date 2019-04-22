@@ -70,7 +70,7 @@
     "if %1 then": "ma tha %1 a-rèiste",
     "wait until %1": "fan gus am bi %1",
     "repeat until %1": "dèan a-rithist e gus am bi %1",
-    "stop %1": "cuir stad air",
+    "stop %1": "cuir stad air %1",
     "when I start as a clone": "nuair a thèid thu nad chlòn",
     "create clone of %1": "cruthaich clòn %1",
     "delete this clone": "sguab às an clòn seo",

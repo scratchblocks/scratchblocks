@@ -185,6 +185,8 @@ const fixup = (key, value, englishValue) => {
   })
 
   value = value.replace(/\[[^\]]+\]/g, key => variables[key])
+  value = value.trim()
+  if (!value) return
 
   switch (key) {
     case "EVENT_WHENFLAGCLICKED":
@@ -195,6 +197,8 @@ const fixup = (key, value, englishValue) => {
       return value.replace("%1", "@turnRight").replace("%2", "%1")
     case "PROCEDURES_DEFINITION":
       return value.replace(/ ?\%1 ?/, "")
+    case "CONTROL_STOP":
+      return value + " %1"
     default:
       return value
   }

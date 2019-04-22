@@ -70,7 +70,7 @@
     "if %1 then": "os %1 yna",
     "wait until %1": "aros hyd at %1",
     "repeat until %1": "ailadrodd hyd at %1",
-    "stop %1": "aros",
+    "stop %1": "aros %1",
     "when I start as a clone": "pan rwy'n dechrau fel clôn",
     "create clone of %1": "creu clôn o %1",
     "delete this clone": "dileu y clôn hwn",

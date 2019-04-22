@@ -70,7 +70,7 @@
     "if %1 then": "если %1 , то",
     "wait until %1": "ждать до %1",
     "repeat until %1": "повторять пока не %1",
-    "stop %1": "стоп",
+    "stop %1": "стоп %1",
     "when I start as a clone": "когда я начинаю как клон",
     "create clone of %1": "создать клон %1",
     "delete this clone": "удалить клон",

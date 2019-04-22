@@ -70,7 +70,7 @@
     "if %1 then": "jika %1 maka",
     "wait until %1": "tunggu sampai %1",
     "repeat until %1": "ulangi sampai %1",
-    "stop %1": "berhenti",
+    "stop %1": "berhenti %1",
     "when I start as a clone": "ketika aku mulai sebagai clone",
     "create clone of %1": "buat clone dari %1",
     "delete this clone": "hapus clone ini",

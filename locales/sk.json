@@ -70,7 +70,7 @@
     "if %1 then": "ak %1",
     "wait until %1": "čakaj až kým %1",
     "repeat until %1": "opakuj až kým %1",
-    "stop %1": "zastav",
+    "stop %1": "zastav %1",
     "when I start as a clone": "pri štarte klonu",
     "create clone of %1": "naklonuj %1",
     "delete this clone": "zruš tento klon",

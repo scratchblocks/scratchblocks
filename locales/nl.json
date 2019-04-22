@@ -70,7 +70,7 @@
     "if %1 then": "als %1 dan",
     "wait until %1": "wacht tot %1",
     "repeat until %1": "herhaal tot %1",
-    "stop %1": "stop",
+    "stop %1": "stop %1",
     "when I start as a clone": "wanneer ik als kloon start",
     "create clone of %1": "maak een kloon van %1",
     "delete this clone": "verwijder deze kloon",

@@ -70,7 +70,7 @@
     "if %1 then": "falls %1, dann",
     "wait until %1": "warte bis %1",
     "repeat until %1": "wiederhole bis %1",
-    "stop %1": "stoppe",
+    "stop %1": "stoppe %1",
     "when I start as a clone": "Wenn ich als Klon entstehe",
     "create clone of %1": "erzeuge Klon von %1",
     "delete this clone": "lösche diesen Klon",

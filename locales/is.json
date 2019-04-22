@@ -70,7 +70,7 @@
     "if %1 then": "ef %1 þá",
     "wait until %1": "bíða þangað til %1",
     "repeat until %1": "endurtaka þar til %1",
-    "stop %1": "stöðva",
+    "stop %1": "stöðva %1",
     "when I start as a clone": "þegar ég byrja sem klónn",
     "create clone of %1": "búa til klón af %1",
     "delete this clone": "eyða þessum klón",

@@ -70,7 +70,7 @@
     "if %1 then": "ha %1 akkor",
     "wait until %1": "várj eddig: %1",
     "repeat until %1": "ismételd eddig: %1",
-    "stop %1": "álljon le",
+    "stop %1": "álljon le %1",
     "when I start as a clone": "másolatként kezdéskor",
     "create clone of %1": "készíts másolatot: %1",
     "delete this clone": "töröld ezt a másolatot",

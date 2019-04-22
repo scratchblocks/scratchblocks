@@ -70,7 +70,7 @@
     "if %1 then": "如果 %1 那麼",
     "wait until %1": "等待直到 %1",
     "repeat until %1": "重複直到 %1",
-    "stop %1": "停止",
+    "stop %1": "停止 %1",
     "when I start as a clone": "當分身產生",
     "create clone of %1": "建立 %1 的分身",
     "delete this clone": "分身刪除",
