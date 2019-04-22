@@ -221,6 +221,16 @@ describe('disambiguation', () => {
   })
 
   // TODO test disambiguation for other languages
+
+  test('effect blocks: de', () => {
+    let b = testBlock('setze Effekt [Farbe v] auf (100)', ['setGraphicEffect:to:', 'Farbe', 100], optionsDe)
+    expect(b.info.category).toBe('looks')
+
+    b = testBlock('setze Effekt [Höhe v] auf (100)', ['sb3:SOUND_SETEFFECTO', 'Höhe', 100], optionsDe)
+    expect(b.info.category).toBe('sound')
+    b = testBlock('setze Effekt [Hohe v] auf (100)', ['sb3:SOUND_SETEFFECTO', 'Hohe', 100], optionsDe)
+    expect(b.info.category).toBe('sound')
+  })
 })
 
 describe('disambiguation', () => {

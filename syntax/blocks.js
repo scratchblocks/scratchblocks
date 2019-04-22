@@ -255,7 +255,11 @@ disambig("sb3:SOUND_CHANGEEFFECTBY", "changeGraphicEffect:by:", function(
     var child = children[i]
     if (child.shape === "dropdown") {
       var name = child.value
-      return lang.soundEffects.indexOf(name) > -1
+      for (let effect of lang.soundEffects) {
+        if (minifyHash(effect) === minifyHash(name)) {
+          return true
+        }
+      }
     }
   }
   return false
@@ -270,7 +274,11 @@ disambig("sb3:SOUND_SETEFFECTO", "setGraphicEffect:to:", function(
     var child = children[i]
     if (child.shape === "dropdown") {
       var name = child.value
-      return lang.soundEffects.indexOf(name) > -1
+      for (let effect of lang.soundEffects) {
+        if (minifyHash(effect) === minifyHash(name)) {
+          return true
+        }
+      }
     }
   }
   return false
