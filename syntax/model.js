@@ -28,7 +28,7 @@ function maybeNumber(v) {
 }
 
 var {
-  blocksBySelector,
+  blocksById,
   parseSpec,
   inputPat,
   parseInputNumber,
@@ -169,7 +169,7 @@ Block.prototype.stringify = function(extras) {
 
   var lang = this.info.language
   if (checkAlias && lang && this.info.selector) {
-    var type = blocksBySelector[this.info.selector]
+    var type = blocksById[this.info.id]
     var spec = type.spec
     var alias = lang.nativeAliases[type.spec]
     if (alias) {
@@ -204,20 +204,21 @@ Block.prototype.stringify = function(extras) {
 Block.prototype.translate = function(lang, isShallow) {
   if (!lang) throw new Error("Missing language")
 
-  var selector = this.info.selector
-  if (!selector) return
-  if (selector === "procDef") {
+  var id = this.info.id
+  if (!id) return
+
+  if (id === "PROCEDURES_DEFINITION") {
     assert(this.children[0].isLabel)
     this.children[0] = new Label(lang.define[0] || english.define[0])
+    return
   }
 
-  var block = blocksBySelector[selector]
-  if (!block) return
-  var nativeSpec = lang.commands[block.spec]
+  var type = blocksById[id]
+  var oldSpec = this.info.language.commands[type.spec]
+
+  var nativeSpec = lang.commands[type.spec]
   if (!nativeSpec) return
   var nativeInfo = parseSpec(nativeSpec)
-
-  var oldSpec = this.info.language.commands[block.spec]
 
   // Work out indexes of existing children
   var rawArgs = this.children.filter(function(child) {

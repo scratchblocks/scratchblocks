@@ -194,11 +194,11 @@ var english = {
   },
 
   renamedBlocks: {
-    "say %1 for %2 seconds": "LOOKS_SAYFORSECS",
-    "think %1 for %2 seconds": "LOOKS_THINKFORSECS",
-    "start sound %1": "SOUND_PLAY",
-    "wait %1 seconds": "CONTROL_WAIT",
-    "erase all": "pen.clear",
+    "say %1 for %2 secs": "LOOKS_SAYFORSECS",
+    "think %1 for %2 secs": "LOOKS_THINKFORSECS",
+    "play sound %1": "SOUND_PLAY",
+    "wait %1 secs": "CONTROL_WAIT",
+    "clear": "pen.clear",
   },
 
   define: ["define"],
@@ -412,4 +412,5 @@ module.exports = {
   inputPat,
   unicodeIcons,
   english,
+  blocksById,
 }

@@ -113,7 +113,7 @@ module.exports = [
   {
     id: "LOOKS_SAYFORSECS",
     selector: "say:duration:elapsed:from:",
-    spec: "say %1 for %2 secs",
+    spec: "say %1 for %2 seconds",
     inputs: ["%s", "%n"],
     shape: "stack",
     category: "looks",
@@ -129,7 +129,7 @@ module.exports = [
   {
     id: "LOOKS_THINKFORSECS",
     selector: "think:duration:elapsed:from:",
-    spec: "think %1 for %2 secs",
+    spec: "think %1 for %2 seconds",
     inputs: ["%s", "%n"],
     shape: "stack",
     category: "looks",
@@ -269,7 +269,7 @@ module.exports = [
   {
     id: "SOUND_PLAY",
     selector: "playSound:",
-    spec: "play sound %1",
+    spec: "start sound %1",
     inputs: ["%m.sound"],
     shape: "stack",
     category: "sound",
@@ -385,7 +385,7 @@ module.exports = [
   {
     id: "pen.clear",
     selector: "clearPenTrails",
-    spec: "clear",
+    spec: "erase all",
     inputs: [],
     shape: "stack",
     category: "pen",
@@ -551,7 +551,7 @@ module.exports = [
   {
     id: "CONTROL_WAIT",
     selector: "wait:elapsed:from:",
-    spec: "wait %1 secs",
+    spec: "wait %1 seconds",
     inputs: ["%n"],
     shape: "stack",
     category: "control",
@@ -1337,4 +1337,5 @@ module.exports = [
     shape: "boolean",
     category: "obsolete",
   },
+  // TODO define
 ]

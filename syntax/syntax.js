@@ -726,6 +726,7 @@ function recogniseStuff(scripts) {
           spec: spec,
           names: names,
         })
+        block.info.id = "PROCEDURES_DEFINITION"
         block.info.selector = "procDef"
         block.info.call = info.spec
         block.info.names = info.names
