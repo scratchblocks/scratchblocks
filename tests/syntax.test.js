@@ -331,13 +331,10 @@ describe('c blocks', () => {
     selector: 'doIf',
   }
 
-  const ifElseBlock = {
-    selector: 'doIfElse',
-  }
-
   test('if else', () => {
+    // We used to give these different IDs for toJSON(); we no longer need to.
     expect(parseBlock('if <> then \n  \nend').info).toMatchObject(ifBlock)
-    expect(parseBlock('if <> then \n  \nelse\nend').info).toMatchObject(ifElseBlock)
+    expect(parseBlock('if <> then \n  \nelse\nend').info).toMatchObject(ifBlock)
   })
 
   test('standalone else', () => {

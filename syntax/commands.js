@@ -618,14 +618,6 @@ module.exports = [
     category: "control",
   },
   {
-    scratch3_selector: "CONTROL_IF",
-    scratch2_selector: "doIfElse",
-    scratch2_spec: "if %1 then",
-    inputs: ["%b"],
-    shape: "if-block",
-    category: "control",
-  },
-  {
     scratch3_selector: "CONTROL_WAITUNTIL",
     scratch2_selector: "doWaitUntil",
     scratch2_spec: "wait until %1",
@@ -1366,13 +1358,6 @@ module.exports = [
     scratch2_spec: "if %1",
     inputs: ["%b"],
     shape: "c-block",
-    category: "obsolete",
-  },
-  {
-    scratch2_selector: "doIfElse",
-    scratch2_spec: "if %1",
-    inputs: ["%b"],
-    shape: "if-block",
     category: "obsolete",
   },
   {
