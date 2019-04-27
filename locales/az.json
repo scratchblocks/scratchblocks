@@ -115,7 +115,7 @@
     "loudness": "səs ucalığı",
     "video %1 on %2": "videonun %1 atributları %2 aid",
     "timer": "taymer",
-    "%1 of %2": "%1 %2-in",
+    "%1 of %2": "%1 %2",
     "current %1": "cari %1",
     "days since 2000": "01.01.2000 tarixindən ötən günlərin sayı",
     "username": "istifadəçinin adı",
@@ -132,10 +132,10 @@
     "not %1": "%1 deyil",
     "join %1 %2": "birləşdir: %1 və %2",
     "letter %1 of %2": "hərf %1 %2-də",
-    "length of %1": "%1 sözünün uzunluğu",
+    "length of %1": "%1 siyahısının uzunluğu",
     "%1 mod %2": "%1 ədədinin %2 ədədinə bölünməsindən qalıq",
     "round %1": "%1 yuvarlaqlaşdır",
-    "%1 contains %2?": "%1 sözünün tərkibində %2 hərfi var?",
+    "%1 contains %2?": "%1 tərkibində %2 var?",
     "item %1 of %2": "%1 elementi %2 siyahısından",
     "item # of %1 in %2": "item # of %1 in %2",
     "turn %1 on": "turn %1 on",
@@ -194,5 +194,5 @@
   ],
   "aliases": {},
   "name": "Azeri",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

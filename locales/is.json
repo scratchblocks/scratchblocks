@@ -135,7 +135,7 @@
     "length of %1": "lengd %1",
     "%1 mod %2": "%1 modulus %2",
     "round %1": "rúna %1",
-    "%1 contains %2?": "inniheldur %1 %2?",
+    "%1 contains %2?": "inniheldur %1, %2?",
     "item %1 of %2": "hlutur %1 af %2",
     "item # of %1 in %2": "item # of %1 in %2",
     "turn %1 on": "turn %1 on",
@@ -194,5 +194,5 @@
   ],
   "aliases": {},
   "name": "Íslenska",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

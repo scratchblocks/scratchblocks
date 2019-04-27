@@ -145,10 +145,12 @@ const buildLocale = (code, rawLocale) => {
   }
 
   for (let command of scratchCommands) {
-    if (!command.scratch3_selector) continue
-    const result = translateKey(rawLocale, command.scratch3_selector)
+    if (!command.id) continue
+    if (/^sb2:/.test(command.id)) continue
+    if (/^scratchblocks:/.test(command.id)) continue
+    const result = translateKey(rawLocale, command.id)
     if (!result) continue
-    locale.commands[command.scratch2_spec] = result
+    locale.commands[command.spec] = result
   }
 
   const commandCount = Object.keys(locale.commands).length

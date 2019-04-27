@@ -900,7 +900,7 @@ zeige dich
 verstecke dich
 
 gehe zu [vorderster v] Ebene
-gehe (1) Ebenen nach [vorne v]
+gehe (1) Ebenen [nach vorne v]
 
 (Kostüm [Nummer v])
 
@@ -911,6 +911,8 @@ gehe (1) Ebenen nach [vorne v]
 `,
   "de"
 )
+// "gehe Ebenen nach vorne" appears differently in the Scratch editor than in
+// the translation files, wut
 
 test(
   "scratch3",

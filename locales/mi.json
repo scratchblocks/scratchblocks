@@ -115,7 +115,7 @@
     "loudness": "hoihoi",
     "video %1 on %2": "ataata %1 kei %2",
     "timer": "taima",
-    "%1 of %2": "%1 o %2",
+    "%1 of %2": "%1 o te %2",
     "current %1": "%1 o nāianei",
     "days since 2000": "ngā rā mai i 2000",
     "username": "ingoa kaiwhakamahi",
@@ -135,7 +135,7 @@
     "length of %1": "te roanga o te %1",
     "%1 mod %2": "%1 % %2",
     "round %1": "whakaawhiwhi %1",
-    "%1 contains %2?": "kei roto i a %1 : %2?",
+    "%1 contains %2?": "kei roto i %1 te %2?",
     "item %1 of %2": "te tūemi %1 o %2",
     "item # of %1 in %2": "te tūemi # %1 o %2",
     "turn %1 on": "whakakā %1",
@@ -194,5 +194,5 @@
   ],
   "aliases": {},
   "name": "Māori",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

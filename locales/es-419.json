@@ -135,7 +135,7 @@
     "length of %1": "longitud de %1",
     "%1 mod %2": "%1 mód %2",
     "round %1": "redondear %1",
-    "%1 contains %2?": "%1 contiene %2?",
+    "%1 contains %2?": "¿%1 contiene %2?",
     "item %1 of %2": "elemento %1 de %2",
     "item # of %1 in %2": "elemento # %1 en %2",
     "turn %1 on": "encender %1",
@@ -194,5 +194,5 @@
   ],
   "aliases": {},
   "name": "Español Latinoamericano",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

@@ -22,7 +22,7 @@
     "hide": "verstecke dich",
     "switch costume to %1": "wechsle zu Kostüm %1",
     "next costume": "wechsle zum nächsten Kostüm",
-    "next backdrop": "nächstes Bühnenbild",
+    "next backdrop": "wechsle zum nächsten Bühnenbild",
     "switch backdrop to %1": "wechsle zu Bühnenbild %1",
     "switch backdrop to %1 and wait": "wechsle zu Bühnenbild %1 und warte",
     "change %1 effect by %2": "ändere Effekt %1 um %2",
@@ -199,5 +199,5 @@
     "Ende": "end"
   },
   "name": "Deutsch",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

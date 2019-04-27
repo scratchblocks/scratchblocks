@@ -135,7 +135,7 @@
     "length of %1": "ubude be %1",
     "%1 mod %2": "%1 mod %2",
     "round %1": "rawunda %1",
-    "%1 contains %2?": "%1 okuphethwe %2?",
+    "%1 contains %2?": "%1 kukuphatheleni %2?",
     "item %1 of %2": "into %1 ye %2",
     "item # of %1 in %2": "into # yaku %1 ku %2",
     "turn %1 on": "yivule %1",
@@ -194,5 +194,5 @@
   ],
   "aliases": {},
   "name": "isiZulu",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

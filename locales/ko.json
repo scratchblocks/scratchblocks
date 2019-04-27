@@ -22,7 +22,7 @@
     "hide": "숨기기",
     "switch costume to %1": "모양을 %1 (으)로 바꾸기",
     "next costume": "다음 모양으로 바꾸기",
-    "next backdrop": "다음 배경",
+    "next backdrop": "다음 배경으로 바꾸기",
     "switch backdrop to %1": "배경을 %1 (으)로 바꾸기",
     "switch backdrop to %1 and wait": "배경을 %1 (으)로 바꾸고 기다리기",
     "change %1 effect by %2": "%1 효과를 %2 만큼 바꾸기",
@@ -115,7 +115,7 @@
     "loudness": "음량",
     "video %1 on %2": "비디오 %1에 대한 %2에서의 관찰값",
     "timer": "타이머",
-    "%1 of %2": "%2 의 %1",
+    "%1 of %2": "%1 ( %2 )",
     "current %1": "현재 %1",
     "days since 2000": "2000년 이후 현재까지 날짜 수",
     "username": "사용자 이름",
@@ -194,5 +194,5 @@
   ],
   "aliases": {},
   "name": "한국어",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

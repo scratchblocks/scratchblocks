@@ -22,7 +22,7 @@
     "hide": "隠す",
     "switch costume to %1": "コスチュームを %1 にする",
     "next costume": "次のコスチュームにする",
-    "next backdrop": "次の背景",
+    "next backdrop": "次の背景にする",
     "switch backdrop to %1": "背景を %1 にする",
     "switch backdrop to %1 and wait": "背景を %1 にして待つ",
     "change %1 effect by %2": "%1 の効果を %2 ずつ変える",
@@ -193,5 +193,5 @@
   ],
   "aliases": {},
   "name": "日本語",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

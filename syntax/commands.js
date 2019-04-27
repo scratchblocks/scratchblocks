@@ -175,7 +175,7 @@ module.exports = [
     category: "looks",
   },
   {
-    id: "LOOKS_NEXTBACKDROP",
+    id: "LOOKS_NEXTBACKDROP_BLOCK",
     selector: "nextScene",
     spec: "next backdrop",
     inputs: [],

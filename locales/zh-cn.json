@@ -115,7 +115,7 @@
     "loudness": "响度",
     "video %1 on %2": "相对于%2的视频%1",
     "timer": "计时器",
-    "%1 of %2": "%2 的 %1",
+    "%1 of %2": "%1 %2",
     "current %1": "当前时间的 %1",
     "days since 2000": "2000年至今的天数",
     "username": "用户名",
@@ -132,7 +132,7 @@
     "not %1": "%1 不成立",
     "join %1 %2": "连接 %1 和 %2",
     "letter %1 of %2": "%2 的第 %1 个字符",
-    "length of %1": "%1 的字符数",
+    "length of %1": "%1 的项目数",
     "%1 mod %2": "%1 除以 %2 的余数",
     "round %1": "四舍五入 %1",
     "%1 contains %2?": "%1 包含 %2 ?",
@@ -194,5 +194,5 @@
   ],
   "aliases": {},
   "name": "简体中文",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

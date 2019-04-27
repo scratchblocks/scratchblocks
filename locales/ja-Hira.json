@@ -22,7 +22,7 @@
     "hide": "かくす",
     "switch costume to %1": "コスチュームを %1 にする",
     "next costume": "つぎのコスチュームにする",
-    "next backdrop": "つぎのはいけい",
+    "next backdrop": "つぎのはいけいにする",
     "switch backdrop to %1": "はいけいを %1 にする",
     "switch backdrop to %1 and wait": "はいけいを %1 にしてまつ",
     "change %1 effect by %2": "%1 のこうかを %2 ずつかえる",
@@ -193,5 +193,5 @@
   ],
   "aliases": {},
   "name": "にほんご",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

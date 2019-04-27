@@ -132,10 +132,10 @@
     "not %1": "không phải %1",
     "join %1 %2": "kết hợp %1 %2",
     "letter %1 of %2": "ký tự thứ %1 của chuỗi %2",
-    "length of %1": "độ dài của %1",
+    "length of %1": "kích thước của %1",
     "%1 mod %2": "%1 chia lấy dư %2",
     "round %1": "làm tròn %1",
-    "%1 contains %2?": "%1 chứa ký tự %2?",
+    "%1 contains %2?": "%1 chứa phần tử %2?",
     "item %1 of %2": "phần tử thứ %1 của %2",
     "item # of %1 in %2": "phần tử thứ %1 trong tợp hợp %2",
     "turn %1 on": "turn %1 on",
@@ -194,5 +194,5 @@
   ],
   "aliases": {},
   "name": "Tiếng Việt",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

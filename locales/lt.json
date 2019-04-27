@@ -132,7 +132,7 @@
     "not %1": "ne %1",
     "join %1 %2": "prijungti %1 prie %2",
     "letter %1 of %2": "%1-oji raidė žodyje %2",
-    "length of %1": "%1 žodžio ilgis",
+    "length of %1": "%1 sąrašo ilgis",
     "%1 mod %2": "liekana dalinant %1 iš %2",
     "round %1": "suapvalinti %1",
     "%1 contains %2?": "ar %1 turi %2?",
@@ -194,5 +194,5 @@
   ],
   "aliases": {},
   "name": "Lietuvių",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

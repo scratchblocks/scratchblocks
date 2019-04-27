@@ -115,7 +115,7 @@
     "loudness": "hlasitost",
     "video %1 on %2": "video %1 na %2",
     "timer": "stopky",
-    "%1 of %2": "%1 z %2",
+    "%1 of %2": "%1 %2",
     "current %1": "aktuální %1",
     "days since 2000": "dnů od r. 2000",
     "username": "jméno uživatele",
@@ -135,7 +135,7 @@
     "length of %1": "délka %1",
     "%1 mod %2": "zbytek %1 děleno %2",
     "round %1": "zaokrouhli %1",
-    "%1 contains %2?": "%1 obsahuje %2?",
+    "%1 contains %2?": "%1 obsahuje %2",
     "item %1 of %2": "prvek %1 z %2",
     "item # of %1 in %2": "pořadí %1 ve %2",
     "turn %1 on": "zapni %1",
@@ -199,5 +199,5 @@
     "konec": "end"
   },
   "name": "Česky",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

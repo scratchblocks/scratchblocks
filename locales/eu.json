@@ -135,7 +135,7 @@
     "length of %1": "%1 ren luzera",
     "%1 mod %2": "%1 modulu %2",
     "round %1": "biribildu %1",
-    "%1 contains %2?": "%1(e)k bere baitan al du %2?",
+    "%1 contains %2?": "%1 k bere baitan al du %2?",
     "item %1 of %2": "%2 tik %1. elementua",
     "item # of %1 in %2": "%1 tik #. elementua %2 n",
     "turn %1 on": "piztu %1",
@@ -194,5 +194,5 @@
   ],
   "aliases": {},
   "name": "Euskara",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

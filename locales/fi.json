@@ -115,7 +115,7 @@
     "loudness": "äänentaso",
     "video %1 on %2": "%2n %1 videolla",
     "timer": "ajastin",
-    "%1 of %2": "kohteen %2 %1",
+    "%1 of %2": "%1 luvusta %2",
     "current %1": "nykyinen %1",
     "days since 2000": "päiviä vuoden 2000 jälkeen",
     "username": "käyttäjänimi",
@@ -194,5 +194,5 @@
   ],
   "aliases": {},
   "name": "Suomi",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

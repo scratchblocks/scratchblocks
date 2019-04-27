@@ -135,7 +135,7 @@
     "length of %1": "długość %1",
     "%1 mod %2": "reszta z dzielenia %1 przez %2",
     "round %1": "zaokrąglij %1",
-    "%1 contains %2?": "Czy %1 zawiera %2 ?",
+    "%1 contains %2?": "%1 zawiera %2?",
     "item %1 of %2": "element %1 z %2",
     "item # of %1 in %2": "pozycja %1 na liście %2",
     "turn %1 on": "Włącz silnik %1",
@@ -199,5 +199,5 @@
     "koniec": "end"
   },
   "name": "Polski",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }

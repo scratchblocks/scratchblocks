@@ -22,7 +22,7 @@
     "hide": "nascondi",
     "switch costume to %1": "passa al costume %1",
     "next costume": "passa al costume seguente",
-    "next backdrop": "seguente",
+    "next backdrop": "passa allo sfondo seguente",
     "switch backdrop to %1": "passa allo sfondo %1",
     "switch backdrop to %1 and wait": "passa allo sfondo %1 e attendi",
     "change %1 effect by %2": "cambia effetto %1 di %2",
@@ -199,5 +199,5 @@
     "fine": "end"
   },
   "name": "Italiano",
-  "percentTranslated": 110
+  "percentTranslated": 119
 }
