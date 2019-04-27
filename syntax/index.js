@@ -18,7 +18,6 @@ module.exports = {
   loadLanguages,
 
   parse,
-  fromJSON: Document.fromJSON,
 
   Label,
   Icon,

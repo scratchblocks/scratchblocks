@@ -104,45 +104,6 @@ var Input = function(shape, value, menu) {
 }
 Input.prototype.isInput = true
 
-Input.fromJSON = function(lang, value, part) {
-  var shape = {
-    b: "boolean",
-    n: "number",
-    s: "string",
-    d: "number-dropdown",
-    m: "dropdown",
-    c: "color",
-  }[part[1]]
-
-  if (shape === "color") {
-    if (!value && value !== 0) value = parseInt(Math.random() * 256 * 256 * 256)
-    value = +value
-    if (value < 0) value = 0xffffffff + value + 1
-    var hex = value.toString(16)
-    hex = hex.slice(Math.max(0, hex.length - 6)) // last 6 characters
-    while (hex.length < 6) hex = "0" + hex
-    if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] === hex[5]) {
-      hex = hex[0] + hex[2] + hex[4]
-    }
-    value = "#" + hex
-  } else if (shape === "dropdown") {
-    value =
-      {
-        _mouse_: "mouse-pointer",
-        _myself_: "myself",
-        _stage_: "Stage",
-        _edge_: "edge",
-        _random_: "random position",
-      }[value] || value
-    var menu = value
-    // TODO translate dropdown value
-  } else if (shape === "number-dropdown") {
-    // TODO translate dropdown value
-  }
-
-  return new Input(shape, "" + value, menu)
-}
-
 Input.prototype.stringify = function() {
   if (this.isColor) {
     assert(this.value[0] === "#")
@@ -191,112 +152,6 @@ var Block = function(info, children, comment) {
   this.isEnd = shape === "cend"
 }
 Block.prototype.isBlock = true
-
-Block.fromJSON = function(lang, array, part) {
-  var args = array.slice()
-  var selector = args.shift()
-  if (selector === "procDef") {
-    var spec = args[0]
-    var inputNames = args[1].slice()
-    // var defaultValues = args[2];
-    // var isAtomic = args[3]; // TODO
-
-    var info = parseSpec(spec)
-    var children = info.parts.map(function(part) {
-      if (inputPat.test(part)) {
-        var label = new Label(inputNames.shift())
-        return new Block(
-          {
-            shape: part[1] === "b" ? "boolean" : "reporter",
-            category: "custom-arg",
-          },
-          [label]
-        )
-      } else {
-        return new Label(part)
-      }
-    })
-    var outline = new Block(
-      {
-        shape: "outline",
-        category: "custom",
-      },
-      children
-    )
-
-    var children = [new Label(lang.define[0]), outline]
-    return new Block(
-      {
-        shape: "define-hat",
-        category: "custom",
-        selector: "procDef",
-        call: spec,
-        names: args[1],
-        language: lang,
-      },
-      children
-    )
-  } else if (selector === "call") {
-    var spec = args.shift()
-    var info = Object.assign({}, parseSpec(spec), {
-      category: "custom",
-      shape: "stack",
-      selector: "call",
-      call: spec,
-      language: lang,
-    })
-    var parts = info.parts
-    var inputs = info.inputs
-  } else if (
-    selector === "readVariable" ||
-    selector === "contentsOfList:" ||
-    selector === "getParam"
-  ) {
-    var shape =
-      selector === "getParam" && args.pop() === "b" ? "boolean" : "reporter"
-    var info = {
-      selector: selector,
-      shape: shape,
-      category: {
-        readVariable: "variables",
-        "contentsOfList:": "list",
-        getParam: "custom-arg",
-      }[selector],
-      language: lang,
-    }
-    return new Block(info, [new Label(args[0])])
-  } else {
-    var info = Object.assign({}, blocksBySelector[selector], {
-      language: lang,
-    })
-    assert(info, "unknown selector: " + selector)
-    var spec = lang.commands[info.spec] || spec
-    var parts = spec ? parseSpec(spec).parts : info.parts
-    var inputs = info.inputs
-  }
-  var children = parts.map(function(part) {
-    var number = parseInputNumber(part)
-    if (number) {
-      var input = inputs[number - 1]
-      var arg = args.shift() // TODO
-      return (isArray(arg) ? Block : Input).fromJSON(lang, arg, input)
-    } else if (iconPat.test(part)) {
-      return new Icon(part.slice(1))
-    } else {
-      return new Label(part.trim())
-    }
-  })
-  args.forEach(function(list, index) {
-    list = list || []
-    assert(isArray(list))
-    children.push(new Script(list.map(Block.fromJSON.bind(null, lang))))
-    if (selector === "doIfElse" && index === 0) {
-      children.push(new Label(lang.commands["else"]))
-    }
-  })
-  // TODO loop arrows
-  return new Block(info, children)
-}
 
 Block.prototype.stringify = function(extras) {
   var firstInput = null
@@ -452,11 +307,6 @@ var Script = function(blocks) {
 }
 Script.prototype.isScript = true
 
-Script.fromJSON = function(lang, blocks) {
-  // x = array[0], y = array[1];
-  return new Script(blocks.map(Block.fromJSON.bind(null, lang)))
-}
-
 Script.prototype.stringify = function() {
   return this.blocks
     .map(function(block) {
@@ -477,18 +327,6 @@ Script.prototype.translate = function(lang) {
 
 var Document = function(scripts) {
   this.scripts = scripts
-}
-
-Document.fromJSON = function(scriptable, lang) {
-  var lang = lang || english
-  var scripts = scriptable.scripts.map(function(array) {
-    var script = Script.fromJSON(lang, array[2])
-    script.x = array[0]
-    script.y = array[1]
-    return script
-  })
-  // TODO scriptable.scriptComments
-  return new Document(scripts)
 }
 
 Document.prototype.stringify = function() {

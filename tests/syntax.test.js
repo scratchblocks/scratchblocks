@@ -1,5 +1,5 @@
 
-const { parse, fromJSON, loadLanguages, allLanguages } = require('../syntax')
+const { parse, loadLanguages, allLanguages } = require('../syntax')
 
 loadLanguages({
   de: require('../locales/de'),
@@ -21,15 +21,6 @@ function parseBlock(code, options) {
   let script = getScript(parse(code, options))
   expect(script.blocks.length).toBe(1)
   return script.blocks[0]
-}
-
-function scriptFromJSON(json, lang) {
-  let obj = {
-    scripts: [
-      [0, 0, json],
-    ],
-  }
-  return fromJSON(obj, lang)
 }
 
 /* * */
@@ -445,6 +436,8 @@ describe('translate', () => {
     b.translate(allLanguages.en)
     expect(b.stringify()).toEqual('turn cw (45) degrees')
   })
+
+  // TODO define
 })
 
 // TODO test { } handling
