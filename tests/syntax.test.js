@@ -220,12 +220,12 @@ describe('disambiguation', () => {
 
   const setGraphicEffect = {
     category: 'looks',
-    selector: 'setGraphicEffect:to:',
+    id: 'LOOKS_SETEFFECTTO',
   }
 
   const changeGraphicEffect = {
     category: 'looks',
-    selector: 'changeGraphicEffect:by:',
+    id: 'LOOKS_CHANGEEFFECTBY',
   }
 
   test('looks: graphic effects', () => {
@@ -239,11 +239,11 @@ describe('disambiguation', () => {
 
   const setSoundEffect = {
     category: 'sound',
-    selector: 'sb3:SOUND_SETEFFECTO',
+    id: 'SOUND_SETEFFECTO',
   }
   const changeSoundEffect = {
     category: 'sound',
-    selector: 'sb3:SOUND_CHANGEEFFECTBY',
+    id: 'SOUND_CHANGEEFFECTBY',
   }
 
   test('sound: sound effects', () => {
@@ -268,7 +268,7 @@ describe('disambiguation', () => {
 
   const stringContains = {
     category: 'operators',
-    selector: 'sb3:OPERATORS_CONTAINS',
+    id: 'OPERATORS_CONTAINS',
   }
 
   test('green: string contains', () => {

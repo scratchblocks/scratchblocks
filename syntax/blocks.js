@@ -89,34 +89,30 @@ function minifyHash(hash) {
     .toLowerCase()
 }
 
-var blocksBySelector = {}
+var blocksById = {}
 var blocksBySpec = {}
 var allBlocks = scratchCommands.map(function(def) {
-  var spec = def.scratch2_spec
-  var selector = def.scratch2_selector || "sb3:" + def.scratch3_selector
-
-  if (!spec) throw new Error("Missing spec: '" + selector + "'")
-  if (!selector) throw new Error("Missing selector: '" + spec + "'")
+  var spec = def.spec
+  if (!def.id) {
+    if (!def.selector) throw new Error("Missing ID: " + def.spec)
+    def.id = "sb2:" + def.selector
+  }
+  if (!def.spec) throw new Error("Missing spec: " + def.id)
 
   var info = {
-    selector,
-    spec,
-    parts: spec.split(splitPat).filter(x => !!x),
-    hash: hashSpec(spec),
+    id: def.id, // Used for Scratch 3 translations
+    spec: def.spec, // Used for Scratch 2 translations
+    parts: def.spec.split(splitPat).filter(x => !!x),
+    selector: def.selector || 'sb3:' + def.id, // Used for JSON marshalling
     inputs: def.inputs,
     shape: def.shape,
     category: def.category,
     hasLoopArrow: !!def.hasLoopArrow,
   }
-
-  // nb. command order matters!
-  // Scratch 1.4 blocks are listed last
-  if (!blocksBySelector[selector]) blocksBySelector[selector] = info
-
-  // Always add the Scratch 3 selector if it is listed
-  if (def.scratch3_selector && !blocksBySelector[def.scratch3_selector]) {
-    blocksBySelector[def.scratch3_selector] = info
+  if (blocksById[info.id]) {
+    throw new Error("Duplicate ID: " + info.id)
   }
+  blocksById[info.id] = info
   return (blocksBySpec[spec] = info)
 })
 
@@ -153,12 +149,22 @@ function loadLanguage(code, language) {
     var spec = language.aliases[alias]
     var block = blocksBySpec[spec]
     if (block === undefined) {
-      throw new Error("Invalid alias '" + alias + "'")
+      throw new Error("Invalid alias '" + spec + "'")
     }
     var aliasHash = hashSpec(alias)
     blocksByHash[aliasHash] = block
 
     language.nativeAliases[spec] = alias
+  })
+
+  // Some English blocks were renamed between Scratch 2 and Scratch 3. Wire them
+  // into language.blocksByHash
+  Object.keys(language.renamedBlocks || {}).forEach(function(alt) {
+    const id = language.renamedBlocks[alt]
+    if (!blocksById[id]) throw new Error("Unknown ID: " + id)
+    const block = blocksById[id]
+    var hash = hashSpec(alt)
+    english.blocksByHash[hash] = block
   })
 
   language.nativeDropdowns = {}
@@ -185,6 +191,14 @@ var english = {
     "when gf clicked": "when @greenFlag clicked",
     "when flag clicked": "when @greenFlag clicked",
     "when green flag clicked": "when @greenFlag clicked",
+  },
+
+  renamedBlocks: {
+    "say %1 for %2 seconds": "LOOKS_SAYFORSECS",
+    "think %1 for %2 seconds": "LOOKS_THINKFORSECS",
+    "start sound %1": "SOUND_PLAY",
+    "wait %1 seconds": "CONTROL_WAIT",
+    "erase all": "pen.clear",
   },
 
   define: ["define"],
@@ -222,23 +236,28 @@ var english = {
 }
 allBlocks.forEach(function(info) {
   english.commands[info.spec] = info.spec
-}),
-  loadLanguages({
-    en: english,
-  })
+})
+loadLanguages({
+  en: english,
+})
+
 
 /*****************************************************************************/
 
-function disambig(selector1, selector2, test) {
-  var func = function(info, children, lang) {
-    return blocksBySelector[test(children, lang) ? selector1 : selector2]
-  }
-  blocksBySelector[selector1].specialCase = blocksBySelector[
-    selector2
-  ].specialCase = func
+function specialCase(id, func) {
+  if (!blocksById[id]) throw new Error("Unknown ID: " + id)
+  blocksById[id].specialCase = func
 }
 
-disambig("computeFunction:of:", "getAttribute:of:", function(children, lang) {
+function disambig(id1, id2, test) {
+  var func = function (info, children, lang) {
+    return blocksById[test(children, lang) ? id1 : id2]
+  }
+  specialCase(id1, func)
+  specialCase(id2, func)
+}
+
+disambig("OPERATORS_MATHOP", "SENSING_OF", function(children, lang) {
   // Operators if math function, otherwise sensing "attribute of" block
   var first = children[0]
   if (!first.isInput) return
@@ -246,7 +265,7 @@ disambig("computeFunction:of:", "getAttribute:of:", function(children, lang) {
   return lang.math.indexOf(name) > -1
 })
 
-disambig("sb3:SOUND_CHANGEEFFECTBY", "changeGraphicEffect:by:", function(
+disambig("SOUND_CHANGEEFFECTBY", "LOOKS_CHANGEEFFECTBY", function(
   children,
   lang
 ) {
@@ -265,7 +284,7 @@ disambig("sb3:SOUND_CHANGEEFFECTBY", "changeGraphicEffect:by:", function(
   return false
 })
 
-disambig("sb3:SOUND_SETEFFECTO", "setGraphicEffect:to:", function(
+disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function(
   children,
   lang
 ) {
@@ -284,21 +303,21 @@ disambig("sb3:SOUND_SETEFFECTO", "setGraphicEffect:to:", function(
   return false
 })
 
-disambig("lineCountOfList:", "stringLength:", function(children, lang) {
+disambig("DATA_LENGTHOFLIST", "OPERATORS_LENGTH", function(children, lang) {
   // List block if dropdown, otherwise operators
   var last = children[children.length - 1]
   if (!last.isInput) return
   return last.shape === "dropdown"
 })
 
-disambig("list:contains:", "sb3:OPERATORS_CONTAINS", function(children, lang) {
+disambig("DATA_LISTCONTAINSITEM", "OPERATORS_CONTAINS", function(children, lang) {
   // List block if dropdown, otherwise operators
   var first = children[0]
   if (!first.isInput) return
   return first.shape === "dropdown"
 })
 
-disambig("penColor:", "setPenHueTo:", function(children, lang) {
+disambig("pen.setColor", "pen.setHue", function(children, lang) {
   // Color block if color input, otherwise numeric
   var last = children[children.length - 1]
   // If variable, assume color input, since the RGBA hack is common.
@@ -306,17 +325,17 @@ disambig("penColor:", "setPenHueTo:", function(children, lang) {
   return (last.isInput && last.isColor) || last.isBlock
 })
 
-blocksBySelector["stopScripts"].specialCase = function(info, children, lang) {
+specialCase("CONTROL_STOP", function(info, children, lang) {
   // Cap block unless argument is "other scripts in sprite"
   var last = children[children.length - 1]
   if (!last.isInput) return
   var value = last.value
   if (lang.osis.indexOf(value) > -1) {
-    return Object.assign({}, blocksBySelector["stopScripts"], {
+    return Object.assign({}, blocksById["CONTROL_STOP"], {
       shape: "stack",
     })
   }
-}
+})
 
 function lookupHash(hash, info, children, languages) {
   for (var i = 0; i < languages.length; i++) {
@@ -388,7 +407,6 @@ module.exports = {
   iconPat,
   hashSpec,
 
-  blocksBySelector,
   parseSpec,
   parseInputNumber,
   inputPat,
