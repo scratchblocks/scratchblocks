@@ -3,6 +3,7 @@ module.exports = {
   am: require("./am.json"),
   ar: require("./ar.json"),
   az: require("./az.json"),
+  be: require("./be.json"),
   bg: require("./bg.json"),
   ca: require("./ca.json"),
   ckb: require("./ckb.json"),
