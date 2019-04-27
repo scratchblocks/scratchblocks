@@ -65,7 +65,9 @@ function paintBlock(info, children, languages) {
     }
     info.category = type.category
     info.categoryIsDefault = true
-    if (type.selector) info.selector = type.selector // for toJSON
+    // store selector, used for translation among other things
+    if (type.selector) info.selector = type.selector
+    if (type.id) info.id = type.id
     info.hasLoopArrow = type.hasLoopArrow
 
     // ellipsis block

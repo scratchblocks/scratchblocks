@@ -13,6 +13,10 @@ function getScript(doc) {
   return doc.scripts[0]
 }
 
+function parseScript(code, options) {
+  return getScript(parse(code, options))
+}
+
 function parseBlock(code, options) {
   let script = getScript(parse(code, options))
   expect(script.blocks.length).toBe(1)
@@ -28,79 +32,72 @@ function scriptFromJSON(json, lang) {
   return fromJSON(obj, lang)
 }
 
-function testScript(code, json, options) {
-  let fromCode = getScript(parse(code, options))
-  if (json === null) {
-    expect(fromCode.stringify()).toBe(code)
-  } else {
-    expect(fromCode.toJSON()).toEqual(json)
-    let fromJSON = scriptFromJSON(json, options && options.languages ? allLanguages[options.languages[1]] : null)
-    expect(fromJSON.stringify()).toBe(code)
-  }
-  return fromCode
-}
-
-function testBlock(code, json, options) {
-  let script = testScript(code, json === null ? null : [json], options)
-  expect(script.blocks.length).toBe(1)
-  return script.blocks[0]
-}
-
 /* * */
-
-let getFoo = ['readVariable', 'foo']
 
 describe('blocks with symbols', () => {
 
+  const flag = {  
+    shape: 'hat',
+    category: 'events',
+    selector: 'whenGreenFlag',
+  }
+
   test('when flag clicked', () => {
-    let json = ['whenGreenFlag']
-    testBlock('when green flag clicked', json)
-    // 'when green flag clicked' is the default used by stringify(), so we
-    // can't use testBlock for the other aliases.
-    expect(parseBlock('when flag clicked').toJSON()).toEqual(json)
-    expect(parseBlock('when gf clicked').toJSON()).toEqual(json)
-  })
-
-  test('turn left', () => {
-    let json = ['turnLeft:', 15]
-    testBlock('turn ccw (15) degrees', json)
-    expect(parseBlock('turn left (15) degrees').toJSON()).toEqual(json)
-    expect(parseBlock('turn @turnLeft (15) degrees').toJSON()).toEqual(json)
-  })
-
-  test('turn right', () => {
-    let json = ['turnRight:', 15]
-    testBlock('turn cw (15) degrees', json)
-    expect(parseBlock('turn right (15) degrees').toJSON()).toEqual(json)
-    expect(parseBlock('turn @turnRight (15) degrees').toJSON()).toEqual(json)
+    expect(parseBlock('when @greenFlag clicked').info).toMatchObject(flag)
+    expect(parseBlock('when green flag clicked').info).toMatchObject(flag)
+    expect(parseBlock('when flag clicked').info).toMatchObject(flag)
+    expect(parseBlock('when gf clicked').info).toMatchObject(flag)
   })
 
   test('when flag clicked: de', () => {
-    const json = ['whenGreenFlag']
-    testBlock('Wenn die grüne Flagge angeklickt', json, optionsDe)
-    expect(parseBlock('Wenn ⚑ angeklickt wird', optionsDe).toJSON()).toEqual(json)
-    expect(parseBlock('Wenn @greenFlag angeklickt wird', optionsDe).toJSON()).toEqual(json)
+    expect(parseBlock('Wenn die grüne Flagge angeklickt', optionsDe).info).toMatchObject(flag)
+    expect(parseBlock('Wenn ⚑ angeklickt wird', optionsDe).info).toMatchObject(flag)
+    expect(parseBlock('Wenn @greenFlag angeklickt wird', optionsDe).info).toMatchObject(flag)
+  })
+
+  const turnLeft = {  
+    selector: 'turnLeft:',
+    shape: 'stack',
+    category: 'motion',
+  }
+
+  test('turn left', () => {
+    expect(parseBlock('turn ccw (15) degrees').info).toMatchObject(turnLeft)
+    expect(parseBlock('turn left (15) degrees').info).toMatchObject(turnLeft)
+    expect(parseBlock('turn @turnLeft (15) degrees').info).toMatchObject(turnLeft)
   })
 
   test('turn left: de', () => {
-    const json = ['turnLeft:', 15]
-    testBlock('drehe dich nach links um (15) Grad', json, optionsDe)
-    expect(parseBlock('drehe dich ↺ um (15) Grad', optionsDe).toJSON()).toEqual(json)
-    expect(parseBlock('drehe dich @turnLeft um (15) Grad', optionsDe).toJSON()).toEqual(json)
+    expect(parseBlock('drehe dich nach links um (15) Grad', optionsDe).info).toMatchObject(turnLeft)
+    expect(parseBlock('drehe dich ↺ um (15) Grad', optionsDe).info).toMatchObject(turnLeft)
+    expect(parseBlock('drehe dich @turnLeft um (15) Grad', optionsDe).info).toMatchObject(turnLeft)
+  })
+
+  const turnRight = {  
+    selector: 'turnRight:',
+    shape: 'stack',
+    category: 'motion',
+  }
+
+  test('turn right', () => {
+    expect(parseBlock('turn cw (15) degrees').info).toMatchObject(turnRight)
+    expect(parseBlock('turn right (15) degrees').info).toMatchObject(turnRight)
+    expect(parseBlock('turn @turnRight (15) degrees').info).toMatchObject(turnRight)
   })
 
   test('turn right: de', () => {
-    const json = ['turnRight:', 15]
-    testBlock('drehe dich nach rechts um (15) Grad', json, optionsDe)
-    expect(parseBlock('drehe dich ↻ um (15) Grad', optionsDe).toJSON()).toEqual(json)
-    expect(parseBlock('drehe dich @turnRight um (15) Grad', optionsDe).toJSON()).toEqual(json)
+    expect(parseBlock('drehe dich nach rechts um (15) Grad', optionsDe).info).toMatchObject(turnRight)
+    expect(parseBlock('drehe dich ↻ um (15) Grad', optionsDe).info).toMatchObject(turnRight)
+    expect(parseBlock('drehe dich @turnRight um (15) Grad', optionsDe).info).toMatchObject(turnRight)
   })
 
 })
 
 describe('literals', () => {
-  test('broadly, they work', () => {
-    testBlock('say [Hello!] for (2) secs', ['say:duration:elapsed:from:', 'Hello!', 2])
+  test('can be parsed', () => {
+    const b = parseBlock('say [Hello!] for (2) secs')
+    expect(b.children[1].isInput).toBe(true)
+    expect(b.children[3].isInput).toBe(true)
   })
 
   // test('numbers can be scientific', () => {
@@ -108,11 +105,16 @@ describe('literals', () => {
   // })
 
   test('variables are not numbers', () => {
-    testBlock('say [Hello!] for (foo) secs', ['say:duration:elapsed:from:', 'Hello!', getFoo])
+    const b = parseBlock('say [Hello!] for (foo) secs')
+    expect(b.children[3].info).toMatchObject({ 
+      category: 'variables',
+    })
   })
 
   test('strings can be backslash-escaped', () => {
-    testBlock('say [hello \\] world]', ['say:', 'hello ] world'])
+    const b = parseBlock('say [hello \\] world]')
+    expect(b.children[1].isInput).toBe(true)
+    expect(b.children[1].value).toBe('hello ] world')
   })
 
   test('labels can contain backslashes', () => {
@@ -126,132 +128,180 @@ describe('literals', () => {
 
 describe('color literals', () => {
   test('work', () => {
-    let b = testBlock('<touching color [#f0f] ?>', ["touchingColor:", 16711935])
-    const color = b.children[2]
-    expect(color.shape).toBe('color')
-    expect(color.value).toBe('#f0f')
+    const b = parseBlock('<touching color [#f0f] ?>')
+    expect(b.children[2].shape).toBe('color')
+    expect(b.children[2].value).toBe('#f0f')
   })
 
   test('can be round', () => {
-    expect(parseBlock('<touching color (#f0f)?>').toJSON()).toEqual(["touchingColor:", 16711935])
+    const b = parseBlock('<touching color (#f0f) ?>')
+    expect(b.children[2].shape).toBe('color')
+    expect(b.children[2].value).toBe('#f0f')
   })
 })
 
 describe('recognise lists', () => {
+  const variable = {
+    category: 'variables',
+    selector: 'readVariable',
+  }
+
   test('not a list', () => {
-    testBlock('say (list)', ['say:', ['readVariable', 'list']])
+    const b = parseBlock('say (list)')
+    expect(b.children[1].info).toMatchObject(variable)
   })
 
+  const list = { 
+    category: 'list',
+    selector: 'contentsOfList:',
+  }
+
   test('from add command', () => {
-    testScript('say (list)\nadd [x] to [list v]', [
-      ['say:', ['contentsOfList:', 'list']],
-      ['append:toList:', 'x', 'list'],
-    ])
+    const s = parseScript('say (list)\nadd [x] to [list v]')
+    const b = s.blocks[0]
+    expect(b.children[1].info).toMatchObject(list)
   })
 
   test('from insert command', () => {
-    testScript('say (list)\ninsert [x] at (99 v) of [list v]', [
-      ['say:', ['contentsOfList:', 'list']],
-      ['insert:at:ofList:', 'x', 99, 'list'],
-    ])
+    const s = parseScript('say (list)\ninsert [x] at (99 v) of [list v]')
+    const b = s.blocks[0]
+    expect(b.children[1].info).toMatchObject(list)
   })
 
   test('from show command', () => {
-    testScript('say (list)\nshow list [list v]', [
-      ['say:', ['contentsOfList:', 'list']],
-      ['showList:', 'list'],
-    ])
+    const s = parseScript('say (list)\nshow list [list v]')
+    const b = s.blocks[0]
+    expect(b.children[1].info).toMatchObject(list)
   })
 })
 
 describe('disambiguation', () => {
+  const stringLength = {
+    category: 'operators',
+    selector: 'stringLength:',
+  }
+
   test('green: length of string', () => {
-    let b = testBlock('(length of [world])', ['stringLength:', 'world'])
-    expect(b.info.category).toBe('operators')
-    testBlock('(length of (foo))', ['stringLength:', getFoo])
+    expect(parseBlock('(length of [world])').info).toMatchObject(stringLength)
+    expect(parseBlock('(length of (foo))').info).toMatchObject(stringLength)
   })
+
+  const lineCount = {
+    category: 'list',
+    selector: 'lineCountOfList:',
+  }
 
   test('orange: length of list', () => {
-    let b = testBlock('(length of [list v])', ['lineCountOfList:', 'list'])
-    expect(b.info.category).toBe('list')
+    expect(parseBlock('(length of [list v])').info).toMatchObject(lineCount)
   })
+
+  const mathFunc = {
+    category: 'operators',
+    selector: 'computeFunction:of:',
+  }
 
   test('green: math op', () => {
-    let b = testBlock('([sqrt v] of (9))', ['computeFunction:of:', 'sqrt', 9])
-    expect(b.info.category).toBe('operators')
-    testBlock('([sqrt v] of (foo))', ['computeFunction:of:', 'sqrt', getFoo])
-    testBlock('([e ^ v] of (20))', ['computeFunction:of:', 'e ^', 20])
+    expect(parseBlock('([sqrt v] of (9))').info).toMatchObject(mathFunc)
+    expect(parseBlock('([sqrt v] of (foo))').info).toMatchObject(mathFunc)
+    expect(parseBlock('([e ^ v] of (20))').info).toMatchObject(mathFunc)
   })
+
+  const attributeOf = {
+    category: 'sensing',
+    selector: 'getAttribute:of:',
+  }
 
   test('blue: attribute of', () => {
-    let b = testBlock('([x position v] of [Sprite1 v])', ['getAttribute:of:', 'x position', 'Sprite1'])
-    expect(b.info.category).toBe('sensing')
-    testBlock('([x position v] of (foo))', ['getAttribute:of:', 'x position', getFoo])
-
+    expect(parseBlock('([x position v] of [Sprite1 v])').info).toMatchObject(attributeOf)
+    expect(parseBlock('([x position v] of (foo))').info).toMatchObject(attributeOf)
     // invalid --not a math function
-    expect(parseBlock('([e^ v] of (9)').info.category).toBe('sensing')
+    expect(parseBlock('([e^ v] of (9)').info).toMatchObject(attributeOf)
   })
+
+  const setGraphicEffect = {
+    category: 'looks',
+    selector: 'setGraphicEffect:to:',
+  }
+
+  const changeGraphicEffect = {
+    category: 'looks',
+    selector: 'changeGraphicEffect:by:',
+  }
 
   test('looks: graphic effects', () => {
-    let b = testBlock('set [ghost v] effect to (100)', ['setGraphicEffect:to:', 'ghost', 100])
-    expect(b.info.category).toBe('looks')
-
-    b = testBlock('change [ghost v] effect by (5)', ['changeGraphicEffect:by:', 'ghost', 5])
-    expect(b.info.category).toBe('looks')
+    expect(parseBlock('set [ghost v] effect to (100)').info).toMatchObject(setGraphicEffect)
+    expect(parseBlock('change [ghost v] effect by (5)').info).toMatchObject(changeGraphicEffect)
   })
+
+  test('looks: graphic effects: de', () => {
+    expect(parseBlock('setze Effekt [Farbe v] auf (100)', optionsDe).info).toMatchObject(setGraphicEffect)
+  })
+
+  const setSoundEffect = {
+    category: 'sound',
+    selector: 'sb3:SOUND_SETEFFECTO',
+  }
+  const changeSoundEffect = {
+    category: 'sound',
+    selector: 'sb3:SOUND_CHANGEEFFECTBY',
+  }
 
   test('sound: sound effects', () => {
-    let b = testBlock('set [pitch v] effect to (100)', ['sb3:SOUND_SETEFFECTO', 'pitch', 100])
-    expect(b.info.category).toBe('sound')
-    testBlock('set [pan left/right v] effect to (100)', ['sb3:SOUND_SETEFFECTO', 'pan left/right', 100])
-
-    b = testBlock('change [pitch v] effect by (5)', ['sb3:SOUND_CHANGEEFFECTBY', 'pitch', 5])
-    expect(b.info.category).toBe('sound')
+    expect(parseBlock('set [pitch v] effect to (100)').info).toMatchObject(setSoundEffect)
+    expect(parseBlock('set [pan left/right v] effect to (100)').info).toMatchObject(setSoundEffect)
+    expect(parseBlock('change [pitch v] effect by (5)').info).toMatchObject(changeSoundEffect)
   })
+
+  test('sound: sound effects: de', () => {
+    expect(parseBlock('setze Effekt [Höhe v] auf (100)', optionsDe).info).toMatchObject(setSoundEffect)
+    expect(parseBlock('setze Effekt [Hohe v] auf (100)', optionsDe).info).toMatchObject(setSoundEffect)
+  })
+
+  const listContains = {
+    category: 'list',
+    selector: 'list:contains:',
+  }
 
   test('red: list contains', () => {
-    let b = testBlock('<[list v] contains [f] ?>', ['list:contains:', 'list', 'f'])
-    expect(b.info.category).toBe('list')
+    expect(parseBlock('<[list v] contains [f] ?>').info).toMatchObject(listContains)
   })
+
+  const stringContains = {
+    category: 'operators',
+    selector: 'sb3:OPERATORS_CONTAINS',
+  }
 
   test('green: string contains', () => {
-    let b = testBlock('<[foo] contains [f] ?>', ['sb3:OPERATORS_CONTAINS', 'foo', 'f'])
-    expect(b.info.category).toBe('operators')
-    testBlock('<(foo) contains [f] ?>', ['sb3:OPERATORS_CONTAINS', ['readVariable', 'foo'], 'f'])
+    expect(parseBlock('<[foo] contains [f] ?>').info).toMatchObject(stringContains)
+    expect(parseBlock('<(foo) contains [f] ?>').info).toMatchObject(stringContains)
   })
 
-  // TODO test disambiguation for other languages
+  // TODO test all disambiguations for other languages
+ 
+  const stopCap = {
+    shape: 'cap',
+    selector: 'stopScripts',
+  }
 
-  test('effect blocks: de', () => {
-    let b = testBlock('setze Effekt [Farbe v] auf (100)', ['setGraphicEffect:to:', 'Farbe', 100], optionsDe)
-    expect(b.info.category).toBe('looks')
-
-    b = testBlock('setze Effekt [Höhe v] auf (100)', ['sb3:SOUND_SETEFFECTO', 'Höhe', 100], optionsDe)
-    expect(b.info.category).toBe('sound')
-    b = testBlock('setze Effekt [Hohe v] auf (100)', ['sb3:SOUND_SETEFFECTO', 'Hohe', 100], optionsDe)
-    expect(b.info.category).toBe('sound')
-  })
-})
-
-describe('disambiguation', () => {
   test('stop block cap', () => {
-    let b = testBlock('stop [all v]', ['stopScripts', 'all'])
-    expect(b.info.shape).toBe('cap')
-  })
-
-  test('stop block stack', () => {
-    let b = testBlock('stop [other scripts in sprite v]', ['stopScripts', 'other scripts in sprite'])
-    expect(b.info.shape).toBe('stack')
+    expect(parseBlock('stop [all v]').info).toMatchObject(stopCap)
   })
 
   test('stop block cap: de', () => {
-    let b = testBlock('stoppe [alles v]', ['stopScripts', 'alles'], optionsDe)
-    expect(b.info.shape).toBe('cap')
+    expect(parseBlock('stoppe [alles v]', optionsDe).info).toMatchObject(stopCap)
+  })
+
+  const stopStack = {
+    shape: 'stack',
+    selector: 'stopScripts',
+  }
+
+  test('stop block stack', () => {
+    expect(parseBlock('stop [other scripts in sprite v]').info).toMatchObject(stopStack)
   })
 
   test('stop block stack: de', () => {
-    let b = testBlock('stoppe [andere Skripte der Figur v]', ['stopScripts', 'andere Skripte der Figur'], optionsDe)
-    expect(b.info.shape).toBe('stack')
+    expect(parseBlock('stoppe [andere Skripte der Figur v]', optionsDe).info).toMatchObject(stopStack)
   })
 })
 
@@ -277,8 +327,17 @@ describe('standalone blocks', () => {
 })
 
 describe('c blocks', () => {
+  const ifBlock = {
+    selector: 'doIf',
+  }
+
+  const ifElseBlock = {
+    selector: 'doIfElse',
+  }
+
   test('if else', () => {
-    testBlock('if <> then \n  \nelse\nend', ['doIfElse', false, [], []])
+    expect(parseBlock('if <> then \n  \nend').info).toMatchObject(ifBlock)
+    expect(parseBlock('if <> then \n  \nelse\nend').info).toMatchObject(ifElseBlock)
   })
 
   test('standalone else', () => {
@@ -289,16 +348,16 @@ describe('c blocks', () => {
 
 describe('comparison ops: < and > ', () => {
   test('ahahahaha', () => {
-    expect(parseBlock('<[10]<(foo)>').toJSON()).toEqual(['<', '10', getFoo])
-    expect(parseBlock('<[10]<[11]>').toJSON()).toEqual(['<', '10', '11'])
-    expect(parseBlock('<(foo)<(foo)>').toJSON()).toEqual(['<', getFoo, getFoo])
-    expect(parseBlock('<(foo)<[11]>').toJSON()).toEqual(['<', getFoo, '11'])
-    expect(parseBlock('<[10]>(foo)>').toJSON()).toEqual(['>', '10', getFoo])
-    expect(parseBlock('<[10]>[11]>').toJSON()).toEqual(['>', '10', '11'])
-    expect(parseBlock('<(foo)>(foo)>').toJSON()).toEqual(['>', getFoo, getFoo])
-    expect(parseBlock('<(foo)>[11]>').toJSON()).toEqual(['>', getFoo, '11'])
-    expect(parseBlock('<<><<>>').toJSON()).toEqual(['<', false, false])
-    expect(parseBlock('<<>><>>').toJSON()).toEqual(['>', false, false])
+    expect(parseBlock('<[10]<(foo)>').info.selector).toBe('<')
+    expect(parseBlock('<[10]<[11]>').info.selector).toBe('<')
+    expect(parseBlock('<(foo)<(foo)>').info.selector).toBe('<')
+    expect(parseBlock('<(foo)<[11]>').info.selector).toBe('<')
+    expect(parseBlock('<[10]>(foo)>').info.selector).toBe('>')
+    expect(parseBlock('<[10]>[11]>').info.selector).toBe('>')
+    expect(parseBlock('<(foo)>(foo)>').info.selector).toBe('>')
+    expect(parseBlock('<(foo)>[11]>').info.selector).toBe('>')
+    expect(parseBlock('<<><<>>').info.selector).toBe('<')
+    expect(parseBlock('<<>><>>').info.selector).toBe('>')
   })
 
   // TODO add that test case from that issue
@@ -306,42 +365,58 @@ describe('comparison ops: < and > ', () => {
 
 // Test that blocks renamed between Scratch 2 and Scratch 3 work in either form.
 describe('renamed blocks', () => {
+  const say = {
+    selector: 'say:duration:elapsed:from:',
+  }
+
   test('say for secs', () => {
-    const json = ['say:duration:elapsed:from:', 'Hello!', 2]
-    testBlock('say [Hello!] for (2) secs', json)
-    // We can't use testBlock because the Scratch 2 wording is still (rightly!)
-    // the default for fromJSON
-    expect(parseBlock('say [Hello!] for (2) seconds').toJSON()).toEqual(json)
+    expect(parseBlock('say [Hello!] for (2) secs').info).toMatchObject(say)
+    expect(parseBlock('say [Hello!] for (2) seconds').info).toMatchObject(say)
   })
+
+  const think = {
+    selector: 'think:duration:elapsed:from:',
+  }
 
   test('think for secs', () => {
-    const json = ['think:duration:elapsed:from:', "Hmm...", 2]
-    testBlock('think [Hmm...] for (2) secs', json)
-    expect(parseBlock('think [Hmm...] for (2) seconds').toJSON()).toEqual(json)
+    expect(parseBlock('think [Hmm...] for (2) secs').info).toMatchObject(think)
+    expect(parseBlock('think [Hmm...] for (2) seconds').info).toMatchObject(think)
   })
+
+    const playSound = {
+      selector: 'playSound:'
+    }
 
   test('play sound', () => {
-    const json = ['playSound:', 'moo']
-    testBlock('play sound [moo v]', json)
-    expect(parseBlock('start sound [moo v]').toJSON()).toEqual(json)
+    expect(parseBlock('play sound [moo v]').info).toMatchObject(playSound)
+    expect(parseBlock('start sound [moo v]').info).toMatchObject(playSound)
   })
+
+  const eraseAll = {
+    selector: 'clearPenTrails',
+  }
 
   test('clear', () => {
-    const json = ['clearPenTrails']
-    testBlock('clear', json)
-    expect(parseBlock('erase all').toJSON()).toEqual(json)
+    expect(parseBlock('clear').info).toMatchObject(eraseAll)
+    expect(parseBlock('erase all').info).toMatchObject(eraseAll)
   })
+
+  const wait = {
+    selector: 'wait:elapsed:from:',
+  }
 
   test('wait secs', () => {
-    const json = ['wait:elapsed:from:', 1]
-    testBlock('wait (1) secs', json)
-    expect(parseBlock('wait (1) seconds').toJSON()).toEqual(json)
+    expect(parseBlock('wait (1) secs').info).toMatchObject(wait)
+    expect(parseBlock('wait (1) seconds').info).toMatchObject(wait)
   })
 
+  const setTempo = {
+    selector: 'setTempoTo:',
+  }
+
   test('set tempo', () => {
-    const json = ['setTempoTo:', 120]
-    testBlock('set tempo to (120) bpm', json)
-    expect(parseBlock('set tempo to (120)').toJSON()).toEqual(json)
+    expect(parseBlock('set tempo to (120) bpm').info).toMatchObject(setTempo)
+    expect(parseBlock('set tempo to (120)').info).toMatchObject(setTempo)
   })
 })
 

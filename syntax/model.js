@@ -143,36 +143,6 @@ Input.fromJSON = function(lang, value, part) {
   return new Input(shape, "" + value, menu)
 }
 
-Input.prototype.toJSON = function() {
-  if (this.isColor) {
-    assert(this.value[0] === "#")
-    var h = this.value.slice(1)
-    if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2]
-    return parseInt(h, 16)
-    // TODO signed int?
-  }
-  if (this.hasArrow) {
-    var value = this.menu || this.value
-    if (this.shape === "dropdown") {
-      value =
-        {
-          "mouse-pointer": "_mouse_",
-          myself: "_myself",
-          Stage: "_stage_",
-          edge: "_edge_",
-          "random position": "_random_",
-        }[value] || value
-    }
-    if (this.isRound) {
-      value = maybeNumber(value)
-    }
-    return value
-  }
-  return this.isBoolean
-    ? false
-    : this.isRound ? maybeNumber(this.value) : this.value
-}
-
 Input.prototype.stringify = function() {
   if (this.isColor) {
     assert(this.value[0] === "#")
@@ -326,45 +296,6 @@ Block.fromJSON = function(lang, array, part) {
   })
   // TODO loop arrows
   return new Block(info, children)
-}
-
-Block.prototype.toJSON = function() {
-  var selector = this.info.selector
-  var args = []
-
-  if (selector === "procDef") {
-    var inputNames = this.info.names
-    var spec = this.info.call
-    var info = parseSpec(spec)
-    var defaultValues = info.inputs.map(function(input) {
-      return input === "%n" ? 1 : input === "%b" ? false : ""
-    })
-    var isAtomic = false // TODO 'define-atomic' ??
-    return ["procDef", spec, inputNames, defaultValues, isAtomic]
-  }
-
-  if (
-    selector === "readVariable" ||
-    selector === "contentsOfList:" ||
-    selector === "getParam"
-  ) {
-    args.push(blockName(this))
-    if (selector === "getParam")
-      args.push(this.isBoolean === "boolean" ? "b" : "r")
-  } else {
-    for (var i = 0; i < this.children.length; i++) {
-      var child = this.children[i]
-      if (child.isInput || child.isBlock || child.isScript) {
-        args.push(child.toJSON())
-      }
-    }
-
-    if (selector === "call") {
-      return ["call", this.info.call].concat(args)
-    }
-  }
-  if (!selector) throw new Error("unknown block: " + this.info.hash)
-  return [selector].concat(args)
 }
 
 Block.prototype.stringify = function(extras) {
@@ -526,13 +457,6 @@ Script.fromJSON = function(lang, blocks) {
   return new Script(blocks.map(Block.fromJSON.bind(null, lang)))
 }
 
-Script.prototype.toJSON = function() {
-  if (this.blocks[0] && this.blocks[0].isComment) return
-  return this.blocks.map(function(block) {
-    return block.toJSON()
-  })
-}
-
 Script.prototype.stringify = function() {
   return this.blocks
     .map(function(block) {
@@ -565,20 +489,6 @@ Document.fromJSON = function(scriptable, lang) {
   })
   // TODO scriptable.scriptComments
   return new Document(scripts)
-}
-
-Document.prototype.toJSON = function() {
-  var jsonScripts = this.scripts
-    .map(function(script) {
-      var jsonBlocks = script.toJSON()
-      if (!jsonBlocks) return
-      return [10, script.y + 10, jsonBlocks]
-    })
-    .filter(x => !!x)
-  return {
-    scripts: jsonScripts,
-    // scriptComments: [], // TODO
-  }
 }
 
 Document.prototype.stringify = function() {
