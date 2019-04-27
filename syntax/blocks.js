@@ -103,7 +103,7 @@ var allBlocks = scratchCommands.map(function(def) {
     id: def.id, // Used for Scratch 3 translations
     spec: def.spec, // Used for Scratch 2 translations
     parts: def.spec.split(splitPat).filter(x => !!x),
-    selector: def.selector || 'sb3:' + def.id, // Used for JSON marshalling
+    selector: def.selector || "sb3:" + def.id, // Used for JSON marshalling
     inputs: def.inputs,
     shape: def.shape,
     category: def.category,
@@ -198,7 +198,7 @@ var english = {
     "think %1 for %2 secs": "LOOKS_THINKFORSECS",
     "play sound %1": "SOUND_PLAY",
     "wait %1 secs": "CONTROL_WAIT",
-    "clear": "pen.clear",
+    clear: "pen.clear",
   },
 
   define: ["define"],
@@ -241,7 +241,6 @@ loadLanguages({
   en: english,
 })
 
-
 /*****************************************************************************/
 
 function specialCase(id, func) {
@@ -250,7 +249,7 @@ function specialCase(id, func) {
 }
 
 function disambig(id1, id2, test) {
-  var func = function (info, children, lang) {
+  var func = function(info, children, lang) {
     return blocksById[test(children, lang) ? id1 : id2]
   }
   specialCase(id1, func)
@@ -284,10 +283,7 @@ disambig("SOUND_CHANGEEFFECTBY", "LOOKS_CHANGEEFFECTBY", function(
   return false
 })
 
-disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function(
-  children,
-  lang
-) {
+disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function(children, lang) {
   // Sound if sound effect, otherwise default to graphic effect
   for (var i = 0; i < children.length; i++) {
     var child = children[i]
@@ -310,7 +306,10 @@ disambig("DATA_LENGTHOFLIST", "OPERATORS_LENGTH", function(children, lang) {
   return last.shape === "dropdown"
 })
 
-disambig("DATA_LISTCONTAINSITEM", "OPERATORS_CONTAINS", function(children, lang) {
+disambig("DATA_LISTCONTAINSITEM", "OPERATORS_CONTAINS", function(
+  children,
+  lang
+) {
   // List block if dropdown, otherwise operators
   var first = children[0]
   if (!first.isInput) return
