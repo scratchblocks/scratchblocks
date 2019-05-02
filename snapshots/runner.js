@@ -1,32 +1,32 @@
-const path = require("path")
+const path = require('path')
 
 const tests = []
 
-function test(style, name, source, lang) {
+function test (style, name, source, lang) {
   tests.push({
     style,
     name,
     source,
-    lang: lang || "en",
+    lang: lang || 'en'
   })
 }
 
-function runTests(r) {
+function runTests (r) {
   return Promise.all(
     tests.map(tc => {
       const outputPath = path.join(
-        "snapshots",
+        'snapshots',
         tc.style,
-        tc.name.replace(/ /g, "-") + ".png"
+        tc.name.replace(/ /g, '-') + '.png'
       )
-      console.log("running", tc.name)
+      console.log('running', tc.name)
       return (async () => {
         const options = {
           lang: tc.lang,
-          style: tc.style,
+          style: tc.style
         }
         await r.snapshotToFile(tc.source, options, outputPath)
-        console.log("✓ wrote", outputPath)
+        console.log('✓ wrote', outputPath)
       })()
     })
   )
@@ -34,5 +34,5 @@ function runTests(r) {
 
 module.exports = {
   test,
-  runTests,
+  runTests
 }

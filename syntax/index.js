@@ -1,4 +1,4 @@
-const { parse } = require("./syntax")
+const { parse } = require('./syntax')
 
 const {
   Label,
@@ -8,10 +8,10 @@ const {
   Comment,
   Glow,
   Script,
-  Document,
-} = require("./model.js")
+  Document
+} = require('./model.js')
 
-const { allLanguages, loadLanguages } = require("./blocks.js")
+const { allLanguages, loadLanguages } = require('./blocks.js')
 
 module.exports = {
   allLanguages,
@@ -27,5 +27,5 @@ module.exports = {
   Comment,
   Glow,
   Script,
-  Document,
+  Document
 }

@@ -1,21 +1,21 @@
-function assert(bool, message) {
-  if (!bool) throw "Assertion failed! " + (message || "")
+function assert (bool, message) {
+  if (!bool) throw 'Assertion failed! ' + (message || '')
 }
-function isArray(o) {
+function isArray (o) {
   return o && o.constructor === Array
 }
 
-function indent(text) {
+function indent (text) {
   return text
-    .split("\n")
-    .map(function(line) {
-      return "  " + line
+    .split('\n')
+    .map(function (line) {
+      return '  ' + line
     })
-    .join("\n")
+    .join('\n')
 }
 
-function maybeNumber(v) {
-  v = "" + v
+function maybeNumber (v) {
+  v = '' + v
   var n = parseInt(v)
   if (!isNaN(n)) {
     return n
@@ -35,14 +35,14 @@ var {
   rtlLanguages,
   unicodeIcons,
   english,
-  blockName,
-} = require("./blocks.js")
+  blockName
+} = require('./blocks.js')
 
 /* Label */
 
-var Label = function(value, cls) {
+var Label = function (value, cls) {
   this.value = value
-  this.cls = cls || ""
+  this.cls = cls || ''
   this.el = null
   this.height = 12
   this.metrics = null
@@ -50,18 +50,18 @@ var Label = function(value, cls) {
 }
 Label.prototype.isLabel = true
 
-Label.prototype.stringify = function() {
-  if (this.value === "<" || this.value === ">") return this.value
-  return this.value.replace(/([<>[\](){}])/g, "\\$1")
+Label.prototype.stringify = function () {
+  if (this.value === '<' || this.value === '>') return this.value
+  return this.value.replace(/([<>[\](){}])/g, '\\$1')
 }
 
 /* Icon */
 
-var Icon = function(name) {
+var Icon = function (name) {
   this.name = name
-  this.isArrow = name === "loopArrow"
+  this.isArrow = name === 'loopArrow'
 
-  assert(Icon.icons[name], "no info for icon " + name)
+  assert(Icon.icons[name], 'no info for icon ' + name)
 }
 Icon.prototype.isIcon = true
 
@@ -71,80 +71,80 @@ Icon.icons = {
   turnRight: true,
   loopArrow: true,
   addInput: true,
-  delInput: true,
+  delInput: true
 }
 
-Icon.prototype.stringify = function() {
-  return unicodeIcons["@" + this.name] || ""
+Icon.prototype.stringify = function () {
+  return unicodeIcons['@' + this.name] || ''
 }
 
 /* Input */
 
-var Input = function(shape, value, menu) {
+var Input = function (shape, value, menu) {
   this.shape = shape
   this.value = value
   this.menu = menu || null
 
-  this.isRound = shape === "number" || shape === "number-dropdown"
-  this.isBoolean = shape === "boolean"
-  this.isStack = shape === "stack"
+  this.isRound = shape === 'number' || shape === 'number-dropdown'
+  this.isBoolean = shape === 'boolean'
+  this.isStack = shape === 'stack'
   this.isInset =
-    shape === "boolean" || shape === "stack" || shape === "reporter"
-  this.isColor = shape === "color"
-  this.hasArrow = shape === "dropdown" || shape === "number-dropdown"
+    shape === 'boolean' || shape === 'stack' || shape === 'reporter'
+  this.isColor = shape === 'color'
+  this.hasArrow = shape === 'dropdown' || shape === 'number-dropdown'
   this.isDarker =
-    shape === "boolean" || shape === "stack" || shape === "dropdown"
+    shape === 'boolean' || shape === 'stack' || shape === 'dropdown'
   this.isSquare =
-    shape === "string" || shape === "color" || shape === "dropdown"
+    shape === 'string' || shape === 'color' || shape === 'dropdown'
 
   this.hasLabel = !(this.isColor || this.isInset)
-  this.label = this.hasLabel ? new Label(value, "literal-" + this.shape) : null
+  this.label = this.hasLabel ? new Label(value, 'literal-' + this.shape) : null
   this.x = 0
 }
 Input.prototype.isInput = true
 
-Input.fromJSON = function(lang, value, part) {
+Input.fromJSON = function (lang, value, part) {
   var shape = {
-    b: "boolean",
-    n: "number",
-    s: "string",
-    d: "number-dropdown",
-    m: "dropdown",
-    c: "color",
+    b: 'boolean',
+    n: 'number',
+    s: 'string',
+    d: 'number-dropdown',
+    m: 'dropdown',
+    c: 'color'
   }[part[1]]
 
-  if (shape === "color") {
+  if (shape === 'color') {
     if (!value && value !== 0) value = parseInt(Math.random() * 256 * 256 * 256)
     value = +value
     if (value < 0) value = 0xffffffff + value + 1
     var hex = value.toString(16)
     hex = hex.slice(Math.max(0, hex.length - 6)) // last 6 characters
-    while (hex.length < 6) hex = "0" + hex
+    while (hex.length < 6) hex = '0' + hex
     if (hex[0] === hex[1] && hex[2] === hex[3] && hex[4] === hex[5]) {
       hex = hex[0] + hex[2] + hex[4]
     }
-    value = "#" + hex
-  } else if (shape === "dropdown") {
+    value = '#' + hex
+  } else if (shape === 'dropdown') {
     value =
       {
-        _mouse_: "mouse-pointer",
-        _myself_: "myself",
-        _stage_: "Stage",
-        _edge_: "edge",
-        _random_: "random position",
+        _mouse_: 'mouse-pointer',
+        _myself_: 'myself',
+        _stage_: 'Stage',
+        _edge_: 'edge',
+        _random_: 'random position'
       }[value] || value
     var menu = value
     value = lang.dropdowns[value] || value
-  } else if (shape === "number-dropdown") {
+  } else if (shape === 'number-dropdown') {
     value = lang.dropdowns[value] || value
   }
 
-  return new Input(shape, "" + value, menu)
+  return new Input(shape, '' + value, menu)
 }
 
-Input.prototype.toJSON = function() {
+Input.prototype.toJSON = function () {
   if (this.isColor) {
-    assert(this.value[0] === "#")
+    assert(this.value[0] === '#')
     var h = this.value.slice(1)
     if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2]
     return parseInt(h, 16)
@@ -152,14 +152,14 @@ Input.prototype.toJSON = function() {
   }
   if (this.hasArrow) {
     var value = this.menu || this.value
-    if (this.shape === "dropdown") {
+    if (this.shape === 'dropdown') {
       value =
         {
-          "mouse-pointer": "_mouse_",
-          myself: "_myself",
-          Stage: "_stage_",
-          edge: "_edge_",
-          "random position": "_random_",
+          'mouse-pointer': '_mouse_',
+          myself: '_myself',
+          Stage: '_stage_',
+          edge: '_edge_',
+          'random position': '_random_'
         }[value] || value
     }
     if (this.isRound) {
@@ -172,33 +172,33 @@ Input.prototype.toJSON = function() {
     : this.isRound ? maybeNumber(this.value) : this.value
 }
 
-Input.prototype.stringify = function() {
+Input.prototype.stringify = function () {
   if (this.isColor) {
-    assert(this.value[0] === "#")
-    return "[" + this.value + "]"
+    assert(this.value[0] === '#')
+    return '[' + this.value + ']'
   }
-  var text = (this.value ? "" + this.value : "")
-    .replace(/ v$/, " \\v")
-    .replace(/([\]\\])/g, "\\$1")
-  if (this.hasArrow) text += " v"
+  var text = (this.value ? '' + this.value : '')
+    .replace(/ v$/, ' \\v')
+    .replace(/([\]\\])/g, '\\$1')
+  if (this.hasArrow) text += ' v'
   return this.isRound
-    ? "(" + text + ")"
+    ? '(' + text + ')'
     : this.isSquare
-      ? "[" + text + "]"
-      : this.isBoolean ? "<>" : this.isStack ? "{}" : text
+      ? '[' + text + ']'
+      : this.isBoolean ? '<>' : this.isStack ? '{}' : text
 }
 
-Input.prototype.translate = function(lang) {
+Input.prototype.translate = function (lang) {
   if (this.hasArrow) {
     var value = this.menu || this.value
     this.value = lang.dropdowns[value] || value
-    this.label = new Label(this.value, "literal-" + this.shape)
+    this.label = new Label(this.value, 'literal-' + this.shape)
   }
 }
 
 /* Block */
 
-var Block = function(info, children, comment) {
+var Block = function (info, children, comment) {
   assert(info)
   this.info = info
   this.children = children
@@ -206,38 +206,38 @@ var Block = function(info, children, comment) {
   this.diff = null
 
   var shape = this.info.shape
-  this.isHat = shape === "hat" || shape === "define-hat"
-  this.hasPuzzle = shape === "stack" || shape === "hat"
+  this.isHat = shape === 'hat' || shape === 'define-hat'
+  this.hasPuzzle = shape === 'stack' || shape === 'hat'
   this.isFinal = /cap/.test(shape)
-  this.isCommand = shape === "stack" || shape === "cap" || /block/.test(shape)
-  this.isOutline = shape === "outline"
-  this.isReporter = shape === "reporter"
-  this.isBoolean = shape === "boolean"
+  this.isCommand = shape === 'stack' || shape === 'cap' || /block/.test(shape)
+  this.isOutline = shape === 'outline'
+  this.isReporter = shape === 'reporter'
+  this.isBoolean = shape === 'boolean'
 
-  this.isRing = shape === "ring"
+  this.isRing = shape === 'ring'
   this.hasScript = /block/.test(shape)
-  this.isElse = shape === "celse"
-  this.isEnd = shape === "cend"
+  this.isElse = shape === 'celse'
+  this.isEnd = shape === 'cend'
 }
 Block.prototype.isBlock = true
 
-Block.fromJSON = function(lang, array, part) {
+Block.fromJSON = function (lang, array, part) {
   var args = array.slice()
   var selector = args.shift()
-  if (selector === "procDef") {
+  if (selector === 'procDef') {
     var spec = args[0]
     var inputNames = args[1].slice()
     // var defaultValues = args[2];
     // var isAtomic = args[3]; // TODO
 
     var info = parseSpec(spec)
-    var children = info.parts.map(function(part) {
+    var children = info.parts.map(function (part) {
       if (inputPat.test(part)) {
         var label = new Label(inputNames.shift())
         return new Block(
           {
-            shape: part[1] === "b" ? "boolean" : "reporter",
-            category: "custom-arg",
+            shape: part[1] === 'b' ? 'boolean' : 'reporter',
+            category: 'custom-arg'
           },
           [label]
         )
@@ -247,8 +247,8 @@ Block.fromJSON = function(lang, array, part) {
     })
     var outline = new Block(
       {
-        shape: "outline",
-        category: "custom",
+        shape: 'outline',
+        category: 'custom'
       },
       children
     )
@@ -256,52 +256,52 @@ Block.fromJSON = function(lang, array, part) {
     var children = [new Label(lang.define[0]), outline]
     return new Block(
       {
-        shape: "define-hat",
-        category: "custom",
-        selector: "procDef",
+        shape: 'define-hat',
+        category: 'custom',
+        selector: 'procDef',
         call: spec,
         names: args[1],
-        language: lang,
+        language: lang
       },
       children
     )
-  } else if (selector === "call") {
+  } else if (selector === 'call') {
     var spec = args.shift()
     var info = Object.assign({}, parseSpec(spec), {
-      category: "custom",
-      shape: "stack",
-      selector: "call",
+      category: 'custom',
+      shape: 'stack',
+      selector: 'call',
       call: spec,
-      language: lang,
+      language: lang
     })
     var parts = info.parts
   } else if (
-    selector === "readVariable" ||
-    selector === "contentsOfList:" ||
-    selector === "getParam"
+    selector === 'readVariable' ||
+    selector === 'contentsOfList:' ||
+    selector === 'getParam'
   ) {
     var shape =
-      selector === "getParam" && args.pop() === "b" ? "boolean" : "reporter"
+      selector === 'getParam' && args.pop() === 'b' ? 'boolean' : 'reporter'
     var info = {
       selector: selector,
       shape: shape,
       category: {
-        readVariable: "variables",
-        "contentsOfList:": "list",
-        getParam: "custom-arg",
+        readVariable: 'variables',
+        'contentsOfList:': 'list',
+        getParam: 'custom-arg'
       }[selector],
-      language: lang,
+      language: lang
     }
     return new Block(info, [new Label(args[0])])
   } else {
     var info = Object.assign({}, blocksBySelector[selector], {
-      language: lang,
+      language: lang
     })
-    assert(info, "unknown selector: " + selector)
+    assert(info, 'unknown selector: ' + selector)
     var spec = lang.commands[info.spec] || spec
     var parts = spec ? parseSpec(spec).parts : info.parts
   }
-  var children = parts.map(function(part) {
+  var children = parts.map(function (part) {
     if (inputPat.test(part)) {
       var arg = args.shift()
       return (isArray(arg) ? Block : Input).fromJSON(lang, arg, part)
@@ -311,41 +311,40 @@ Block.fromJSON = function(lang, array, part) {
       return new Label(part.trim())
     }
   })
-  args.forEach(function(list, index) {
+  args.forEach(function (list, index) {
     list = list || []
     assert(isArray(list))
     children.push(new Script(list.map(Block.fromJSON.bind(null, lang))))
-    if (selector === "doIfElse" && index === 0) {
-      children.push(new Label(lang.commands["else"]))
+    if (selector === 'doIfElse' && index === 0) {
+      children.push(new Label(lang.commands['else']))
     }
   })
   // TODO loop arrows
   return new Block(info, children)
 }
 
-Block.prototype.toJSON = function() {
+Block.prototype.toJSON = function () {
   var selector = this.info.selector
   var args = []
 
-  if (selector === "procDef") {
+  if (selector === 'procDef') {
     var inputNames = this.info.names
     var spec = this.info.call
     var info = parseSpec(spec)
-    var defaultValues = info.inputs.map(function(input) {
-      return input === "%n" ? 1 : input === "%b" ? false : ""
+    var defaultValues = info.inputs.map(function (input) {
+      return input === '%n' ? 1 : input === '%b' ? false : ''
     })
     var isAtomic = false // TODO 'define-atomic' ??
-    return ["procDef", spec, inputNames, defaultValues, isAtomic]
+    return ['procDef', spec, inputNames, defaultValues, isAtomic]
   }
 
   if (
-    selector === "readVariable" ||
-    selector === "contentsOfList:" ||
-    selector === "getParam"
+    selector === 'readVariable' ||
+    selector === 'contentsOfList:' ||
+    selector === 'getParam'
   ) {
     args.push(blockName(this))
-    if (selector === "getParam")
-      args.push(this.isBoolean === "boolean" ? "b" : "r")
+    if (selector === 'getParam') { args.push(this.isBoolean === 'boolean' ? 'b' : 'r') }
   } else {
     for (var i = 0; i < this.children.length; i++) {
       var child = this.children[i]
@@ -354,26 +353,26 @@ Block.prototype.toJSON = function() {
       }
     }
 
-    if (selector === "call") {
-      return ["call", this.info.call].concat(args)
+    if (selector === 'call') {
+      return ['call', this.info.call].concat(args)
     }
   }
-  if (!selector) throw "unknown block: " + this.info.hash
+  if (!selector) throw 'unknown block: ' + this.info.hash
   return [selector].concat(args)
 }
 
-Block.prototype.stringify = function(extras) {
+Block.prototype.stringify = function (extras) {
   var firstInput = null
   var checkAlias = false
   var text = this.children
-    .map(function(child) {
+    .map(function (child) {
       if (child.isIcon) checkAlias = true
       if (!firstInput && !(child.isLabel || child.isIcon)) firstInput = child
       return child.isScript
-        ? "\n" + indent(child.stringify()) + "\n"
-        : child.stringify().trim() + " "
+        ? '\n' + indent(child.stringify()) + '\n'
+        : child.stringify().trim() + ' '
     })
-    .join("")
+    .join('')
     .trim()
 
   var lang = this.info.language
@@ -390,30 +389,30 @@ Block.prototype.stringify = function(extras) {
     }
   }
 
-  var overrides = extras || ""
+  var overrides = extras || ''
   if (
     this.info.categoryIsDefault === false ||
-    (this.info.category === "custom-arg" &&
+    (this.info.category === 'custom-arg' &&
       (this.isReporter || this.isBoolean)) ||
-    (this.info.category === "custom" && this.info.shape === "stack")
+    (this.info.category === 'custom' && this.info.shape === 'stack')
   ) {
-    if (overrides) overrides += " "
+    if (overrides) overrides += ' '
     overrides += this.info.category
   }
   if (overrides) {
-    text += " :: " + overrides
+    text += ' :: ' + overrides
   }
   return this.hasScript
-    ? text + "\nend"
-    : this.info.shape === "reporter"
-      ? "(" + text + ")"
-      : this.info.shape === "boolean" ? "<" + text + ">" : text
+    ? text + '\nend'
+    : this.info.shape === 'reporter'
+      ? '(' + text + ')'
+      : this.info.shape === 'boolean' ? '<' + text + '>' : text
 }
 
-Block.prototype.translate = function(lang, isShallow) {
+Block.prototype.translate = function (lang, isShallow) {
   var selector = this.info.selector
   if (!selector) return
-  if (selector === "procDef") {
+  if (selector === 'procDef') {
     assert(this.children[0].isLabel)
     this.children[0] = new Label(lang.define[0] || english.define[0])
   }
@@ -422,15 +421,16 @@ Block.prototype.translate = function(lang, isShallow) {
   var nativeSpec = lang.commands[block.spec]
   if (!nativeSpec) return
   var nativeInfo = parseSpec(nativeSpec)
-  var args = this.children.filter(function(child) {
+  var args = this.children.filter(function (child) {
     return !child.isLabel && !child.isIcon
   })
-  if (!isShallow)
-    args.forEach(function(child) {
+  if (!isShallow) {
+    args.forEach(function (child) {
       child.translate(lang)
     })
+  }
   this.children = nativeInfo.parts
-    .map(function(part) {
+    .map(function (part) {
       var part = part.trim()
       if (!part) return
       return inputPat.test(part)
@@ -439,7 +439,7 @@ Block.prototype.translate = function(lang, isShallow) {
     })
     .filter(x => !!x)
   args.forEach(
-    function(arg) {
+    function (arg) {
       this.children.push(arg)
     }.bind(this)
   )
@@ -449,90 +449,90 @@ Block.prototype.translate = function(lang, isShallow) {
 
 /* Comment */
 
-var Comment = function(value, hasBlock) {
-  this.label = new Label(value, "comment-label")
+var Comment = function (value, hasBlock) {
+  this.label = new Label(value, 'comment-label')
   this.width = null
   this.hasBlock = hasBlock
 }
 Comment.prototype.isComment = true
 
-Comment.prototype.stringify = function() {
-  return "// " + this.label.value
+Comment.prototype.stringify = function () {
+  return '// ' + this.label.value
 }
 
 /* Glow */
 
-var Glow = function(child) {
+var Glow = function (child) {
   assert(child)
   this.child = child
   if (child.isBlock) {
     this.shape = child.info.shape
     this.info = child.info
   } else {
-    this.shape = "stack"
+    this.shape = 'stack'
   }
 }
 Glow.prototype.isGlow = true
 
-Glow.prototype.stringify = function() {
+Glow.prototype.stringify = function () {
   if (this.child.isBlock) {
-    return this.child.stringify("+")
+    return this.child.stringify('+')
   } else {
-    var lines = this.child.stringify().split("\n")
-    return lines.map(line => "+ " + line).join("\n")
+    var lines = this.child.stringify().split('\n')
+    return lines.map(line => '+ ' + line).join('\n')
   }
 }
 
-Glow.prototype.translate = function(lang) {
+Glow.prototype.translate = function (lang) {
   this.child.translate(lang)
 }
 
 /* Script */
 
-var Script = function(blocks) {
+var Script = function (blocks) {
   this.blocks = blocks
   this.isEmpty = !blocks.length
   this.isFinal = !this.isEmpty && blocks[blocks.length - 1].isFinal
 }
 Script.prototype.isScript = true
 
-Script.fromJSON = function(lang, blocks) {
+Script.fromJSON = function (lang, blocks) {
   // x = array[0], y = array[1];
   return new Script(blocks.map(Block.fromJSON.bind(null, lang)))
 }
 
-Script.prototype.toJSON = function() {
+Script.prototype.toJSON = function () {
   if (this.blocks[0] && this.blocks[0].isComment) return
-  return this.blocks.map(function(block) {
+  return this.blocks.map(function (block) {
     return block.toJSON()
   })
 }
 
-Script.prototype.stringify = function() {
+Script.prototype.stringify = function () {
   return this.blocks
-    .map(function(block) {
+    .map(function (block) {
       var line = block.stringify()
-      if (block.comment) line += " " + block.comment.stringify()
+      if (block.comment) line += ' ' + block.comment.stringify()
       return line
     })
-    .join("\n")
+    .join('\n')
 }
 
-Script.prototype.translate = function(lang) {
-  this.blocks.forEach(function(block) {
+Script.prototype.translate = function (lang) {
+  this.blocks.forEach(function (block) {
     block.translate(lang)
   })
 }
 
 /* Document */
 
-var Document = function(scripts) {
+var Document = function (scripts) {
   this.scripts = scripts
 }
 
-Document.fromJSON = function(scriptable, lang) {
+Document.fromJSON = function (scriptable, lang) {
   var lang = lang || english
-  var scripts = scriptable.scripts.map(function(array) {
+  var scripts = scriptable.scripts.map(function (array) {
     var script = Script.fromJSON(lang, array[2])
     script.x = array[0]
     script.y = array[1]
@@ -542,30 +542,30 @@ Document.fromJSON = function(scriptable, lang) {
   return new Document(scripts)
 }
 
-Document.prototype.toJSON = function() {
+Document.prototype.toJSON = function () {
   var jsonScripts = this.scripts
-    .map(function(script) {
+    .map(function (script) {
       var jsonBlocks = script.toJSON()
       if (!jsonBlocks) return
       return [10, script.y + 10, jsonBlocks]
     })
     .filter(x => !!x)
   return {
-    scripts: jsonScripts,
+    scripts: jsonScripts
     // scriptComments: [], // TODO
   }
 }
 
-Document.prototype.stringify = function() {
+Document.prototype.stringify = function () {
   return this.scripts
-    .map(function(script) {
+    .map(function (script) {
       return script.stringify()
     })
-    .join("\n\n")
+    .join('\n\n')
 }
 
-Document.prototype.translate = function(lang) {
-  this.scripts.forEach(function(script) {
+Document.prototype.translate = function (lang) {
+  this.scripts.forEach(function (script) {
     script.translate(lang)
   })
 }
@@ -578,5 +578,5 @@ module.exports = {
   Comment,
   Glow,
   Script,
-  Document,
+  Document
 }

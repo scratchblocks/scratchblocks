@@ -1,128 +1,128 @@
-function assert(bool, message) {
-  if (!bool) throw "Assertion failed! " + (message || "")
+function assert (bool, message) {
+  if (!bool) throw 'Assertion failed! ' + (message || '')
 }
-function isArray(o) {
+function isArray (o) {
   return o && o.constructor === Array
 }
 
 // List of classes we're allowed to override.
 
 var overrideCategories = [
-  "motion",
-  "looks",
-  "sound",
-  "pen",
-  "variables",
-  "list",
-  "events",
-  "control",
-  "sensing",
-  "operators",
-  "custom",
-  "custom-arg",
-  "extension",
-  "grey",
-  "obsolete",
-  "music",
-  "video",
-  "tts",
-  "translate",
-  "wedo",
-  "ev3",
-  "microbit",
-  "makeymakey",
+  'motion',
+  'looks',
+  'sound',
+  'pen',
+  'variables',
+  'list',
+  'events',
+  'control',
+  'sensing',
+  'operators',
+  'custom',
+  'custom-arg',
+  'extension',
+  'grey',
+  'obsolete',
+  'music',
+  'video',
+  'tts',
+  'translate',
+  'wedo',
+  'ev3',
+  'microbit',
+  'makeymakey'
 ]
-var overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "ring"]
+var overrideShapes = ['hat', 'cap', 'stack', 'boolean', 'reporter', 'ring']
 
 // languages that should be displayed right to left
-var rtlLanguages = ["ar", "fa", "he"]
+var rtlLanguages = ['ar', 'fa', 'he']
 
 // List of commands taken from Scratch
-var scratchCommands = require("./commands.js")
+var scratchCommands = require('./commands.js')
 
 var categoriesById = {
-  0: "obsolete",
-  1: "motion",
-  2: "looks",
-  3: "sound",
-  4: "pen",
-  5: "events",
-  6: "control",
-  7: "sensing",
-  8: "operators",
-  9: "variables",
-  10: "custom",
-  11: "parameter",
-  12: "list",
-  20: "extension",
-  30: "music",
-  31: "video",
-  42: "grey",
+  0: 'obsolete',
+  1: 'motion',
+  2: 'looks',
+  3: 'sound',
+  4: 'pen',
+  5: 'events',
+  6: 'control',
+  7: 'sensing',
+  8: 'operators',
+  9: 'variables',
+  10: 'custom',
+  11: 'parameter',
+  12: 'list',
+  20: 'extension',
+  30: 'music',
+  31: 'video',
+  42: 'grey'
 }
 
 var typeShapes = {
-  " ": "stack",
-  b: "boolean",
-  c: "c-block",
-  e: "if-block",
-  f: "cap",
-  h: "hat",
-  r: "reporter",
-  cf: "c-block cap",
-  else: "celse",
-  end: "cend",
-  ring: "ring",
+  ' ': 'stack',
+  b: 'boolean',
+  c: 'c-block',
+  e: 'if-block',
+  f: 'cap',
+  h: 'hat',
+  r: 'reporter',
+  cf: 'c-block cap',
+  else: 'celse',
+  end: 'cend',
+  ring: 'ring'
 }
 
 var inputPat = /(%[a-zA-Z](?:\.[a-zA-Z0-9]+)?)/
-var inputPatGlobal = new RegExp(inputPat.source, "g")
+var inputPatGlobal = new RegExp(inputPat.source, 'g')
 var iconPat = /(@[a-zA-Z]+)/
 var splitPat = new RegExp(
-  [inputPat.source, "|", iconPat.source, "| +"].join(""),
-  "g"
+  [inputPat.source, '|', iconPat.source, '| +'].join(''),
+  'g'
 )
 
 var hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/
 
-function parseSpec(spec) {
+function parseSpec (spec) {
   var parts = spec.split(splitPat).filter(x => !!x)
   return {
     spec: spec,
     parts: parts,
-    inputs: parts.filter(function(p) {
+    inputs: parts.filter(function (p) {
       return inputPat.test(p)
     }),
-    hash: hashSpec(spec),
+    hash: hashSpec(spec)
   }
 }
 
-function hashSpec(spec) {
-  return minifyHash(spec.replace(inputPatGlobal, " _ "))
+function hashSpec (spec) {
+  return minifyHash(spec.replace(inputPatGlobal, ' _ '))
 }
 
-function minifyHash(hash) {
+function minifyHash (hash) {
   return hash
-    .replace(/_/g, " _ ")
-    .replace(/ +/g, " ")
-    .replace(/[,%?:]/g, "")
-    .replace(/ß/g, "ss")
-    .replace(/ä/g, "a")
-    .replace(/ö/g, "o")
-    .replace(/ü/g, "u")
-    .replace(". . .", "...")
-    .replace(/^…$/, "...")
+    .replace(/_/g, ' _ ')
+    .replace(/ +/g, ' ')
+    .replace(/[,%?:]/g, '')
+    .replace(/ß/g, 'ss')
+    .replace(/ä/g, 'a')
+    .replace(/ö/g, 'o')
+    .replace(/ü/g, 'u')
+    .replace('. . .', '...')
+    .replace(/^…$/, '...')
     .trim()
     .toLowerCase()
 }
 
 var blocksBySelector = {}
 var blocksBySpec = {}
-var allBlocks = scratchCommands.map(function(command) {
+var allBlocks = scratchCommands.map(function (command) {
   var info = Object.assign(parseSpec(command[0]), {
     shape: typeShapes[command[1]], // /[ bcefhr]|cf/
     category: categoriesById[command[2] % 100],
     selector: command[3],
-    hasLoopArrow: ["doRepeat", "doUntil", "doForever"].indexOf(command[3]) > -1,
+    hasLoopArrow: ['doRepeat', 'doUntil', 'doForever'].indexOf(command[3]) > -1
   })
   if (info.selector) {
     // nb. command order matters!
@@ -133,18 +133,18 @@ var allBlocks = scratchCommands.map(function(command) {
 })
 
 var unicodeIcons = {
-  "@greenFlag": "⚑",
-  "@turnRight": "↻",
-  "@turnLeft": "↺",
-  "@addInput": "▸",
-  "@delInput": "◂",
+  '@greenFlag': '⚑',
+  '@turnRight': '↻',
+  '@turnLeft': '↺',
+  '@addInput': '▸',
+  '@delInput': '◂'
 }
 
 var allLanguages = {}
-function loadLanguage(code, language) {
+function loadLanguage (code, language) {
   var blocksByHash = (language.blocksByHash = {})
 
-  Object.keys(language.commands).forEach(function(spec) {
+  Object.keys(language.commands).forEach(function (spec) {
     var nativeSpec = language.commands[spec]
     var block = blocksBySpec[spec]
 
@@ -161,7 +161,7 @@ function loadLanguage(code, language) {
   })
 
   language.nativeAliases = {}
-  Object.keys(language.aliases).forEach(function(alias) {
+  Object.keys(language.aliases).forEach(function (alias) {
     var spec = language.aliases[alias]
     var block = blocksBySpec[spec]
 
@@ -172,7 +172,7 @@ function loadLanguage(code, language) {
   })
 
   language.nativeDropdowns = {}
-  Object.keys(language.dropdowns).forEach(function(name) {
+  Object.keys(language.dropdowns).forEach(function (name) {
     var nativeName = language.dropdowns[name]
     language.nativeDropdowns[nativeName] = name
   })
@@ -180,67 +180,67 @@ function loadLanguage(code, language) {
   language.code = code
   allLanguages[code] = language
 }
-function loadLanguages(languages) {
-  Object.keys(languages).forEach(function(code) {
+function loadLanguages (languages) {
+  Object.keys(languages).forEach(function (code) {
     loadLanguage(code, languages[code])
   })
 }
 
 var english = {
   aliases: {
-    "turn left %n degrees": "turn @turnLeft %n degrees",
-    "turn ccw %n degrees": "turn @turnLeft %n degrees",
-    "turn right %n degrees": "turn @turnRight %n degrees",
-    "turn cw %n degrees": "turn @turnRight %n degrees",
-    "when gf clicked": "when @greenFlag clicked",
-    "when flag clicked": "when @greenFlag clicked",
-    "when green flag clicked": "when @greenFlag clicked",
+    'turn left %n degrees': 'turn @turnLeft %n degrees',
+    'turn ccw %n degrees': 'turn @turnLeft %n degrees',
+    'turn right %n degrees': 'turn @turnRight %n degrees',
+    'turn cw %n degrees': 'turn @turnRight %n degrees',
+    'when gf clicked': 'when @greenFlag clicked',
+    'when flag clicked': 'when @greenFlag clicked',
+    'when green flag clicked': 'when @greenFlag clicked'
   },
 
-  define: ["define"],
+  define: ['define'],
 
   // For ignoring the lt sign in the "when distance < _" block
-  ignorelt: ["when distance"],
+  ignorelt: ['when distance'],
 
   // Valid arguments to "of" dropdown, for resolving ambiguous situations
   math: [
-    "abs",
-    "floor",
-    "ceiling",
-    "sqrt",
-    "sin",
-    "cos",
-    "tan",
-    "asin",
-    "acos",
-    "atan",
-    "ln",
-    "log",
-    "e ^",
-    "10 ^",
+    'abs',
+    'floor',
+    'ceiling',
+    'sqrt',
+    'sin',
+    'cos',
+    'tan',
+    'asin',
+    'acos',
+    'atan',
+    'ln',
+    'log',
+    'e ^',
+    '10 ^'
   ],
 
   // Valid arguments to "sound effect" dropdown, for resolving ambiguous situations
-  soundEffects: ["pitch", "pan left/right"],
+  soundEffects: ['pitch', 'pan left/right'],
 
   // For detecting the "stop" cap / stack block
-  osis: ["other scripts in sprite", "other scripts in stage"],
+  osis: ['other scripts in sprite', 'other scripts in stage'],
 
   dropdowns: {},
 
-  commands: {},
+  commands: {}
 }
-allBlocks.forEach(function(info) {
+allBlocks.forEach(function (info) {
   english.commands[info.spec] = info.spec
 }),
-  loadLanguages({
-    en: english,
-  })
+loadLanguages({
+  en: english
+})
 
 /*****************************************************************************/
 
-function disambig(selector1, selector2, test) {
-  var func = function(info, children, lang) {
+function disambig (selector1, selector2, test) {
+  var func = function (info, children, lang) {
     return blocksBySelector[test(children, lang) ? selector1 : selector2]
   }
   blocksBySelector[selector1].specialCase = blocksBySelector[
@@ -248,7 +248,7 @@ function disambig(selector1, selector2, test) {
   ].specialCase = func
 }
 
-disambig("computeFunction:of:", "getAttribute:of:", function(children, lang) {
+disambig('computeFunction:of:', 'getAttribute:of:', function (children, lang) {
   // Operators if math function, otherwise sensing "attribute of" block
   var first = children[0]
   if (!first.isInput) return
@@ -256,14 +256,14 @@ disambig("computeFunction:of:", "getAttribute:of:", function(children, lang) {
   return lang.math.indexOf(name) > -1
 })
 
-disambig("sb3:sound_changeeffectby", "changeGraphicEffect:by:", function(
+disambig('sb3:sound_changeeffectby', 'changeGraphicEffect:by:', function (
   children,
   lang
 ) {
   // Sound if sound effect, otherwise default to graphic effect
   for (var i = 0; i < children.length; i++) {
     var child = children[i]
-    if (child.shape === "dropdown") {
+    if (child.shape === 'dropdown') {
       var name = child.value
       return lang.soundEffects.indexOf(name) > -1
     }
@@ -271,14 +271,14 @@ disambig("sb3:sound_changeeffectby", "changeGraphicEffect:by:", function(
   return false
 })
 
-disambig("sb3:sound_seteffectto", "setGraphicEffect:to:", function(
+disambig('sb3:sound_seteffectto', 'setGraphicEffect:to:', function (
   children,
   lang
 ) {
   // Sound if sound effect, otherwise default to graphic effect
   for (var i = 0; i < children.length; i++) {
     var child = children[i]
-    if (child.shape === "dropdown") {
+    if (child.shape === 'dropdown') {
       var name = child.value
       return lang.soundEffects.indexOf(name) > -1
     }
@@ -286,21 +286,21 @@ disambig("sb3:sound_seteffectto", "setGraphicEffect:to:", function(
   return false
 })
 
-disambig("lineCountOfList:", "stringLength:", function(children, lang) {
+disambig('lineCountOfList:', 'stringLength:', function (children, lang) {
   // List block if dropdown, otherwise operators
   var last = children[children.length - 1]
   if (!last.isInput) return
-  return last.shape === "dropdown"
+  return last.shape === 'dropdown'
 })
 
-disambig("list:contains:", "sb3:operator_contains", function(children, lang) {
+disambig('list:contains:', 'sb3:operator_contains', function (children, lang) {
   // List block if dropdown, otherwise operators
   var first = children[0]
   if (!first.isInput) return
-  return first.shape === "dropdown"
+  return first.shape === 'dropdown'
 })
 
-disambig("penColor:", "setPenHueTo:", function(children, lang) {
+disambig('penColor:', 'setPenHueTo:', function (children, lang) {
   // Color block if color input, otherwise numeric
   var last = children[children.length - 1]
   // If variable, assume color input, since the RGBA hack is common.
@@ -308,25 +308,25 @@ disambig("penColor:", "setPenHueTo:", function(children, lang) {
   return (last.isInput && last.isColor) || last.isBlock
 })
 
-blocksBySelector["stopScripts"].specialCase = function(info, children, lang) {
+blocksBySelector['stopScripts'].specialCase = function (info, children, lang) {
   // Cap block unless argument is "other scripts in sprite"
   var last = children[children.length - 1]
   if (!last.isInput) return
   var value = last.value
   if (lang.osis.indexOf(value) > -1) {
-    return Object.assign({}, blocksBySelector["stopScripts"], {
-      shape: "stack",
+    return Object.assign({}, blocksBySelector['stopScripts'], {
+      shape: 'stack'
     })
   }
 }
 
-function lookupHash(hash, info, children, languages) {
+function lookupHash (hash, info, children, languages) {
   for (var i = 0; i < languages.length; i++) {
     var lang = languages[i]
     if (lang.blocksByHash.hasOwnProperty(hash)) {
       var block = lang.blocksByHash[hash]
-      if (info.shape === "reporter" && block.shape !== "reporter") continue
-      if (info.shape === "boolean" && block.shape !== "boolean") continue
+      if (info.shape === 'reporter' && block.shape !== 'reporter') continue
+      if (info.shape === 'boolean' && block.shape !== 'boolean') continue
       if (block.specialCase) {
         block = block.specialCase(info, children, lang) || block
       }
@@ -335,7 +335,7 @@ function lookupHash(hash, info, children, languages) {
   }
 }
 
-function lookupDropdown(name, languages) {
+function lookupDropdown (name, languages) {
   for (var i = 0; i < languages.length; i++) {
     var lang = languages[i]
     if (lang.nativeDropdowns.hasOwnProperty(name)) {
@@ -345,34 +345,34 @@ function lookupDropdown(name, languages) {
   }
 }
 
-function applyOverrides(info, overrides) {
+function applyOverrides (info, overrides) {
   for (var i = 0; i < overrides.length; i++) {
     var name = overrides[i]
     if (hexColorPat.test(name)) {
       info.color = name
-      info.category = ""
+      info.category = ''
       info.categoryIsDefault = false
     } else if (overrideCategories.indexOf(name) > -1) {
       info.category = name
       info.categoryIsDefault = false
     } else if (overrideShapes.indexOf(name) > -1) {
       info.shape = name
-    } else if (name === "loop") {
+    } else if (name === 'loop') {
       info.hasLoopArrow = true
-    } else if (name === "+" || name === "-") {
+    } else if (name === '+' || name === '-') {
       info.diff = name
     }
   }
 }
 
-function blockName(block) {
+function blockName (block) {
   var words = []
   for (var i = 0; i < block.children.length; i++) {
     var child = block.children[i]
     if (!child.isLabel) return
     words.push(child.value)
   }
-  return words.join(" ")
+  return words.join(' ')
 }
 
 module.exports = {
@@ -394,5 +394,5 @@ module.exports = {
   parseSpec,
   inputPat,
   unicodeIcons,
-  english,
+  english
 }

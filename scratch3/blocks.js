@@ -6,16 +6,16 @@ const {
   Comment,
   Glow,
   Script,
-  Document,
-} = require("../syntax")
+  Document
+} = require('../syntax')
 
-const SVG = require("./draw.js")
+const SVG = require('./draw.js')
 
-const { defaultFont, commentFont, makeStyle, makeIcons } = require("./style.js")
+const { defaultFont, commentFont, makeStyle, makeIcons } = require('./style.js')
 
 /* Label */
 
-var LabelView = function(label) {
+var LabelView = function (label) {
   Object.assign(this, label)
 
   this.el = null
@@ -25,24 +25,24 @@ var LabelView = function(label) {
 }
 LabelView.prototype.isLabel = true
 
-LabelView.prototype.draw = function() {
+LabelView.prototype.draw = function () {
   return this.el
 }
 
-Object.defineProperty(LabelView.prototype, "width", {
-  get: function() {
+Object.defineProperty(LabelView.prototype, 'width', {
+  get: function () {
     return this.metrics.width
-  },
+  }
 })
 
 LabelView.metricsCache = {}
 LabelView.toMeasure = []
 
-LabelView.prototype.measure = function() {
+LabelView.prototype.measure = function () {
   var value = this.value
-  var cls = "sb3-" + this.cls
+  var cls = 'sb3-' + this.cls
   this.el = SVG.text(0, 13, value, {
-    class: "sb3-label " + cls,
+    class: 'sb3-label ' + cls
   })
 
   var cache = LabelView.metricsCache[cls]
@@ -59,7 +59,7 @@ LabelView.prototype.measure = function() {
   }
 }
 
-LabelView.measure = function(value, font) {
+LabelView.measure = function (value, font) {
   var context = LabelView.measuring
   context.font = font
   var textMetrics = context.measureText(value)
@@ -69,21 +69,21 @@ LabelView.measure = function(value, font) {
 
 /* Icon */
 
-var IconView = function(icon) {
+var IconView = function (icon) {
   Object.assign(this, icon)
 
   const info = IconView.icons[this.name]
   if (!info) {
-    throw new Error("no info for icon: " + this.name)
+    throw new Error('no info for icon: ' + this.name)
   }
   Object.assign(this, info)
 }
 IconView.prototype.isIcon = true
 
-IconView.prototype.draw = function() {
-  return SVG.symbol("#sb3-" + this.name, {
+IconView.prototype.draw = function () {
+  return SVG.symbol('#sb3-' + this.name, {
     width: this.width,
-    height: this.height,
+    height: this.height
   })
 }
 
@@ -102,64 +102,64 @@ IconView.icons = {
   wedoBlock: { width: 40, height: 40 },
   ev3Block: { width: 40, height: 40 },
   microbitBlock: { width: 40, height: 40 },
-  makeymakeyBlock: { width: 40, height: 40 },
+  makeymakeyBlock: { width: 40, height: 40 }
 }
 
 /* Line */
 
-var LineView = function() {
+var LineView = function () {
   this.width = 1
   this.height = 40
   this.x = 0
 }
 LineView.prototype.isLine = true
 
-LineView.prototype.measure = function() {}
+LineView.prototype.measure = function () {}
 
-LineView.prototype.draw = function(parent) {
+LineView.prototype.draw = function (parent) {
   var category = parent.info.category
-  return SVG.el("line", {
-    class: "sb3-" + category + "-line",
-    "stroke-linecap": "round",
+  return SVG.el('line', {
+    class: 'sb3-' + category + '-line',
+    'stroke-linecap': 'round',
     x1: 0,
     y1: 0,
     x2: 0,
-    y2: 40,
+    y2: 40
   })
 }
 
 /* Input */
 
-var InputView = function(input) {
+var InputView = function (input) {
   Object.assign(this, input)
   if (input.label) {
     this.label = newView(input.label)
   }
-  this.isBoolean = this.shape === "boolean"
-  this.isDropdown = this.shape === "dropdown"
+  this.isBoolean = this.shape === 'boolean'
+  this.isDropdown = this.shape === 'dropdown'
   this.isRound = !(this.isBoolean || this.isDropdown)
 
   this.x = 0
 }
 InputView.prototype.isInput = true
 
-InputView.prototype.measure = function() {
+InputView.prototype.measure = function () {
   if (this.hasLabel) this.label.measure()
 }
 
 InputView.shapes = {
   string: SVG.pillRect,
   number: SVG.pillRect,
-  "number-dropdown": SVG.pillRect,
+  'number-dropdown': SVG.pillRect,
   color: SVG.pillRect,
   dropdown: SVG.roundRect,
 
   boolean: SVG.pointedRect,
   stack: SVG.stackRect,
-  reporter: SVG.pillRect,
+  reporter: SVG.pillRect
 }
 
-InputView.prototype.draw = function(parent) {
+InputView.prototype.draw = function (parent) {
   var labelX = 11
   if (this.isBoolean) {
     var w = 48
@@ -183,42 +183,42 @@ InputView.prototype.draw = function(parent) {
   var el = InputView.shapes[this.shape](w, h)
   SVG.setProps(el, {
     class: [
-      this.isColor ? "" : "sb3-" + parent.info.category,
-      "sb3-input",
-      "sb3-input-" + this.shape,
-    ].join(" "),
+      this.isColor ? '' : 'sb3-' + parent.info.category,
+      'sb3-input',
+      'sb3-input-' + this.shape
+    ].join(' ')
   })
 
   if (this.isColor) {
     SVG.setProps(el, {
-      fill: this.value,
+      fill: this.value
     })
-  } else if (this.shape === "dropdown") {
+  } else if (this.shape === 'dropdown') {
     // custom colors
     if (parent.info.color) {
       SVG.setProps(el, {
         fill: parent.info.color,
-        stroke: "rgba(0, 0, 0, 0.2)",
+        stroke: 'rgba(0, 0, 0, 0.2)'
       })
     }
-  } else if (this.shape === "number-dropdown") {
-    el.classList.add("sb3-" + parent.info.category + "-alt")
+  } else if (this.shape === 'number-dropdown') {
+    el.classList.add('sb3-' + parent.info.category + '-alt')
 
     // custom colors
     if (parent.info.color) {
       SVG.setProps(el, {
-        fill: "rgba(0, 0, 0, 0.1)",
-        stroke: "rgba(0, 0, 0, 0.15)", // combines with fill...
+        fill: 'rgba(0, 0, 0, 0.1)',
+        stroke: 'rgba(0, 0, 0, 0.15)' // combines with fill...
       })
     }
-  } else if (this.shape === "boolean") {
-    el.classList.remove("sb3-" + parent.info.category)
-    el.classList.add("sb3-" + parent.info.category + "-dark")
+  } else if (this.shape === 'boolean') {
+    el.classList.remove('sb3-' + parent.info.category)
+    el.classList.add('sb3-' + parent.info.category + '-dark')
 
     // custom colors
     if (parent.info.color) {
       SVG.setProps(el, {
-        fill: "rgba(0, 0, 0, 0.15)",
+        fill: 'rgba(0, 0, 0, 0.15)'
       })
     }
   }
@@ -229,7 +229,7 @@ InputView.prototype.draw = function(parent) {
   }
   if (this.hasArrow) {
     result.appendChild(
-      SVG.move(w - 24, 13, SVG.symbol("#sb3-dropdownArrow", {}))
+      SVG.move(w - 24, 13, SVG.symbol('#sb3-dropdownArrow', {}))
     )
   }
   return result
@@ -237,7 +237,7 @@ InputView.prototype.draw = function(parent) {
 
 /* Block */
 
-var BlockView = function(block) {
+var BlockView = function (block) {
   Object.assign(this, block)
   this.children = block.children.map(newView)
   this.comment = this.comment ? newView(this.comment) : null
@@ -246,32 +246,32 @@ var BlockView = function(block) {
   // Avoid accidental mutation
   this.info = Object.assign({}, block.info)
   switch (this.info.category) {
-    case "music":
+    case 'music':
       this.children.unshift(new LineView())
-      this.children.unshift(new IconView({ name: "musicBlock" }))
-      this.info.category = "extension"
+      this.children.unshift(new IconView({ name: 'musicBlock' }))
+      this.info.category = 'extension'
       break
-    case "pen":
+    case 'pen':
       this.children.unshift(new LineView())
-      this.children.unshift(new IconView({ name: "penBlock" }))
-      this.info.category = "extension"
+      this.children.unshift(new IconView({ name: 'penBlock' }))
+      this.info.category = 'extension'
       break
-    case "video":
+    case 'video':
       this.children.unshift(new LineView())
-      this.children.unshift(new IconView({ name: "videoBlock" }))
-      this.info.category = "extension"
+      this.children.unshift(new IconView({ name: 'videoBlock' }))
+      this.info.category = 'extension'
       break
-    case "tts":
-    case "translate":
-    case "wedo":
-    case "ev3":
-    case "microbit":
-    case "makeymakey":
+    case 'tts':
+    case 'translate':
+    case 'wedo':
+    case 'ev3':
+    case 'microbit':
+    case 'makeymakey':
       this.children.unshift(new LineView())
       this.children.unshift(
-        new IconView({ name: this.info.category + "Block" })
+        new IconView({ name: this.info.category + 'Block' })
       )
-      this.info.category = "extension"
+      this.info.category = 'extension'
       break
   }
 
@@ -283,7 +283,7 @@ var BlockView = function(block) {
 }
 BlockView.prototype.isBlock = true
 
-BlockView.prototype.measure = function() {
+BlockView.prototype.measure = function () {
   for (var i = 0; i < this.children.length; i++) {
     var child = this.children[i]
     if (child.measure) child.measure()
@@ -293,8 +293,8 @@ BlockView.prototype.measure = function() {
 
 BlockView.shapes = {
   stack: SVG.stackRect,
-  "c-block": SVG.stackRect,
-  "if-block": SVG.stackRect,
+  'c-block': SVG.stackRect,
+  'if-block': SVG.stackRect,
   celse: SVG.stackRect,
   cend: SVG.stackRect,
 
@@ -302,25 +302,25 @@ BlockView.shapes = {
   reporter: SVG.pillRect,
   boolean: SVG.pointedRect,
   hat: SVG.hatRect,
-  "define-hat": SVG.procHatRect,
-  ring: SVG.pillRect,
+  'define-hat': SVG.procHatRect,
+  ring: SVG.pillRect
 }
 
-BlockView.prototype.drawSelf = function(w, h, lines) {
+BlockView.prototype.drawSelf = function (w, h, lines) {
   // mouths
   if (lines.length > 1) {
     return SVG.mouthRect(w, h, this.isFinal, lines, {
-      class: ["sb3-" + this.info.category].join(" "),
+      class: ['sb3-' + this.info.category].join(' ')
     })
   }
 
   // outlines
-  if (this.info.shape === "outline") {
+  if (this.info.shape === 'outline') {
     return SVG.setProps(SVG.stackRect(w, h), {
       class: [
-        "sb3-" + this.info.category,
-        "sb3-" + this.info.category + "-alt",
-      ].join(" "),
+        'sb3-' + this.info.category,
+        'sb3-' + this.info.category + '-alt'
+      ].join(' ')
     })
   }
 
@@ -329,30 +329,30 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
     var child = this.children[0]
     if (child && (child.isInput || child.isBlock || child.isScript)) {
       var shape = child.isScript
-        ? "stack"
+        ? 'stack'
         : child.isInput ? child.shape : child.info.shape
       return SVG.roundRect(w, h, {
-        class: ["sb3-" + this.info.category].join(" "),
+        class: ['sb3-' + this.info.category].join(' ')
       })
     }
   }
 
   var func = BlockView.shapes[this.info.shape]
   if (!func) {
-    throw new Error("no shape func: " + this.info.shape)
+    throw new Error('no shape func: ' + this.info.shape)
   }
   return func(w, h, {
-    class: ["sb3-" + this.info.category].join(" "),
+    class: ['sb3-' + this.info.category].join(' ')
   })
 }
 
 BlockView.padding = {
   hat: [24, 8],
-  "define-hat": [20, 16],
-  null: [4, 4],
+  'define-hat': [20, 16],
+  null: [4, 4]
 }
 
-BlockView.prototype.horizontalPadding = function(child) {
+BlockView.prototype.horizontalPadding = function (child) {
   if (this.isRound) {
     if (child.isIcon) {
       return 16
@@ -383,7 +383,7 @@ BlockView.prototype.horizontalPadding = function(child) {
   return 8 // default: 2 units
 }
 
-BlockView.prototype.marginBetween = function(a, b) {
+BlockView.prototype.marginBetween = function (a, b) {
   // Consecutive labels should be rendered as a single text element.
   // For now, approximate the size of one space
   if (a.isLabel && b.isLabel) {
@@ -393,18 +393,18 @@ BlockView.prototype.marginBetween = function(a, b) {
   return 8 // default: 2 units
 }
 
-BlockView.prototype.draw = function() {
-  var isDefine = this.info.shape === "define-hat"
+BlockView.prototype.draw = function () {
+  var isDefine = this.info.shape === 'define-hat'
   var children = this.children
   var isCommand = this.isCommand
 
   var padding = BlockView.padding[this.info.shape] || BlockView.padding[null]
-  var pt = padding[0],
-    pb = padding[1]
+  var pt = padding[0]
+  var pb = padding[1]
 
   var _this = this
   var y = 0
-  var Line = function(y) {
+  var Line = function (y) {
     this.y = y
     this.width = 0
     this.height = isCommand ? 40 : 32
@@ -414,7 +414,7 @@ BlockView.prototype.draw = function() {
   var innerWidth = 0
   var scriptWidth = 0
   var line = new Line(y)
-  function pushLine() {
+  function pushLine () {
     if (lines.length === 0) {
       line.height += pt + pb
     } else {
@@ -427,12 +427,12 @@ BlockView.prototype.draw = function() {
 
   if (this.info.isRTL) {
     var start = 0
-    var flip = function() {
+    var flip = function () {
       children = children
         .slice(0, start)
         .concat(children.slice(start, i).reverse())
         .concat(children.slice(i))
-    }.bind(this)
+    }
     for (var i = 0; i < children.length; i++) {
       if (children[i].isScript) {
         flip()
@@ -568,7 +568,7 @@ BlockView.prototype.draw = function() {
   if (this.info.color) {
     SVG.setProps(el, {
       fill: this.info.color,
-      stroke: "rgba(0, 0, 0, 0.2)",
+      stroke: 'rgba(0, 0, 0, 0.2)'
     })
   }
 
@@ -577,7 +577,7 @@ BlockView.prototype.draw = function() {
 
 /* Comment */
 
-var CommentView = function(comment) {
+var CommentView = function (comment) {
   Object.assign(this, comment)
   this.label = newView(comment.label)
 
@@ -588,26 +588,26 @@ CommentView.prototype.isComment = true
 CommentView.lineLength = 12
 CommentView.prototype.height = 20
 
-CommentView.prototype.measure = function() {
+CommentView.prototype.measure = function () {
   this.label.measure()
 }
 
-CommentView.prototype.draw = function() {
+CommentView.prototype.draw = function () {
   var labelEl = this.label.draw()
 
   this.width = this.label.width + 16
   return SVG.group([
     SVG.commentLine(this.hasBlock ? CommentView.lineLength : 0, 6),
     SVG.commentRect(this.width, this.height, {
-      class: "sb3-comment",
+      class: 'sb3-comment'
     }),
-    SVG.move(8, 4, labelEl),
+    SVG.move(8, 4, labelEl)
   ])
 }
 
 /* Glow */
 
-var GlowView = function(glow) {
+var GlowView = function (glow) {
   Object.assign(this, glow)
   this.child = newView(glow.child)
 
@@ -617,11 +617,11 @@ var GlowView = function(glow) {
 }
 GlowView.prototype.isGlow = true
 
-GlowView.prototype.measure = function() {
+GlowView.prototype.measure = function () {
   this.child.measure()
 }
 
-GlowView.prototype.drawSelf = function() {
+GlowView.prototype.drawSelf = function () {
   var c = this.child
   var el
   var w = this.width
@@ -638,12 +638,12 @@ GlowView.prototype.drawSelf = function() {
     var el = c.drawSelf(w, h, [])
   }
   return SVG.setProps(el, {
-    class: "sb3-diff sb3-diff-ins",
+    class: 'sb3-diff sb3-diff-ins'
   })
 }
 // TODO how can we always raise Glows above their parents?
 
-GlowView.prototype.draw = function() {
+GlowView.prototype.draw = function () {
   var c = this.child
   var el = c.isScript ? c.draw(true) : c.draw()
 
@@ -656,7 +656,7 @@ GlowView.prototype.draw = function() {
 
 /* Script */
 
-var ScriptView = function(script) {
+var ScriptView = function (script) {
   Object.assign(this, script)
   this.blocks = script.blocks.map(newView)
 
@@ -664,13 +664,13 @@ var ScriptView = function(script) {
 }
 ScriptView.prototype.isScript = true
 
-ScriptView.prototype.measure = function() {
+ScriptView.prototype.measure = function () {
   for (var i = 0; i < this.blocks.length; i++) {
     this.blocks[i].measure()
   }
 }
 
-ScriptView.prototype.draw = function(inside) {
+ScriptView.prototype.draw = function (inside) {
   var children = []
   var y = 1
   this.width = 0
@@ -682,7 +682,7 @@ ScriptView.prototype.draw = function(inside) {
     this.width = Math.max(this.width, block.width)
 
     var diff = block.diff
-    if (diff === "-") {
+    if (diff === '-') {
       var dw = block.width
       var dh = block.firstLine.height || block.height
       children.push(SVG.move(x, y + dh / 2 + 1, SVG.strikethroughLine(dw)))
@@ -713,7 +713,7 @@ ScriptView.prototype.draw = function(inside) {
 
 /* Document */
 
-var DocumentView = function(doc) {
+var DocumentView = function (doc) {
   Object.assign(this, doc)
   this.scripts = doc.scripts.map(newView)
 
@@ -723,15 +723,15 @@ var DocumentView = function(doc) {
   this.defs = null
 }
 
-DocumentView.prototype.measure = function() {
-  this.scripts.forEach(function(script) {
+DocumentView.prototype.measure = function () {
+  this.scripts.forEach(function (script) {
     script.measure()
   })
 }
 
-DocumentView.prototype.render = function(cb) {
-  if (typeof ocbptions === "function") {
-    throw new Error("render() no longer takes a callback")
+DocumentView.prototype.render = function (cb) {
+  if (typeof ocbptions === 'function') {
+    throw new Error('render() no longer takes a callback')
   }
 
   // measure strings
@@ -755,7 +755,7 @@ DocumentView.prototype.render = function(cb) {
 
   // return SVG
   var svg = SVG.newSVG(width, height)
-  svg.appendChild((this.defs = SVG.withChildren(SVG.el("defs"), makeIcons())))
+  svg.appendChild((this.defs = SVG.withChildren(SVG.el('defs'), makeIcons())))
 
   svg.appendChild(SVG.group(elements))
   this.el = svg
@@ -763,9 +763,9 @@ DocumentView.prototype.render = function(cb) {
 }
 
 /* Export SVG image as XML string */
-DocumentView.prototype.exportSVGString = function() {
+DocumentView.prototype.exportSVGString = function () {
   if (this.el == null) {
-    throw new Error("call draw() first")
+    throw new Error('call draw() first')
   }
 
   var style = makeStyle()
@@ -776,22 +776,22 @@ DocumentView.prototype.exportSVGString = function() {
 }
 
 /* Export SVG image as data URI */
-DocumentView.prototype.exportSVG = function() {
+DocumentView.prototype.exportSVG = function () {
   var xml = this.exportSVGString()
-  return "data:image/svg+xml;utf8," + xml.replace(/[#]/g, encodeURIComponent)
+  return 'data:image/svg+xml;utf8,' + xml.replace(/[#]/g, encodeURIComponent)
 }
 
-DocumentView.prototype.toCanvas = function(cb, scale) {
+DocumentView.prototype.toCanvas = function (cb, scale) {
   scale = scale || 1.0
 
   var canvas = SVG.makeCanvas()
   canvas.width = this.width * scale
   canvas.height = this.height * scale
-  var context = canvas.getContext("2d")
+  var context = canvas.getContext('2d')
 
   var image = new Image()
   image.src = this.exportSVG()
-  image.onload = function() {
+  image.onload = function () {
     context.save()
     context.scale(scale, scale)
     context.drawImage(image, 0, 0)
@@ -801,14 +801,14 @@ DocumentView.prototype.toCanvas = function(cb, scale) {
   }
 }
 
-DocumentView.prototype.exportPNG = function(cb, scale) {
-  this.toCanvas(function(canvas) {
+DocumentView.prototype.exportPNG = function (cb, scale) {
+  this.toCanvas(function (canvas) {
     if (URL && URL.createObjectURL && Blob && canvas.toBlob) {
-      var blob = canvas.toBlob(function(blob) {
+      var blob = canvas.toBlob(function (blob) {
         cb(URL.createObjectURL(blob))
-      }, "image/png")
+      }, 'image/png')
     } else {
-      cb(canvas.toDataURL("image/png"))
+      cb(canvas.toDataURL('image/png'))
     }
   }, scale)
 }
@@ -834,7 +834,7 @@ const viewFor = node => {
     case Document:
       return DocumentView
     default:
-      throw new Error("no view for " + node.constructor.name)
+      throw new Error('no view for ' + node.constructor.name)
   }
 }
 
@@ -842,5 +842,5 @@ const newView = node => new (viewFor(node))(node)
 
 module.exports = {
   newView,
-  LabelView,
+  LabelView
 }

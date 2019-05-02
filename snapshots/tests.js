@@ -1,8 +1,8 @@
-const { test } = require("./runner")
+const { test } = require('./runner')
 
 test(
-  "scratch2",
-  "motion",
+  'scratch2',
+  'motion',
   `
 
 // Motion
@@ -39,8 +39,8 @@ set rotation style [left-right v]
 )
 
 test(
-  "scratch2",
-  "looks",
+  'scratch2',
+  'looks',
   `
 
 // Looks
@@ -82,8 +82,8 @@ next backdrop
 )
 
 test(
-  "scratch2",
-  "sound",
+  'scratch2',
+  'sound',
   `
 
 // Sound
@@ -110,8 +110,8 @@ set tempo to (60) bpm
 )
 
 test(
-  "scratch2",
-  "pen",
+  'scratch2',
+  'pen',
   `
 
 // Pen
@@ -137,8 +137,8 @@ set pen size to (1)
 )
 
 test(
-  "scratch2",
-  "data",
+  'scratch2',
+  'data',
   `
 
 // Variables
@@ -167,8 +167,8 @@ hide list [list v]
 )
 
 test(
-  "scratch2",
-  "events",
+  'scratch2',
+  'events',
   `
 
 // Events
@@ -191,8 +191,8 @@ broadcast [message1 v] and wait
 )
 
 test(
-  "scratch2",
-  "control",
+  'scratch2',
+  'control',
   `
 
 // Control
@@ -237,8 +237,8 @@ delete this clone
 )
 
 test(
-  "scratch2",
-  "sensing",
+  'scratch2',
+  'sensing',
   `
 
 // Sensing
@@ -277,8 +277,8 @@ reset timer
 )
 
 test(
-  "scratch2",
-  "operators",
+  'scratch2',
+  'operators',
   `
 
 // Operators
@@ -313,8 +313,8 @@ test(
 )
 
 test(
-  "scratch2",
-  "extensions",
+  'scratch2',
+  'extensions',
   `
 
 // PicoBoard
@@ -375,8 +375,8 @@ when tilted
 )
 
 test(
-  "scratch2",
-  "obsolete",
+  'scratch2',
+  'obsolete',
   `
 
 // Obsolete Scratch 1.4 blocks:
@@ -429,8 +429,8 @@ when Sprite1 clicked
 /*****************************************************************************/
 
 test(
-  "scratch3",
-  "motion",
+  'scratch3',
+  'motion',
   `
 
 // Motion
@@ -463,8 +463,8 @@ set rotation style [left-right v]
 )
 
 test(
-  "scratch3",
-  "looks",
+  'scratch3',
+  'looks',
   `
 
 // Looks
@@ -500,8 +500,8 @@ go [forward v] (1) layers
 )
 
 test(
-  "scratch3",
-  "sound",
+  'scratch3',
+  'sound',
   `
 
 // Sound
@@ -523,8 +523,8 @@ volume
 )
 
 test(
-  "scratch3",
-  "events",
+  'scratch3',
+  'events',
   `
 
 // Events
@@ -544,8 +544,8 @@ broadcast (message1 v) and wait
 )
 
 test(
-  "scratch3",
-  "control",
+  'scratch3',
+  'control',
   `
 
 // Control
@@ -580,8 +580,8 @@ delete this clone
 )
 
 test(
-  "scratch3",
-  "sensing",
+  'scratch3',
+  'sensing',
   `
 
 // Sensing
@@ -619,8 +619,8 @@ reset timer
 )
 
 test(
-  "scratch3",
-  "operators",
+  'scratch3',
+  'operators',
   `
 
 // Operators
@@ -654,8 +654,8 @@ test(
 )
 
 test(
-  "scratch3",
-  "variables",
+  'scratch3',
+  'variables',
   `
 
 // Variables
@@ -689,8 +689,8 @@ hide list [list v]
 )
 
 test(
-  "scratch3",
-  "custom",
+  'scratch3',
+  'custom',
   `
 
 // Custom
@@ -703,8 +703,8 @@ define foo (num) if <bool>
 )
 
 test(
-  "scratch3",
-  "pen",
+  'scratch3',
+  'pen',
   `
 
 // Pen
@@ -728,8 +728,8 @@ set pen size to (1)
 )
 
 test(
-  "scratch3",
-  "music",
+  'scratch3',
+  'music',
   `
 
 // Music
@@ -746,8 +746,8 @@ change tempo by (20)
 )
 
 test(
-  "scratch3",
-  "video",
+  'scratch3',
+  'video',
   `
 
 // Video
@@ -761,8 +761,8 @@ set video transparency to (50)
 )
 
 test(
-  "scratch3",
-  "extensions",
+  'scratch3',
+  'extensions',
   `
 // Text to Speech
 
