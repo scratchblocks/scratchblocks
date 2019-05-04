@@ -437,7 +437,15 @@ describe('translate', () => {
     expect(b.stringify()).toEqual('turn cw (45) degrees')
   })
 
-  // TODO define
+  test('c blocks', () => {
+    const b = parseBlock('forever\nmove (10) steps\nend')
+    b.translate(allLanguages.de)
+    expect(b.stringify()).toEqual('wiederhole fortlaufend \n  gehe (10) er Schritt\nend')
+  })
+
+  // TODO test define
+
+  // TODO translate end
 })
 
 // TODO test { } handling

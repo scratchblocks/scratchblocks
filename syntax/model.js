@@ -220,21 +220,28 @@ Block.prototype.translate = function(lang, isShallow) {
   if (!nativeSpec) return
   var nativeInfo = parseSpec(nativeSpec)
 
-  // Work out indexes of existing children
   var rawArgs = this.children.filter(function(child) {
     return !child.isLabel && !child.isIcon
   })
+
+  if (!isShallow) {
+    rawArgs.forEach(function(child) {
+      child.translate(lang)
+    })
+  }
+
+  // Work out indexes of existing children
   var oldParts = parseSpec(oldSpec).parts
   var oldInputOrder = oldParts
     .map(part => parseInputNumber(part))
     .filter(x => !!x)
-  var args = oldInputOrder.map(number => rawArgs[number - 1])
 
-  if (!isShallow) {
-    args.forEach(function(child) {
-      child.translate(lang)
-    })
-  }
+  var highestNumber = 0
+  var args = oldInputOrder.map(number => {
+    highestNumber = Math.max(highestNumber, number)
+    return rawArgs[number - 1]
+  })
+  var remainingArgs = rawArgs.slice(highestNumber)
 
   // Get new children by index
   this.children = nativeInfo.parts
@@ -250,10 +257,11 @@ Block.prototype.translate = function(lang, isShallow) {
     })
     .filter(x => !!x)
 
-  // Push any remaining children??
-  // args.forEach(arg => {
-  //   this.children.push(arg)
-  // })
+  // Push any remaining children, so we pick up C block bodies
+  remainingArgs.forEach(arg => {
+    this.children.push(arg)
+  })
+
   this.info.language = lang
   this.info.isRTL = rtlLanguages.indexOf(lang.code) > -1
   this.info.categoryIsDefault = true
