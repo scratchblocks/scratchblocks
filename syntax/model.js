@@ -258,7 +258,10 @@ Block.prototype.translate = function(lang, isShallow) {
     .filter(x => !!x)
 
   // Push any remaining children, so we pick up C block bodies
-  remainingArgs.forEach(arg => {
+  remainingArgs.forEach((arg, index) => {
+    if (index === 1 && this.info.id === "CONTROL_IF") {
+      this.children.push(new Label(lang.commands["else"]))
+    }
     this.children.push(arg)
   })
 
