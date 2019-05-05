@@ -2,7 +2,7 @@
 
 const fs = require("fs")
 const util = require("util")
-const fs_writeFile = util.promisify(fs.writeFile)
+const fsWriteFile = util.promisify(fs.writeFile)
 
 const browserify = require("browserify")
 
@@ -32,9 +32,6 @@ function bundleScratchblocks() {
 
 const puppeteer = require("puppeteer")
 
-let browser
-let page
-
 const parseDataUrl = url => {
   const match = url.match(/^data:image\/png;base64,(.+)$/)
   if (!match) {
@@ -57,8 +54,8 @@ class Renderer {
     `
 
     this.browser = await puppeteer.launch({
-      //headless: false,
-      //slowMo: 250,
+      // headless: false,
+      // slowMo: 250,
     })
     this.page = await this.browser.newPage()
 
@@ -76,7 +73,7 @@ class Renderer {
 
   async snapshotToFile(script, options, path) {
     const buffer = await this.snapshot(script, options, this.scale)
-    await fs_writeFile(path, buffer)
+    await fsWriteFile(path, buffer)
   }
 
   async stop() {

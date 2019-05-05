@@ -213,7 +213,7 @@ const buildLocale = (code, dictionary) => {
   )
 
   // Approximate fraction of blocks translated
-  locale.percentTranslated = Math.round(frac / 0.74 * 100)
+  locale.percentTranslated = Math.round((frac / 0.74) * 100)
 
   if (aliases) {
     locale.commands["end"] = aliases["end"]
@@ -258,7 +258,7 @@ const convertFile = async poPath => {
   return [code, locale]
 }
 
-const writeIndex = async (codes) => {
+const writeIndex = async codes => {
   let contents = ""
   contents += "module.exports = {\n"
   for (let code of codes) {

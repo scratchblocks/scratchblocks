@@ -484,8 +484,10 @@ var SVG = (module.exports = {
       shape === "reporter"
         ? SVG.roundedPath
         : shape === "boolean"
-          ? SVG.pointedPath
-          : cw < 40 ? SVG.ringCapPath : SVG.capPath
+        ? SVG.pointedPath
+        : cw < 40
+        ? SVG.ringCapPath
+        : SVG.capPath
     return SVG.path(
       extend(props, {
         path: [

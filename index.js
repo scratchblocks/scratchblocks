@@ -47,19 +47,19 @@ module.exports = function(window) {
   }
 
   function newView(doc, options) {
-    var options = Object.assign(
+    var modifiedOptions = Object.assign(
       {
         style: "scratch2",
       },
       options
     )
-    switch (options.style) {
+    switch (modifiedOptions.style) {
       case "scratch2":
         return scratch2.newView(doc)
       case "scratch3":
         return scratch3.newView(doc)
       default:
-        throw new Error("Unknown style: " + options.style)
+        throw new Error("Unknown style: " + modifiedOptions.style)
     }
   }
 
@@ -74,7 +74,7 @@ module.exports = function(window) {
 
   /*****************************************************************************/
 
-  /*** Render ***/
+  /** * Render ***/
 
   // read code from a DOM element
   function readCode(el, options) {
