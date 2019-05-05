@@ -134,8 +134,8 @@ function parseLines(code, languages) {
         shape === "define-hat"
           ? "custom"
           : shape === "reporter" && !hasInputs
-            ? "variables"
-            : "obsolete",
+          ? "variables"
+          : "obsolete",
       categoryIsDefault: true,
       hasLoopArrow: false,
     }
@@ -759,7 +759,6 @@ function recogniseStuff(scripts) {
         if (input && input.isInput) {
           listNames[input.value] = true
         }
-
       }
     })
   })
