@@ -3,9 +3,13 @@ const { parse, loadLanguages, allLanguages } = require('../syntax')
 
 loadLanguages({
   de: require('../locales/de'),
+  ja: require('../locales/ja'),
 })
 const optionsDe = {
   languages: ['en', 'de'],
+}
+const optionsJa = {
+  languages: ['en', 'ja'],
 }
 
 function getScript(doc) {
@@ -44,6 +48,10 @@ describe('blocks with symbols', () => {
     expect(parseBlock('Wenn die grüne Flagge angeklickt', optionsDe).info).toMatchObject(flag)
     expect(parseBlock('Wenn ⚑ angeklickt wird', optionsDe).info).toMatchObject(flag)
     expect(parseBlock('Wenn @greenFlag angeklickt wird', optionsDe).info).toMatchObject(flag)
+  })
+
+  test('when flag clicked: ja', () => {
+    expect(parseBlock('⚑ が押されたとき', optionsJa).info).toMatchObject(flag)
   })
 
   const turnLeft = {  
@@ -449,6 +457,17 @@ describe('translate', () => {
     expect(b.stringify()).toEqual('falls <> , dann \n  hinterlasse Abdruck\nsonst \n  lösche alles\nend')
   })
 
+  test('when flag clicked: en -> de', () => {
+    const b = parseBlock('when flag clicked')
+    b.translate(allLanguages.de)
+    expect(b.stringify()).toEqual('Wenn die grüne Flagge angeklickt')
+  })
+
+  test('when flag clicked: en -> ja', () => {
+    const b = parseBlock('when flag clicked')
+    b.translate(allLanguages.ja)
+    expect(b.stringify()).toEqual('⚑ が押されたとき')
+  })
 
   // TODO test define
 
