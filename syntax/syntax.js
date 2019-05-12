@@ -64,8 +64,10 @@ function paintBlock(info, children, languages) {
       info.shape = type.shape
     }
     info.category = type.category
-    info.categoryIsDefault = false
-    if (type.selector) info.selector = type.selector // for toJSON
+    info.categoryIsDefault = true
+    // store selector, used for translation among other things
+    if (type.selector) info.selector = type.selector
+    if (type.id) info.id = type.id
     info.hasLoopArrow = type.hasLoopArrow
 
     // ellipsis block
@@ -133,9 +135,7 @@ function parseLines(code, languages) {
       category:
         shape === "define-hat"
           ? "custom"
-          : shape === "reporter" && !hasInputs
-            ? "variables"
-            : "obsolete",
+          : shape === "reporter" && !hasInputs ? "variables" : "obsolete",
       categoryIsDefault: true,
       hasLoopArrow: false,
     }
@@ -726,16 +726,11 @@ function recogniseStuff(scripts) {
           spec: spec,
           names: names,
         })
+        block.info.id = "PROCEDURES_DEFINITION"
         block.info.selector = "procDef"
         block.info.call = info.spec
         block.info.names = info.names
         block.info.category = "custom"
-
-        // fix up if/else selectors
-      } else if (block.info.selector === "doIfElse") {
-        var last2 = block.children[block.children.length - 2]
-        block.info.selector =
-          last2 && last2.isLabel && last2.value === "else" ? "doIfElse" : "doIf"
 
         // custom arguments
       } else if (
@@ -759,7 +754,6 @@ function recogniseStuff(scripts) {
         if (input && input.isInput) {
           listNames[input.value] = true
         }
-
       }
     })
   })
@@ -835,7 +829,9 @@ function parse(code, options) {
   }
 
   var languages = options.languages.map(function(code) {
-    return allLanguages[code]
+    var lang = allLanguages[code]
+    if (!lang) throw new Error("Unknown language: '" + code + "'")
+    return lang
   })
 
   /* * */

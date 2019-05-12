@@ -5,31 +5,41 @@ const readDir = promisify(fs.readdir)
 const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 
-const PO = require("pofile")
 const scratchCommands = require("../syntax/commands")
+const blocks = require("../syntax/blocks")
 const extraAliases = require("./extra_aliases")
 
-const localePath =
-  "node_modules/scratchr2_translations/legacy/editor/static/locale/"
-const soundEffects = ["pitch", "pan left/right"]
-const osis = ["other scripts in sprite", "other scripts in stage"]
-const scratchSelectors = scratchCommands.map(block => block[0])
+const localeNames = require("scratch-l10n").default
+
+let english
+const rawLocales = []
+for (let code in localeNames) {
+  const raw = {
+    code: code,
+    mappings: require("scratch-l10n/editor/blocks/" + code),
+    extensionMappings: require("scratch-l10n/editor/extensions/" + code),
+  }
+  if (code === "en") {
+    english = raw
+  } else {
+    rawLocales.push(raw)
+  }
+}
+
+const soundEffects = ["SOUND_EFFECTS_PITCH", "SOUND_EFFECTS_PAN"]
+const osis = ["CONTROL_STOP_OTHER"]
+const scratchSpecs = scratchCommands.map(block => block.spec)
+
 const palette = [
-  "Motion",
-  "Looks",
-  "Sound",
-  "Pen",
-  "Data",
-  "variables",
-  "variable",
-  "lists",
-  "list",
-  "Events",
-  "Control",
-  "Sensing",
-  "Operators",
-  "More Blocks",
-  "Tips",
+  "CATEGORY_MOTION",
+  "CATEGORY_LOOKS",
+  "CATEGORY_SOUND",
+  "CATEGORY_EVENTS",
+  "CATEGORY_CONTROL",
+  "CATEGORY_SENSING",
+  "CATEGORY_OPERATORS",
+  "CATEGORY_VARIABLES",
+  "CATEGORY_MYBLOCKS",
 ]
 
 const forumLangs = [
@@ -53,99 +63,21 @@ const forumLangs = [
 ]
 
 const mathFuncs = [
-  "abs",
-  "floor",
-  "ceiling",
-  "sqrt",
-  "sin",
-  "cos",
-  "tan",
-  "asin",
-  "acos",
-  "atan",
-  "ln",
-  "log",
-  "e ^",
-  "10 ^",
+  "OPERATORS_MATHOP_ABS",
+  "OPERATORS_MATHOP_FLOOR",
+  "OPERATORS_MATHOP_CEILING",
+  "OPERATORS_MATHOP_SQRT",
+  "OPERATORS_MATHOP_SIN",
+  "OPERATORS_MATHOP_COS",
+  "OPERATORS_MATHOP_TAN",
+  "OPERATORS_MATHOP_ASIN",
+  "OPERATORS_MATHOP_ACOS",
+  "OPERATORS_MATHOP_ATAN",
+  "OPERATORS_MATHOP_LN",
+  "OPERATORS_MATHOP_LOG",
+  "OPERATORS_MATHOP_EEXP",
+  "OPERATORS_MATHOP_10EXP",
 ]
-
-const dropdownValues = [
-  "A connected",
-  "all",
-  "all around",
-  "all motors",
-  "B connected",
-  "brightness",
-  "button pressed",
-  "C connected",
-  "color",
-  "costume name",
-  "D connected",
-  "date",
-  "day of week",
-  "don't rotate",
-  "down arrow",
-  "edge",
-  "everything",
-  "fisheye",
-  "ghost",
-  "hour",
-  "left arrow",
-  "left-right",
-  "light",
-  "lights",
-  "minute",
-  "month",
-  "mosaic",
-  "motion",
-  "motor",
-  "motor A",
-  "motor B",
-  "mouse-pointer",
-  "myself",
-  "not =",
-  "off",
-  "on",
-  "on-flipped",
-  "other scripts in sprite",
-  "pixelate",
-  "previous backdrop",
-  "random position",
-  "resistance-A",
-  "resistance-B",
-  "resistance-C",
-  "resistance-D",
-  "reverse",
-  "right arrow",
-  "second",
-  "slider",
-  "sound",
-  "space",
-  "Stage",
-  "that way",
-  "this script",
-  "this sprite",
-  "this way",
-  "up arrow",
-  "video motion",
-  "whirl",
-  "year",
-]
-
-const poToDict = po => {
-  const dictionary = {}
-  for (let item of po.items) {
-    const english = item.msgid
-    const result = item.msgstr[0]
-    dictionary[english] = result
-  }
-  return dictionary
-}
-
-const parseFile = async poPath => {
-  const contents = await readFile(poPath, "utf-8")
-  return PO.parse(contents)
-}
 
 const writeJSON = async (outputPath, obj) => {
   const contents = JSON.stringify(obj, null, "  ")
@@ -160,54 +92,73 @@ const reverseDict = d => {
   return o
 }
 
-const lookupEachIn = dictionary => items => {
+const translateKey = (raw, key) => {
+  const result = raw.mappings[key] || raw.extensionMappings[key]
+  const englishResult = english.mappings[key] || english.extensionMappings[key]
+  if (!englishResult) {
+    throw new Error("Unknown key: '" + key + "'")
+  }
+  if (!result) return
+  //if (result === englishResult) return
+  return fixup(key, result, englishResult)
+}
+
+const lookupEachIn = raw => items => {
   const output = []
-  for (let text of items) {
-    const result = dictionary[text]
-    if (result && result !== text) {
-      output.push(dictionary[text])
-    }
+  for (let key of items) {
+    const result = translateKey(raw, key)
+    if (!result) continue
+    output.push(result)
   }
   return output
 }
 
-const translateEachIn = dictionary => items => {
+const translateEachIn = raw => items => {
   const output = {}
-  for (let text of items) {
-    const result = dictionary[text]
-    if (result && result !== text) {
-      output[text] = dictionary[text]
-    }
+  for (let key of items) {
+    const result = translateKey(raw, key)
+    const englishResult = english.mappings[key]
+    if (!result) continue
+    output[englishResult] = result
   }
   return output
 }
 
-const buildLocale = (code, dictionary) => {
-  const lookup = k => dictionary[k] || ""
-  const listFor = lookupEachIn(dictionary)
-  const dictionaryWith = translateEachIn(dictionary)
+const buildLocale = (code, rawLocale) => {
+  const listFor = lookupEachIn(rawLocale)
+  const dictionaryWith = translateEachIn(rawLocale)
 
   const aliases = extraAliases[code]
 
   const locale = {
-    commands: dictionaryWith(scratchSelectors),
+    commands: {},
+    dropdowns: {},
     ignorelt: [],
-    dropdowns: dictionaryWith(dropdownValues), // used for translate()
     soundEffects: listFor(soundEffects),
     osis: listFor(osis),
-    define: listFor(["define"]),
+    define: listFor(["PROCEDURES_DEFINITION"]),
     palette: dictionaryWith(palette), // used for forum menu
     math: listFor(mathFuncs),
     aliases: aliases || {},
 
-    name: dictionary["Language-Name"],
+    name: localeNames[code].name,
+  }
+
+  for (let command of scratchCommands) {
+    if (!command.id) continue
+    if (/^sb2:/.test(command.id)) continue
+    if (/^scratchblocks:/.test(command.id)) continue
+    const result = translateKey(rawLocale, command.id)
+    if (!result) continue
+    locale.commands[command.spec] = result
   }
 
   const commandCount = Object.keys(locale.commands).length
   if (commandCount === 0) {
+    console.log("No blocks: " + localeNames[code].name)
     return
   }
-  const frac = commandCount / scratchSelectors.length
+  const frac = commandCount / scratchSpecs.length
   console.log(
     `${(code + ":").padEnd(8)} ${(frac * 100).toFixed(1).padStart(5)}%`
   )
@@ -219,37 +170,47 @@ const buildLocale = (code, dictionary) => {
     locale.commands["end"] = aliases["end"]
   }
 
-  const whenDistance = lookup("when distance < %n")
-  if (whenDistance.indexOf(" < %n") !== -1) {
-    locale.ignorelt.push(whenDistance.replace(/ \< \%n.*$/))
-  }
-
-  for (let block of scratchCommands) {
-    const selector = block[0]
-    const translation = dictionary[selector]
-    if (!translation || translation === selector) {
-      continue
-    }
-    locale.commands[selector] = translation
-  }
+  // TODO does this block still exist?
+  //const whenDistance = translateKey("when distance < %1")
+  //if (whenDistance.indexOf(" < %1") !== -1) {
+  //locale.ignorelt.push(whenDistance.replace(/ \< \%1.*$/))
+  //}
 
   return locale
 }
 
-const convertFile = async poPath => {
-  const po = await parseFile(poPath)
+const fixup = (key, value, englishValue) => {
+  let number = 0
+  var variables = {}
+  englishValue.replace(/\[[^\]]+\]/g, key => {
+    variables[key] = "%" + ++number
+  })
 
-  const code = po.headers["Language"] || path.basename(poPath, ".po")
-  const dictionary = poToDict(po)
+  value = value.replace(/\[[^\]]+\]/g, key => variables[key])
+  value = value.trim()
+  if (!value) return
 
-  const locale = buildLocale(code, dictionary)
+  switch (key) {
+    case "EVENT_WHENFLAGCLICKED":
+      return value.replace("%1", "@greenFlag")
+    case "MOTION_TURNLEFT":
+      return value.replace("%1", "@turnLeft").replace("%2", "%1")
+    case "MOTION_TURNRIGHT":
+      return value.replace("%1", "@turnRight").replace("%2", "%1")
+    case "PROCEDURES_DEFINITION":
+      return value.replace(/ ?\%1 ?/, "")
+    case "CONTROL_STOP":
+      return value + " %1"
+    default:
+      return value
+  }
+}
+
+const convertFile = async rawLocale => {
+  const code = rawLocale.code
+  const locale = buildLocale(code, rawLocale)
   if (!locale) {
     return
-  }
-
-  const teamMatch = /Language-Team: (.*) \(.*/.exec(po)
-  if (teamMatch) {
-    locale.altName = teamMatch[1]
   }
 
   const outputPath = path.join("locales", `${code}.json`)
@@ -258,7 +219,7 @@ const convertFile = async poPath => {
   return [code, locale]
 }
 
-const writeIndex = async (codes) => {
+const writeIndex = async codes => {
   let contents = ""
   contents += "module.exports = {\n"
   for (let code of codes) {
@@ -271,9 +232,7 @@ const writeIndex = async (codes) => {
 }
 
 const main = async () => {
-  const dir = await readDir(localePath)
-  const fileNames = dir.map(n => path.join(localePath, n))
-  const locales = await Promise.all(fileNames.map(convertFile))
+  const locales = await Promise.all(rawLocales.map(convertFile))
   const validLocales = locales.filter(x => !!x)
 
   // check every extra language was used
