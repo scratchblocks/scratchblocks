@@ -38,8 +38,10 @@ This would probably be a good way to write a Scratch book.
 Include the scratchblocks JS file on your webpage:
 
 ```html
-<script src="https://scratchblocks.github.io/js/scratchblocks-3.x-min.js"></script>
+<script src="https://scratchblocks.github.io/js/scratchblocks-v3.x-min.js"></script>
 ```
+
+`x` must be replaced with a version number. You can see [the list of the available versions](https://github.com/scratchblocks/scratchblocks.github.io/tree/master/js).
 
 Then call `scratchblocks.renderMatching` after the page has loaded, which
 will render matching page elements to shiny scratch blocks. Its sole argument
