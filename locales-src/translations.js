@@ -1,2 +1,2 @@
-var languages = require("../locales/forums")
+const languages = require("../locales/forums")
 window.scratchblocks.loadLanguages(languages)

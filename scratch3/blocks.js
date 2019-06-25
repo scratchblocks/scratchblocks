@@ -15,7 +15,7 @@ const { defaultFont, commentFont, makeStyle, makeIcons } = require("./style.js")
 
 /* Label */
 
-var LabelView = function(label) {
+const LabelView = function(label) {
   Object.assign(this, label)
 
   this.el = null
@@ -39,13 +39,13 @@ LabelView.metricsCache = {}
 LabelView.toMeasure = []
 
 LabelView.prototype.measure = function() {
-  var value = this.value
-  var cls = "sb3-" + this.cls
+  const value = this.value
+  const cls = "sb3-" + this.cls
   this.el = SVG.text(0, 13, value, {
     class: "sb3-label " + cls,
   })
 
-  var cache = LabelView.metricsCache[cls]
+  let cache = LabelView.metricsCache[cls]
   if (!cache) {
     cache = LabelView.metricsCache[cls] = Object.create(null)
   }
@@ -53,23 +53,23 @@ LabelView.prototype.measure = function() {
   if (Object.hasOwnProperty.call(cache, value)) {
     this.metrics = cache[value]
   } else {
-    var font = /comment-label/.test(this.cls) ? commentFont : defaultFont
+    const font = /comment-label/.test(this.cls) ? commentFont : defaultFont
     this.metrics = cache[value] = LabelView.measure(value, font)
     // TODO: word-spacing? (fortunately it seems to have no effect!)
   }
 }
 
 LabelView.measure = function(value, font) {
-  var context = LabelView.measuring
+  const context = LabelView.measuring
   context.font = font
-  var textMetrics = context.measureText(value)
-  var width = (textMetrics.width + 0.5) | 0
+  const textMetrics = context.measureText(value)
+  const width = (textMetrics.width + 0.5) | 0
   return { width: width }
 }
 
 /* Icon */
 
-var IconView = function(icon) {
+const IconView = function(icon) {
   Object.assign(this, icon)
 
   const info = IconView.icons[this.name]
@@ -107,7 +107,7 @@ IconView.icons = {
 
 /* Line */
 
-var LineView = function() {
+const LineView = function() {
   this.width = 1
   this.height = 40
   this.x = 0
@@ -117,7 +117,7 @@ LineView.prototype.isLine = true
 LineView.prototype.measure = function() {}
 
 LineView.prototype.draw = function(parent) {
-  var category = parent.info.category
+  const category = parent.info.category
   return SVG.el("line", {
     class: "sb3-" + category + "-line",
     "stroke-linecap": "round",
@@ -130,7 +130,7 @@ LineView.prototype.draw = function(parent) {
 
 /* Input */
 
-var InputView = function(input) {
+const InputView = function(input) {
   Object.assign(this, input)
   if (input.label) {
     this.label = newView(input.label)
@@ -160,27 +160,27 @@ InputView.shapes = {
 }
 
 InputView.prototype.draw = function(parent) {
-  var labelX = 11
+  let label, w
   if (this.isBoolean) {
-    var w = 48
+    w = 48
   } else if (this.isColor) {
-    var w = 40
+    w = 40
   } else if (this.hasLabel) {
-    var label = this.label.draw()
+    label = this.label.draw()
     // Minimum padding of 11
     // Minimum width of 40, at which point we center the label
-    var px = this.label.width >= 18 ? 11 : (40 - this.label.width) / 2
-    var w = this.label.width + 2 * px
+    const px = this.label.width >= 18 ? 11 : (40 - this.label.width) / 2
+    w = this.label.width + 2 * px
     label = SVG.move(px, 9, label)
   } else {
-    var w = this.isInset ? 30 : null
+    w = this.isInset ? 30 : null
   }
   if (this.hasArrow) w += 20
   this.width = w
 
-  var h = (this.height = 32)
+  const h = (this.height = 32)
 
-  var el = InputView.shapes[this.shape](w, h)
+  const el = InputView.shapes[this.shape](w, h)
   SVG.setProps(el, {
     class: [
       this.isColor ? "" : "sb3-" + parent.info.category,
@@ -223,7 +223,7 @@ InputView.prototype.draw = function(parent) {
     }
   }
 
-  var result = SVG.group([el])
+  const result = SVG.group([el])
   if (this.hasLabel) {
     result.appendChild(label)
   }
@@ -237,7 +237,7 @@ InputView.prototype.draw = function(parent) {
 
 /* Block */
 
-var BlockView = function(block) {
+const BlockView = function(block) {
   Object.assign(this, block)
   this.children = block.children.map(newView)
   this.comment = this.comment ? newView(this.comment) : null
@@ -284,8 +284,8 @@ var BlockView = function(block) {
 BlockView.prototype.isBlock = true
 
 BlockView.prototype.measure = function() {
-  for (var i = 0; i < this.children.length; i++) {
-    var child = this.children[i]
+  for (let i = 0; i < this.children.length; i++) {
+    const child = this.children[i]
     if (child.measure) child.measure()
   }
   if (this.comment) this.comment.measure()
@@ -326,20 +326,15 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
 
   // rings
   if (this.isRing) {
-    var child = this.children[0]
+    const child = this.children[0]
     if (child && (child.isInput || child.isBlock || child.isScript)) {
-      var shape = child.isScript
-        ? "stack"
-        : child.isInput
-        ? child.shape
-        : child.info.shape
       return SVG.roundRect(w, h, {
         class: ["sb3-" + this.info.category].join(" "),
       })
     }
   }
 
-  var func = BlockView.shapes[this.info.shape]
+  const func = BlockView.shapes[this.info.shape]
   if (!func) {
     throw new Error("no shape func: " + this.info.shape)
   }
@@ -396,26 +391,25 @@ BlockView.prototype.marginBetween = function(a, b) {
 }
 
 BlockView.prototype.draw = function() {
-  var isDefine = this.info.shape === "define-hat"
-  var children = this.children
-  var isCommand = this.isCommand
+  const isDefine = this.info.shape === "define-hat"
+  let children = this.children
+  const isCommand = this.isCommand
 
-  var padding = BlockView.padding[this.info.shape] || BlockView.padding[null]
-  var pt = padding[0],
+  const padding = BlockView.padding[this.info.shape] || BlockView.padding[null]
+  const pt = padding[0],
     pb = padding[1]
 
-  var _this = this
-  var y = 0
-  var Line = function(y) {
+  let y = 0
+  const Line = function(y) {
     this.y = y
     this.width = 0
     this.height = isCommand ? 40 : 32
     this.children = []
   }
 
-  var innerWidth = 0
-  var scriptWidth = 0
-  var line = new Line(y)
+  let innerWidth = 0
+  let scriptWidth = 0
+  let line = new Line(y)
   function pushLine() {
     if (lines.length === 0) {
       line.height += pt + pb
@@ -428,14 +422,15 @@ BlockView.prototype.draw = function() {
   }
 
   if (this.info.isRTL) {
-    var start = 0
-    var flip = function() {
+    let start = 0
+    let i
+    const flip = function() {
       children = children
         .slice(0, start)
         .concat(children.slice(start, i).reverse())
         .concat(children.slice(i))
     }.bind(this)
-    for (var i = 0; i < children.length; i++) {
+    for (i = 0; i < children.length; i++) {
       if (children[i].isScript) {
         flip()
         start = i + 1
@@ -446,11 +441,11 @@ BlockView.prototype.draw = function() {
     }
   }
 
-  var lines = []
-  var previousChild
-  var lastChild
-  for (var i = 0; i < children.length; i++) {
-    var child = children[i]
+  const lines = []
+  let previousChild
+  let lastChild
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i]
     child.el = child.draw(this)
 
     if (child.isScript && this.isCommand) {
@@ -478,7 +473,7 @@ BlockView.prototype.draw = function() {
       }
 
       // Align first input with right of notch
-      var cmw = 48 - this.horizontalPadding(children[0])
+      const cmw = 48 - this.horizontalPadding(children[0])
       if (
         (this.isCommand || this.isOutline) &&
         !child.isLabel &&
@@ -505,8 +500,8 @@ BlockView.prototype.draw = function() {
   }
   pushLine()
 
-  var padLeft = this.horizontalPadding(children[0])
-  var padRight = this.horizontalPadding(lastChild)
+  const padLeft = this.horizontalPadding(children[0])
+  const padRight = this.horizontalPadding(lastChild)
   innerWidth += padLeft + padRight
 
   // Commands have a minimum width
@@ -528,25 +523,25 @@ BlockView.prototype.draw = function() {
   this.firstLine = lines[0]
   this.innerWidth = innerWidth
 
-  var objects = []
+  const objects = []
 
-  for (var i = 0; i < lines.length; i++) {
-    var line = lines[i]
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i]
     if (line.isScript) {
       objects.push(SVG.move(16, line.y, line.el))
       continue
     }
 
-    var h = line.height
+    const h = line.height
 
-    for (var j = 0; j < line.children.length; j++) {
-      var child = line.children[j]
+    for (let j = 0; j < line.children.length; j++) {
+      const child = line.children[j]
       if (child.isArrow) {
         objects.push(SVG.move(innerWidth - 32, this.height - 28, child.el))
         continue
       }
 
-      var y = pt + (h - child.height - pt - pb) / 2
+      let y = pt + (h - child.height - pt - pb) / 2
       if (child.isLabel && i === 0) {
         // We only do this for the first line so that the `else` label is
         // correctly aligned
@@ -560,7 +555,7 @@ BlockView.prototype.draw = function() {
         }
       }
 
-      var x = padLeft + child.x
+      let x = padLeft + child.x
       if (child.dx) {
         x += child.dx
       }
@@ -569,7 +564,7 @@ BlockView.prototype.draw = function() {
     }
   }
 
-  var el = this.drawSelf(innerWidth, this.height, lines)
+  const el = this.drawSelf(innerWidth, this.height, lines)
   objects.splice(0, 0, el)
   if (this.info.color) {
     SVG.setProps(el, {
@@ -583,7 +578,7 @@ BlockView.prototype.draw = function() {
 
 /* Comment */
 
-var CommentView = function(comment) {
+const CommentView = function(comment) {
   Object.assign(this, comment)
   this.label = newView(comment.label)
 
@@ -599,7 +594,7 @@ CommentView.prototype.measure = function() {
 }
 
 CommentView.prototype.draw = function() {
-  var labelEl = this.label.draw()
+  const labelEl = this.label.draw()
 
   this.width = this.label.width + 16
   return SVG.group([
@@ -613,7 +608,7 @@ CommentView.prototype.draw = function() {
 
 /* Glow */
 
-var GlowView = function(glow) {
+const GlowView = function(glow) {
   Object.assign(this, glow)
   this.child = newView(glow.child)
 
@@ -628,10 +623,10 @@ GlowView.prototype.measure = function() {
 }
 
 GlowView.prototype.drawSelf = function() {
-  var c = this.child
-  var el
-  var w = this.width
-  var h = this.height - 1
+  const c = this.child
+  let el
+  const w = this.width
+  const h = this.height - 1
   if (c.isScript) {
     if (!c.isEmpty && c.blocks[0].isHat) {
       el = SVG.hatRect(w, h)
@@ -641,7 +636,7 @@ GlowView.prototype.drawSelf = function() {
       el = SVG.stackRect(w, h)
     }
   } else {
-    var el = c.drawSelf(w, h, [])
+    el = c.drawSelf(w, h, [])
   }
   return SVG.setProps(el, {
     class: "sb3-diff sb3-diff-ins",
@@ -650,8 +645,8 @@ GlowView.prototype.drawSelf = function() {
 // TODO how can we always raise Glows above their parents?
 
 GlowView.prototype.draw = function() {
-  var c = this.child
-  var el = c.isScript ? c.draw(true) : c.draw()
+  const c = this.child
+  const el = c.isScript ? c.draw(true) : c.draw()
 
   this.width = c.width
   this.height = (c.isBlock && c.firstLine.height) || c.height
@@ -662,7 +657,7 @@ GlowView.prototype.draw = function() {
 
 /* Script */
 
-var ScriptView = function(script) {
+const ScriptView = function(script) {
   Object.assign(this, script)
   this.blocks = script.blocks.map(newView)
 
@@ -671,38 +666,39 @@ var ScriptView = function(script) {
 ScriptView.prototype.isScript = true
 
 ScriptView.prototype.measure = function() {
-  for (var i = 0; i < this.blocks.length; i++) {
+  for (let i = 0; i < this.blocks.length; i++) {
     this.blocks[i].measure()
   }
 }
 
 ScriptView.prototype.draw = function(inside) {
-  var children = []
-  var y = 1
+  const children = []
+  let y = 1
+  let block
   this.width = 0
-  for (var i = 0; i < this.blocks.length; i++) {
-    var block = this.blocks[i]
-    var x = inside ? 0 : 2
-    var child = block.draw()
+  for (let i = 0; i < this.blocks.length; i++) {
+    block = this.blocks[i]
+    const x = inside ? 0 : 2
+    const child = block.draw()
     children.push(SVG.move(x, y, child))
     this.width = Math.max(this.width, block.width)
 
-    var diff = block.diff
+    const diff = block.diff
     if (diff === "-") {
-      var dw = block.width
-      var dh = block.firstLine.height || block.height
+      const dw = block.width
+      const dh = block.firstLine.height || block.height
       children.push(SVG.move(x, y + dh / 2 + 1, SVG.strikethroughLine(dw)))
       this.width = Math.max(this.width, block.width)
     }
 
     y += block.height
 
-    var comment = block.comment
+    const comment = block.comment
     if (comment) {
-      var line = block.firstLine
-      var cx = block.innerWidth + 2 + CommentView.lineLength
-      var cy = y - block.height + line.height / 2
-      var el = comment.draw()
+      const line = block.firstLine
+      const cx = block.innerWidth + 2 + CommentView.lineLength
+      const cy = y - block.height + line.height / 2
+      const el = comment.draw()
       children.push(SVG.move(cx, cy - comment.height / 2, el))
       this.width = Math.max(this.width, cx + comment.width)
     }
@@ -719,7 +715,7 @@ ScriptView.prototype.draw = function(inside) {
 
 /* Document */
 
-var DocumentView = function(doc) {
+const DocumentView = function(doc) {
   Object.assign(this, doc)
   this.scripts = doc.scripts.map(newView)
 
@@ -735,7 +731,7 @@ DocumentView.prototype.measure = function() {
   })
 }
 
-DocumentView.prototype.render = function(cb) {
+DocumentView.prototype.render = function() {
   if (typeof ocbptions === "function") {
     throw new Error("render() no longer takes a callback")
   }
@@ -745,11 +741,11 @@ DocumentView.prototype.render = function(cb) {
 
   // TODO: separate layout + render steps.
   // render each script
-  var width = 0
-  var height = 0
-  var elements = []
-  for (var i = 0; i < this.scripts.length; i++) {
-    var script = this.scripts[i]
+  let width = 0
+  let height = 0
+  const elements = []
+  for (let i = 0; i < this.scripts.length; i++) {
+    const script = this.scripts[i]
     if (height) height += 10
     script.y = height
     elements.push(SVG.move(0, height, script.draw()))
@@ -760,7 +756,7 @@ DocumentView.prototype.render = function(cb) {
   this.height = height
 
   // return SVG
-  var svg = SVG.newSVG(width, height)
+  const svg = SVG.newSVG(width, height)
   svg.appendChild((this.defs = SVG.withChildren(SVG.el("defs"), makeIcons())))
 
   svg.appendChild(SVG.group(elements))
@@ -774,28 +770,28 @@ DocumentView.prototype.exportSVGString = function() {
     throw new Error("call draw() first")
   }
 
-  var style = makeStyle()
+  const style = makeStyle()
   this.defs.appendChild(style)
-  var xml = new SVG.XMLSerializer().serializeToString(this.el)
+  const xml = new SVG.XMLSerializer().serializeToString(this.el)
   this.defs.removeChild(style)
   return xml
 }
 
 /* Export SVG image as data URI */
 DocumentView.prototype.exportSVG = function() {
-  var xml = this.exportSVGString()
+  const xml = this.exportSVGString()
   return "data:image/svg+xml;utf8," + xml.replace(/[#]/g, encodeURIComponent)
 }
 
 DocumentView.prototype.toCanvas = function(cb, scale) {
   scale = scale || 1.0
 
-  var canvas = SVG.makeCanvas()
+  const canvas = SVG.makeCanvas()
   canvas.width = this.width * scale
   canvas.height = this.height * scale
-  var context = canvas.getContext("2d")
+  const context = canvas.getContext("2d")
 
-  var image = new Image()
+  const image = new Image()
   image.src = this.exportSVG()
   image.onload = function() {
     context.save()
@@ -810,7 +806,7 @@ DocumentView.prototype.toCanvas = function(cb, scale) {
 DocumentView.prototype.exportPNG = function(cb, scale) {
   this.toCanvas(function(canvas) {
     if (URL && URL.createObjectURL && Blob && canvas.toBlob) {
-      var blob = canvas.toBlob(function(blob) {
+      canvas.toBlob(function(blob) {
         cb(URL.createObjectURL(blob))
       }, "image/png")
     } else {

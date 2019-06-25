@@ -1,9 +1,6 @@
 function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")
 }
-function isArray(o) {
-  return o && o.constructor === Array
-}
 
 function indent(text) {
   return text
@@ -14,20 +11,7 @@ function indent(text) {
     .join("\n")
 }
 
-function maybeNumber(v) {
-  v = "" + v
-  var n = parseInt(v)
-  if (!isNaN(n)) {
-    return n
-  }
-  var f = parseFloat(v)
-  if (!isNaN(f)) {
-    return f
-  }
-  return v
-}
-
-var {
+const {
   blocksById,
   parseSpec,
   inputPat,
@@ -36,12 +20,11 @@ var {
   rtlLanguages,
   unicodeIcons,
   english,
-  blockName,
 } = require("./blocks.js")
 
 /* Label */
 
-var Label = function(value, cls) {
+const Label = function(value, cls) {
   this.value = value
   this.cls = cls || ""
   this.el = null
@@ -58,7 +41,7 @@ Label.prototype.stringify = function() {
 
 /* Icon */
 
-var Icon = function(name) {
+const Icon = function(name) {
   this.name = name
   this.isArrow = name === "loopArrow"
 
@@ -81,7 +64,7 @@ Icon.prototype.stringify = function() {
 
 /* Input */
 
-var Input = function(shape, value, menu) {
+const Input = function(shape, value, menu) {
   this.shape = shape
   this.value = value
   this.menu = menu || null
@@ -109,7 +92,7 @@ Input.prototype.stringify = function() {
     assert(this.value[0] === "#")
     return "[" + this.value + "]"
   }
-  var text = (this.value ? "" + this.value : "")
+  let text = (this.value ? "" + this.value : "")
     .replace(/ v$/, " \\v")
     .replace(/([\]\\])/g, "\\$1")
   if (this.hasArrow) text += " v"
@@ -124,9 +107,9 @@ Input.prototype.stringify = function() {
     : text
 }
 
-Input.prototype.translate = function(lang) {
+Input.prototype.translate = function() {
   if (this.hasArrow) {
-    var value = this.menu || this.value
+    const value = this.menu || this.value
     this.value = value // TODO translate dropdown value
     this.label = new Label(this.value, "literal-" + this.shape)
   }
@@ -134,14 +117,14 @@ Input.prototype.translate = function(lang) {
 
 /* Block */
 
-var Block = function(info, children, comment) {
+const Block = function(info, children, comment) {
   assert(info)
   this.info = Object.assign({}, info)
   this.children = children
   this.comment = comment || null
   this.diff = null
 
-  var shape = this.info.shape
+  const shape = this.info.shape
   this.isHat = shape === "hat" || shape === "define-hat"
   this.hasPuzzle = shape === "stack" || shape === "hat"
   this.isFinal = /cap/.test(shape)
@@ -158,9 +141,9 @@ var Block = function(info, children, comment) {
 Block.prototype.isBlock = true
 
 Block.prototype.stringify = function(extras) {
-  var firstInput = null
-  var checkAlias = false
-  var text = this.children
+  let firstInput = null
+  let checkAlias = false
+  let text = this.children
     .map(function(child) {
       if (child.isIcon) checkAlias = true
       if (!firstInput && !(child.isLabel || child.isIcon)) firstInput = child
@@ -171,11 +154,10 @@ Block.prototype.stringify = function(extras) {
     .join("")
     .trim()
 
-  var lang = this.info.language
+  const lang = this.info.language
   if (checkAlias && lang && this.info.selector) {
-    var type = blocksById[this.info.id]
-    var spec = type.spec
-    var alias = lang.nativeAliases[type.spec]
+    const type = blocksById[this.info.id]
+    let alias = lang.nativeAliases[type.spec]
     if (alias) {
       // TODO make translate() not in-place, and use that
       if (inputPat.test(alias) && firstInput) {
@@ -185,7 +167,7 @@ Block.prototype.stringify = function(extras) {
     }
   }
 
-  var overrides = extras || ""
+  let overrides = extras || ""
   if (
     this.info.categoryIsDefault === false ||
     (this.info.category === "custom-arg" &&
@@ -210,7 +192,7 @@ Block.prototype.stringify = function(extras) {
 Block.prototype.translate = function(lang, isShallow) {
   if (!lang) throw new Error("Missing language")
 
-  var id = this.info.id
+  const id = this.info.id
   if (!id) return
 
   if (id === "PROCEDURES_DEFINITION") {
@@ -219,14 +201,14 @@ Block.prototype.translate = function(lang, isShallow) {
     return
   }
 
-  var type = blocksById[id]
-  var oldSpec = this.info.language.commands[type.spec]
+  const type = blocksById[id]
+  const oldSpec = this.info.language.commands[type.spec]
 
-  var nativeSpec = lang.commands[type.spec]
+  const nativeSpec = lang.commands[type.spec]
   if (!nativeSpec) return
-  var nativeInfo = parseSpec(nativeSpec)
+  const nativeInfo = parseSpec(nativeSpec)
 
-  var rawArgs = this.children.filter(function(child) {
+  const rawArgs = this.children.filter(function(child) {
     return !child.isLabel && !child.isIcon
   })
 
@@ -237,24 +219,24 @@ Block.prototype.translate = function(lang, isShallow) {
   }
 
   // Work out indexes of existing children
-  var oldParts = parseSpec(oldSpec).parts
-  var oldInputOrder = oldParts
+  const oldParts = parseSpec(oldSpec).parts
+  const oldInputOrder = oldParts
     .map(part => parseInputNumber(part))
     .filter(x => !!x)
 
-  var highestNumber = 0
-  var args = oldInputOrder.map(number => {
+  let highestNumber = 0
+  const args = oldInputOrder.map(number => {
     highestNumber = Math.max(highestNumber, number)
     return rawArgs[number - 1]
   })
-  var remainingArgs = rawArgs.slice(highestNumber)
+  const remainingArgs = rawArgs.slice(highestNumber)
 
   // Get new children by index
   this.children = nativeInfo.parts
     .map(function(part) {
-      var part = part.trim()
+      part = part.trim()
       if (!part) return
-      var number = parseInputNumber(part)
+      const number = parseInputNumber(part)
       if (number) {
         return args[number - 1]
       } else {
@@ -278,7 +260,7 @@ Block.prototype.translate = function(lang, isShallow) {
 
 /* Comment */
 
-var Comment = function(value, hasBlock) {
+const Comment = function(value, hasBlock) {
   this.label = new Label(value, "comment-label")
   this.width = null
   this.hasBlock = hasBlock
@@ -291,7 +273,7 @@ Comment.prototype.stringify = function() {
 
 /* Glow */
 
-var Glow = function(child) {
+const Glow = function(child) {
   assert(child)
   this.child = child
   if (child.isBlock) {
@@ -307,7 +289,7 @@ Glow.prototype.stringify = function() {
   if (this.child.isBlock) {
     return this.child.stringify("+")
   } else {
-    var lines = this.child.stringify().split("\n")
+    const lines = this.child.stringify().split("\n")
     return lines.map(line => "+ " + line).join("\n")
   }
 }
@@ -318,7 +300,7 @@ Glow.prototype.translate = function(lang) {
 
 /* Script */
 
-var Script = function(blocks) {
+const Script = function(blocks) {
   this.blocks = blocks
   this.isEmpty = !blocks.length
   this.isFinal = !this.isEmpty && blocks[blocks.length - 1].isFinal
@@ -328,7 +310,7 @@ Script.prototype.isScript = true
 Script.prototype.stringify = function() {
   return this.blocks
     .map(function(block) {
-      var line = block.stringify()
+      let line = block.stringify()
       if (block.comment) line += " " + block.comment.stringify()
       return line
     })
@@ -343,7 +325,7 @@ Script.prototype.translate = function(lang) {
 
 /* Document */
 
-var Document = function(scripts) {
+const Document = function(scripts) {
   this.scripts = scripts
 }
 
