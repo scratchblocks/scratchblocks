@@ -354,7 +354,9 @@ BlockView.padding = {
 
 BlockView.prototype.horizontalPadding = function(child) {
   if (this.isRound) {
-    if (child.isIcon) {
+    if (!child) {
+      return 12
+    } else if (child.isIcon) {
       return 16
     } else if (child.isLabel) {
       return 12 // text in circle: 3 units
@@ -366,7 +368,9 @@ BlockView.prototype.horizontalPadding = function(child) {
       return 4 // circle in circle: 1 unit
     }
   } else if (this.isBoolean) {
-    if (child.isIcon) {
+    if (!child) {
+      return 20
+    } else if (child.isIcon) {
       return 24 // icon in hexagon: ???
     } else if (child.isLabel) {
       return 20 // text in hexagon: 5 units
