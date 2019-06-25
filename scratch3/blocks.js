@@ -703,7 +703,7 @@ ScriptView.prototype.draw = function(inside) {
   }
   this.height = y + 1
   if (!inside && !this.isFinal) {
-    this.height += block.hasPuzzle ? 44 : 36
+    this.height += block.hasPuzzle ? 8 : 0
   }
   if (!inside && block.isGlow) {
     this.height += 2 // TODO unbreak this
