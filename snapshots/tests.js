@@ -1,8 +1,10 @@
 const { test } = require("./runner")
 
+// Scratch 2, English
+
 test(
   "scratch2",
-  "motion",
+  "en-motion",
   `
 
 // Motion
@@ -40,7 +42,7 @@ set rotation style [left-right v]
 
 test(
   "scratch2",
-  "looks",
+  "en-looks",
   `
 
 // Looks
@@ -83,7 +85,7 @@ next backdrop
 
 test(
   "scratch2",
-  "sound",
+  "en-sound",
   `
 
 // Sound
@@ -111,7 +113,7 @@ set tempo to (60) bpm
 
 test(
   "scratch2",
-  "pen",
+  "en-pen",
   `
 
 // Pen
@@ -138,7 +140,7 @@ set pen size to (1)
 
 test(
   "scratch2",
-  "data",
+  "en-data",
   `
 
 // Variables
@@ -168,7 +170,7 @@ hide list [list v]
 
 test(
   "scratch2",
-  "events",
+  "en-events",
   `
 
 // Events
@@ -192,7 +194,7 @@ broadcast [message1 v] and wait
 
 test(
   "scratch2",
-  "control",
+  "en-control",
   `
 
 // Control
@@ -238,7 +240,7 @@ delete this clone
 
 test(
   "scratch2",
-  "sensing",
+  "en-sensing",
   `
 
 // Sensing
@@ -278,7 +280,7 @@ reset timer
 
 test(
   "scratch2",
-  "operators",
+  "en-operators",
   `
 
 // Operators
@@ -314,7 +316,7 @@ test(
 
 test(
   "scratch2",
-  "extensions",
+  "en-extensions",
   `
 
 // PicoBoard
@@ -376,7 +378,7 @@ when tilted
 
 test(
   "scratch2",
-  "obsolete",
+  "en-obsolete",
   `
 
 // Obsolete Scratch 1.4 blocks:
@@ -428,9 +430,11 @@ when Sprite1 clicked
 
 /*****************************************************************************/
 
+// Scratch 3, English
+
 test(
   "scratch3",
-  "motion",
+  "en-motion",
   `
 
 // Motion
@@ -464,7 +468,7 @@ set rotation style [left-right v]
 
 test(
   "scratch3",
-  "looks",
+  "en-looks",
   `
 
 // Looks
@@ -501,7 +505,7 @@ go [forward v] (1) layers
 
 test(
   "scratch3",
-  "sound",
+  "en-sound",
   `
 
 // Sound
@@ -524,7 +528,7 @@ volume
 
 test(
   "scratch3",
-  "events",
+  "en-events",
   `
 
 // Events
@@ -545,7 +549,7 @@ broadcast (message1 v) and wait
 
 test(
   "scratch3",
-  "control",
+  "en-control",
   `
 
 // Control
@@ -581,7 +585,7 @@ delete this clone
 
 test(
   "scratch3",
-  "sensing",
+  "en-sensing",
   `
 
 // Sensing
@@ -593,7 +597,7 @@ test(
 <color (#0f0) is touching (#f0f)?>
 (distance to (mouse-pointer v))
 
-ask (What's your name?) and wait
+ask [What's your name?] and wait
 
 (answer)
 
@@ -620,7 +624,7 @@ reset timer
 
 test(
   "scratch3",
-  "operators",
+  "en-operators",
   `
 
 // Operators
@@ -640,10 +644,10 @@ test(
 <<> or <>>
 <not <>>
 
-(join (apple) (banana))
-(letter (1) of (apple))
-(length of (apple))
-<(apple) contains (a)?>
+(join [apple] [banana])
+(letter (1) of [apple])
+(length of [apple])
+<[apple] contains [a]?>
 
 (() mod ())
 (round ())
@@ -655,7 +659,7 @@ test(
 
 test(
   "scratch3",
-  "variables",
+  "en-variables",
   `
 
 // Variables
@@ -671,16 +675,16 @@ hide variable [foo v]
 
 (list)
 
-add (thing) to [list v]
+add [thing] to [list v]
 delete (1) of [list v]
 delete all of [list v]
 insert (1) at (1) of [list v]
 replace item (1) of [list v] with (1)
 
 (item (1) of [list v])
-(item # of (thing) in [list v])
+(item # of [thing] in [list v])
 (length of [list v])
-<[list v] contains (thing)?>
+<[list v] contains [thing]?>
 
 show list [list v]
 hide list [list v]
@@ -690,7 +694,7 @@ hide list [list v]
 
 test(
   "scratch3",
-  "custom",
+  "en-custom",
   `
 
 // Custom
@@ -704,7 +708,7 @@ define foo (num) if <bool>
 
 test(
   "scratch3",
-  "pen",
+  "en-pen",
   `
 
 // Pen
@@ -729,7 +733,7 @@ set pen size to (1)
 
 test(
   "scratch3",
-  "music",
+  "en-music",
   `
 
 // Music
@@ -747,7 +751,7 @@ change tempo by (20)
 
 test(
   "scratch3",
-  "video",
+  "en-video",
   `
 
 // Video
@@ -762,17 +766,17 @@ set video transparency to (50)
 
 test(
   "scratch3",
-  "extensions",
+  "en-extensions",
   `
 // Text to Speech
 
-speak (hello) :: tts
+speak [hello] :: tts
 set voice to (alto v) :: tts
 set language to (English v) :: tts
 
 // Translate
 
-(translate (hello) to (Galician v) :: translate)
+(translate [hello] to (Galician v) :: translate)
 (language :: translate)
 
 // Makey Makey
@@ -826,3 +830,382 @@ when tilted (any v) :: wedo
 (tilt angle (up v) :: wedo)
 `
 )
+
+/*****************************************************************************/
+
+// Scratch 3, German
+
+test(
+  "scratch3",
+  "de-motion",
+  `
+
+// Bewegung
+
+gehe (10) er Schritt
+drehe dich nach rechts um (15) Grad
+drehe dich nach links um (15) Grad
+
+gehe zu (Zufallsposition v)
+gehe zu x: (10) y: (0)
+gleite in (1) Sek. zu (Zufallsposition v)
+gleite in (1) Sek. zu x: (0) y: (0)
+
+setze Richtung auf (90) Grad
+drehe dich zu (Mauszeiger v)
+ändere x um (10)
+setze x auf (10)
+ändere y um (10)
+setze y auf (0)
+
+pralle vom Rand ab
+
+setze Drehtyp auf [links-rechts v]
+
+(x-Position)
+
+(y-Position)
+
+(Richtung)
+
+`,
+  "de"
+)
+
+test(
+  "scratch3",
+  "de-looks",
+  `
+
+// Aussehen
+
+sage [Hallo!] für (2) Sekunden
+sage [Hallo!]
+denke [Hmm...] für (2) Sekunden
+denke [Hmm...]
+
+wechsle zu Kostüm (costume1 v)
+wechsle zum nächsten Kostüm
+wechsle zu Bühnenbild (backdrop1 v)
+wechsle zum nächsten Bühnenbild
+
+ändere Größe um (10)
+setze Größe auf (100)
+
+ändere Effekt [Farbe v] um (25)
+setze Effekt [Farbe v] auf (0)
+schalte Grafikeffekte aus
+
+zeige dich
+verstecke dich
+
+gehe zu [vorderster v] Ebene
+gehe (1) Ebenen [nach vorne v]
+
+(Kostüm [Nummer v])
+
+(Bühnenbild [Nummer v])
+
+(Größe)
+
+`,
+  "de"
+)
+// "gehe Ebenen nach vorne" appears differently in the Scratch editor than in
+// the translation files, wut
+
+test(
+  "scratch3",
+  "de-sound",
+  `
+
+// Klang
+
+spiele Klang (Meow v) ganz
+spiele Klang (Meow v)
+stoppe alle Klänge
+
+ändere Effekt [Höhe v] um (10)
+setze Effekt [Höhe v] auf (100)
+schalte Klangeffekte aus
+
+ändere Lautstärke um (-10)
+setze Lautstärke auf (100) %
+
+(Lautstärke :: sound)
+
+
+`,
+  "de"
+)
+
+test(
+  "scratch3",
+  "de-events",
+  `
+
+// Ereignisse
+
+Wenn die grüne Flagge angeklickt
+Wenn Taste [Leertaste v] gedrückt wird
+Wenn diese Figur angeklickt wird
+Wenn das Bühnenbild zu [backdrop1 v] wechselt
+
+Wenn [Lautstärke v] > (10)
+
+Wenn ich [Nachricht1 v] empfange
+sende (Nachricht1 v) an alle
+sende (Nachricht1 v) an alle und warte
+
+`,
+  "de"
+)
+
+test(
+  "scratch3",
+  "de-control",
+  `
+
+// Steuerung
+
+warte (1) Sekunden
+
+wiederhole (10) mal
+Ende
+
+wiederhole fortlaufend
+Ende
+
+falls <>, dann
+Ende
+
+falls <>, dann
+Ende
+
+warte bis <>
+
+wiederhole bis <>
+Ende
+
+stoppe [andere Skripte der Figur v]
+stoppe [alles v]
+
+Wenn ich als Klon entstehe
+erzeuge Klon von (mir selbst v)
+lösche diesen Klon
+
+`,
+  "de"
+)
+
+test(
+  "scratch3",
+  "de-sensing",
+  `
+
+// Fühlen
+
+<wird (Mauszeiger v) berührt?>
+<wird Farbe [#555] berührt?>
+<Farbe [#0f0] berührt [#f0f] ?>
+(Entfernung von (Mauszeiger v))
+
+frage [Wie heißt du?] und warte
+
+(Antwort)
+
+<Taste (Leertaste v) gedrückt?>
+<Maustaste gedrückt?>
+(Maus x-Position)
+(Maus y-Position)
+
+setze Ziehbarkeit auf [ziehbar v]
+
+(Lautstärke)
+
+(Stoppuhr)
+setze Stoppuhr zurück
+
+([x-Position v] von (Buehne v))
+([x-Position v] von (foo))
+
+([Jahr v] im Moment)
+(Tage seit 2000)
+(Benutzername)
+
+`,
+  "de"
+)
+
+test(
+  "scratch3",
+  "de-operators",
+  `
+
+// Operatoren
+
+(() + ())
+(() - ())
+(() * ())
+(() / ())
+
+(Zufallszahl von (1) bis (10)
+
+<() > (50)>
+<() < (50)>
+<() = (50)>
+
+<<> und <>>
+<<> oder <>>
+<nicht <>>
+
+(verbinde [Apfel] und [Banane])
+(Zeichen (1) von [Apfel])
+(Länge von [Apfel])
+<[apple] enthält [a]?>
+
+(() mod ())
+(() gerundet)
+
+([Betrag v] von (10))
+([Betrag v] von (foo))
+
+`,
+  "de"
+)
+
+test(
+  "scratch3",
+  "de-variables",
+  `
+
+// Variablen
+
+(foo)
+
+setze [foo v] auf (0)
+ändere [foo v] um (1)
+zeige Variable [foo v]
+verstecke variable [foo v]
+
+// Liste
+
+(list)
+
+füge [Ding] zu [list v] hinzu
+lösche (1) aus [list v]
+lösche alles aus [list v]
+füge (1) bei (1) in [list v] ein
+ersetze Element (1) von [list v] durch (1)
+
+(Element (1) von [list v])
+(Nummer von [Ding] in [list v])
+(Länge von [list v])
+<[list v] enthält [Ding] ?>
+
+zeige Liste [list v]
+verstecke Liste [list v]
+
+`,
+  "de"
+)
+
+test(
+  "scratch3",
+  "de-custom",
+  `
+
+// Meine Blöcke
+
+foo () if <>
+
+Definiere foo (num) if <bool>
+
+`,
+  "de"
+)
+
+test(
+  "scratch3",
+  "de-pen",
+  `
+
+// Malstift
+
+lösche alles
+
+hinterlasse Abdruck
+
+schalte Stift ein
+schalte Stift aus
+
+setze Stiftfarbe auf [#f696e6]
+
+ändere Stift (Farbe v) um (10)
+setze Stift (Farbe v) auf (50)
+
+ändere Stiftdicke um (1)
+setze Stiftdicke auf (1)
+
+`,
+  "de"
+)
+
+test(
+  "scratch3",
+  "de-music",
+  `
+
+// Musik
+
+spiele Schlaginstrument (\\(1\\) Snare-Drum v) für (0.5) Schläge
+pausiere (0.25) Schläge
+spiele Ton (60) für (0.25) Schläge
+setze Instrument auf (\\(1\\) Klavier v)
+setze tempo auf (60)
+ändere Tempo um (20)
+
+(Tempo)
+
+`,
+  "de"
+)
+
+test(
+  "scratch3",
+  "de-video",
+  `
+
+// Video-Erfassung
+
+Wenn Video-Bewegung > (10)
+
+(Video- (Bewegung v) von (Figur v))
+
+schalte Video (an v)
+setze Video-Transparenz auf (50)
+
+`,
+  "de"
+)
+
+test(
+  "scratch3",
+  "de-extensions",
+  `
+// Text zu Sprache
+
+sage [Hallo] :: tts
+ändere die Stimme zu (Alt v) :: tts
+setze Sprache auf (English v) :: tts
+
+// Übersetzung
+
+(übersetze [Hallo] nach (Malaysisch v) :: translate)
+(Sprache :: translate)
+
+`,
+  "de"
+)
+
+// Other extensions omitted since they don't use the translation infrastructure anyhow.

@@ -156,10 +156,6 @@ module.exports = function(window) {
     allLanguages: allLanguages, // read-only
     loadLanguages: loadLanguages,
 
-    fromJSON: Document.fromJSON,
-    toJSON: function(doc) {
-      return doc.toJSON()
-    },
     stringify: function(doc) {
       return doc.stringify()
     },
