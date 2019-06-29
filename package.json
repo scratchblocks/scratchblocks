@@ -23,7 +23,7 @@
     "build": "rollup -c --environment buildTarget:PROD; exit 0;",
     "fmt": "prettier --write *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js",
     "lint:staged": "lint-staged",
-    "start": "rollup -c -w",
+    "start": "rollup -c -m -w",
     "rollup": "rollup -c",
     "locales": "node locales-src/build-locales.js",
     "test": "jest",
