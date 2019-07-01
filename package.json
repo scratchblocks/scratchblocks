@@ -26,7 +26,7 @@
     "locales": "node locales-src/build-locales.js",
     "rollup": "rollup -c",
     "snapshots": "node ./snapshots/",
-    "start": "rollup -c -w",
+    "start": "rollup -c -m -w",
     "test": "jest"
   },
   "dependencies": {
