@@ -747,7 +747,7 @@ DocumentView.prototype.render = function(cb) {
     if (height) height += 10
     script.y = height
     elements.push(SVG.move(0, height, script.draw()))
-    height += script.height
+    height += script.height + 36
     width = Math.max(width, script.width + 4)
   }
   this.width = width
