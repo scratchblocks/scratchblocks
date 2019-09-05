@@ -133,7 +133,13 @@ function loadLanguage(code, language) {
     var block = blocksBySpec[spec]
 
     var nativeHash = hashSpec(nativeSpec)
-    blocksByHash[nativeHash] = block
+    var regOptional = /\(.*\)/;
+    if( nativeHash.search(regOptional) != -1 ){
+      blocksByHash[nativeHash.replace('(', '').replace(')', '')] = block
+      blocksByHash[nativeHash.replace(regOptional, '')] = block
+    } else {
+      blocksByHash[nativeHash] = block
+    }
 
     // fallback image replacement, for languages without aliases
     var m = iconPat.exec(spec)
