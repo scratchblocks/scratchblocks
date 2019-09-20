@@ -66,27 +66,6 @@ I'm rather fond of the <code class="b">stamp</code> block in Scratch.
 scratchblocks.renderMatching("code.b", {inline: true});
 ```
 
-## Server-side (Node)
-
-There's an experimental Node port thanks to @arve0.
-
-Example usage:
-
-```js
-var scratchblocks = require('scratchblocks');
-var doc = scratchblocks.parse(`
-when flag clicked
-`)
-doc.render(svg => {
-  var content = doc.exportSVGString()
-  console.log(content);
-})
-```
-
-```sh
-$node test.js > foo.xml
-```
-
 ## Browserify
 
 You can even use `scratchblocks` with browserify, if you're into that sort of
