@@ -708,7 +708,7 @@ ScriptView.prototype.draw = function(inside) {
     this.height += block.hasPuzzle ? 8 : 0
   }
   if (!inside && block.isGlow) {
-    this.height += 2 // TODO unbreak this
+    this.height += 7 // TODO unbreak this
   }
   return SVG.group(children)
 }
@@ -749,7 +749,8 @@ DocumentView.prototype.render = function(cb) {
     if (height) height += 10
     script.y = height
     elements.push(SVG.move(0, height, script.draw()))
-    height += script.height + 36
+    height += script.height
+    if (i !== this.scripts.length - 1) height += 36
     width = Math.max(width, script.width + 4)
   }
   this.width = width
