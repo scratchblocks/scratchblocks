@@ -511,8 +511,12 @@ BlockView.prototype.draw = function() {
     this.hasScript
       ? 160
       : this.isHat
-        ? 108
-        : this.isCommand || this.isOutline ? 64 : this.isReporter ? 48 : 0,
+      ? 108
+      : this.isCommand || this.isOutline
+      ? 64
+      : this.isReporter
+      ? 48
+      : 0,
     innerWidth
   )
   this.height = y
