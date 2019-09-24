@@ -500,8 +500,8 @@ BlockView.prototype.draw = function() {
   }
   pushLine()
 
-  const padLeft = this.horizontalPadding(children[0])
-  const padRight = this.horizontalPadding(lastChild)
+  const padLeft = children.length ? this.horizontalPadding(children[0]) : 0
+  const padRight = children.length ? this.horizontalPadding(lastChild) : 0
   innerWidth += padLeft + padRight
 
   // Commands have a minimum width
@@ -511,10 +511,8 @@ BlockView.prototype.draw = function() {
     this.hasScript
       ? 160
       : this.isHat
-      ? 108
-      : this.isCommand || this.isOutline
-      ? 64
-      : 0,
+        ? 108
+        : this.isCommand || this.isOutline ? 64 : this.isReporter ? 48 : 0,
     innerWidth
   )
   this.height = y
