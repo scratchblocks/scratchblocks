@@ -2,9 +2,9 @@ function extend(src, dest) {
   return Object.assign({}, src, dest)
 }
 
-var SVG = require("./draw.js")
+const SVG = require("./draw.js")
 
-var Filter = function(id, props) {
+const Filter = function(id, props) {
   this.el = SVG.el(
     "filter",
     extend(props, {
@@ -18,8 +18,8 @@ var Filter = function(id, props) {
   this.highestId = 0
 }
 Filter.prototype.fe = function(name, props, children) {
-  var shortName = name.toLowerCase().replace(/gaussian|osite/, "")
-  var id = [shortName, "-", ++this.highestId].join("")
+  const shortName = name.toLowerCase().replace(/gaussian|osite/, "")
+  const id = [shortName, "-", ++this.highestId].join("")
   this.el.appendChild(
     SVG.withChildren(
       SVG.el(
@@ -64,13 +64,6 @@ Filter.prototype.blur = function(dev, in1) {
   return this.fe("GaussianBlur", {
     in: in1,
     stdDeviation: [dev, dev].join(" "),
-  })
-}
-Filter.prototype.colorMatrix = function(in1, values) {
-  return this.fe("ColorMatrix", {
-    in: in1,
-    type: "matrix",
-    values: values.join(" "),
   })
 }
 Filter.prototype.merge = function(children) {

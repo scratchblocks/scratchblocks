@@ -2,9 +2,7 @@
   "name": "scratchblocks",
   "description": "Render scratchblocks code to SVG images.",
   "license": "MIT",
-  "author": {
-    "name": "Tim Radvan"
-  },
+  "author": "Tim Radvan",
   "homepage": "https://scratchblocks.github.io/",
   "repository": {
     "type": "git",
@@ -22,12 +20,17 @@
   "scripts": {
     "build": "rollup -c --environment buildTarget:PROD; exit 0;",
     "fmt": "prettier --write *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js",
+    "lint": "eslint *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js",
+    "lint-fix": "npm run lint -- --fix",
     "lint:staged": "lint-staged",
-    "start": "rollup -c -m -w",
-    "rollup": "rollup -c",
     "locales": "node locales-src/build-locales.js",
-    "test": "jest",
-    "snapshots": "node ./snapshots/"
+    "rollup": "rollup -c",
+    "snapshots": "node ./snapshots/",
+    "start": "rollup -c -m -w",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -36,10 +39,15 @@
     "@babel/plugin-transform-object-assign": "^7.2.0",
     "@babel/preset-env": "^7.4.4",
     "browserify": "^16.2.3",
+    "eslint": "^6.0.1",
+    "eslint-config-prettier": "^5.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^2.5.0",
     "jest": "^24.7.1",
-    "lint-staged": "^7.3.0",
-    "prettier": "1.7.4",
-    "prettier-package-json": "^1.6.0",
+    "lint-staged": "^8.2.1",
+    "pofile": "^1.0.10",
+    "prettier": "1.18.2",
+    "prettier-package-json": "^2.1.0",
     "puppeteer": "^1.15.0",
     "rollup": "^0.67.4",
     "rollup-plugin-babel": "^4.3.2",
@@ -55,13 +63,18 @@
   "keywords": [
     "scratch"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "package.json": [
       "prettier-package-json --write",
       "git add"
     ],
     "*.js": [
-      "prettier --write",
+      "eslint --fix",
       "git add"
     ]
   },
@@ -69,8 +82,5 @@
   "prettier": {
     "semi": false,
     "trailingComma": "es5"
-  },
-  "dependencies": {
-    "@babel/polyfill": "^7.4.4"
   }
 }

@@ -1,12 +1,12 @@
-var SVG = require("./draw")
-var blocks = require("./blocks")
-var style = require("./style")
+const SVG = require("./draw")
+const blocks = require("./blocks")
+const style = require("./style")
 
 function init(window) {
   SVG.init(window)
 
   blocks.LabelView.measuring = (function() {
-    var canvas = SVG.makeCanvas()
+    const canvas = SVG.makeCanvas()
     return canvas.getContext("2d")
   })()
 }

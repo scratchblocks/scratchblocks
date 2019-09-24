@@ -3,22 +3,19 @@
 function extend(src, dest) {
   return Object.assign({}, src, dest)
 }
-function assert(bool, message) {
-  if (!bool) throw "Assertion failed! " + (message || "")
-}
 
 // set by SVG.init
-var document
-var xml
+let document
+let xml
 
-var directProps = {
+const directProps = {
   textContent: true,
 }
 
-var SVG = (module.exports = {
+const SVG = (module.exports = {
   init(window) {
     document = window.document
-    var DOMParser = window.DOMParser
+    const DOMParser = window.DOMParser
     xml = new DOMParser().parseFromString("<xml></xml>", "application/xml")
     SVG.XMLSerializer = window.XMLSerializer
   },
@@ -32,18 +29,21 @@ var SVG = (module.exports = {
   },
 
   el(name, props) {
-    var el = document.createElementNS("http://www.w3.org/2000/svg", name)
+    const el = document.createElementNS("http://www.w3.org/2000/svg", name)
     return SVG.setProps(el, props)
   },
 
   setProps(el, props) {
-    for (var key in props) {
-      var value = "" + props[key]
+    for (const key in props) {
+      const value = "" + props[key]
       if (directProps[key]) {
         el[key] = value
       } else if (/^xlink:/.test(key)) {
         el.setAttributeNS("http://www.w3.org/1999/xlink", key.slice(6), value)
-      } else if (props[key] !== null && props.hasOwnProperty(key)) {
+      } else if (
+        props[key] !== null &&
+        Object.prototype.hasOwnProperty.call(props, key)
+      ) {
         el.setAttributeNS(null, key, value)
       }
     }
@@ -51,7 +51,7 @@ var SVG = (module.exports = {
   },
 
   withChildren(el, children) {
-    for (var i = 0; i < children.length; i++) {
+    for (let i = 0; i < children.length; i++) {
       el.appendChild(children[i])
     }
     return el
@@ -89,7 +89,7 @@ var SVG = (module.exports = {
   },
 
   text(x, y, content, props) {
-    var text = SVG.el(
+    return SVG.el(
       "text",
       extend(props, {
         x: x,
@@ -97,7 +97,6 @@ var SVG = (module.exports = {
         textContent: content,
       })
     )
-    return text
   },
 
   symbol(href) {
@@ -139,7 +138,7 @@ var SVG = (module.exports = {
   },
 
   pillRect(w, h, props) {
-    var r = h / 2
+    const r = h / 2
     return SVG.rect(
       w,
       h,
@@ -151,7 +150,7 @@ var SVG = (module.exports = {
   },
 
   pointedPath(w, h) {
-    var r = h / 2
+    const r = h / 2
     return [
       ["M", r, 0].join(" "),
       ["L", w - r, 0, w, r].join(" "),
@@ -222,7 +221,7 @@ var SVG = (module.exports = {
       inset = 0
     }
 
-    var arr = [["L", w, y - 4].join(" "), ["a", 4, 4, 0, 0, 1, -4, 4].join(" ")]
+    let arr = [["L", w, y - 4].join(" "), ["a", 4, 4, 0, 0, 1, -4, 4].join(" ")]
 
     if (hasNotch) {
       arr = arr.concat([
@@ -324,12 +323,12 @@ var SVG = (module.exports = {
   },
 
   mouthRect(w, h, isFinal, lines, props) {
-    var y = lines[0].height
-    var p = [SVG.getTop(w), SVG.getRightAndBottom(w, y, true, 16)]
-    for (var i = 1; i < lines.length; i += 2) {
-      var isLast = i + 2 === lines.length
+    let y = lines[0].height
+    const p = [SVG.getTop(w), SVG.getRightAndBottom(w, y, true, 16)]
+    for (let i = 1; i < lines.length; i += 2) {
+      const isLast = i + 2 === lines.length
 
-      var line = lines[i]
+      const line = lines[i]
       y += line.height - 3
 
       if (line.isFinal) {
@@ -338,8 +337,8 @@ var SVG = (module.exports = {
         p.push(SVG.getArm(w, y))
       }
 
-      var hasNotch = !(isLast && isFinal)
-      var inset = isLast ? 0 : 16
+      const hasNotch = !(isLast && isFinal)
+      const inset = isLast ? 0 : 16
       y += lines[i + 1].height + 3
       p.push(SVG.getRightAndBottom(w, y, hasNotch, inset))
     }
@@ -352,7 +351,6 @@ var SVG = (module.exports = {
   },
 
   commentRect(w, h, props) {
-    var r = 6
     return SVG.roundRect(
       w,
       h,

@@ -1,19 +1,16 @@
 const fs = require("fs")
 const path = require("path")
 const { promisify } = require("util")
-const readDir = promisify(fs.readdir)
-const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 
 const scratchCommands = require("../syntax/commands")
-const blocks = require("../syntax/blocks")
 const extraAliases = require("./extra_aliases")
 
 const localeNames = require("scratch-l10n").default
 
 let english
 const rawLocales = []
-for (let code in localeNames) {
+for (const code in localeNames) {
   const raw = {
     code: code,
     mappings: require("scratch-l10n/editor/blocks/" + code),
@@ -42,26 +39,6 @@ const palette = [
   "CATEGORY_MYBLOCKS",
 ]
 
-const forumLangs = [
-  "de",
-  "es",
-  "fr",
-  "zh_CN",
-  "pl",
-  "ja",
-  "nl",
-  "pt",
-  "it",
-  "he",
-  "ko",
-  "nb",
-  "tr",
-  "el",
-  "ru",
-  "ca",
-  "id",
-]
-
 const mathFuncs = [
   "OPERATORS_MATHOP_ABS",
   "OPERATORS_MATHOP_FLOOR",
@@ -84,14 +61,6 @@ const writeJSON = async (outputPath, obj) => {
   await writeFile(outputPath, contents, "utf-8")
 }
 
-const reverseDict = d => {
-  const o = {}
-  for (var k in d) {
-    o[d[k]] = k
-  }
-  return o
-}
-
 const translateKey = (raw, key) => {
   const result = raw.mappings[key] || raw.extensionMappings[key]
   const englishResult = english.mappings[key] || english.extensionMappings[key]
@@ -105,7 +74,7 @@ const translateKey = (raw, key) => {
 
 const lookupEachIn = raw => items => {
   const output = []
-  for (let key of items) {
+  for (const key of items) {
     const result = translateKey(raw, key)
     if (!result) continue
     output.push(result)
@@ -115,7 +84,7 @@ const lookupEachIn = raw => items => {
 
 const translateEachIn = raw => items => {
   const output = {}
-  for (let key of items) {
+  for (const key of items) {
     const result = translateKey(raw, key)
     const englishResult = english.mappings[key]
     if (!result) continue
@@ -144,7 +113,7 @@ const buildLocale = (code, rawLocale) => {
     name: localeNames[code].name,
   }
 
-  for (let command of scratchCommands) {
+  for (const command of scratchCommands) {
     if (!command.id) continue
     if (/^sb2:/.test(command.id)) continue
     if (/^scratchblocks:/.test(command.id)) continue
@@ -164,7 +133,7 @@ const buildLocale = (code, rawLocale) => {
   )
 
   // Approximate fraction of blocks translated
-  locale.percentTranslated = Math.round(frac / 0.74 * 100)
+  locale.percentTranslated = Math.round((frac / 0.74) * 100)
 
   if (aliases) {
     locale.commands["end"] = aliases["end"]
@@ -181,7 +150,7 @@ const buildLocale = (code, rawLocale) => {
 
 const fixup = (key, value, englishValue) => {
   let number = 0
-  var variables = {}
+  const variables = {}
   englishValue.replace(/\[[^\]]+\]/g, key => {
     variables[key] = "%" + ++number
   })
@@ -198,7 +167,7 @@ const fixup = (key, value, englishValue) => {
     case "MOTION_TURNRIGHT":
       return value.replace("%1", "@turnRight").replace("%2", "%1")
     case "PROCEDURES_DEFINITION":
-      return value.replace(/ ?\%1 ?/, "")
+      return value.replace(/ ?%1 ?/, "")
     case "CONTROL_STOP":
       return value + " %1"
     default:
@@ -222,7 +191,7 @@ const convertFile = async rawLocale => {
 const writeIndex = async codes => {
   let contents = ""
   contents += "module.exports = {\n"
-  for (let code of codes) {
+  for (const code of codes) {
     contents += `  ${code.replace(/-/g, "_")}: require("./${code}.json"),\n`
   }
   contents += "}\n"
@@ -236,7 +205,7 @@ const main = async () => {
   const validLocales = locales.filter(x => !!x)
 
   // check every extra language was used
-  const seen = new Set(validLocales.map(([code, locale]) => code))
+  const seen = new Set(validLocales.map(([code]) => code))
   for (const code in extraAliases) {
     if (!seen.has(code)) console.error(`extra_aliases: '${code}' not used`)
   }

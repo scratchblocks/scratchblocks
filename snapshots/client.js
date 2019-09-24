@@ -5,14 +5,14 @@ scratchblocks.loadLanguages({
 })
 
 window.render = function(source, options, scale) {
-  var doc = scratchblocks.parse(source, {
+  const doc = scratchblocks.parse(source, {
     languages: options.lang ? ["en", options.lang] : ["en"],
   })
 
-  var view = scratchblocks.newView(doc, {
+  const view = scratchblocks.newView(doc, {
     style: options.style,
   })
-  var svg = view.render()
+  view.render()
 
   return new Promise(function(resolve) {
     view.toCanvas(function(canvas) {

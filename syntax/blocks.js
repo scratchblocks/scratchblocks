@@ -1,13 +1,6 @@
-function assert(bool, message) {
-  if (!bool) throw "Assertion failed! " + (message || "")
-}
-function isArray(o) {
-  return o && o.constructor === Array
-}
-
 // List of classes we're allowed to override.
 
-var overrideCategories = [
+const overrideCategories = [
   "motion",
   "looks",
   "sound",
@@ -32,34 +25,34 @@ var overrideCategories = [
   "microbit",
   "makeymakey",
 ]
-var overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "ring"]
+const overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "ring"]
 
 // languages that should be displayed right to left
-var rtlLanguages = ["ar", "ckb", "fa", "he"]
+const rtlLanguages = ["ar", "ckb", "fa", "he"]
 
 // List of commands taken from Scratch
-var scratchCommands = require("./commands.js")
+const scratchCommands = require("./commands.js")
 
-var inputNumberPat = /\%([0-9]+)/
-var inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
-var inputPatGlobal = new RegExp(inputPat.source, "g")
-var iconPat = /(@[a-zA-Z]+)/
-var splitPat = new RegExp(
+const inputNumberPat = /%([0-9]+)/
+const inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
+const inputPatGlobal = new RegExp(inputPat.source, "g")
+const iconPat = /(@[a-zA-Z]+)/
+const splitPat = new RegExp(
   [inputPat.source, "|", iconPat.source, "| +"].join(""),
   "g"
 )
 
-var hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/
+const hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/
 
 function parseInputNumber(part) {
-  var m = inputNumberPat.exec(part)
+  const m = inputNumberPat.exec(part)
   return m ? +m[1] : 0
 }
 
 // used for procDefs
 function parseSpec(spec) {
-  var parts = spec.split(splitPat).filter(x => !!x)
-  var inputs = parts.filter(function(p) {
+  const parts = spec.split(splitPat).filter(x => !!x)
+  const inputs = parts.filter(function(p) {
     return inputPat.test(p)
   })
   return {
@@ -89,17 +82,17 @@ function minifyHash(hash) {
     .toLowerCase()
 }
 
-var blocksById = {}
-var blocksBySpec = {}
-var allBlocks = scratchCommands.map(function(def) {
-  var spec = def.spec
+const blocksById = {}
+const blocksBySpec = {}
+const allBlocks = scratchCommands.map(function(def) {
+  const spec = def.spec
   if (!def.id) {
     if (!def.selector) throw new Error("Missing ID: " + def.spec)
     def.id = "sb2:" + def.selector
   }
   if (!def.spec) throw new Error("Missing spec: " + def.id)
 
-  var info = {
+  const info = {
     id: def.id, // Used for Scratch 3 translations
     spec: def.spec, // Used for Scratch 2 translations
     parts: def.spec.split(splitPat).filter(x => !!x),
@@ -116,7 +109,7 @@ var allBlocks = scratchCommands.map(function(def) {
   return (blocksBySpec[spec] = info)
 })
 
-var unicodeIcons = {
+const unicodeIcons = {
   "@greenFlag": "⚑",
   "@turnRight": "↻",
   "@turnLeft": "↺",
@@ -124,34 +117,34 @@ var unicodeIcons = {
   "@delInput": "◂",
 }
 
-var allLanguages = {}
+const allLanguages = {}
 function loadLanguage(code, language) {
-  var blocksByHash = (language.blocksByHash = {})
+  const blocksByHash = (language.blocksByHash = {})
 
   Object.keys(language.commands).forEach(function(spec) {
-    var nativeSpec = language.commands[spec]
-    var block = blocksBySpec[spec]
+    const nativeSpec = language.commands[spec]
+    const block = blocksBySpec[spec]
 
-    var nativeHash = hashSpec(nativeSpec)
+    const nativeHash = hashSpec(nativeSpec)
     blocksByHash[nativeHash] = block
 
     // fallback image replacement, for languages without aliases
-    var m = iconPat.exec(spec)
+    const m = iconPat.exec(spec)
     if (m) {
-      var image = m[0]
-      var hash = nativeHash.replace(hashSpec(image), unicodeIcons[image])
+      const image = m[0]
+      const hash = nativeHash.replace(hashSpec(image), unicodeIcons[image])
       blocksByHash[hash] = block
     }
   })
 
   language.nativeAliases = {}
   Object.keys(language.aliases).forEach(function(alias) {
-    var spec = language.aliases[alias]
-    var block = blocksBySpec[spec]
+    const spec = language.aliases[alias]
+    const block = blocksBySpec[spec]
     if (block === undefined) {
       throw new Error("Invalid alias '" + spec + "'")
     }
-    var aliasHash = hashSpec(alias)
+    const aliasHash = hashSpec(alias)
     blocksByHash[aliasHash] = block
 
     language.nativeAliases[spec] = alias
@@ -163,13 +156,13 @@ function loadLanguage(code, language) {
     const id = language.renamedBlocks[alt]
     if (!blocksById[id]) throw new Error("Unknown ID: " + id)
     const block = blocksById[id]
-    var hash = hashSpec(alt)
+    const hash = hashSpec(alt)
     english.blocksByHash[hash] = block
   })
 
   language.nativeDropdowns = {}
   Object.keys(language.dropdowns).forEach(function(name) {
-    var nativeName = language.dropdowns[name]
+    const nativeName = language.dropdowns[name]
     language.nativeDropdowns[nativeName] = name
   })
 
@@ -182,7 +175,7 @@ function loadLanguages(languages) {
   })
 }
 
-var english = {
+const english = {
   aliases: {
     "turn left %1 degrees": "turn @turnLeft %1 degrees",
     "turn ccw %1 degrees": "turn @turnLeft %1 degrees",
@@ -249,7 +242,7 @@ function specialCase(id, func) {
 }
 
 function disambig(id1, id2, test) {
-  var func = function(info, children, lang) {
+  const func = function(info, children, lang) {
     return blocksById[test(children, lang) ? id1 : id2]
   }
   specialCase(id1, func)
@@ -258,9 +251,9 @@ function disambig(id1, id2, test) {
 
 disambig("OPERATORS_MATHOP", "SENSING_OF", function(children, lang) {
   // Operators if math function, otherwise sensing "attribute of" block
-  var first = children[0]
+  const first = children[0]
   if (!first.isInput) return
-  var name = first.value
+  const name = first.value
   return lang.math.indexOf(name) > -1
 })
 
@@ -269,11 +262,11 @@ disambig("SOUND_CHANGEEFFECTBY", "LOOKS_CHANGEEFFECTBY", function(
   lang
 ) {
   // Sound if sound effect, otherwise default to graphic effect
-  for (var i = 0; i < children.length; i++) {
-    var child = children[i]
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i]
     if (child.shape === "dropdown") {
-      var name = child.value
-      for (let effect of lang.soundEffects) {
+      const name = child.value
+      for (const effect of lang.soundEffects) {
         if (minifyHash(effect) === minifyHash(name)) {
           return true
         }
@@ -285,11 +278,11 @@ disambig("SOUND_CHANGEEFFECTBY", "LOOKS_CHANGEEFFECTBY", function(
 
 disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function(children, lang) {
   // Sound if sound effect, otherwise default to graphic effect
-  for (var i = 0; i < children.length; i++) {
-    var child = children[i]
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i]
     if (child.shape === "dropdown") {
-      var name = child.value
-      for (let effect of lang.soundEffects) {
+      const name = child.value
+      for (const effect of lang.soundEffects) {
         if (minifyHash(effect) === minifyHash(name)) {
           return true
         }
@@ -299,26 +292,23 @@ disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function(children, lang) {
   return false
 })
 
-disambig("DATA_LENGTHOFLIST", "OPERATORS_LENGTH", function(children, lang) {
+disambig("DATA_LENGTHOFLIST", "OPERATORS_LENGTH", function(children) {
   // List block if dropdown, otherwise operators
-  var last = children[children.length - 1]
+  const last = children[children.length - 1]
   if (!last.isInput) return
   return last.shape === "dropdown"
 })
 
-disambig("DATA_LISTCONTAINSITEM", "OPERATORS_CONTAINS", function(
-  children,
-  lang
-) {
+disambig("DATA_LISTCONTAINSITEM", "OPERATORS_CONTAINS", function(children) {
   // List block if dropdown, otherwise operators
-  var first = children[0]
+  const first = children[0]
   if (!first.isInput) return
   return first.shape === "dropdown"
 })
 
-disambig("pen.setColor", "pen.setHue", function(children, lang) {
+disambig("pen.setColor", "pen.setHue", function(children) {
   // Color block if color input, otherwise numeric
-  var last = children[children.length - 1]
+  const last = children[children.length - 1]
   // If variable, assume color input, since the RGBA hack is common.
   // TODO fix Scratch :P
   return (last.isInput && last.isColor) || last.isBlock
@@ -326,9 +316,9 @@ disambig("pen.setColor", "pen.setHue", function(children, lang) {
 
 specialCase("CONTROL_STOP", function(info, children, lang) {
   // Cap block unless argument is "other scripts in sprite"
-  var last = children[children.length - 1]
+  const last = children[children.length - 1]
   if (!last.isInput) return
-  var value = last.value
+  const value = last.value
   if (lang.osis.indexOf(value) > -1) {
     return Object.assign({}, blocksById["CONTROL_STOP"], {
       shape: "stack",
@@ -337,10 +327,10 @@ specialCase("CONTROL_STOP", function(info, children, lang) {
 })
 
 function lookupHash(hash, info, children, languages) {
-  for (var i = 0; i < languages.length; i++) {
-    var lang = languages[i]
-    if (lang.blocksByHash.hasOwnProperty(hash)) {
-      var block = lang.blocksByHash[hash]
+  for (let i = 0; i < languages.length; i++) {
+    const lang = languages[i]
+    if (Object.prototype.hasOwnProperty.call(lang.blocksByHash, hash)) {
+      let block = lang.blocksByHash[hash]
       if (info.shape === "reporter" && block.shape !== "reporter") continue
       if (info.shape === "boolean" && block.shape !== "boolean") continue
       if (block.specialCase) {
@@ -352,18 +342,18 @@ function lookupHash(hash, info, children, languages) {
 }
 
 function lookupDropdown(name, languages) {
-  for (var i = 0; i < languages.length; i++) {
-    var lang = languages[i]
-    if (lang.nativeDropdowns.hasOwnProperty(name)) {
-      var nativeName = lang.nativeDropdowns[name]
+  for (let i = 0; i < languages.length; i++) {
+    const lang = languages[i]
+    if (Object.prototype.hasOwnProperty.call(lang.nativeDropdowns, name)) {
+      const nativeName = lang.nativeDropdowns[name]
       return nativeName
     }
   }
 }
 
 function applyOverrides(info, overrides) {
-  for (var i = 0; i < overrides.length; i++) {
-    var name = overrides[i]
+  for (let i = 0; i < overrides.length; i++) {
+    const name = overrides[i]
     if (hexColorPat.test(name)) {
       info.color = name
       info.category = ""
@@ -382,9 +372,9 @@ function applyOverrides(info, overrides) {
 }
 
 function blockName(block) {
-  var words = []
-  for (var i = 0; i < block.children.length; i++) {
-    var child = block.children[i]
+  const words = []
+  for (let i = 0; i < block.children.length; i++) {
+    const child = block.children[i]
     if (!child.isLabel) return
     words.push(child.value)
   }

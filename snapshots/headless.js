@@ -32,9 +32,6 @@ function bundleScratchblocks() {
 
 const puppeteer = require("puppeteer")
 
-let browser
-let page
-
 const parseDataUrl = url => {
   const match = url.match(/^data:image\/png;base64,(.+)$/)
   if (!match) {

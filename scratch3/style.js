@@ -1,6 +1,6 @@
-var SVG = require("./draw.js")
+const SVG = require("./draw.js")
 
-var Style = (module.exports = {
+const Style = (module.exports = {
   cssContent: `
     .sb3-label {
       font: 500 12pt Helevetica Neue, Helvetica, sans-serif;
@@ -668,7 +668,7 @@ var Style = (module.exports = {
   },
 
   makeStyle() {
-    var style = SVG.el("style")
+    const style = SVG.el("style")
     style.appendChild(SVG.cdata(Style.cssContent))
     return style
   },

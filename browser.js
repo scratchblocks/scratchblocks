@@ -1,4 +1,4 @@
-var scratchblocks = (window.scratchblocks = module.exports = require("./index")(
+const scratchblocks = (window.scratchblocks = module.exports = require("./index")(
   window
 ))
 
