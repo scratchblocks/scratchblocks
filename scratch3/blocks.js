@@ -707,7 +707,7 @@ ScriptView.prototype.draw = function(inside) {
   }
   this.height = y + 1
   if (!inside && !this.isFinal) {
-    this.height += block.hasPuzzle ? 44 : 36
+    this.height += block.hasPuzzle ? 8 : 0
   }
   if (!inside && block.isGlow) {
     this.height += 2 // TODO unbreak this
@@ -751,7 +751,7 @@ DocumentView.prototype.render = function() {
     if (height) height += 10
     script.y = height
     elements.push(SVG.move(0, height, script.draw()))
-    height += script.height
+    height += script.height + 36
     width = Math.max(width, script.width + 4)
   }
   this.width = width
