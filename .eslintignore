@@ -1,1 +1,6 @@
+.cache/
+dist/
+node_modules/
+__generated__
+@types/
 rollup.config.js

@@ -1,0 +1,21 @@
+box: willbooster/wercker-box
+build:
+  steps:
+    - script:
+        name: Show environment information
+        code: |
+          echo "node: $(node -v)"
+          echo "yarn: $(yarn -v)"
+    - script:
+        name: Install dependencies
+        code: |
+          yarn config set cache-folder "$WERCKER_CACHE_DIR/yarn"
+          yarn install
+    - script:
+        name: Run lint
+        code: |
+          yarn lint
+    - script:
+        name: Run tests
+        code: |
+          yarn test

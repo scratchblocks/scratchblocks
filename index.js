@@ -7,15 +7,15 @@
  * http://opensource.org/licenses/MIT
  */
 module.exports = function(window) {
-  "use strict"
+  'use strict';
 
-  const document = window.document
+  const document = window.document;
 
   /* utils */
 
   /*****************************************************************************/
 
-  const syntax = require("./syntax")
+  const syntax = require('./syntax');
   const {
     allLanguages,
     loadLanguages,
@@ -27,49 +27,49 @@ module.exports = function(window) {
     Comment,
     Script,
     Document,
-  } = syntax
+  } = syntax;
 
   /*****************************************************************************/
 
-  const scratch2 = require("./scratch2")
-  scratch2.init(window)
+  const scratch2 = require('./scratch2');
+  scratch2.init(window);
 
-  const scratch3 = require("./scratch3")
-  scratch3.init(window)
+  const scratch3 = require('./scratch3');
+  scratch3.init(window);
 
   function appendStyles() {
-    document.head.appendChild(scratch2.makeStyle())
-    document.head.appendChild(scratch3.makeStyle())
+    document.head.appendChild(scratch2.makeStyle());
+    document.head.appendChild(scratch3.makeStyle());
   }
 
   function parse(code, options) {
-    return syntax.parse(code, options)
+    return syntax.parse(code, options);
   }
 
   function newView(doc, options) {
     options = Object.assign(
       {
-        style: "scratch2",
+        style: 'scratch2',
       },
       options
-    )
+    );
     switch (options.style) {
-      case "scratch2":
-        return scratch2.newView(doc)
-      case "scratch3":
-        return scratch3.newView(doc)
+      case 'scratch2':
+        return scratch2.newView(doc);
+      case 'scratch3':
+        return scratch3.newView(doc);
       default:
-        throw new Error("Unknown style: " + options.style)
+        throw new Error('Unknown style: ' + options.style);
     }
   }
 
   function render(doc, options) {
-    if (typeof options === "function") {
-      throw new Error("render() no longer takes a callback")
+    if (typeof options === 'function') {
+      throw new Error('render() no longer takes a callback');
     }
-    const view = newView(doc, options)
-    const svg = view.render()
-    return svg
+    const view = newView(doc, options);
+    const svg = view.render();
+    return svg;
   }
 
   /*****************************************************************************/
@@ -83,38 +83,38 @@ module.exports = function(window) {
         inline: false,
       },
       options
-    )
+    );
 
-    const html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/gi, "\n")
-    const pre = document.createElement("pre")
-    pre.innerHTML = html
-    let code = pre.textContent
+    const html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/gi, '\n');
+    const pre = document.createElement('pre');
+    pre.innerHTML = html;
+    let code = pre.textContent;
     if (options.inline) {
-      code = code.replace("\n", "")
+      code = code.replace('\n', '');
     }
-    return code
+    return code;
   }
 
   // insert 'svg' into 'el', with appropriate wrapper elements
   function replace(el, svg, doc, options) {
-    let container
+    let container;
     if (options.inline) {
-      container = document.createElement("span")
-      let cls = "scratchblocks scratchblocks-inline"
+      container = document.createElement('span');
+      let cls = 'scratchblocks scratchblocks-inline';
       if (doc.scripts[0] && !doc.scripts[0].isEmpty) {
-        cls += " scratchblocks-inline-" + doc.scripts[0].blocks[0].shape
+        cls += ' scratchblocks-inline-' + doc.scripts[0].blocks[0].shape;
       }
-      container.className = cls
-      container.style.display = "inline-block"
-      container.style.verticalAlign = "middle"
+      container.className = cls;
+      container.style.display = 'inline-block';
+      container.style.verticalAlign = 'middle';
     } else {
-      container = document.createElement("div")
-      container.className = "scratchblocks"
+      container = document.createElement('div');
+      container.className = 'scratchblocks';
     }
-    container.appendChild(svg)
+    container.appendChild(svg);
 
-    el.innerHTML = ""
-    el.appendChild(container)
+    el.innerHTML = '';
+    el.appendChild(container);
   }
 
   /* Render all matching elements in page to shiny scratch blocks.
@@ -125,12 +125,12 @@ module.exports = function(window) {
    * Like the old 'scratchblocks2.parse().
    */
   const renderMatching = function(selector, options) {
-    selector = selector || "pre.blocks"
+    selector = selector || 'pre.blocks';
     options = Object.assign(
       {
-        style: "scratch2",
+        style: 'scratch2',
         inline: false,
-        languages: ["en"],
+        languages: ['en'],
 
         read: readCode, // function(el, options) => code
         parse: parse, // function(code, options) => doc
@@ -138,27 +138,27 @@ module.exports = function(window) {
         replace: replace, // function(el, svg, doc, options)
       },
       options
-    )
+    );
 
     // find elements
-    const results = [].slice.apply(document.querySelectorAll(selector))
+    const results = [].slice.apply(document.querySelectorAll(selector));
     results.forEach(function(el) {
-      const code = options.read(el, options)
+      const code = options.read(el, options);
 
-      const doc = options.parse(code, options)
+      const doc = options.parse(code, options);
 
-      const svg = options.render(doc, options)
+      const svg = options.render(doc, options);
 
-      options.replace(el, svg, doc, options)
-    })
-  }
+      options.replace(el, svg, doc, options);
+    });
+  };
 
   return {
     allLanguages: allLanguages, // read-only
     loadLanguages: loadLanguages,
 
     stringify: function(doc) {
-      return doc.stringify()
+      return doc.stringify();
     },
 
     Label,
@@ -177,5 +177,5 @@ module.exports = function(window) {
     renderMatching: renderMatching,
 
     appendStyles: appendStyles,
-  }
-}
+  };
+};

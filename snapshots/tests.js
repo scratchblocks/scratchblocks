@@ -1,10 +1,10 @@
-const { test } = require("./runner")
+const { test } = require('./runner');
 
 // Scratch 2, English
 
 test(
-  "scratch2",
-  "en-motion",
+  'scratch2',
+  'en-motion',
   `
 
 // Motion
@@ -38,11 +38,11 @@ set rotation style [left-right v]
 (direction)
 
 `
-)
+);
 
 test(
-  "scratch2",
-  "en-looks",
+  'scratch2',
+  'en-looks',
   `
 
 // Looks
@@ -81,11 +81,11 @@ next backdrop
 (backdrop #)
 
 `
-)
+);
 
 test(
-  "scratch2",
-  "en-sound",
+  'scratch2',
+  'en-sound',
   `
 
 // Sound
@@ -109,11 +109,11 @@ set tempo to (60) bpm
 (tempo)
 
 `
-)
+);
 
 test(
-  "scratch2",
-  "en-pen",
+  'scratch2',
+  'en-pen',
   `
 
 // Pen
@@ -136,11 +136,11 @@ change pen size by (1)
 set pen size to (1)
 
 `
-)
+);
 
 test(
-  "scratch2",
-  "en-data",
+  'scratch2',
+  'en-data',
   `
 
 // Variables
@@ -166,11 +166,11 @@ show list [list v]
 hide list [list v]
 
 `
-)
+);
 
 test(
-  "scratch2",
-  "en-events",
+  'scratch2',
+  'en-events',
   `
 
 // Events
@@ -190,11 +190,11 @@ broadcast [message1 v]
 broadcast [message1 v] and wait
 
 `
-)
+);
 
 test(
-  "scratch2",
-  "en-control",
+  'scratch2',
+  'en-control',
   `
 
 // Control
@@ -236,11 +236,11 @@ create clone of [myself v]
 delete this clone
 
 `
-)
+);
 
 test(
-  "scratch2",
-  "en-sensing",
+  'scratch2',
+  'en-sensing',
   `
 
 // Sensing
@@ -276,11 +276,11 @@ reset timer
 
 
 `
-)
+);
 
 test(
-  "scratch2",
-  "en-operators",
+  'scratch2',
+  'en-operators',
   `
 
 // Operators
@@ -312,11 +312,11 @@ test(
 ([sqrt v] of (9))
 
 `
-)
+);
 
 test(
-  "scratch2",
-  "en-extensions",
+  'scratch2',
+  'en-extensions',
   `
 
 // PicoBoard
@@ -374,11 +374,11 @@ when tilted
 (tilt [up-down v])
 
 `
-)
+);
 
 test(
-  "scratch2",
-  "en-obsolete",
+  'scratch2',
+  'en-obsolete',
   `
 
 // Obsolete Scratch 1.4 blocks:
@@ -426,15 +426,15 @@ when Sprite1 clicked
 …
 
 `
-)
+);
 
 /*****************************************************************************/
 
 // Scratch 3, English
 
 test(
-  "scratch3",
-  "en-motion",
+  'scratch3',
+  'en-motion',
   `
 
 // Motion
@@ -464,11 +464,11 @@ set rotation style [left-right v]
 (direction)
 
 `
-)
+);
 
 test(
-  "scratch3",
-  "en-looks",
+  'scratch3',
+  'en-looks',
   `
 
 // Looks
@@ -501,11 +501,11 @@ go [forward v] (1) layers
 (size)
 
 `
-)
+);
 
 test(
-  "scratch3",
-  "en-sound",
+  'scratch3',
+  'en-sound',
   `
 
 // Sound
@@ -524,11 +524,11 @@ set volume to (100) %
 volume
 
 `
-)
+);
 
 test(
-  "scratch3",
-  "en-events",
+  'scratch3',
+  'en-events',
   `
 
 // Events
@@ -545,11 +545,11 @@ broadcast (message1 v)
 broadcast (message1 v) and wait
 
 `
-)
+);
 
 test(
-  "scratch3",
-  "en-control",
+  'scratch3',
+  'en-control',
   `
 
 // Control
@@ -581,11 +581,11 @@ create clone of (myself v)
 delete this clone 
 
 `
-)
+);
 
 test(
-  "scratch3",
-  "en-sensing",
+  'scratch3',
+  'en-sensing',
   `
 
 // Sensing
@@ -620,11 +620,11 @@ reset timer
 (username)
 
 `
-)
+);
 
 test(
-  "scratch3",
-  "en-operators",
+  'scratch3',
+  'en-operators',
   `
 
 // Operators
@@ -655,11 +655,11 @@ test(
 ([abs v] of ())
 
 `
-)
+);
 
 test(
-  "scratch3",
-  "en-variables",
+  'scratch3',
+  'en-variables',
   `
 
 // Variables
@@ -690,11 +690,11 @@ show list [list v]
 hide list [list v]
 
 `
-)
+);
 
 test(
-  "scratch3",
-  "en-custom",
+  'scratch3',
+  'en-custom',
   `
 
 // Custom
@@ -704,11 +704,11 @@ foo () if <>
 define foo (num) if <bool>
 
 `
-)
+);
 
 test(
-  "scratch3",
-  "en-pen",
+  'scratch3',
+  'en-pen',
   `
 
 // Pen
@@ -729,11 +729,11 @@ change pen size by (1)
 set pen size to (1)
 
 `
-)
+);
 
 test(
-  "scratch3",
-  "en-music",
+  'scratch3',
+  'en-music',
   `
 
 // Music
@@ -747,11 +747,11 @@ change tempo by (20)
 (tempo)
 
 `
-)
+);
 
 test(
-  "scratch3",
-  "en-video",
+  'scratch3',
+  'en-video',
   `
 
 // Video
@@ -762,11 +762,11 @@ turn video (on v)
 set video transparency to (50)
 
 `
-)
+);
 
 test(
-  "scratch3",
-  "en-extensions",
+  'scratch3',
+  'en-extensions',
   `
 // Text to Speech
 
@@ -829,15 +829,15 @@ when tilted (any v) :: wedo
 <tilted (any v)? :: wedo>
 (tilt angle (up v) :: wedo)
 `
-)
+);
 
 /*****************************************************************************/
 
 // Scratch 3, German
 
 test(
-  "scratch3",
-  "de-motion",
+  'scratch3',
+  'de-motion',
   `
 
 // Bewegung
@@ -869,12 +869,12 @@ setze Drehtyp auf [links-rechts v]
 (Richtung)
 
 `,
-  "de"
-)
+  'de'
+);
 
 test(
-  "scratch3",
-  "de-looks",
+  'scratch3',
+  'de-looks',
   `
 
 // Aussehen
@@ -909,14 +909,14 @@ gehe (1) Ebenen [nach vorne v]
 (Größe)
 
 `,
-  "de"
-)
+  'de'
+);
 // "gehe Ebenen nach vorne" appears differently in the Scratch editor than in
 // the translation files, wut
 
 test(
-  "scratch3",
-  "de-sound",
+  'scratch3',
+  'de-sound',
   `
 
 // Klang
@@ -936,12 +936,12 @@ setze Lautstärke auf (100) %
 
 
 `,
-  "de"
-)
+  'de'
+);
 
 test(
-  "scratch3",
-  "de-events",
+  'scratch3',
+  'de-events',
   `
 
 // Ereignisse
@@ -958,12 +958,12 @@ sende (Nachricht1 v) an alle
 sende (Nachricht1 v) an alle und warte
 
 `,
-  "de"
-)
+  'de'
+);
 
 test(
-  "scratch3",
-  "de-control",
+  'scratch3',
+  'de-control',
   `
 
 // Steuerung
@@ -995,12 +995,12 @@ erzeuge Klon von (mir selbst v)
 lösche diesen Klon
 
 `,
-  "de"
-)
+  'de'
+);
 
 test(
-  "scratch3",
-  "de-sensing",
+  'scratch3',
+  'de-sensing',
   `
 
 // Fühlen
@@ -1034,12 +1034,12 @@ setze Stoppuhr zurück
 (Benutzername)
 
 `,
-  "de"
-)
+  'de'
+);
 
 test(
-  "scratch3",
-  "de-operators",
+  'scratch3',
+  'de-operators',
   `
 
 // Operatoren
@@ -1071,12 +1071,12 @@ test(
 ([Betrag v] von (foo))
 
 `,
-  "de"
-)
+  'de'
+);
 
 test(
-  "scratch3",
-  "de-variables",
+  'scratch3',
+  'de-variables',
   `
 
 // Variablen
@@ -1107,12 +1107,12 @@ zeige Liste [list v]
 verstecke Liste [list v]
 
 `,
-  "de"
-)
+  'de'
+);
 
 test(
-  "scratch3",
-  "de-custom",
+  'scratch3',
+  'de-custom',
   `
 
 // Meine Blöcke
@@ -1122,12 +1122,12 @@ foo () if <>
 Definiere foo (num) if <bool>
 
 `,
-  "de"
-)
+  'de'
+);
 
 test(
-  "scratch3",
-  "de-pen",
+  'scratch3',
+  'de-pen',
   `
 
 // Malstift
@@ -1148,12 +1148,12 @@ setze Stift (Farbe v) auf (50)
 setze Stiftdicke auf (1)
 
 `,
-  "de"
-)
+  'de'
+);
 
 test(
-  "scratch3",
-  "de-music",
+  'scratch3',
+  'de-music',
   `
 
 // Musik
@@ -1168,12 +1168,12 @@ setze tempo auf (60)
 (Tempo)
 
 `,
-  "de"
-)
+  'de'
+);
 
 test(
-  "scratch3",
-  "de-video",
+  'scratch3',
+  'de-video',
   `
 
 // Video-Erfassung
@@ -1186,12 +1186,12 @@ schalte Video (an v)
 setze Video-Transparenz auf (50)
 
 `,
-  "de"
-)
+  'de'
+);
 
 test(
-  "scratch3",
-  "de-extensions",
+  'scratch3',
+  'de-extensions',
   `
 // Text zu Sprache
 
@@ -1205,7 +1205,7 @@ setze Sprache auf (English v) :: tts
 (Sprache :: translate)
 
 `,
-  "de"
-)
+  'de'
+);
 
 // Other extensions omitted since they don't use the translation infrastructure anyhow.

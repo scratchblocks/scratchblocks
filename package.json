@@ -1,17 +1,9 @@
 {
-  "name": "scratchblocks",
-  "description": "Render scratchblocks code to SVG images.",
-  "license": "MIT",
-  "author": "Tim Radvan",
-  "homepage": "https://scratchblocks.github.io/",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tjvr/scratchblocks.git"
-  },
-  "bugs": {
-    "url": "https://github.com/tjvr/scratchblocks/issues"
-  },
+  "name": "@willbooster/node-scratchblocks",
   "version": "3.4.0",
+  "description": "A fork of scratchblocks modified for Node.js.",
+  "license": "MIT",
+  "author": "WillBooster LLC",
   "main": "build/scratchblocks.min.js",
   "module": "build/scratchblocks.min.es.js",
   "directories": {
@@ -22,65 +14,45 @@
     "fmt": "prettier --write *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js",
     "lint": "eslint *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js",
     "lint-fix": "npm run lint -- --fix",
-    "lint:staged": "lint-staged",
     "locales": "node locales-src/build-locales.js",
     "rollup": "rollup -c",
     "snapshots": "node ./snapshots/",
     "start": "rollup -c -m -w",
     "test": "jest"
   },
+  "prettier": "@willbooster/prettier-config",
   "dependencies": {
-    "@babel/polyfill": "^7.4.4"
+    "@babel/polyfill": "7.4.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.4",
-    "@babel/plugin-external-helpers": "^7.2.0",
-    "@babel/plugin-transform-object-assign": "^7.2.0",
-    "@babel/preset-env": "^7.4.4",
-    "browserify": "^16.2.3",
-    "eslint": "^6.0.1",
-    "eslint-config-prettier": "^5.0.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "husky": "^2.5.0",
-    "jest": "^24.7.1",
-    "lint-staged": "^8.2.1",
-    "pofile": "^1.0.10",
+    "@babel/cli": "7.4.4",
+    "@babel/core": "7.4.4",
+    "@babel/plugin-external-helpers": "7.2.0",
+    "@babel/plugin-transform-object-assign": "7.2.0",
+    "@babel/preset-env": "7.4.4",
+    "@willbooster/eslint-config-pure-js": "0.1.6",
+    "@willbooster/prettier-config": "0.1.6",
+    "browserify": "16.2.3",
+    "eslint": "6.4.0",
+    "eslint-config-prettier": "6.3.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-prettier": "3.1.1",
+    "husky": "2.5.0",
+    "jest": "24.7.1",
+    "lint-staged": "8.2.1",
+    "pofile": "1.0.10",
     "prettier": "1.18.2",
-    "prettier-package-json": "^2.1.0",
-    "puppeteer": "^1.15.0",
-    "rollup": "^0.67.4",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-babel-minify": "^6.2.0",
-    "rollup-plugin-commonjs": "^9.3.4",
-    "rollup-plugin-json": "^3.1.0",
-    "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-globals": "^1.4.0",
-    "rollup-plugin-node-resolve": "^3.4.0",
-    "rollup-plugin-serve": "^0.6.1",
-    "scratch-l10n": "^3.2.20190425212106"
-  },
-  "keywords": [
-    "scratch"
-  ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "package.json": [
-      "prettier-package-json --write",
-      "git add"
-    ],
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
-  },
-  "pre-commit": "lint:staged",
-  "prettier": {
-    "semi": false,
-    "trailingComma": "es5"
+    "puppeteer": "1.15.0",
+    "rollup": "0.67.4",
+    "rollup-plugin-babel": "4.3.2",
+    "rollup-plugin-babel-minify": "6.2.0",
+    "rollup-plugin-commonjs": "9.3.4",
+    "rollup-plugin-json": "3.1.0",
+    "rollup-plugin-node-builtins": "2.1.2",
+    "rollup-plugin-node-globals": "1.4.0",
+    "rollup-plugin-node-resolve": "3.4.0",
+    "rollup-plugin-serve": "0.6.1",
+    "scratch-l10n": "3.2.20190425212106",
+    "sort-package-json": "1.22.1"
   }
 }

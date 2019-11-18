@@ -24,10 +24,10 @@ const env = {
 
 const banner = `/**
  * ${pkg.name} v${pkg.version}
- * ${pkg.homepage}
  * ${pkg.description}
  *
- * Copyright 2013–${new Date().getFullYear()}, ${pkg.author.name}
+ * Copyright 2019–${new Date().getFullYear()}, ${pkg.author.name}
+ * Copyright 2013–2019, Tim Radvan
  * @license ${pkg.license}
  */`
 
