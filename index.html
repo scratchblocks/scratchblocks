@@ -1,57 +1,57 @@
 <!DOCTYPE html>
-<meta charset="utf8">
-<meta name=viewport content="width=device-width, initial-scale=1">
+<meta charset="utf8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>scratchblocks dev</title>
 
-<meta name=description content="Use scratchblocks to write pictures of Scratch scripts in forum posts.">
+<meta name="description" content="Use scratchblocks to write pictures of Scratch scripts in forum posts." />
 
 <!--
 <link rel=stylesheet href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700">
 -->
-<link rel=stylesheet href="index.css">
+<link rel="stylesheet" href="index.css" />
 
 <style>
-#preview > svg {
-  display: block;
-}
-#preview > .scratch3 {
-  transform: scale(0.675);
-  transform-origin: 0 0;
-}
-#preview:before {
-  position: relative;
-  left: 1px;
-  min-width: 695px;
-  min-height: 842px;
-  z-index: 1;
-  transform: scale(0.66666);
-  transform-origin: 0 0;
-}
-.cmp #preview:before,
-.diff #preview:before {
-  position: absolute;
-  display: block;
-  content: "";
-  background: url(screenshot.png) no-repeat -2px -3px;
-}
-.cmp.diff #preview:before {
-  -webkit-filter: invert(100%) opacity(50%);
-}
-.diff #preview:before {
-  -webkit-filter: opacity(50%);
-}
-.cmp img {
-  display: none;
-}
-body {
-  background: #dddede;
-}
+  #preview > svg {
+    display: block;
+  }
+  #preview > .scratch3 {
+    transform: scale(0.675);
+    transform-origin: 0 0;
+  }
+  #preview:before {
+    position: relative;
+    left: 1px;
+    min-width: 695px;
+    min-height: 842px;
+    z-index: 1;
+    transform: scale(0.66666);
+    transform-origin: 0 0;
+  }
+  .cmp #preview:before,
+  .diff #preview:before {
+    position: absolute;
+    display: block;
+    content: '';
+    background: url(screenshot.png) no-repeat -2px -3px;
+  }
+  .cmp.diff #preview:before {
+    -webkit-filter: invert(100%) opacity(50%);
+  }
+  .diff #preview:before {
+    -webkit-filter: opacity(50%);
+  }
+  .cmp img {
+    display: none;
+  }
+  body {
+    background: #dddede;
+  }
 </style>
 
 <!---------------------------------------------------------------------------->
 
 <h1>
-  <a id=title href="/">scratchblocks dev</a>
+  <a id="title" href="/">scratchblocks dev</a>
   <span>
     <a target="_blank" href="http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax">help</a>
     <a href="http://github.com/blob8108/scratchblocks2">github</a>
@@ -60,15 +60,15 @@ body {
 </h1>
 
 <div id="side">
-<div>
-  <select id="choose-lang">
-    <option value="">Select language…
-  </select>
+  <div>
+    <select id="choose-lang">
+      <option value="">Select language… </option></select
+    >
 
-  <small id=lang-status></small>
-</div>
+    <small id="lang-status"></small>
+  </div>
 
-<textarea id="editor"></textarea>
+  <textarea id="editor"></textarea>
 </div>
 
 <pre id="preview" class="blocks"></pre>
@@ -79,106 +79,107 @@ body {
 <script src="build/translations-all.js"></script>
 
 <script>
-var editor = document.getElementById('editor');
-var exportSVGLink;
-var exportPNGLink;
+  var editor = document.getElementById('editor');
+  var exportSVGLink;
+  var exportPNGLink;
 
-var obj = {};
-extractHash();
+  var obj = {};
+  extractHash();
 
-editor.addEventListener('input', function(e) {
-  obj.script = editor.value;
-  objUpdated();
-});
+  editor.addEventListener('input', function(e) {
+    obj.script = editor.value;
+    objUpdated();
+  });
 
-var chooseLang = document.getElementById('choose-lang');
+  var chooseLang = document.getElementById('choose-lang');
 
-var languageCodes = Object.keys(scratchblocks.allLanguages)
-languageCodes.sort()
-languageCodes.forEach(function(code) {
-  if (code === "en") return
-  var option = document.createElement("option")
-  option.value = code
+  var languageCodes = Object.keys(scratchblocks.allLanguages);
+  languageCodes.sort();
+  languageCodes.forEach(function(code) {
+    if (code === 'en') return;
+    var option = document.createElement('option');
+    option.value = code;
 
-  var language = scratchblocks.allLanguages[code]
-  option.textContent = language.name && language.altName ? language.name + " — " + language.altName : language.name || language.altName || code
-  chooseLang.appendChild(option)
-})
+    var language = scratchblocks.allLanguages[code];
+    option.textContent =
+      language.name && language.altName
+        ? language.name + ' — ' + language.altName
+        : language.name || language.altName || code;
+    chooseLang.appendChild(option);
+  });
 
-var incompleteLangs = [];
-var newOnlyLangs = [];
-[].slice.apply(chooseLang.options).forEach(function(el) {
-  var text = el.textContent;
-  if (/\*/.test(text)) incompleteLangs.push(el.value);
-  if (/\†/.test(text)) newOnlyLangs.push(el.value);
-});
+  var incompleteLangs = [];
+  var newOnlyLangs = [];
+  [].slice.apply(chooseLang.options).forEach(function(el) {
+    var text = el.textContent;
+    if (/\*/.test(text)) incompleteLangs.push(el.value);
+    if (/\†/.test(text)) newOnlyLangs.push(el.value);
+  });
 
-var langStatus = document.createTextNode("");
-document.getElementById('lang-status').appendChild(langStatus);
+  var langStatus = document.createTextNode('');
+  document.getElementById('lang-status').appendChild(langStatus);
 
-chooseLang.addEventListener('change', function(e) {
-  obj.lang = chooseLang.value;
-  console.log(obj);
-  objUpdated();
-});
+  chooseLang.addEventListener('change', function(e) {
+    obj.lang = chooseLang.value;
+    console.log(obj);
+    objUpdated();
+  });
 
+  /* Extract hash from location. Returns true if changed */
+  function extractHash() {
+    var newObj = decodeHash();
+    if (!newObj || !newObj.script) {
+      newObj = {
+        script: '',
+        lang: obj.lang,
+      };
+    }
 
-/* Extract hash from location. Returns true if changed */
-function extractHash() {
-  var newObj = decodeHash();
-  if (!newObj || !newObj.script) {
-    newObj = {
-      script: "",
-      lang: obj.lang,
-    };
+    if (newObj.lang !== obj.lang || newObj.script !== obj.script) {
+      obj = newObj;
+      return true;
+    }
+    return false;
   }
 
-  if (newObj.lang !== obj.lang || newObj.script !== obj.script) {
-    obj = newObj;
-    return true;
-  }
-  return false;
-}
+  function decodeHash() {
+    var hash = location.href.split('#')[1];
+    if (!hash) return;
 
-function decodeHash() {
-  var hash = location.href.split('#')[1];
-  if (!hash) return;
-
-  if (!/^\?/.test(hash)) {
-    return {
-      script: decodeURIComponent(hash),
-    };
-  } else {
-    var newObj = {};
-    parts = hash.slice(1).split('&');
-    parts.forEach(function(part) {
-      var match = /^(.*)=(.*)$/.exec(part);
-      if (!match) return;
-      var key = decodeURIComponent(match[1]);
-      var value = decodeURIComponent(match[2]);
-      if (key === "lang" || key === "script") {
-        newObj[key] = value;
-      }
-    });
-    return newObj;
-  }
-}
-
-function objUpdated() {
-  // set hash
-  if (obj.lang) {
-    location.hash = ('#?lang=' + encodeURIComponent(obj.lang) +
-                     '&script='+encodeURIComponent(obj.script));
-  } else if (obj.script) {
-    location.hash = '#'+encodeURIComponent(obj.script);
-  } else {
-    if (!(location.hash == '' || location.hash == '#')) {
-      location.hash = '#';
+    if (!/^\?/.test(hash)) {
+      return {
+        script: decodeURIComponent(hash),
+      };
+    } else {
+      var newObj = {};
+      parts = hash.slice(1).split('&');
+      parts.forEach(function(part) {
+        var match = /^(.*)=(.*)$/.exec(part);
+        if (!match) return;
+        var key = decodeURIComponent(match[1]);
+        var value = decodeURIComponent(match[2]);
+        if (key === 'lang' || key === 'script') {
+          newObj[key] = value;
+        }
+      });
+      return newObj;
     }
   }
-  // TODO: don't spam history on every keypress!
 
-  /*
+  function objUpdated() {
+    // set hash
+    if (obj.lang) {
+      location.hash = '#?lang=' + encodeURIComponent(obj.lang) + '&script=' + encodeURIComponent(obj.script);
+    } else if (obj.script) {
+      location.hash = '#' + encodeURIComponent(obj.script);
+    } else {
+      if (!(location.hash == '' || location.hash == '#')) {
+        location.hash = '#';
+      }
+    }
+    // TODO: don't spam history on every keypress!
+
+    /*
   // renderMatching API example
   preview.innerHTML = obj.script;
   scratchblocks.renderMatching('pre.blocks', {
@@ -203,79 +204,76 @@ function objUpdated() {
   });
   */
 
-  var doc = window.doc = scratchblocks.parse(obj.script, {
-    languages: obj.lang ? ['en', obj.lang] : ['en'],
-  });
+    var doc = (window.doc = scratchblocks.parse(obj.script, {
+      languages: obj.lang ? ['en', obj.lang] : ['en'],
+    }));
 
-  // doc.translate(scratchblocks.allLanguages['de']);
+    // doc.translate(scratchblocks.allLanguages['de']);
 
-  // var doc = window.doc = scratchblocks.fromJSON({
-  //   scripts: eval(obj.script),
-  // });
+    // var doc = window.doc = scratchblocks.fromJSON({
+    //   scripts: eval(obj.script),
+    // });
 
-  console.log(scratchblocks.stringify(doc));
-  var docView3 = scratchblocks.newView(doc, {
-    style: "scratch3",
-  });
-  var docView2 = scratchblocks.newView(doc, {
-    style: "scratch2",
-  });
-  var svg3 = docView3.render();
-  var svg2 = docView2.render();
-  preview.innerHTML = "";
-  preview.appendChild(svg3);
-  preview.appendChild(svg2);
-  svg3.classList.add("scratch3")
+    console.log(scratchblocks.stringify(doc));
+    var docView3 = scratchblocks.newView(doc, {
+      style: 'scratch3',
+    });
+    var docView2 = scratchblocks.newView(doc, {
+      style: 'scratch2',
+    });
+    var svg3 = docView3.render();
+    var svg2 = docView2.render();
+    preview.innerHTML = '';
+    preview.appendChild(svg3);
+    preview.appendChild(svg2);
+    svg3.classList.add('scratch3');
 
-  // add export link
-  setTimeout(function() {
-    if (exportSVGLink) document.body.removeChild(exportSVGLink);
-    var link = exportSVGLink = document.createElement('a');
-    link.href = docView3.exportSVG();
-    link.setAttribute('download', 'scratchblocks.svg');
-    link.textContent = "Export SVG";
-    link.className = 'export-link';
-    document.body.appendChild(link);
-
-    if (exportPNGLink) document.body.removeChild(exportPNGLink);
-    docView3.exportPNG(function(pngDataURL) {
-      var link = exportPNGLink = document.createElement('a');
-      link.href = pngDataURL;
-      link.setAttribute('download', 'scratchblocks.png');
-      link.textContent = "Export PNG";
+    // add export link
+    setTimeout(function() {
+      if (exportSVGLink) document.body.removeChild(exportSVGLink);
+      var link = (exportSVGLink = document.createElement('a'));
+      link.href = docView3.exportSVG();
+      link.setAttribute('download', 'scratchblocks.svg');
+      link.textContent = 'Export SVG';
       link.className = 'export-link';
       document.body.appendChild(link);
-    }, 2);
-  }, 0);
 
-  // update language dropdown
-  var lang = scratchblocks.allLanguages[obj.lang]
-  langStatus.textContent = lang ? lang.percentTranslated + "%" : "";
-}
+      if (exportPNGLink) document.body.removeChild(exportPNGLink);
+      docView3.exportPNG(function(pngDataURL) {
+        var link = (exportPNGLink = document.createElement('a'));
+        link.href = pngDataURL;
+        link.setAttribute('download', 'scratchblocks.png');
+        link.textContent = 'Export PNG';
+        link.className = 'export-link';
+        document.body.appendChild(link);
+      }, 2);
+    }, 0);
 
-setInterval(function() {
-  if (extractHash()) {
-    updatedFromHash();
+    // update language dropdown
+    var lang = scratchblocks.allLanguages[obj.lang];
+    langStatus.textContent = lang ? lang.percentTranslated + '%' : '';
   }
-}, 200);
 
-function updatedFromHash() {
-  editor.value = obj.script;
-  objUpdated();
-  chooseLang.value = obj.lang || "";
-}
+  setInterval(function() {
+    if (extractHash()) {
+      updatedFromHash();
+    }
+  }, 200);
 
-updatedFromHash();
+  function updatedFromHash() {
+    editor.value = obj.script;
+    objUpdated();
+    chooseLang.value = obj.lang || '';
+  }
 
+  updatedFromHash();
 </script>
 
 <script>
-function showDiff(e) {
-  document.body.classList[e.ctrlKey ? 'add' : 'remove']('cmp');
-  document.body.classList[e.altKey  ? 'add' : 'remove']('diff');
-}
-document.addEventListener('keydown', showDiff);
-document.addEventListener('keyup', showDiff);
-
+  function showDiff(e) {
+    document.body.classList[e.ctrlKey ? 'add' : 'remove']('cmp');
+    document.body.classList[e.altKey ? 'add' : 'remove']('diff');
+  }
+  document.addEventListener('keydown', showDiff);
+  document.addEventListener('keyup', showDiff);
 </script>
-

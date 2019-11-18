@@ -204,12 +204,13 @@ function parseLines(code, languages) {
         case '\\':
           next(); // escape character
         // fall-thru
-        case ":": // eslint-disable-line
+        case ':': // eslint-disable-line
           if (tok === ':' && peek() === ':') {
             children.push(pOverrides(end));
             return children;
           } // fall-thru
-        default: // eslint-disable-line
+        default:
+          // eslint-disable-line
           if (!label) children.push((label = new Label('')));
           label.value += tok;
           next();
@@ -455,12 +456,13 @@ function parseLines(code, languages) {
         case '\\':
           next();
         // fall-thru
-        case ":": // eslint-disable-line
+        case ':': // eslint-disable-line
           if (tok === ':' && peek() === ':') {
             children.push(pOverrides());
             break;
           } // fall-thru
-        default: // eslint-disable-line
+        default:
+          // eslint-disable-line
           if (!label) children.push((label = new Label('')));
           label.value += tok;
           next();

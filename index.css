@@ -2,7 +2,11 @@
   box-sizing: border-box;
 }
 
-body, div, p, textarea, pre {
+body,
+div,
+p,
+textarea,
+pre {
   margin: 0;
   padding: 0;
   line-height: 1.5em;
@@ -19,11 +23,14 @@ body {
   color: black;
 }
 
-body, .CodeMirror {
+body,
+.CodeMirror {
   font-family: Noto Sans, sans-serif;
 }
 
-select, input, button {
+select,
+input,
+button {
   font: inherit;
   font-size: 1em;
 }
@@ -33,7 +40,11 @@ input {
   max-width: 100%;
 }
 
-h1, h2, code, input[type=url], #num-chosen-scripts {
+h1,
+h2,
+code,
+input[type='url'],
+#num-chosen-scripts {
   font-family: Noto Sans, sans-serif;
 }
 
@@ -93,7 +104,8 @@ p a {
 p a:visited {
   color: #aaa;
 }
-p a:hover, p a:visited:hover {
+p a:hover,
+p a:visited:hover {
   background: none;
   color: #006ed8;
   border-bottom-color: #006ed8;
@@ -105,16 +117,13 @@ p a:active {
   opacity: 1;
 }
 
-
-
-
-
 label {
   font-weight: bold;
   cursor: pointer;
 }
 
-button, .button {
+button,
+.button {
   display: inline-block;
   font-size: 1.25em;
   margin-bottom: 1em;
@@ -130,7 +139,11 @@ button, .button {
   outline: none;*/
   -webkit-transition: none;
 }
-button, .button, button:hover, .button:hover, .button:visited {
+button,
+.button,
+button:hover,
+.button:hover,
+.button:visited {
   background: #f0f0f0;
   border: 1px solid #aaa;
   border-bottom-width: 3px;
@@ -138,10 +151,14 @@ button, .button, button:hover, .button:hover, .button:visited {
   color: black;
   -webkit-transition: none;
 }
-button:focus, .button:focus {
+button:focus,
+.button:focus {
   /*box-shadow: 0 0 1px rgba(0, 0, 255, 0.5);*/
 }
-button:active, button.pressed, .button:active, .button.pressed {
+button:active,
+button.pressed,
+.button:active,
+.button.pressed {
   border-bottom-width: 1px;
   border-top-width: 2px;
   background: #e0e0e0;
@@ -149,9 +166,6 @@ button:active, button.pressed, .button:active, .button.pressed {
   color: black;
   opacity: 1;
 }
-
-
-
 
 /* editor */
 
@@ -204,7 +218,6 @@ button:active, button.pressed, .button:active, .button.pressed {
   margin-right: 1em;
 }
 
-
 @media screen and (min-width: 62em) {
   body {
     padding: 1em 2em;
@@ -222,14 +235,20 @@ button:active, button.pressed, .button:active, .button.pressed {
     margin-left: 2rem;
   }
 
-  #preview, #side {
+  #preview,
+  #side {
     position: absolute;
-    bottom: 2em; left: 2em; right: 2em;
+    bottom: 2em;
+    left: 2em;
+    right: 2em;
   }
 
   #editor {
     position: absolute;
-    top: 3.25em; bottom: 0; left: 2em; right: 0;
+    top: 3.25em;
+    bottom: 0;
+    left: 2em;
+    right: 0;
     margin: 0;
     height: 30em;
   }
@@ -266,64 +285,113 @@ button:active, button.pressed, .button:active, .button.pressed {
   }
 }
 
-
-
 /* editor: to be used in future */
 
-.cm-s-number { color: #4548af; }
-.cm-s-string, .cm-s-menu { color: #904949; }
-.cm-s-color { color: #b09542; }
-.cm-s-comment { color: #c8b898; }
+.cm-s-number {
+  color: #4548af;
+}
+.cm-s-string,
+.cm-s-menu {
+  color: #904949;
+}
+.cm-s-color {
+  color: #b09542;
+}
+.cm-s-comment {
+  color: #c8b898;
+}
 
-.cm-s-green { color: #488d00; }
+.cm-s-green {
+  color: #488d00;
+}
 
-.cm-s-error { color: #e21313; }
-.cm-s-motion { color: #4a6cd4; }
-.cm-s-looks { color: #8a55d7; }
-.cm-s-sound { color: #bb42c3; }
-.cm-s-pen { color: #0e9a6c; }
-.cm-s-events { color: #c88330; }
-.cm-s-control, .false { color: #e1a91a; }
-.cm-s-sensing { color: #2ca5e2; }
-.cm-s-operators { color: #5cb712; }
-.cm-s-variable { color: #ee7d16; }
-.cm-s-custom { color: #632d99; }
-.cm-s-parameter { color: #5947b1; }
-.cm-s-list { color: #cc5b22; }
-.cm-s-extension { color: #4b4a60; }
-.cm-s-grey { color: #888; }
+.cm-s-error {
+  color: #e21313;
+}
+.cm-s-motion {
+  color: #4a6cd4;
+}
+.cm-s-looks {
+  color: #8a55d7;
+}
+.cm-s-sound {
+  color: #bb42c3;
+}
+.cm-s-pen {
+  color: #0e9a6c;
+}
+.cm-s-events {
+  color: #c88330;
+}
+.cm-s-control,
+.false {
+  color: #e1a91a;
+}
+.cm-s-sensing {
+  color: #2ca5e2;
+}
+.cm-s-operators {
+  color: #5cb712;
+}
+.cm-s-variable {
+  color: #ee7d16;
+}
+.cm-s-custom {
+  color: #632d99;
+}
+.cm-s-parameter {
+  color: #5947b1;
+}
+.cm-s-list {
+  color: #cc5b22;
+}
+.cm-s-extension {
+  color: #4b4a60;
+}
+.cm-s-grey {
+  color: #888;
+}
 
-.bg-motion { background: #4a6cd4; }
-.bg-looks { background: #8a55d7; }
-.bg-sound { background: #bb42c3; }
-.bg-pen { background: #0e9a6c; }
-.bg-events { background: #c88330; }
-.bg-control, .false { background: #e1a91a; }
-.bg-sensing { background: #2ca5e2; }
-.bg-operators { background: #5cb712; }
-.bg-variable { background: #ee7d16; }
-.bg-custom { background: #632d99; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.bg-motion {
+  background: #4a6cd4;
+}
+.bg-looks {
+  background: #8a55d7;
+}
+.bg-sound {
+  background: #bb42c3;
+}
+.bg-pen {
+  background: #0e9a6c;
+}
+.bg-events {
+  background: #c88330;
+}
+.bg-control,
+.false {
+  background: #e1a91a;
+}
+.bg-sensing {
+  background: #2ca5e2;
+}
+.bg-operators {
+  background: #5cb712;
+}
+.bg-variable {
+  background: #ee7d16;
+}
+.bg-custom {
+  background: #632d99;
+}
 
 /* for generator */
 
-
 /* Row */
 
-#header, #wrap, #sprites-list-wrap, #intro {
+#header,
+#wrap,
+#sprites-list-wrap,
+#intro {
   position: absolute;
   overflow: hidden;
   left: 0;
@@ -335,10 +403,11 @@ button:active, button.pressed, .button:active, .button.pressed {
   top: 0;
 }
 
-
 /* Column */
 
-#left-pane, #sprite-detail, #intro {
+#left-pane,
+#sprite-detail,
+#intro {
   position: absolute;
   overflow: hidden;
   overflow-y: auto;
@@ -347,7 +416,6 @@ button:active, button.pressed, .button:active, .button.pressed {
   bottom: 0;
   padding: 2em;
 }
-
 
 /* Intro pane */
 
@@ -360,7 +428,6 @@ button:active, button.pressed, .button:active, .button.pressed {
   display: none;
 }
 
-
 /* Header stuff */
 
 #header {
@@ -370,7 +437,6 @@ button:active, button.pressed, .button:active, .button.pressed {
   z-index: 202;
   padding: 1em 2em;
 }
-
 
 #project-url {
   font-size: 1.25em;
@@ -394,12 +460,10 @@ button:active, button.pressed, .button:active, .button.pressed {
   font-size: 0.9em;
 }
 
-
 #wrap {
   top: 9.5em;
   bottom: 0;
 }
-
 
 /* Left pane */
 
@@ -432,7 +496,6 @@ button:active, button.pressed, .button:active, .button.pressed {
   background: #4ca6fb;
 }
 
-
 #chosen-scripts-info {
 }
 #num-chosen-scripts {
@@ -446,7 +509,6 @@ button:active, button.pressed, .button:active, .button.pressed {
   clear: both;
 }
 
-
 /* Right pane */
 
 #sprite-detail {
@@ -456,7 +518,6 @@ button:active, button.pressed, .button:active, .button.pressed {
 #sprite-info {
   overflow: hidden; /* clearfix */
 }
-
 
 #sprite-name {
   float: left;
@@ -473,11 +534,7 @@ button:active, button.pressed, .button:active, .button.pressed {
   width: 100%;
 }
 
-
-
-
 img .hidden {
   position: absolute;
   opacity: 0;
 }
-

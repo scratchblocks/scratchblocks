@@ -1,3 +1,4 @@
 {
-  "package.json": ["sort-package-json", "git add"]
+  "./**/*.{css,htm,html,js,json,jsx,md,scss,yaml,yml}": ["prettier --write", "git add"],
+  "./**/package.json": ["sort-package-json", "git add"]
 }
