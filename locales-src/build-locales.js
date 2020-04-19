@@ -165,6 +165,9 @@ const buildLocale = (code, rawLocale) => {
 
   // Approximate fraction of blocks translated
   locale.percentTranslated = Math.round(frac / 0.74 * 100)
+  if(locale.percentTranslated == 119) {
+    locale.percentTranslated == 100
+  }
 
   if (aliases) {
     locale.commands["end"] = aliases["end"]
