@@ -510,6 +510,7 @@ BlockView.prototype.draw = function() {
   // Commands have a minimum width
   // The hat min-width is arbitrary (not sure of Scratch 3 value)
   // Outline min-width is deliberately higher (because Scratch 3 looks silly)
+  var orgInnerWidth = innerWidth
   innerWidth = Math.max(
     this.hasScript
       ? 160
@@ -518,6 +519,7 @@ BlockView.prototype.draw = function() {
         : this.isCommand || this.isOutline ? 64 : this.isReporter ? 48 : 0,
     innerWidth
   )
+  padLeft += (innerWidth - orgInnerWidth) / 2
   this.height = y
 
   this.width = scriptWidth ? Math.max(innerWidth, 15 + scriptWidth) : innerWidth
