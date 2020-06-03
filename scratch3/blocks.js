@@ -510,7 +510,7 @@ BlockView.prototype.draw = function() {
   // Commands have a minimum width
   // The hat min-width is arbitrary (not sure of Scratch 3 value)
   // Outline min-width is deliberately higher (because Scratch 3 looks silly)
-  var orgInnerWidth = innerWidth
+  var originalInnerWidth = innerWidth
   innerWidth = Math.max(
     this.hasScript
       ? 160
@@ -520,7 +520,7 @@ BlockView.prototype.draw = function() {
     innerWidth
   )
   // Center the label text inside small reporters.
-  padLeft += (innerWidth - orgInnerWidth) / 2
+  padLeft += (innerWidth - originalInnerWidth) / 2
   this.height = y
 
   this.width = scriptWidth ? Math.max(innerWidth, 15 + scriptWidth) : innerWidth
