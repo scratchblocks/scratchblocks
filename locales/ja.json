@@ -71,6 +71,7 @@
     "if %1 then": "もし %1 なら",
     "wait until %1": "%1 まで待つ",
     "repeat until %1": "%1 まで繰り返す",
+    "stop %1": " %1",
     "when I start as a clone": "クローンされたとき",
     "create clone of %1": "%1 のクローンを作る",
     "delete this clone": "このクローンを削除する",

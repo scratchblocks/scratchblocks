@@ -190,7 +190,6 @@ const fixup = (key, value, englishValue) => {
 
   value = value.replace(/\[[^\]]+\]/g, key => variables[key])
   value = value.trim()
-  if (!value) return
 
   switch (key) {
     case "EVENT_WHENFLAGCLICKED":

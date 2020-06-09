@@ -281,6 +281,7 @@ describe('disambiguation', () => {
   const stopCap = {
     shape: 'cap',
     selector: 'stopScripts',
+    category: 'control',
   }
 
   test('stop block cap', () => {
@@ -290,6 +291,11 @@ describe('disambiguation', () => {
   test('stop block cap: de', () => {
     expect(parseBlock('stoppe [alles v]', optionsDe).info).toMatchObject(stopCap)
   })
+
+  test('stop block cap: ja', () => {
+    expect(parseBlock('[すべてを止める v]', optionsJa).info).toMatchObject(stopCap)
+  })
+
 
   const stopStack = {
     shape: 'stack',
@@ -302,6 +308,10 @@ describe('disambiguation', () => {
 
   test('stop block stack: de', () => {
     expect(parseBlock('stoppe [andere Skripte der Figur v]', optionsDe).info).toMatchObject(stopStack)
+  })
+
+  test('stop block stack: ja', () => {
+    expect(parseBlock('[スプライトの他のスクリプトを止める v]', optionsJa).info).toMatchObject(stopStack)
   })
 })
 
@@ -475,6 +485,14 @@ describe('translate', () => {
     b.translate(allLanguages.ko)
     expect(b.stringify()).toEqual('만약 <마우스를 클릭했는가?> \\(이\\)라면\nend')
   })
+
+  test('translates stop block: en -> ja', () => {
+    const b = parseBlock('stop [all v]')
+    b.translate(allLanguages.ja)
+    // Note: currently we don't translate dropdown menu contents.
+    expect(b.stringify()).toEqual('[all v]')
+  })
+
 
   // TODO test define
 
