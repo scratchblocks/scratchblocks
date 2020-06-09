@@ -12,8 +12,7 @@ Make pictures of Scratch blocks from text.
 - in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles
 - in the [Code Club](https://www.codeclub.org.uk) project guides
 
-It's MIT licensed, so you can use it in your projects. (But do send me a link
-[on Twitter](http://twitter.com/blob8108)!)
+It's MIT licensed, so you can use it in your projects. (But do send me a link [on Twitter](http://twitter.com/blob8108)!)
 
 For the full guide to the syntax, see [the wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
 
@@ -35,21 +34,27 @@ This would probably be a good way to write a Scratch book.
 
 ## HTML
 
-Include the scratchblocks JS file on your webpage:
+Include a copy of [the scratchblocks JS file](https://scratchblocks.github.io/js/scratchblocks-v3.4-min.js) on your webpage.
 
 ```html
-<script src="https://scratchblocks.github.io/js/scratchblocks-v3.x-min.js"></script>
+<script src="scratchblocks-v3.4-min.js"></script>
 ```
 
-`x` must be replaced with a version number. You can see [the list of the available versions](https://github.com/scratchblocks/scratchblocks.github.io/tree/master/js).
-
-Then call `scratchblocks.renderMatching` after the page has loaded, which
-will render matching page elements to shiny scratch blocks. Its sole argument
-is the CSS-style selector for the elements that contain the scratchblocks code.
-It uses `pre.blocks` by default.
+You can also include [the translations JS file](https://scratchblocks.github.io/js/translations-all-v3.4.js) if you want to include non-English blocks, but since that's quite large (nearly 600K?) it's recommended you build your own file with just the locales you need. For example, a translation file that just loads the German language (ISO code `de`) would look something like this:
 
 ```js
-scratchblocks.renderMatching('pre.blocks');
+window.scratchblocks.loadLanguages({
+    de: <contents of locales/de.json>
+})
+```
+
+You then need to call `scratchblocks.renderMatching` after the page has loaded. It takes a CSS-style selector for the elements that contain scratchblocks code. The `style` option controls how the blocks appear, either the Scratch 2 or Scratch 3 style is supported.
+
+```js
+scratchblocks.renderMatching('pre.blocks', {
+  style:     'scratch3',   // Optional, defaults to 'scratch2'.
+  languages: ['en', 'de'], // Optional, defaults to ['en'].
+});
 ```
 
 ### Inline blocks
@@ -63,7 +68,10 @@ I'm rather fond of the <code class="b">stamp</code> block in Scratch.
 ...make a separate call to `renderMatching` using the `inline` argument.
 
 ```js
-scratchblocks.renderMatching("code.b", {inline: true});
+scratchblocks.renderMatching("code.b", {
+  inline: true,
+  // Repeat `style` and `languages` options here.
+});
 ```
 
 ## Browserify
@@ -84,17 +92,9 @@ scratchblocks.renderMatching('pre.blocks');
 
 To update the translations:
 ```sh
-npm upgrade scratchr2_translations
+npm upgrade scratch-l10n
 npm run locales
 ```
-
-In the browser, include [`translations.js`](https://github.com/tjvr/scratchblocks/blob/master/build/translations.js), [`translations-all.js`](https://github.com/tjvr/scratchblocks/blob/master/build/translations-all.js) or build your own language pack.
-
-`translations.js` contains all the languages needed [on the Scratch Forums](http://scratch.mit.edu/discuss/#category_head_6).
-
-`translations-all.js` contains all the languages Scratch supports.
-
-If you want to build your own language pack, use `scratchblocks.loadLanguage(lang)` where lang is the contents of `src/locales/lang.json`.
 
 ## Adding a language
 
