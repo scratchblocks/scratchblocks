@@ -4,6 +4,7 @@ const { parse, loadLanguages, allLanguages } = require('../syntax')
 loadLanguages({
   de: require('../locales/de'),
   ja: require('../locales/ja'),
+  ko: require('../locales/ko'),
 })
 const optionsDe = {
   languages: ['en', 'de'],
@@ -467,6 +468,12 @@ describe('translate', () => {
     const b = parseBlock('when flag clicked')
     b.translate(allLanguages.ja)
     expect(b.stringify()).toEqual('⚑ が押されたとき')
+  })
+
+  test('escapes brackets in labels: en -> ko', () => {
+    const b = parseBlock("if <mouse down?> then")
+    b.translate(allLanguages.ko)
+    expect(b.stringify()).toEqual('만약 <마우스를 클릭했는가?> \\(이\\)라면\nend')
   })
 
   // TODO test define
