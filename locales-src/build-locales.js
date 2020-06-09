@@ -163,8 +163,10 @@ const buildLocale = (code, rawLocale) => {
     `${(code + ":").padEnd(8)} ${(frac * 100).toFixed(1).padStart(5)}%`
   )
 
-  // Approximate fraction of blocks translated
-  locale.percentTranslated = Math.round(frac / 0.74 * 100)
+  // Approximate fraction of blocks translated. For some reason not all blocks
+  // are included; most locales are 88.4% translated according to this script.
+  // So we cheat and treat that as 100.
+  locale.percentTranslated = Math.max(100, Math.round(frac / .884 * 100))
 
   if (aliases) {
     locale.commands["end"] = aliases["end"]
