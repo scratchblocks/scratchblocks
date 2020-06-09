@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "Kada je kliknuta @greenFlag",
     "when %1 key pressed": "kada je tipka %1 pritisnuta",
     "when this sprite clicked": "Kada je lik kliknut",
+    "when stage clicked": "kada je kliknuto na pozadinu",
     "when backdrop switches to %1": "kada se pozadina promijeni u %1",
     "when %1 > %2": "kada je %1 > %2",
     "when I receive %1": "kada primim %1",
@@ -199,5 +200,5 @@
     "kraj": "end"
   },
   "name": "Hrvatski",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

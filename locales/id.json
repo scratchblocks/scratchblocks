@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "ketika @greenFlag diklik",
     "when %1 key pressed": "ketika tombol %1 ditekan",
     "when this sprite clicked": "ketika sprite ini diklik",
+    "when stage clicked": "ketika panggung diklik",
     "when backdrop switches to %1": "ketika latar menjadi %1",
     "when %1 > %2": "ketika %1 > %2",
     "when I receive %1": "ketika aku menerima %1",
@@ -199,5 +200,5 @@
     "selesai": "end"
   },
   "name": "Bahasa Indonesia",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

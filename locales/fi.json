@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "kun klikataan @greenFlag",
     "when %1 key pressed": "kun painetaan %1",
     "when this sprite clicked": "kun tätä hahmoa klikataan",
+    "when stage clicked": "kun esiintymislavaa klikataan",
     "when backdrop switches to %1": "kun taustaksi vaihtuu %1",
     "when %1 > %2": "kun %1 > %2",
     "when I receive %1": "kun vastaanotan %1",
@@ -86,7 +87,7 @@
     "add %1 to %2": "lisää %1 listaan %2",
     "delete %1 of %2": "poista %1 listasta %2",
     "delete all of %1": "poista kaikki listasta %1",
-    "if on edge, bounce": "pomppaa reunasta",
+    "if on edge, bounce": "kimpoa reunasta",
     "insert %1 at %2 of %3": "lisää %1 kohtaan %2 listassa %3",
     "replace item %1 of %2 with %3": "korvaa listan %2 kohdan %1 arvo arvolla %3",
     "show list %1": "näytä lista %1",
@@ -160,7 +161,7 @@
     "panoroi vasen/oikea"
   ],
   "osis": [
-    "hahmon muut skriptit"
+    "hahmon muut koodit"
   ],
   "define": [
     "määrittele"
@@ -194,5 +195,5 @@
   ],
   "aliases": {},
   "name": "Suomi",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

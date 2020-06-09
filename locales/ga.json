@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "nuair a chliceáiltear @greenFlag",
     "when %1 key pressed": "nuair a bhrúitear eochair %1",
     "when this sprite clicked": "nuair a chliceáiltear an sprid seo",
+    "when stage clicked": "nuair a chliceáiltear an stáitse",
     "when backdrop switches to %1": "nuair a chuirtear %1 suas",
     "when %1 > %2": "nuair atá %1 > %2",
     "when I receive %1": "nuair a fhaighim %1",
@@ -194,5 +195,5 @@
   ],
   "aliases": {},
   "name": "Gaeilge",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

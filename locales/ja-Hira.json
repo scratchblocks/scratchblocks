@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "@greenFlag がおされたとき",
     "when %1 key pressed": "%1 キーがおされたとき",
     "when this sprite clicked": "このスプライトがおされたとき",
+    "when stage clicked": "ステージがおされたとき",
     "when backdrop switches to %1": "はいけいが %1 になったとき",
     "when %1 > %2": "%1 > %2 のとき",
     "when I receive %1": "%1 をうけとったとき",

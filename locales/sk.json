@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "pri kliknutí na @greenFlag",
     "when %1 key pressed": "pri stlačení %1",
     "when this sprite clicked": "pri kliknutí na mňa",
+    "when stage clicked": "pri kliknutí na scénu",
     "when backdrop switches to %1": "pri zmene pozadia na %1",
     "when %1 > %2": "pri %1 > %2",
     "when I receive %1": "pri prijatí správy %1",
@@ -194,5 +195,5 @@
   ],
   "aliases": {},
   "name": "Slovenčina",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

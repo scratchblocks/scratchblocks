@@ -20,7 +20,7 @@
     "think %1": "pomisli %1",
     "show": "pokaži",
     "hide": "skrij",
-    "switch costume to %1": "zamenjaj videz na %1",
+    "switch costume to %1": "spremeni videz v %1",
     "next costume": "naslednji videz",
     "next backdrop": "naslednje ozadje",
     "switch backdrop to %1": "zamenjaj ozadje na %1",
@@ -58,7 +58,8 @@
     "set pen size to %1": "nastavi velikost peresa na %1",
     "when @greenFlag clicked": "ko kliknemo na @greenFlag",
     "when %1 key pressed": "ko je pritisnjena tipka %1",
-    "when this sprite clicked": "ko kliknemo to figuro",
+    "when this sprite clicked": "ko kliknemo ta lik",
+    "when stage clicked": "ko kliknemo na oder",
     "when backdrop switches to %1": "ko se ozadje zamenja na %1",
     "when %1 > %2": "ko je %1 > %2",
     "when I receive %1": "ko prejmem %1",
@@ -160,7 +161,7 @@
     "premik levo/desno"
   ],
   "osis": [
-    "ostale ukaze za to figuro"
+    "ostale ukaze za ta lik"
   ],
   "define": [
     "definiraj"
@@ -199,5 +200,5 @@
     "ustavi": "end"
   },
   "name": "Slovenščina",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

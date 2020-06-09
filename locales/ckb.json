@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "کاتێک @greenFlag کرتەکرا",
     "when %1 key pressed": "کاتێک دوگمەی %1 کرتەکرا",
     "when this sprite clicked": "کاتێک ئەم تەنە کرتەکرا",
+    "when stage clicked": "کاتێک سەکۆ کرتەکرا",
     "when backdrop switches to %1": "کاتێک پاشبنەما دەگۆڕێت بۆ %1",
     "when %1 > %2": "کاتێک %1 > %2",
     "when I receive %1": "کاتێک بەدەستم گەیشت %1",
@@ -194,5 +195,5 @@
   ],
   "aliases": {},
   "name": "کوردیی ناوەندی",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

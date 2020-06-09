@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "Wenn @greenFlag angeklickt wird",
     "when %1 key pressed": "Wenn Taste %1 gedrückt wird",
     "when this sprite clicked": "Wenn diese Figur angeklickt wird",
+    "when stage clicked": "Wenn die Bühne angeklickt wird",
     "when backdrop switches to %1": "Wenn das Bühnenbild zu %1 wechselt",
     "when %1 > %2": "Wenn %1 > %2",
     "when I receive %1": "Wenn ich %1 empfange",
@@ -199,5 +200,5 @@
     "Ende": "end"
   },
   "name": "Deutsch",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

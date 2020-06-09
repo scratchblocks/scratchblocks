@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "quan la @greenFlag es cliqui",
     "when %1 key pressed": "quan la tecla %1 es premi",
     "when this sprite clicked": "quan es cliqui aquest personatge",
+    "when stage clicked": "quan es cliqui l'escenari",
     "when backdrop switches to %1": "quan l'escenari canviï al fons %1",
     "when %1 > %2": "quan %1 > %2",
     "when I receive %1": "quan rebi %1",
@@ -199,5 +200,5 @@
     "fi": "end"
   },
   "name": "Català",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "kui klõpsata @greenFlag",
     "when %1 key pressed": "kui klõpsata klahvi %1",
     "when this sprite clicked": "kui spraiti klõpsata",
+    "when stage clicked": "kui lava klõpsata",
     "when backdrop switches to %1": "kui taustaks saab %1",
     "when %1 > %2": "kui %1 > %2",
     "when I receive %1": "kui saan teate %1",
@@ -194,5 +195,5 @@
   ],
   "aliases": {},
   "name": "Eesti",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "เมื่อคลิก @greenFlag",
     "when %1 key pressed": "เมื่อกดปุ่ม %1",
     "when this sprite clicked": "เมื่อตัวละครนี้ถูกคลิก",
+    "when stage clicked": "เมื่อคลิกเวที",
     "when backdrop switches to %1": "เมื่อฉากหลังเปลี่ยนเป็น %1",
     "when %1 > %2": "เมื่อ %1 > %2",
     "when I receive %1": "เมื่อฉันได้รับ %1",
@@ -194,5 +195,5 @@
   ],
   "aliases": {},
   "name": "ไทย",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

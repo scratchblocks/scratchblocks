@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "@greenFlag kliklənəndə",
     "when %1 key pressed": "%1 düyməsinə basdıqda",
     "when this sprite clicked": "sprayt kliklənəndə",
+    "when stage clicked": "səhnə kliklənəndə",
     "when backdrop switches to %1": "fon %1 fonuna dəyişdiriləndə",
     "when %1 > %2": "%1 > %2 olduqda",
     "when I receive %1": "mən %1 qəbul edəndə",
@@ -194,5 +195,5 @@
   ],
   "aliases": {},
   "name": "Azeri",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

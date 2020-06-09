@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "калі @greenFlag націснуты",
     "when %1 key pressed": "калі клавіша %1 націснутая",
     "when this sprite clicked": "калі спрайт націснуты",
+    "when stage clicked": "калі клікнуць па сцэне",
     "when backdrop switches to %1": "калі фон змяняецца на %1",
     "when %1 > %2": "калі %1 > %2",
     "when I receive %1": "калі я атрымаю %1",
@@ -194,5 +195,5 @@
   ],
   "aliases": {},
   "name": "Беларуская",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

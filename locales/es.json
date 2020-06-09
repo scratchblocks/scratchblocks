@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "al hacer clic en @greenFlag",
     "when %1 key pressed": "al presionar tecla %1",
     "when this sprite clicked": "al hacer clic en este objeto",
+    "when stage clicked": "al hacer clic en el escenario",
     "when backdrop switches to %1": "cuando el fondo cambie a %1",
     "when %1 > %2": "cuando %1 > %2",
     "when I receive %1": "al recibir %1",
@@ -199,5 +200,5 @@
     "fin": "end"
   },
   "name": "Español",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

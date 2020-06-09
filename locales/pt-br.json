@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "quando @greenFlag for clicado",
     "when %1 key pressed": "quando a tecla %1 for pressionada",
     "when this sprite clicked": "quando este ator for clicado",
+    "when stage clicked": "quando o palco for clicado",
     "when backdrop switches to %1": "quando o cenário mudar para %1",
     "when %1 > %2": "quando %1 > %2",
     "when I receive %1": "quando eu receber %1",
@@ -194,5 +195,5 @@
   ],
   "aliases": {},
   "name": "Português Brasileiro",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

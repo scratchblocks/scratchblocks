@@ -36,9 +36,9 @@
     "clear sound effects": "fjern lydeffekter",
     "play sound %1 until done": "spill lyden %1 til den er ferdig",
     "stop all sounds": "stopp alle lyder",
-    "play drum %1 for %2 beats": "trommeslag %1 som varer %2 takter",
-    "rest for %1 beats": "pause i %1 takter",
-    "play note %1 for %2 beats": "spill tone %1 som varer %2 takter",
+    "play drum %1 for %2 beats": "trommeslag %1 som varer %2 taktslag",
+    "rest for %1 beats": "pause i %1 taktslag",
+    "play note %1 for %2 beats": "spill tone %1 som varer %2 taktslag",
     "set instrument to %1": "velg instrument %1",
     "change volume by %1": "endre volum med %1",
     "set volume to %1%": "sett volum %1%",
@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "når @greenFlag klikkes",
     "when %1 key pressed": "når %1 trykkes",
     "when this sprite clicked": "når denne figuren klikkes",
+    "when stage clicked": "når scenen klikkes",
     "when backdrop switches to %1": "når bakgrunn bytter til %1",
     "when %1 > %2": "når %1 > %2",
     "when I receive %1": "når jeg mottar %1",
@@ -140,7 +141,7 @@
     "item # of %1 in %2": "posisjon av %1 i %2",
     "turn %1 on": "skru på %1",
     "turn %1 off": "skru av %1",
-    "set %1 power to %2": "velg %1 fart %2",
+    "set %1 power to %2": "sett %1 fart %2",
     "set %1 direction to %2": "velg %1 retning %2",
     "when distance %1 %2": "når avstand %1 %2",
     "distance": "avstand",
@@ -199,5 +200,5 @@
     "slutt": "end"
   },
   "name": "Norsk Bokmål",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

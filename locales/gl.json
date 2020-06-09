@@ -44,7 +44,7 @@
     "set volume to %1%": "pór o volume no %1%",
     "change tempo by %1": "aumentar o tempo en %1",
     "set tempo to %1": "aplicar un tempo de %1",
-    "erase all": "borrar todos",
+    "erase all": "borrar todo",
     "stamp": "selar",
     "pen down": "baixar o lapis",
     "pen up": "subir o lapis",
@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "Ao premer en @greenFlag",
     "when %1 key pressed": "Ao premer a tecla %1",
     "when this sprite clicked": "Ao premer nesta figura",
+    "when stage clicked": "Ao premer no escenario",
     "when backdrop switches to %1": "Ao mudar o fondo a %1",
     "when %1 > %2": "Cando %1 > %2",
     "when I receive %1": "Ao recibir %1",
@@ -194,5 +195,5 @@
   ],
   "aliases": {},
   "name": "Galego",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }

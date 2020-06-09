@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "ina pāwhiria te @greenFlag",
     "when %1 key pressed": "ina pēhia te pātuhi %1",
     "when this sprite clicked": "ina pāwhiria tēnei parehe",
+    "when stage clicked": "ina pāwhiria te Atamira",
     "when backdrop switches to %1": "ina hurihia te ārai tuarongo kia %1",
     "when %1 > %2": "mēnā %1 > %2",
     "when I receive %1": "ina ka riro mai te %1",
@@ -194,5 +195,5 @@
   ],
   "aliases": {},
   "name": "Māori",
-  "percentTranslated": 119
+  "percentTranslated": 120
 }
