@@ -509,6 +509,13 @@ module.exports = [
     category: "events",
   },
   {
+    id: "EVENT_WHENSTAGECLICKED",
+    spec: "when stage clicked",
+    inputs: [],
+    shape: "hat",
+    category: "events",
+  },
+  {
     id: "EVENT_WHENBACKDROPSWITCHESTO",
     selector: "whenSceneStarts",
     spec: "when backdrop switches to %1",
