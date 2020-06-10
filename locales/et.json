@@ -163,9 +163,10 @@
   "osis": [
     "teised spraidi skriptid"
   ],
-  "define": [
+  "definePrefix": [
     "defineeri"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Liikumine",
     "Looks": "Välimus",

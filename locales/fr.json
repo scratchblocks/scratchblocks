@@ -163,9 +163,10 @@
   "osis": [
     "autres scripts dans sprite"
   ],
-  "define": [
+  "definePrefix": [
     "définir"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Mouvement",
     "Looks": "Apparence",

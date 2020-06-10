@@ -163,9 +163,10 @@
   "osis": [
     "สริปต์อื่นในตัวละคร"
   ],
-  "define": [
+  "definePrefix": [
     "กำหนด"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "เคลื่อนไหว",
     "Looks": "รูปลักษณ์",

@@ -163,8 +163,10 @@
   "osis": [
     "spraytın digər skriptləri"
   ],
-  "define": [
-    "təyin et"
+  "definePrefix": [],
+  "defineSuffix": [
+    "təyin",
+    "et"
   ],
   "palette": {
     "Motion": "Hərəkət",

@@ -163,9 +163,10 @@
   "osis": [
     "citi skripti gariņā"
   ],
-  "define": [
+  "definePrefix": [
     "definēt"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Kustība",
     "Looks": "Izskats",

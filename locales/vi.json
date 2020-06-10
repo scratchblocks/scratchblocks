@@ -163,9 +163,11 @@
   "osis": [
     "các kịch bản khác cho nhân vật"
   ],
-  "define": [
-    "định nghĩa"
+  "definePrefix": [
+    "định",
+    "nghĩa"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Chuyển động",
     "Looks": "Hiển thị",

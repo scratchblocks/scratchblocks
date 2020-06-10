@@ -163,9 +163,10 @@
   "osis": [
     "другите скриптове на спрайта"
   ],
-  "define": [
+  "definePrefix": [
     "дефинирай"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Движение",
     "Looks": "Външност",

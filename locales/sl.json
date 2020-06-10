@@ -163,9 +163,10 @@
   "osis": [
     "ostale ukaze za ta lik"
   ],
-  "define": [
+  "definePrefix": [
     "definiraj"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Gibanje",
     "Looks": "Videzi",

@@ -163,9 +163,10 @@
   "osis": [
     "moje iné scenáre"
   ],
-  "define": [
+  "definePrefix": [
     "blok"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Pohyb",
     "Looks": "Vzhľad",

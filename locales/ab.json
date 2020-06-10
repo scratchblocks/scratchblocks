@@ -163,9 +163,10 @@
   "osis": [
     "анагӡаҩ егьырҭ ипрограммақәа"
   ],
-  "define": [
+  "definePrefix": [
     "еиҿкаатәуп"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Аиҭаҵра",
     "Looks": "Аԥшра-асахьа",

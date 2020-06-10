@@ -163,9 +163,10 @@
   "osis": [
     "scripteanna eile sa sprid"
   ],
-  "define": [
+  "definePrefix": [
     "sainmhínigh"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Gluaiseacht",
     "Looks": "Cuma",

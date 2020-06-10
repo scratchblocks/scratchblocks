@@ -163,9 +163,10 @@
   "osis": [
     "andre skript i figuren"
   ],
-  "define": [
+  "definePrefix": [
     "definer"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Rørsle",
     "Looks": "Utsjånad",

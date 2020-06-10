@@ -163,9 +163,10 @@
   "osis": [
     "hati nyingine katika kihusika"
   ],
-  "define": [
+  "definePrefix": [
     "fafanua"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Mwendo",
     "Looks": "Muonekano",

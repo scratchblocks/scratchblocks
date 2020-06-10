@@ -163,9 +163,10 @@
   "osis": [
     "სპრაიტის სხვა სკრიპტები"
   ],
-  "define": [
+  "definePrefix": [
     "განსაზღვრე"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "მოძრაობა",
     "Looks": "გარეგნობა",

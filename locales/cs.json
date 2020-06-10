@@ -163,9 +163,11 @@
   "osis": [
     "jiné scénáře postavy"
   ],
-  "define": [
-    "scénář pro"
+  "definePrefix": [
+    "scénář",
+    "pro"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Pohyb",
     "Looks": "Vzhled",

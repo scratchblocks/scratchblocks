@@ -208,8 +208,17 @@ Block.prototype.translate = function(lang, isShallow) {
   if (!id) return
 
   if (id === "PROCEDURES_DEFINITION") {
-    assert(this.children[0].isLabel)
-    this.children[0] = new Label(lang.define[0] || english.define[0])
+    // Find the first 'outline' child (there should be exactly one).
+    const outline = this.children.find(child => child.isOutline)
+
+    this.children = []
+    for (const word of lang.definePrefix) {
+      this.children.push(new Label(word))
+    }
+    this.children.push(outline)
+    for (const word of lang.defineSuffix) {
+      this.children.push(new Label(word))
+    }
     return
   }
 

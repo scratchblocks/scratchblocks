@@ -163,9 +163,10 @@
   "osis": [
     "sgriobtaichean eile na sprìde"
   ],
-  "define": [
+  "definePrefix": [
     "mìnich"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Gluasad",
     "Looks": "Coltas",

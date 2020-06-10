@@ -163,8 +163,11 @@
   "osis": [
     "di pêlîstikê de rêzikên din"
   ],
-  "define": [
-    "ê pênase bike"
+  "definePrefix": [],
+  "defineSuffix": [
+    "ê",
+    "pênase",
+    "bike"
   ],
   "palette": {
     "Motion": "Tevger",

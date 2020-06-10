@@ -163,9 +163,10 @@
   "osis": [
     "スプライトの他のスクリプトを止める"
   ],
-  "define": [
+  "definePrefix": [
     "定義"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "動き",
     "Looks": "見た目",

@@ -163,7 +163,8 @@
   "osis": [
     "Kukladaki diğer diziler"
   ],
-  "define": [
+  "definePrefix": [],
+  "defineSuffix": [
     "tanımla"
   ],
   "palette": {

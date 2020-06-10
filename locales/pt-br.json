@@ -163,9 +163,10 @@
   "osis": [
     "outros scripts no ator"
   ],
-  "define": [
+  "definePrefix": [
     "defina"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Movimento",
     "Looks": "Aparência",

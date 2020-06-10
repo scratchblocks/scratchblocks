@@ -163,8 +163,10 @@
   "osis": [
     "ሌሎች በስፕራይት ላይ ያሉ ስክሪፕቶች"
   ],
-  "define": [
-    "ን ደንግግ"
+  "definePrefix": [],
+  "defineSuffix": [
+    "ን",
+    "ደንግግ"
   ],
   "palette": {
     "Motion": "እንቅስቃሴ",

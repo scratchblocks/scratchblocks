@@ -74,9 +74,78 @@ function paintBlock(info, children, languages) {
     if (type.spec === ". . .") {
       children = [new Label(". . .")]
     }
+  } else {
+    // The block was not recognised, so we check if it's a define block.
+    //
+    // We check for built-in blocks first to avoid ambiguity, e.g. the
+    // `defina o tamanho como (100) %` block in pt_BR.
+    for (const lang of languages) {
+      if (!isDefineBlock(children, lang)) {
+        continue
+      }
+
+      // Setting the shape also triggers some logic in recogniseStuff.
+      info.shape = "define-hat"
+      info.category = "custom"
+
+      // Move the children of the define block into an "outline", transforming
+      // () and [] shapes as we go.
+      const outlineChildren = children.splice(
+        lang.definePrefix.length,
+        children.length - lang.defineSuffix.length
+      )
+
+      for (let i = 0; i < outlineChildren.length; i++) {
+        const child = outlineChildren[i]
+        if (child.isInput && child.isBoolean) {
+          // Convert empty boolean slot to empty boolean argument.
+          child = paintBlock(
+            {
+              shape: "boolean",
+              argument: "boolean",
+              category: "custom-arg",
+            },
+            [new Label("")],
+            languages
+          )
+        } else if (
+          child.isInput &&
+          (child.shape === "string" || child.shape === "number")
+        ) {
+          // Convert string inputs to string arguments, number inputs to number arguments.
+          const labels = child.value.split(/ +/g).map(word => new Label(word))
+          child = paintBlock(
+            {
+              shape: "reporter",
+              argument: child.shape === "string" ? "string" : "number",
+              category: "custom-arg",
+            },
+            labels,
+            languages
+          )
+        } else if (child.isReporter || child.isBoolean) {
+          // Convert variables to number arguments, predicates to boolean arguments.
+          if (child.info.categoryIsDefault) {
+            child.info.category = "custom-arg"
+            child.info.argument = child.isBoolean ? "boolean" : "number"
+          }
+        }
+        outlineChildren[i] = child
+      }
+
+      const outlineInfo = {
+        shape: "outline",
+        category: "custom",
+        categoryIsDefault: true,
+        hasLoopArrow: false,
+      }
+      const outline = new Block(outlineInfo, outlineChildren)
+      children.splice(lang.definePrefix.length, 0, outline)
+      break
+    }
   }
 
-  // overrides
+  // Apply overrides.
   applyOverrides(info, overrides)
 
   // loop arrows
@@ -100,6 +169,29 @@ function paintBlock(info, children, languages) {
   return block
 }
 
+function isDefineBlock(children, lang) {
+  if (children.length < lang.definePrefix.length) return false
+  if (children.length < lang.defineSuffix.length) return false
+
+  for (var i = 0; i < lang.definePrefix.length; i++) {
+    const defineWord = lang.definePrefix[i]
+    const child = children[i]
+    if (!child.isLabel || minifyHash(child.value) !== minifyHash(defineWord)) {
+      return false
+    }
+  }
+
+  for (var i = 1; i <= lang.defineSuffix.length; i++) {
+    const defineWord = lang.defineSuffix[lang.defineSuffix.length - i]
+    const child = children[children.length - i]
+    if (!child.isLabel || minifyHash(child.value) !== minifyHash(defineWord)) {
+      return false
+    }
+  }
+
+  return true
+}
+
 function parseLines(code, languages) {
   var tok = code[0]
   var index = 0
@@ -120,10 +212,6 @@ function parseLines(code, languages) {
   languages.map(function(lang) {
     define = define.concat(lang.define)
   })
-  // NB. we assume 'define' is a single word in every language
-  function isDefine(word) {
-    return define.indexOf(word) > -1
-  }
 
   function makeBlock(shape, children) {
     var hasInputs = !!children.filter(function(x) {
@@ -132,10 +220,7 @@ function parseLines(code, languages) {
 
     var info = {
       shape: shape,
-      category:
-        shape === "define-hat"
-          ? "custom"
-          : shape === "reporter" && !hasInputs ? "variables" : "obsolete",
+      category: shape === "reporter" && !hasInputs ? "variables" : "obsolete",
       categoryIsDefault: true,
       hasLoopArrow: false,
     }
@@ -188,12 +273,7 @@ function parseLines(code, languages) {
           break
         case " ":
         case "\t":
-          next()
-          if (label && isDefine(label.value)) {
-            // define hat
-            children.push(pOutline())
-            return children
-          }
+          next() // Skip over whitespace.
           label = null
           break
         case "◂":
@@ -267,15 +347,6 @@ function parseLines(code, languages) {
       next()
     }
     if (children.length === 0) return
-
-    // define hats
-    var first = children[0]
-    if (first && first.isLabel && isDefine(first.value)) {
-      if (children.length < 2) {
-        children.push(makeBlock("outline", []))
-      }
-      return makeBlock("define-hat", children)
-    }
 
     // standalone reporters
     if (children.length === 1) {
@@ -442,61 +513,6 @@ function parseLines(code, languages) {
     }
     if (tok && tok === "\n") next()
     return new Comment(comment, true)
-  }
-
-  function pOutline() {
-    var children = []
-    function parseArg(kind, end) {
-      label = null
-      next()
-      var parts = pParts(end)
-      if (tok === end) next()
-      children.push(
-        paintBlock(
-          {
-            shape: kind === "boolean" ? "boolean" : "reporter",
-            argument: kind,
-            category: "custom-arg",
-          },
-          parts,
-          languages
-        )
-      )
-    }
-    var label
-    while (tok && tok !== "\n") {
-      if (tok === "/" && peek() === "/") {
-        break
-      }
-      switch (tok) {
-        case "(":
-          parseArg("number", ")")
-          break
-        case "[":
-          parseArg("string", "]")
-          break
-        case "<":
-          parseArg("boolean", ">")
-          break
-        case " ":
-          next()
-          label = null
-          break
-        case "\\":
-          next()
-        // fall-thru
-        case ":":
-          if (tok === ":" && peek() === ":") {
-            children.push(pOverrides())
-            break
-          } // fall-thru
-        default:
-          if (!label) children.push((label = new Label("")))
-          label.value += tok
-          next()
-      }
-    }
-    return makeBlock("outline", children)
   }
 
   function pLine() {
@@ -696,7 +712,8 @@ function recogniseStuff(scripts) {
 
       // custom blocks
       if (block.info.shape === "define-hat") {
-        var outline = block.children[1]
+        // There should be exactly one `outline` child, added in paintBlock.
+        var outline = block.children.find(child => child.isOutline)
         if (!outline) return
 
         var names = []

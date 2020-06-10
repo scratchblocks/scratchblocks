@@ -163,9 +163,10 @@
   "osis": [
     "lòt eskrip nan sprite la"
   ],
-  "define": [
+  "definePrefix": [
     "defini"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Mouvman",
     "Looks": "Aparans",

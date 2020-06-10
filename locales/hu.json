@@ -163,7 +163,8 @@
   "osis": [
     "szereplő többi feladata"
   ],
-  "define": [
+  "definePrefix": [],
+  "defineSuffix": [
     "meghatározása"
   ],
   "palette": {

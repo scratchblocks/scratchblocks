@@ -163,8 +163,10 @@
   "osis": [
     "boshqa spraytlardagi skriptlar"
   ],
-  "define": [
-    "ni belgilash"
+  "definePrefix": [],
+  "defineSuffix": [
+    "ni",
+    "belgilash"
   ],
   "palette": {
     "Motion": "Harakatlar",

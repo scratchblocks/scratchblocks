@@ -209,7 +209,8 @@ var english = {
     clear: "pen.clear",
   },
 
-  define: ["define"],
+  definePrefix: ["define"],
+  defineSuffix: [],
 
   // For ignoring the lt sign in the "when distance < _" block
   ignorelt: ["when distance"],

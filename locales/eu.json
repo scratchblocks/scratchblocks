@@ -163,9 +163,10 @@
   "osis": [
     "pertsonaiaren beste script batzuk"
   ],
-  "define": [
+  "definePrefix": [
     "definitu"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Mugimendua",
     "Looks": "Itxura",

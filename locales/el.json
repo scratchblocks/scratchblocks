@@ -163,9 +163,10 @@
   "osis": [
     "άλλα σενάρια σε αυτό το αντικείμενο"
   ],
-  "define": [
+  "definePrefix": [
     "ορισμός"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Κίνηση",
     "Looks": "Όψεις",

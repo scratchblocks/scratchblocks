@@ -163,7 +163,8 @@
   "osis": [
     "이 스프라이트에 있는 다른 스크립트"
   ],
-  "define": [
+  "definePrefix": [],
+  "defineSuffix": [
     "정의하기"
   ],
   "palette": {

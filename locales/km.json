@@ -163,9 +163,10 @@
   "osis": [
     "ស្រ្គីបផ្សេងទៀតក្នុងតួអង្គ"
   ],
-  "define": [
+  "definePrefix": [
     "កំណត់ន័យ"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "ចលនា",
     "Looks": "រូបរាង",

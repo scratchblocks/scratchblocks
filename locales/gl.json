@@ -163,9 +163,10 @@
   "osis": [
     "outros programas na figura"
   ],
-  "define": [
+  "definePrefix": [
     "definir"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Movemento",
     "Looks": "Aparencia",

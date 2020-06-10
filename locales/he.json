@@ -163,9 +163,10 @@
   "osis": [
     "תסריטים אחרים בדמות"
   ],
-  "define": [
+  "definePrefix": [
     "הגדר"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "תנועה",
     "Looks": "מראה",

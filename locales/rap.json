@@ -163,9 +163,12 @@
   "osis": [
     "te tahi programa i te sprite"
   ],
-  "define": [
-    "haka tano te"
+  "definePrefix": [
+    "haka",
+    "tano",
+    "te"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "makenu",
     "Looks": "pahe meʾe no e tahi",

@@ -130,13 +130,24 @@ const buildLocale = (code, rawLocale) => {
 
   const aliases = extraAliases[code]
 
+  const procDef = translateKey(rawLocale, "PROCEDURES_DEFINITION")
+
   const locale = {
     commands: {},
     dropdowns: {},
     ignorelt: [],
     soundEffects: listFor(soundEffects),
     osis: listFor(osis),
-    define: listFor(["PROCEDURES_DEFINITION"]),
+    definePrefix: /(.*)%1/
+      .exec(procDef)[1]
+      .trim()
+      .split(/ /g)
+      .filter(x => !!x),
+    defineSuffix: /%1(.*)/
+      .exec(procDef)[1]
+      .trim()
+      .split(/ /g)
+      .filter(x => !!x),
     palette: dictionaryWith(palette), // used for forum menu
     math: listFor(mathFuncs),
     aliases: aliases || {},
@@ -198,8 +209,6 @@ const fixup = (key, value, englishValue) => {
       return value.replace("%1", "@turnLeft").replace("%2", "%1")
     case "MOTION_TURNRIGHT":
       return value.replace("%1", "@turnRight").replace("%2", "%1")
-    case "PROCEDURES_DEFINITION":
-      return value.replace(/ ?\%1 ?/, "")
     case "CONTROL_STOP":
       return value + " %1"
     default:

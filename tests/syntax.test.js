@@ -5,13 +5,13 @@ loadLanguages({
   de: require('../locales/de'),
   ja: require('../locales/ja'),
   ko: require('../locales/ko'),
+  pt_br: require('../locales/pt-br'),
+  rap: require('../locales/rap'),
+  uz: require('../locales/uz'),
 })
-const optionsDe = {
-  languages: ['en', 'de'],
-}
-const optionsJa = {
-  languages: ['en', 'ja'],
-}
+const optionsFor = (code) => ({
+  languages: ['en', code],
+})
 
 function getScript(doc) {
   expect(doc.scripts.length).toBe(1)
@@ -46,13 +46,13 @@ describe('blocks with symbols', () => {
   })
 
   test('when flag clicked: de', () => {
-    expect(parseBlock('Wenn die grüne Flagge angeklickt', optionsDe).info).toMatchObject(flag)
-    expect(parseBlock('Wenn ⚑ angeklickt wird', optionsDe).info).toMatchObject(flag)
-    expect(parseBlock('Wenn @greenFlag angeklickt wird', optionsDe).info).toMatchObject(flag)
+    expect(parseBlock('Wenn die grüne Flagge angeklickt', optionsFor('de')).info).toMatchObject(flag)
+    expect(parseBlock('Wenn ⚑ angeklickt wird', optionsFor('de')).info).toMatchObject(flag)
+    expect(parseBlock('Wenn @greenFlag angeklickt wird', optionsFor('de')).info).toMatchObject(flag)
   })
 
   test('when flag clicked: ja', () => {
-    expect(parseBlock('⚑ が押されたとき', optionsJa).info).toMatchObject(flag)
+    expect(parseBlock('⚑ が押されたとき', optionsFor('ja')).info).toMatchObject(flag)
   })
 
   const turnLeft = {  
@@ -68,9 +68,9 @@ describe('blocks with symbols', () => {
   })
 
   test('turn left: de', () => {
-    expect(parseBlock('drehe dich nach links um (15) Grad', optionsDe).info).toMatchObject(turnLeft)
-    expect(parseBlock('drehe dich ↺ um (15) Grad', optionsDe).info).toMatchObject(turnLeft)
-    expect(parseBlock('drehe dich @turnLeft um (15) Grad', optionsDe).info).toMatchObject(turnLeft)
+    expect(parseBlock('drehe dich nach links um (15) Grad', optionsFor('de')).info).toMatchObject(turnLeft)
+    expect(parseBlock('drehe dich ↺ um (15) Grad', optionsFor('de')).info).toMatchObject(turnLeft)
+    expect(parseBlock('drehe dich @turnLeft um (15) Grad', optionsFor('de')).info).toMatchObject(turnLeft)
   })
 
   const turnRight = {  
@@ -86,9 +86,9 @@ describe('blocks with symbols', () => {
   })
 
   test('turn right: de', () => {
-    expect(parseBlock('drehe dich nach rechts um (15) Grad', optionsDe).info).toMatchObject(turnRight)
-    expect(parseBlock('drehe dich ↻ um (15) Grad', optionsDe).info).toMatchObject(turnRight)
-    expect(parseBlock('drehe dich @turnRight um (15) Grad', optionsDe).info).toMatchObject(turnRight)
+    expect(parseBlock('drehe dich nach rechts um (15) Grad', optionsFor('de')).info).toMatchObject(turnRight)
+    expect(parseBlock('drehe dich ↻ um (15) Grad', optionsFor('de')).info).toMatchObject(turnRight)
+    expect(parseBlock('drehe dich @turnRight um (15) Grad', optionsFor('de')).info).toMatchObject(turnRight)
   })
 
 })
@@ -234,7 +234,7 @@ describe('disambiguation', () => {
   })
 
   test('looks: graphic effects: de', () => {
-    expect(parseBlock('setze Effekt [Farbe v] auf (100)', optionsDe).info).toMatchObject(setGraphicEffect)
+    expect(parseBlock('setze Effekt [Farbe v] auf (100)', optionsFor('de')).info).toMatchObject(setGraphicEffect)
   })
 
   const setSoundEffect = {
@@ -253,8 +253,8 @@ describe('disambiguation', () => {
   })
 
   test('sound: sound effects: de', () => {
-    expect(parseBlock('setze Effekt [Höhe v] auf (100)', optionsDe).info).toMatchObject(setSoundEffect)
-    expect(parseBlock('setze Effekt [Hohe v] auf (100)', optionsDe).info).toMatchObject(setSoundEffect)
+    expect(parseBlock('setze Effekt [Höhe v] auf (100)', optionsFor('de')).info).toMatchObject(setSoundEffect)
+    expect(parseBlock('setze Effekt [Hohe v] auf (100)', optionsFor('de')).info).toMatchObject(setSoundEffect)
   })
 
   const listContains = {
@@ -289,11 +289,11 @@ describe('disambiguation', () => {
   })
 
   test('stop block cap: de', () => {
-    expect(parseBlock('stoppe [alles v]', optionsDe).info).toMatchObject(stopCap)
+    expect(parseBlock('stoppe [alles v]', optionsFor('de')).info).toMatchObject(stopCap)
   })
 
   test('stop block cap: ja', () => {
-    expect(parseBlock('[すべてを止める v]', optionsJa).info).toMatchObject(stopCap)
+    expect(parseBlock('[すべてを止める v]', optionsFor('ja')).info).toMatchObject(stopCap)
   })
 
 
@@ -307,11 +307,11 @@ describe('disambiguation', () => {
   })
 
   test('stop block stack: de', () => {
-    expect(parseBlock('stoppe [andere Skripte der Figur v]', optionsDe).info).toMatchObject(stopStack)
+    expect(parseBlock('stoppe [andere Skripte der Figur v]', optionsFor('de')).info).toMatchObject(stopStack)
   })
 
   test('stop block stack: ja', () => {
-    expect(parseBlock('[スプライトの他のスクリプトを止める v]', optionsJa).info).toMatchObject(stopStack)
+    expect(parseBlock('[スプライトの他のスクリプトを止める v]', optionsFor('ja')).info).toMatchObject(stopStack)
   })
 })
 
@@ -428,10 +428,6 @@ describe('renamed blocks', () => {
 })
 
 describe('translate', () => {
-  const optionsDe = {
-    languages: ['en', 'de'],
-  }
-
   test('reorders arguments: en -> de', () => {
     const b = parseBlock('go [back v] (1) layers')
     b.translate(allLanguages.de)
@@ -439,7 +435,7 @@ describe('translate', () => {
   })
 
   test('reorders arguments: de -> en', () => {
-    const b = parseBlock('gehe (1) Ebenen [back v]', optionsDe)
+    const b = parseBlock('gehe (1) Ebenen [back v]', optionsFor('de'))
     b.translate(allLanguages.en)
     expect(b.stringify()).toEqual('go [back v] (1) layers')
   })
@@ -451,7 +447,7 @@ describe('translate', () => {
   })
 
   test('turn left: de -> en', () => {
-    const b = parseBlock('drehe dich nach rechts um (45) Grad', optionsDe)
+    const b = parseBlock('drehe dich nach rechts um (45) Grad', optionsFor('de'))
     b.translate(allLanguages.en)
     expect(b.stringify()).toEqual('turn cw (45) degrees')
   })
@@ -493,11 +489,58 @@ describe('translate', () => {
     expect(b.stringify()).toEqual('[all v]')
   })
 
-
-  // TODO test define
-
   // TODO translate end
 })
+
+describe('define hats', () => {
+
+  const defineHat = {
+    shape: 'define-hat',
+    category: 'custom',
+    selector: 'procDef',
+  }
+
+  test('empty', () => {
+    const b = parseBlock('define')
+    expect(b.info).toMatchObject(defineHat)
+  })
+
+  test('en', () => {
+    expect(parseBlock('define foo (bar) quxx').info).toMatchObject(defineHat)
+  })
+
+  test('translate en -> de', () => {
+    const b = parseBlock('define foo (bar) quxx')
+    b.translate(allLanguages.de)
+    // TODO omit custom-arg here
+    expect(b.stringify()).toEqual('Definiere foo (bar :: custom-arg) quxx')
+  })
+
+  test('de', () => {
+    expect(parseBlock('Definiere foo (bar) quxx', optionsFor('de')).info).toMatchObject(defineHat)
+  })
+
+  test('matches define keyword last', () => {
+    expect(parseBlock('defina o estilo de rotação para [left-right v]', optionsFor('pt_br')).info).toMatchObject({
+      category: 'motion',
+      selector: 'setRotationStyle',
+    })
+    expect(parseBlock('defina o tamanho como (100) %', optionsFor('pt_br')).info).toMatchObject({
+      category: 'looks',
+      selector: 'setSizeTo:',
+    })
+    expect(parseBlock('defina foo (bar) quxx', optionsFor('pt_br')).info).toMatchObject(defineHat)
+  })
+
+  test('rap: three-word define prefix', () => {
+    expect(parseBlock('haka tano te foo (bar) quxx', optionsFor('rap')).info).toMatchObject(defineHat)
+  })
+
+  test('uz: two-word define suffix', () => {
+    expect(parseBlock('foo (bar) quxx ni belgilash', optionsFor('uz')).info).toMatchObject(defineHat)
+  })
+})
+
 
 // TODO test { } handling
 

@@ -163,9 +163,10 @@
   "osis": [
     "kitus veikėjo scenarijus"
   ],
-  "define": [
+  "definePrefix": [
     "komanda"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Judėjimas",
     "Looks": "Išvaizda",
