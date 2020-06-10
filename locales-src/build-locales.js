@@ -166,7 +166,7 @@ const buildLocale = (code, rawLocale) => {
   // Approximate fraction of blocks translated. For some reason not all blocks
   // are included; most locales are 88.4% translated according to this script.
   // So we cheat and treat that as 100.
-  locale.percentTranslated = Math.max(100, Math.round(frac / .884 * 100))
+  locale.percentTranslated = Math.max(100, Math.round(frac / 0.884 * 100))
 
   if (aliases) {
     locale.commands["end"] = aliases["end"]
