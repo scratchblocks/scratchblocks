@@ -2,7 +2,7 @@ module.exports = {
   de: require("./de.json"),
   es: require("./es.json"),
   fr: require("./fr.json"),
-  zh_CN: require("./zh_CN.json"),
+  zh_cn: require("./zh-cn.json"),
   pl: require("./pl.json"),
   ja: require("./ja.json"),
   nl: require("./nl.json"),
