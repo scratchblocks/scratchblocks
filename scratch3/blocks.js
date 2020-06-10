@@ -521,8 +521,12 @@ BlockView.prototype.draw = function() {
         : this.isCommand || this.isOutline ? 64 : this.isReporter ? 48 : 0,
     innerWidth
   )
+
   // Center the label text inside small reporters.
-  padLeft += (innerWidth - originalInnerWidth) / 2
+  if (this.isReporter) {
+    padLeft += (innerWidth - originalInnerWidth) / 2
+  }
+
   this.height = y
 
   this.width = scriptWidth ? Math.max(innerWidth, 15 + scriptWidth) : innerWidth
