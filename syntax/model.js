@@ -138,8 +138,8 @@ var Block = function(info, children, comment) {
   this.diff = null
 
   var shape = this.info.shape
-  this.isHat = shape === "hat" || shape === "define-hat"
-  this.hasPuzzle = shape === "stack" || shape === "hat"
+  this.isHat = shape === "hat" || shape === "cat" || shape === "define-hat"
+  this.hasPuzzle = shape === "stack" || shape === "hat" || shape === "cat"
   this.isFinal = /cap/.test(shape)
   this.isCommand = shape === "stack" || shape === "cap" || /block/.test(shape)
   this.isOutline = shape === "outline"

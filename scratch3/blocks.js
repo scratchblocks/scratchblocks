@@ -302,6 +302,7 @@ BlockView.shapes = {
   reporter: SVG.pillRect,
   boolean: SVG.pointedRect,
   hat: SVG.hatRect,
+  cat: SVG.catHat,
   "define-hat": SVG.procHatRect,
   ring: SVG.pillRect,
 }
@@ -348,6 +349,7 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
 
 BlockView.padding = {
   hat: [24, 8],
+  cat: [24, 8],
   "define-hat": [20, 16],
   null: [4, 4],
 }
@@ -403,7 +405,7 @@ BlockView.prototype.draw = function() {
     pb = padding[1]
 
   var _this = this
-  var y = 0
+  var y = this.info.shape === "cat" ? 16 : 0
   var Line = function(y) {
     this.y = y
     this.width = 0

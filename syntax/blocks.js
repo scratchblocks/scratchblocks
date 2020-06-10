@@ -32,7 +32,15 @@ var overrideCategories = [
   "microbit",
   "makeymakey",
 ]
-var overrideShapes = ["hat", "cap", "stack", "boolean", "reporter", "ring"]
+var overrideShapes = [
+  "hat",
+  "cap",
+  "stack",
+  "boolean",
+  "reporter",
+  "ring",
+  "cat",
+]
 
 // languages that should be displayed right to left
 var rtlLanguages = ["ar", "ckb", "fa", "he"]

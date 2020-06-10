@@ -241,6 +241,7 @@ BlockView.shapes = {
   reporter: SVG.roundedRect,
   boolean: SVG.pointedRect,
   hat: SVG.hatRect,
+  cat: SVG.hatRect,
   "define-hat": SVG.procHatRect,
   ring: SVG.roundedRect,
 }
@@ -303,6 +304,7 @@ BlockView.prototype.minDistance = function(child) {
 
 BlockView.padding = {
   hat: [15, 6, 2],
+  cat: [15, 6, 2],
   "define-hat": [21, 8, 9],
   reporter: [3, 4, 1],
   boolean: [3, 4, 2],
