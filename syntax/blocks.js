@@ -112,7 +112,7 @@ var allBlocks = scratchCommands.map(function(def) {
     spec: def.spec, // Used for Scratch 2 translations
     parts: def.spec.split(splitPat).filter(x => !!x),
     selector: def.selector || "sb3:" + def.id, // Used for JSON marshalling
-    inputs: def.inputs,
+    inputs: Array.isArray(def.inputs) ? def.inputs : [],
     shape: def.shape,
     category: def.category,
     hasLoopArrow: !!def.hasLoopArrow,

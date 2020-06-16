@@ -1173,77 +1173,77 @@ module.exports = [
     spec: "turn %1 on",
     inputs: ["%m.motor"],
     shape: "stack",
-    category: "extension",
+    category: "wedo2",
   },
   {
     id: "wedo2.motorOff",
     spec: "turn %1 off",
     inputs: ["%m.motor"],
     shape: "stack",
-    category: "extension",
+    category: "wedo2",
   },
   {
     id: "wedo2.startMotorPower",
     spec: "set %1 power to %2",
     inputs: ["%m.motor", "%n"],
     shape: "stack",
-    category: "extension",
+    category: "wedo2",
   },
   {
     id: "wedo2.setMotorDirection",
     spec: "set %1 direction to %2",
     inputs: ["%m.motor2", "%m.motorDirection"],
     shape: "stack",
-    category: "extension",
+    category: "wedo2",
   },
   {
     id: "wedo2.whenDistance",
     spec: "when distance %1 %2",
     inputs: ["%m.lessMore", "%n"],
     shape: "hat",
-    category: "extension",
+    category: "wedo2",
   },
   {
     id: "wedo2.getDistance",
     spec: "distance",
     inputs: [],
     shape: "reporter",
-    category: "extension",
+    category: "wedo2",
   },
   {
     id: "wedo2.motorOnFor",
     spec: "turn %1 on for %2 seconds",
     inputs: ["%m.motor", "%n"],
     shape: "stack",
-    category: "extension",
+    category: "wedo2",
   },
   {
     id: "wedo2.setLightHue",
     spec: "set light color to %1",
     inputs: ["%n"],
     shape: "stack",
-    category: "extension",
+    category: "wedo2",
   },
   {
     id: "wedo2.playNoteFor",
     spec: "play note %1 for %2 seconds",
     inputs: ["%n", "%n"],
     shape: "stack",
-    category: "extension",
+    category: "wedo2",
   },
   {
     id: "wedo2.whenTilted",
     spec: "when tilted %1",
     inputs: ["%m.xxx"],
     shape: "hat",
-    category: "extension",
+    category: "wedo2",
   },
   {
     id: "wedo2.getTiltAngle",
     spec: "tilt angle %1",
     inputs: ["%m.xxx"],
     shape: "reporter",
-    category: "extension",
+    category: "wedo2",
   },
   {
     id: "CONTROL_ELSE",
@@ -1345,4 +1345,341 @@ module.exports = [
     category: "obsolete",
   },
   // TODO define
+  {
+      id: "text2speech.speakAndWaitBlock",
+      spec: "speak %1",
+      inputs: ["%s"],
+      shape: "stack",
+      category: "tts"
+  },
+  {
+      id: "text2speech.setVoiceBlock",
+      spec: "set voice to %1",
+      inputs: ["%m"],
+      shape: "stack",
+      category: "tts"
+  },
+  {
+      id: "text2speech.setLanguageBlock",
+      spec: "set language to %1",
+      inputs: ["%m"],
+      shape: "stack",
+      category: "tts"
+  },
+  {
+      id: "translate.translateBlock",
+      spec: "translate %1 to %2",
+      inputs: ["%s", "%m"],
+      shape: "reporter",
+      category: "translate"
+  },
+  {
+      id: "translate.viewerLanguage",
+      spec: "language",
+      shape: "reporter",
+      category: "translate"
+  },
+  {
+      id: "makeymakey.whenKeyPressed",
+      spec: "when %1 key pressed",
+      inputs: ["%m"], // this is not %m.key
+      shape: "hat",
+      category: "makeymakey"
+  },
+  {
+      id: "makeymakey.whenKeysPressedInOrder",
+      spec: "when %1 pressed in order",
+      inputs: ["%m"],
+      shape: "hat",
+      category: "makeymakey"
+  },
+  {
+      id: "boost.motorOnFor",
+      spec: "turn motor %1 for %2 seconds",
+      inputs: ["%m", "%n"],
+      shape: "stack",
+      category: "boost"
+  },
+  {
+      id: "boost.motorOnForRotation",
+      spec: "turn motor %1 for %2 rotations",
+      inputs: ["%m", "%n"],
+      shape: "stack",
+      category: "boost"
+  },
+  {
+      id: "boost.motorOn",
+      spec: "turn motor %1 on",
+      inputs: ["%m"],
+      shape: "stack",
+      category: "boost"
+  },
+  {
+      id: "boost.motorOff",
+      spec: "turn motor %1 off",
+      inputs: ["%m"],
+      shape: "stack",
+      category: "boost"
+  },
+  {
+      id: "boost.setMotorPower",
+      spec: "set motor %1 speed to %2%",
+      inputs: ["%m", "%n"],
+      shape: "stack",
+      category: "boost"
+  },
+  {
+      id: "boost.setMotorDirection",
+      spec: "set motor %1 direction %2",
+      inputs: ["%m", "%m"],
+      shape: "stack",
+      category: "boost"
+  },
+  {
+      id: "boost.getMotorPosition",
+      spec: "motor %1 position",
+      inputs: ["%m"],
+      shape: "reporter",
+      category: "boost"
+  },
+  {
+      id: "boost.whenColor",
+      spec: "when %1 brick seen",
+      inputs: ["%m"],
+      shape: "hat",
+      category: "boost"
+  },
+  {
+      id: "boost.seeingColor",
+      spec: "seeing %1 brick?",
+      inputs: ["%m"],
+      shape: "boolean",
+      category: "boost"
+  },
+  {
+      id: "boost.whenTilted",
+      spec: "when tilted %1",
+      inputs: ["%m"],
+      shape: "hat",
+      category: "boost"
+  },
+  {
+      id: "boost.getTiltAngle",
+      spec: "tilt angle %1",
+      inputs: ["%m"],
+      shape: "reporter",
+      category: "boost"
+  },
+  {
+      id: "boost.setLightHue",
+      spec: "set light color to %1",
+      inputs: ["%n"],
+      shape: "stack",
+      category: "boost"
+  },
+  {
+      id: "ev3.motorTurnClockwise",
+      spec: "motor %1 turn this way for %2 seconds",
+      inputs: ["%m", "%n"],
+      shape: "stack",
+      category: "ev3"
+  },
+  {
+      id: "ev3.motorTurnCounterClockwise",
+      spec: "motor %1 turn that way for %2 seconds",
+      inputs: ["%m", "%n"],
+      shape: "stack",
+      category: "ev3"
+  },
+  {
+      id: "ev3.motorSetPower",
+      spec: "motor %1 set power %2%",
+      inputs: ["%m", "%n"],
+      shape: "stack",
+      category: "ev3"
+  },
+  {
+      id: "ev3.getMotorPosition",
+      spec: "motor %1 position",
+      inputs: ["%m"],
+      shape: "reporter",
+      category: "ev3"
+  },
+  {
+      id: "ev3.whenButtonPressed",
+      spec: "when button %1 pressed",
+      inputs: ["%m"],
+      shape: "hat",
+      category: "ev3"
+  },
+  {
+      id: "ev3.whenDistanceLessThan",
+      spec: "when distance < %1",
+      inputs: ["%n"],
+      shape: "hat",
+      category: "ev3"
+  },
+  {
+      id: "ev3.whenBrightnessLessThan",
+      spec: "when brightness < %1",
+      inputs: ["%n"],
+      shape: "hat",
+      category: "ev3"
+  },
+  {
+      id: "ev3.buttonPressed",
+      spec: "button %1 pressed?",
+      inputs: ["%m"],
+      shape: "boolean",
+      category: "ev3"
+  },
+  {
+      id: "ev3.getDistance",
+      spec: "distance",
+      shape: "reporter",
+      category: "ev3"
+  },
+  {
+      id: "ev3.getBrightness",
+      spec: "brightness",
+      shape: "reporter",
+      category: "ev3"
+  },
+  {
+      id: "ev3.beepNote",
+      spec: "beep note %1 for %2 secs",
+      inputs: ["%d.note", "%n"], // we can use %d.note here
+      shape: "stack",
+      category: "ev3"
+  },
+  {
+      id: "gdxfor.whenGesture",
+      spec: "when %1",
+      inputs: ["%m"],
+      shape: "hat",
+      category: "gdxfor"
+  },
+  {
+      id: "gdxfor.whenForcePushedOrPulled",
+      spec: "when force sensor %1",
+      inputs: ["%m"],
+      shape: "hat",
+      category: "gdxfor"
+  },
+  {
+      id: "gdxfor.getForce",
+      spec: "force",
+      shape: "reporter",
+      category: "gdxfor"
+  },
+  {
+      id: "gdxfor.whenTilted",
+      spec: "when tilted %1",
+      inputs: ["%m"],
+      shape: "hat",
+      category: "gdxfor"
+  },
+  {
+      id: "gdxfor.isTilted",
+      spec: "tilted %1?",
+      inputs: ["%m"],
+      shape: "boolean",
+      category: "gdxfor"
+  },
+  {
+      id: "gdxfor.getTilt",
+      spec: "tilt angle %1",
+      inputs: ["%m"],
+      shape: "reporter",
+      category: "gdxfor"
+  },
+  {
+      id: "gdxfor.isFreeFalling",
+      spec: "falling?",
+      shape: "boolean",
+      category: "gdxfor"
+  },
+  {
+      id: "gdxfor.getSpin",
+      spec: "spin speed %1",
+      inputs: ["%m"],
+      shape: "reporter",
+      category: "gdxfor"
+  },
+  {
+      id: "gdxfor.getAcceleration",
+      spec: "acceleration %1",
+      inputs: ["%m"],
+      shape: "reporter",
+      category: "gdxfor"
+  },
+  {
+      id: "microbit.whenButtonPressed",
+      spec: "when %1 button pressed",
+      inputs: ["%m"],
+      shape: "hat",
+      category: "microbit"
+  },
+  {
+      id: "microbit.isButtonPressed",
+      spec: "%1 button presses?",
+      inputs: ["%m"],
+      shape: "boolean",
+      category: "microbit"
+  },
+  {
+      id: "microbit.whenGesture",
+      spec: "when %1",
+      inputs: ["%m"],
+      shape: "hat",
+      category: "microbit"
+  },
+  {
+      id: "microbit.displaySymbol",
+      spec: "display %1",
+      inputs: ["%m"], // TODO add matrix support
+      shape: "stack",
+      category: "microbit"
+  },
+  {
+      id: "microbit.displayText",
+      spec: "display text %1",
+      inputs: ["%s"],
+      shape: "stack",
+      category: "microbit"
+  },
+  {
+      id: "microbit.clearDisplay",
+      spec: "clear display",
+      shape: "stack",
+      category: "microbit"
+  },
+  {
+      id: "microbit.whenTilted",
+      spec: "when tilted %1",
+      inputs: ["%m"],
+      shape: "hat",
+      category: "microbit"
+  },
+  {
+      id: "microbit.isTilted",
+      spec: "tilted %1?",
+      inputs: ["%m"],
+      shape: "boolean",
+      category: "microbit"
+  },
+  {
+      id: "microbit.tiltAngle",
+      spec: "tilt angle %1",
+      inputs: ["%m"],
+      shape: "reporter",
+      category: "microbit"
+  },
+  {
+      id: "microbit.whenPinConnected",
+      spec: "when pin %1 connected",
+      inputs: ["%m"],
+      shape: "hat",
+      category: "microbit"
+  }
 ]
