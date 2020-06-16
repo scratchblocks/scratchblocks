@@ -7,7 +7,8 @@ const {
   Glow,
   Script,
   Document,
-  EXTENSIONS
+  EXTENSIONS,
+  ALIAS_EXTENSIONS
 } = require("../syntax")
 
 const SVG = require("./draw.js")
@@ -248,6 +249,9 @@ var BlockView = function(block) {
 
   // Avoid accidental mutation
   this.info = Object.assign({}, block.info)
+  if (ALIAS_EXTENSIONS.hasOwnProperty(this.info.category)) {
+      this.info.category = ALIAS_EXTENSIONS[this.info.category]
+  }
   if (EXTENSIONS.indexOf(this.info.category) > -1) {
       this.children.unshift(new LineView())
       this.children.unshift(

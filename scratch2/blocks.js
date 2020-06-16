@@ -8,7 +8,8 @@ const {
   Script,
   Document,
   EXTENSIONS,
-  MOVED_EXTENSIONS
+  MOVED_EXTENSIONS,
+  ALIAS_EXTENSIONS
 } = require("../syntax")
 
 const SVG = require("./draw.js")
@@ -199,12 +200,16 @@ var BlockView = function(block) {
   this.children = block.children.map(newView)
   this.comment = this.comment ? newView(this.comment) : null
 
+  if (ALIAS_EXTENSIONS.hasOwnProperty(this.info.category)) {
+      // handle aliases first
+      this.info.category = ALIAS_EXTENSIONS[this.info.category]
+  }
   if (MOVED_EXTENSIONS.hasOwnProperty(this.info.category)) {
       this.info.category = MOVED_EXTENSIONS[this.info.category]
   } else if (EXTENSIONS.indexOf(this.info.category) > -1) {
       this.info.category = "extension"
   }
-  
+
   this.x = 0
   this.width = null
   this.height = null

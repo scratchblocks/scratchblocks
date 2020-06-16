@@ -17,14 +17,22 @@ const EXTENSIONS = [
     "tts",
     "translate",
     "microbit",
-    "wedo2",
+    "wedo",
     "makeymakey",
     "ev3",
     "boost",
     "gdxfor"
 ].concat(Object.keys(MOVED_EXTENSIONS))
 
+// Alias extensions: unlike MOVED_EXTENSIONS, this is handled for both scratch2 and scratch3.
+// Key is alias, value is real extension name
+const ALIAS_EXTENSIONS = {
+    wedo2: "wedo",
+    text2speech: "tts"
+}
+
 module.exports = {
     EXTENSIONS,
-    MOVED_EXTENSIONS
+    MOVED_EXTENSIONS,
+    ALIAS_EXTENSIONS
 }
