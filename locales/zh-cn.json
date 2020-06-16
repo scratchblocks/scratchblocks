@@ -149,16 +149,58 @@
     "set light color to %1": "将灯光颜色设为%1",
     "play note %1 for %2 seconds": "演奏音符%1%2秒",
     "when tilted %1": "当向%1倾斜",
+    "tilted %1?": "向%1倾斜？",
     "tilt angle %1": "向%1倾角",
     "else": "否则",
     "user id": "用户id",
-    "loud?": "响声？"
+    "loud?": "响声？",
+    "speak %1": "朗读 %1",
+    "set voice to %1": "使用 %1 嗓音",
+    "set language to %1": "将朗读语言设置为%1",
+    "translate %1 to %2": "将 %1 译为 %2",
+    "language": "访客语言",
+    "when %1 pressed in order": "当依次按下%1键时",
+    "turn motor %1 for %2 seconds": "使马达 %1转动 %2 秒",
+    "turn motor %1 for %2 rotations": "使马达 %1转动 %2 圈",
+    "turn motor %1 on": "开启马达 %1",
+    "turn motor %1 off": "关闭马达 %1",
+    "set motor %1 speed to %2%": "将马达 %1 速度设为 %2%",
+    "set motor %1 direction %2": "将马达%1 方向设为 %2",
+    "motor %1 position": "马达%1的位置",
+    "when %1 brick seen": "当看到%1积木",
+    "seeing %1 brick?": "看到 %1积木 ?",
+    "motor %1 turn this way for %2 seconds": "马达%1正转%2秒",
+    "motor %1 turn that way for %2 seconds": "马达%1反转%2秒",
+    "motor %1 set power %2%": "马达%1功率设为%2%",
+    "when button %1 pressed": "当按下按钮%1",
+    "when distance < %1": "当距离 < %1",
+    "when brightness < %1": "当亮度 < %1",
+    "button %1 pressed?": "按下按钮%1？",
+    "brightness": "亮度",
+    "beep note %1 for %2 secs": "鸣笛%1%2秒",
+    "when %1": "当被%1",
+    "when force sensor %1": "当力传感器被%1",
+    "force": "受力",
+    "falling?": "自由落体？",
+    "spin speed %1": "向%1的旋转速度",
+    "acceleration %1": "向%1的加速度",
+    "when %1 button pressed": "当按下%1按钮",
+    "%1 button presses?": "按下%1按钮？",
+    "display %1": "显示%1",
+    "display text %1": "显示文本%1",
+    "clear display": "清空屏幕",
+    "when pin %1 connected": "当引脚%1接地"
   },
   "dropdowns": {},
   "ignorelt": [],
   "soundEffects": [
     "音调",
     "左右平衡"
+  ],
+  "microbitWhen": [
+    "移动",
+    "晃动",
+    "抛起"
   ],
   "osis": [
     "该角色的其他脚本"
@@ -194,7 +236,12 @@
     "e ^",
     "10 ^"
   ],
-  "aliases": {},
+  "aliases": {
+    "左转 %1 度": "turn @turnLeft %1 degrees",
+    "右转 %1 度": "turn @turnRight %1 degrees",
+    "点击绿旗时": "when @greenFlag clicked",
+    "结束": "end"
+  },
   "name": "简体中文",
   "percentTranslated": 100
 }

@@ -57,7 +57,7 @@
     "change pen size by %1": "筆跡寬度改變 %1",
     "set pen size to %1": "筆跡寬度設為 %1",
     "when @greenFlag clicked": "當 @greenFlag 被點擊",
-    "when %1 key pressed": "當 %1 鍵被按下",
+    "when %1 key pressed": "當 %1 按鈕被按下",
     "when this sprite clicked": "當角色被點擊",
     "when stage clicked": "當舞台被點擊",
     "when backdrop switches to %1": "當背景換成 %1",
@@ -149,16 +149,58 @@
     "set light color to %1": "LED 顏色設為 %1",
     "play note %1 for %2 seconds": "演奏音階 %1 持續 %2 秒",
     "when tilted %1": "當傾斜 %1",
+    "tilted %1?": "傾斜 %1？",
     "tilt angle %1": "傾斜角度 %1",
     "else": "否則",
     "user id": "用戶 ID",
-    "loud?": "大聲？"
+    "loud?": "大聲？",
+    "speak %1": "唸出 %1",
+    "set voice to %1": "語音設為 %1",
+    "set language to %1": "語言設為 %1",
+    "translate %1 to %2": "文字 %1 翻譯成 %2",
+    "language": "瀏覽者的語言",
+    "when %1 pressed in order": "當 %1 按鈕被依序按下",
+    "turn motor %1 for %2 seconds": "%1 啟動 持續 %2 秒",
+    "turn motor %1 for %2 rotations": "%1 啟動 持續 %2 圈",
+    "turn motor %1 on": "%1 啟動",
+    "turn motor %1 off": "%1 停止",
+    "set motor %1 speed to %2%": "%1 動力設為 %2 %",
+    "set motor %1 direction %2": "%1 方向設為 %2",
+    "motor %1 position": "馬達 埠%1 轉向角度",
+    "when %1 brick seen": "當顏色 %1  被看到",
+    "seeing %1 brick?": "看到顏色 %1？",
+    "motor %1 turn this way for %2 seconds": "馬達 埠%1 順時針旋轉 %2 秒",
+    "motor %1 turn that way for %2 seconds": "馬達 埠%1 逆時針旋轉 %2 秒",
+    "motor %1 set power %2%": "馬達 埠%1 動力設為 %2 %",
+    "when button %1 pressed": "當按鈕 %1 被按下",
+    "when distance < %1": "當距離 < %1",
+    "when brightness < %1": "當亮度 < %1",
+    "button %1 pressed?": "按鈕 %1 被按下？",
+    "brightness": "亮度",
+    "beep note %1 for %2 secs": "演奏音階 %1 持續 %2 秒",
+    "when %1": "當 %1",
+    "when force sensor %1": "當重力感測器%1",
+    "force": "力量",
+    "falling?": "自由掉落？",
+    "spin speed %1": "旋轉速度 %1",
+    "acceleration %1": "加速度 %1",
+    "when %1 button pressed": "當按鈕 %1 被按下",
+    "%1 button presses?": "按鈕 %1 被按下？",
+    "display %1": "顯示圖示 %1",
+    "display text %1": "顯示文字 %1",
+    "clear display": "清空畫面",
+    "when pin %1 connected": "當引腳 %1 接地"
   },
   "dropdowns": {},
   "ignorelt": [],
   "soundEffects": [
     "音高",
     "聲道左/右"
+  ],
+  "microbitWhen": [
+    "移動",
+    "晃動",
+    "跳動"
   ],
   "osis": [
     "這個物件的其它程式"
@@ -194,7 +236,12 @@
     "e ^",
     "10 ^"
   ],
-  "aliases": {},
+  "aliases": {
+    "左轉 %1 度": "turn @turnLeft %1 degrees",
+    "右轉 %1 度": "turn @turnRight %1 degrees",
+    "當綠旗被點擊時": "when @greenFlag clicked",
+    "結束": "end"
+  },
   "name": "繁體中文",
   "percentTranslated": 100
 }
