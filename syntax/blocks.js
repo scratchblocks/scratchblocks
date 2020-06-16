@@ -1,3 +1,5 @@
+const EXTENSIONS = require("./extensions.js").default;
+
 function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")
 }
@@ -11,7 +13,6 @@ var overrideCategories = [
   "motion",
   "looks",
   "sound",
-  "pen",
   "variables",
   "list",
   "events",
@@ -22,16 +23,8 @@ var overrideCategories = [
   "custom-arg",
   "extension",
   "grey",
-  "obsolete",
-  "music",
-  "video",
-  "tts",
-  "translate",
-  "wedo",
-  "ev3",
-  "microbit",
-  "makeymakey",
-]
+  "obsolete"
+].concat(EXTENSIONS)
 var overrideShapes = [
   "hat",
   "cap",

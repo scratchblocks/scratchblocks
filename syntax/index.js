@@ -13,6 +13,11 @@ const {
 
 const { allLanguages, loadLanguages } = require("./blocks.js")
 
+const {
+    default as EXTENSIONS,
+    MOVED_EXTENSIONS
+} = require("./extensions.js")
+
 module.exports = {
   allLanguages,
   loadLanguages,
@@ -27,4 +32,7 @@ module.exports = {
   Glow,
   Script,
   Document,
+
+  EXTENSIONS,
+  MOVED_EXTENSIONS
 }
