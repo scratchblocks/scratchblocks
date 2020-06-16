@@ -232,6 +232,9 @@ var english = {
   // Valid arguments to "sound effect" dropdown, for resolving ambiguous situations
   soundEffects: ["pitch", "pan left/right"],
 
+  // Valid arguments to "microbit when" dropdown
+  microbitWhen: ["moved", "shaken", "jumped"]
+
   // For detecting the "stop" cap / stack block
   osis: ["other scripts in sprite", "other scripts in stage"],
 
@@ -328,6 +331,47 @@ disambig("pen.setColor", "pen.setHue", function(children, lang) {
   // TODO fix Scratch :P
   return (last.isInput && last.isColor) || last.isBlock
 })
+
+disambig("microbit.whenGesture", "gdxfor.whenGesture", function(
+  children,
+  lang
+) {
+  for (var i = 0; i < children.length; i++) {
+    var child = children[i]
+    if (child.shape === "dropdown") {
+      var name = child.value
+      // Yes, "when shaken" gdxfor block exists. But microbit is more common.
+      for (let effect of lang.microbitWhen) {
+        if (minifyHash(effect) === minifyHash(name)) {
+          return true
+        }
+      }
+    }
+  }
+  return false
+})
+
+// There are A LOT of tilt related blocks, so turn all into microbit block
+// Technically it is possible to separate them into group A and B:
+// A uses "front-back", and includes microbit and gdxfor
+// B uses "up-down", and includes boost and wedo
+// But not something that is worth trying, probably
+["boost.whenTilted", "wedo2.whenTilted", "gdxfor.whenTilted"].forEach(
+    whenTilted => specialCase(whenTilted, () => blocksById["microbit.whenTilted"])
+)
+// Fun fact: there is no boost.isTilted
+["wedo2.isTilted", "gdxfor.isTilted"].forEach(
+    isTilted => specialCase(isTilted, () => blocksById["microbit.isTilted"])
+)
+["boost.getTiltAngle", "wedo2.getTiltAngle", "gdxfor.getTilt"].forEach(
+    getTiltAngle => specialCase(getTiltAngle, () => blocksById["microbit.tiltAngle"])
+)
+
+// It is impossible to see which one is used, so assume it's the common one
+specialCase("makeymakey.whenKeyPressed", () => blocksById["EVENT_WHENKEYPRESSED"])
+specialCase("boost.getMotorPosition", () => blocksById["ev3.getMotorPosition"])
+specialCase("ev3.getDistance", () => blocksById["wedo2.getDistance"])
+specialCase("boost.setLightHue", () => blocksById["wedo2.setLightHue"])
 
 specialCase("CONTROL_STOP", function(info, children, lang) {
   // Cap block unless argument is "other scripts in sprite"

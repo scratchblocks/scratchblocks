@@ -1239,6 +1239,13 @@ module.exports = [
     category: "wedo",
   },
   {
+    id: "wedo2.isTilted",
+    spec: "tilted %1?",
+    inputs: ["%m"],
+    shape: "boolean",
+    category: "wedo"
+  },
+  {
     id: "wedo2.getTiltAngle",
     spec: "tilt angle %1",
     inputs: ["%m.xxx"],
