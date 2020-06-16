@@ -65,7 +65,7 @@ module.exports = {
     einde: "end",
   },
 
-  zh_CN: {
+  "zh-cn": {
     // Chinese (simplified)
     "左转 %1 度": "turn @turnLeft %1 degrees",
     "右转 %1 度": "turn @turnRight %1 degrees",
@@ -73,7 +73,7 @@ module.exports = {
     结束: "end",
   },
 
-  zh_TW: {
+  "zh-tw": {
     // Chinese (traditional)
     "左轉 %1 度": "turn @turnLeft %1 degrees",
     "右轉 %1 度": "turn @turnRight %1 degrees",
