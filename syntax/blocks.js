@@ -356,16 +356,16 @@ disambig("microbit.whenGesture", "gdxfor.whenGesture", function(
 // A uses "front-back", and includes microbit and gdxfor
 // B uses "up-down", and includes boost and wedo
 // But not something that is worth trying, probably
-["boost.whenTilted", "wedo2.whenTilted", "gdxfor.whenTilted"].forEach(
-    whenTilted => specialCase(whenTilted, () => blocksById["microbit.whenTilted"])
-)
-// Fun fact: there is no boost.isTilted
-["wedo2.isTilted", "gdxfor.isTilted"].forEach(
-    isTilted => specialCase(isTilted, () => blocksById["microbit.isTilted"])
-)
-["boost.getTiltAngle", "wedo2.getTiltAngle", "gdxfor.getTilt"].forEach(
-    getTiltAngle => specialCase(getTiltAngle, () => blocksById["microbit.tiltAngle"])
-)
+specialCase("boost.whenTilted", () => blocksById["microbit.whenTilted"])
+specialCase("wedo2.whenTilted", () => blocksById["microbit.whenTilted"])
+specialCase("gdxfor.whenTilted", () => blocksById["microbit.whenTilted"])
+
+specialCase("wedo2.isTilted", () => blocksById["microbit.isTilted"])
+specialCase("gdxfor.isTilted", () => blocksById["microbit.isTilted"])
+
+specialCase("boost.getTiltAngle", () => blocksById["microbit.tiltAngle"])
+specialCase("wedo2.getTiltAngle", () => blocksById["microbit.tiltAngle"])
+specialCase("gdxfor.getTilt", () => blocksById["microbit.tiltAngle"])
 
 // It is impossible to see which one is used, so assume it's the common one
 specialCase("makeymakey.whenKeyPressed", () => blocksById["EVENT_WHENKEYPRESSED"])
