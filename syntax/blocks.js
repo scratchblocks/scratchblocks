@@ -233,7 +233,7 @@ var english = {
   soundEffects: ["pitch", "pan left/right"],
 
   // Valid arguments to "microbit when" dropdown
-  microbitWhen: ["moved", "shaken", "jumped"]
+  microbitWhen: ["moved", "shaken", "jumped"],
 
   // For detecting the "stop" cap / stack block
   osis: ["other scripts in sprite", "other scripts in stage"],
