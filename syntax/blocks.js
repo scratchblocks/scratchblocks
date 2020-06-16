@@ -1,4 +1,4 @@
-const EXTENSIONS = require("./extensions.js").default;
+const { EXTENSIONS } = require("./extensions.js");
 
 function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")

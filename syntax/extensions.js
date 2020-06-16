@@ -25,6 +25,6 @@ const EXTENSIONS = [
 ].concat(Object.keys(MOVED_EXTENSIONS))
 
 module.exports = {
-    default: EXTENSIONS,
+    EXTENSIONS,
     MOVED_EXTENSIONS
 }

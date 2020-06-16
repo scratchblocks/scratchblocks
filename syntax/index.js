@@ -14,7 +14,7 @@ const {
 const { allLanguages, loadLanguages } = require("./blocks.js")
 
 const {
-    default as EXTENSIONS,
+    EXTENSIONS,
     MOVED_EXTENSIONS
 } = require("./extensions.js")
 
