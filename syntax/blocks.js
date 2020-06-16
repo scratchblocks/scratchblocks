@@ -1,7 +1,4 @@
-const {
-    EXTENSIONS,
-    ALIAS_EXTENSIONS
-} = require("./extensions.js");
+const { EXTENSIONS, ALIAS_EXTENSIONS } = require("./extensions.js")
 
 function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")
@@ -26,8 +23,10 @@ var overrideCategories = [
   "custom-arg",
   "extension",
   "grey",
-  "obsolete"
-].concat(EXTENSIONS).concat(Object.keys(ALIAS_EXTENSIONS))
+  "obsolete",
+]
+  .concat(EXTENSIONS)
+  .concat(Object.keys(ALIAS_EXTENSIONS))
 var overrideShapes = [
   "hat",
   "cap",
@@ -368,7 +367,10 @@ specialCase("wedo2.getTiltAngle", () => blocksById["microbit.tiltAngle"])
 specialCase("gdxfor.getTilt", () => blocksById["microbit.tiltAngle"])
 
 // It is impossible to see which one is used, so assume it's the common one
-specialCase("makeymakey.whenKeyPressed", () => blocksById["EVENT_WHENKEYPRESSED"])
+specialCase(
+  "makeymakey.whenKeyPressed",
+  () => blocksById["EVENT_WHENKEYPRESSED"]
+)
 specialCase("boost.getMotorPosition", () => blocksById["ev3.getMotorPosition"])
 specialCase("ev3.getDistance", () => blocksById["wedo2.getDistance"])
 specialCase("boost.setLightHue", () => blocksById["wedo2.setLightHue"])

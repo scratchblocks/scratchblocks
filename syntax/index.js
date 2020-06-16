@@ -14,9 +14,9 @@ const {
 const { allLanguages, loadLanguages } = require("./blocks.js")
 
 const {
-    EXTENSIONS,
-    MOVED_EXTENSIONS,
-    ALIAS_EXTENSIONS
+  EXTENSIONS,
+  MOVED_EXTENSIONS,
+  ALIAS_EXTENSIONS,
 } = require("./extensions.js")
 
 module.exports = {
@@ -36,5 +36,5 @@ module.exports = {
 
   EXTENSIONS,
   MOVED_EXTENSIONS,
-  ALIAS_EXTENSIONS
+  ALIAS_EXTENSIONS,
 }

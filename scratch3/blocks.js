@@ -8,7 +8,7 @@ const {
   Script,
   Document,
   EXTENSIONS,
-  ALIAS_EXTENSIONS
+  ALIAS_EXTENSIONS,
 } = require("../syntax")
 
 const SVG = require("./draw.js")
@@ -106,7 +106,7 @@ IconView.icons = {
   microbitBlock: { width: 40, height: 40 },
   makeymakeyBlock: { width: 40, height: 40 },
   gdxforBlock: { width: 40, height: 40 },
-  boostBlock: { width: 40, height: 40 }
+  boostBlock: { width: 40, height: 40 },
 }
 
 /* Line */
@@ -250,14 +250,12 @@ var BlockView = function(block) {
   // Avoid accidental mutation
   this.info = Object.assign({}, block.info)
   if (ALIAS_EXTENSIONS.hasOwnProperty(this.info.category)) {
-      this.info.category = ALIAS_EXTENSIONS[this.info.category]
+    this.info.category = ALIAS_EXTENSIONS[this.info.category]
   }
   if (EXTENSIONS.indexOf(this.info.category) > -1) {
-      this.children.unshift(new LineView())
-      this.children.unshift(
-        new IconView({ name: this.info.category + "Block" })
-      )
-      this.info.category = "extension"
+    this.children.unshift(new LineView())
+    this.children.unshift(new IconView({ name: this.info.category + "Block" }))
+    this.info.category = "extension"
   }
 
   this.x = 0

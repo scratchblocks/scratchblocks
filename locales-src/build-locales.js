@@ -28,9 +28,9 @@ for (let code in localeNames) {
 
 const soundEffects = ["SOUND_EFFECTS_PITCH", "SOUND_EFFECTS_PAN"]
 const microbitWhen = [
-    "microbit.gesturesMenu.moved",
-    "microbit.gesturesMenu.shaken",
-    "microbit.gesturesMenu.jumped"
+  "microbit.gesturesMenu.moved",
+  "microbit.gesturesMenu.shaken",
+  "microbit.gesturesMenu.jumped",
 ]
 const osis = ["CONTROL_STOP_OTHER"]
 const scratchSpecs = scratchCommands.map(block => block.spec)
