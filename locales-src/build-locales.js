@@ -165,6 +165,7 @@ const buildLocale = (code, rawLocale) => {
     if (!command.id) continue
     if (/^sb2:/.test(command.id)) continue
     if (/^scratchblocks:/.test(command.id)) continue
+    if (locale.commands.hasOwnProperty(command.spec)) continue
     const result = translateKey(rawLocale, command.id)
     if (!result) continue
     locale.commands[command.spec] = result
