@@ -57,7 +57,7 @@
     "change pen size by %1": "atharraich meud a’ phinn le %1",
     "set pen size to %1": "suidhich meud a’ phinn air %1",
     "when @greenFlag clicked": "le briogadh air @greenFlag",
-    "when %1 key pressed": "le brùthadh iuchrach %1",
+    "when %1 key pressed": "le brùthadh air iuchair %1",
     "when this sprite clicked": "le briogadh air an sprìd seo",
     "when stage clicked": "le briogadh air an àrd-ùrlar",
     "when backdrop switches to %1": "nuair a thèid an cùlaibh na %1",

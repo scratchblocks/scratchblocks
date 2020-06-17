@@ -148,7 +148,7 @@
     "turn %1 on for %2 seconds": "activa %1 durant %2 segons",
     "set light color to %1": "fixa el color del llum a %1",
     "play note %1 for %2 seconds": "toca la nota %1 durant %2 segons",
-    "when tilted %1": "quan s'inclini %1",
+    "when tilted %1": "quan la inclinació %1",
     "tilted %1?": "inclinat %1?",
     "tilt angle %1": "angle d'inclinació %1",
     "else": "si no",

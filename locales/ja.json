@@ -57,7 +57,7 @@
     "change pen size by %1": "ペンの太さを%1ずつ変える",
     "set pen size to %1": "ペンの太さを%1にする",
     "when @greenFlag clicked": "@greenFlag が押されたとき",
-    "when %1 key pressed": "%1キーが押されたとき",
+    "when %1 key pressed": "%1 キーが押されたとき",
     "when this sprite clicked": "このスプライトが押されたとき",
     "when stage clicked": "ステージが押されたとき",
     "when backdrop switches to %1": "背景が %1 になったとき",
