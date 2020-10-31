@@ -1,7 +1,7 @@
 {
   "commands": {
     "move %1 steps": "премести се с %1 стъпки",
-    "turn @turnRight %1 degrees": "ззавърти се с @turnRight %1 градуса",
+    "turn @turnRight %1 degrees": "завърти се с @turnRight %1 градуса",
     "turn @turnLeft %1 degrees": "завърти се с @turnLeft %1 градуса",
     "point in direction %1": "обърни се в посока %1",
     "point towards %1": "обърни се към %1",
@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "when @greenFlag clicked",
     "when %1 key pressed": "когато е натиснат клавиш %1",
     "when this sprite clicked": "when this sprite clicked",
+    "when stage clicked": "when stage clicked",
     "when backdrop switches to %1": "when backdrop switches to %1",
     "when %1 > %2": "когато %1 > %2",
     "when I receive %1": "when I receive %1",
@@ -162,9 +163,10 @@
   "osis": [
     "другите скриптове на спрайта"
   ],
-  "define": [
+  "definePrefix": [
     "дефинирай"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Движение",
     "Looks": "Външност",
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "Български",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

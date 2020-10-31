@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "当 @greenFlag 被点击",
     "when %1 key pressed": "当按下 %1 键",
     "when this sprite clicked": "当角色被点击",
+    "when stage clicked": "当舞台被点击",
     "when backdrop switches to %1": "当背景换成 %1",
     "when %1 > %2": "当 %1 > %2",
     "when I receive %1": "当接收到 %1",
@@ -162,9 +163,10 @@
   "osis": [
     "该角色的其他脚本"
   ],
-  "define": [
+  "definePrefix": [
     "定义"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "运动",
     "Looks": "外观",
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "简体中文",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "när @greenFlag klickas på",
     "when %1 key pressed": "när %1 tangenten trycks ned",
     "when this sprite clicked": "när denna sprajt klickas på",
+    "when stage clicked": "när scenen klickas på",
     "when backdrop switches to %1": "när bakgrunden växlar till %1",
     "when %1 > %2": "när %1 > %2",
     "when I receive %1": "när jag tar emot %1",
@@ -162,9 +163,10 @@
   "osis": [
     "andra skript i sprajten"
   ],
-  "define": [
+  "definePrefix": [
     "definiera"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Rörelse",
     "Looks": "Utseende",
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "Svenska",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "када је кликнуто на @greenFlag",
     "when %1 key pressed": "када је дирка %1 притиснута",
     "when this sprite clicked": "када је кликнуто на овај лик",
+    "when stage clicked": "када је кликнуто на позорницу",
     "when backdrop switches to %1": "када се позадина промени у %1",
     "when %1 > %2": "када је %1 > %2",
     "when I receive %1": "када примим %1",
@@ -162,9 +163,10 @@
   "osis": [
     "друге програме лика"
   ],
-  "define": [
+  "definePrefix": [
     "дефиниши"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Кретање",
     "Looks": "Изглед",
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "Српски",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

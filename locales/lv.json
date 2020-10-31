@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "kad @greenFlag nospiests",
     "when %1 key pressed": "kad nospiests taustiņš %1",
     "when this sprite clicked": "kad noklikšķināts šis gariņš",
+    "when stage clicked": "kad noklikšķināta skatuve",
     "when backdrop switches to %1": "kad fons nomainās uz %1",
     "when %1 > %2": "kad %1 > %2",
     "when I receive %1": "kad es saņemu %1",
@@ -162,9 +163,10 @@
   "osis": [
     "citi skripti gariņā"
   ],
-  "define": [
+  "definePrefix": [
     "definēt"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Kustība",
     "Looks": "Izskats",
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "Latviešu",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

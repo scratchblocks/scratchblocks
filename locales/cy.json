@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "pan fydd @greenFlag wedi ei glicio",
     "when %1 key pressed": "pan fo bysell %1 wedi ei wasgu",
     "when this sprite clicked": "pan gaiff y ciplun yma ei glicio",
+    "when stage clicked": "pan fydd llwyfan wedi ei glicio",
     "when backdrop switches to %1": "pan fydd cefndir yn newid i %1",
     "when %1 > %2": "pan %1 > %2",
     "when I receive %1": "pan rwy'n derbyn %1",
@@ -162,9 +163,10 @@
   "osis": [
     "sgriptiau eraill yn y ciplun"
   ],
-  "define": [
+  "definePrefix": [
     "diffinio"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Symudiad",
     "Looks": "Edrychiad",
@@ -199,5 +201,5 @@
     "diwedd": "end"
   },
   "name": "Cymraeg",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

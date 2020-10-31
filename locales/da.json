@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "når der klikkes på @greenFlag",
     "when %1 key pressed": "når du trykker på %1",
     "when this sprite clicked": "når denne sprite klikkes",
+    "when stage clicked": "når scene er valgt",
     "when backdrop switches to %1": "når baggrund skifter til %1",
     "when %1 > %2": "når %1 > %2",
     "when I receive %1": "når jeg modtager %1",
@@ -162,9 +163,10 @@
   "osis": [
     "andre scripts i sprite"
   ],
-  "define": [
+  "definePrefix": [
     "definer"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Bevægelse",
     "Looks": "Udseende",
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "Dansk",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

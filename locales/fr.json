@@ -3,7 +3,7 @@
     "move %1 steps": "avancer de %1 pas",
     "turn @turnRight %1 degrees": "tourner @turnRight de %1 degrés",
     "turn @turnLeft %1 degrees": "tourner @turnLeft de %1 degrés",
-    "point in direction %1": "s'orienter en direction de %1",
+    "point in direction %1": "s'orienter à %1",
     "point towards %1": "s'orienter vers %1",
     "go to x:%1 y:%2": "aller à x: %1 y: %2",
     "go to %1": "aller à %1",
@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "quand @greenFlag est cliqué",
     "when %1 key pressed": "quand la touche %1 est pressée",
     "when this sprite clicked": "quand ce sprite est cliqué",
+    "when stage clicked": "quand la scène est cliquée",
     "when backdrop switches to %1": "quand l'arrière-plan bascule sur %1",
     "when %1 > %2": "quand le %1 > %2",
     "when I receive %1": "quand je reçois %1",
@@ -94,12 +95,12 @@
     "x position": "abscisse x",
     "y position": "ordonnée y",
     "direction": "direction",
-    "costume #": "costume #",
+    "costume #": "numéro de costume",
     "costume %1": "%1 du costume",
     "size": "taille",
     "backdrop name": "nom de l'arrière-plan",
     "backdrop %1": "%1 de l'arrière-plan",
-    "backdrop #": "arrière-plan #",
+    "backdrop #": "numéro de l'arrière-plan",
     "volume": "volume",
     "tempo": "tempo",
     "touching %1?": "touche le %1 ?",
@@ -137,7 +138,7 @@
     "round %1": "arrondi de %1",
     "%1 contains %2?": "%1 contient %2 ?",
     "item %1 of %2": "élément %1 de %2",
-    "item # of %1 in %2": "élément # de %1 dans %2",
+    "item # of %1 in %2": "position de %1 dans %2",
     "turn %1 on": "allumer le moteur %1",
     "turn %1 off": "éteindre le moteur %1",
     "set %1 power to %2": "mettre la puissance du moteur %1 à %2",
@@ -162,9 +163,10 @@
   "osis": [
     "autres scripts dans sprite"
   ],
-  "define": [
+  "definePrefix": [
     "définir"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Mouvement",
     "Looks": "Apparence",
@@ -199,5 +201,5 @@
     "fin": "end"
   },
   "name": "Français",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

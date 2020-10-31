@@ -30,9 +30,9 @@
     "clear graphic effects": "töröld a grafikus hatásokat",
     "change size by %1": "méret változzon %1",
     "set size to %1%": "méret legyen %1 %",
-    "go to %1 layer": "menj %1",
-    "go %1 %2 layers": "menj %1 %2 szintet",
-    "start sound %1": "játszd %1 hangot",
+    "go to %1 layer": "kerülj %1",
+    "go %1 %2 layers": "kerülj %1 %2 szintet",
+    "start sound %1": "indítsd el %1 hangot",
     "clear sound effects": "hanghatások törlése",
     "play sound %1 until done": "játszd végig %1 hangot",
     "stop all sounds": "minden hang álljon le",
@@ -57,8 +57,9 @@
     "change pen size by %1": "toll mérete változzon %1",
     "set pen size to %1": "toll mérete legyen %1",
     "when @greenFlag clicked": "@greenFlag -ra kattintáskor",
-    "when %1 key pressed": "amikor %1 gomb lenyomva",
+    "when %1 key pressed": "%1 gomb lenyomásakor",
     "when this sprite clicked": "ezen szereplőre kattintáskor",
+    "when stage clicked": "színpadra kattintáskor",
     "when backdrop switches to %1": "%1 háttér beállításakor",
     "when %1 > %2": "amikor %1 > %2",
     "when I receive %1": "%1 üzenet érkezésekor",
@@ -74,7 +75,7 @@
     "when I start as a clone": "másolatként kezdéskor",
     "create clone of %1": "készíts másolatot: %1",
     "delete this clone": "töröld ezt a másolatot",
-    "ask %1 and wait": "kérdezd %1 és várj",
+    "ask %1 and wait": "kérdezd meg: %1 és várj",
     "turn video %1": "videó kapcsolása %1",
     "set video transparency to %1%": "videó átlátszósága legyen %1",
     "when video motion > %1": "amikor a videó mozgása > %1",
@@ -95,16 +96,16 @@
     "y position": "y hely",
     "direction": "irány",
     "costume #": "jelmez sorszáma",
-    "costume %1": "%1 jelmez",
+    "costume %1": "jelmez %1",
     "size": "mérete",
     "backdrop name": "háttér neve",
-    "backdrop %1": "%1 háttér",
+    "backdrop %1": "háttér %1",
     "backdrop #": "háttér sorszáma",
     "volume": "hangerő",
     "tempo": "tempó",
     "touching %1?": "érinted: %1?",
     "touching color %1?": "érintesz %1 színt?",
-    "color %1 is touching %2?": "%1 szín érinti %2 színt?",
+    "color %1 is touching %2?": "%1 érint %2 színt?",
     "distance to %1": "%1 távolsága",
     "answer": "válasz",
     "key %1 pressed?": "%1 lenyomva?",
@@ -115,7 +116,7 @@
     "loudness": "hangerő",
     "video %1 on %2": "video attribútum %1 %2 tárgyban",
     "timer": "időmérő",
-    "%1 of %2": "%2 %1",
+    "%1 of %2": "%2 %1 értéke",
     "current %1": "jelenlegi %1",
     "days since 2000": "napok 2000 óta",
     "username": "felhasználó",
@@ -130,7 +131,7 @@
     "%1 and %2": "%1 és %2",
     "%1 or %2": "%1 vagy %2",
     "not %1": "nem %1",
-    "join %1 %2": "%1 és %2 összefűzve",
+    "join %1 %2": "%1 %2 együtt",
     "letter %1 of %2": "%2 %1 betűje",
     "length of %1": "%1 hossza",
     "%1 mod %2": "%1 / %2 maradéka",
@@ -162,7 +163,8 @@
   "osis": [
     "szereplő többi feladata"
   ],
-  "define": [
+  "definePrefix": [],
+  "defineSuffix": [
     "meghatározása"
   ],
   "palette": {
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "Magyar",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

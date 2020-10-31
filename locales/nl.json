@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "wanneer op @greenFlag wordt geklikt",
     "when %1 key pressed": "wanneer %1 is ingedrukt",
     "when this sprite clicked": "wanneer op deze sprite wordt geklikt",
+    "when stage clicked": "wanneer op het speelveld wordt geklikt",
     "when backdrop switches to %1": "wanneer achtergrond verandert naar %1",
     "when %1 > %2": "wanneer %1 > %2",
     "when I receive %1": "wanneer ik signaal %1 ontvang",
@@ -162,9 +163,10 @@
   "osis": [
     "andere scripts in sprite"
   ],
-  "define": [
+  "definePrefix": [
     "definieer"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Beweging",
     "Looks": "Uiterlijken",
@@ -199,5 +201,5 @@
     "einde": "end"
   },
   "name": "Nederlands",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

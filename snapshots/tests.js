@@ -831,6 +831,17 @@ when tilted (any v) :: wedo
 `
 )
 
+test(
+  "scratch3",
+  "en-cat",
+  `
+move (10) steps
+
+when flag clicked :: cat
+move (10) steps
+`
+)
+
 /*****************************************************************************/
 
 // Scratch 3, German

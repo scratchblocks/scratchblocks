@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "quando si clicca su @greenFlag",
     "when %1 key pressed": "quando si preme il tasto %1",
     "when this sprite clicked": "quando si clicca questo sprite",
+    "when stage clicked": "quando si clicca sullo Stage",
     "when backdrop switches to %1": "quando lo sfondo passa a %1",
     "when %1 > %2": "quando %1 > %2",
     "when I receive %1": "quando ricevo %1",
@@ -148,7 +149,7 @@
     "set light color to %1": "porta colore luci a %1",
     "play note %1 for %2 seconds": "suona nota %1 per %2 secondi",
     "when tilted %1": "quando inclinato %1",
-    "tilt angle %1": "angolo inclinazione verso %1",
+    "tilt angle %1": "angolo inclinazione %1",
     "else": "altrimenti",
     "user id": "user id",
     "loud?": "volume alto?"
@@ -162,9 +163,10 @@
   "osis": [
     "tutti gli altri script dello sprite"
   ],
-  "define": [
+  "definePrefix": [
     "definisci"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Movimento",
     "Looks": "Aspetto",
@@ -199,5 +201,5 @@
     "fine": "end"
   },
   "name": "Italiano",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

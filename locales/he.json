@@ -7,8 +7,8 @@
     "point towards %1": "פנה לכיוון של %1",
     "go to x:%1 y:%2": "קפוץ אל x: %1 y: %2",
     "go to %1": "קפוץ אל %1",
-    "glide %1 secs to x:%2 y:%3": "גלוש %1 שניות ל x: %2 y: %3",
-    "glide %1 secs to %2": "גלוש %1 שניות ל %2",
+    "glide %1 secs to x:%2 y:%3": "גלוש %1 שניות אל x: %2 y: %3",
+    "glide %1 secs to %2": "גלוש %1 שניות אל %2",
     "change x by %1": "שנה את ערך x ב %1",
     "set x to %1": "קבע את ערך x ל %1",
     "change y by %1": "שנה את ערך y ב %1",
@@ -44,7 +44,7 @@
     "set volume to %1%": "קבע עוצמת קול ל %1%",
     "change tempo by %1": "שנה קצב ב %1",
     "set tempo to %1": "קבע קצב ל %1",
-    "erase all": "מחק הכל",
+    "erase all": "מחק הכול",
     "stamp": "חתום",
     "pen down": "עט מטה",
     "pen up": "עט מעלה",
@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "כאשר לוחצים על @greenFlag",
     "when %1 key pressed": "כאשר נלחץ מקש %1",
     "when this sprite clicked": "כאשר לוחצים על דמות זו",
+    "when stage clicked": "כאשר לוחצים על הבמה",
     "when backdrop switches to %1": "כאשר הרקע משתנה ל %1",
     "when %1 > %2": "כאשר %1 > %2",
     "when I receive %1": "כאשר מתקבל מסר %1",
@@ -85,7 +86,7 @@
     "hide variable %1": "הסתר משתנה %1",
     "add %1 to %2": "הוסף %1 ל %2",
     "delete %1 of %2": "מחק פריט %1 מתוך %2",
-    "delete all of %1": "מחק הכל מ%1",
+    "delete all of %1": "מחק הכול מ%1",
     "if on edge, bounce": "בנגיעה במסגרת שנה כיוון",
     "insert %1 at %2 of %3": "הכנס %1 במקום %2 של %3",
     "replace item %1 of %2 with %3": "קבע פריט %1 של %2 ל %3",
@@ -94,12 +95,12 @@
     "x position": "מיקום על ציר x",
     "y position": "מיקום על ציר y",
     "direction": "כיוון",
-    "costume #": "# תלבושת",
+    "costume #": "מספר תלבושת",
     "costume %1": "%1 תלבושת",
     "size": "גודל",
     "backdrop name": "שם רקע",
     "backdrop %1": "%1 רקע",
-    "backdrop #": "# רקע",
+    "backdrop #": "מספר רקע",
     "volume": "עוצמת קול",
     "tempo": "קצב",
     "touching %1?": "נוגע ב %1?",
@@ -137,7 +138,7 @@
     "round %1": "עגל %1",
     "%1 contains %2?": "%1 מכיל %2 ?",
     "item %1 of %2": "פריט %1 של %2",
-    "item # of %1 in %2": "# פריט של %1 ב- %2",
+    "item # of %1 in %2": "מספר פריט של %1 ב- %2",
     "turn %1 on": "הדלקת %1",
     "turn %1 off": "כיבוי %1",
     "set %1 power to %2": "קבע הספק של%1 ל %2",
@@ -162,9 +163,10 @@
   "osis": [
     "תסריטים אחרים בדמות"
   ],
-  "define": [
+  "definePrefix": [
     "הגדר"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "תנועה",
     "Looks": "מראה",
@@ -199,5 +201,5 @@
     "סוף": "end"
   },
   "name": "עִבְרִית",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

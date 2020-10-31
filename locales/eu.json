@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "@greenFlag klik egitean",
     "when %1 key pressed": "%1 tekla sakatzean",
     "when this sprite clicked": "pertsonai honetan klik egitean",
+    "when stage clicked": "Eszenan klik egitean",
     "when backdrop switches to %1": "atzeko oihala %1 ra aldatzen denean",
     "when %1 > %2": "%1  > %2 bada",
     "when I receive %1": "%1 jasotzean",
@@ -162,9 +163,10 @@
   "osis": [
     "pertsonaiaren beste script batzuk"
   ],
-  "define": [
+  "definePrefix": [
     "definitu"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Mugimendua",
     "Looks": "Itxura",
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "Euskara",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

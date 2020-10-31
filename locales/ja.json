@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "@greenFlag が押されたとき",
     "when %1 key pressed": "%1 キーが押されたとき",
     "when this sprite clicked": "このスプライトが押されたとき",
+    "when stage clicked": "ステージが押されたとき",
     "when backdrop switches to %1": "背景が %1 になったとき",
     "when %1 > %2": "%1 > %2 のとき",
     "when I receive %1": "%1 を受け取ったとき",
@@ -70,6 +71,7 @@
     "if %1 then": "もし %1 なら",
     "wait until %1": "%1 まで待つ",
     "repeat until %1": "%1 まで繰り返す",
+    "stop %1": " %1",
     "when I start as a clone": "クローンされたとき",
     "create clone of %1": "%1 のクローンを作る",
     "delete this clone": "このクローンを削除する",
@@ -161,9 +163,10 @@
   "osis": [
     "スプライトの他のスクリプトを止める"
   ],
-  "define": [
+  "definePrefix": [
     "定義"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "動き",
     "Looks": "見た目",
@@ -193,5 +196,5 @@
   ],
   "aliases": {},
   "name": "日本語",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "þegar smellt er á @greenFlag",
     "when %1 key pressed": "þegar ýtt er á %1",
     "when this sprite clicked": "þegar smellt er á þennan karakter",
+    "when stage clicked": "þegar smellt er a sviðið",
     "when backdrop switches to %1": "þegar bakgrunnurinn verður %1",
     "when %1 > %2": "þegar %1 er meira en %2",
     "when I receive %1": "þegar ég fæ sent %1",
@@ -162,9 +163,10 @@
   "osis": [
     "önnur forrit á karakter"
   ],
-  "define": [
+  "definePrefix": [
     "skilgreina"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Hreyfing",
     "Looks": "Útlit",
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "Íslenska",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

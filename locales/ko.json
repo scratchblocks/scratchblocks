@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "@greenFlag 클릭했을 때",
     "when %1 key pressed": "%1 키를 눌렀을 때",
     "when this sprite clicked": "이 스프라이트를 클릭했을 때",
+    "when stage clicked": "무대를 클릭했을 때",
     "when backdrop switches to %1": "배경이 %1 (으)로 바뀌었을 때",
     "when %1 > %2": "%1 > %2 일 때",
     "when I receive %1": "%1 신호를 받았을 때",
@@ -162,7 +163,8 @@
   "osis": [
     "이 스프라이트에 있는 다른 스크립트"
   ],
-  "define": [
+  "definePrefix": [],
+  "defineSuffix": [
     "정의하기"
   ],
   "palette": {
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "한국어",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "Quando alguém clicar em @greenFlag",
     "when %1 key pressed": "Quando alguém pressionar a tecla %1",
     "when this sprite clicked": "Quando alguém clicar em ti",
+    "when stage clicked": "Quando alguém clicar no palco",
     "when backdrop switches to %1": "Quando o cenário mudar para %1",
     "when %1 > %2": "Quando o valor do sensor %1 exceder %2",
     "when I receive %1": "Quando receberes a mensagem %1",
@@ -162,9 +163,10 @@
   "osis": [
     "os teus outros guiões"
   ],
-  "define": [
+  "definePrefix": [
     "Define"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Movimento",
     "Looks": "Aparência",
@@ -199,5 +201,5 @@
     "fim": "end"
   },
   "name": "Português",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

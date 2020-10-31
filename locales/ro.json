@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "când se dă click pe @greenFlag",
     "when %1 key pressed": "când tasta %1 este apăsată",
     "when this sprite clicked": "când se dă click pe acest personaj",
+    "when stage clicked": "când se dă clic pe scenă",
     "when backdrop switches to %1": "când decorul se schimbă la %1",
     "when %1 > %2": "când %1>%2",
     "when I receive %1": "când primesc %1",
@@ -80,7 +81,7 @@
     "when video motion > %1": "când mișcarea video > %1",
     "reset timer": "resetează cronometru",
     "set %1 to %2": "setează %1 la %2",
-    "change %1 by %2": "schimbă %1 cu %2",
+    "change %1 by %2": "modifică %1 cu %2",
     "show variable %1": "arată variabila %1",
     "hide variable %1": "ascunde variabila %1",
     "add %1 to %2": "adaugă %1 la %2",
@@ -162,9 +163,10 @@
   "osis": [
     "alte scripturi pentru personaj"
   ],
-  "define": [
+  "definePrefix": [
     "definește"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Mișcare",
     "Looks": "Aspect",
@@ -199,5 +201,5 @@
     "terminare": "end"
   },
   "name": "Română",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

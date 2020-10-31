@@ -130,13 +130,24 @@ const buildLocale = (code, rawLocale) => {
 
   const aliases = extraAliases[code]
 
+  const procDef = translateKey(rawLocale, "PROCEDURES_DEFINITION")
+
   const locale = {
     commands: {},
     dropdowns: {},
     ignorelt: [],
     soundEffects: listFor(soundEffects),
     osis: listFor(osis),
-    define: listFor(["PROCEDURES_DEFINITION"]),
+    definePrefix: /(.*)%1/
+      .exec(procDef)[1]
+      .trim()
+      .split(/ /g)
+      .filter(x => !!x),
+    defineSuffix: /%1(.*)/
+      .exec(procDef)[1]
+      .trim()
+      .split(/ /g)
+      .filter(x => !!x),
     palette: dictionaryWith(palette), // used for forum menu
     math: listFor(mathFuncs),
     aliases: aliases || {},
@@ -163,8 +174,10 @@ const buildLocale = (code, rawLocale) => {
     `${(code + ":").padEnd(8)} ${(frac * 100).toFixed(1).padStart(5)}%`
   )
 
-  // Approximate fraction of blocks translated
-  locale.percentTranslated = Math.round(frac / 0.74 * 100)
+  // Approximate fraction of blocks translated. For some reason not all blocks
+  // are included; most locales are 88.4% translated according to this script.
+  // So we cheat and treat that as 100.
+  locale.percentTranslated = Math.max(100, Math.round(frac / 0.884 * 100))
 
   if (aliases) {
     locale.commands["end"] = aliases["end"]
@@ -188,7 +201,6 @@ const fixup = (key, value, englishValue) => {
 
   value = value.replace(/\[[^\]]+\]/g, key => variables[key])
   value = value.trim()
-  if (!value) return
 
   switch (key) {
     case "EVENT_WHENFLAGCLICKED":
@@ -197,8 +209,6 @@ const fixup = (key, value, englishValue) => {
       return value.replace("%1", "@turnLeft").replace("%2", "%1")
     case "MOTION_TURNRIGHT":
       return value.replace("%1", "@turnRight").replace("%2", "%1")
-    case "PROCEDURES_DEFINITION":
-      return value.replace(/ ?\%1 ?/, "")
     case "CONTROL_STOP":
       return value + " %1"
     default:

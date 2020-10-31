@@ -56,9 +56,10 @@
     "set pen shade to %1": "Ustaw odcień pisaka na %1",
     "change pen size by %1": "Zmień rozmiar pisaka o %1",
     "set pen size to %1": "Ustaw rozmiar pisaka na %1",
-    "when @greenFlag clicked": "kiedy @greenFlag kliknięty",
+    "when @greenFlag clicked": "kiedy kliknięto @greenFlag",
     "when %1 key pressed": "kiedy klawisz %1 naciśnięty",
     "when this sprite clicked": "kiedy ten duszek kliknięty",
+    "when stage clicked": "kiedy scena kliknięta",
     "when backdrop switches to %1": "kiedy tło zmieni się na %1",
     "when %1 > %2": "kiedy %1 > %2",
     "when I receive %1": "kiedy otrzymam %1",
@@ -162,9 +163,10 @@
   "osis": [
     "inne skrypty duszka"
   ],
-  "define": [
+  "definePrefix": [
     "definiuj"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Ruch",
     "Looks": "Wygląd",
@@ -199,5 +201,5 @@
     "koniec": "end"
   },
   "name": "Polski",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "當 @greenFlag 被點擊",
     "when %1 key pressed": "當 %1 鍵被按下",
     "when this sprite clicked": "當角色被點擊",
+    "when stage clicked": "當舞台被點擊",
     "when backdrop switches to %1": "當背景換成 %1",
     "when %1 > %2": "當 %1 > %2",
     "when I receive %1": "當收到訊息 %1",
@@ -162,9 +163,10 @@
   "osis": [
     "這個物件的其它程式"
   ],
-  "define": [
+  "definePrefix": [
     "定義"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "動作",
     "Looks": "外觀",
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "繁體中文",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

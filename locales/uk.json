@@ -59,7 +59,8 @@
     "when @greenFlag clicked": "коли @greenFlag натиснуто",
     "when %1 key pressed": "коли клавішу %1 натиснуто",
     "when this sprite clicked": "коли спрайт натиснуто",
-    "when backdrop switches to %1": "коли тло змінится на %1",
+    "when stage clicked": "коли сцену натиснуто",
+    "when backdrop switches to %1": "коли тло зміниться на %1",
     "when %1 > %2": "коли %1 > %2",
     "when I receive %1": "коли я отримую %1",
     "broadcast %1": "оповістити %1",
@@ -162,9 +163,10 @@
   "osis": [
     "інші скрипти цього спрайту"
   ],
-  "define": [
+  "definePrefix": [
     "визначити"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Рух",
     "Looks": "Вигляд",
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "Українська",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

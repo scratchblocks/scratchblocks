@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "po kliknutí na @greenFlag",
     "when %1 key pressed": "po stisku klávesy %1",
     "when this sprite clicked": "po kliknutí na mě",
+    "when stage clicked": "po kliknutí na scénu",
     "when backdrop switches to %1": "po změně pozadí na %1",
     "when %1 > %2": "když %1 > %2",
     "when I receive %1": "po obdržení zprávy %1",
@@ -162,9 +163,11 @@
   "osis": [
     "jiné scénáře postavy"
   ],
-  "define": [
-    "scénář pro"
+  "definePrefix": [
+    "scénář",
+    "pro"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Pohyb",
     "Looks": "Vzhled",
@@ -199,5 +202,5 @@
     "konec": "end"
   },
   "name": "Česky",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

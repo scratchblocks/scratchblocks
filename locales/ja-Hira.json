@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "@greenFlag がおされたとき",
     "when %1 key pressed": "%1 キーがおされたとき",
     "when this sprite clicked": "このスプライトがおされたとき",
+    "when stage clicked": "ステージがおされたとき",
     "when backdrop switches to %1": "はいけいが %1 になったとき",
     "when %1 > %2": "%1 > %2 のとき",
     "when I receive %1": "%1 をうけとったとき",
@@ -70,6 +71,7 @@
     "if %1 then": "もし %1 なら",
     "wait until %1": "%1 までまつ",
     "repeat until %1": "%1 までくりかえす",
+    "stop %1": " %1",
     "when I start as a clone": "クローンされたとき",
     "create clone of %1": "%1 のクローンをつくる",
     "delete this clone": "このクローンをさくじょする",
@@ -161,9 +163,10 @@
   "osis": [
     "スプライトのほかのスクリプトをとめる"
   ],
-  "define": [
+  "definePrefix": [
     "ていぎ"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "うごき",
     "Looks": "みため",
@@ -193,5 +196,5 @@
   ],
   "aliases": {},
   "name": "にほんご",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

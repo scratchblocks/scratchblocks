@@ -48,7 +48,7 @@
     "stamp": "ምልክት",
     "pen down": "ብእር አሳርፍ",
     "pen up": "ብእር አንሳ",
-    "set pen color to %1": "የእስክሪብቶን ቀለም ወደ ለውጥ",
+    "set pen color to %1": "የእስክሪብቶን ቀለም ወደ %1 ለውጥ",
     "change pen color by %1": "የእስክሪብቶን ቀልም ቀይር በ%1",
     "set pen %1 to %2": "የእስክሪብቶን %1 ወደ %2 ለውጥ",
     "change pen %1 by %2": "የእስክሪብቶን %1 ቀይር በ%2",
@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "@greenFlag ጠቅ ሲደረግ",
     "when %1 key pressed": "%1ን ቁልፍ ጫን ሲደረግ",
     "when this sprite clicked": "ይህ ስፕራይት ሲነካ",
+    "when stage clicked": "መድረኩ ጠቅ ሲደረግ",
     "when backdrop switches to %1": "የጀርባ ምስል ወደ %1 ሲቀየር",
     "when %1 > %2": "%1 > %2 ሲሆን",
     "when I receive %1": "%1ን ስቀበል",
@@ -162,8 +163,10 @@
   "osis": [
     "ሌሎች በስፕራይት ላይ ያሉ ስክሪፕቶች"
   ],
-  "define": [
-    "ን ደንግግ"
+  "definePrefix": [],
+  "defineSuffix": [
+    "ን",
+    "ደንግግ"
   ],
   "palette": {
     "Motion": "እንቅስቃሴ",
@@ -194,5 +197,5 @@
   ],
   "aliases": {},
   "name": "አማርኛ",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

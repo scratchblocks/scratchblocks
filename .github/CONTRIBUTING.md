@@ -25,8 +25,5 @@ For **pull requests**:
 
 * Browse to <http://localhost:8000/> to access the development version.
 
-* Before you send a PR, run `make` to check that the JS minifies correctly.
-
-To rebuild the translations (eg. to take into account new updates on Pootle), use `make translations`.
-
 To modify the homepage, send a PR to the [scratchblocks/scratchblocks.github.io](//github.com/scratchblocks/scratchblocks.github.io) repo.
+

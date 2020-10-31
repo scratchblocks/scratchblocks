@@ -55,10 +55,11 @@
     "change pen shade by %1": "cambiar la intensidad del lápiz en %1",
     "set pen shade to %1": "establecer intensidad de lápiz a %1",
     "change pen size by %1": "cambiar el tamaño del lápiz en %1",
-    "set pen size to %1": "establecer color de lápiz a %1",
+    "set pen size to %1": "establecer tamaño de lápiz a %1",
     "when @greenFlag clicked": "al presionar @greenFlag",
     "when %1 key pressed": "al presionar la tecla %1",
     "when this sprite clicked": "al hacer clic en este objeto",
+    "when stage clicked": "al hacer clic en el escenario",
     "when backdrop switches to %1": "cuando el fondo cambie a %1",
     "when %1 > %2": "cuando %1 > %2",
     "when I receive %1": "al recibir %1",
@@ -77,7 +78,7 @@
     "ask %1 and wait": "preguntar %1 y esperar",
     "turn video %1": "%1 video",
     "set video transparency to %1%": "fijar transparencia de video a %1",
-    "when video motion > %1": "cuando el movimiento del video > %1",
+    "when video motion > %1": "cuando el movimiento del video sea > %1",
     "reset timer": "reiniciar cronómetro",
     "set %1 to %2": "establecer %1 a %2",
     "change %1 by %2": "cambiar %1 en %2",
@@ -141,12 +142,12 @@
     "turn %1 on": "encender %1",
     "turn %1 off": "apagar %1",
     "set %1 power to %2": "establecer fuerza de %1 a %2",
-    "set %1 direction to %2": "establecer dirección de %1a%2",
+    "set %1 direction to %2": "establecer dirección de %1 a %2",
     "when distance %1 %2": "cuando la distancia %1%2",
     "distance": "distancia",
     "turn %1 on for %2 seconds": "encender %1 por %2segundos",
     "set light color to %1": "establecer color de luz a %1",
-    "play note %1 for %2 seconds": "tocar nota %1por %2segundos",
+    "play note %1 for %2 seconds": "tocar nota %1 por %2 segundos",
     "when tilted %1": "al inclinarse %1",
     "tilt angle %1": "ángulo de inclinación %1",
     "else": "si no",
@@ -162,9 +163,10 @@
   "osis": [
     "otros programas en el objeto"
   ],
-  "define": [
+  "definePrefix": [
     "definir"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Movimiento",
     "Looks": "Apariencia",
@@ -177,7 +179,7 @@
     "My Blocks": "Mis Bloques"
   },
   "math": [
-    "abs",
+    "valor absoluto",
     "piso",
     "techo",
     "raíz cuadrada",
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "Español Latinoamericano",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }

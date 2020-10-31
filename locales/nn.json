@@ -36,9 +36,9 @@
     "clear sound effects": "fjern lydeffektar",
     "play sound %1 until done": "spel lyden %1 til han er ferdig",
     "stop all sounds": "stopp alle lydar",
-    "play drum %1 for %2 beats": "trommeslag %1 som varer %2 takter",
-    "rest for %1 beats": "pause i %1 takter",
-    "play note %1 for %2 beats": "spel tonen %1 i %2 takter",
+    "play drum %1 for %2 beats": "trommeslag %1 som varer i %2 taktslag",
+    "rest for %1 beats": "pause i %1 taktslag",
+    "play note %1 for %2 beats": "spel tonen %1 i %2 taktslag",
     "set instrument to %1": "bruk instrumentet %1",
     "change volume by %1": "endra lydstyrken med %1",
     "set volume to %1%": "set lydstyrken til %1 %",
@@ -59,6 +59,7 @@
     "when @greenFlag clicked": "når @greenFlag vert trykt på",
     "when %1 key pressed": "når %1 vert trykt",
     "when this sprite clicked": "når denne figuren vert trykt på",
+    "when stage clicked": "når scena vert trykt på",
     "when backdrop switches to %1": "når bakgrunnen byter til %1",
     "when %1 > %2": "når %1 > %2",
     "when I receive %1": "når eg får meldinga %1",
@@ -162,9 +163,10 @@
   "osis": [
     "andre skript i figuren"
   ],
-  "define": [
+  "definePrefix": [
     "definer"
   ],
+  "defineSuffix": [],
   "palette": {
     "Motion": "Rørsle",
     "Looks": "Utsjånad",
@@ -194,5 +196,5 @@
   ],
   "aliases": {},
   "name": "Norsk Nynorsk",
-  "percentTranslated": 119
+  "percentTranslated": 100
 }
