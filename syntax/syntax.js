@@ -96,7 +96,7 @@ function paintBlock(info, children, languages) {
       )
 
       for (let i = 0; i < outlineChildren.length; i++) {
-        const child = outlineChildren[i]
+        let child = outlineChildren[i]
         if (child.isInput && child.isBoolean) {
           // Convert empty boolean slot to empty boolean argument.
           child = paintBlock(
