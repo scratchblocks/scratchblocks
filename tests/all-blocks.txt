@@ -142,6 +142,7 @@ when gf clicked
 when green flag clicked
 when flag clicked
 when ⚑ clicked
+when start clicked
 when [space v] key pressed
 when this sprite clicked
 when backdrop switches to [backdrop1 v]
