@@ -49,7 +49,7 @@
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^3.4.0",
-    "rollup-plugin-serve": "^0.6.1",
+    "rollup-plugin-serve": "^1.0.2",
     "scratch-l10n": "^3.9.20200603151351"
   },
   "keywords": [
