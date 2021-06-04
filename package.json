@@ -50,7 +50,7 @@
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-serve": "^1.0.2",
-    "scratch-l10n": "^3.9.20200603151351"
+    "scratch-l10n": "^3.11.20210604031644"
   },
   "keywords": [
     "scratch"
