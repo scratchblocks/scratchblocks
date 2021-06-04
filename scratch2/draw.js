@@ -478,9 +478,7 @@ var SVG = (module.exports = {
     var func =
       shape === "reporter"
         ? SVG.roundedPath
-        : shape === "boolean"
-          ? SVG.pointedPath
-          : SVG.capPath
+        : shape === "boolean" ? SVG.pointedPath : SVG.capPath
     return SVG.path(
       extend(props, {
         path: [
