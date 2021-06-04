@@ -66,6 +66,7 @@ var SVG = (module.exports = {
       version: "1.1",
       width: width,
       height: height,
+      viewBox: `0 0 ${width} ${height}`,
     })
   },
 
