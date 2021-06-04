@@ -347,10 +347,6 @@ var SVG = (module.exports = {
     return [SVG.getTop(w), SVG.getRightAndBottom(w, h, false, 0), "Z"]
   },
 
-  ringCapPath(w, h) {
-    return [SVG.getRingTop(w), SVG.getRightAndBottom(w, h, false, 0), "Z"]
-  },
-
   capRect(w, h, props) {
     return SVG.path(
       extend(props, {
@@ -484,7 +480,7 @@ var SVG = (module.exports = {
         ? SVG.roundedPath
         : shape === "boolean"
           ? SVG.pointedPath
-          : cw < 40 ? SVG.ringCapPath : SVG.capPath
+          : SVG.capPath
     return SVG.path(
       extend(props, {
         path: [

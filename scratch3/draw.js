@@ -276,10 +276,6 @@ var SVG = (module.exports = {
     return [SVG.getTop(w), SVG.getRightAndBottom(w, h, false, 0), "Z"]
   },
 
-  ringCapPath(w, h) {
-    return [SVG.getRingTop(w), SVG.getRightAndBottom(w, h, false, 0), "Z"]
-  },
-
   capRect(w, h, props) {
     return SVG.path(
       extend(props, {
