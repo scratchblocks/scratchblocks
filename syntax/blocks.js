@@ -350,7 +350,12 @@ function lookupHash(hash, info, children, languages) {
     var lang = languages[i]
     if (lang.blocksByHash.hasOwnProperty(hash)) {
       var block = lang.blocksByHash[hash]
-      if (info.shape === "reporter" && block.shape !== "reporter") continue
+      if (
+        info.shape === "reporter" &&
+        (block.shape !== "reporter" && block.shape !== "ring")
+      ) {
+        continue
+      }
       if (info.shape === "boolean" && block.shape !== "boolean") continue
       if (block.specialCase) {
         block = block.specialCase(info, children, lang) || block
