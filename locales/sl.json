@@ -70,7 +70,7 @@
     "forever": "ponavljaj",
     "if %1 then": "če %1 potem",
     "wait until %1": "počakaj dokler ni %1",
-    "repeat until %1": "ponavljaj do %1",
+    "repeat until %1": "ponavljaj dokler ni %1",
     "stop %1": "ustavi %1",
     "when I start as a clone": "ko začnem kot dvojnik",
     "create clone of %1": "ustvari dvojnika %1",

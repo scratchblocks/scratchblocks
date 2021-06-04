@@ -50,10 +50,10 @@
     "pen up": "kalamu juu",
     "set pen color to %1": "weka rangi ya kalamu kuwa %1",
     "change pen color by %1": "badilisha rangi ya kalamu kwa %1",
-    "set pen %1 to %2": "weka %1 -a kalamu kuwa %2",
-    "change pen %1 by %2": "badilisha %1 -a kalamu kwa %2",
+    "set pen %1 to %2": "weka %1 kuwa %2",
+    "change pen %1 by %2": "badilisha %1 kwa %2",
     "change pen shade by %1": "badilisha namna ya rangi ya kalamu kwa %1",
-    "set pen shade to %1": "weka nanma ya rangi ya kalamu kuwa %1",
+    "set pen shade to %1": "weka namna ya rangi ya kalamu kuwa %1",
     "change pen size by %1": "badilisha ukubwa wa kalamu kwa %1",
     "set pen size to %1": "weka ukubwa wa kalamu kuwa %1",
     "when @greenFlag clicked": "wakati @greenFlag inapobonyezwa",
@@ -77,7 +77,7 @@
     "delete this clone": "futa kinakili hiki",
     "ask %1 and wait": "uliza %1 na subiri",
     "turn video %1": "video %1",
-    "set video transparency to %1%": "weka uwazi wa video kuwa %1",
+    "set video transparency to %1%": "weka upenyeko wa nuru kuwa %1",
     "when video motion > %1": "wakati mwendo wa video > %1",
     "reset timer": "anzisha tena kitunza muda",
     "set %1 to %2": "weka %1 iwe %2",
@@ -198,9 +198,9 @@
     "peleka sauti kushoto/kulia"
   ],
   "microbitWhen": [
-    "inaposongezwa",
-    "kimetikiswa",
-    "kimeporuka"
+    "inaposongwa",
+    "inapotikiswa",
+    "inaporushwa"
   ],
   "osis": [
     "hati nyingine katika kihusika"
@@ -222,8 +222,8 @@
   },
   "math": [
     "abs",
-    "sakafu",
-    "dari",
+    "kadiria chini namba kamili",
+    "kadiria juu namba kamili",
     "kipeo cha pili",
     "sin",
     "cos",

@@ -1,7 +1,7 @@
 {
   "commands": {
     "move %1 steps": "%1 만큼 움직이기",
-    "turn @turnRight %1 degrees": "@turnRight 방향으로 %1 도 회전하기",
+    "turn @turnRight %1 degrees": "@turnRight 방향으로 %1 도 돌기",
     "turn @turnLeft %1 degrees": "@turnLeft 방향으로 %1 도 회전하기",
     "point in direction %1": "%1 도 방향 보기",
     "point towards %1": "%1 쪽 보기",
@@ -9,10 +9,10 @@
     "go to %1": "%1 (으)로 이동하기",
     "glide %1 secs to x:%2 y:%3": "%1 초 동안 x: %2 y: %3 (으)로 이동하기",
     "glide %1 secs to %2": "%1 초 동안 %2 (으)로 이동하기",
-    "change x by %1": "x 좌표를 %1 만큼 바꾸기",
-    "set x to %1": "x 좌표를 %1 (으)로 정하기",
-    "change y by %1": "y 좌표를 %1 만큼 바꾸기",
-    "set y to %1": "y 좌표를 %1 (으)로 정하기",
+    "change x by %1": "x좌표를 %1 만큼 바꾸기",
+    "set x to %1": "x좌표를 %1 (으)로 정하기",
+    "change y by %1": "y좌표를 %1 만큼 바꾸기",
+    "set y to %1": "y좌표를 %1 (으)로 정하기",
     "set rotation style %1": "회전 방식을 %1 (으)로 정하기",
     "say %1 for %2 seconds": "%1 을(를) %2 초 동안 말하기",
     "say %1": "%1 말하기",
@@ -41,7 +41,7 @@
     "play note %1 for %2 beats": "%1번 음을 %2 박자로 연주하기",
     "set instrument to %1": "악기를 %1(으)로 정하기",
     "change volume by %1": "음량을 %1 만큼 바꾸기",
-    "set volume to %1%": "음량을 %1% 로 정하기",
+    "set volume to %1%": "음량을 %1%로 정하기",
     "change tempo by %1": "빠르기를 %1 만큼 바꾸기",
     "set tempo to %1": "빠르기를 %1(으)로 정하기",
     "erase all": "모두 지우기",
@@ -122,8 +122,8 @@
     "username": "사용자 이름",
     "%1 + %2": "%1 + %2",
     "%1 - %2": "%1 - %2",
-    "%1 * %2": "%1 × %2",
-    "%1 / %2": "%1 ÷ %2",
+    "%1 * %2": "%1 * %2",
+    "%1 / %2": "%1 / %2",
     "pick random %1 to %2": "%1 부터 %2 사이의 난수",
     "%1 < %2": "%1 < %2",
     "%1 = %2": "%1 = %2",
@@ -218,7 +218,7 @@
     "Sensing": "감지",
     "Operators": "연산",
     "Variables": "변수",
-    "My Blocks": "나만의 블록"
+    "My Blocks": "내 블록"
   },
   "math": [
     "절댓값",

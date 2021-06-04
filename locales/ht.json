@@ -56,9 +56,9 @@
     "set pen shade to %1": "fikse lonbraj plim a %1",
     "change pen size by %1": "chanje tay plim pa %1",
     "set pen size to %1": "fikse tay plim sou %1",
-    "when @greenFlag clicked": "lè @greenFlag klike",
+    "when @greenFlag clicked": "lè n klike @greenFlag",
     "when %1 key pressed": "depi bouton %1 peze",
-    "when this sprite clicked": "lè sprite la klike",
+    "when this sprite clicked": "lè aktè la klike",
     "when stage clicked": "lè sèn an klike",
     "when backdrop switches to %1": "lè fon an chanje a %1",
     "when %1 > %2": "lè %1 > %2",
@@ -203,7 +203,7 @@
     "sote"
   ],
   "osis": [
-    "lòt eskrip nan sprite la"
+    "lòt eskrip nan aktè la"
   ],
   "definePrefix": [
     "defini"

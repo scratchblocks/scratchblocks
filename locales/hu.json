@@ -160,15 +160,15 @@
     "translate %1 to %2": "fordítsd le azt, hogy %1 erre a nyelvre:%2",
     "language": "nyelv",
     "when %1 pressed in order": "amikor %1 sorban lenyomva",
-    "turn motor %1 for %2 seconds": "turn motor %1 for %2 seconds",
-    "turn motor %1 for %2 rotations": "turn motor %1 for %2 rotations",
-    "turn motor %1 on": "turn motor %1 on",
-    "turn motor %1 off": "turn motor %1 off",
-    "set motor %1 speed to %2%": "set motor %1 speed to %2 %",
-    "set motor %1 direction %2": "set motor %1 direction %2",
-    "motor %1 position": "motor %1 position",
-    "when %1 brick seen": "when %1 brick seen",
-    "seeing %1 brick?": "seeing %1 brick?",
+    "turn motor %1 for %2 seconds": "%1 motor bekapcsolása %2 másodpercig",
+    "turn motor %1 for %2 rotations": "%1 motor bekapcsolása %2 fordulatra",
+    "turn motor %1 on": "%1 motor bekapcsolása",
+    "turn motor %1 off": "%1 motor kikapcsolása",
+    "set motor %1 speed to %2%": "%1 motor sebessége legyen %2%",
+    "set motor %1 direction %2": "%1 motor beállítása %2 irányba",
+    "motor %1 position": "%1 motor pozíciója",
+    "when %1 brick seen": "ha %1 téglát látsz",
+    "seeing %1 brick?": "látsz %1 téglát?",
     "motor %1 turn this way for %2 seconds": "%1 motor forduljon erre %2 másodpercig",
     "motor %1 turn that way for %2 seconds": "%1 motor forduljon arra %2 másodpercig",
     "motor %1 set power %2%": "%1 motor teljesítménye legyen %2 %",
@@ -203,7 +203,7 @@
     "átugrott"
   ],
   "osis": [
-    "szereplő többi feladata"
+    "szereplő többi eljárása"
   ],
   "definePrefix": [],
   "defineSuffix": [
