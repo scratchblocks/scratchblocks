@@ -13,7 +13,7 @@
   "bugs": {
     "url": "https://github.com/tjvr/scratchblocks/issues"
   },
-  "version": "3.5.0",
+  "version": "3.5.1",
   "main": "build/scratchblocks.min.js",
   "module": "build/scratchblocks.min.es.js",
   "directories": {
@@ -49,7 +49,7 @@
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^3.4.0",
-    "rollup-plugin-serve": "^0.6.1",
+    "rollup-plugin-serve": "^1.0.2",
     "scratch-l10n": "^3.9.20200603151351"
   },
   "keywords": [

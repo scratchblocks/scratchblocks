@@ -260,10 +260,11 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
   // rings
   if (this.isRing) {
     var child = this.children[0]
-    if (child && (child.isInput || child.isBlock || child.isScript)) {
+    // We use isStack for InputView; isBlock for BlockView; isScript for ScriptView.
+    if (child && (child.isStack || child.isBlock || child.isScript)) {
       var shape = child.isScript
         ? "stack"
-        : child.isInput ? child.shape : child.info.shape
+        : child.isStack ? child.shape : child.info.shape
       return SVG.ringRect(w, h, child.y, child.width, child.height, shape, {
         class: ["sb-" + this.info.category, "sb-bevel"].join(" "),
       })

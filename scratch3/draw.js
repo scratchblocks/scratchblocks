@@ -41,8 +41,6 @@ var SVG = (module.exports = {
       var value = "" + props[key]
       if (directProps[key]) {
         el[key] = value
-      } else if (/^xlink:/.test(key)) {
-        el.setAttributeNS("http://www.w3.org/1999/xlink", key.slice(6), value)
       } else if (props[key] !== null && props.hasOwnProperty(key)) {
         el.setAttributeNS(null, key, value)
       }
@@ -66,6 +64,7 @@ var SVG = (module.exports = {
       version: "1.1",
       width: width,
       height: height,
+      viewBox: `0 0 ${width} ${height}`,
     })
   },
 
@@ -102,7 +101,7 @@ var SVG = (module.exports = {
 
   symbol(href) {
     return SVG.el("use", {
-      "xlink:href": href,
+      href: href,
     })
   },
 
@@ -275,10 +274,6 @@ var SVG = (module.exports = {
 
   capPath(w, h) {
     return [SVG.getTop(w), SVG.getRightAndBottom(w, h, false, 0), "Z"]
-  },
-
-  ringCapPath(w, h) {
-    return [SVG.getRingTop(w), SVG.getRightAndBottom(w, h, false, 0), "Z"]
   },
 
   capRect(w, h, props) {

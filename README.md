@@ -40,43 +40,68 @@ Include a copy of [the scratchblocks JS file](https://scratchblocks.github.io/js
 <script src="scratchblocks-v3.4-min.js"></script>
 ```
 
-You can also include [the translations JS file](https://scratchblocks.github.io/js/translations-all-v3.4.js) if you want to include non-English blocks, but since that's quite large (nearly 600K?) it's recommended you build your own file with just the locales you need. For example, a translation file that just loads the German language (ISO code `de`) would look something like this:
+The convention is to write scratchblocks inside `pre` tags with the class `blocks`:
+```html
+<pre class="blocks">
+when flag clicked
+move (10) steps
+</pre>
+```
 
+You then need to call `scratchblocks.renderMatching` after the page has loaded. Make sure this appears at the end of the page (just before the closing `</body>` tag):
+```js
+<script>
+scratchblocks.renderMatching('pre.blocks', {
+  style:     'scratch3',   // Optional, defaults to 'scratch2'.
+  languages: ['en', 'de'], // Optional, defaults to ['en'].
+});
+</script>
+```
+The `renderMatching()` function takes a CSS-style selector for the elements that contain scratchblocks code: we use `pre.blocks` to target `pre` tags with the class `blocks`.
+
+The `style` option controls how the blocks appear, either the Scratch 2 or Scratch 3 style is supported.
+
+### Inline blocks
+
+You might also want to use blocks "inline", inside a paragraph:
+```html
+I'm rather fond of the <code class="b">stamp</code> block in Scratch.
+```
+
+To allow this, make a second call to `renderMatching` using the `inline` argument.
+```js
+<script>
+scratchblocks.renderMatching("pre.blocks", ...)
+
+scratchblocks.renderMatching("code.b", {
+  inline: true,
+  // Repeat `style` and `languages` options here.
+});
+</script>
+```
+This time we use `code.b` to target `code` blocks with the class `b`.
+
+### Translations
+
+You can also include [the translations JS file](https://scratchblocks.github.io/js/translations-all-v3.4.js) if you want to include non-English blocks, but since that's quite large (nearly 600K?) it's recommended you build your own file with just the locales you need.
+
+For example, a translation file that just loads the German language (ISO code `de`) would look something like this:
 ```js
 window.scratchblocks.loadLanguages({
     de: <contents of locales/de.json>
 })
 ```
 
-You then need to call `scratchblocks.renderMatching` after the page has loaded. It takes a CSS-style selector for the elements that contain scratchblocks code. The `style` option controls how the blocks appear, either the Scratch 2 or Scratch 3 style is supported.
-
+If you're using a JavaScript bundler you should be able to build your own translations file by calling `require()` with the path to the locale JSON file. This requires your bundler to allow importing JSON files as JavaScript.
 ```js
-scratchblocks.renderMatching('pre.blocks', {
-  style:     'scratch3',   // Optional, defaults to 'scratch2'.
-  languages: ['en', 'de'], // Optional, defaults to ['en'].
-});
-```
-
-### Inline blocks
-
-To use blocks inside a paragraph...
-
-```html
-I'm rather fond of the <code class="b">stamp</code> block in Scratch.
-```
-
-...make a separate call to `renderMatching` using the `inline` argument.
-
-```js
-scratchblocks.renderMatching("code.b", {
-  inline: true,
-  // Repeat `style` and `languages` options here.
-});
+window.scratchblocks.loadLanguages({
+    de: require('scratchblocks/locales/de.json'),
+})
 ```
 
 ## Browserify
 
-You can even use `scratchblocks` with browserify, if you're into that sort of
+You can use `scratchblocks` with browserify, if you're into that sort of
 thing.
 
 Once you've got browserify set up to build a client-side bundle from your app
