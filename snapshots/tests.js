@@ -1236,7 +1236,9 @@ Wenn Pin [0 v] angeschlossen ist
 drehe Motor [A v] für (1)Sekunden rechtsherum
 drehe Motor [A v]für (1)Sekunden linksherum
 setze Leistung von Motor [A v] auf (100)%
-(Position von Motor [A v])
+
+// Commented out until disambiguation issue can be fixed
+// (Position von Motor [A v])
 Wenn der Knopf [a v] gedrückt wird
 Wenn Abstand \\< (5)
 Wenn Helligkeit \\< (50)
