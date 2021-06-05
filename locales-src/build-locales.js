@@ -27,6 +27,11 @@ for (let code in localeNames) {
 }
 
 const soundEffects = ["SOUND_EFFECTS_PITCH", "SOUND_EFFECTS_PAN"]
+const microbitWhen = [
+  "microbit.gesturesMenu.moved",
+  "microbit.gesturesMenu.shaken",
+  "microbit.gesturesMenu.jumped",
+]
 const osis = ["CONTROL_STOP_OTHER"]
 const scratchSpecs = scratchCommands.map(block => block.spec)
 
@@ -137,6 +142,7 @@ const buildLocale = (code, rawLocale) => {
     dropdowns: {},
     ignorelt: [],
     soundEffects: listFor(soundEffects),
+    microbitWhen: listFor(microbitWhen),
     osis: listFor(osis),
     definePrefix: /(.*)%1/
       .exec(procDef)[1]
@@ -159,6 +165,7 @@ const buildLocale = (code, rawLocale) => {
     if (!command.id) continue
     if (/^sb2:/.test(command.id)) continue
     if (/^scratchblocks:/.test(command.id)) continue
+    if (locale.commands.hasOwnProperty(command.spec)) continue
     const result = translateKey(rawLocale, command.id)
     if (!result) continue
     locale.commands[command.spec] = result

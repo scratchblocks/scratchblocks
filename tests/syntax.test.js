@@ -313,6 +313,137 @@ describe('disambiguation', () => {
   test('stop block stack: ja', () => {
     expect(parseBlock('[スプライトの他のスクリプトを止める v]', optionsFor('ja')).info).toMatchObject(stopStack)
   })
+  
+  const microbitWhen = {
+    shape: 'hat',
+    id: 'microbit.whenGesture'
+  }
+  
+  test('microbit when', () => {
+    expect(parseBlock('when [moved v]').info).toMatchObject(microbitWhen)
+  })
+  
+  test('microbit when: de', () => {
+    expect(parseBlock('Wenn [bewegt v]', optionsFor('de')).info).toMatchObject(microbitWhen)
+  })
+  
+  test('microbit when: ja', () => {
+    expect(parseBlock('[動いた v]とき', optionsFor('ja')).info).toMatchObject(microbitWhen)
+  })
+ 
+  const simpleRemapping = new Map([
+    [
+      {
+        en: 'when tilted [any v]',
+        de: 'Wenn [biliebig v] geneigt',
+        ja: '[どれかの向き v]に傾いたとき'
+      },
+      {
+        shape: 'hat',
+        id: 'microbit.whenTilted'
+      }
+    ],
+    [
+      {
+        en: 'tilted [any v]?',
+        de: '[biliebig v] geneigt?',
+        ja: '[どれかの向き v]に傾いた'
+      },
+      {
+        shape: 'boolean',
+        id: 'microbit.isTilted'
+      }
+    ],
+    [
+      {
+        en: 'tilt angle [front v]',
+        de: 'Neigungswinkel [nach vorne v]',
+        ja: '[前 v]方向の傾き'
+      },
+      {
+        shape: 'reporter',
+        id: 'microbit.tiltAngle'
+      }
+    ],
+    [
+      {
+        en: 'when [any v] key pressed',
+        de: 'Wenn Taste [biliebiges v] gedrückt wird',
+        ja: '[どれかの v]キーが押されたとき'
+      },
+      {
+        shape: 'hat',
+        id: 'EVENT_WHENKEYPRESSED'
+      }
+    ],
+    [
+      {
+        en: 'motor [A v] position',
+        de: 'Position des Motors [A v]',
+        ja: 'モーター[A v]の位置'
+      },
+      {
+        shape: 'reporter',
+        id: 'ev3.getMotorPosition'
+      }
+    ],
+    [
+      {
+        en: 'distance',
+        de: 'Abstand',
+        ja: '距離'
+      },
+      {
+        shape: 'reporter',
+        id: 'wedo2.getDistance'
+      }
+    ],
+    [
+      {
+        en: 'set light color to (0)',
+        de: 'setze Lichtfarbe auf (0)',
+        ja: 'ライトの色を (0) にする'
+      },
+      {
+        shape: 'stack',
+        id: 'wedo2.setLightHue'
+      }
+    ],
+    [
+      {
+        en: 'button [1 v] pressed?',
+        de: 'Knopf [1 v] gedrückt?',
+        ja: 'ボタン [1 v]が押された'
+      },
+      {
+        shape: 'boolean',
+        id: 'ev3.buttonPressed'
+      }
+    ],
+    [
+      {
+        en: '[A v] button pressed?',
+        de: 'Knopf [A v] gedrückt?',
+        ja: 'ボタン [A v]が押された'
+      },
+      {
+        shape: 'boolean',
+        id: 'microbit.isButtonPressed'
+      }
+    ],
+  ])
+  
+  simpleRemapping.forEach((result, messages) => {
+    test(result.id, () => {
+      expect(parseBlock(messages.en).info).toMatchObject(result)
+    })
+    test(result.id + ': de', () => {
+      expect(parseBlock(messages.de, optionsFor('de')).info).toMatchObject(result)
+    })
+    test(result.id + ': ja', () => {
+      expect(parseBlock(messages.ja, optionsFor('ja')).info).toMatchObject(result)
+    }) 
+  })
 })
 
 describe('standalone blocks', () => {

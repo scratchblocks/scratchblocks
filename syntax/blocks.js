@@ -1,3 +1,5 @@
+const { extensions, aliasExtensions } = require("./extensions.js")
+
 function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")
 }
@@ -11,7 +13,6 @@ var overrideCategories = [
   "motion",
   "looks",
   "sound",
-  "pen",
   "variables",
   "list",
   "events",
@@ -23,15 +24,9 @@ var overrideCategories = [
   "extension",
   "grey",
   "obsolete",
-  "music",
-  "video",
-  "tts",
-  "translate",
-  "wedo",
-  "ev3",
-  "microbit",
-  "makeymakey",
 ]
+  .concat(Object.keys(extensions))
+  .concat(Object.keys(aliasExtensions))
 var overrideShapes = [
   "hat",
   "cap",
@@ -112,7 +107,7 @@ var allBlocks = scratchCommands.map(function(def) {
     spec: def.spec, // Used for Scratch 2 translations
     parts: def.spec.split(splitPat).filter(x => !!x),
     selector: def.selector || "sb3:" + def.id, // Used for JSON marshalling
-    inputs: def.inputs,
+    inputs: def.inputs == null ? [] : def.inputs,
     shape: def.shape,
     category: def.category,
     hasLoopArrow: !!def.hasLoopArrow,
@@ -236,6 +231,9 @@ var english = {
   // Valid arguments to "sound effect" dropdown, for resolving ambiguous situations
   soundEffects: ["pitch", "pan left/right"],
 
+  // Valid arguments to "microbit when" dropdown
+  microbitWhen: ["moved", "shaken", "jumped"],
+
   // For detecting the "stop" cap / stack block
   osis: ["other scripts in sprite", "other scripts in stage"],
 
@@ -332,6 +330,73 @@ disambig("pen.setColor", "pen.setHue", function(children, lang) {
   // TODO fix Scratch :P
   return (last.isInput && last.isColor) || last.isBlock
 })
+
+disambig("microbit.whenGesture", "gdxfor.whenGesture", function(
+  children,
+  lang
+) {
+  for (var i = 0; i < children.length; i++) {
+    var child = children[i]
+    if (child.shape === "dropdown") {
+      var name = child.value
+      // Yes, "when shaken" gdxfor block exists. But microbit is more common.
+      for (let effect of lang.microbitWhen) {
+        if (minifyHash(effect) === minifyHash(name)) {
+          return true
+        }
+      }
+    }
+  }
+  return false
+})
+
+// This block does not need disambiguation in English;
+// however, many other languages do require that.
+disambig("ev3.buttonPressed", "microbit.isButtonPressed", function(
+  children,
+  lang
+) {
+  for (var i = 0; i < children.length; i++) {
+    var child = children[i]
+    if (child.shape === "dropdown") {
+      // EV3 "button pressed" block uses numeric identifier
+      // and does not support "any".
+      switch (minifyHash(child.value)) {
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+          return true
+      }
+    }
+  }
+  return false
+})
+
+// There are A LOT of tilt related blocks, so turn all into microbit block
+// Technically it is possible to separate them into group A and B:
+// A uses "front-back", and includes microbit and gdxfor
+// B uses "up-down", and includes boost and wedo
+// But not something that is worth trying, probably
+specialCase("boost.whenTilted", () => blocksById["microbit.whenTilted"])
+specialCase("wedo2.whenTilted", () => blocksById["microbit.whenTilted"])
+specialCase("gdxfor.whenTilted", () => blocksById["microbit.whenTilted"])
+
+specialCase("wedo2.isTilted", () => blocksById["microbit.isTilted"])
+specialCase("gdxfor.isTilted", () => blocksById["microbit.isTilted"])
+
+specialCase("boost.getTiltAngle", () => blocksById["microbit.tiltAngle"])
+specialCase("wedo2.getTiltAngle", () => blocksById["microbit.tiltAngle"])
+specialCase("gdxfor.getTilt", () => blocksById["microbit.tiltAngle"])
+
+// It is impossible to see which one is used, so assume it's the common one
+specialCase(
+  "makeymakey.whenKeyPressed",
+  () => blocksById["EVENT_WHENKEYPRESSED"]
+)
+specialCase("boost.getMotorPosition", () => blocksById["ev3.getMotorPosition"])
+specialCase("ev3.getDistance", () => blocksById["wedo2.getDistance"])
+specialCase("boost.setLightHue", () => blocksById["wedo2.setLightHue"])
 
 specialCase("CONTROL_STOP", function(info, children, lang) {
   // Cap block unless argument is "other scripts in sprite"

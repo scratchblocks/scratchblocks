@@ -1,0 +1,112 @@
+// Music
+play drum [(1) Snare Drum v] for (0.25) beats
+rest for (0.25) beats
+play note (60) for (0.25) beats
+set instrument to [(1) Piano v]
+set tempo to (60)
+change tempo by (20)
+(tempo)
+
+// Pen
+erase all
+stamp
+pen down
+pen up
+set pen color to [#FF0000]
+change pen [color v] by (10)
+set pen [color v] to (50)
+change pen size by (1)
+set pen size to (1)
+
+// Video Sensing
+when video motion > (10)
+video [motion v] on [sprite v]
+turn video [on v]
+set video transparency to (50)
+
+// Text-to-Sppech
+speak [hello]
+set voice to [alto v]
+set language to [English v]
+
+// Translate
+(translate [hello] to [Thai v])
+(language)
+
+// Makey Makey
+// NOTE: disambiguation may apply from now on
+// disambig'd to event
+when [space v] key pressed
+when [left up right v] pressed in order
+
+// micro:bit
+when [A v] button pressed
+<[A v] button pressed?>
+when [moved v]
+display [heart v]
+display text [Hello!]
+clear display
+when tilted [any v]
+<tilted [any v]?>
+(tilt angle [front v])
+when pin [0 v] connected
+
+// EV3
+motor [A v] turn this way for (1) seconds
+motor [A v] turn that way for (1) seconds
+motor [A v] set power (100) %
+(motor [A v] position)
+when button [1 v] pressed
+when distance \< (5)
+when brightness \< (50)
+<button [1 v] pressed?>
+// disambig'd to wedo2
+(distance)
+(brightness)
+beep note (60) for (0.5) secs
+
+// BOOST
+turn motor [A v] for (1) seconds
+turn motor [A v] for (1) rotations
+turn motor [A v] on
+turn motor [A v] off
+set motor [ABCD v] speed to (100) %
+set motor [A v] direction [this way v]
+// disambig'd to ev3
+(motor [A v] position)
+when [any color v] brick seen
+<seeing [any color v] brick?>
+// these two are disambig'd to microbit
+when tilted [any v]
+(tilt angle [up v])
+// disambig'd to wedo2
+set light color to (50)
+
+// WeDo
+turn [motor v] on for (1) seconds
+turn [motor v] on
+turn [motor v] off
+set [motor v] power to (100)
+set [motor v] direction to [this way v]
+set light color to (50)
+when distance [< v] (50)
+// disambig'd to microbit
+when tilted [any v]
+(distance)
+// these two are disambig'd to microbit
+<tilted [any v]?>
+(tilt angle [up v])
+
+// Force and Acceleration
+// disambig'd to microbit
+when [shaken v]
+when [started falling v]
+when force sensor [pushed v]
+(force)
+// these three are disambig'd to microbit
+when tilted [any v]
+<tilted [any v]?>
+(tilt angle [front v])
+<falling?>
+(spin speed [z v])
+(acceleration [x v])

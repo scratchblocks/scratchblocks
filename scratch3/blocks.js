@@ -7,6 +7,8 @@ const {
   Glow,
   Script,
   Document,
+  extensions,
+  aliasExtensions,
 } = require("../syntax")
 
 const SVG = require("./draw.js")
@@ -103,6 +105,8 @@ IconView.icons = {
   ev3Block: { width: 40, height: 40 },
   microbitBlock: { width: 40, height: 40 },
   makeymakeyBlock: { width: 40, height: 40 },
+  gdxforBlock: { width: 40, height: 40 },
+  boostBlock: { width: 40, height: 40 },
 }
 
 /* Line */
@@ -245,34 +249,13 @@ var BlockView = function(block) {
 
   // Avoid accidental mutation
   this.info = Object.assign({}, block.info)
-  switch (this.info.category) {
-    case "music":
-      this.children.unshift(new LineView())
-      this.children.unshift(new IconView({ name: "musicBlock" }))
-      this.info.category = "extension"
-      break
-    case "pen":
-      this.children.unshift(new LineView())
-      this.children.unshift(new IconView({ name: "penBlock" }))
-      this.info.category = "extension"
-      break
-    case "video":
-      this.children.unshift(new LineView())
-      this.children.unshift(new IconView({ name: "videoBlock" }))
-      this.info.category = "extension"
-      break
-    case "tts":
-    case "translate":
-    case "wedo":
-    case "ev3":
-    case "microbit":
-    case "makeymakey":
-      this.children.unshift(new LineView())
-      this.children.unshift(
-        new IconView({ name: this.info.category + "Block" })
-      )
-      this.info.category = "extension"
-      break
+  if (aliasExtensions.hasOwnProperty(this.info.category)) {
+    this.info.category = aliasExtensions[this.info.category]
+  }
+  if (extensions.hasOwnProperty(this.info.category)) {
+    this.children.unshift(new LineView())
+    this.children.unshift(new IconView({ name: this.info.category + "Block" }))
+    this.info.category = "extension"
   }
 
   this.x = 0

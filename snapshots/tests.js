@@ -767,67 +767,69 @@ set video transparency to (50)
 test(
   "scratch3",
   "en-extensions",
-  `
-// Text to Speech
-
-speak [hello] :: tts
-set voice to (alto v) :: tts
-set language to (English v) :: tts
+  `  
+// Text-to-Sppech
+speak [hello]
+set voice to [alto v]
 
 // Translate
-
-(translate [hello] to (Galician v) :: translate)
-(language :: translate)
+(translate [hello] to [Thai v])
+(language)
 
 // Makey Makey
-
-when (space v) key pressed :: makeymakey hat
-when (left up right v) pressed in order :: makeymakey hat
+when [left up right v] pressed in order
 
 // micro:bit
+when [A v] button pressed
+<[A v] button pressed?>
+when [moved v]
+display [heart v]
+display text [Hello!]
+clear display
+when tilted [any v]
+<tilted [any v]?>
+(tilt angle [front v])
+when pin [0 v] connected
 
-when (A v) button pressed :: microbit hat
-<(A v) button pressed? :: microbit>
+// EV3
+motor [A v] turn this way for (1) seconds
+motor [A v] turn that way for (1) seconds
+motor [A v] set power (100) %
+(motor [A v] position)
+when button [1 v] pressed
+when distance \\< (5)
+when brightness \\< (50)
+<button [1 v] pressed?>
+(brightness)
+beep note (60) for (0.5) secs
 
-when (moved v) :: microbit hat
+// BOOST
+turn motor [A v] for (1) seconds
+turn motor [A v] for (1) rotations
+turn motor [A v] on
+turn motor [A v] off
+set motor [ABCD v] speed to (100) %
+set motor [A v] direction [this way v]
+when [any color v] brick seen
+<seeing [any color v] brick?>
 
-display (♥ v) :: microbit
-display text [Hello!] :: microbit
-clear display :: microbit
+// WeDo
+turn [motor v] on for (1) seconds
+turn [motor v] on
+turn [motor v] off
+set [motor v] power to (100)
+set [motor v] direction to [this way v]
+set light color to (50)
+when distance [< v] (50)
+(distance)
 
-when tilted (any v) :: microbit hat
-<tilted (any v)? :: microbit>
-(tilt angle (front v) :: microbit)
-
-when pin (0 v) connected :: microbit hat
-
-// LEGO EV3
-
-motor (A v) turn this way for (1) seconds :: ev3
-motor (A v) turn that way for (1) seconds :: ev3
-motor (A v) set power (100)% :: ev3
-(motor (A v) position :: ev3)
-when button (1 v) pressed :: ev3 hat
-when distance \\< (5) :: ev3 hat
-when brightness \\< (50) :: ev3 hat
-<button (1 v) pressed? :: ev3>
-(distance :: ev3)
-(brightness :: ev3)
-beep note (60) for (0.5) secs :: ev3
-
-// WeDo 2.0
-
-turn (motor v) on for (1) seconds :: wedo
-turn (motor v) on :: wedo
-turn (motor v) off :: wedo
-set (motor v) power to (100) :: wedo
-set (motor v) direction to (this way v) :: wedo
-set light color to (50) :: wedo
-when distance (\\< v) (50) :: wedo
-when tilted (any v) :: wedo
-(distance :: wedo)
-<tilted (any v)? :: wedo>
-(tilt angle (up v) :: wedo)
+// Force and Acceleration
+when [started falling v]
+when force sensor [pushed v]
+(force)
+<falling?>
+(spin speed [z v])
+(acceleration [x v])
 `
 )
 
@@ -1206,17 +1208,70 @@ test(
   `
 // Text zu Sprache
 
-sage [Hallo] :: tts
-ändere die Stimme zu (Alt v) :: tts
-setze Sprache auf (English v) :: tts
+sage [Hallo]
+ändere die Stimme zu (Alt v)
+setze Sprache auf (English v)
 
 // Übersetzung
 
-(übersetze [Hallo] nach (Malaysisch v) :: translate)
-(Sprache :: translate)
+(übersetze [Hallo] nach (Malaysisch v))
+(Sprache)
 
+// Makey Makey
+Wenn [nach links nach oben nach rechts v] der Reihe nach gedrückt
+
+// micro:bit
+Wenn Knopf [A v]gedrückt wird
+<Knopf [A v] gedrückt? >
+Wenn [bewegt v]
+zeige [heart v] an
+zeige Text [Hallo!] an
+zeige nichts an
+Wenn [beliebiger v] geneigt
+<[beliebig v] geneigt?>
+(Neigungswinkel [nach vorne v])
+Wenn Pin [0 v] angeschlossen ist
+
+// EV3
+drehe Motor [A v] für (1)Sekunden rechtsherum
+drehe Motor [A v]für (1)Sekunden linksherum
+setze Leistung von Motor [A v] auf (100)%
+
+(Position von Motor [A v])
+Wenn der Knopf [a v] gedrückt wird
+Wenn Abstand \\< (5)
+Wenn Helligkeit \\< (50)
+<Knopf [1 v] gedrückt?>
+(Helligkeit)
+piepse Note (60) für (0.5) Sek.
+
+// BOOST
+Schalte Motor [A v] für (1) Sekunden ein
+Schalte Motor [A v] für (1) Umdrehungen ein
+Schalte Motor [A v] ein
+Schalte Motor [A v] aus
+Setze von Motor [A v] die Geschwindigkeit auf (100)%
+Setze Richtung von Motor [A v] auf [linksherum v]
+Wenn [Irgendeine Farbe v] gesehen wird
+<Sehe Farbe [Irgendeine Farbe v]?>
+
+// WeDo
+schalte [Motor v] für (1) Sekunden an
+schalte [Motor v] an
+schalte [Motor v] aus
+setze Leistung von [Motor v] auf (100)
+setze Richtung von [Motor v] auf [linksherum v]
+setze Lichtfarbe auf (50)
+Wenn Abstand [< v] (50)
+(Abstand)
+
+// Force and Acceleration
+Wenn [begonnen zu fallen v]
+Wenn Kraftsensor [gedrückt v]
+(Kraft)
+<fallend?>
+(Rotationsgeschwindigkeit [z v])
+(Beschleunigung [x v])
 `,
   "de"
 )
-
-// Other extensions omitted since they don't use the translation infrastructure anyhow.
