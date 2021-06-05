@@ -350,6 +350,29 @@ disambig("microbit.whenGesture", "gdxfor.whenGesture", function(
   return false
 })
 
+// This block does not need disambiguation in English;
+// however, many other languages do require that.
+disambig("ev3.buttonPressed", "microbit.isButtonPressed", function(
+  children,
+  lang
+) {
+  for (var i = 0; i < children.length; i++) {
+    var child = children[i]
+    if (child.shape === "dropdown") {
+      // EV3 "button pressed" block uses numeric identifier
+      // and does not support "any".
+      switch (minifyHash(child.value)) {
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+          return true
+      }
+    }
+  }
+  return false
+})
+
 // There are A LOT of tilt related blocks, so turn all into microbit block
 // Technically it is possible to separate them into group A and B:
 // A uses "front-back", and includes microbit and gdxfor
