@@ -7,8 +7,8 @@ const {
   Glow,
   Script,
   Document,
-  EXTENSIONS,
-  ALIAS_EXTENSIONS,
+  extensions,
+  aliasExtensions,
 } = require("../syntax")
 
 const SVG = require("./draw.js")
@@ -249,10 +249,10 @@ var BlockView = function(block) {
 
   // Avoid accidental mutation
   this.info = Object.assign({}, block.info)
-  if (ALIAS_EXTENSIONS.hasOwnProperty(this.info.category)) {
-    this.info.category = ALIAS_EXTENSIONS[this.info.category]
+  if (aliasExtensions.hasOwnProperty(this.info.category)) {
+    this.info.category = aliasExtensions[this.info.category]
   }
-  if (EXTENSIONS.indexOf(this.info.category) > -1) {
+  if (extensions.hasOwnProperty(this.info.category)) {
     this.children.unshift(new LineView())
     this.children.unshift(new IconView({ name: this.info.category + "Block" }))
     this.info.category = "extension"

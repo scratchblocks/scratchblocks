@@ -7,9 +7,9 @@ const {
   Glow,
   Script,
   Document,
-  EXTENSIONS,
-  MOVED_EXTENSIONS,
-  ALIAS_EXTENSIONS,
+  extensions,
+  movedExtensions,
+  aliasExtensions,
 } = require("../syntax")
 
 const SVG = require("./draw.js")
@@ -200,13 +200,13 @@ var BlockView = function(block) {
   this.children = block.children.map(newView)
   this.comment = this.comment ? newView(this.comment) : null
 
-  if (ALIAS_EXTENSIONS.hasOwnProperty(this.info.category)) {
+  if (aliasExtensions.hasOwnProperty(this.info.category)) {
     // handle aliases first
-    this.info.category = ALIAS_EXTENSIONS[this.info.category]
+    this.info.category = aliasExtensions[this.info.category]
   }
-  if (MOVED_EXTENSIONS.hasOwnProperty(this.info.category)) {
-    this.info.category = MOVED_EXTENSIONS[this.info.category]
-  } else if (EXTENSIONS.indexOf(this.info.category) > -1) {
+  if (movedExtensions.hasOwnProperty(this.info.category)) {
+    this.info.category = movedExtensions[this.info.category]
+  } else if (extensions.hasOwnProperty(this.info.category)) {
     this.info.category = "extension"
   }
 

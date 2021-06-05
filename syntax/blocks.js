@@ -1,4 +1,4 @@
-const { EXTENSIONS, ALIAS_EXTENSIONS } = require("./extensions.js")
+const { extensions, aliasExtensions } = require("./extensions.js")
 
 function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")
@@ -25,8 +25,8 @@ var overrideCategories = [
   "grey",
   "obsolete",
 ]
-  .concat(EXTENSIONS)
-  .concat(Object.keys(ALIAS_EXTENSIONS))
+  .concat(Object.keys(extensions))
+  .concat(Object.keys(aliasExtensions))
 var overrideShapes = [
   "hat",
   "cap",

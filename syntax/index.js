@@ -14,9 +14,9 @@ const {
 const { allLanguages, loadLanguages } = require("./blocks.js")
 
 const {
-  EXTENSIONS,
-  MOVED_EXTENSIONS,
-  ALIAS_EXTENSIONS,
+  extensions,
+  movedExtensions,
+  aliasExtensions,
 } = require("./extensions.js")
 
 module.exports = {
@@ -34,7 +34,7 @@ module.exports = {
   Script,
   Document,
 
-  EXTENSIONS,
-  MOVED_EXTENSIONS,
-  ALIAS_EXTENSIONS,
+  extensions,
+  movedExtensions,
+  aliasExtensions,
 }
