@@ -185,7 +185,7 @@
     "spin speed %1": "forgási sebesség %1 irányban",
     "acceleration %1": "gyorsulás %1 irányban",
     "when %1 button pressed": "amikor %1 gomb megnyomva",
-    "%1 button presses?": "%1 gomb megnyomva?",
+    "%1 button pressed?": "%1 gomb megnyomva?",
     "display %1": "%1 megjelenítése",
     "display text %1": "%1 szöveg megjelenítése",
     "clear display": "kijelző törlése",

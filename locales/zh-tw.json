@@ -185,7 +185,7 @@
     "spin speed %1": "旋轉速度 %1",
     "acceleration %1": "加速度 %1",
     "when %1 button pressed": "當按鈕 %1 被按下",
-    "%1 button presses?": "按鈕 %1 被按下？",
+    "%1 button pressed?": "按鈕 %1 被按下？",
     "display %1": "顯示圖示 %1",
     "display text %1": "顯示文字 %1",
     "clear display": "清空畫面",

@@ -185,7 +185,7 @@
     "spin speed %1": "ταχύτητα περιστροφής %1",
     "acceleration %1": "επιτάχυνση %1",
     "when %1 button pressed": "όταν πατηθεί το κουμπί %1",
-    "%1 button presses?": "πατήθηκε το κουμπί %1;",
+    "%1 button pressed?": "πατήθηκε το κουμπί %1;",
     "display %1": "εμφάνισε %1",
     "display text %1": "εμφάνισε κείμενο %1",
     "clear display": "καθάρισε οθόνη",

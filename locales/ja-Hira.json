@@ -185,7 +185,7 @@
     "spin speed %1": "%1かいてんのはやさ",
     "acceleration %1": "%1のかそく",
     "when %1 button pressed": "ボタン%1がおされたとき",
-    "%1 button presses?": "ボタン%1がおされた",
+    "%1 button pressed?": "ボタン%1がおされた",
     "display %1": "%1をひょうじする",
     "display text %1": "%1をひょうじする",
     "clear display": "がめんをけす",

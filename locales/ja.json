@@ -185,7 +185,7 @@
     "spin speed %1": "%1回転のはやさ",
     "acceleration %1": "%1方向への加速度",
     "when %1 button pressed": "ボタン%1が押されたとき",
-    "%1 button presses?": "ボタン%1が押された",
+    "%1 button pressed?": "ボタン%1が押された",
     "display %1": "%1を表示する",
     "display text %1": "%1を表示する",
     "clear display": "画面を消す",

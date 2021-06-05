@@ -185,7 +185,7 @@
     "spin speed %1": "spin hastighed %1",
     "acceleration %1": "acceleration %1",
     "when %1 button pressed": "tryksensor %1 trykket ind",
-    "%1 button presses?": "%1 knap trykket?",
+    "%1 button pressed?": "%1 knap trykket?",
     "display %1": "vis %1",
     "display text %1": "vis tekst %1",
     "clear display": "ryd display",

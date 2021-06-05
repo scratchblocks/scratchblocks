@@ -185,7 +185,7 @@
     "spin speed %1": "spin speed %1",
     "acceleration %1": "เร่ง %1",
     "when %1 button pressed": "เมื่อปุ่ม %1 ถูกกด",
-    "%1 button presses?": "ปุ่ม %1 ถูกกด?",
+    "%1 button pressed?": "ปุ่ม %1 ถูกกด?",
     "display %1": "แสดง %1",
     "display text %1": "แสดงข้อความ %1",
     "clear display": "ล้างหน้าจอ",

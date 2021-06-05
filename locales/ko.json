@@ -185,7 +185,7 @@
     "spin speed %1": "spin speed %1",
     "acceleration %1": "acceleration %1",
     "when %1 button pressed": "%1 버튼이 눌러졌을 때",
-    "%1 button presses?": "%1 버튼이 눌려졌는가?",
+    "%1 button pressed?": "%1 버튼이 눌려졌는가?",
     "display %1": "%1 보여주기",
     "display text %1": "글자 %1 보여주기",
     "clear display": "화면 지우기",

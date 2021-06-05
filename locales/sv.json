@@ -185,7 +185,7 @@
     "spin speed %1": "rotationshastighet %1",
     "acceleration %1": "acceleration %1",
     "when %1 button pressed": "om knapp %1 trycks ned",
-    "%1 button presses?": "%1 knappen nedtryckt?",
+    "%1 button pressed?": "%1 knappen nedtryckt?",
     "display %1": "visa %1",
     "display text %1": "visa text %1",
     "clear display": "rensa skärmen",

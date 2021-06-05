@@ -185,7 +185,7 @@
     "spin speed %1": "devir hızı %1",
     "acceleration %1": "ivme %1",
     "when %1 button pressed": "%1 düğmesi basıldığında",
-    "%1 button presses?": "%1 düğmesi basıldı mı?",
+    "%1 button pressed?": "%1 düğmesi basıldı mı?",
     "display %1": "%1göster",
     "display text %1": "%1 metnini göster",
     "clear display": "ekranı temizle",

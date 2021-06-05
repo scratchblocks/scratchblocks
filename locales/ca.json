@@ -185,7 +185,7 @@
     "spin speed %1": "velocitat de gir %1",
     "acceleration %1": "acceleració %1",
     "when %1 button pressed": "quan el botó %1 es premi",
-    "%1 button presses?": "%1 botó premut?",
+    "%1 button pressed?": "%1 botó premut?",
     "display %1": "mostra %1",
     "display text %1": "mostra text %1",
     "clear display": "no mostris res",

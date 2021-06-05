@@ -185,7 +185,7 @@
     "spin speed %1": "luaths a’ chuir %1",
     "acceleration %1": "luathachadh %1",
     "when %1 button pressed": "le brùthadh air putan %1",
-    "%1 button presses?": "putan %1 ga bhrùthadh",
+    "%1 button pressed?": "putan %1 ga bhrùthadh",
     "display %1": "seall %1",
     "display text %1": "seall an teacsa %1",
     "clear display": "falamhaich an sgrìn",

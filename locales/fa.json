@@ -185,7 +185,7 @@
     "spin speed %1": "سرعت چرخش %1",
     "acceleration %1": "شتاب %1",
     "when %1 button pressed": "وقتی دکمه %1 فشار داده شد",
-    "%1 button presses?": "دکمه‌ی %1 فشار داده شد؟",
+    "%1 button pressed?": "دکمه‌ی %1 فشار داده شد؟",
     "display %1": "نمایش %1",
     "display text %1": "نمایش متن %1",
     "clear display": "پاک کردن صفحه‌ی نمایش",

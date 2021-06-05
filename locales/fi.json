@@ -185,7 +185,7 @@
     "spin speed %1": "pyörimisnopeus %1",
     "acceleration %1": "kiihtyvyys %1",
     "when %1 button pressed": "kun nappia %1 painetaan",
-    "%1 button presses?": "onko nappia %1 painettu?",
+    "%1 button pressed?": "onko nappia %1 painettu?",
     "display %1": "näytä %1",
     "display text %1": "näytä teksti %1",
     "clear display": "tyhjennä näyttö",

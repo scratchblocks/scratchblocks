@@ -1629,7 +1629,7 @@ module.exports = [
   },
   {
     id: "microbit.isButtonPressed",
-    spec: "%1 button presses?",
+    spec: "%1 button pressed?",
     inputs: ["%m"],
     shape: "boolean",
     category: "microbit",

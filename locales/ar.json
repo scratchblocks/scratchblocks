@@ -185,7 +185,7 @@
     "spin speed %1": "سرعة الدوران %1",
     "acceleration %1": "التسارع %1",
     "when %1 button pressed": "عند ضغط الزر %1",
-    "%1 button presses?": "الزر %1 مضغوط؟",
+    "%1 button pressed?": "الزر %1 مضغوط؟",
     "display %1": "اعرض %1",
     "display text %1": "اعرض النص %1",
     "clear display": "امسح الشاشة",

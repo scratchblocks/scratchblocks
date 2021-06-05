@@ -185,7 +185,7 @@
     "spin speed %1": "a velocidade angular %1",
     "acceleration %1": "a aceleración %1",
     "when %1 button pressed": "Ao premer o botón %1",
-    "%1 button presses?": "está premido o botón %1",
+    "%1 button pressed?": "está premido o botón %1",
     "display %1": "mostrar %1",
     "display text %1": "mostrar o texto %1",
     "clear display": "limpar a pantalla",

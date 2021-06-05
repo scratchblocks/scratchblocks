@@ -185,7 +185,7 @@
     "spin speed %1": "向%1的旋转速度",
     "acceleration %1": "向%1的加速度",
     "when %1 button pressed": "当按下%1按钮",
-    "%1 button presses?": "按下%1按钮？",
+    "%1 button pressed?": "按下%1按钮？",
     "display %1": "显示%1",
     "display text %1": "显示文本%1",
     "clear display": "清空屏幕",

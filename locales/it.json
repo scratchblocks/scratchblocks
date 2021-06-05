@@ -185,7 +185,7 @@
     "spin speed %1": "velocità di rotazione %1",
     "acceleration %1": "accelerazione %1",
     "when %1 button pressed": "quando pulsante %1 premuto",
-    "%1 button presses?": "pulsante %1 premuto",
+    "%1 button pressed?": "pulsante %1 premuto",
     "display %1": "mostra %1 su display",
     "display text %1": "mostra testo %1",
     "clear display": "cancella display",
