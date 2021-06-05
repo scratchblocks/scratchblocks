@@ -408,7 +408,29 @@ describe('disambiguation', () => {
         shape: 'stack',
         id: 'wedo2.setLightHue'
       }
-    ]
+    ],
+    [
+      {
+        en: 'button [1 v] pressed?',
+        de: 'Knopf [1 v] gedrückt?',
+        ja: 'ボタン [1 v]が押された'
+      },
+      {
+        shape: 'boolean',
+        id: 'ev3.buttonPressed'
+      }
+    ],
+    [
+      {
+        en: '[A v] button pressed?',
+        de: 'Knopf [A v] gedrückt?',
+        ja: 'ボタン [A v]が押された'
+      },
+      {
+        shape: 'boolean',
+        id: 'microbit.isButtonPressed'
+      }
+    ],
   ])
   
   simpleRemapping.forEach((result, messages) => {
