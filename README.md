@@ -34,10 +34,14 @@ This would probably be a good way to write a Scratch book.
 
 ## HTML
 
-Include a copy of [the scratchblocks JS file](https://scratchblocks.github.io/js/scratchblocks-v3.4-min.js) on your webpage.
+You'll need to include a copy of the scratchblocks JS file on your webpage. There are a few ways of getting one:
+
+* Download it from the <https://github.com/scratchblocks/scratchblocks/releases> page
+* If you have a fancy JS build system, you might like to include the `scratchblocks` package from NPM
+* You could clone this repository and build it yourself using Node (`npm run build`).
 
 ```html
-<script src="scratchblocks-v3.4-min.js"></script>
+<script src="scratchblocks-min.js"></script>
 ```
 
 The convention is to write scratchblocks inside `pre` tags with the class `blocks`:
