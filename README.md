@@ -12,7 +12,8 @@ Make pictures of Scratch blocks from text.
 - in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles
 - in the [Code Club](https://www.codeclub.org.uk) project guides
 
-It's MIT licensed, so you can use it in your projects. (But do send me a link [on Twitter](http://twitter.com/blob8108)!)
+It's MIT licensed, so you can use it in your projects.
+(But do send me a link [on Twitter](http://twitter.com/blob8108)!)
 
 For the full guide to the syntax, see [the wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
 
@@ -20,21 +21,25 @@ For the full guide to the syntax, see [the wiki](http://wiki.scratch.mit.edu/wik
 
 ## MediaWiki
 
-Use [the MediaWiki plugin](https://github.com/tjvr/wiki-scratchblocks). (This is what the [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) uses.)
+Use [the MediaWiki plugin](https://github.com/tjvr/wiki-scratchblocks).
+(This is what the [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) uses.)
 
 ## WordPress
 
-I found [a WordPress plugin](https://github.com/tkc49/scratchblocks-for-wp). It might work for you; I haven't tried it.
+I found [a WordPress plugin](https://github.com/tkc49/scratchblocks-for-wp).
+It might work for you; I haven't tried it.
 
 ## Pandoc
 
-Code Club use their own [lesson_format](https://github.com/CodeClub/lesson_format) tool to generate the PDF versions of their project guides. It uses the [pandoc_scratchblocks](https://github.com/CodeClub/pandoc_scratchblocks) plugin they wrote to make pictures of Scratch scripts.
+Code Club use their own [lesson_format](https://github.com/CodeClub/lesson_format) tool to generate the PDF versions of their project guides.
+It uses the [pandoc_scratchblocks](https://github.com/CodeClub/pandoc_scratchblocks) plugin they wrote to make pictures of Scratch scripts.
 
 This would probably be a good way to write a Scratch book.
 
 ## HTML
 
-You'll need to include a copy of the scratchblocks JS file on your webpage. There are a few ways of getting one:
+You'll need to include a copy of the scratchblocks JS file on your webpage.
+There are a few ways of getting one:
 
 * Download it from the <https://github.com/scratchblocks/scratchblocks/releases> page
 * If you have a fancy JS build system, you might like to include the `scratchblocks` package from NPM
@@ -52,7 +57,8 @@ move (10) steps
 </pre>
 ```
 
-You then need to call `scratchblocks.renderMatching` after the page has loaded. Make sure this appears at the end of the page (just before the closing `</body>` tag):
+You then need to call `scratchblocks.renderMatching` after the page has loaded.
+Make sure this appears at the end of the page (just before the closing `</body>` tag):
 ```js
 <script>
 scratchblocks.renderMatching('pre.blocks', {
@@ -87,26 +93,32 @@ This time we use `code.b` to target `code` blocks with the class `b`.
 
 ### Translations
 
-You can also include [the translations JS file](https://scratchblocks.github.io/js/translations-all-v3.4.js) if you want to include non-English blocks, but since that's quite large (nearly 600K?) it's recommended you build your own file with just the locales you need.
+If you want to use languages other than English, you'll need to include a second JS file that contains translations.
+The releases page includes two options; you can pick one:
 
-For example, a translation file that just loads the German language (ISO code `de`) would look something like this:
+* `translations.js` includes a limited set of languages, as seen on the Scratch Forums
+* `translations-all.js` includes (nearly?) every langauge that Scratch supports.
+
+The translations files are hundreds of kilobytes in size, so to keep your page bundle size down you might like to build your own file with just the languages you need.
+
+For example, a translations file that just loads the German language (ISO code `de`) would look something like this:
 ```js
 window.scratchblocks.loadLanguages({
     de: <contents of locales/de.json>
 })
 ```
 
-If you're using a JavaScript bundler you should be able to build your own translations file by calling `require()` with the path to the locale JSON file. This requires your bundler to allow importing JSON files as JavaScript.
+If you're using a JavaScript bundler you should be able to build your own translations file by calling `require()` with the path to the locale JSON file.
+This requires your bundler to allow importing JSON files as JavaScript.
 ```js
 window.scratchblocks.loadLanguages({
     de: require('scratchblocks/locales/de.json'),
 })
 ```
 
-## Browserify
+## NPM
 
-You can use `scratchblocks` with browserify, if you're into that sort of
-thing.
+The `scratchblocks` package is published on NPM, and you can use it with browserify and other bundlers, if you're into that sort of thing.
 
 Once you've got browserify set up to build a client-side bundle from your app
 code, you can just add `scratchblocks` to your dependencies, and everything
@@ -127,7 +139,8 @@ npm run locales
 
 ## Adding a language
 
-Each language **requires** some [additional words](https://github.com/tjvr/scratchblocks/blob/master/locales-src/extra_aliases.js) which aren't in Scratch itself (mainly the words used for the flag and arrow images). I'd be happy to accept pull requests for those! You'll need to rebuild the translations with `npm run locales` after editing the aliases.
+Each language **requires** some [additional words](https://github.com/tjvr/scratchblocks/blob/master/locales-src/extra_aliases.js) which aren't in Scratch itself (mainly the words used for the flag and arrow images).
+I'd be happy to accept pull requests for those! You'll need to rebuild the translations with `npm run locales` after editing the aliases.
 
 # Development
 
