@@ -8,10 +8,10 @@
   "homepage": "https://scratchblocks.github.io/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tjvr/scratchblocks.git"
+    "url": "git+https://github.com/scratchblocks/scratchblocks.git"
   },
   "bugs": {
-    "url": "https://github.com/tjvr/scratchblocks/issues"
+    "url": "https://github.com/scratchblocks/scratchblocks/issues"
   },
   "version": "3.5.2",
   "main": "build/scratchblocks.min.js",
