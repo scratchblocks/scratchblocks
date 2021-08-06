@@ -68,6 +68,7 @@ Icon.prototype.isIcon = true
 
 Icon.icons = {
   greenFlag: true,
+  stopSign: true,
   turnLeft: true,
   turnRight: true,
   loopArrow: true,
