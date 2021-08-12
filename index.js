@@ -55,9 +55,9 @@ module.exports = function(window) {
     )
     switch (options.style) {
       case "scratch2":
-        return scratch2.newView(doc)
+        return scratch2.newView(doc, options)
       case "scratch3":
-        return scratch3.newView(doc)
+        return scratch3.newView(doc, options)
       default:
         throw new Error("Unknown style: " + options.style)
     }
@@ -127,9 +127,11 @@ module.exports = function(window) {
     var selector = selector || "pre.blocks"
     var options = Object.assign(
       {
+        // Default values for the options
         style: "scratch2",
         inline: false,
         languages: ["en"],
+        scale: 1,
 
         read: readCode, // function(el, options) => code
         parse: parse, // function(code, options) => doc

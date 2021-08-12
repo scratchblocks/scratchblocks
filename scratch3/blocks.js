@@ -707,7 +707,7 @@ ScriptView.prototype.draw = function(inside) {
 
 /* Document */
 
-var DocumentView = function(doc) {
+var DocumentView = function(doc, options) {
   Object.assign(this, doc)
   this.scripts = doc.scripts.map(newView)
 
@@ -715,6 +715,7 @@ var DocumentView = function(doc) {
   this.height = null
   this.el = null
   this.defs = null
+  this.scale = options.scale
 }
 
 DocumentView.prototype.measure = function() {
@@ -749,7 +750,7 @@ DocumentView.prototype.render = function(cb) {
   this.height = height
 
   // return SVG
-  var svg = SVG.newSVG(width, height)
+  var svg = SVG.newSVG(width, height, this.scale)
   svg.appendChild((this.defs = SVG.withChildren(SVG.el("defs"), makeIcons())))
 
   svg.appendChild(SVG.group(elements))
@@ -833,7 +834,7 @@ const viewFor = node => {
   }
 }
 
-const newView = node => new (viewFor(node))(node)
+const newView = (node, options) => new (viewFor(node))(node, options)
 
 module.exports = {
   newView,
