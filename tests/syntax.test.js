@@ -313,7 +313,24 @@ describe('disambiguation', () => {
   test('stop block stack: ja', () => {
     expect(parseBlock('[スプライトの他のスクリプトを止める v]', optionsFor('ja')).info).toMatchObject(stopStack)
   })
+ 
+  const looksSay = {
+    shape: 'stack',
+    id: 'LOOKS_SAY'
+  }
   
+  test('looks say', () => {
+    expect(parseBlock('say [hello]').info).toMatchObject(looksSay)
+  })
+  
+  test('looks say: de', () => {
+    expect(parseBlock('sage [Hallo]', optionsFor('de')).info).toMatchObject(looksSay)
+  })
+  
+  test('looks say: ja', () => {
+    expect(parseBlock('[Hello] と言う', optionsFor('ja')).info).toMatchObject(looksSay)
+  })
+ 
   const microbitWhen = {
     shape: 'hat',
     id: 'microbit.whenGesture'
