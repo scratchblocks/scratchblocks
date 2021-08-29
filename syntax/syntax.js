@@ -104,6 +104,7 @@ function paintBlock(info, children, languages) {
               shape: "boolean",
               argument: "boolean",
               category: "custom-arg",
+              version: info.version,
             },
             [new Label("")],
             languages
@@ -119,6 +120,7 @@ function paintBlock(info, children, languages) {
               shape: "reporter",
               argument: child.shape === "string" ? "string" : "number",
               category: "custom-arg",
+              version: info.version,
             },
             labels,
             languages
@@ -192,7 +194,7 @@ function isDefineBlock(children, lang) {
   return true
 }
 
-function parseLines(code, languages) {
+function parseLines(code, languages, version) {
   var tok = code[0]
   var index = 0
   function next() {
@@ -223,6 +225,7 @@ function parseLines(code, languages) {
       category: shape === "reporter" && !hasInputs ? "variables" : "obsolete",
       categoryIsDefault: true,
       hasLoopArrow: false,
+      version: version,
     }
 
     return paintBlock(info, children, languages)
@@ -856,7 +859,7 @@ function parse(code, options) {
 
   /* * */
 
-  var f = parseLines(code, languages)
+  var f = parseLines(code, languages, options.style)
   var scripts = parseScripts(f)
   recogniseStuff(scripts)
   return new Document(scripts)
