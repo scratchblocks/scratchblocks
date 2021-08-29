@@ -742,7 +742,7 @@ function recogniseStuff(scripts) {
         }
         var spec = parts.join(" ")
         var hash = hashSpec(spec)
-        
+
         var info = {
           spec: spec,
           names: names,

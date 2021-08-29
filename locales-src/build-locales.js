@@ -167,7 +167,7 @@ const buildLocale = (code, rawLocale) => {
     if (/^scratchblocks:/.test(command.id)) continue
     const result = translateKey(rawLocale, command.id)
     if (!result) continue
-    locale.commands[command.id] = result;
+    locale.commands[command.id] = result
   }
 
   const commandCount = Object.keys(locale.commands).length
@@ -184,7 +184,6 @@ const buildLocale = (code, rawLocale) => {
   // are included; most locales are 93.7% translated according to this script.
   // So we cheat and treat that as 100.
   locale.percentTranslated = Math.max(100, Math.round(frac / 0.937 * 100))
-
 
   // TODO does this block still exist?
   //const whenDistance = translateKey("when distance < %1")

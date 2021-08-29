@@ -255,9 +255,12 @@ loadLanguages({
 
 function isBlockSupported(block, version) {
   switch (version) {
-    case "scratch2": return block.selector
-    case "scratch3": return true // Scratch 3.0 supports all 2.0 blocks
-    default: return true
+    case "scratch2":
+      return block.selector
+    case "scratch3":
+      return true // Scratch 3.0 supports all 2.0 blocks
+    default:
+      return true
   }
 }
 
@@ -273,10 +276,10 @@ function specialCase(id, func) {
 
 function disambig(id1, id2, test) {
   registerCheck(id1, function(info, children, lang) {
-      return test(children, lang)
+    return test(children, lang)
   })
   registerCheck(id2, function(info, children, lang) {
-      return !test(children, lang)
+    return !test(children, lang)
   })
 }
 
@@ -406,25 +409,26 @@ function lookupHash(hash, info, children, languages) {
   for (var i = 0; i < languages.length; i++) {
     var lang = languages[i]
     if (lang.blocksByHash.hasOwnProperty(hash)) {
-      var collisions = lang.blocksByHash[hash].length;
+      var collisions = lang.blocksByHash[hash].length
       for (var j = 0; j < collisions; j++) {
         var block = lang.blocksByHash[hash][j]
         if (
           info.shape === "reporter" &&
           (block.shape !== "reporter" && block.shape !== "ring")
         ) {
-        continue
+          continue
         }
         if (info.shape === "boolean" && block.shape !== "boolean") continue
         if (collisions > 1) {
-            // Only check in case of collision;
-            // perform "disambiguation"
-            if (block.accepts && !block.accepts(info, children, lang)) continue
-            // Ignore unsupported blocks. This will allow WeDo blocks to be
-            // used instead of EV3 in Scratch 2.0 environment.
-            if (info.version && !isBlockSupported(block, info.version)) continue
+          // Only check in case of collision;
+          // perform "disambiguation"
+          if (block.accepts && !block.accepts(info, children, lang)) continue
+          // Ignore unsupported blocks. This will allow WeDo blocks to be
+          // used instead of EV3 in Scratch 2.0 environment.
+          if (info.version && !isBlockSupported(block, info.version)) continue
         }
-        if (block.specialCase) block = block.specialCase(info, children, lang) || block
+        if (block.specialCase)
+          block = block.specialCase(info, children, lang) || block
         return { type: block, lang: lang }
       }
     }
