@@ -121,7 +121,6 @@ var allBlocks = scratchCommands.map(function(def) {
 
 var unicodeIcons = {
   "@greenFlag": "⚑",
-  "@stopSign": "⯃",
   "@turnRight": "↻",
   "@turnLeft": "↺",
   "@addInput": "▸",

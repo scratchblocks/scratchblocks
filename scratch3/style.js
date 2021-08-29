@@ -120,15 +120,15 @@ var Style = (module.exports = {
           id: "sb3-greenFlag",
         }
       ),
-	  
-	  SVG.setProps(
+
+      SVG.setProps(
         SVG.el("polygon", {
           points:
             "6.6,0.5 13.12,0.5 19.5,6.6 19.5,13.12 13.12,19.5 6.6,19.5 0.5,13.12 0.5,6.6 ",
           fill: "#ec5959",
-		  stroke: "#b84848",
-		  "stroke-linejoin": "round",
-		  "stroke-linecap": "round",
+          stroke: "#b84848",
+          "stroke-linejoin": "round",
+          "stroke-linecap": "round",
         }),
         {
           id: "sb3-stopSign",
