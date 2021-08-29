@@ -258,7 +258,7 @@
   "aliases": {
     "ひだりに %1 どまわす": "MOTION_TURNLEFT",
     "はんとけいまわりに %1 どまわす": "MOTION_TURNLEFT",
-    "みぎに %1 どまわす": "MOTION_TURNLEFT",
+    "みぎに %1 どまわす": "MOTION_TURNRIGHT",
     "とけいまわりに %1 どまわす": "MOTION_TURNRIGHT",
     "みどりのはたがおされたとき": "EVENT_WHENFLAGCLICKED",
     "みどりのはたがクリックされたとき": "EVENT_WHENFLAGCLICKED"

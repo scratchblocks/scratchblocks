@@ -209,7 +209,7 @@ module.exports = {
     // Japanese
     "左に %1 度回す": "MOTION_TURNLEFT",
     "反時計回りに %1 度回す": "MOTION_TURNLEFT",
-    "右に %1 度回す": "MOTION_TURNLEFT",
+    "右に %1 度回す": "MOTION_TURNRIGHT",
     "時計回りに %1 度回す": "MOTION_TURNRIGHT",
     緑の旗が押されたとき: "EVENT_WHENFLAGCLICKED",
     緑の旗がクリックされたとき: "EVENT_WHENFLAGCLICKED",
@@ -219,7 +219,7 @@ module.exports = {
     // Japanese (Hiragana)
     "ひだりに %1 どまわす": "MOTION_TURNLEFT",
     "はんとけいまわりに %1 どまわす": "MOTION_TURNLEFT",
-    "みぎに %1 どまわす": "MOTION_TURNLEFT",
+    "みぎに %1 どまわす": "MOTION_TURNRIGHT",
     "とけいまわりに %1 どまわす": "MOTION_TURNRIGHT",
     みどりのはたがおされたとき: "EVENT_WHENFLAGCLICKED",
     みどりのはたがクリックされたとき: "EVENT_WHENFLAGCLICKED",
