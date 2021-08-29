@@ -171,8 +171,9 @@ Block.prototype.stringify = function(extras) {
   if (checkAlias && lang && this.info.selector) {
     var type = blocksById[this.info.id]
     var spec = type.spec
-    var alias = lang.nativeAliases[this.info.id]
-    if (alias) {
+    var aliases = lang.nativeAliases[this.info.id]
+    if (aliases && aliases.length) {
+      var alias = aliases[0]
       // TODO make translate() not in-place, and use that
       if (inputPat.test(alias) && firstInput) {
         alias = alias.replace(inputPat, firstInput.stringify())

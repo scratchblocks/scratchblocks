@@ -159,7 +159,8 @@ function loadLanguage(code, language) {
     if (!blocksByHash[aliasHash]) blocksByHash[aliasHash] = []
     blocksByHash[aliasHash].push(block)
 
-    language.nativeAliases[bid] = alias
+    if (!language.nativeAliases[bid]) language.nativeAliases[bid] = []
+    language.nativeAliases[bid].push(alias)
   })
 
   // Some English blocks were renamed between Scratch 2 and Scratch 3. Wire them
