@@ -64,6 +64,7 @@ Make sure this appears at the end of the page (just before the closing `</body>`
 scratchblocks.renderMatching('pre.blocks', {
   style:     'scratch3',   // Optional, defaults to 'scratch2'.
   languages: ['en', 'de'], // Optional, defaults to ['en'].
+  scale: 1,                // Optional, defaults to 1
 });
 </script>
 ```

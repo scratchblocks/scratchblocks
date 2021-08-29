@@ -59,11 +59,11 @@ var SVG = (module.exports = {
     return SVG.withChildren(SVG.el("g"), children)
   },
 
-  newSVG(width, height) {
+  newSVG(width, height, scale) {
     return SVG.el("svg", {
       version: "1.1",
-      width: width,
-      height: height,
+      width: width * scale,
+      height: height * scale,
       viewBox: `0 0 ${width} ${height}`,
     })
   },

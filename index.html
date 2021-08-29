@@ -13,10 +13,7 @@
 <style>
 #preview > svg {
   display: block;
-}
-#preview > .scratch3 {
-  transform: scale(0.675);
-  transform-origin: 0 0;
+  margin-bottom: 20px;
 }
 #preview:before {
   position: relative;
@@ -216,9 +213,11 @@ function objUpdated() {
   console.log(scratchblocks.stringify(doc));
   var docView3 = scratchblocks.newView(doc, {
     style: "scratch3",
+    scale: 0.675
   });
   var docView2 = scratchblocks.newView(doc, {
     style: "scratch2",
+    scale: 1
   });
   var svg3 = docView3.render();
   var svg2 = docView2.render();
@@ -245,7 +244,7 @@ function objUpdated() {
       link.textContent = "Export PNG";
       link.className = 'export-link';
       document.body.appendChild(link);
-    }, 2);
+    }, 1);
   }, 0);
 
   // update language dropdown
