@@ -597,7 +597,7 @@ describe('translate', () => {
   test('turn left: de -> en', () => {
     const b = parseBlock('drehe dich nach rechts um (45) Grad', optionsFor('de'))
     b.translate(allLanguages.en)
-    expect(b.stringify()).toEqual('turn cw (45) degrees')
+    expect(b.stringify()).toEqual('turn right (45) degrees')
   })
 
   test('c blocks', () => {
@@ -621,7 +621,7 @@ describe('translate', () => {
   test('when flag clicked: en -> ja', () => {
     const b = parseBlock('when flag clicked')
     b.translate(allLanguages.ja)
-    expect(b.stringify()).toEqual('⚑ が押されたとき')
+    expect(b.stringify()).toEqual('緑の旗が押されたとき')
   })
 
   test('escapes brackets in labels: en -> ko', () => {
@@ -686,6 +686,99 @@ describe('define hats', () => {
 
   test('uz: two-word define suffix', () => {
     expect(parseBlock('foo (bar) quxx ni belgilash', optionsFor('uz')).info).toMatchObject(defineHat)
+  })
+})
+
+describe('aliases', () => {
+  const aliases = [
+    {
+      lang: 'en',
+      alias: 'turn left (90) degrees',
+      id: 'MOTION_TURNLEFT'
+    },
+    {
+      lang: 'en',
+      alias: 'turn ccw (90) degrees',
+      id: 'MOTION_TURNLEFT'
+    },
+    {
+      lang: 'en',
+      alias: 'turn right (90) degrees',
+      id: 'MOTION_TURNRIGHT'
+    },
+    {
+      lang: 'en',
+      alias: 'turn cw (90) degrees',
+      id: 'MOTION_TURNRIGHT'
+    },
+    {
+      lang: 'en',
+      alias: 'when gf clicked',
+      id: 'EVENT_WHENFLAGCLICKED'
+    },
+    {
+      lang: 'en',
+      alias: 'when flag clicked',
+      id: 'EVENT_WHENFLAGCLICKED'
+    },
+    {
+      lang: 'en',
+      alias: 'when green flag clicked',
+      id: 'EVENT_WHENFLAGCLICKED'
+    },
+    {
+      lang: 'de',
+      alias: 'drehe dich nach links um (90) Grad',
+      id: 'MOTION_TURNLEFT'
+    },
+    {
+      lang: 'de',
+      alias: 'drehe dich nach rechts um (90) Grad',
+      id: 'MOTION_TURNRIGHT'
+    },
+    {
+      lang: 'de',
+      alias: 'Wenn die grüne Flagge angeklickt',
+      id: 'EVENT_WHENFLAGCLICKED'
+    },
+    {
+      lang: 'ja',
+      alias: '左に (90) 度回す',
+      id: 'MOTION_TURNLEFT'
+    },
+    {
+      lang: 'ja',
+      alias: '反時計回りに (90) 度回す',
+      id: 'MOTION_TURNLEFT'
+    },
+    {
+      lang: 'ja',
+      alias: '右に (90) 度回す',
+      id: 'MOTION_TURNRIGHT'
+    },
+    {
+      lang: 'ja',
+      alias: '時計回りに (90) 度回す',
+      id: 'MOTION_TURNRIGHT'
+    },
+    {
+      lang: 'ja',
+      alias: '緑の旗が押されたとき',
+      id: 'EVENT_WHENFLAGCLICKED'
+    },
+    {
+      lang: 'ja',
+      alias: '緑の旗がクリックされたとき',
+      id: 'EVENT_WHENFLAGCLICKED'
+    },
+  ]
+  
+  aliases.forEach((alias) => {
+    test(alias.lang + ' ' + alias.alias, () => {
+      expect(parseBlock(alias.alias, optionsFor(alias.lang)).info).toMatchObject({
+        id: alias.id
+      })
+    })
   })
 })
 
