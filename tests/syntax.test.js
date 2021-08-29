@@ -379,7 +379,7 @@ describe('disambiguation', () => {
     [
       {
         en: 'motor [A v] position',
-        de: 'Position des Motors [A v]',
+        de: 'Position von Motor [A v]',
         ja: 'モーター[A v]の位置'
       },
       {
@@ -395,7 +395,7 @@ describe('disambiguation', () => {
       },
       {
         shape: 'reporter',
-        id: 'wedo2.getDistance'
+        id: 'ev3.getDistance'
       }
     ],
     [

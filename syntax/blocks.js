@@ -93,7 +93,6 @@ function minifyHash(hash) {
 }
 
 var blocksById = {}
-var blocksBySpec = {}
 var allBlocks = scratchCommands.map(function(def) {
   var spec = def.spec
   if (!def.id) {
@@ -116,7 +115,7 @@ var allBlocks = scratchCommands.map(function(def) {
     throw new Error("Duplicate ID: " + info.id)
   }
   blocksById[info.id] = info
-  return (blocksBySpec[spec] = info)
+  return info
 })
 
 var unicodeIcons = {
@@ -131,33 +130,36 @@ var allLanguages = {}
 function loadLanguage(code, language) {
   var blocksByHash = (language.blocksByHash = {})
 
-  Object.keys(language.commands).forEach(function(spec) {
-    var nativeSpec = language.commands[spec]
-    var block = blocksBySpec[spec]
+  Object.keys(language.commands).forEach(function(bid) {
+    var nativeSpec = language.commands[bid]
+    var block = blocksById[bid]
 
     var nativeHash = hashSpec(nativeSpec)
-    blocksByHash[nativeHash] = block
+    if (!blocksByHash[nativeHash]) blocksByHash[nativeHash] = []
+    blocksByHash[nativeHash].push(block)
 
     // fallback image replacement, for languages without aliases
-    var m = iconPat.exec(spec)
+    var m = iconPat.exec(block.spec)
     if (m) {
       var image = m[0]
       var hash = nativeHash.replace(hashSpec(image), unicodeIcons[image])
-      blocksByHash[hash] = block
+      if (!blocksByHash[hash]) blocksByHash[hash] = []
+      blocksByHash[hash].push(block)
     }
   })
 
   language.nativeAliases = {}
   Object.keys(language.aliases).forEach(function(alias) {
-    var spec = language.aliases[alias]
-    var block = blocksBySpec[spec]
+    var bid = language.aliases[alias]
+    var block = blocksById[bid]
     if (block === undefined) {
-      throw new Error("Invalid alias '" + spec + "'")
+      throw new Error("Invalid alias '" + bid + "'")
     }
     var aliasHash = hashSpec(alias)
-    blocksByHash[aliasHash] = block
+    if (!blocksByHash[aliasHash]) blocksByHash[aliasHash] = []
+    blocksByHash[aliasHash].push(block)
 
-    language.nativeAliases[spec] = alias
+    language.nativeAliases[bid] = alias
   })
 
   // Some English blocks were renamed between Scratch 2 and Scratch 3. Wire them
@@ -167,7 +169,8 @@ function loadLanguage(code, language) {
     if (!blocksById[id]) throw new Error("Unknown ID: " + id)
     const block = blocksById[id]
     var hash = hashSpec(alt)
-    english.blocksByHash[hash] = block
+    if (!english.blocksByHash[hash]) english.blocksByHash[hash] = []
+    english.blocksByHash[hash].push(block)
   })
 
   language.nativeDropdowns = {}
@@ -187,13 +190,13 @@ function loadLanguages(languages) {
 
 var english = {
   aliases: {
-    "turn left %1 degrees": "turn @turnLeft %1 degrees",
-    "turn ccw %1 degrees": "turn @turnLeft %1 degrees",
-    "turn right %1 degrees": "turn @turnRight %1 degrees",
-    "turn cw %1 degrees": "turn @turnRight %1 degrees",
-    "when gf clicked": "when @greenFlag clicked",
-    "when flag clicked": "when @greenFlag clicked",
-    "when green flag clicked": "when @greenFlag clicked",
+    "turn left %1 degrees": "MOTION_TURNLEFT",
+    "turn ccw %1 degrees": "MOTION_TURNLEFT",
+    "turn right %1 degrees": "MOTION_TURNRIGHT",
+    "turn cw %1 degrees": "MOTION_TURNRIGHT",
+    "when gf clicked": "EVENT_WHENFLAGCLICKED",
+    "when flag clicked": "EVENT_WHENFLAGCLICKED",
+    "when green flag clicked": "EVENT_WHENFLAGCLICKED",
   },
 
   renamedBlocks: {
@@ -239,10 +242,10 @@ var english = {
 
   dropdowns: {},
 
-  commands: {},
+  commands: [],
 }
 allBlocks.forEach(function(info) {
-  english.commands[info.spec] = info.spec
+  english.commands[info.id] = info.spec
 })
 loadLanguages({
   en: english,
@@ -250,17 +253,23 @@ loadLanguages({
 
 /*****************************************************************************/
 
+function registerCheck(id, func) {
+  if (!blocksById[id]) throw new Error("Unknown ID: " + id)
+  blocksById[id].accepts = func
+}
+
 function specialCase(id, func) {
   if (!blocksById[id]) throw new Error("Unknown ID: " + id)
   blocksById[id].specialCase = func
 }
 
 function disambig(id1, id2, test) {
-  var func = function(info, children, lang) {
-    return blocksById[test(children, lang) ? id1 : id2]
-  }
-  specialCase(id1, func)
-  specialCase(id2, func)
+  registerCheck(id1, function(info, children, lang) {
+      return test(children, lang)
+  })
+  registerCheck(id2, function(info, children, lang) {
+      return !test(children, lang)
+  })
 }
 
 disambig("OPERATORS_MATHOP", "SENSING_OF", function(children, lang) {
@@ -373,31 +382,6 @@ disambig("ev3.buttonPressed", "microbit.isButtonPressed", function(
   return false
 })
 
-// There are A LOT of tilt related blocks, so turn all into microbit block
-// Technically it is possible to separate them into group A and B:
-// A uses "front-back", and includes microbit and gdxfor
-// B uses "up-down", and includes boost and wedo
-// But not something that is worth trying, probably
-specialCase("boost.whenTilted", () => blocksById["microbit.whenTilted"])
-specialCase("wedo2.whenTilted", () => blocksById["microbit.whenTilted"])
-specialCase("gdxfor.whenTilted", () => blocksById["microbit.whenTilted"])
-
-specialCase("wedo2.isTilted", () => blocksById["microbit.isTilted"])
-specialCase("gdxfor.isTilted", () => blocksById["microbit.isTilted"])
-
-specialCase("boost.getTiltAngle", () => blocksById["microbit.tiltAngle"])
-specialCase("wedo2.getTiltAngle", () => blocksById["microbit.tiltAngle"])
-specialCase("gdxfor.getTilt", () => blocksById["microbit.tiltAngle"])
-
-// It is impossible to see which one is used, so assume it's the common one
-specialCase(
-  "makeymakey.whenKeyPressed",
-  () => blocksById["EVENT_WHENKEYPRESSED"]
-)
-specialCase("boost.getMotorPosition", () => blocksById["ev3.getMotorPosition"])
-specialCase("ev3.getDistance", () => blocksById["wedo2.getDistance"])
-specialCase("boost.setLightHue", () => blocksById["wedo2.setLightHue"])
-
 specialCase("CONTROL_STOP", function(info, children, lang) {
   // Cap block unless argument is "other scripts in sprite"
   var last = children[children.length - 1]
@@ -414,18 +398,20 @@ function lookupHash(hash, info, children, languages) {
   for (var i = 0; i < languages.length; i++) {
     var lang = languages[i]
     if (lang.blocksByHash.hasOwnProperty(hash)) {
-      var block = lang.blocksByHash[hash]
-      if (
-        info.shape === "reporter" &&
-        (block.shape !== "reporter" && block.shape !== "ring")
-      ) {
+      var collisions = lang.blocksByHash[hash].length;
+      for (var j = 0; j < collisions; j++) {
+        var block = lang.blocksByHash[hash][j]
+        if (
+          info.shape === "reporter" &&
+          (block.shape !== "reporter" && block.shape !== "ring")
+        ) {
         continue
+        }
+        if (info.shape === "boolean" && block.shape !== "boolean") continue
+        if (collisions > 1 && block.accepts && !block.accepts(info, children, lang)) continue
+        if (block.specialCase) block = block.specialCase(info, children, lang) || block
+        return { type: block, lang: lang }
       }
-      if (info.shape === "boolean" && block.shape !== "boolean") continue
-      if (block.specialCase) {
-        block = block.specialCase(info, children, lang) || block
-      }
-      return { type: block, lang: lang }
     }
   }
 }

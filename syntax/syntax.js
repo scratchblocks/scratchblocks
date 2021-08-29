@@ -739,10 +739,13 @@ function recogniseStuff(scripts) {
         }
         var spec = parts.join(" ")
         var hash = hashSpec(spec)
-        var info = (customBlocksByHash[hash] = {
+        
+        var info = {
           spec: spec,
           names: names,
-        })
+        }
+        if (!customBlocksByHash[hash]) customBlocksByHash[hash] = []
+        customBlocksByHash[hash].push(info)
         block.info.id = "PROCEDURES_DEFINITION"
         block.info.selector = "procDef"
         block.info.call = info.spec
@@ -784,10 +787,10 @@ function recogniseStuff(scripts) {
       ) {
         // custom blocks
         var info = customBlocksByHash[block.info.hash]
-        if (info) {
+        if (info && info[0]) {
           block.info.selector = "call"
-          block.info.call = info.spec
-          block.info.names = info.names
+          block.info.call = info[0].spec
+          block.info.names = info[0].names
           block.info.category = "custom"
         }
         return
