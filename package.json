@@ -30,15 +30,15 @@
     "snapshots": "node ./snapshots/"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.10.2",
-    "@babel/plugin-external-helpers": "^7.10.1",
-    "@babel/plugin-transform-object-assign": "^7.10.1",
-    "@babel/preset-env": "^7.10.2",
-    "browserify": "^16.5.1",
-    "jest": "^26.0.1",
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/plugin-external-helpers": "^7.14.5",
+    "@babel/plugin-transform-object-assign": "^7.14.5",
+    "@babel/preset-env": "^7.15.0",
+    "browserify": "^16.5.2",
+    "jest": "^26.6.3",
     "lint-staged": "^7.3.0",
-    "prettier": "1.7.4",
+    "prettier": "^1.7.4",
     "prettier-package-json": "^1.6.0",
     "puppeteer": "^1.20.0",
     "rollup": "^0.67.4",
@@ -49,8 +49,8 @@
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^3.4.0",
-    "rollup-plugin-serve": "^1.0.2",
-    "scratch-l10n": "^3.11.20210604031644"
+    "rollup-plugin-serve": "^1.1.0",
+    "scratch-l10n": "^3.14.20210829031508"
   },
   "keywords": [
     "scratch"
