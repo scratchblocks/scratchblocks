@@ -87,7 +87,7 @@
     "add %1 to %2": "thêm phần tử %1 vào trong %2",
     "delete %1 of %2": "xóa phần tử thứ %1 của %2",
     "delete all of %1": "Xóa hết tất cả trong liệt kê %1",
-    "if on edge, bounce": "nếu tiếp xúc với cạnh, bật lại",
+    "if on edge, bounce": "bật lại nếu chạm cạnh",
     "insert %1 at %2 of %3": "thêm phần tử %1 tại vị trí %2 của %3",
     "replace item %1 of %2 with %3": "thay thế phần tử thứ %1 của danh sách %2 bằng %3",
     "show list %1": "hiện danh sách %1",
