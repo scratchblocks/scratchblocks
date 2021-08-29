@@ -11,7 +11,7 @@ window.render = function(source, options, scale) {
 
   var view = scratchblocks.newView(doc, {
     style: options.style,
-    scale: options.scale
+    scale: options.scale,
   })
   var svg = view.render()
 
