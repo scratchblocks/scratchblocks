@@ -50,7 +50,7 @@
     "rollup-plugin-node-globals": "^1.4.0",
     "rollup-plugin-node-resolve": "^3.4.0",
     "rollup-plugin-serve": "^1.1.0",
-    "scratch-l10n": "^3.14.20210829031508"
+    "scratch-l10n": "^3.14.20210830031531"
   },
   "keywords": [
     "scratch"
@@ -71,6 +71,6 @@
     "trailingComma": "es5"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.10.1"
+    "@babel/polyfill": "^7.12.1"
   }
 }
