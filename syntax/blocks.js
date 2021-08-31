@@ -130,9 +130,9 @@ var allLanguages = {}
 function loadLanguage(code, language) {
   var blocksByHash = (language.blocksByHash = {})
 
-  Object.keys(language.commands).forEach(function(bid) {
-    var nativeSpec = language.commands[bid]
-    var block = blocksById[bid]
+  Object.keys(language.commands).forEach(function(blockId) {
+    var nativeSpec = language.commands[blockId]
+    var block = blocksById[blockId]
 
     var nativeHash = hashSpec(nativeSpec)
     if (!blocksByHash[nativeHash]) blocksByHash[nativeHash] = []
@@ -150,17 +150,17 @@ function loadLanguage(code, language) {
 
   language.nativeAliases = {}
   Object.keys(language.aliases).forEach(function(alias) {
-    var bid = language.aliases[alias]
-    var block = blocksById[bid]
+    var blockId = language.aliases[alias]
+    var block = blocksById[blockId]
     if (block === undefined) {
-      throw new Error("Invalid alias '" + bid + "'")
+      throw new Error("Invalid alias '" + blockId + "'")
     }
     var aliasHash = hashSpec(alias)
     if (!blocksByHash[aliasHash]) blocksByHash[aliasHash] = []
     blocksByHash[aliasHash].push(block)
 
-    if (!language.nativeAliases[bid]) language.nativeAliases[bid] = []
-    language.nativeAliases[bid].push(alias)
+    if (!language.nativeAliases[blockId]) language.nativeAliases[blockId] = []
+    language.nativeAliases[blockId].push(alias)
   })
 
   // Some English blocks were renamed between Scratch 2 and Scratch 3. Wire them
