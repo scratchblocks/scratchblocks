@@ -243,7 +243,7 @@ var english = {
 
   dropdowns: {},
 
-  commands: [],
+  commands: {},
 }
 allBlocks.forEach(function(info) {
   english.commands[info.id] = info.spec
