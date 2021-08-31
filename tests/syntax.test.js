@@ -597,7 +597,7 @@ describe('translate', () => {
   test('turn left: de -> en', () => {
     const b = parseBlock('drehe dich nach rechts um (45) Grad', optionsFor('de'))
     b.translate(allLanguages.en)
-    expect(b.stringify()).toEqual('turn right (45) degrees')
+    expect(b.stringify()).toEqual('turn cw (45) degrees')
   })
 
   test('c blocks', () => {
