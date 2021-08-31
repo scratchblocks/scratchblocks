@@ -53,6 +53,7 @@ module.exports = function(window) {
       },
       options
     )
+    options.scale = options.scale || 1
     switch (options.style) {
       case "scratch2":
         return scratch2.newView(doc, options)
