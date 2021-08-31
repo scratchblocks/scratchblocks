@@ -191,12 +191,12 @@ function loadLanguages(languages) {
 
 var english = {
   aliases: {
-    "turn left %1 degrees": "MOTION_TURNLEFT",
     "turn ccw %1 degrees": "MOTION_TURNLEFT",
-    "turn right %1 degrees": "MOTION_TURNRIGHT",
+    "turn left %1 degrees": "MOTION_TURNLEFT",
     "turn cw %1 degrees": "MOTION_TURNRIGHT",
-    "when gf clicked": "EVENT_WHENFLAGCLICKED",
+    "turn right %1 degrees": "MOTION_TURNRIGHT",
     "when flag clicked": "EVENT_WHENFLAGCLICKED",
+    "when gf clicked": "EVENT_WHENFLAGCLICKED",
     "when green flag clicked": "EVENT_WHENFLAGCLICKED",
   },
 
