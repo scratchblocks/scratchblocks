@@ -91,7 +91,7 @@ IconView.prototype.draw = function() {
 
 IconView.icons = {
   greenFlag: { width: 20, height: 21, dy: -2 },
-  stopSign: { width: 20, height: 20, dx: 1, dy: -5 },
+  stopSign: { width: 20, height: 20 },
   turnLeft: { width: 24, height: 24 },
   turnRight: { width: 24, height: 24 },
   loopArrow: { width: 24, height: 24 },
