@@ -122,6 +122,20 @@ var Style = (module.exports = {
       ),
 
       SVG.setProps(
+        SVG.el("polygon", {
+          points:
+            "6.6,0.5 13.12,0.5 19.5,6.6 19.5,13.12 13.12,19.5 6.6,19.5 0.5,13.12 0.5,6.6 ",
+          fill: "#ec5959",
+          stroke: "#b84848",
+          "stroke-linejoin": "round",
+          "stroke-linecap": "round",
+        }),
+        {
+          id: "sb3-stopSign",
+        }
+      ),
+
+      SVG.setProps(
         SVG.group([
           SVG.el("path", {
             d:
