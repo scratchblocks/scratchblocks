@@ -33,12 +33,12 @@ module.exports = {
     fine: "end",
   },
 
-  fr: {
-    // French
-    "tourner gauche de %1 degrés": "turn @turnLeft %1 degrees",
-    "tourner droite de %1 degrés": "turn @turnRight %1 degrees",
-    "quand le drapeau vert pressé": "when @greenFlag clicked",
-    fin: "end",
+  ko: {
+    // Korean
+    "왼쪽 방향으로 %1 도 돌기": "turn @turnLeft %1 degrees",
+    "오른쪽 방향으로 %1 도 돌기": "turn @turnRight %1 degrees",
+    "녹색 깃발 클릭했을 때": "when @greenFlag clicked",
+    끝: "end",
   },
 
   gd: {
@@ -49,6 +49,14 @@ module.exports = {
     deireadh: "end",
   },
 
+  de: {
+    // German
+    "drehe dich nach links um %1 Grad": "turn @turnLeft %1 degrees",
+    "drehe dich nach rechts um %1 Grad": "turn @turnRight %1 degrees",
+    "Wenn die grüne Flagge angeklickt": "when @greenFlag clicked",
+    Ende: "end",
+  },
+  
   es: {
     // Spanish
     "girar a la izquierda %1 grados": "turn @turnLeft %1 degrees",
