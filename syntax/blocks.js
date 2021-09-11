@@ -254,17 +254,6 @@ loadLanguages({
 
 /*****************************************************************************/
 
-function isBlockSupported(block, version) {
-  switch (version) {
-    case "scratch2":
-      return block.selector
-    case "scratch3":
-      return true // Scratch 3.0 supports all 2.0 blocks
-    default:
-      return true
-  }
-}
-
 function registerCheck(id, func) {
   if (!blocksById[id]) throw new Error("Unknown ID: " + id)
   blocksById[id].accepts = func
@@ -424,9 +413,6 @@ function lookupHash(hash, info, children, languages) {
           // Only check in case of collision;
           // perform "disambiguation"
           if (block.accepts && !block.accepts(info, children, lang)) continue
-          // Ignore unsupported blocks. This will allow WeDo blocks to be
-          // used instead of EV3 in Scratch 2.0 environment.
-          if (info.version && !isBlockSupported(block, info.version)) continue
         }
         if (block.specialCase)
           block = block.specialCase(info, children, lang) || block
