@@ -744,8 +744,7 @@ function recogniseStuff(scripts) {
           spec: spec,
           names: names,
         }
-        if (!customBlocksByHash[hash]) customBlocksByHash[hash] = []
-        customBlocksByHash[hash].push(info)
+        if (!customBlocksByHash[hash]) customBlocksByHash[hash] = info
         block.info.id = "PROCEDURES_DEFINITION"
         block.info.selector = "procDef"
         block.info.call = info.spec
@@ -787,10 +786,10 @@ function recogniseStuff(scripts) {
       ) {
         // custom blocks
         var info = customBlocksByHash[block.info.hash]
-        if (info && info[0]) {
+        if (info) {
           block.info.selector = "call"
-          block.info.call = info[0].spec
-          block.info.names = info[0].names
+          block.info.call = info.spec
+          block.info.names = info.names
           block.info.category = "custom"
         }
         return
