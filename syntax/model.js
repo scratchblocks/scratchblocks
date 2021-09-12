@@ -8,7 +8,7 @@ function isArray(o) {
 function indent(text) {
   return text
     .split("\n")
-    .map(function(line) {
+    .map(function (line) {
       return "  " + line
     })
     .join("\n")
@@ -41,7 +41,7 @@ var {
 
 /* Label */
 
-var Label = function(value, cls) {
+var Label = function (value, cls) {
   this.value = value
   this.cls = cls || ""
   this.el = null
@@ -51,14 +51,14 @@ var Label = function(value, cls) {
 }
 Label.prototype.isLabel = true
 
-Label.prototype.stringify = function() {
+Label.prototype.stringify = function () {
   if (this.value === "<" || this.value === ">") return this.value
   return this.value.replace(/([<>[\](){}])/g, "\\$1")
 }
 
 /* Icon */
 
-var Icon = function(name) {
+var Icon = function (name) {
   this.name = name
   this.isArrow = name === "loopArrow"
 
@@ -76,13 +76,13 @@ Icon.icons = {
   delInput: true,
 }
 
-Icon.prototype.stringify = function() {
+Icon.prototype.stringify = function () {
   return unicodeIcons["@" + this.name] || ""
 }
 
 /* Input */
 
-var Input = function(shape, value, menu) {
+var Input = function (shape, value, menu) {
   this.shape = shape
   this.value = value
   this.menu = menu || null
@@ -105,7 +105,7 @@ var Input = function(shape, value, menu) {
 }
 Input.prototype.isInput = true
 
-Input.prototype.stringify = function() {
+Input.prototype.stringify = function () {
   if (this.isColor) {
     assert(this.value[0] === "#")
     return "[" + this.value + "]"
@@ -117,11 +117,15 @@ Input.prototype.stringify = function() {
   return this.isRound
     ? "(" + text + ")"
     : this.isSquare
-      ? "[" + text + "]"
-      : this.isBoolean ? "<>" : this.isStack ? "{}" : text
+    ? "[" + text + "]"
+    : this.isBoolean
+    ? "<>"
+    : this.isStack
+    ? "{}"
+    : text
 }
 
-Input.prototype.translate = function(lang) {
+Input.prototype.translate = function (lang) {
   if (this.hasArrow) {
     var value = this.menu || this.value
     this.value = value // TODO translate dropdown value
@@ -131,7 +135,7 @@ Input.prototype.translate = function(lang) {
 
 /* Block */
 
-var Block = function(info, children, comment) {
+var Block = function (info, children, comment) {
   assert(info)
   this.info = Object.assign({}, info)
   this.children = children
@@ -158,11 +162,11 @@ var Block = function(info, children, comment) {
 }
 Block.prototype.isBlock = true
 
-Block.prototype.stringify = function(extras) {
+Block.prototype.stringify = function (extras) {
   var firstInput = null
   var checkAlias = false
   var text = this.children
-    .map(function(child) {
+    .map(function (child) {
       if (child.isIcon) checkAlias = true
       if (!firstInput && !(child.isLabel || child.isIcon)) firstInput = child
       return child.isScript
@@ -203,11 +207,13 @@ Block.prototype.stringify = function(extras) {
   return this.hasScript
     ? text + "\nend"
     : this.info.shape === "reporter"
-      ? "(" + text + ")"
-      : this.info.shape === "boolean" ? "<" + text + ">" : text
+    ? "(" + text + ")"
+    : this.info.shape === "boolean"
+    ? "<" + text + ">"
+    : text
 }
 
-Block.prototype.translate = function(lang, isShallow) {
+Block.prototype.translate = function (lang, isShallow) {
   if (!lang) throw new Error("Missing language")
 
   var id = this.info.id
@@ -235,12 +241,12 @@ Block.prototype.translate = function(lang, isShallow) {
   if (!nativeSpec) return
   var nativeInfo = parseSpec(nativeSpec)
 
-  var rawArgs = this.children.filter(function(child) {
+  var rawArgs = this.children.filter(function (child) {
     return !child.isLabel && !child.isIcon
   })
 
   if (!isShallow) {
-    rawArgs.forEach(function(child) {
+    rawArgs.forEach(function (child) {
       child.translate(lang)
     })
   }
@@ -260,7 +266,7 @@ Block.prototype.translate = function(lang, isShallow) {
 
   // Get new children by index
   this.children = nativeInfo.parts
-    .map(function(part) {
+    .map(function (part) {
       var part = part.trim()
       if (!part) return
       var number = parseInputNumber(part)
@@ -287,20 +293,20 @@ Block.prototype.translate = function(lang, isShallow) {
 
 /* Comment */
 
-var Comment = function(value, hasBlock) {
+var Comment = function (value, hasBlock) {
   this.label = new Label(value, "comment-label")
   this.width = null
   this.hasBlock = hasBlock
 }
 Comment.prototype.isComment = true
 
-Comment.prototype.stringify = function() {
+Comment.prototype.stringify = function () {
   return "// " + this.label.value
 }
 
 /* Glow */
 
-var Glow = function(child) {
+var Glow = function (child) {
   assert(child)
   this.child = child
   if (child.isBlock) {
@@ -312,7 +318,7 @@ var Glow = function(child) {
 }
 Glow.prototype.isGlow = true
 
-Glow.prototype.stringify = function() {
+Glow.prototype.stringify = function () {
   if (this.child.isBlock) {
     return this.child.stringify("+")
   } else {
@@ -321,22 +327,22 @@ Glow.prototype.stringify = function() {
   }
 }
 
-Glow.prototype.translate = function(lang) {
+Glow.prototype.translate = function (lang) {
   this.child.translate(lang)
 }
 
 /* Script */
 
-var Script = function(blocks) {
+var Script = function (blocks) {
   this.blocks = blocks
   this.isEmpty = !blocks.length
   this.isFinal = !this.isEmpty && blocks[blocks.length - 1].isFinal
 }
 Script.prototype.isScript = true
 
-Script.prototype.stringify = function() {
+Script.prototype.stringify = function () {
   return this.blocks
-    .map(function(block) {
+    .map(function (block) {
       var line = block.stringify()
       if (block.comment) line += " " + block.comment.stringify()
       return line
@@ -344,28 +350,28 @@ Script.prototype.stringify = function() {
     .join("\n")
 }
 
-Script.prototype.translate = function(lang) {
-  this.blocks.forEach(function(block) {
+Script.prototype.translate = function (lang) {
+  this.blocks.forEach(function (block) {
     block.translate(lang)
   })
 }
 
 /* Document */
 
-var Document = function(scripts) {
+var Document = function (scripts) {
   this.scripts = scripts
 }
 
-Document.prototype.stringify = function() {
+Document.prototype.stringify = function () {
   return this.scripts
-    .map(function(script) {
+    .map(function (script) {
       return script.stringify()
     })
     .join("\n\n")
 }
 
-Document.prototype.translate = function(lang) {
-  this.scripts.forEach(function(script) {
+Document.prototype.translate = function (lang) {
+  this.scripts.forEach(function (script) {
     script.translate(lang)
   })
 }
