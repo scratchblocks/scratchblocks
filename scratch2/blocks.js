@@ -109,7 +109,7 @@ IconView.icons = {
   loopArrow: { width: 14, height: 11 },
   addInput: { width: 4, height: 8 },
   delInput: { width: 4, height: 8 },
-  list: { width: 12, height: 14, dx: -1, dy: -1 },
+  list: { width: 12, height: 14 },
 }
 
 /* Input */

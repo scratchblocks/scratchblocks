@@ -97,7 +97,7 @@ IconView.icons = {
   loopArrow: { width: 24, height: 24 },
   addInput: { width: 4, height: 8 },
   delInput: { width: 4, height: 8 },
-  list: { width: 11, height: 13 },
+  list: { width: 16, height: 19 },
   musicBlock: { width: 40, height: 40 },
   penBlock: { width: 40, height: 40 },
   videoBlock: { width: 40, height: 40, dy: 10 },
