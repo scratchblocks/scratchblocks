@@ -220,35 +220,35 @@ var Style = (module.exports = {
           id: "sb3-loopArrow",
         }
       ),
-      
-	  SVG.setProps(
+
+      SVG.setProps(
         SVG.group([
           SVG.el("rect", {
             x: "0",
-			y: "0",
-			width: "11",
-			height: "13",
+            y: "0",
+            width: "11",
+            height: "13",
             fill: "#fff",
           }),
-		  SVG.el("rect", {
+          SVG.el("rect", {
             x: "1",
-			y: "1",
-			width: "9",
-			height: "3",
+            y: "1",
+            width: "9",
+            height: "3",
             fill: "#ff920f",
           }),
-		  SVG.el("rect", {
+          SVG.el("rect", {
             x: "1",
-			y: "5",
-			width: "9",
-			height: "3",
+            y: "5",
+            width: "9",
+            height: "3",
             fill: "#ff920f",
           }),
-		  SVG.el("rect", {
+          SVG.el("rect", {
             x: "1",
-			y: "9",
-			width: "9",
-			height: "3",
+            y: "9",
+            width: "9",
+            height: "3",
             fill: "#ff920f",
           }),
         ]),
@@ -256,7 +256,7 @@ var Style = (module.exports = {
           id: "sb3-list",
         }
       ),
-	  
+
       SVG.setProps(
         SVG.group([
           SVG.el("path", {
