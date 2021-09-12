@@ -1,12 +1,11 @@
-import babel from "rollup-plugin-babel"
-import builtins from "rollup-plugin-node-builtins"
-import commonjs from "rollup-plugin-commonjs"
-import globals from "rollup-plugin-node-globals"
-import json from "rollup-plugin-json"
-import minify from "rollup-plugin-babel-minify"
+import babel from "@rollup/plugin-babel"
+import commonjs from "@rollup/plugin-commonjs"
+import json from "@rollup/plugin-json"
 import pkg from "./package.json"
-import resolve from "rollup-plugin-node-resolve"
+import resolve from "@rollup/plugin-node-resolve"
 import serve from "rollup-plugin-serve"
+import license from "rollup-plugin-license"
+import { terser } from "rollup-plugin-terser"
 
 let { buildTarget } = process.env
 
@@ -22,45 +21,65 @@ const env = {
   prod: buildTarget === "PROD",
 }
 
-const banner = `/**
- * ${pkg.name} v${pkg.version}
- * ${pkg.homepage}
- * ${pkg.description}
- *
- * Copyright 2013–${new Date().getFullYear()}, ${pkg.author.name}
- * @license ${pkg.license}
- */`
+const bannerText = `
+<%= pkg.name %> v<%= pkg.version %>
+<%= pkg.homepage %>
+<%= pkg.description %>
 
-console.log(banner)
+Copyright 2013–<%= moment().format('YYYY') %>, <%= pkg.author.name %>
+@license <%= pkg.license %>
+`.trim()
+
+const commonPreBabelOperations = useJson => [
+  resolve(),
+  useJson ? json() : undefined,
+  commonjs(),
+]
+
+const commonPostBabelOperations = () => [
+  env.prod &&
+    terser({
+      format: {
+        comments: false,
+      },
+    }),
+  license({
+    sourcemap: true,
+    banner: bannerText,
+  }),
+]
 
 export default [
   {
     input: "browser.js",
-    output: [
-      {
-        file: pkg.main,
-        format: "iife",
-        name: "scratchblocks",
-        sourcemap: env.prod,
-      },
-      {
-        file: pkg.module,
-        format: "esm",
-        sourcemap: env.prod,
-      },
-    ],
+    output: {
+      file: pkg.main,
+      format: "iife",
+      name: "scratchblocks",
+      sourcemap: env.prod,
+    },
     plugins: [
-      resolve(),
-      commonjs(),
-      babel(),
-      globals(),
-      builtins(),
-      env.prod &&
-        minify({
-          banner: banner,
-          bannerNewLine: true,
-          comments: false,
+      ...commonPreBabelOperations(),
+      babel({ babelHelpers: "bundled" }),
+      ...commonPostBabelOperations(),
+      env.dev &&
+        serve({
+          contentBase: ".",
+          port: 8000,
         }),
+    ],
+  },
+  {
+    input: "browser.es.js",
+    output: {
+      file: pkg.module,
+      format: "esm",
+      sourcemap: env.prod,
+    },
+    plugins: [
+      ...commonPreBabelOperations(),
+      // ESM bundle does not need Babel
+      ...commonPostBabelOperations(),
       env.dev &&
         serve({
           contentBase: ".",
@@ -78,16 +97,21 @@ export default [
       sourcemap: false,
     },
     plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      babel(),
-      env.prod &&
-        minify({
-          banner: banner,
-          bannerNewLine: true,
-          comments: false,
-        }),
+      ...commonPreBabelOperations(true),
+      babel({ babelHelpers: "bundled" }),
+      ...commonPostBabelOperations(),
+    ],
+  },
+  {
+    input: "locales-src/translations-es.js",
+    output: {
+      file: "build/translations-es.js",
+      format: "esm",
+      sourcemap: false,
+    },
+    plugins: [
+      ...commonPreBabelOperations(true),
+      ...commonPostBabelOperations(),
     ],
   },
   {
@@ -99,16 +123,21 @@ export default [
       sourcemap: false,
     },
     plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      babel(),
-      env.prod &&
-        minify({
-          banner: banner,
-          bannerNewLine: true,
-          comments: false,
-        }),
+      ...commonPreBabelOperations(true),
+      babel({ babelHelpers: "bundled" }),
+      ...commonPostBabelOperations(),
+    ],
+  },
+  {
+    input: "locales-src/translations-all-es.js",
+    output: {
+      file: "build/translations-all-es.js",
+      format: "esm",
+      sourcemap: false,
+    },
+    plugins: [
+      ...commonPreBabelOperations(true),
+      ...commonPostBabelOperations(),
     ],
   },
 ]
