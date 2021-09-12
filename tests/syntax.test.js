@@ -313,7 +313,24 @@ describe('disambiguation', () => {
   test('stop block stack: ja', () => {
     expect(parseBlock('[スプライトの他のスクリプトを止める v]', optionsFor('ja')).info).toMatchObject(stopStack)
   })
+ 
+  const looksSay = {
+    shape: 'stack',
+    id: 'LOOKS_SAY'
+  }
   
+  test('looks say', () => {
+    expect(parseBlock('say [hello]').info).toMatchObject(looksSay)
+  })
+  
+  test('looks say: de', () => {
+    expect(parseBlock('sage [Hallo]', optionsFor('de')).info).toMatchObject(looksSay)
+  })
+  
+  test('looks say: ja', () => {
+    expect(parseBlock('[Hello] と言う', optionsFor('ja')).info).toMatchObject(looksSay)
+  })
+ 
   const microbitWhen = {
     shape: 'hat',
     id: 'microbit.whenGesture'
@@ -379,7 +396,7 @@ describe('disambiguation', () => {
     [
       {
         en: 'motor [A v] position',
-        de: 'Position des Motors [A v]',
+        de: 'Position von Motor [A v]',
         ja: 'モーター[A v]の位置'
       },
       {
@@ -395,7 +412,7 @@ describe('disambiguation', () => {
       },
       {
         shape: 'reporter',
-        id: 'wedo2.getDistance'
+        id: 'ev3.getDistance'
       }
     ],
     [
@@ -604,7 +621,7 @@ describe('translate', () => {
   test('when flag clicked: en -> ja', () => {
     const b = parseBlock('when flag clicked')
     b.translate(allLanguages.ja)
-    expect(b.stringify()).toEqual('⚑ が押されたとき')
+    expect(b.stringify()).toEqual('緑の旗が押されたとき')
   })
 
   test('escapes brackets in labels: en -> ko', () => {
@@ -671,7 +688,6 @@ describe('define hats', () => {
     expect(parseBlock('foo (bar) quxx ni belgilash', optionsFor('uz')).info).toMatchObject(defineHat)
   })
 })
-
 
 // TODO test { } handling
 

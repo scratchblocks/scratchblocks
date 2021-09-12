@@ -24,6 +24,7 @@ function runTests(r) {
         const options = {
           lang: tc.lang,
           style: tc.style,
+          scale: 1,
         }
         await r.snapshotToFile(tc.source, options, outputPath)
         console.log("✓ wrote", outputPath)

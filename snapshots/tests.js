@@ -313,7 +313,7 @@ test(
 
 `
 )
-
+/* Scratch 2.0 extension support is not good
 test(
   "scratch2",
   "en-extensions",
@@ -345,8 +345,6 @@ when distance [< v] (20)
 
 when tilt [= v] (20)
 
-(distance)
-
 (tilt)
 
 // Lego WeDo 2.0
@@ -375,6 +373,7 @@ when tilted
 
 `
 )
+*/
 
 test(
   "scratch2",
@@ -945,7 +944,7 @@ schalte Klangeffekte aus
 ändere Lautstärke um (-10)
 setze Lautstärke auf (100) %
 
-(Lautstärke :: sound)
+(Lautstärke)
 
 
 `,
@@ -1033,8 +1032,6 @@ frage [Wie heißt du?] und warte
 (Maus y-Position)
 
 setze Ziehbarkeit auf [ziehbar v]
-
-(Lautstärke)
 
 (Stoppuhr)
 setze Stoppuhr zurück
@@ -1208,7 +1205,6 @@ test(
   `
 // Text zu Sprache
 
-sage [Hallo]
 ändere die Stimme zu (Alt v)
 setze Sprache auf (English v)
 
@@ -1263,7 +1259,6 @@ setze Leistung von [Motor v] auf (100)
 setze Richtung von [Motor v] auf [linksherum v]
 setze Lichtfarbe auf (50)
 Wenn Abstand [< v] (50)
-(Abstand)
 
 // Force and Acceleration
 Wenn [begonnen zu fallen v]

@@ -11,204 +11,224 @@
 module.exports = {
   de: {
     // German
-    "drehe dich nach links um %1 Grad": "turn @turnLeft %1 degrees",
-    "drehe dich nach rechts um %1 Grad": "turn @turnRight %1 degrees",
-    "Wenn die grüne Flagge angeklickt": "when @greenFlag clicked",
-    Ende: "end",
+    "drehe dich nach links um %1 Grad": "MOTION_TURNLEFT",
+    "drehe dich nach rechts um %1 Grad": "MOTION_TURNRIGHT",
+    "Wenn die grüne Flagge angeklickt": "EVENT_WHENFLAGCLICKED",
+    Ende: "scratchblocks:end",
   },
 
   pt: {
     // Portugese
-    "gira para a esquerda %1 º": "turn @turnLeft %1 degrees",
-    "gira para a direita %1 º": "turn @turnRight %1 degrees",
-    "Quando alguém clicar na bandeira verde": "when @greenFlag clicked",
-    fim: "end",
+    "gira para a esquerda %1 º": "MOTION_TURNLEFT",
+    "gira para a direita %1 º": "MOTION_TURNRIGHT",
+    "Quando alguém clicar na bandeira verde": "EVENT_WHENFLAGCLICKED",
+    fim: "scratchblocks:end",
   },
 
   it: {
     // Italian
-    "ruota in senso antiorario di %1 gradi": "turn @turnLeft %1 degrees",
-    "ruota in senso orario di %1 gradi": "turn @turnRight %1 degrees",
-    "quando si clicca sulla bandiera verde": "when @greenFlag clicked",
-    fine: "end",
+    "ruota in senso antiorario di %1 gradi": "MOTION_TURNLEFT",
+    "ruota in senso orario di %1 gradi": "MOTION_TURNRIGHT",
+    "quando si clicca sulla bandiera verde": "EVENT_WHENFLAGCLICKED",
+    fine: "scratchblocks:end",
   },
 
   fr: {
     // French
-    "tourner gauche de %1 degrés": "turn @turnLeft %1 degrees",
-    "tourner droite de %1 degrés": "turn @turnRight %1 degrees",
-    "quand le drapeau vert pressé": "when @greenFlag clicked",
-    fin: "end",
+    "tourner gauche de %1 degrés": "MOTION_TURNLEFT",
+    "tourner droite de %1 degrés": "MOTION_TURNRIGHT",
+    "quand le drapeau vert pressé": "EVENT_WHENFLAGCLICKED",
+    fin: "scratchblocks:end",
   },
 
   gd: {
     // Scottish Gaelic
-    "cuairtich @turnLeft le %1 ceum": "turn @turnLeft %1 degrees",
-    "cuairtich @turnRight le %1 ceum": "turn @turnRight %1 degrees",
-    "le briogadh air @greenFlag": "when @greenFlag clicked",
-    deireadh: "end",
+    "cuairtich @turnLeft le %1 ceum": "MOTION_TURNLEFT",
+    "cuairtich @turnRight le %1 ceum": "MOTION_TURNRIGHT",
+    "le briogadh air @greenFlag": "EVENT_WHENFLAGCLICKED",
+    deireadh: "scratchblocks:end",
   },
 
   es: {
     // Spanish
-    "girar a la izquierda %1 grados": "turn @turnLeft %1 degrees",
-    "girar a la derecha %1 grados": "turn @turnRight %1 degrees",
-    "al presionar bandera verde": "when @greenFlag clicked",
-    fin: "end",
+    "girar a la izquierda %1 grados": "MOTION_TURNLEFT",
+    "girar a la derecha %1 grados": "MOTION_TURNRIGHT",
+    "al presionar bandera verde": "EVENT_WHENFLAGCLICKED",
+    fin: "scratchblocks:end",
   },
 
   nl: {
     // Dutch
-    "draai %1 graden naar links": "turn @turnLeft %1 degrees",
-    "draai %1 graden naar rechts": "turn @turnRight %1 degrees",
-    "wanneer groene vlag wordt aangeklikt": "when @greenFlag clicked",
-    einde: "end",
+    "draai %1 graden naar links": "MOTION_TURNLEFT",
+    "draai %1 graden naar rechts": "MOTION_TURNRIGHT",
+    "wanneer groene vlag wordt aangeklikt": "EVENT_WHENFLAGCLICKED",
+    einde: "scratchblocks:end",
   },
 
   "zh-cn": {
     // Chinese (simplified)
-    "左转 %1 度": "turn @turnLeft %1 degrees",
-    "右转 %1 度": "turn @turnRight %1 degrees",
-    点击绿旗时: "when @greenFlag clicked",
-    结束: "end",
+    "左转 %1 度": "MOTION_TURNLEFT",
+    "右转 %1 度": "MOTION_TURNRIGHT",
+    点击绿旗时: "EVENT_WHENFLAGCLICKED",
+    结束: "scratchblocks:end",
   },
 
   "zh-tw": {
     // Chinese (traditional)
-    "左轉 %1 度": "turn @turnLeft %1 degrees",
-    "右轉 %1 度": "turn @turnRight %1 degrees",
-    當綠旗被點擊時: "when @greenFlag clicked",
-    結束: "end",
+    "左轉 %1 度": "MOTION_TURNLEFT",
+    "右轉 %1 度": "MOTION_TURNRIGHT",
+    當綠旗被點擊時: "EVENT_WHENFLAGCLICKED",
+    結束: "scratchblocks:end",
   },
 
   he: {
     // Hebrew
-    "הסתובב שמאל %1 מעלות": "turn @turnLeft %1 degrees",
-    "הסתובב ימינה %1 מעלות": "turn @turnRight %1 degrees",
-    "כאשר לוחצים על דגל ירוק": "when @greenFlag clicked",
-    סוף: "end",
+    "הסתובב שמאל %1 מעלות": "MOTION_TURNLEFT",
+    "הסתובב ימינה %1 מעלות": "MOTION_TURNRIGHT",
+    "כאשר לוחצים על דגל ירוק": "EVENT_WHENFLAGCLICKED",
+    סוף: "scratchblocks:end",
   },
 
   pl: {
     // Polish
-    "obróć w lewo o %1 stopni": "turn @turnLeft %1 degrees",
-    "obróć w prawo o %1 stopni": "turn @turnRight %1 degrees",
-    "kiedy kliknięto zieloną flagę": "when @greenFlag clicked",
-    koniec: "end",
+    "obróć w lewo o %1 stopni": "MOTION_TURNLEFT",
+    "obróć w prawo o %1 stopni": "MOTION_TURNRIGHT",
+    "kiedy kliknięto zieloną flagę": "EVENT_WHENFLAGCLICKED",
+    koniec: "scratchblocks:end",
   },
 
   nb: {
     // Norwegian
-    "vend venstre %1 grader": "turn @turnLeft %1 degrees",
-    "vend høyre %1 grader": "turn @turnRight %1 degrees",
-    "når grønt flagg klikkes": "when @greenFlag clicked",
-    slutt: "end",
+    "vend venstre %1 grader": "MOTION_TURNLEFT",
+    "vend høyre %1 grader": "MOTION_TURNRIGHT",
+    "når grønt flagg klikkes": "EVENT_WHENFLAGCLICKED",
+    slutt: "scratchblocks:end",
   },
 
   ru: {
     // Russian
-    "повернуть влево на %1 градусов": "turn @turnLeft %1 degrees",
-    "повернуть вправо на %1 градусов": "turn @turnRight %1 degrees",
-    "когда щёлкнут по зелёному флагу": "when @greenFlag clicked",
-    конец: "end",
+    "повернуть влево на %1 градусов": "MOTION_TURNLEFT",
+    "повернуть вправо на %1 градусов": "MOTION_TURNRIGHT",
+    "когда щёлкнут по зелёному флагу": "EVENT_WHENFLAGCLICKED",
+    конец: "scratchblocks:end",
   },
 
   ca: {
     // Catalan
-    "gira a l'esquerra %1 graus": "turn @turnLeft %1 degrees",
-    "gira a la dreta %1 graus": "turn @turnRight %1 degrees",
-    "quan la bandera verda es premi": "when @greenFlag clicked",
-    fi: "end",
+    "gira a l'esquerra %1 graus": "MOTION_TURNLEFT",
+    "gira a la dreta %1 graus": "MOTION_TURNRIGHT",
+    "quan la bandera verda es premi": "EVENT_WHENFLAGCLICKED",
+    fi: "scratchblocks:end",
   },
 
   tr: {
     // Turkish
-    "_ derece sola dön": "turn @turnLeft %1 degrees",
-    "_ derece sağa dön": "turn @turnRight %1 degrees",
-    "_ derece saatin tersi yönde dön": "turn @turnLeft %1 degrees",
-    "_ derece saat yönünde dön": "turn @turnRight %1 degrees",
-    "yeşil bayrak tıklandığında": "when @greenFlag clicked",
-    son: "end",
+    "_ derece sola dön": "MOTION_TURNLEFT",
+    "_ derece sağa dön": "MOTION_TURNRIGHT",
+    "_ derece saatin tersi yönde dön": "MOTION_TURNLEFT",
+    "_ derece saat yönünde dön": "MOTION_TURNRIGHT",
+    "yeşil bayrak tıklandığında": "EVENT_WHENFLAGCLICKED",
+    son: "scratchblocks:end",
   },
 
   el: {
     // Greek
-    "στρίψε αριστερά %1 μοίρες": "turn @turnLeft %1 degrees",
-    "στρίψε αριστερόστροφα %1 μοίρες": "turn @turnLeft %1 degrees",
-    "στρίψε δεξιά %1 μοίρες": "turn @turnRight %1 degrees",
-    "στρίψε δεξιόστροφα %1 μοίρες": "turn @turnRight %1 degrees",
-    "Όταν στην πράσινη σημαία γίνει κλικ": "when @greenFlag clicked",
-    τέλος: "end",
+    "στρίψε αριστερά %1 μοίρες": "MOTION_TURNLEFT",
+    "στρίψε αριστερόστροφα %1 μοίρες": "MOTION_TURNLEFT",
+    "στρίψε δεξιά %1 μοίρες": "MOTION_TURNRIGHT",
+    "στρίψε δεξιόστροφα %1 μοίρες": "MOTION_TURNRIGHT",
+    "Όταν στην πράσινη σημαία γίνει κλικ": "EVENT_WHENFLAGCLICKED",
+    τέλος: "scratchblocks:end",
   },
 
   cy: {
     // Welsh
-    "troi %1 gradd i'r chwith": "turn @turnLeft %1 degrees",
-    "troi %1 gradd i'r dde": "turn @turnRight %1 degrees",
-    "pan fo'r flag werdd yn cael ei glicio": "when @greenFlag clicked",
-    diwedd: "end",
+    "troi %1 gradd i'r chwith": "MOTION_TURNLEFT",
+    "troi %1 gradd i'r dde": "MOTION_TURNRIGHT",
+    "pan fo'r flag werdd yn cael ei glicio": "EVENT_WHENFLAGCLICKED",
+    diwedd: "scratchblocks:end",
   },
 
   hi: {
     // Hindi
-    "%1 डिग्री से बाएं घूम जाए": "turn @turnLeft %1 degrees",
-    "%1 डिग्री से दाएं घूम जाए": "turn @turnRight %1 degrees",
-    "जब झंडे को क्लिक किया गया हो": "when @greenFlag clicked",
-    अंत: "end",
+    "%1 डिग्री से बाएं घूम जाए": "MOTION_TURNLEFT",
+    "%1 डिग्री से दाएं घूम जाए": "MOTION_TURNRIGHT",
+    "जब झंडे को क्लिक किया गया हो": "EVENT_WHENFLAGCLICKED",
+    अंत: "scratchblocks:end",
   },
 
   ro: {
     // Romanian
-    "rotește la stânga %1 grade": "turn @turnLeft %1 degrees",
-    "rotește la dreapta %1 grade": "turn @turnRight %1 degrees",
-    "când se face click pe stegulețul verde": "when @greenFlag clicked",
-    terminare: "end",
+    "rotește la stânga %1 grade": "MOTION_TURNLEFT",
+    "rotește la dreapta %1 grade": "MOTION_TURNRIGHT",
+    "când se face click pe stegulețul verde": "EVENT_WHENFLAGCLICKED",
+    terminare: "scratchblocks:end",
   },
 
   id: {
     // Indonesian
-    "putar ke kiri %1 derajat": "turn @turnLeft %1 degrees",
-    "putar ke kanan %1 derajat": "turn @turnRight %1 degrees",
-    "ketika bendera hijau diklik": "when @greenFlag clicked",
-    selesai: "end",
+    "putar ke kiri %1 derajat": "MOTION_TURNLEFT",
+    "putar ke kanan %1 derajat": "MOTION_TURNRIGHT",
+    "ketika bendera hijau diklik": "EVENT_WHENFLAGCLICKED",
+    selesai: "scratchblocks:end",
   },
 
   hr: {
     // Croatian
-    "skreni lijevo %1 stupnjeva": "turn @turnLeft %1 degrees",
-    "skreni desno %1 stupnjeva": "turn @turnRight %1 degrees",
-    "kada je zelena zastava kliknut": "when @greenFlag clicked",
-    kraj: "end",
+    "skreni lijevo %1 stupnjeva": "MOTION_TURNLEFT",
+    "skreni desno %1 stupnjeva": "MOTION_TURNRIGHT",
+    "kada je zelena zastava kliknut": "EVENT_WHENFLAGCLICKED",
+    kraj: "scratchblocks:end",
   },
 
   cs: {
     // Czech
-    "otoč se o %1 stupňů doleva": "turn @turnLeft %1 degrees",
-    "otoč se o %1 stupňů doprava": "turn @turnRight %1 degrees",
-    "po kliknutí na zelenou vlajku": "when @greenFlag clicked",
-    konec: "end",
+    "otoč se o %1 stupňů doleva": "MOTION_TURNLEFT",
+    "otoč se o %1 stupňů doprava": "MOTION_TURNRIGHT",
+    "po kliknutí na zelenou vlajku": "EVENT_WHENFLAGCLICKED",
+    konec: "scratchblocks:end",
   },
 
   sl: {
     // Slovenian
-    "obrni se za %1 stopinj v levo": "turn @turnLeft %1 degrees",
-    "obrni se za %1 stopinj v desno": "turn @turnRight %1 degrees",
-    "ko je kliknjena zelena zastavica": "when @greenFlag clicked",
-    ustavi: "end",
+    "obrni se za %1 stopinj v levo": "MOTION_TURNLEFT",
+    "obrni se za %1 stopinj v desno": "MOTION_TURNRIGHT",
+    "ko je kliknjena zelena zastavica": "EVENT_WHENFLAGCLICKED",
+    ustavi: "scratchblocks:end",
   },
 
   fa: {
     // Persian
-    "به اندازه %1 درجه به چپ بچرخ": "turn @turnLeft %1 degrees",
-    "به اندازه %1 درجه به راست بچرخ": "turn @turnRight %1 degrees",
-    "وقتی که پرچم کلیک شد": "when @greenFlag clicked",
-    آخر: "end",
+    "به اندازه %1 درجه به چپ بچرخ": "MOTION_TURNLEFT",
+    "به اندازه %1 درجه به راست بچرخ": "MOTION_TURNRIGHT",
+    "وقتی که پرچم کلیک شد": "EVENT_WHENFLAGCLICKED",
+    آخر: "scratchblocks:end",
+  },
+
+  ja: {
+    // Japanese
+    "左に %1 度回す": "MOTION_TURNLEFT",
+    "反時計回りに %1 度回す": "MOTION_TURNLEFT",
+    "右に %1 度回す": "MOTION_TURNRIGHT",
+    "時計回りに %1 度回す": "MOTION_TURNRIGHT",
+    緑の旗が押されたとき: "EVENT_WHENFLAGCLICKED",
+    緑の旗がクリックされたとき: "EVENT_WHENFLAGCLICKED",
+  },
+
+  "ja-Hira": {
+    // Japanese (Hiragana)
+    "ひだりに %1 どまわす": "MOTION_TURNLEFT",
+    "はんとけいまわりに %1 どまわす": "MOTION_TURNLEFT",
+    "みぎに %1 どまわす": "MOTION_TURNRIGHT",
+    "とけいまわりに %1 どまわす": "MOTION_TURNRIGHT",
+    みどりのはたがおされたとき: "EVENT_WHENFLAGCLICKED",
+    みどりのはたがクリックされたとき: "EVENT_WHENFLAGCLICKED",
   },
 
   // : { // template
-  //   '': 'turn @turnLeft %1 degrees',
-  //   '': 'turn @turnRight %1 degrees',
-  //   '': 'when @greenFlag clicked',
+  //   '': 'MOTION_TURNLEFT',
+  //   '': 'MOTION_TURNRIGHT',
+  //   '': 'EVENT_WHENFLAGCLICKED',
   //   '': 'end',
   // },
 }

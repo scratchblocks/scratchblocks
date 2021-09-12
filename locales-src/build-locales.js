@@ -165,10 +165,9 @@ const buildLocale = (code, rawLocale) => {
     if (!command.id) continue
     if (/^sb2:/.test(command.id)) continue
     if (/^scratchblocks:/.test(command.id)) continue
-    if (locale.commands.hasOwnProperty(command.spec)) continue
     const result = translateKey(rawLocale, command.id)
     if (!result) continue
-    locale.commands[command.spec] = result
+    locale.commands[command.id] = result
   }
 
   const commandCount = Object.keys(locale.commands).length
@@ -182,13 +181,9 @@ const buildLocale = (code, rawLocale) => {
   )
 
   // Approximate fraction of blocks translated. For some reason not all blocks
-  // are included; most locales are 88.4% translated according to this script.
+  // are included; most locales are 93.7% translated according to this script.
   // So we cheat and treat that as 100.
-  locale.percentTranslated = Math.max(100, Math.round(frac / 0.884 * 100))
-
-  if (aliases) {
-    locale.commands["end"] = aliases["end"]
-  }
+  locale.percentTranslated = Math.max(100, Math.round(frac / 0.937 * 100))
 
   // TODO does this block still exist?
   //const whenDistance = translateKey("when distance < %1")

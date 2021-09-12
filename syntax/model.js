@@ -172,8 +172,9 @@ Block.prototype.stringify = function(extras) {
   if (checkAlias && lang && this.info.selector) {
     var type = blocksById[this.info.id]
     var spec = type.spec
-    var alias = lang.nativeAliases[type.spec]
-    if (alias) {
+    var aliases = lang.nativeAliases[this.info.id]
+    if (aliases && aliases.length) {
+      var alias = aliases[0]
       // TODO make translate() not in-place, and use that
       if (inputPat.test(alias) && firstInput) {
         alias = alias.replace(inputPat, firstInput.stringify())
@@ -224,9 +225,9 @@ Block.prototype.translate = function(lang, isShallow) {
   }
 
   var type = blocksById[id]
-  var oldSpec = this.info.language.commands[type.spec]
+  var oldSpec = this.info.language.commands[id]
 
-  var nativeSpec = lang.commands[type.spec]
+  var nativeSpec = lang.commands[id]
   if (!nativeSpec) return
   var nativeInfo = parseSpec(nativeSpec)
 
@@ -270,7 +271,7 @@ Block.prototype.translate = function(lang, isShallow) {
   // Push any remaining children, so we pick up C block bodies
   remainingArgs.forEach((arg, index) => {
     if (index === 1 && this.info.id === "CONTROL_IF") {
-      this.children.push(new Label(lang.commands["else"]))
+      this.children.push(new Label(lang.commands["CONTROL_ELSE"]))
     }
     this.children.push(arg)
   })
