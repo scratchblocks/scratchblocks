@@ -140,7 +140,11 @@ var Block = function(info, children, comment) {
 
   var shape = this.info.shape
   this.isHat = shape === "hat" || shape === "cat" || shape === "define-hat"
-  this.hasPuzzle = shape === "stack" || shape === "hat" || shape === "cat" || shape === "c-block"
+  this.hasPuzzle =
+    shape === "stack" ||
+    shape === "hat" ||
+    shape === "cat" ||
+    shape === "c-block"
   this.isFinal = /cap/.test(shape)
   this.isCommand = shape === "stack" || shape === "cap" || /block/.test(shape)
   this.isOutline = shape === "outline"
