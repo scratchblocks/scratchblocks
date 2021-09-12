@@ -226,8 +226,8 @@ var Style = (module.exports = {
           SVG.el("rect", {
             x: "0",
             y: "0",
-            width: "16",
-            height: "19",
+            width: "15",
+            height: "18",
             fill: "#fff",
           }),
           SVG.el("rect", {
