@@ -74,6 +74,7 @@ Icon.icons = {
   loopArrow: true,
   addInput: true,
   delInput: true,
+  list: true,
 }
 
 Icon.prototype.stringify = function() {
