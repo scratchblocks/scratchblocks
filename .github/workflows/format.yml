@@ -28,5 +28,5 @@ jobs:
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4.11.0
         with:
-          commit_message: "Lint and format code"
+          commit_message: "Format code using Prettier"
           branch: ${{ github.head_ref }}
