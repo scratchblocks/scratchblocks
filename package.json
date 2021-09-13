@@ -66,4 +66,5 @@
     "semi": false,
     "trailingComma": "es5",
     "arrowParens": "avoid"
-}}
+  }
+}
