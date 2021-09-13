@@ -4,3 +4,4 @@ node_modules/
 locales/*.json
 package-lock.json
 package.json
+build/

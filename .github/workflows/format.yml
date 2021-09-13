@@ -1,9 +1,9 @@
-name: Format and lint
+name: Format
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
   run:
-    name: Lint
+    name: Format
     runs-on: ubuntu-20.04
 
     steps:
