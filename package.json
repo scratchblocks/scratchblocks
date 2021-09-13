@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "rollup -c --environment buildTarget:PROD; exit 0;",
-    "fmt": "prettier --write --ignore-unknown ** && prettier-package-json --write package.json",
+    "fmt": "prettier --write --ignore-unknown \"**\" && prettier-package-json --write package.json",
     "locales": "node locales-src/build-locales.js",
     "rollup": "rollup -c",
     "snapshots": "node ./snapshots/",
@@ -66,5 +66,4 @@
     "semi": false,
     "trailingComma": "es5",
     "arrowParens": "avoid"
-  }
-}
+}}
