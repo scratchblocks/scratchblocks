@@ -36,11 +36,16 @@ const commonPreBabelOperations = useJson => [
   commonjs(),
 ]
 
-const commonPostBabelOperations = () => [
+const commonPostBabelOperations = (isModule) => [
   env.prod &&
     terser({
       format: {
         comments: false,
+      },
+      compress: {
+          unsafe: true, // Safe to turn on in most cases. This just means String(a) becomes "" + a
+          unsafe_arrows: isModule, // Safe to turn on, unless there is an empty ES5 class declaration
+          unsafe_math: true, // Safe to turn on, floating point math error is minor
       },
     }),
   license({
@@ -79,7 +84,7 @@ export default [
     plugins: [
       ...commonPreBabelOperations(),
       // ESM bundle does not need Babel
-      ...commonPostBabelOperations(),
+      ...commonPostBabelOperations(true),
       env.dev &&
         serve({
           contentBase: ".",
@@ -111,7 +116,7 @@ export default [
     },
     plugins: [
       ...commonPreBabelOperations(true),
-      ...commonPostBabelOperations(),
+      ...commonPostBabelOperations(true),
     ],
   },
   {
@@ -137,7 +142,7 @@ export default [
     },
     plugins: [
       ...commonPreBabelOperations(true),
-      ...commonPostBabelOperations(),
+      ...commonPostBabelOperations(true),
     ],
   },
 ]
