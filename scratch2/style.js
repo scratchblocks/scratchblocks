@@ -1,6 +1,6 @@
 var SVG = require("./draw.js")
 var Filter = require("./filter.js")
-var cssContent = require("./style.css")
+var cssContent = require("./style.css.js")
 
 var Style = (module.exports = {
   cssContent: cssContent,
