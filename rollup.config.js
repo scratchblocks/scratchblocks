@@ -6,6 +6,7 @@ import resolve from "@rollup/plugin-node-resolve"
 import serve from "rollup-plugin-serve"
 import license from "rollup-plugin-license"
 import { terser } from "rollup-plugin-terser"
+import csso from "./locales-src/rollup-optimized-css-text.js"
 
 let { buildTarget } = process.env
 
@@ -30,10 +31,19 @@ Copyright 2013–<%= moment().format('YYYY') %>, <%= pkg.author.name %>
 @license <%= pkg.license %>
 `.trim()
 
-const commonPreBabelOperations = useJson => [
+const commonPreBabelOperations = isLocale => [
+  isLocale ? undefined : csso({ minify: env.prod }),
   resolve(),
-  useJson ? json() : undefined,
-  commonjs(),
+  isLocale ? json() : undefined,
+  commonjs({
+    /**
+     * This is required to make csso optimization work when style.css.js is
+     * loaded with and without Rollup. Without this the imported cssContent is
+     * an object, not a string, when the Rollup build is used.
+     * This also helps us reduce the size by a bit.
+     */
+    requireReturnsDefault: id => id.endsWith(".css.js"),
+  }),
 ]
 
 const commonPostBabelOperations = isModule => [
