@@ -2,3 +2,8 @@ locales-src/
 tests/
 build/
 snapshots/
+.*
+index.html
+index.css
+locales/README.md
+rollup.config.js
