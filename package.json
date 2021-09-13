@@ -2,9 +2,7 @@
   "name": "scratchblocks",
   "description": "Render scratchblocks code to SVG images.",
   "license": "MIT",
-  "author": {
-    "name": "Tim Radvan"
-  },
+  "author": "Tim Radvan",
   "homepage": "https://scratchblocks.github.io/",
   "repository": {
     "type": "git",
@@ -21,13 +19,15 @@
   },
   "scripts": {
     "build": "rollup -c --environment buildTarget:PROD; exit 0;",
-    "fmt": "prettier --write *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js",
-    "lint:staged": "lint-staged",
-    "start": "rollup -c -m -w",
-    "rollup": "rollup -c",
+    "fmt": "prettier --write --ignore-unknown ** && prettier-package-json --write package.json",
     "locales": "node locales-src/build-locales.js",
-    "test": "jest",
-    "snapshots": "node ./snapshots/"
+    "rollup": "rollup -c",
+    "snapshots": "node ./snapshots/",
+    "start": "rollup -c -m -w",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
@@ -38,7 +38,7 @@
     "browserify": "^16.5.2",
     "jest": "^26.6.3",
     "lint-staged": "^7.3.0",
-    "prettier": "^1.7.4",
+    "prettier": "^2.4.0",
     "prettier-package-json": "^1.6.0",
     "puppeteer": "^1.20.0",
     "rollup": "^0.67.4",
@@ -56,21 +56,15 @@
     "scratch"
   ],
   "lint-staged": {
-    "package.json": [
-      "prettier-package-json --write",
-      "git add"
-    ],
-    "*.js": [
-      "prettier --write",
+    "**": [
+      "npm run fmt",
       "git add"
     ]
   },
-  "pre-commit": "lint:staged",
+  "pre-commit": "npx lint-staged",
   "prettier": {
     "semi": false,
-    "trailingComma": "es5"
-  },
-  "dependencies": {
-    "@babel/polyfill": "^7.12.1"
+    "trailingComma": "es5",
+    "arrowParens": "avoid"
   }
 }

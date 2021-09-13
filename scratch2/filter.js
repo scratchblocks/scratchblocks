@@ -4,7 +4,7 @@ function extend(src, dest) {
 
 var SVG = require("./draw.js")
 
-var Filter = function(id, props) {
+var Filter = function (id, props) {
   this.el = SVG.el(
     "filter",
     extend(props, {
@@ -17,7 +17,7 @@ var Filter = function(id, props) {
   )
   this.highestId = 0
 }
-Filter.prototype.fe = function(name, props, children) {
+Filter.prototype.fe = function (name, props, children) {
   var shortName = name.toLowerCase().replace(/gaussian|osite/, "")
   var id = [shortName, "-", ++this.highestId].join("")
   this.el.appendChild(
@@ -33,7 +33,7 @@ Filter.prototype.fe = function(name, props, children) {
   )
   return id
 }
-Filter.prototype.comp = function(op, in1, in2, props) {
+Filter.prototype.comp = function (op, in1, in2, props) {
   return this.fe(
     "Composite",
     extend(props, {
@@ -43,41 +43,41 @@ Filter.prototype.comp = function(op, in1, in2, props) {
     })
   )
 }
-Filter.prototype.subtract = function(in1, in2) {
+Filter.prototype.subtract = function (in1, in2) {
   return this.comp("arithmetic", in1, in2, { k2: +1, k3: -1 })
 }
-Filter.prototype.offset = function(dx, dy, in1) {
+Filter.prototype.offset = function (dx, dy, in1) {
   return this.fe("Offset", {
     in: in1,
     dx: dx,
     dy: dy,
   })
 }
-Filter.prototype.flood = function(color, opacity, in1) {
+Filter.prototype.flood = function (color, opacity, in1) {
   return this.fe("Flood", {
     in: in1,
     "flood-color": color,
     "flood-opacity": opacity,
   })
 }
-Filter.prototype.blur = function(dev, in1) {
+Filter.prototype.blur = function (dev, in1) {
   return this.fe("GaussianBlur", {
     in: in1,
     stdDeviation: [dev, dev].join(" "),
   })
 }
-Filter.prototype.colorMatrix = function(in1, values) {
+Filter.prototype.colorMatrix = function (in1, values) {
   return this.fe("ColorMatrix", {
     in: in1,
     type: "matrix",
     values: values.join(" "),
   })
 }
-Filter.prototype.merge = function(children) {
+Filter.prototype.merge = function (children) {
   this.fe(
     "Merge",
     {},
-    children.map(function(name) {
+    children.map(function (name) {
       return SVG.el("feMergeNode", {
         in: name,
       })

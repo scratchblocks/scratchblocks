@@ -209,12 +209,12 @@ function parseLines(code, languages) {
   var sawNL
 
   var define = []
-  languages.map(function(lang) {
+  languages.map(function (lang) {
     define = define.concat(lang.define)
   })
 
   function makeBlock(shape, children) {
-    var hasInputs = !!children.filter(function(x) {
+    var hasInputs = !!children.filter(function (x) {
       return !x.isLabel
     }).length
 
@@ -405,7 +405,7 @@ function parseLines(code, languages) {
       if (i > 1 && last.value === "v") {
         children.pop()
         var value = children
-          .map(function(l) {
+          .map(function (l) {
             return l.value
           })
           .join(" ")
@@ -450,7 +450,7 @@ function parseLines(code, languages) {
     next() // '{'
 
     sawNL = false
-    var f = function() {
+    var f = function () {
       while (tok && tok !== "}") {
         var block = pBlock("}")
         if (block) return block
@@ -458,7 +458,7 @@ function parseLines(code, languages) {
     }
     var scripts = parseScripts(f)
     var blocks = []
-    scripts.forEach(function(script) {
+    scripts.forEach(function (script) {
       blocks = blocks.concat(script.blocks)
     })
 
@@ -534,7 +534,7 @@ function parseLines(code, languages) {
     return block
   }
 
-  return function() {
+  return function () {
     if (!tok) return undefined
     var line = pLine()
     return line || "NL"
@@ -667,12 +667,12 @@ function parseScripts(getLine) {
 
 function eachBlock(x, cb) {
   if (x.isScript) {
-    x.blocks = x.blocks.map(function(block) {
+    x.blocks = x.blocks.map(function (block) {
       eachBlock(block, cb)
       return cb(block) || block
     })
   } else if (x.isBlock) {
-    x.children = x.children.map(function(child) {
+    x.children = x.children.map(function (child) {
       eachBlock(child, cb)
       return cb(child) || child
     })
@@ -704,10 +704,10 @@ function recogniseStuff(scripts) {
   var listNames = Object.create(null)
   var variableNames = Object.create(null)
 
-  scripts.forEach(function(script) {
+  scripts.forEach(function (script) {
     var customArgs = Object.create(null)
 
-    eachBlock(script, function(block) {
+    eachBlock(script, function (block) {
       if (!block.isBlock) return
 
       // custom blocks
@@ -766,7 +766,7 @@ function recogniseStuff(scripts) {
         // list names
       } else if (listBlocks.hasOwnProperty(block.info.selector)) {
         var argIndex = listBlocks[block.info.selector]
-        var inputs = block.children.filter(function(child) {
+        var inputs = block.children.filter(function (child) {
           return !child.isLabel
         })
         var input = inputs[argIndex]
@@ -777,8 +777,8 @@ function recogniseStuff(scripts) {
     })
   })
 
-  scripts.forEach(function(script) {
-    eachBlock(script, function(block) {
+  scripts.forEach(function (script) {
+    eachBlock(script, function (block) {
       if (
         block.info &&
         block.info.categoryIsDefault &&
@@ -847,7 +847,7 @@ function parse(code, options) {
     code = code.replace(/\n/g, " ")
   }
 
-  var languages = options.languages.map(function(code) {
+  var languages = options.languages.map(function (code) {
     var lang = allLanguages[code]
     if (!lang) throw new Error("Unknown language: '" + code + "'")
     return lang

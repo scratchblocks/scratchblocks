@@ -62,7 +62,7 @@ function parseInputNumber(part) {
 // used for procDefs
 function parseSpec(spec) {
   var parts = spec.split(splitPat).filter(x => !!x)
-  var inputs = parts.filter(function(p) {
+  var inputs = parts.filter(function (p) {
     return inputPat.test(p)
   })
   return {
@@ -93,7 +93,7 @@ function minifyHash(hash) {
 }
 
 var blocksById = {}
-var allBlocks = scratchCommands.map(function(def) {
+var allBlocks = scratchCommands.map(function (def) {
   var spec = def.spec
   if (!def.id) {
     if (!def.selector) throw new Error("Missing ID: " + def.spec)
@@ -130,7 +130,7 @@ var allLanguages = {}
 function loadLanguage(code, language) {
   var blocksByHash = (language.blocksByHash = {})
 
-  Object.keys(language.commands).forEach(function(blockId) {
+  Object.keys(language.commands).forEach(function (blockId) {
     var nativeSpec = language.commands[blockId]
     var block = blocksById[blockId]
 
@@ -149,7 +149,7 @@ function loadLanguage(code, language) {
   })
 
   language.nativeAliases = {}
-  Object.keys(language.aliases).forEach(function(alias) {
+  Object.keys(language.aliases).forEach(function (alias) {
     var blockId = language.aliases[alias]
     var block = blocksById[blockId]
     if (block === undefined) {
@@ -165,7 +165,7 @@ function loadLanguage(code, language) {
 
   // Some English blocks were renamed between Scratch 2 and Scratch 3. Wire them
   // into language.blocksByHash
-  Object.keys(language.renamedBlocks || {}).forEach(function(alt) {
+  Object.keys(language.renamedBlocks || {}).forEach(function (alt) {
     const id = language.renamedBlocks[alt]
     if (!blocksById[id]) throw new Error("Unknown ID: " + id)
     const block = blocksById[id]
@@ -175,7 +175,7 @@ function loadLanguage(code, language) {
   })
 
   language.nativeDropdowns = {}
-  Object.keys(language.dropdowns).forEach(function(name) {
+  Object.keys(language.dropdowns).forEach(function (name) {
     var nativeName = language.dropdowns[name]
     language.nativeDropdowns[nativeName] = name
   })
@@ -184,7 +184,7 @@ function loadLanguage(code, language) {
   allLanguages[code] = language
 }
 function loadLanguages(languages) {
-  Object.keys(languages).forEach(function(code) {
+  Object.keys(languages).forEach(function (code) {
     loadLanguage(code, languages[code])
   })
 }
@@ -245,7 +245,7 @@ var english = {
 
   commands: {},
 }
-allBlocks.forEach(function(info) {
+allBlocks.forEach(function (info) {
   english.commands[info.id] = info.spec
 })
 loadLanguages({
@@ -265,15 +265,15 @@ function specialCase(id, func) {
 }
 
 function disambig(id1, id2, test) {
-  registerCheck(id1, function(info, children, lang) {
+  registerCheck(id1, function (info, children, lang) {
     return test(children, lang)
   })
-  registerCheck(id2, function(info, children, lang) {
+  registerCheck(id2, function (info, children, lang) {
     return !test(children, lang)
   })
 }
 
-disambig("OPERATORS_MATHOP", "SENSING_OF", function(children, lang) {
+disambig("OPERATORS_MATHOP", "SENSING_OF", function (children, lang) {
   // Operators if math function, otherwise sensing "attribute of" block
   var first = children[0]
   if (!first.isInput) return
@@ -281,10 +281,27 @@ disambig("OPERATORS_MATHOP", "SENSING_OF", function(children, lang) {
   return lang.math.indexOf(name) > -1
 })
 
-disambig("SOUND_CHANGEEFFECTBY", "LOOKS_CHANGEEFFECTBY", function(
-  children,
-  lang
-) {
+disambig(
+  "SOUND_CHANGEEFFECTBY",
+  "LOOKS_CHANGEEFFECTBY",
+  function (children, lang) {
+    // Sound if sound effect, otherwise default to graphic effect
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i]
+      if (child.shape === "dropdown") {
+        var name = child.value
+        for (let effect of lang.soundEffects) {
+          if (minifyHash(effect) === minifyHash(name)) {
+            return true
+          }
+        }
+      }
+    }
+    return false
+  }
+)
+
+disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function (children, lang) {
   // Sound if sound effect, otherwise default to graphic effect
   for (var i = 0; i < children.length; i++) {
     var child = children[i]
@@ -300,40 +317,25 @@ disambig("SOUND_CHANGEEFFECTBY", "LOOKS_CHANGEEFFECTBY", function(
   return false
 })
 
-disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function(children, lang) {
-  // Sound if sound effect, otherwise default to graphic effect
-  for (var i = 0; i < children.length; i++) {
-    var child = children[i]
-    if (child.shape === "dropdown") {
-      var name = child.value
-      for (let effect of lang.soundEffects) {
-        if (minifyHash(effect) === minifyHash(name)) {
-          return true
-        }
-      }
-    }
-  }
-  return false
-})
-
-disambig("DATA_LENGTHOFLIST", "OPERATORS_LENGTH", function(children, lang) {
+disambig("DATA_LENGTHOFLIST", "OPERATORS_LENGTH", function (children, lang) {
   // List block if dropdown, otherwise operators
   var last = children[children.length - 1]
   if (!last.isInput) return
   return last.shape === "dropdown"
 })
 
-disambig("DATA_LISTCONTAINSITEM", "OPERATORS_CONTAINS", function(
-  children,
-  lang
-) {
-  // List block if dropdown, otherwise operators
-  var first = children[0]
-  if (!first.isInput) return
-  return first.shape === "dropdown"
-})
+disambig(
+  "DATA_LISTCONTAINSITEM",
+  "OPERATORS_CONTAINS",
+  function (children, lang) {
+    // List block if dropdown, otherwise operators
+    var first = children[0]
+    if (!first.isInput) return
+    return first.shape === "dropdown"
+  }
+)
 
-disambig("pen.setColor", "pen.setHue", function(children, lang) {
+disambig("pen.setColor", "pen.setHue", function (children, lang) {
   // Color block if color input, otherwise numeric
   var last = children[children.length - 1]
   // If variable, assume color input, since the RGBA hack is common.
@@ -341,49 +343,51 @@ disambig("pen.setColor", "pen.setHue", function(children, lang) {
   return (last.isInput && last.isColor) || last.isBlock
 })
 
-disambig("microbit.whenGesture", "gdxfor.whenGesture", function(
-  children,
-  lang
-) {
-  for (var i = 0; i < children.length; i++) {
-    var child = children[i]
-    if (child.shape === "dropdown") {
-      var name = child.value
-      // Yes, "when shaken" gdxfor block exists. But microbit is more common.
-      for (let effect of lang.microbitWhen) {
-        if (minifyHash(effect) === minifyHash(name)) {
-          return true
+disambig(
+  "microbit.whenGesture",
+  "gdxfor.whenGesture",
+  function (children, lang) {
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i]
+      if (child.shape === "dropdown") {
+        var name = child.value
+        // Yes, "when shaken" gdxfor block exists. But microbit is more common.
+        for (let effect of lang.microbitWhen) {
+          if (minifyHash(effect) === minifyHash(name)) {
+            return true
+          }
         }
       }
     }
+    return false
   }
-  return false
-})
+)
 
 // This block does not need disambiguation in English;
 // however, many other languages do require that.
-disambig("ev3.buttonPressed", "microbit.isButtonPressed", function(
-  children,
-  lang
-) {
-  for (var i = 0; i < children.length; i++) {
-    var child = children[i]
-    if (child.shape === "dropdown") {
-      // EV3 "button pressed" block uses numeric identifier
-      // and does not support "any".
-      switch (minifyHash(child.value)) {
-        case "1":
-        case "2":
-        case "3":
-        case "4":
-          return true
+disambig(
+  "ev3.buttonPressed",
+  "microbit.isButtonPressed",
+  function (children, lang) {
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i]
+      if (child.shape === "dropdown") {
+        // EV3 "button pressed" block uses numeric identifier
+        // and does not support "any".
+        switch (minifyHash(child.value)) {
+          case "1":
+          case "2":
+          case "3":
+          case "4":
+            return true
+        }
       }
     }
+    return false
   }
-  return false
-})
+)
 
-specialCase("CONTROL_STOP", function(info, children, lang) {
+specialCase("CONTROL_STOP", function (info, children, lang) {
   // Cap block unless argument is "other scripts in sprite"
   var last = children[children.length - 1]
   if (!last.isInput) return
@@ -404,7 +408,8 @@ function lookupHash(hash, info, children, languages) {
         var block = lang.blocksByHash[hash][j]
         if (
           info.shape === "reporter" &&
-          (block.shape !== "reporter" && block.shape !== "ring")
+          block.shape !== "reporter" &&
+          block.shape !== "ring"
         ) {
           continue
         }

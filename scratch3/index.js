@@ -5,7 +5,7 @@ var style = require("./style")
 function init(window) {
   SVG.init(window)
 
-  blocks.LabelView.measuring = (function() {
+  blocks.LabelView.measuring = (function () {
     var canvas = SVG.makeCanvas()
     return canvas.getContext("2d")
   })()
