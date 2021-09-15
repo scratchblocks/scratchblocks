@@ -11,7 +11,7 @@ export default opts => {
     name: "optimized-css-text",
     transform: (code, id) => {
       if (id.endsWith(".css.js")) {
-        code = code.replace(/^[^`]*`/, "").replace(/`[;\s]+$/, "")
+        code = code.replace(/^[^`]*`/, "").replace(/`[;\s]*$/, "")
         return Promise.resolve(
           opts.minify
             ? import("csso").then(csso => csso.minify(code).css)
