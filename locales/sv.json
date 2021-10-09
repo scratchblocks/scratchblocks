@@ -60,7 +60,7 @@
     "pen.changeSize": "ändra pennans storlek med %1",
     "pen.setSize": "sätt pennans storlek %1",
     "EVENT_WHENFLAGCLICKED": "när @greenFlag klickas på",
-    "EVENT_WHENKEYPRESSED": "när %1 tangenten trycks ned",
+    "EVENT_WHENKEYPRESSED": "när tangenten %1 trycks ned",
     "EVENT_WHENTHISSPRITECLICKED": "när denna sprajt klickas på",
     "EVENT_WHENSTAGECLICKED": "när scenen klickas på",
     "EVENT_WHENBACKDROPSWITCHESTO": "när bakgrunden växlar till %1",
