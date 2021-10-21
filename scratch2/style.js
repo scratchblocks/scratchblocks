@@ -155,6 +155,98 @@ var Style = (module.exports = {
           id: "loopArrow",
         }
       ),
+      SVG.setProps(
+        SVG.group([
+          SVG.el("rect", {
+            x: "0",
+            y: "0",
+            width: "12",
+            height: "14",
+            fill: "#000",
+            opacity: "0.25",
+          }),
+          SVG.el("rect", {
+            x: "1",
+            y: "1",
+            width: "1",
+            height: "13",
+            fill: "#fff",
+          }),
+          SVG.el("rect", {
+            x: "11",
+            y: "1",
+            width: "1",
+            height: "13",
+            fill: "#fff",
+          }),
+          SVG.el("rect", {
+            x: "2",
+            y: "1",
+            width: "9",
+            height: "1",
+            fill: "#fff",
+          }),
+          SVG.el("rect", {
+            x: "2",
+            y: "5",
+            width: "9",
+            height: "1",
+            fill: "#fff",
+          }),
+          SVG.el("rect", {
+            x: "2",
+            y: "9",
+            width: "9",
+            height: "1",
+            fill: "#fff",
+          }),
+          SVG.el("rect", {
+            x: "2",
+            y: "13",
+            width: "9",
+            height: "1",
+            fill: "#fff",
+          }),
+          SVG.el("rect", {
+            x: "2",
+            y: "2",
+            width: "9",
+            height: "2",
+            fill: "#ea8d1c",
+          }),
+          SVG.el("rect", {
+            x: "2",
+            y: "6",
+            width: "9",
+            height: "2",
+            fill: "#ea8d1c",
+          }),
+          SVG.el("rect", {
+            x: "2",
+            y: "10",
+            width: "9",
+            height: "2",
+            fill: "#ea8d1c",
+          }),
+          SVG.el("rect", {
+            x: "11",
+            y: "0",
+            width: "1",
+            height: "1",
+            fill: "#ea8d1c",
+          }),
+          SVG.el("rect", {
+            x: "0",
+            y: "13",
+            width: "1",
+            height: "1",
+            fill: "#ea8d1c",
+          }),
+        ]),
+        {
+          id: "list",
+        }
+      ),
     ]
   },
 
