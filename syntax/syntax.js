@@ -237,14 +237,18 @@ function parseLines(code, languages) {
     var children = []
     var label
     while (tok && tok !== "\n") {
-      if (tok === "<" || (tok === ">" && end === ">")) {
-        var last = children[children.length - 1]
+      // So that comparison operators `<()<()>` and `<()>()>` don't need the
+      // central <> escaped, we interpret it as a label if particular
+      // conditions are met.
+      if (
+        (tok === "<" || tok === ">") &&
+        end === ">" && // We're parsing a predicate.
+        children.length === 1 && // There's exactly one AST node behind us.
+        !children[children.length - 1].isLabel // That node is not a label.
+      ) {
         var c = peekNonWs()
-        if (
-          last &&
-          !last.isLabel &&
-          (c === "[" || c === "(" || c === "<" || c === "{")
-        ) {
+        // The next token starts some kind of input.
+        if (c === "[" || c === "(" || c === "<" || c === "{") {
           label = null
           children.push(new Label(tok))
           next()
