@@ -27,7 +27,7 @@ const bannerText = `
 <%= pkg.homepage %>
 <%= pkg.description %>
 
-Copyright 2013–<%= moment().format('YYYY') %>, <%= pkg.author.name %>
+Copyright 2013–<%= moment().format('YYYY') %>, <%= pkg.author %>
 @license <%= pkg.license %>
 `.trim()
 
