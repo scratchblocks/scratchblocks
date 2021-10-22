@@ -18,7 +18,7 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "rollup -c --environment buildTarget:PROD & exit 0",
+    "build": "rollup -c --environment buildTarget:PROD",
     "fmt": "prettier --write *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js",
     "lint:staged": "lint-staged",
     "locales": "node locales-src/build-locales.js",
