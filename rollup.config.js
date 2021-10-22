@@ -1,12 +1,12 @@
-import babel from "rollup-plugin-babel"
-import builtins from "rollup-plugin-node-builtins"
-import commonjs from "rollup-plugin-commonjs"
-import globals from "rollup-plugin-node-globals"
-import json from "rollup-plugin-json"
-import minify from "rollup-plugin-babel-minify"
+import babel from "@rollup/plugin-babel"
+import commonjs from "@rollup/plugin-commonjs"
+import json from "@rollup/plugin-json"
 import pkg from "./package.json"
-import resolve from "rollup-plugin-node-resolve"
+import resolve from "@rollup/plugin-node-resolve"
 import serve from "rollup-plugin-serve"
+import license from "rollup-plugin-license"
+import { terser } from "rollup-plugin-terser"
+import csso from "./locales-src/rollup-optimized-css-text.js"
 
 let { buildTarget } = process.env
 
@@ -22,45 +22,79 @@ const env = {
   prod: buildTarget === "PROD",
 }
 
-const banner = `/**
- * ${pkg.name} v${pkg.version}
- * ${pkg.homepage}
- * ${pkg.description}
- *
- * Copyright 2013–${new Date().getFullYear()}, ${pkg.author.name}
- * @license ${pkg.license}
- */`
+const bannerText = `
+<%= pkg.name %> v<%= pkg.version %>
+<%= pkg.homepage %>
+<%= pkg.description %>
 
-console.log(banner)
+Copyright 2013–<%= moment().format('YYYY') %>, <%= pkg.author %>
+@license <%= pkg.license %>
+`.trim()
+
+const commonPreBabelOperations = isLocale => [
+  isLocale ? undefined : csso({ minify: env.prod }),
+  resolve(),
+  isLocale ? json() : undefined,
+  commonjs({
+    /**
+     * This is required to make csso optimization work when style.css.js is
+     * loaded with and without Rollup. Without this the imported cssContent is
+     * an object, not a string, when the Rollup build is used.
+     * This also helps us reduce the size by a bit.
+     */
+    requireReturnsDefault: id => id.endsWith(".css.js"),
+  }),
+]
+
+const commonPostBabelOperations = isModule => [
+  env.prod &&
+    terser({
+      format: {
+        comments: false,
+      },
+      compress: {
+        unsafe: true, // Safe to turn on in most cases. This just means String(a) becomes "" + a
+        unsafe_arrows: isModule, // Safe to turn on, unless there is an empty ES5 class declaration
+        unsafe_math: true, // Safe to turn on, floating point math error is minor
+      },
+    }),
+  license({
+    sourcemap: true,
+    banner: bannerText,
+  }),
+]
 
 export default [
   {
     input: "browser.js",
-    output: [
-      {
-        file: pkg.main,
-        format: "iife",
-        name: "scratchblocks",
-        sourcemap: env.prod,
-      },
-      {
-        file: pkg.module,
-        format: "esm",
-        sourcemap: env.prod,
-      },
-    ],
+    output: {
+      file: pkg.main,
+      format: "iife",
+      name: "scratchblocks",
+      sourcemap: env.prod,
+    },
     plugins: [
-      resolve(),
-      commonjs(),
-      babel(),
-      globals(),
-      builtins(),
-      env.prod &&
-        minify({
-          banner: banner,
-          bannerNewLine: true,
-          comments: false,
+      ...commonPreBabelOperations(),
+      babel({ babelHelpers: "bundled" }),
+      ...commonPostBabelOperations(),
+      env.dev &&
+        serve({
+          contentBase: ".",
+          port: 8000,
         }),
+    ],
+  },
+  {
+    input: "browser.es.js",
+    output: {
+      file: pkg.module,
+      format: "esm",
+      sourcemap: env.prod,
+    },
+    plugins: [
+      ...commonPreBabelOperations(),
+      // ESM bundle does not need Babel
+      ...commonPostBabelOperations(true),
       env.dev &&
         serve({
           contentBase: ".",
@@ -78,16 +112,21 @@ export default [
       sourcemap: false,
     },
     plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      babel(),
-      env.prod &&
-        minify({
-          banner: banner,
-          bannerNewLine: true,
-          comments: false,
-        }),
+      ...commonPreBabelOperations(true),
+      babel({ babelHelpers: "bundled" }),
+      ...commonPostBabelOperations(),
+    ],
+  },
+  {
+    input: "locales-src/translations-es.js",
+    output: {
+      file: "build/translations-es.js",
+      format: "esm",
+      sourcemap: false,
+    },
+    plugins: [
+      ...commonPreBabelOperations(true),
+      ...commonPostBabelOperations(true),
     ],
   },
   {
@@ -99,16 +138,21 @@ export default [
       sourcemap: false,
     },
     plugins: [
-      resolve(),
-      json(),
-      commonjs(),
-      babel(),
-      env.prod &&
-        minify({
-          banner: banner,
-          bannerNewLine: true,
-          comments: false,
-        }),
+      ...commonPreBabelOperations(true),
+      babel({ babelHelpers: "bundled" }),
+      ...commonPostBabelOperations(),
+    ],
+  },
+  {
+    input: "locales-src/translations-all-es.js",
+    output: {
+      file: "build/translations-all-es.js",
+      format: "esm",
+      sourcemap: false,
+    },
+    plugins: [
+      ...commonPreBabelOperations(true),
+      ...commonPostBabelOperations(true),
     ],
   },
 ]

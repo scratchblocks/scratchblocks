@@ -25,7 +25,7 @@ const {
 
 /* Label */
 
-var LabelView = function(label) {
+var LabelView = function (label) {
   Object.assign(this, label)
 
   this.el = null
@@ -35,12 +35,12 @@ var LabelView = function(label) {
 }
 LabelView.prototype.isLabel = true
 
-LabelView.prototype.draw = function() {
+LabelView.prototype.draw = function () {
   return this.el
 }
 
 Object.defineProperty(LabelView.prototype, "width", {
-  get: function() {
+  get: function () {
     return this.metrics.width
   },
 })
@@ -48,7 +48,7 @@ Object.defineProperty(LabelView.prototype, "width", {
 LabelView.metricsCache = {}
 LabelView.toMeasure = []
 
-LabelView.prototype.measure = function() {
+LabelView.prototype.measure = function () {
   var value = this.value
   var cls = "sb-" + this.cls
   this.el = SVG.text(0, 10, value, {
@@ -66,14 +66,14 @@ LabelView.prototype.measure = function() {
     var font = /comment-label/.test(this.cls)
       ? "bold 12px Helevetica, Arial, DejaVu Sans, sans-serif"
       : /literal/.test(this.cls)
-        ? "normal 9px " + defaultFontFamily
-        : "bold 10px " + defaultFontFamily
+      ? "normal 9px " + defaultFontFamily
+      : "bold 10px " + defaultFontFamily
     this.metrics = cache[value] = LabelView.measure(value, font)
     // TODO: word-spacing? (fortunately it seems to have no effect!)
   }
 }
 
-LabelView.measure = function(value, font) {
+LabelView.measure = function (value, font) {
   var context = LabelView.measuring
   context.font = font
   var textMetrics = context.measureText(value)
@@ -83,7 +83,7 @@ LabelView.measure = function(value, font) {
 
 /* Icon */
 
-var IconView = function(icon) {
+var IconView = function (icon) {
   Object.assign(this, icon)
 
   const info = IconView.icons[this.name]
@@ -94,7 +94,7 @@ var IconView = function(icon) {
 }
 IconView.prototype.isIcon = true
 
-IconView.prototype.draw = function() {
+IconView.prototype.draw = function () {
   return SVG.symbol("#" + this.name, {
     width: this.width,
     height: this.height,
@@ -114,7 +114,7 @@ IconView.icons = {
 
 /* Input */
 
-var InputView = function(input) {
+var InputView = function (input) {
   Object.assign(this, input)
   if (input.label) {
     this.label = newView(input.label)
@@ -123,7 +123,7 @@ var InputView = function(input) {
   this.x = 0
 }
 
-InputView.prototype.measure = function() {
+InputView.prototype.measure = function () {
   if (this.hasLabel) this.label.measure()
 }
 
@@ -139,7 +139,7 @@ InputView.shapes = {
   reporter: SVG.roundedRect,
 }
 
-InputView.prototype.draw = function(parent) {
+InputView.prototype.draw = function (parent) {
   if (this.hasLabel) {
     var label = this.label.draw()
     var w = Math.max(
@@ -197,7 +197,7 @@ InputView.prototype.draw = function(parent) {
 
 /* Block */
 
-var BlockView = function(block) {
+var BlockView = function (block) {
   Object.assign(this, block)
   this.children = block.children.map(newView)
   this.comment = this.comment ? newView(this.comment) : null
@@ -220,7 +220,7 @@ var BlockView = function(block) {
 }
 BlockView.prototype.isBlock = true
 
-BlockView.prototype.measure = function() {
+BlockView.prototype.measure = function () {
   for (var i = 0; i < this.children.length; i++) {
     var child = this.children[i]
     if (child.measure) child.measure()
@@ -244,7 +244,7 @@ BlockView.shapes = {
   ring: SVG.roundedRect,
 }
 
-BlockView.prototype.drawSelf = function(w, h, lines) {
+BlockView.prototype.drawSelf = function (w, h, lines) {
   // mouths
   if (lines.length > 1) {
     return SVG.mouthRect(w, h, this.isFinal, lines, {
@@ -266,7 +266,9 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
     if (child && (child.isStack || child.isBlock || child.isScript)) {
       var shape = child.isScript
         ? "stack"
-        : child.isStack ? child.shape : child.info.shape
+        : child.isStack
+        ? child.shape
+        : child.info.shape
       return SVG.ringRect(w, h, child.y, child.width, child.height, shape, {
         class: ["sb-" + this.info.category, "sb-bevel"].join(" "),
       })
@@ -282,21 +284,23 @@ BlockView.prototype.drawSelf = function(w, h, lines) {
   })
 }
 
-BlockView.prototype.minDistance = function(child) {
+BlockView.prototype.minDistance = function (child) {
   if (this.isBoolean) {
     return child.isReporter
       ? (4 + child.height / 4) | 0
       : child.isLabel
-        ? (5 + child.height / 2) | 0
-        : child.isBoolean || child.shape === "boolean"
-          ? 5
-          : (2 + child.height / 2) | 0
+      ? (5 + child.height / 2) | 0
+      : child.isBoolean || child.shape === "boolean"
+      ? 5
+      : (2 + child.height / 2) | 0
   }
   if (this.isReporter) {
     return (child.isInput && child.isRound) ||
       ((child.isReporter || child.isBoolean) && !child.hasScript)
       ? 0
-      : child.isLabel ? (2 + child.height / 2) | 0 : (-2 + child.height / 2) | 0
+      : child.isLabel
+      ? (2 + child.height / 2) | 0
+      : (-2 + child.height / 2) | 0
   }
   return 0
 }
@@ -314,7 +318,7 @@ BlockView.padding = {
   null: [4, 6, 2],
 }
 
-BlockView.prototype.draw = function() {
+BlockView.prototype.draw = function () {
   var isDefine = this.info.shape === "define-hat"
   var children = this.children
 
@@ -324,7 +328,7 @@ BlockView.prototype.draw = function() {
     pb = padding[2]
 
   var y = 0
-  var Line = function(y) {
+  var Line = function (y) {
     this.y = y
     this.width = 0
     this.height = y ? 13 : 16
@@ -347,7 +351,7 @@ BlockView.prototype.draw = function() {
 
   if (this.info.isRTL) {
     var start = 0
-    var flip = function() {
+    var flip = function () {
       children = children
         .slice(0, start)
         .concat(children.slice(start, i).reverse())
@@ -403,7 +407,9 @@ BlockView.prototype.draw = function() {
     innerWidth + px * 2,
     this.isHat || this.hasScript
       ? 83
-      : this.isCommand || this.isOutline || this.isRing ? 39 : 20
+      : this.isCommand || this.isOutline || this.isRing
+      ? 39
+      : 20
   )
   this.height = y
   this.width = scriptWidth ? Math.max(innerWidth, 15 + scriptWidth) : innerWidth
@@ -467,7 +473,7 @@ BlockView.prototype.draw = function() {
 
 /* Comment */
 
-var CommentView = function(comment) {
+var CommentView = function (comment) {
   Object.assign(this, comment)
   this.label = newView(comment.label)
 
@@ -478,11 +484,11 @@ CommentView.prototype.isComment = true
 CommentView.lineLength = 12
 CommentView.prototype.height = 20
 
-CommentView.prototype.measure = function() {
+CommentView.prototype.measure = function () {
   this.label.measure()
 }
 
-CommentView.prototype.draw = function() {
+CommentView.prototype.draw = function () {
   var labelEl = this.label.draw()
 
   this.width = this.label.width + 16
@@ -497,7 +503,7 @@ CommentView.prototype.draw = function() {
 
 /* Glow */
 
-var GlowView = function(glow) {
+var GlowView = function (glow) {
   Object.assign(this, glow)
   this.child = newView(glow.child)
 
@@ -507,11 +513,11 @@ var GlowView = function(glow) {
 }
 GlowView.prototype.isGlow = true
 
-GlowView.prototype.measure = function() {
+GlowView.prototype.measure = function () {
   this.child.measure()
 }
 
-GlowView.prototype.drawSelf = function() {
+GlowView.prototype.drawSelf = function () {
   var c = this.child
   var el
   var w = this.width
@@ -533,7 +539,7 @@ GlowView.prototype.drawSelf = function() {
 }
 // TODO how can we always raise Glows above their parents?
 
-GlowView.prototype.draw = function() {
+GlowView.prototype.draw = function () {
   var c = this.child
   var el = c.isScript ? c.draw(true) : c.draw()
 
@@ -546,7 +552,7 @@ GlowView.prototype.draw = function() {
 
 /* Script */
 
-var ScriptView = function(script) {
+var ScriptView = function (script) {
   Object.assign(this, script)
   this.blocks = script.blocks.map(newView)
 
@@ -554,13 +560,13 @@ var ScriptView = function(script) {
 }
 ScriptView.prototype.isScript = true
 
-ScriptView.prototype.measure = function() {
+ScriptView.prototype.measure = function () {
   for (var i = 0; i < this.blocks.length; i++) {
     this.blocks[i].measure()
   }
 }
 
-ScriptView.prototype.draw = function(inside) {
+ScriptView.prototype.draw = function (inside) {
   var children = []
   var y = 0
   this.width = 0
@@ -603,7 +609,7 @@ ScriptView.prototype.draw = function(inside) {
 
 /* Document */
 
-var DocumentView = function(doc, options) {
+var DocumentView = function (doc, options) {
   Object.assign(this, doc)
   this.scripts = doc.scripts.map(newView)
 
@@ -614,13 +620,13 @@ var DocumentView = function(doc, options) {
   this.scale = options.scale
 }
 
-DocumentView.prototype.measure = function() {
-  this.scripts.forEach(function(script) {
+DocumentView.prototype.measure = function () {
+  this.scripts.forEach(function (script) {
     script.measure()
   })
 }
 
-DocumentView.prototype.render = function(cb) {
+DocumentView.prototype.render = function (cb) {
   if (typeof ocbptions === "function") {
     throw new Error("render() no longer takes a callback")
   }
@@ -663,7 +669,7 @@ DocumentView.prototype.render = function(cb) {
 }
 
 /* Export SVG image as XML string */
-DocumentView.prototype.exportSVGString = function() {
+DocumentView.prototype.exportSVGString = function () {
   if (this.el == null) {
     throw new Error("call draw() first")
   }
@@ -676,12 +682,12 @@ DocumentView.prototype.exportSVGString = function() {
 }
 
 /* Export SVG image as data URI */
-DocumentView.prototype.exportSVG = function() {
+DocumentView.prototype.exportSVG = function () {
   var xml = this.exportSVGString()
   return "data:image/svg+xml;utf8," + xml.replace(/[#]/g, encodeURIComponent)
 }
 
-DocumentView.prototype.toCanvas = function(cb, exportScale) {
+DocumentView.prototype.toCanvas = function (cb, exportScale) {
   exportScale = exportScale || 1.0
 
   var canvas = SVG.makeCanvas()
@@ -691,7 +697,7 @@ DocumentView.prototype.toCanvas = function(cb, exportScale) {
 
   var image = new Image()
   image.src = this.exportSVG()
-  image.onload = function() {
+  image.onload = function () {
     context.save()
     context.scale(exportScale, exportScale)
     context.drawImage(image, 0, 0)
@@ -701,10 +707,10 @@ DocumentView.prototype.toCanvas = function(cb, exportScale) {
   }
 }
 
-DocumentView.prototype.exportPNG = function(cb, scale) {
-  this.toCanvas(function(canvas) {
+DocumentView.prototype.exportPNG = function (cb, scale) {
+  this.toCanvas(function (canvas) {
     if (URL && URL.createObjectURL && Blob && canvas.toBlob) {
-      var blob = canvas.toBlob(function(blob) {
+      var blob = canvas.toBlob(function (blob) {
         cb(URL.createObjectURL(blob))
       }, "image/png")
     } else {

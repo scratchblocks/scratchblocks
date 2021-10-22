@@ -183,7 +183,7 @@ const buildLocale = (code, rawLocale) => {
   // Approximate fraction of blocks translated. For some reason not all blocks
   // are included; most locales are 93.7% translated according to this script.
   // So we cheat and treat that as 100.
-  locale.percentTranslated = Math.max(100, Math.round(frac / 0.937 * 100))
+  locale.percentTranslated = Math.max(100, Math.round((frac / 0.937) * 100))
 
   // TODO does this block still exist?
   //const whenDistance = translateKey("when distance < %1")
