@@ -158,16 +158,16 @@
     "microbit.whenButtonPressed": "po stisku tlačítka %1",
     "microbit.isButtonPressed": "tlačítko %1 stisknuto?",
     "microbit.whenGesture": "když %1",
-    "microbit.displaySymbol": "displej %1",
+    "microbit.displaySymbol": "zobraz %1",
     "microbit.displayText": "displej textu %1",
     "microbit.clearDisplay": "smaž displej",
     "microbit.whenTilted": "když nakloněný %1",
-    "microbit.isTilted": "nakloněné %1?",
+    "microbit.isTilted": "nakloněno %1?",
     "microbit.tiltAngle": "úhel náklonu %1",
     "microbit.whenPinConnected": "když je pin %1 propojený",
     "ev3.motorTurnClockwise": "toč motorem %1 ve směru hodin %2 sekund",
     "ev3.motorTurnCounterClockwise": "toč motorem %1 proti směru hodin %2 sekund",
-    "ev3.motorSetPower": "nastav motoru %1 napájení %2 %",
+    "ev3.motorSetPower": "nastav motoru %1 rychlost %2 %",
     "ev3.getMotorPosition": "pozice motoru %1",
     "ev3.whenButtonPressed": "po stisku tlačítka %1",
     "ev3.whenDistanceLessThan": "když vzdálenost < %1",
@@ -178,7 +178,7 @@
     "ev3.beepNote": "hraj notu %1 příštích %2 sekund",
     "wedo2.motorOn": "zapni %1",
     "wedo2.motorOff": "vypni %1",
-    "wedo2.startMotorPower": "nastav %1 napájení  %2",
+    "wedo2.startMotorPower": "pro %1 nastav rychlost  %2",
     "wedo2.setMotorDirection": "nastav %1 směrem %2",
     "wedo2.whenDistance": "když vzdálenost %1 %2",
     "wedo2.getDistance": "vzdálenost",
@@ -186,7 +186,7 @@
     "wedo2.setLightHue": "nastav barvu světla na %1",
     "wedo2.playNoteFor": "hraj notu %1 příštích %2 sekund",
     "wedo2.whenTilted": "když nakloněný %1",
-    "wedo2.isTilted": "nakloněné %1?",
+    "wedo2.isTilted": "nakloněno %1?",
     "wedo2.getTiltAngle": "úhel náklonu %1",
     "gdxfor.whenGesture": "když %1",
     "gdxfor.whenForcePushedOrPulled": "když senzor síly %1",
@@ -217,9 +217,9 @@
     "stereo vlevo/vpravo"
   ],
   "microbitWhen": [
-    "jede",
-    "se třese",
-    "skáče"
+    "se pohne",
+    "se zatřese",
+    "poskočí"
   ],
   "osis": [
     "jiné scénáře postavy"
