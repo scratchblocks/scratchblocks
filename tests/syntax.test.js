@@ -515,7 +515,10 @@ describe('comparison ops: < and > ', () => {
     expect(parseBlock('<<>><>>').info.selector).toBe('>')
   })
 
-  // TODO add that test case from that issue
+  test('regression for #399', () => {
+    expect(parseBlock('join (1) <(1)=(1)>').children.length).toBe(3)
+    expect(parseBlock('go [forward v] <(1) = (1)> layers').children.length).toBe(4)
+  })
 })
 
 // Test that blocks renamed between Scratch 2 and Scratch 3 work in either form.
