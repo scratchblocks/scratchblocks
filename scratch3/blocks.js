@@ -465,14 +465,16 @@ BlockView.prototype.draw = function () {
       }
 
       // Align first input with right of notch
-      var cmw = 48 - this.horizontalPadding(children[0])
-      if (
-        (this.isCommand || this.isOutline) &&
-        !child.isLabel &&
-        !child.isIcon &&
-        line.width < cmw
-      ) {
-        line.width = cmw
+      if (children[0] != null) {
+        var cmw = 48 - this.horizontalPadding(children[0])
+        if (
+          (this.isCommand || this.isOutline) &&
+          !child.isLabel &&
+          !child.isIcon &&
+          line.width < cmw
+        ) {
+          line.width = cmw
+        }
       }
 
       // Align extension category icons below notch
