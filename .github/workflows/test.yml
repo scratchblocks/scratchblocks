@@ -5,7 +5,7 @@ jobs:
   run:
     name: Run tests
     runs-on: ubuntu-20.04
-    if: ${{ github.actor !== 'github-actions[bot]' }}
+    if: github.actor != 'github-actions[bot]'
 
     steps:
       - name: Checkout
