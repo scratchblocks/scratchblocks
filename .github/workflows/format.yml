@@ -1,0 +1,32 @@
+name: Format code
+on: [push, pull_request]
+
+jobs:
+  run:
+    name: Format code
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ github.token }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+
+      - name: Install
+        run: npm ci
+
+      - name: Prettier
+        run: npm run fmt
+
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Format code using Prettier"
+          branch: ${{ github.head_ref }}
