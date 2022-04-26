@@ -10,6 +10,7 @@ if (process.env.GITHUB_WORKSPACE) process.chdir(process.env.GITHUB_WORKSPACE)
 const gitStatus = spawnSync("git", ["status"], {
   encoding: "utf-8",
 }).stdout
+console.log(gitStatus)
 const modifiedSnapshotFiles = Array.from(
   gitStatus.matchAll(/^\s*modified:\s*snapshots\/([\w-/]+)\.png$/gm),
   ([_, filename]) => filename
