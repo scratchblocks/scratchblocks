@@ -41,7 +41,7 @@ var overrideShapes = [
 export var rtlLanguages = ["ar", "ckb", "fa", "he"]
 
 // List of commands taken from Scratch
-var scratchCommands = require("./commands.js")
+import scratchCommands from "./commands"
 
 var inputNumberPat = /\%([0-9]+)/
 export var inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/

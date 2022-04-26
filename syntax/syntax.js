@@ -5,7 +5,7 @@ function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")
 }
 
-var {
+import {
   Label,
   Icon,
   Input,
@@ -14,9 +14,9 @@ var {
   Glow,
   Script,
   Document,
-} = require("./model.js")
+} from "./model"
 
-var {
+import {
   allLanguages,
   lookupDropdown,
   hexColorPat,
@@ -27,7 +27,7 @@ var {
   rtlLanguages,
   iconPat,
   blockName,
-} = require("./blocks.js")
+} from "./blocks"
 
 function paintBlock(info, children, languages) {
   var overrides = []
@@ -832,7 +832,7 @@ function recogniseStuff(scripts) {
   })
 }
 
-function parse(code, options) {
+export function parse(code, options) {
   var options = Object.assign(
     {
       inline: false,
@@ -863,8 +863,4 @@ function parse(code, options) {
   var scripts = parseScripts(f)
   recogniseStuff(scripts)
   return new Document(scripts)
-}
-
-module.exports = {
-  parse: parse,
 }

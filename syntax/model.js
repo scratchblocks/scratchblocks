@@ -27,7 +27,7 @@ function maybeNumber(v) {
   return v
 }
 
-var {
+import {
   blocksById,
   parseSpec,
   inputPat,
@@ -37,7 +37,7 @@ var {
   unicodeIcons,
   english,
   blockName,
-} = require("./blocks.js")
+} from "./blocks"
 
 /* Label */
 
