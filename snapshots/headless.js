@@ -9,7 +9,7 @@ import browserify from "browserify"
 function bundleScratchblocks() {
   return new Promise((resolve, reject) => {
     const client = browserify({
-      presets: ["@babel/preset-env"], 
+      presets: ["@babel/preset-env"],
       entries: ["snapshots/client.js"],
       cache: {},
       packageCache: {},
