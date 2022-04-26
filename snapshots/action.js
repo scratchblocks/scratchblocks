@@ -5,6 +5,8 @@ const { spawnSync } = require("child_process")
 const SNAPSHOTS = "./snapshots"
 const SNAPSHOT_DIFFS = "./snapshot-diffs"
 
+if (process.env.GITHUB_WORKSPACE) process.chdir(process.env.GITHUB_WORKSPACE)
+
 const gitStatus = spawnSync("git", ["status"], {
   encoding: "utf-8",
 }).stdout
