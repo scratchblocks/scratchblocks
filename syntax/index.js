@@ -1,6 +1,6 @@
-const { parse } = require("./syntax")
+export { parse } from "./syntax"
 
-const {
+export {
   Label,
   Icon,
   Input,
@@ -9,32 +9,12 @@ const {
   Glow,
   Script,
   Document,
-} = require("./model.js")
+} from "./model"
 
-const { allLanguages, loadLanguages } = require("./blocks.js")
+export { allLanguages, loadLanguages } from "./blocks"
 
-const {
+export {
   extensions,
   movedExtensions,
   aliasExtensions,
-} = require("./extensions.js")
-
-module.exports = {
-  allLanguages,
-  loadLanguages,
-
-  parse,
-
-  Label,
-  Icon,
-  Input,
-  Block,
-  Comment,
-  Glow,
-  Script,
-  Document,
-
-  extensions,
-  movedExtensions,
-  aliasExtensions,
-}
+} from "./extensions"

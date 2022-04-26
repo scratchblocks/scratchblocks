@@ -1,4 +1,4 @@
-const { extensions, aliasExtensions } = require("./extensions.js")
+import { extensions, aliasExtensions } from "./extensions"
 
 function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")
@@ -38,29 +38,29 @@ var overrideShapes = [
 ]
 
 // languages that should be displayed right to left
-var rtlLanguages = ["ar", "ckb", "fa", "he"]
+export var rtlLanguages = ["ar", "ckb", "fa", "he"]
 
 // List of commands taken from Scratch
 var scratchCommands = require("./commands.js")
 
 var inputNumberPat = /\%([0-9]+)/
-var inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
+export var inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
 var inputPatGlobal = new RegExp(inputPat.source, "g")
-var iconPat = /(@[a-zA-Z]+)/
+export var iconPat = /(@[a-zA-Z]+)/
 var splitPat = new RegExp(
   [inputPat.source, "|", iconPat.source, "| +"].join(""),
   "g"
 )
 
-var hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/
+export var hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/
 
-function parseInputNumber(part) {
+export function parseInputNumber(part) {
   var m = inputNumberPat.exec(part)
   return m ? +m[1] : 0
 }
 
 // used for procDefs
-function parseSpec(spec) {
+export function parseSpec(spec) {
   var parts = spec.split(splitPat).filter(x => !!x)
   var inputs = parts.filter(function (p) {
     return inputPat.test(p)
@@ -73,11 +73,11 @@ function parseSpec(spec) {
   }
 }
 
-function hashSpec(spec) {
+export function hashSpec(spec) {
   return minifyHash(spec.replace(inputPatGlobal, " _ "))
 }
 
-function minifyHash(hash) {
+export function minifyHash(hash) {
   return hash
     .replace(/_/g, " _ ")
     .replace(/ +/g, " ")
@@ -92,7 +92,7 @@ function minifyHash(hash) {
     .toLowerCase()
 }
 
-var blocksById = {}
+export var blocksById = {}
 var allBlocks = scratchCommands.map(function (def) {
   var spec = def.spec
   if (!def.id) {
@@ -118,7 +118,7 @@ var allBlocks = scratchCommands.map(function (def) {
   return info
 })
 
-var unicodeIcons = {
+export var unicodeIcons = {
   "@greenFlag": "⚑",
   "@turnRight": "↻",
   "@turnLeft": "↺",
@@ -126,7 +126,7 @@ var unicodeIcons = {
   "@delInput": "◂",
 }
 
-var allLanguages = {}
+export var allLanguages = {}
 function loadLanguage(code, language) {
   var blocksByHash = (language.blocksByHash = {})
 
@@ -183,13 +183,13 @@ function loadLanguage(code, language) {
   language.code = code
   allLanguages[code] = language
 }
-function loadLanguages(languages) {
+export function loadLanguages(languages) {
   Object.keys(languages).forEach(function (code) {
     loadLanguage(code, languages[code])
   })
 }
 
-var english = {
+export var english = {
   aliases: {
     "turn ccw %1 degrees": "MOTION_TURNLEFT",
     "turn left %1 degrees": "MOTION_TURNLEFT",
@@ -399,7 +399,7 @@ specialCase("CONTROL_STOP", function (info, children, lang) {
   }
 })
 
-function lookupHash(hash, info, children, languages) {
+export function lookupHash(hash, info, children, languages) {
   for (var i = 0; i < languages.length; i++) {
     var lang = languages[i]
     if (lang.blocksByHash.hasOwnProperty(hash)) {
@@ -427,7 +427,7 @@ function lookupHash(hash, info, children, languages) {
   }
 }
 
-function lookupDropdown(name, languages) {
+export function lookupDropdown(name, languages) {
   for (var i = 0; i < languages.length; i++) {
     var lang = languages[i]
     if (lang.nativeDropdowns.hasOwnProperty(name)) {
@@ -437,7 +437,7 @@ function lookupDropdown(name, languages) {
   }
 }
 
-function applyOverrides(info, overrides) {
+export function applyOverrides(info, overrides) {
   for (var i = 0; i < overrides.length; i++) {
     var name = overrides[i]
     if (hexColorPat.test(name)) {
@@ -457,7 +457,7 @@ function applyOverrides(info, overrides) {
   }
 }
 
-function blockName(block) {
+export function blockName(block) {
   var words = []
   for (var i = 0; i < block.children.length; i++) {
     var child = block.children[i]
@@ -465,27 +465,4 @@ function blockName(block) {
     words.push(child.value)
   }
   return words.join(" ")
-}
-
-module.exports = {
-  loadLanguages,
-
-  blockName,
-
-  allLanguages,
-  lookupDropdown,
-  hexColorPat,
-  minifyHash,
-  lookupHash,
-  applyOverrides,
-  rtlLanguages,
-  iconPat,
-  hashSpec,
-
-  parseSpec,
-  parseInputNumber,
-  inputPat,
-  unicodeIcons,
-  english,
-  blocksById,
 }
