@@ -1,5 +1,5 @@
 // Processed by Rollup
-module.exports = `
+export default `
 .sb3-label {
   font: 500 12pt Helevetica Neue, Helvetica, sans-serif;
   fill: #fff;
