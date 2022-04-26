@@ -1,4 +1,4 @@
-const { test } = require("./runner")
+import { test } from "./runner.js"
 
 // Scratch 2, English
 

@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
-const fs = require("fs")
-const util = require("util")
+import fs from "fs"
+import util from "util"
 const fs_writeFile = util.promisify(fs.writeFile)
 
-const browserify = require("browserify")
+import browserify from "browserify"
 
 function bundleScratchblocks() {
   return new Promise((resolve, reject) => {
     const client = browserify({
+      presets: ["@babel/preset-env"], 
       entries: ["snapshots/client.js"],
       cache: {},
       packageCache: {},
@@ -30,7 +31,7 @@ function bundleScratchblocks() {
   })
 }
 
-const puppeteer = require("puppeteer")
+import puppeteer from "puppeteer"
 
 let browser
 let page
@@ -84,6 +85,4 @@ class Renderer {
   }
 }
 
-const globalRenderer = new Renderer()
-
-module.exports = globalRenderer
+export default new Renderer()
