@@ -1,6 +1,6 @@
-import SVG from "./draw"
-import Filter from "./filter"
-import cssContent from "./style.css"
+import SVG from "./draw.js"
+import Filter from "./filter.js"
+import cssContent from "./style.css.js"
 
 export default Style = {
   cssContent: cssContent,

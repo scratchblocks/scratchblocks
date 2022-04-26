@@ -1,5 +1,5 @@
-import SVG from "./draw"
-import cssContent from "./style.css"
+import SVG from "./draw.js"
+import cssContent from "./style.css.js"
 
 export default Style = {
   cssContent: cssContent,

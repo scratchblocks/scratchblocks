@@ -1,6 +1,6 @@
-import SVG from "./draw"
-import { LabelView } from "./blocks"
-import style from "./style"
+import SVG from "./draw.js"
+import { LabelView } from "./blocks.js"
+import style from "./style.js"
 
 export function init(window) {
   SVG.init(window)
@@ -12,4 +12,4 @@ export function init(window) {
 }
 
 export const makeStyle = styles.makeStyle
-export { newView } from "./blocks"
+export { newView } from "./blocks.js"

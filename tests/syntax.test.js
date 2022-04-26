@@ -1,12 +1,12 @@
 
 import { parse, loadLanguages, allLanguages } from '../syntax'
 
-import de from "../locales/de"
-import ja from "../locales/ja"
-import ko from "../locales/ko"
-import pt_br from "../locales/pt-br"
-import rap from "../locales/rap"
-import uz from "../locales/uz"
+import de from "../locales/de.json"
+import ja from "../locales/ja.json"
+import ko from "../locales/ko.json"
+import pt_br from "../locales/pt-br.json"
+import rap from "../locales/rap.json"
+import uz from "../locales/uz.json"
 
 loadLanguages({
   de,

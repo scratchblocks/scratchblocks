@@ -1,4 +1,4 @@
-import { extensions, aliasExtensions } from "./extensions"
+import { extensions, aliasExtensions } from "./extensions.js"
 
 function assert(bool, message) {
   if (!bool) throw "Assertion failed! " + (message || "")
@@ -41,7 +41,7 @@ var overrideShapes = [
 export var rtlLanguages = ["ar", "ckb", "fa", "he"]
 
 // List of commands taken from Scratch
-import scratchCommands from "./commands"
+import scratchCommands from "./commands.js"
 
 var inputNumberPat = /\%([0-9]+)/
 export var inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/

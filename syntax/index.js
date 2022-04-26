@@ -1,4 +1,4 @@
-export { parse } from "./syntax"
+export { parse } from "./syntax.js"
 
 export {
   Label,
@@ -9,8 +9,8 @@ export {
   Glow,
   Script,
   Document,
-} from "./model"
+} from "./model.js"
 
-export { allLanguages, loadLanguages } from "./blocks"
+export { allLanguages, loadLanguages } from "./blocks.js"
 
-export { extensions, movedExtensions, aliasExtensions } from "./extensions"
+export { extensions, movedExtensions, aliasExtensions } from "./extensions.js"

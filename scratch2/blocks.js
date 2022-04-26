@@ -12,9 +12,9 @@ import {
   aliasExtensions,
 } from "../syntax"
 
-import SVG from "./draw"
+import SVG from "./draw.js"
 
-import style from "./style"
+import style from "./style.js"
 const {
   defaultFontFamily,
   makeStyle,

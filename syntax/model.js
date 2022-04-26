@@ -37,7 +37,7 @@ import {
   unicodeIcons,
   english,
   blockName,
-} from "./blocks"
+} from "./blocks.js"
 
 /* Label */
 

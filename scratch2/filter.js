@@ -2,7 +2,7 @@ function extend(src, dest) {
   return Object.assign({}, src, dest)
 }
 
-import SVG from "./draw"
+import SVG from "./draw.js"
 
 export default Filter = function (id, props) {
   this.el = SVG.el(

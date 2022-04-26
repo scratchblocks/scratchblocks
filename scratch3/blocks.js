@@ -11,8 +11,8 @@ import {
   aliasExtensions,
 } from "../syntax"
 
-import SVG from "./draw"
-import style from "./style"
+import SVG from "./draw.js"
+import style from "./style.js"
 const { defaultFont, commentFont, makeStyle, makeIcons } = style
 
 /* Label */

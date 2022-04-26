@@ -14,7 +14,7 @@ import {
   Glow,
   Script,
   Document,
-} from "./model"
+} from "./model.js"
 
 import {
   allLanguages,
@@ -27,7 +27,7 @@ import {
   rtlLanguages,
   iconPat,
   blockName,
-} from "./blocks"
+} from "./blocks.js"
 
 function paintBlock(info, children, languages) {
   var overrides = []
