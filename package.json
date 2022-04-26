@@ -24,7 +24,6 @@
     "locales": "node locales-src/build-locales.js",
     "rollup": "rollup -c",
     "snapshots": "node ./snapshots/index.js",
-    "snapshots-test": "npm run snapshots & node ./snapshots/action.js",
     "start": "rollup -c -m -w",
     "test": "jest"
   },
