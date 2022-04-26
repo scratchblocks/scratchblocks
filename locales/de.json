@@ -1,6 +1,6 @@
 {
   "commands": {
-    "MOTION_MOVESTEPS": "gehe %1 er Schritt",
+    "MOTION_MOVESTEPS": "gehe %1 er Schritt REVERT ME",
     "MOTION_TURNRIGHT": "drehe dich @turnRight um %1 Grad",
     "MOTION_TURNLEFT": "drehe dich @turnLeft um %1 Grad",
     "MOTION_POINTINDIRECTION": "setze Richtung auf %1 Grad",
