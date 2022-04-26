@@ -1,4 +1,4 @@
-const {
+import {
   Label,
   Icon,
   Input,
@@ -10,10 +10,11 @@ const {
   extensions,
   movedExtensions,
   aliasExtensions,
-} = require("../syntax")
+} from "../syntax"
 
-const SVG = require("./draw.js")
+import SVG from "./draw"
 
+import style from "./style"
 const {
   defaultFontFamily,
   makeStyle,
@@ -21,11 +22,11 @@ const {
   darkRect,
   bevelFilter,
   darkFilter,
-} = require("./style.js")
+} = style
 
 /* Label */
 
-var LabelView = function (label) {
+export var LabelView = function (label) {
   Object.assign(this, label)
 
   this.el = null
@@ -744,9 +745,4 @@ const viewFor = node => {
   }
 }
 
-const newView = (node, options) => new (viewFor(node))(node, options)
-
-module.exports = {
-  newView,
-  LabelView,
-}
+export const newView = (node, options) => new (viewFor(node))(node, options)

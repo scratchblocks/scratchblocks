@@ -2,9 +2,9 @@ function extend(src, dest) {
   return Object.assign({}, src, dest)
 }
 
-var SVG = require("./draw.js")
+import SVG from "./draw"
 
-var Filter = function (id, props) {
+export default Filter = function (id, props) {
   this.el = SVG.el(
     "filter",
     extend(props, {
@@ -84,5 +84,3 @@ Filter.prototype.merge = function (children) {
     })
   )
 }
-
-module.exports = Filter

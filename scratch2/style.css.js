@@ -1,5 +1,5 @@
 // Processed by Rollup
-module.exports = `
+export default `
 .sb-label {
   font-family: Lucida Grande, Verdana, Arial, DejaVu Sans, sans-serif;
   font-weight: bold;

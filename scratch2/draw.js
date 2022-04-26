@@ -15,7 +15,7 @@ var directProps = {
   textContent: true,
 }
 
-var SVG = (module.exports = {
+export default SVG = {
   init(window) {
     document = window.document
     var DOMParser = window.DOMParser
@@ -540,4 +540,4 @@ var SVG = (module.exports = {
       })
     )
   },
-})
+}
