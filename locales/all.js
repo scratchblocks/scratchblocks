@@ -1,75 +1,73 @@
-module.exports = {
-  ab: require("./ab.json"),
-  af: require("./af.json"),
-  am: require("./am.json"),
-  an: require("./an.json"),
-  ar: require("./ar.json"),
-  az: require("./az.json"),
-  be: require("./be.json"),
-  bg: require("./bg.json"),
-  bn: require("./bn.json"),
-  ca: require("./ca.json"),
-  ckb: require("./ckb.json"),
-  cs: require("./cs.json"),
-  cy: require("./cy.json"),
-  da: require("./da.json"),
-  de: require("./de.json"),
-  el: require("./el.json"),
-  es: require("./es.json"),
-  es_419: require("./es-419.json"),
-  et: require("./et.json"),
-  eu: require("./eu.json"),
-  fa: require("./fa.json"),
-  fi: require("./fi.json"),
-  fr: require("./fr.json"),
-  fy: require("./fy.json"),
-  ga: require("./ga.json"),
-  gd: require("./gd.json"),
-  gl: require("./gl.json"),
-  he: require("./he.json"),
-  hr: require("./hr.json"),
-  ht: require("./ht.json"),
-  hu: require("./hu.json"),
-  hy: require("./hy.json"),
-  id: require("./id.json"),
-  is: require("./is.json"),
-  it: require("./it.json"),
-  ja: require("./ja.json"),
-  ja_Hira: require("./ja-Hira.json"),
-  ka: require("./ka.json"),
-  kk: require("./kk.json"),
-  km: require("./km.json"),
-  ko: require("./ko.json"),
-  ku: require("./ku.json"),
-  lt: require("./lt.json"),
-  lv: require("./lv.json"),
-  mi: require("./mi.json"),
-  mn: require("./mn.json"),
-  nb: require("./nb.json"),
-  nl: require("./nl.json"),
-  nn: require("./nn.json"),
-  nso: require("./nso.json"),
-  or: require("./or.json"),
-  pl: require("./pl.json"),
-  pt: require("./pt.json"),
-  pt_br: require("./pt-br.json"),
-  qu: require("./qu.json"),
-  rap: require("./rap.json"),
-  ro: require("./ro.json"),
-  ru: require("./ru.json"),
-  sk: require("./sk.json"),
-  sl: require("./sl.json"),
-  sr: require("./sr.json"),
-  sv: require("./sv.json"),
-  sw: require("./sw.json"),
-  th: require("./th.json"),
-  tn: require("./tn.json"),
-  tr: require("./tr.json"),
-  uk: require("./uk.json"),
-  uz: require("./uz.json"),
-  vi: require("./vi.json"),
-  xh: require("./xh.json"),
-  zh_cn: require("./zh-cn.json"),
-  zh_tw: require("./zh-tw.json"),
-  zu: require("./zu.json"),
-}
+import ab from "./ab.json"
+import af from "./af.json"
+import am from "./am.json"
+import an from "./an.json"
+import ar from "./ar.json"
+import az from "./az.json"
+import be from "./be.json"
+import bg from "./bg.json"
+import bn from "./bn.json"
+import ca from "./ca.json"
+import ckb from "./ckb.json"
+import cs from "./cs.json"
+import cy from "./cy.json"
+import da from "./da.json"
+import de from "./de.json"
+import el from "./el.json"
+import es from "./es.json"
+import es_419 from "./es-419.json"
+import et from "./et.json"
+import eu from "./eu.json"
+import fa from "./fa.json"
+import fi from "./fi.json"
+import fr from "./fr.json"
+import fy from "./fy.json"
+import ga from "./ga.json"
+import gd from "./gd.json"
+import gl from "./gl.json"
+import he from "./he.json"
+import hr from "./hr.json"
+import ht from "./ht.json"
+import hu from "./hu.json"
+import hy from "./hy.json"
+import id from "./id.json"
+import is from "./is.json"
+import it from "./it.json"
+import ja from "./ja.json"
+import ja_Hira from "./ja-Hira.json"
+import ka from "./ka.json"
+import kk from "./kk.json"
+import km from "./km.json"
+import ko from "./ko.json"
+import ku from "./ku.json"
+import lt from "./lt.json"
+import lv from "./lv.json"
+import mi from "./mi.json"
+import mn from "./mn.json"
+import nb from "./nb.json"
+import nl from "./nl.json"
+import nn from "./nn.json"
+import nso from "./nso.json"
+import or from "./or.json"
+import pl from "./pl.json"
+import pt from "./pt.json"
+import pt_br from "./pt-br.json"
+import qu from "./qu.json"
+import rap from "./rap.json"
+import ro from "./ro.json"
+import ru from "./ru.json"
+import sk from "./sk.json"
+import sl from "./sl.json"
+import sr from "./sr.json"
+import sv from "./sv.json"
+import sw from "./sw.json"
+import th from "./th.json"
+import tn from "./tn.json"
+import tr from "./tr.json"
+import uk from "./uk.json"
+import uz from "./uz.json"
+import vi from "./vi.json"
+import xh from "./xh.json"
+import zh_cn from "./zh-cn.json"
+import zh_tw from "./zh-tw.json"
+import zu from "./zu.json"
