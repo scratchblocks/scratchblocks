@@ -13,8 +13,4 @@ export {
 
 export { allLanguages, loadLanguages } from "./blocks"
 
-export {
-  extensions,
-  movedExtensions,
-  aliasExtensions,
-} from "./extensions"
+export { extensions, movedExtensions, aliasExtensions } from "./extensions"
