@@ -27,9 +27,7 @@ jobs:
         run: npm run test
       
       - name: Snapshot Test
-        run: |
-          npm run snapshots
-          node ./snapshots/action.js
+        run: npm run snapshots-test
       
       - name: Upload snapshot files
         if: ${{ failure() }}
