@@ -1,2 +1,2 @@
-var languages = require("../locales/all")
+import * as languages from "../locales/all.js"
 window.scratchblocks.loadLanguages(languages)
