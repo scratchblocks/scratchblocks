@@ -12,6 +12,7 @@
   "bugs": {
     "url": "https://github.com/scratchblocks/scratchblocks/issues"
   },
+  "type": "module",
   "main": "build/scratchblocks.min.js",
   "module": "build/scratchblocks.min.es.js",
   "directories": {
