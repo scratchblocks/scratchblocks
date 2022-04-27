@@ -117,6 +117,7 @@ export default {
     // Catalan
     "gira a l'esquerra %1 graus": "MOTION_TURNLEFT",
     "gira a la dreta %1 graus": "MOTION_TURNRIGHT",
+    "quan la bandera verda es cliqui": "EVENT_WHENFLAGCLICKED",
     "quan la bandera verda es premi": "EVENT_WHENFLAGCLICKED",
     fi: "scratchblocks:end",
   },

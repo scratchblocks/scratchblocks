@@ -1,0 +1,32 @@
+name: Run tests
+on: [push, pull_request]
+
+jobs:
+  run:
+    name: Run tests
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ github.token }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm run test
+
+      - name: Check whether locales build
+        run: npm run locales
+
+      - name: Check whether the code builds
+        run: npm run build
