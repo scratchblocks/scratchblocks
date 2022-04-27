@@ -24,3 +24,9 @@ jobs:
 
       - name: Test
         run: npm run test
+
+      - name: Check whether locales build
+        run: npm run locales
+
+      - name: Check whether the code builds
+        run: npm run build
