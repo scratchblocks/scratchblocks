@@ -11,5 +11,5 @@ export function init(window) {
   })()
 }
 
-export const makeStyle = styles.makeStyle
+export const makeStyle = style.makeStyle
 export { newView } from "./blocks.js"

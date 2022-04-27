@@ -1,3 +1,8 @@
-const scratchblocks = require("./index")(window)
+import init from "./index.js"
+
+const scratchblocks = init(window)
+
+// add our CSS to the page
 scratchblocks.appendStyles()
-module.exports = scratchblocks
+
+export default scratchblocks

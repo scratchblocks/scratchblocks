@@ -4,6 +4,7 @@ function extend(src, dest) {
 
 import SVG from "./draw.js"
 
+var Filter
 export default Filter = function (id, props) {
   this.el = SVG.el(
     "filter",

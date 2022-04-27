@@ -15,6 +15,7 @@ var directProps = {
   textContent: true,
 }
 
+let SVG
 export default SVG = {
   init(window) {
     document = window.document

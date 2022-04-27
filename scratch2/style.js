@@ -2,6 +2,7 @@ import SVG from "./draw.js"
 import Filter from "./filter.js"
 import cssContent from "./style.css.js"
 
+var Style
 export default Style = {
   cssContent: cssContent,
 

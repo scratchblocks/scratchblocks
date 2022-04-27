@@ -1,6 +1,7 @@
 import SVG from "./draw.js"
 import cssContent from "./style.css.js"
 
+var Style
 export default Style = {
   cssContent: cssContent,
 

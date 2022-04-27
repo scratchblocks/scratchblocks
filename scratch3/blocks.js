@@ -9,7 +9,7 @@ import {
   Document,
   extensions,
   aliasExtensions,
-} from "../syntax"
+} from "../syntax/index.js"
 
 import SVG from "./draw.js"
 import style from "./style.js"

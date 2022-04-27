@@ -7,6 +7,7 @@
  * http://opensource.org/licenses/MIT
  */
 import {
+  parse,
   allLanguages,
   loadLanguages,
   Label,
@@ -16,9 +17,9 @@ import {
   Comment,
   Script,
   Document,
-} from "./syntax"
-import * as scratch2 from "./scratch2"
-import * as scratch3 from "./scratch3"
+} from "./syntax/index.js"
+import * as scratch2 from "./scratch2/index.js"
+import * as scratch3 from "./scratch3/index.js"
 
 export default function (window) {
   var document = window.document
@@ -29,10 +30,6 @@ export default function (window) {
   function appendStyles() {
     document.head.appendChild(scratch2.makeStyle())
     document.head.appendChild(scratch3.makeStyle())
-  }
-
-  function parse(code, options) {
-    return syntax.parse(code, options)
   }
 
   function newView(doc, options) {

@@ -10,7 +10,7 @@ import {
   extensions,
   movedExtensions,
   aliasExtensions,
-} from "../syntax"
+} from "../syntax/index.js"
 
 import SVG from "./draw.js"
 
