@@ -48,13 +48,13 @@ export class Label {
     this.metrics = null
     this.x = 0
   }
+  isLabel = true
 
   stringify() {
     if (this.value === "<" || this.value === ">") return this.value
     return this.value.replace(/([<>[\](){}])/g, "\\$1")
   }
 }
-Label.prototype.isLabel = true
 
 export class Icon {
   constructor(name) {
@@ -63,6 +63,7 @@ export class Icon {
 
     assert(Icon.icons[name], "no info for icon " + name)
   }
+  isIcon = true
 
   static icons = {
     greenFlag: true,
@@ -79,7 +80,6 @@ export class Icon {
     return unicodeIcons["@" + this.name] || ""
   }
 }
-Icon.prototype.isIcon = true
 
 export class Input {
   constructor(shape, value, menu) {
@@ -105,6 +105,7 @@ export class Input {
       : null
     this.x = 0
   }
+  isInput = true
 
   stringify() {
     if (this.isColor) {
@@ -134,7 +135,6 @@ export class Input {
     }
   }
 }
-Input.prototype.isInput = true
 
 export class Block {
   constructor(info, children, comment) {
@@ -162,6 +162,7 @@ export class Block {
     this.isElse = shape === "celse"
     this.isEnd = shape === "cend"
   }
+  isBlock = true
 
   stringify(extras) {
     var firstInput = null
@@ -292,7 +293,6 @@ export class Block {
     this.info.categoryIsDefault = true
   }
 }
-Block.prototype.isBlock = true
 
 export class Comment {
   constructor(value, hasBlock) {
@@ -300,12 +300,12 @@ export class Comment {
     this.width = null
     this.hasBlock = hasBlock
   }
+  isComment = true
 
   stringify() {
     return "// " + this.label.value
   }
 }
-Comment.prototype.isComment = true
 
 export class Glow {
   constructor(child) {
@@ -318,6 +318,7 @@ export class Glow {
       this.shape = "stack"
     }
   }
+  isGlow = true
 
   stringify() {
     if (this.child.isBlock) {
@@ -332,7 +333,6 @@ export class Glow {
     this.child.translate(lang)
   }
 }
-Glow.prototype.isGlow = true
 
 export class Script {
   constructor(blocks) {
@@ -340,6 +340,7 @@ export class Script {
     this.isEmpty = !blocks.length
     this.isFinal = !this.isEmpty && blocks[blocks.length - 1].isFinal
   }
+  isScript = true
 
   stringify() {
     return this.blocks
@@ -357,7 +358,6 @@ export class Script {
     })
   }
 }
-Script.prototype.isScript = true
 
 export class Document {
   constructor(scripts) {
