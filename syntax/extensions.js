@@ -7,13 +7,13 @@
 */
 
 // Moved extensions: key is scratch3, value is scratch2
-const movedExtensions = {
+export const movedExtensions = {
   pen: "pen",
   video: "sensing",
   music: "sound",
 }
 
-const extensions = {
+export const extensions = {
   ...movedExtensions,
   tts: "tts",
   translate: "translate",
@@ -27,13 +27,7 @@ const extensions = {
 
 // Alias extensions: unlike movedExtensions, this is handled for both scratch2 and scratch3.
 // Key is alias, value is real extension name
-const aliasExtensions = {
+export const aliasExtensions = {
   wedo2: "wedo",
   text2speech: "tts",
-}
-
-module.exports = {
-  extensions,
-  movedExtensions,
-  aliasExtensions,
 }

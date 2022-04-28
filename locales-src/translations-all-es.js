@@ -1,3 +1,5 @@
-const languages = require("../locales/all")
-module.exports = scratchblocks => scratchblocks.loadLanguages(languages)
-module.exports.languages = languages
+import languages from "../locales/all.js"
+export default function init(scratchblocks) {
+  scratchblocks.loadLanguages(languages)
+}
+init.languages = languages

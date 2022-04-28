@@ -1,19 +1,37 @@
-module.exports = {
-  de: require("./de.json"),
-  es: require("./es.json"),
-  fr: require("./fr.json"),
-  zh_cn: require("./zh-cn.json"),
-  pl: require("./pl.json"),
-  ja: require("./ja.json"),
-  nl: require("./nl.json"),
-  pt: require("./pt.json"),
-  it: require("./it.json"),
-  he: require("./he.json"),
-  ko: require("./ko.json"),
-  nb: require("./nb.json"),
-  tr: require("./tr.json"),
-  el: require("./el.json"),
-  ru: require("./ru.json"),
-  ca: require("./ca.json"),
-  id: require("./id.json"),
+import de from "./de.json"
+import es from "./es.json"
+import fr from "./fr.json"
+import zh_cn from "./zh-cn.json"
+import pl from "./pl.json"
+import ja from "./ja.json"
+import nl from "./nl.json"
+import pt from "./pt.json"
+import it from "./it.json"
+import he from "./he.json"
+import ko from "./ko.json"
+import nb from "./nb.json"
+import tr from "./tr.json"
+import el from "./el.json"
+import ru from "./ru.json"
+import ca from "./ca.json"
+import id from "./id.json"
+
+export default {
+  de,
+  es,
+  fr,
+  zh_cn,
+  pl,
+  ja,
+  nl,
+  pt,
+  it,
+  he,
+  ko,
+  nb,
+  tr,
+  el,
+  ru,
+  ca,
+  id,
 }

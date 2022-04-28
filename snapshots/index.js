@@ -1,6 +1,6 @@
-const headless = require("./headless")
-const { runTests } = require("./runner")
-require("./tests")
+import headless from "./headless.js"
+import { runTests } from "./runner.js"
+import {} from "./tests.js"
 ;(async () => {
   await headless.start()
 

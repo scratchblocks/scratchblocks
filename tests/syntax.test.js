@@ -1,13 +1,20 @@
 
-const { parse, loadLanguages, allLanguages } = require('../syntax')
+import { parse, loadLanguages, allLanguages } from '../syntax'
+
+import de from "../locales/de.json"
+import ja from "../locales/ja.json"
+import ko from "../locales/ko.json"
+import pt_br from "../locales/pt-br.json"
+import rap from "../locales/rap.json"
+import uz from "../locales/uz.json"
 
 loadLanguages({
-  de: require('../locales/de'),
-  ja: require('../locales/ja'),
-  ko: require('../locales/ko'),
-  pt_br: require('../locales/pt-br'),
-  rap: require('../locales/rap'),
-  uz: require('../locales/uz'),
+  de,
+  ja,
+  ko,
+  pt_br,
+  rap,
+  uz,
 })
 const optionsFor = (code) => ({
   languages: ['en', code],

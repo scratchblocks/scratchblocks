@@ -1,7 +1,8 @@
-var SVG = require("./draw.js")
-var cssContent = require("./style.css.js")
+import SVG from "./draw.js"
+import cssContent from "./style.css.js"
 
-var Style = (module.exports = {
+var Style
+export default Style = {
   cssContent: cssContent,
 
   makeIcons() {
@@ -574,4 +575,4 @@ var Style = (module.exports = {
 
   defaultFont: "500 12pt Helevetica Neue, Helvetica, sans-serif",
   commentFont: "400 12pt Helevetica Neue, Helvetica, sans-serif",
-})
+}

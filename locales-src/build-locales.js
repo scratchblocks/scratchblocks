@@ -1,29 +1,43 @@
-const fs = require("fs")
-const path = require("path")
-const { promisify } = require("util")
+import fs from "fs"
+import path from "path"
+import { promisify } from "util"
 const readDir = promisify(fs.readdir)
 const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 
-const scratchCommands = require("../syntax/commands")
-const blocks = require("../syntax/blocks")
-const extraAliases = require("./extra_aliases")
+import scratchCommands from "../syntax/commands.js"
+import extraAliases from "./extra_aliases.js"
 
-const localeNames = require("scratch-l10n").default
+import scratch_l10n from "scratch-l10n"
+// We can't `import {default}` since it's a reserved word.
+const localeNames = scratch_l10n.default
+
+const readJSONFile = async path => {
+  const contents = await readFile(path, "utf-8")
+  const result = JSON.parse(contents)
+  return result
+}
 
 let english
-const rawLocales = []
-for (let code in localeNames) {
-  const raw = {
-    code: code,
-    mappings: require("scratch-l10n/editor/blocks/" + code),
-    extensionMappings: require("scratch-l10n/editor/extensions/" + code),
+const rawLocales = async () => {
+  const result = []
+  for (let code in localeNames) {
+    const raw = {
+      code: code,
+      mappings: await readJSONFile(
+        `node_modules/scratch-l10n/editor/blocks/${code}.json`
+      ),
+      extensionMappings: await readJSONFile(
+        `node_modules/scratch-l10n/editor/extensions/${code}.json`
+      ),
+    }
+    if (code === "en") {
+      english = raw
+    } else {
+      result.push(raw)
+    }
   }
-  if (code === "en") {
-    english = raw
-  } else {
-    rawLocales.push(raw)
-  }
+  return result
 }
 
 const soundEffects = ["SOUND_EFFECTS_PITCH", "SOUND_EFFECTS_PAN"]
@@ -233,18 +247,22 @@ const convertFile = async rawLocale => {
 
 const writeIndex = async codes => {
   let contents = ""
-  contents += "module.exports = {\n"
   for (let code of codes) {
-    contents += `  ${code.replace(/-/g, "_")}: require("./${code}.json"),\n`
+    contents += `import ${code.replace(/-/g, "_")} from "./${code}.json"\n`
   }
-  contents += "}\n"
+  contents += `\n`
+  contents += `export default {\n`
+  for (let code of codes) {
+    contents += `  ${code.replace(/-/g, "_")},\n`
+  }
+  contents += `}\n`
 
   const outputPath = path.join("locales", "all.js")
   await writeFile(outputPath, contents, "utf-8")
 }
 
 const main = async () => {
-  const locales = await Promise.all(rawLocales.map(convertFile))
+  const locales = await Promise.all((await rawLocales()).map(convertFile))
   const validLocales = locales.filter(x => !!x)
 
   // check every extra language was used

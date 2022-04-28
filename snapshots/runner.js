@@ -1,8 +1,8 @@
-const path = require("path")
+import path from "path"
 
 const tests = []
 
-function test(style, name, source, lang) {
+export function test(style, name, source, lang) {
   tests.push({
     style,
     name,
@@ -11,7 +11,7 @@ function test(style, name, source, lang) {
   })
 }
 
-function runTests(r) {
+export function runTests(r) {
   return Promise.all(
     tests.map(tc => {
       const outputPath = path.join(
@@ -31,9 +31,4 @@ function runTests(r) {
       })()
     })
   )
-}
-
-module.exports = {
-  test,
-  runTests,
 }

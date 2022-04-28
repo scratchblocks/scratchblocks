@@ -1,18 +1,15 @@
-var SVG = require("./draw")
-var blocks = require("./blocks")
-var style = require("./style")
+import SVG from "./draw.js"
+import { LabelView } from "./blocks.js"
+import style from "./style.js"
 
-function init(window) {
+export function init(window) {
   SVG.init(window)
 
-  blocks.LabelView.measuring = (function () {
+  LabelView.measuring = (function () {
     var canvas = SVG.makeCanvas()
     return canvas.getContext("2d")
   })()
 }
 
-module.exports = {
-  init: init,
-  newView: blocks.newView,
-  makeStyle: style.makeStyle,
-}
+export const makeStyle = style.makeStyle
+export { newView } from "./blocks.js"

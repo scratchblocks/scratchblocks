@@ -6,44 +6,30 @@
  * @license MIT
  * http://opensource.org/licenses/MIT
  */
-module.exports = function (window) {
-  "use strict"
+import {
+  parse,
+  allLanguages,
+  loadLanguages,
+  Label,
+  Icon,
+  Input,
+  Block,
+  Comment,
+  Script,
+  Document,
+} from "./syntax/index.js"
+import * as scratch2 from "./scratch2/index.js"
+import * as scratch3 from "./scratch3/index.js"
 
+export default function (window) {
   var document = window.document
 
-  /* utils */
-
-  /*****************************************************************************/
-
-  const syntax = require("./syntax")
-  const {
-    allLanguages,
-    loadLanguages,
-
-    Label,
-    Icon,
-    Input,
-    Block,
-    Comment,
-    Script,
-    Document,
-  } = syntax
-
-  /*****************************************************************************/
-
-  var scratch2 = require("./scratch2")
   scratch2.init(window)
-
-  var scratch3 = require("./scratch3")
   scratch3.init(window)
 
   function appendStyles() {
     document.head.appendChild(scratch2.makeStyle())
     document.head.appendChild(scratch3.makeStyle())
-  }
-
-  function parse(code, options) {
-    return syntax.parse(code, options)
   }
 
   function newView(doc, options) {

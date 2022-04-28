@@ -8,7 +8,7 @@
  *  - 'end' (written after a 'C' block)
  */
 
-module.exports = {
+export default {
   de: {
     // German
     "drehe dich nach links um %1 Grad": "MOTION_TURNLEFT",

@@ -1,8 +1,9 @@
-var SVG = require("./draw.js")
-var Filter = require("./filter.js")
-var cssContent = require("./style.css.js")
+import SVG from "./draw.js"
+import Filter from "./filter.js"
+import cssContent from "./style.css.js"
 
-var Style = (module.exports = {
+var Style
+export default Style = {
   cssContent: cssContent,
 
   makeIcons() {
@@ -207,4 +208,4 @@ var Style = (module.exports = {
   },
 
   defaultFontFamily: "Lucida Grande, Verdana, Arial, DejaVu Sans, sans-serif",
-})
+}

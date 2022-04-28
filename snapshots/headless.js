@@ -1,39 +1,11 @@
 #!/usr/bin/env node
 
-const fs = require("fs")
-const util = require("util")
+import fs from "fs"
+import util from "util"
 const fs_writeFile = util.promisify(fs.writeFile)
 
-const browserify = require("browserify")
-
-function bundleScratchblocks() {
-  return new Promise((resolve, reject) => {
-    const client = browserify({
-      entries: ["snapshots/client.js"],
-      cache: {},
-      packageCache: {},
-      detectGlobals: false,
-    })
-
-    const stream = client.bundle()
-    stream.on("error", err => {
-      reject(new Error(err))
-    })
-
-    const chunks = []
-    stream.on("data", data => {
-      chunks.push(data)
-    })
-    stream.on("end", () => {
-      return resolve(Buffer.concat(chunks))
-    })
-  })
-}
-
-const puppeteer = require("puppeteer")
-
-let browser
-let page
+import puppeteer from "puppeteer"
+import express from "express"
 
 const parseDataUrl = url => {
   const match = url.match(/^data:image\/png;base64,(.+)$/)
@@ -49,20 +21,24 @@ class Renderer {
   }
 
   async start() {
-    const scriptContents = await bundleScratchblocks()
-
-    const html = `<!doctype html>
-    <meta charset=utf-8>
-    <script>${scriptContents}</script>
-    `
-
+    const app = express()
+    app.use(express.static("."))
+    await new Promise(resolve => {
+      this.server = app.listen(8002, resolve)
+    })
     this.browser = await puppeteer.launch({
       //headless: false,
       //slowMo: 250,
     })
     this.page = await this.browser.newPage()
+    this.page.on("pageerror", e => {
+      throw new Error("Page threw uncaught exception", { cause: e })
+    })
 
-    await this.page.setContent(html)
+    await this.page.goto(
+      "http://localhost:8002/snapshots/snapshot-testing.html"
+    )
+    await this.page.waitForFunction("window.scratchblocksLoaded")
   }
 
   async snapshot(script, options) {
@@ -81,9 +57,8 @@ class Renderer {
 
   async stop() {
     await this.browser.close()
+    if (this.server) this.server.close()
   }
 }
 
-const globalRenderer = new Renderer()
-
-module.exports = globalRenderer
+export default new Renderer()

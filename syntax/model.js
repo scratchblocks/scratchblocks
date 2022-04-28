@@ -27,7 +27,7 @@ function maybeNumber(v) {
   return v
 }
 
-var {
+import {
   blocksById,
   parseSpec,
   inputPat,
@@ -37,11 +37,11 @@ var {
   unicodeIcons,
   english,
   blockName,
-} = require("./blocks.js")
+} from "./blocks.js"
 
 /* Label */
 
-var Label = function (value, cls) {
+export var Label = function (value, cls) {
   this.value = value
   this.cls = cls || ""
   this.el = null
@@ -58,7 +58,7 @@ Label.prototype.stringify = function () {
 
 /* Icon */
 
-var Icon = function (name) {
+export var Icon = function (name) {
   this.name = name
   this.isArrow = name === "loopArrow"
 
@@ -83,7 +83,7 @@ Icon.prototype.stringify = function () {
 
 /* Input */
 
-var Input = function (shape, value, menu) {
+export var Input = function (shape, value, menu) {
   this.shape = shape
   this.value = value
   this.menu = menu || null
@@ -136,7 +136,7 @@ Input.prototype.translate = function (lang) {
 
 /* Block */
 
-var Block = function (info, children, comment) {
+export var Block = function (info, children, comment) {
   assert(info)
   this.info = Object.assign({}, info)
   this.children = children
@@ -294,7 +294,7 @@ Block.prototype.translate = function (lang, isShallow) {
 
 /* Comment */
 
-var Comment = function (value, hasBlock) {
+export var Comment = function (value, hasBlock) {
   this.label = new Label(value, "comment-label")
   this.width = null
   this.hasBlock = hasBlock
@@ -307,7 +307,7 @@ Comment.prototype.stringify = function () {
 
 /* Glow */
 
-var Glow = function (child) {
+export var Glow = function (child) {
   assert(child)
   this.child = child
   if (child.isBlock) {
@@ -334,7 +334,7 @@ Glow.prototype.translate = function (lang) {
 
 /* Script */
 
-var Script = function (blocks) {
+export var Script = function (blocks) {
   this.blocks = blocks
   this.isEmpty = !blocks.length
   this.isFinal = !this.isEmpty && blocks[blocks.length - 1].isFinal
@@ -359,7 +359,7 @@ Script.prototype.translate = function (lang) {
 
 /* Document */
 
-var Document = function (scripts) {
+export var Document = function (scripts) {
   this.scripts = scripts
 }
 
@@ -375,15 +375,4 @@ Document.prototype.translate = function (lang) {
   this.scripts.forEach(function (script) {
     script.translate(lang)
   })
-}
-
-module.exports = {
-  Label,
-  Icon,
-  Input,
-  Block,
-  Comment,
-  Glow,
-  Script,
-  Document,
 }

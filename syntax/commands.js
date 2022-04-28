@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     id: "MOTION_MOVESTEPS",
     selector: "forward:",
