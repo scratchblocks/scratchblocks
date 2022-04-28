@@ -17,7 +17,7 @@ export default opts => {
             ? import("csso").then(csso => csso.minify(code).css)
             : code
         ).then(processed => ({
-          code: "module.exports=" + JSON.stringify(processed),
+          code: "export default " + JSON.stringify(processed),
           map: { mappings: "" },
         }))
       }
