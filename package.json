@@ -43,7 +43,7 @@
     "lint-staged": "^12.4.1",
     "prettier": "^2.6.2",
     "prettier-package-json": "^2.6.3",
-    "puppeteer": "^13.6.0",
+    "puppeteer": "^13.7.0",
     "rollup": "^2.70.2",
     "rollup-plugin-license": "^2.7.0",
     "rollup-plugin-serve": "^1.1.0",
