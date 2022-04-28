@@ -692,8 +692,8 @@ DocumentView.prototype.toCanvas = function (cb, exportScale) {
   exportScale = exportScale || 1.0
 
   var canvas = SVG.makeCanvas()
-  canvas.width = this.width * exportScale * this.scale
-  canvas.height = this.height * exportScale * this.scale
+  canvas.width = Math.max(1, this.width * exportScale * this.scale)
+  canvas.height = Math.max(1, this.height * exportScale * this.scale)
   var context = canvas.getContext("2d")
 
   var image = new Image()
