@@ -15,3 +15,23 @@ import el from "./el.json"
 import ru from "./ru.json"
 import ca from "./ca.json"
 import id from "./id.json"
+
+export default {
+  de,
+  es,
+  fr,
+  zh_cn,
+  pl,
+  ja,
+  nl,
+  pt,
+  it,
+  he,
+  ko,
+  nb,
+  tr,
+  el,
+  ru,
+  ca,
+  id,
+}

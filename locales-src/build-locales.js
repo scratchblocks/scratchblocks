@@ -250,6 +250,12 @@ const writeIndex = async codes => {
   for (let code of codes) {
     contents += `import ${code.replace(/-/g, "_")} from "./${code}.json"\n`
   }
+  contents += `\n`
+  contents += `export default {\n`
+  for (let code of codes) {
+    contents += `  ${code.replace(/-/g, "_")},\n`
+  }
+  contents += `}\n`
 
   const outputPath = path.join("locales", "all.js")
   await writeFile(outputPath, contents, "utf-8")
