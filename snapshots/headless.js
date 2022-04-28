@@ -24,7 +24,7 @@ class Renderer {
     const app = express()
     app.use(express.static("."))
     await new Promise(resolve => {
-      this.server = app.listen(8000, resolve)
+      this.server = app.listen(8002, resolve)
     })
     this.browser = await puppeteer.launch({
       //headless: false,
@@ -36,7 +36,7 @@ class Renderer {
     })
 
     await this.page.goto(
-      "http://localhost:8000/snapshots/snapshot-testing.html"
+      "http://localhost:8002/snapshots/snapshot-testing.html"
     )
     await this.page.waitForFunction("window.scratchblocksLoaded")
   }
