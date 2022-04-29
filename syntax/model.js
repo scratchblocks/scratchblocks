@@ -139,7 +139,7 @@ export class Input {
 export class Block {
   constructor(info, children, comment) {
     assert(info)
-    this.info = Object.assign({}, info)
+    this.info = { ...info }
     this.children = children
     this.comment = comment || null
     this.diff = null
