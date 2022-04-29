@@ -1,21 +1,15 @@
-function extend(src, dest) {
-  return Object.assign({}, src, dest)
-}
-
 import SVG from "./draw.js"
 
 export default class Filter {
   constructor(id, props) {
-    this.el = SVG.el(
-      "filter",
-      extend(props, {
-        id: id,
-        x0: "-50%",
-        y0: "-50%",
-        width: "200%",
-        height: "200%",
-      })
-    )
+    this.el = SVG.el("filter", {
+      ...props,
+      id: id,
+      x0: "-50%",
+      y0: "-50%",
+      width: "200%",
+      height: "200%",
+    })
     this.highestId = 0
   }
 
@@ -24,12 +18,7 @@ export default class Filter {
     var id = [shortName, "-", ++this.highestId].join("")
     this.el.appendChild(
       SVG.withChildren(
-        SVG.el(
-          "fe" + name,
-          extend(props, {
-            result: id,
-          })
-        ),
+        SVG.el("fe" + name, { ...props, result: id }),
         children || []
       )
     )
@@ -37,14 +26,7 @@ export default class Filter {
   }
 
   comp(op, in1, in2, props) {
-    return this.fe(
-      "Composite",
-      extend(props, {
-        operator: op,
-        in: in1,
-        in2: in2,
-      })
-    )
+    return this.fe("Composite", { ...props, operator: op, in: in1, in2: in2 })
   }
 
   subtract(in1, in2) {

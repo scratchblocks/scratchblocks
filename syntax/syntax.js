@@ -566,12 +566,7 @@ function parseScripts(getLine) {
         }
 
         if (b.isElse || b.isEnd) {
-          b = new Block(
-            Object.assign({}, b.info, {
-              shape: "stack",
-            }),
-            b.children
-          )
+          b = new Block({ ...b.info, shape: "stack" }, b.children)
         }
 
         if (isGlow) {
@@ -833,13 +828,11 @@ function recogniseStuff(scripts) {
 }
 
 export function parse(code, options) {
-  var options = Object.assign(
-    {
-      inline: false,
-      languages: ["en"],
-    },
-    options
-  )
+  var options = {
+    inline: false,
+    languages: ["en"],
+    ...options,
+  }
 
   if (options.dialect) {
     throw new Error("Option 'dialect' no longer supported")

@@ -247,7 +247,7 @@ class BlockView {
     this.isRound = this.isReporter
 
     // Avoid accidental mutation
-    this.info = Object.assign({}, block.info)
+    this.info = { ...block.info }
     if (aliasExtensions.hasOwnProperty(this.info.category)) {
       this.info.category = aliasExtensions[this.info.category]
     }

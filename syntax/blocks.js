@@ -393,9 +393,7 @@ specialCase("CONTROL_STOP", function (info, children, lang) {
   if (!last.isInput) return
   var value = last.value
   if (lang.osis.indexOf(value) > -1) {
-    return Object.assign({}, blocksById["CONTROL_STOP"], {
-      shape: "stack",
-    })
+    return { ...blocksById["CONTROL_STOP"], shape: "stack" }
   }
 })
 
