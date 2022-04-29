@@ -403,7 +403,7 @@ export default SVG = {
       SVG.group([
         SVG.procHatBase(w, q, archRoundness, props),
         SVG.procHatCap(w, q, archRoundness),
-      ])
+      ]),
     )
   },
 
@@ -471,7 +471,7 @@ export default SVG = {
     return SVG.move(
       -width,
       9,
-      SVG.rect(width, 2, { ...props, class: "sb-comment-line" })
+      SVG.rect(width, 2, { ...props, class: "sb-comment-line" }),
     )
   },
 

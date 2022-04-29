@@ -36,7 +36,7 @@ class Renderer {
     })
 
     await this.page.goto(
-      "http://localhost:8002/snapshots/snapshot-testing.html"
+      "http://localhost:8002/snapshots/snapshot-testing.html",
     )
     await this.page.waitForFunction("window.scratchblocksLoaded")
   }

@@ -19,8 +19,8 @@ export default class Filter {
     this.el.appendChild(
       SVG.withChildren(
         SVG.el("fe" + name, { ...props, result: id }),
-        children || []
-      )
+        children || [],
+      ),
     )
     return id
   }
@@ -72,7 +72,7 @@ export default class Filter {
         return SVG.el("feMergeNode", {
           in: name,
         })
-      })
+      }),
     )
   }
 }
