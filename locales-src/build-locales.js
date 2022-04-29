@@ -25,10 +25,10 @@ const rawLocales = async () => {
     const raw = {
       code: code,
       mappings: await readJSONFile(
-        `node_modules/scratch-l10n/editor/blocks/${code}.json`
+        `node_modules/scratch-l10n/editor/blocks/${code}.json`,
       ),
       extensionMappings: await readJSONFile(
-        `node_modules/scratch-l10n/editor/extensions/${code}.json`
+        `node_modules/scratch-l10n/editor/extensions/${code}.json`,
       ),
     }
     if (code === "en") {
@@ -191,7 +191,7 @@ const buildLocale = (code, rawLocale) => {
   }
   const frac = commandCount / scratchSpecs.length
   console.log(
-    `${(code + ":").padEnd(8)} ${(frac * 100).toFixed(1).padStart(5)}%`
+    `${(code + ":").padEnd(8)} ${(frac * 100).toFixed(1).padStart(5)}%`,
   )
 
   // Approximate fraction of blocks translated. For some reason not all blocks

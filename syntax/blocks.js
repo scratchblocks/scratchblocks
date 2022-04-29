@@ -49,7 +49,7 @@ var inputPatGlobal = new RegExp(inputPat.source, "g")
 export var iconPat = /(@[a-zA-Z]+)/
 var splitPat = new RegExp(
   [inputPat.source, "|", iconPat.source, "| +"].join(""),
-  "g"
+  "g",
 )
 
 export var hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/
@@ -298,7 +298,7 @@ disambig(
       }
     }
     return false
-  }
+  },
 )
 
 disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function (children, lang) {
@@ -332,7 +332,7 @@ disambig(
     var first = children[0]
     if (!first.isInput) return
     return first.shape === "dropdown"
-  }
+  },
 )
 
 disambig("pen.setColor", "pen.setHue", function (children, lang) {
@@ -360,7 +360,7 @@ disambig(
       }
     }
     return false
-  }
+  },
 )
 
 // This block does not need disambiguation in English;
@@ -384,7 +384,7 @@ disambig(
       }
     }
     return false
-  }
+  },
 )
 
 specialCase("CONTROL_STOP", function (info, children, lang) {

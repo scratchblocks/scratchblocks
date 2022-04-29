@@ -232,7 +232,7 @@ export class InputView {
     }
     if (this.hasArrow) {
       result.appendChild(
-        SVG.move(w - 24, 13, SVG.symbol("#sb3-dropdownArrow", {}))
+        SVG.move(w - 24, 13, SVG.symbol("#sb3-dropdownArrow", {})),
       )
     }
     return result
@@ -254,7 +254,7 @@ class BlockView {
     if (extensions.hasOwnProperty(this.info.category)) {
       this.children.unshift(new LineView())
       this.children.unshift(
-        new IconView({ name: this.info.category + "Block" })
+        new IconView({ name: this.info.category + "Block" }),
       )
       this.info.category = "extension"
     }
@@ -511,7 +511,7 @@ class BlockView {
         : this.isReporter
         ? 48
         : 0,
-      innerWidth
+      innerWidth,
     )
 
     // Center the label text inside small reporters.

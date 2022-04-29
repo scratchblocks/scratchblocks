@@ -17,7 +17,7 @@ export function runTests(r) {
       const outputPath = path.join(
         "snapshots",
         tc.style,
-        tc.name.replace(/ /g, "-") + ".png"
+        tc.name.replace(/ /g, "-") + ".png",
       )
       console.log("running", tc.name)
       return (async () => {
@@ -29,6 +29,6 @@ export function runTests(r) {
         await r.snapshotToFile(tc.source, options, outputPath)
         console.log("✓ wrote", outputPath)
       })()
-    })
+    }),
   )
 }

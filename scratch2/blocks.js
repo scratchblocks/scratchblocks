@@ -143,7 +143,7 @@ class InputView {
       var w = Math.max(
         14,
         this.label.width +
-          (this.shape === "string" || this.shape === "number-dropdown" ? 6 : 9)
+          (this.shape === "string" || this.shape === "number-dropdown" ? 6 : 9),
       )
     } else {
       var w = this.isInset ? 30 : this.isColor ? 13 : null
@@ -186,8 +186,8 @@ class InputView {
             points: [7, 0, 3.5, 4, 0, 0],
             fill: "#000",
             opacity: "0.6",
-          })
-        )
+          }),
+        ),
       )
     }
     return result
@@ -411,7 +411,7 @@ class BlockView {
         ? 83
         : this.isCommand || this.isOutline || this.isRing
         ? 39
-        : 20
+        : 20,
     )
     this.height = y
     this.width = scriptWidth
@@ -663,8 +663,8 @@ class DocumentView {
           bevelFilter("bevelFilter", false),
           bevelFilter("inputBevelFilter", true),
           darkFilter("inputDarkFilter"),
-        ].concat(makeIcons())
-      ))
+        ].concat(makeIcons()),
+      )),
     )
 
     svg.appendChild(SVG.group(elements))
