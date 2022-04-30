@@ -53,12 +53,12 @@ export default Style = {
               d: "M8 0l2 -2l0 -3l3 0l-4 -5l-4 5l3 0l0 3l-8 0l0 2",
               fill: "#fff",
               opacity: "0.9",
-            })
+            }),
           ),
         ]),
         {
           id: "loopArrow",
-        }
+        },
       ),
       SVG.setProps(
         SVG.group([
@@ -150,7 +150,7 @@ export default Style = {
         ]),
         {
           id: "list",
-        }
+        },
       ),
     ]
   },
@@ -173,12 +173,12 @@ export default Style = {
       f.comp(
         "in",
         f.flood("#fff", 0.15),
-        f.subtract(alpha, f.offset(+s, +s, blur))
+        f.subtract(alpha, f.offset(+s, +s, blur)),
       ),
       f.comp(
         "in",
         f.flood("#000", 0.7),
-        f.subtract(alpha, f.offset(-s, -s, blur))
+        f.subtract(alpha, f.offset(-s, -s, blur)),
       ),
     ])
 
@@ -203,7 +203,7 @@ export default Style = {
           class: ["sb-" + category, "sb-darker"].join(" "),
         }),
       ]),
-      { width: w, height: h }
+      { width: w, height: h },
     )
   },
 

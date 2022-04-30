@@ -20,7 +20,7 @@ export default Style = {
         ]),
         {
           id: "sb3-greenFlag",
-        }
+        },
       ),
 
       SVG.setProps(
@@ -34,7 +34,7 @@ export default Style = {
         }),
         {
           id: "sb3-stopSign",
-        }
+        },
       ),
 
       SVG.setProps(
@@ -52,7 +52,7 @@ export default Style = {
         {
           id: "sb3-dropdownArrow",
           transform: "scale(0.944)",
-        }
+        },
       ),
 
       SVG.setProps(
@@ -68,7 +68,7 @@ export default Style = {
         ]),
         {
           id: "sb3-turnRight",
-        }
+        },
       ),
 
       SVG.setProps(
@@ -84,7 +84,7 @@ export default Style = {
         ]),
         {
           id: "sb3-turnLeft",
-        }
+        },
       ),
 
       SVG.el("path", {
@@ -112,7 +112,7 @@ export default Style = {
         ]),
         {
           id: "sb3-loopArrow",
-        }
+        },
       ),
 
       SVG.setProps(
@@ -148,7 +148,7 @@ export default Style = {
         ]),
         {
           id: "sb3-list",
-        }
+        },
       ),
 
       SVG.setProps(
@@ -166,7 +166,7 @@ export default Style = {
         {
           id: "sb3-musicBlock",
           fill: "none",
-        }
+        },
       ),
 
       SVG.setProps(
@@ -197,7 +197,7 @@ export default Style = {
           stroke: "#575E75",
           fill: "none",
           "stroke-linejoin": "round",
-        }
+        },
       ),
 
       SVG.setProps(
@@ -236,7 +236,7 @@ export default Style = {
           stroke: "#000",
           fill: "#FFF",
           "stroke-opacity": 0.15,
-        }
+        },
       ),
 
       SVG.setProps(
@@ -254,7 +254,7 @@ export default Style = {
           id: "sb3-ttsBlock",
           stroke: "#000",
           "stroke-opacity": 0.15,
-        }
+        },
       ),
 
       SVG.el("image", {
@@ -432,7 +432,7 @@ export default Style = {
         {
           id: "sb3-wedoBlock",
           fill: "none",
-        }
+        },
       ),
 
       SVG.setProps(
@@ -496,7 +496,7 @@ export default Style = {
         {
           transform: "translate(5.5 3.5)",
           id: "sb3-ev3Block",
-        }
+        },
       ),
 
       SVG.setProps(
@@ -550,7 +550,7 @@ export default Style = {
         {
           id: "sb3-makeymakeyBlock",
           fill: "none",
-        }
+        },
       ),
       SVG.el("image", {
         id: "sb3-gdxforBlock",

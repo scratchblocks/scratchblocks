@@ -37,7 +37,7 @@ class Renderer {
     this.page.on("console", msg => console.log(msg.type(), ":", msg.text()))
 
     await this.page.goto(
-      "http://localhost:8002/snapshots/snapshot-testing.html"
+      "http://localhost:8002/snapshots/snapshot-testing.html",
     )
     await this.page.waitForFunction("window.scratchblocksLoaded")
   }

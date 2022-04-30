@@ -92,7 +92,7 @@ function paintBlock(info, children, languages) {
       // () and [] shapes as we go.
       const outlineChildren = children.splice(
         lang.definePrefix.length,
-        children.length - lang.defineSuffix.length
+        children.length - lang.defineSuffix.length,
       )
 
       for (let i = 0; i < outlineChildren.length; i++) {
@@ -106,7 +106,7 @@ function paintBlock(info, children, languages) {
               category: "custom-arg",
             },
             [new Label("")],
-            languages
+            languages,
           )
         } else if (
           child.isInput &&
@@ -121,7 +121,7 @@ function paintBlock(info, children, languages) {
               category: "custom-arg",
             },
             labels,
-            languages
+            languages,
           )
         } else if (child.isReporter || child.isBoolean) {
           // Convert variables to number arguments, predicates to boolean arguments.
@@ -298,7 +298,7 @@ function parseLines(code, languages) {
             children.push(
               Icon.icons.hasOwnProperty(name)
                 ? new Icon(name)
-                : new Label("@" + name)
+                : new Label("@" + name),
             )
           }
           label = null
@@ -566,12 +566,7 @@ function parseScripts(getLine) {
         }
 
         if (b.isElse || b.isEnd) {
-          b = new Block(
-            Object.assign({}, b.info, {
-              shape: "stack",
-            }),
-            b.children
-          )
+          b = new Block({ ...b.info, shape: "stack" }, b.children)
         }
 
         if (isGlow) {
@@ -733,7 +728,7 @@ function recogniseStuff(scripts) {
                 number: "%n",
                 string: "%s",
                 boolean: "%b",
-              }[child.info.argument]
+              }[child.info.argument],
             )
 
             var name = blockName(child)
@@ -833,13 +828,11 @@ function recogniseStuff(scripts) {
 }
 
 export function parse(code, options) {
-  var options = Object.assign(
-    {
-      inline: false,
-      languages: ["en"],
-    },
-    options
-  )
+  var options = {
+    inline: false,
+    languages: ["en"],
+    ...options,
+  }
 
   if (options.dialect) {
     throw new Error("Option 'dialect' no longer supported")

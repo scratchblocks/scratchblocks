@@ -37,7 +37,7 @@ set rotation style [left-right v]
 (y position)
 (direction)
 
-`
+`,
 )
 
 test(
@@ -80,7 +80,7 @@ next backdrop
 
 (backdrop #)
 
-`
+`,
 )
 
 test(
@@ -108,7 +108,7 @@ change tempo by (20)
 set tempo to (60) bpm
 (tempo)
 
-`
+`,
 )
 
 test(
@@ -135,7 +135,7 @@ set pen shade to (50)
 change pen size by (1)
 set pen size to (1)
 
-`
+`,
 )
 
 test(
@@ -165,7 +165,7 @@ replace item (1 v) of [list v] with [thing]
 show list [list v]
 hide list [list v]
 
-`
+`,
 )
 
 test(
@@ -189,7 +189,7 @@ when I receive [message1 v]
 broadcast [message1 v]
 broadcast [message1 v] and wait
 
-`
+`,
 )
 
 test(
@@ -235,7 +235,7 @@ when I start as a clone
 create clone of [myself v]
 delete this clone
 
-`
+`,
 )
 
 test(
@@ -275,7 +275,7 @@ reset timer
 (user id)
 
 
-`
+`,
 )
 
 test(
@@ -311,7 +311,7 @@ test(
 
 ([sqrt v] of (9))
 
-`
+`,
 )
 /* Scratch 2.0 extension support is not good
 test(
@@ -424,7 +424,7 @@ when Sprite1 clicked
 ...
 …
 
-`
+`,
 )
 
 /*****************************************************************************/
@@ -462,7 +462,7 @@ set rotation style [left-right v]
 (y position)
 (direction)
 
-`
+`,
 )
 
 test(
@@ -499,7 +499,7 @@ go [forward v] (1) layers
 (backdrop [number v])
 (size)
 
-`
+`,
 )
 
 test(
@@ -522,7 +522,7 @@ set volume to (100) %
 
 volume
 
-`
+`,
 )
 
 test(
@@ -543,7 +543,7 @@ when i receive [message1 v]
 broadcast (message1 v)
 broadcast (message1 v) and wait
 
-`
+`,
 )
 
 test(
@@ -579,7 +579,7 @@ when I start as a clone
 create clone of (myself v)
 delete this clone 
 
-`
+`,
 )
 
 test(
@@ -618,7 +618,7 @@ reset timer
 (days since 2000)
 (username)
 
-`
+`,
 )
 
 test(
@@ -653,7 +653,7 @@ test(
 
 ([abs v] of ())
 
-`
+`,
 )
 
 test(
@@ -688,7 +688,7 @@ replace item (1) of [list v] with (1)
 show list [list v]
 hide list [list v]
 
-`
+`,
 )
 
 test(
@@ -702,7 +702,7 @@ foo () if <>
 
 define foo (num) if <bool>
 
-`
+`,
 )
 
 test(
@@ -727,7 +727,7 @@ set pen (color v) to (50)
 change pen size by (1)
 set pen size to (1)
 
-`
+`,
 )
 
 test(
@@ -745,7 +745,7 @@ set tempo to (60)
 change tempo by (20)
 (tempo)
 
-`
+`,
 )
 
 test(
@@ -760,7 +760,7 @@ when video motion > (10)
 turn video (on v)
 set video transparency to (50)
 
-`
+`,
 )
 
 test(
@@ -829,7 +829,7 @@ when force sensor [pushed v]
 <falling?>
 (spin speed [z v])
 (acceleration [x v])
-`
+`,
 )
 
 test(
@@ -840,7 +840,7 @@ move (10) steps
 
 when flag clicked :: cat
 move (10) steps
-`
+`,
 )
 
 /*****************************************************************************/
@@ -881,7 +881,7 @@ setze Drehtyp auf [links-rechts v]
 (Richtung)
 
 `,
-  "de"
+  "de",
 )
 
 test(
@@ -921,7 +921,7 @@ gehe (1) Ebenen [nach vorne v]
 (Größe)
 
 `,
-  "de"
+  "de",
 )
 // "gehe Ebenen nach vorne" appears differently in the Scratch editor than in
 // the translation files, wut
@@ -948,7 +948,7 @@ setze Lautstärke auf (100) %
 
 
 `,
-  "de"
+  "de",
 )
 
 test(
@@ -970,7 +970,7 @@ sende (Nachricht1 v) an alle
 sende (Nachricht1 v) an alle und warte
 
 `,
-  "de"
+  "de",
 )
 
 test(
@@ -1007,7 +1007,7 @@ erzeuge Klon von (mir selbst v)
 lösche diesen Klon
 
 `,
-  "de"
+  "de",
 )
 
 test(
@@ -1044,7 +1044,7 @@ setze Stoppuhr zurück
 (Benutzername)
 
 `,
-  "de"
+  "de",
 )
 
 test(
@@ -1081,7 +1081,7 @@ test(
 ([Betrag v] von (foo))
 
 `,
-  "de"
+  "de",
 )
 
 test(
@@ -1117,7 +1117,7 @@ zeige Liste [list v]
 verstecke Liste [list v]
 
 `,
-  "de"
+  "de",
 )
 
 test(
@@ -1132,7 +1132,7 @@ foo () if <>
 Definiere foo (num) if <bool>
 
 `,
-  "de"
+  "de",
 )
 
 test(
@@ -1158,7 +1158,7 @@ setze Stift (Farbe v) auf (50)
 setze Stiftdicke auf (1)
 
 `,
-  "de"
+  "de",
 )
 
 test(
@@ -1178,7 +1178,7 @@ setze tempo auf (60)
 (Tempo)
 
 `,
-  "de"
+  "de",
 )
 
 test(
@@ -1196,7 +1196,7 @@ schalte Video (an v)
 setze Video-Transparenz auf (50)
 
 `,
-  "de"
+  "de",
 )
 
 test(
@@ -1268,5 +1268,5 @@ Wenn Kraftsensor [gedrückt v]
 (Rotationsgeschwindigkeit [z v])
 (Beschleunigung [x v])
 `,
-  "de"
+  "de",
 )

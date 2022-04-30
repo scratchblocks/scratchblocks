@@ -33,12 +33,11 @@ export default function (window) {
   }
 
   function newView(doc, options) {
-    var options = Object.assign(
-      {
-        style: "scratch2",
-      },
-      options
-    )
+    var options = {
+      style: "scratch2",
+      ...options,
+    }
+
     options.scale = options.scale || 1
     switch (options.style) {
       case "scratch2":
@@ -65,12 +64,10 @@ export default function (window) {
 
   // read code from a DOM element
   function readCode(el, options) {
-    var options = Object.assign(
-      {
-        inline: false,
-      },
-      options
-    )
+    var options = {
+      inline: false,
+      ...options,
+    }
 
     var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/gi, "\n")
     var pre = document.createElement("pre")
@@ -112,21 +109,20 @@ export default function (window) {
    */
   var renderMatching = function (selector, options) {
     var selector = selector || "pre.blocks"
-    var options = Object.assign(
-      {
-        // Default values for the options
-        style: "scratch2",
-        inline: false,
-        languages: ["en"],
-        scale: 1,
+    var options = {
+      // Default values for the options
+      style: "scratch2",
+      inline: false,
+      languages: ["en"],
+      scale: 1,
 
-        read: readCode, // function(el, options) => code
-        parse: parse, // function(code, options) => doc
-        render: render, // function(doc) => svg
-        replace: replace, // function(el, svg, doc, options)
-      },
-      options
-    )
+      read: readCode, // function(el, options) => code
+      parse: parse, // function(code, options) => doc
+      render: render, // function(doc) => svg
+      replace: replace, // function(el, svg, doc, options)
+
+      ...options,
+    }
 
     // find elements
     var results = [].slice.apply(document.querySelectorAll(selector))
