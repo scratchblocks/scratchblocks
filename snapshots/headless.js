@@ -34,6 +34,7 @@ class Renderer {
     this.page.on("pageerror", e => {
       throw new Error("Page threw uncaught exception", { cause: e })
     })
+    this.page.on("console", msg => console.log(msg.type(), ":", msg.text()))
 
     await this.page.goto(
       "http://localhost:8002/snapshots/snapshot-testing.html"
@@ -46,8 +47,11 @@ class Renderer {
       .map(x => JSON.stringify(x))
       .join(", ")
     const dataURL = await this.page.evaluate("render(" + args + ")")
-    const buffer = parseDataUrl(dataURL)
-    return buffer
+    try {
+      return parseDataUrl(dataURL)
+    } catch (e) {
+      throw new Error(`Could not render script ${args}`, { cause: e })
+    }
   }
 
   async snapshotToFile(script, options, path) {

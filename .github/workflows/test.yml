@@ -25,6 +25,9 @@ jobs:
       - name: Test
         run: npm run test
 
+      - name: Check whether snapshot builds
+        run: npm run snapshots
+
       - name: Check whether locales build
         run: npm run locales
 
