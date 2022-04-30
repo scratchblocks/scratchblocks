@@ -48,7 +48,9 @@ export class Label {
     this.metrics = null
     this.x = 0
   }
-  isLabel = true
+  get isLabel() {
+    return true
+  }
 
   stringify() {
     if (this.value === "<" || this.value === ">") return this.value
@@ -63,17 +65,21 @@ export class Icon {
 
     assert(Icon.icons[name], "no info for icon " + name)
   }
-  isIcon = true
+  get isIcon() {
+    return true
+  }
 
-  static icons = {
-    greenFlag: true,
-    stopSign: true,
-    turnLeft: true,
-    turnRight: true,
-    loopArrow: true,
-    addInput: true,
-    delInput: true,
-    list: true,
+  static get icons() {
+    return {
+      greenFlag: true,
+      stopSign: true,
+      turnLeft: true,
+      turnRight: true,
+      loopArrow: true,
+      addInput: true,
+      delInput: true,
+      list: true,
+    }
   }
 
   stringify() {
@@ -105,7 +111,9 @@ export class Input {
       : null
     this.x = 0
   }
-  isInput = true
+  get isInput() {
+    return true
+  }
 
   stringify() {
     if (this.isColor) {
@@ -162,7 +170,9 @@ export class Block {
     this.isElse = shape === "celse"
     this.isEnd = shape === "cend"
   }
-  isBlock = true
+  get isBlock() {
+    return true
+  }
 
   stringify(extras) {
     var firstInput = null
@@ -300,7 +310,9 @@ export class Comment {
     this.width = null
     this.hasBlock = hasBlock
   }
-  isComment = true
+  get isComment() {
+    return true
+  }
 
   stringify() {
     return "// " + this.label.value
@@ -318,7 +330,9 @@ export class Glow {
       this.shape = "stack"
     }
   }
-  isGlow = true
+  get isGlow() {
+    return true
+  }
 
   stringify() {
     if (this.child.isBlock) {
@@ -340,7 +354,9 @@ export class Script {
     this.isEmpty = !blocks.length
     this.isFinal = !this.isEmpty && blocks[blocks.length - 1].isFinal
   }
-  isScript = true
+  get isScript() {
+    return true
+  }
 
   stringify() {
     return this.blocks
