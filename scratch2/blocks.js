@@ -33,7 +33,10 @@ export class LabelView {
     this.metrics = null
     this.x = 0
   }
-  isLabel = true
+
+  get isLabel() {
+    return true
+  }
 
   draw() {
     return this.el
@@ -42,9 +45,6 @@ export class LabelView {
   get width() {
     return this.metrics.width
   }
-
-  static metricsCache = {}
-  static toMeasure = []
 
   measure() {
     var value = this.value
@@ -80,6 +80,9 @@ export class LabelView {
   }
 }
 
+LabelView.metricsCache = {}
+LabelView.toMeasure = []
+
 class IconView {
   constructor(icon) {
     Object.assign(this, icon)
@@ -90,7 +93,10 @@ class IconView {
     }
     Object.assign(this, info)
   }
-  isIcon = true
+
+  get isIcon() {
+    return true
+  }
 
   draw() {
     return SVG.symbol("#" + this.name, {
@@ -99,15 +105,17 @@ class IconView {
     })
   }
 
-  static icons = {
-    greenFlag: { width: 20, height: 21, dy: -2 },
-    stopSign: { width: 20, height: 20 },
-    turnLeft: { width: 15, height: 12, dy: +1 },
-    turnRight: { width: 15, height: 12, dy: +1 },
-    loopArrow: { width: 14, height: 11 },
-    addInput: { width: 4, height: 8 },
-    delInput: { width: 4, height: 8 },
-    list: { width: 12, height: 14 },
+  static get icons() {
+    return {
+      greenFlag: { width: 20, height: 21, dy: -2 },
+      stopSign: { width: 20, height: 20 },
+      turnLeft: { width: 15, height: 12, dy: +1 },
+      turnRight: { width: 15, height: 12, dy: +1 },
+      loopArrow: { width: 14, height: 11 },
+      addInput: { width: 4, height: 8 },
+      delInput: { width: 4, height: 8 },
+      list: { width: 12, height: 14 },
+    }
   }
 }
 
@@ -125,16 +133,18 @@ class InputView {
     if (this.hasLabel) this.label.measure()
   }
 
-  static shapes = {
-    string: SVG.rect,
-    number: SVG.roundedRect,
-    "number-dropdown": SVG.roundedRect,
-    color: SVG.rect,
-    dropdown: SVG.rect,
+  static get shapes() {
+    return {
+      string: SVG.rect,
+      number: SVG.roundedRect,
+      "number-dropdown": SVG.roundedRect,
+      color: SVG.rect,
+      dropdown: SVG.rect,
 
-    boolean: SVG.pointedRect,
-    stack: SVG.stackRect,
-    reporter: SVG.roundedRect,
+      boolean: SVG.pointedRect,
+      stack: SVG.stackRect,
+      reporter: SVG.roundedRect,
+    }
   }
 
   draw(parent) {
@@ -216,7 +226,10 @@ class BlockView {
     this.firstLine = null
     this.innerWidth = null
   }
-  isBlock = true
+
+  get isBlock() {
+    return true
+  }
 
   measure() {
     for (var i = 0; i < this.children.length; i++) {
@@ -226,20 +239,22 @@ class BlockView {
     if (this.comment) this.comment.measure()
   }
 
-  static shapes = {
-    stack: SVG.stackRect,
-    "c-block": SVG.stackRect,
-    "if-block": SVG.stackRect,
-    celse: SVG.stackRect,
-    cend: SVG.stackRect,
+  static get shapes() {
+    return {
+      stack: SVG.stackRect,
+      "c-block": SVG.stackRect,
+      "if-block": SVG.stackRect,
+      celse: SVG.stackRect,
+      cend: SVG.stackRect,
 
-    cap: SVG.capRect,
-    reporter: SVG.roundedRect,
-    boolean: SVG.pointedRect,
-    hat: SVG.hatRect,
-    cat: SVG.hatRect,
-    "define-hat": SVG.procHatRect,
-    ring: SVG.roundedRect,
+      cap: SVG.capRect,
+      reporter: SVG.roundedRect,
+      boolean: SVG.pointedRect,
+      hat: SVG.hatRect,
+      cat: SVG.hatRect,
+      "define-hat": SVG.procHatRect,
+      ring: SVG.roundedRect,
+    }
   }
 
   drawSelf(w, h, lines) {
@@ -303,17 +318,19 @@ class BlockView {
     return 0
   }
 
-  static padding = {
-    hat: [15, 6, 2],
-    cat: [15, 6, 2],
-    "define-hat": [21, 8, 9],
-    reporter: [3, 4, 1],
-    boolean: [3, 4, 2],
-    cap: [6, 6, 2],
-    "c-block": [3, 6, 2],
-    "if-block": [3, 6, 2],
-    ring: [4, 4, 2],
-    null: [4, 6, 2],
+  static get padding() {
+    return {
+      hat: [15, 6, 2],
+      cat: [15, 6, 2],
+      "define-hat": [21, 8, 9],
+      reporter: [3, 4, 1],
+      boolean: [3, 4, 2],
+      cap: [6, 6, 2],
+      "c-block": [3, 6, 2],
+      "if-block": [3, 6, 2],
+      ring: [4, 4, 2],
+      null: [4, 6, 2],
+    }
   }
 
   draw() {
@@ -483,10 +500,18 @@ class CommentView {
 
     this.width = null
   }
-  isComment = true
 
-  static lineLength = 12
-  static height = 20
+  get isComment() {
+    return true
+  }
+
+  static get lineLength() {
+    return 12
+  }
+
+  get height() {
+    return 20
+  }
 
   measure() {
     this.label.measure()
@@ -515,7 +540,10 @@ class GlowView {
     this.height = null
     this.y = 0
   }
-  isGlow = true
+
+  get isGlow() {
+    return true
+  }
 
   measure() {
     this.child.measure()
@@ -562,7 +590,10 @@ class ScriptView {
 
     this.y = 0
   }
-  isScript = true
+
+  get isScript() {
+    return true
+  }
 
   measure() {
     for (var i = 0; i < this.blocks.length; i++) {

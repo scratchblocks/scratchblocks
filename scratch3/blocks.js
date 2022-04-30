@@ -24,7 +24,10 @@ export class LabelView {
     this.metrics = null
     this.x = 0
   }
-  isLabel = true
+
+  get isLabel() {
+    return true
+  }
 
   draw() {
     return this.el
@@ -33,9 +36,6 @@ export class LabelView {
   get width() {
     return this.metrics.width
   }
-
-  static metricsCache = {}
-  static toMeasure = []
 
   measure() {
     var value = this.value
@@ -67,6 +67,9 @@ export class LabelView {
   }
 }
 
+LabelView.metricsCache = {}
+LabelView.toMeasure = []
+
 export class IconView {
   constructor(icon) {
     Object.assign(this, icon)
@@ -77,7 +80,10 @@ export class IconView {
     }
     Object.assign(this, info)
   }
-  isIcon = true
+
+  get isIcon() {
+    return true
+  }
 
   draw() {
     return SVG.symbol("#sb3-" + this.name, {
@@ -86,26 +92,28 @@ export class IconView {
     })
   }
 
-  static icons = {
-    greenFlag: { width: 20, height: 21, dy: -2 },
-    stopSign: { width: 20, height: 20 },
-    turnLeft: { width: 24, height: 24 },
-    turnRight: { width: 24, height: 24 },
-    loopArrow: { width: 24, height: 24 },
-    addInput: { width: 4, height: 8 },
-    delInput: { width: 4, height: 8 },
-    list: { width: 15, height: 18 },
-    musicBlock: { width: 40, height: 40 },
-    penBlock: { width: 40, height: 40 },
-    videoBlock: { width: 40, height: 40, dy: 10 },
-    ttsBlock: { width: 40, height: 40 },
-    translateBlock: { width: 40, height: 40 },
-    wedoBlock: { width: 40, height: 40 },
-    ev3Block: { width: 40, height: 40 },
-    microbitBlock: { width: 40, height: 40 },
-    makeymakeyBlock: { width: 40, height: 40 },
-    gdxforBlock: { width: 40, height: 40 },
-    boostBlock: { width: 40, height: 40 },
+  static get icons() {
+    return {
+      greenFlag: { width: 20, height: 21, dy: -2 },
+      stopSign: { width: 20, height: 20 },
+      turnLeft: { width: 24, height: 24 },
+      turnRight: { width: 24, height: 24 },
+      loopArrow: { width: 24, height: 24 },
+      addInput: { width: 4, height: 8 },
+      delInput: { width: 4, height: 8 },
+      list: { width: 15, height: 18 },
+      musicBlock: { width: 40, height: 40 },
+      penBlock: { width: 40, height: 40 },
+      videoBlock: { width: 40, height: 40, dy: 10 },
+      ttsBlock: { width: 40, height: 40 },
+      translateBlock: { width: 40, height: 40 },
+      wedoBlock: { width: 40, height: 40 },
+      ev3Block: { width: 40, height: 40 },
+      microbitBlock: { width: 40, height: 40 },
+      makeymakeyBlock: { width: 40, height: 40 },
+      gdxforBlock: { width: 40, height: 40 },
+      boostBlock: { width: 40, height: 40 },
+    }
   }
 }
 
@@ -115,7 +123,10 @@ export class LineView {
     this.height = 40
     this.x = 0
   }
-  isLine = true
+
+  get isLine() {
+    return true
+  }
 
   measure = () => {}
 
@@ -144,22 +155,27 @@ export class InputView {
 
     this.x = 0
   }
-  isInput = true
+
+  get isInput() {
+    return true
+  }
 
   measure() {
     if (this.hasLabel) this.label.measure()
   }
 
-  static shapes = {
-    string: SVG.pillRect,
-    number: SVG.pillRect,
-    "number-dropdown": SVG.pillRect,
-    color: SVG.pillRect,
-    dropdown: SVG.roundRect,
+  static get shapes() {
+    return {
+      string: SVG.pillRect,
+      number: SVG.pillRect,
+      "number-dropdown": SVG.pillRect,
+      color: SVG.pillRect,
+      dropdown: SVG.roundRect,
 
-    boolean: SVG.pointedRect,
-    stack: SVG.stackRect,
-    reporter: SVG.pillRect,
+      boolean: SVG.pointedRect,
+      stack: SVG.stackRect,
+      reporter: SVG.pillRect,
+    }
   }
 
   draw(parent) {
@@ -265,7 +281,10 @@ class BlockView {
     this.firstLine = null
     this.innerWidth = null
   }
-  isBlock = true
+
+  get isBlock() {
+    return true
+  }
 
   measure() {
     for (var i = 0; i < this.children.length; i++) {
@@ -275,20 +294,22 @@ class BlockView {
     if (this.comment) this.comment.measure()
   }
 
-  static shapes = {
-    stack: SVG.stackRect,
-    "c-block": SVG.stackRect,
-    "if-block": SVG.stackRect,
-    celse: SVG.stackRect,
-    cend: SVG.stackRect,
+  static get shapes() {
+    return {
+      stack: SVG.stackRect,
+      "c-block": SVG.stackRect,
+      "if-block": SVG.stackRect,
+      celse: SVG.stackRect,
+      cend: SVG.stackRect,
 
-    cap: SVG.capRect,
-    reporter: SVG.pillRect,
-    boolean: SVG.pointedRect,
-    hat: SVG.hatRect,
-    cat: SVG.catHat,
-    "define-hat": SVG.procHatRect,
-    ring: SVG.pillRect,
+      cap: SVG.capRect,
+      reporter: SVG.pillRect,
+      boolean: SVG.pointedRect,
+      hat: SVG.hatRect,
+      cat: SVG.catHat,
+      "define-hat": SVG.procHatRect,
+      ring: SVG.pillRect,
+    }
   }
 
   drawSelf(w, h, lines) {
@@ -333,11 +354,13 @@ class BlockView {
     })
   }
 
-  static padding = {
-    hat: [24, 8],
-    cat: [24, 8],
-    "define-hat": [20, 16],
-    null: [4, 4],
+  static get padding() {
+    return {
+      hat: [24, 8],
+      cat: [24, 8],
+      "define-hat": [20, 16],
+      null: [4, 4],
+    }
   }
 
   horizontalPadding(child) {
@@ -588,10 +611,18 @@ export class CommentView {
 
     this.width = null
   }
-  isComment = true
 
-  static lineLength = 12
-  height = 20
+  get isComment() {
+    return true
+  }
+
+  static get lineLength() {
+    return 12
+  }
+
+  get height() {
+    return 20
+  }
 
   measure() {
     this.label.measure()
@@ -620,7 +651,10 @@ class GlowView {
     this.height = null
     this.y = 0
   }
-  isGlow = true
+
+  get isGlow() {
+    return true
+  }
 
   measure() {
     this.child.measure()
@@ -667,7 +701,10 @@ class ScriptView {
 
     this.y = 0
   }
-  isScript = true
+
+  get isScript() {
+    return true
+  }
 
   measure() {
     for (var i = 0; i < this.blocks.length; i++) {
