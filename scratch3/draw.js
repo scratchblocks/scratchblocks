@@ -53,8 +53,8 @@ export default SVG = {
     return el
   },
 
-  group(children) {
-    return SVG.withChildren(SVG.el("g"), children)
+  group(children, props) {
+    return SVG.withChildren(SVG.el("g", props), children)
   },
 
   newSVG(width, height, scale) {
@@ -62,7 +62,7 @@ export default SVG = {
       version: "1.1",
       width: width * scale,
       height: height * scale,
-      viewBox: `0 0 ${width} ${height}`,
+      viewBox: `0 0 ${width * scale} ${height * scale}`,
     })
   },
 
