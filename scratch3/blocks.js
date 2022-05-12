@@ -804,7 +804,7 @@ class DocumentView {
     svg.appendChild(
       SVG.setProps(SVG.group(elements), {
         style: `transform: scale(${this.scale})`,
-      })),
+      }),
     )
     this.el = svg
     return svg
