@@ -173,6 +173,7 @@ For more details, see [`CONTRIBUTING.md`](https://github.com/scratchblocks/scrat
 Many, many thanks to the [contributors](https://github.com/scratchblocks/scratchblocks/graphs/contributors)!
 
 * Authored by [tjvr](https://github.com/tjvr)
+* Maintained by tjvr and [apple502j](https://github.com/apple502j)
 * Icons derived from [Scratch Blocks](https://github.com/LLK/scratch-blocks) (Apache License 2.0)
 * Scratch 2 SVG proof-of-concept, shapes & filters by [as-com](https://github.com/as-com)
 * Anna helped with a formula, and pointed out that I can't read graphs
