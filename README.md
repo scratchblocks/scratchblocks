@@ -1,28 +1,28 @@
 Make pictures of Scratch blocks from text.
 
-[![Screenshot](http://scratchblocks.github.io/screenshot.png)](https://scratchblocks.github.io/#when%20flag%20clicked%0Aclear%0Aforever%0Apen%20down%0Aif%20%3C%3Cmouse%20down%3F%3E%20and%20%3Ctouching%20%5Bmouse-pointer%20v%5D%3F%3E%3E%20then%0Aswitch%20costume%20to%20%5Bbutton%20v%5D%0Aelse%0Aadd%20(x%20position)%20to%20%5Blist%20v%5D%0Aend%0Amove%20(foo)%20steps%0Aturn%20ccw%20(9)%20degrees)
+[![Screenshot](https://scratchblocks.github.io/screenshot.png)](https://scratchblocks.github.io/#when%20flag%20clicked%0Aclear%0Aforever%0Apen%20down%0Aif%20%3C%3Cmouse%20down%3F%3E%20and%20%3Ctouching%20%5Bmouse-pointer%20v%5D%3F%3E%3E%20then%0Aswitch%20costume%20to%20%5Bbutton%20v%5D%0Aelse%0Aadd%20(x%20position)%20to%20%5Blist%20v%5D%0Aend%0Amove%20(foo)%20steps%0Aturn%20ccw%20(9)%20degrees)
 
-**[Try it out!](http://scratchblocks.github.io/)**
+**[Try it out!](https://scratchblocks.github.io/)**
 
 ---
 
 **scratchblocks** is used to write Scratch scripts:
 
-- in [Scratch Forum](http://scratch.mit.edu/discuss/topic/14772/) posts
-- in [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) articles
+- in [Scratch Forum](https://scratch.mit.edu/discuss/topic/14772/) posts
+- in [Scratch Wiki](https://en.scratch-wiki.info/wiki/Block_Plugin) articles
 - in the [Code Club](https://www.codeclub.org.uk) project guides
 
 It's MIT licensed, so you can use it in your projects.
-(But do send me a link [on Twitter](http://twitter.com/blob8108)!)
+(But do send me a link [on Twitter](https://twitter.com/blob8108)!)
 
-For the full guide to the syntax, see [the wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax).
+For the full guide to the syntax, see [the wiki](https://en.scratch-wiki.info/wiki/Block_Plugin/Syntax).
 
 # Usage
 
 ## MediaWiki
 
-Use [the MediaWiki plugin](https://github.com/tjvr/wiki-scratchblocks).
-(This is what the [Scratch Wiki](http://wiki.scratch.mit.edu/wiki/Block_Plugin) uses.)
+Use [the MediaWiki plugin](https://github.com/InternationalScratchWiki/mw-ScratchBlocks4).
+(This is what the [Scratch Wiki](https://en.scratch-wiki.info/wiki/Block_Plugin) uses.)
 
 ## WordPress
 
@@ -98,7 +98,7 @@ If you want to use languages other than English, you'll need to include a second
 The releases page includes two options; you can pick one:
 
 * `translations.js` includes a limited set of languages, as seen on the Scratch Forums
-* `translations-all.js` includes (nearly?) every langauge that Scratch supports.
+* `translations-all.js` includes every langauge that Scratch supports.
 
 The translations files are hundreds of kilobytes in size, so to keep your page bundle size down you might like to build your own file with just the languages you need.
 
@@ -130,6 +130,17 @@ var scratchblocks = require('scratchblocks');
 scratchblocks.renderMatching('pre.blocks');
 ```
 
+## ESM Support
+Since version 3.6.0, scratchblocks can be properly loaded as an ESM module. The ESM version, instead of defining `window.scratchblocks`, default-exports the `scratchblocks` object. Similarly, the JavaScript translation files default-exports a function to load the translations.
+
+```js
+import scratchblocks from "./scratchblocks-es-min.js";
+import loadTranslations from "./translations-all-es.js";
+loadTranslations(scratchblocks);
+
+// window.scratchblocks is NOT available!
+```
+
 # Languages
 
 To update the translations:
@@ -140,7 +151,7 @@ npm run locales
 
 ## Adding a language
 
-Each language **requires** some [additional words](https://github.com/tjvr/scratchblocks/blob/master/locales-src/extra_aliases.js) which aren't in Scratch itself (mainly the words used for the flag and arrow images).
+Each language **requires** some [additional words](https://github.com/scratchblocks/scratchblocks/blob/master/locales-src/extra_aliases.js) which aren't in Scratch itself (mainly the words used for the flag and arrow images).
 I'd be happy to accept pull requests for those! You'll need to rebuild the translations with `npm run locales` after editing the aliases.
 
 # Development
@@ -154,18 +165,19 @@ npm start
 
 Then open <http://localhost:8000/> :-)
 
-For more details, see [`CONTRIBUTING.md`](https://github.com/tjvr/scratchblocks/blob/master/.github/CONTRIBUTING.md).
+For more details, see [`CONTRIBUTING.md`](https://github.com/scratchblocks/scratchblocks/blob/master/.github/CONTRIBUTING.md).
 
 
 # Credits
 
-Many, many thanks to the [contributors](https://github.com/tjvr/scratchblocks/graphs/contributors)!
+Many, many thanks to the [contributors](https://github.com/scratchblocks/scratchblocks/graphs/contributors)!
 
 * Authored by [tjvr](https://github.com/tjvr)
+* Maintained by tjvr and [apple502j](https://github.com/apple502j)
 * Icons derived from [Scratch Blocks](https://github.com/LLK/scratch-blocks) (Apache License 2.0)
 * Scratch 2 SVG proof-of-concept, shapes & filters by [as-com](https://github.com/as-com)
 * Anna helped with a formula, and pointed out that I can't read graphs
-* JSO designed the syntax and wrote the original [Block Plugin](http://wiki.scratch.mit.edu/wiki/Block_Plugin_\(1.4\))
-* Help with translation code from [joooni](http://scratch.mit.edu/users/joooni/)
-* Block translations from the [Scratch translation server](http://translate.scratch.mit.edu/)
+* JSO designed the syntax and wrote the original [Block Plugin](https://en.scratch-wiki.info/wiki/Block_Plugin_\(1.4\))
+* Help with translation code from [joooni](https://scratch.mit.edu/users/joooni/)
+* Block translations from the [scratch-l10n repository](https://github.com/LLK/scratch-l10n/)
 * Ported to node by [arve0](https://github.com/arve0)
