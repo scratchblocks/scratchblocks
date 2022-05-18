@@ -801,7 +801,11 @@ class DocumentView {
     var svg = SVG.newSVG(width, height, this.scale)
     svg.appendChild((this.defs = SVG.withChildren(SVG.el("defs"), makeIcons())))
 
-    svg.appendChild(SVG.group(elements))
+    svg.appendChild(
+      SVG.setProps(SVG.group(elements), {
+        style: `transform: scale(${this.scale})`,
+      }),
+    )
     this.el = svg
     return svg
   }

@@ -62,7 +62,7 @@ export default SVG = {
       version: "1.1",
       width: width * scale,
       height: height * scale,
-      viewBox: `0 0 ${width} ${height}`,
+      viewBox: `0 0 ${width * scale} ${height * scale}`,
     })
   },
 
