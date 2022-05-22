@@ -126,7 +126,12 @@
           "no-empty": 2,
           "no-lonely-if": 2,
           "no-loop-func": 2,
-          "no-redeclare": 2
+          "no-redeclare": 2,
+          "no-sequences": 2,
+          "no-shadow-restricted-names": 2,
+          "no-useless-catch": 2,
+          "no-useless-concat": 2,
+          "no-var": 2
       }
   }
 }

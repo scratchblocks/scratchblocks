@@ -32,13 +32,13 @@ import {
 } from "./blocks.js"
 
 function paintBlock(info, children, languages) {
-  var overrides = []
+  let overrides = []
   if (isArray(children[children.length - 1])) {
     overrides = children.pop()
   }
 
   // build hash
-  var words = []
+  let words = []
   for (const child of children) {
     if (child.isLabel) {
       words.push(child.value)
@@ -48,14 +48,16 @@ function paintBlock(info, children, languages) {
       words.push("_")
     }
   }
-  var string = words.join(" ")
-  var shortHash = (info.hash = minifyHash(string))
+  let string = words.join(" ")
+  let shortHash = (info.hash = minifyHash(string))
 
   // paint
-  var o = lookupHash(shortHash, info, children, languages)
+  let o = lookupHash(shortHash, info, children, languages)
+  let lang
+  let type
   if (o) {
-    var lang = o.lang
-    var type = o.type
+    lang = o.lang
+    type = o.type
     info.language = lang
     info.isRTL = rtlLanguages.indexOf(lang.code) > -1
 
@@ -157,7 +159,7 @@ function paintBlock(info, children, languages) {
     children.push(new Icon("loopArrow"))
   }
 
-  var block = new Block(info, children)
+  let block = new Block(info, children)
 
   // image replacement
   if (type && iconPat.test(type.spec)) {
@@ -181,7 +183,7 @@ function isDefineBlock(children, lang) {
     return false
   }
 
-  for (var i = 0; i < lang.definePrefix.length; i++) {
+  for (let i = 0; i < lang.definePrefix.length; i++) {
     const defineWord = lang.definePrefix[i]
     const child = children[i]
     if (!child.isLabel || minifyHash(child.value) !== minifyHash(defineWord)) {
@@ -201,8 +203,8 @@ function isDefineBlock(children, lang) {
 }
 
 function parseLines(code, languages) {
-  var tok = code[0]
-  var index = 0
+  let tok = code[0]
+  let index = 0
   function next() {
     tok = code[++index]
   }
@@ -210,25 +212,25 @@ function parseLines(code, languages) {
     return code[index + 1]
   }
   function peekNonWs() {
-    for (var i = index + 1; i < code.length; i++) {
+    for (let i = index + 1; i < code.length; i++) {
       if (code[i] !== " ") {
         return code[i]
       }
     }
   }
-  var sawNL
+  let sawNL
 
-  var define = []
+  let define = []
   languages.map(function (lang) {
     define = define.concat(lang.define)
   })
 
   function makeBlock(shape, children) {
-    var hasInputs = !!children.filter(function (x) {
+    let hasInputs = !!children.filter(function (x) {
       return !x.isLabel
     }).length
 
-    var info = {
+    let info = {
       shape: shape,
       category: shape === "reporter" && !hasInputs ? "variables" : "obsolete",
       categoryIsDefault: true,
@@ -239,13 +241,13 @@ function parseLines(code, languages) {
   }
 
   function makeMenu(shape, value) {
-    var menu = lookupDropdown(value, languages) || value
+    let menu = lookupDropdown(value, languages) || value
     return new Input(shape, value, menu)
   }
 
   function pParts(end) {
-    var children = []
-    var label
+    let children = []
+    let label
     while (tok && tok !== "\n") {
       // So that comparison operators `<()<()>` and `<()>()>` don't need the
       // central <> escaped, we interpret it as a label if particular
@@ -256,7 +258,7 @@ function parseLines(code, languages) {
         children.length === 1 && // There's exactly one AST node behind us.
         !children[children.length - 1].isLabel // That node is not a label.
       ) {
-        var c = peekNonWs()
+        let c = peekNonWs()
         // The next token starts some kind of input.
         if (c === "[" || c === "(" || c === "<" || c === "{") {
           label = null
@@ -299,9 +301,9 @@ function parseLines(code, languages) {
           children.push(pIcon())
           label = null
           break
-        case "@":
+        case "@": {
           next()
-          var name = ""
+          let name = ""
           while (tok && /[a-zA-Z]/.test(tok)) {
             name += tok
             next()
@@ -317,6 +319,7 @@ function parseLines(code, languages) {
           }
           label = null
           break
+        }
         case "\\":
           next() // escape character
         // fallthrough
@@ -339,8 +342,8 @@ function parseLines(code, languages) {
 
   function pString() {
     next() // '['
-    var s = ""
-    var escapeV = false
+    let s = ""
+    let escapeV = false
     while (tok && tok !== "]" && tok !== "\n") {
       if (tok === "\\") {
         next()
@@ -368,7 +371,7 @@ function parseLines(code, languages) {
   }
 
   function pBlock(end) {
-    var children = pParts(end)
+    let children = pParts(end)
     if (tok && tok === "\n") {
       sawNL = true
       next()
@@ -379,7 +382,7 @@ function parseLines(code, languages) {
 
     // standalone reporters
     if (children.length === 1) {
-      var child = children[0]
+      let child = children[0]
       if (
         child.isBlock &&
         (child.isReporter || child.isBoolean || child.isRing)
@@ -404,7 +407,7 @@ function parseLines(code, languages) {
       }
     }
 
-    var children = pParts(")")
+    let children = pParts(")")
     if (tok && tok === ")") {
       next()
     }
@@ -427,7 +430,7 @@ function parseLines(code, languages) {
 
     // number-dropdown
     if (children.length > 1 && children.every(child => child.isLabel)) {
-      var last = children[children.length - 1]
+      let last = children[children.length - 1]
       if (last.value === "v") {
         children.pop()
         const value = children
@@ -439,11 +442,11 @@ function parseLines(code, languages) {
       }
     }
 
-    var block = makeBlock("reporter", children)
+    let block = makeBlock("reporter", children)
 
     // rings
     if (block.info && block.info.shape === "ring") {
-      var first = block.children[0]
+      let first = block.children[0]
       if (
         first &&
         first.isInput &&
@@ -464,7 +467,7 @@ function parseLines(code, languages) {
 
   function pPredicate() {
     next() // '<'
-    var children = pParts(">")
+    let children = pParts(">")
     if (tok && tok === ">") {
       next()
     }
@@ -478,16 +481,16 @@ function parseLines(code, languages) {
     next() // '{'
 
     sawNL = false
-    var f = function () {
+    let f = function () {
       while (tok && tok !== "}") {
-        var block = pBlock("}")
+        let block = pBlock("}")
         if (block) {
           return block
         }
       }
     }
-    var scripts = parseScripts(f)
-    var blocks = []
+    let scripts = parseScripts(f)
+    let blocks = []
     scripts.forEach(function (script) {
       blocks = blocks.concat(script.blocks)
     })
@@ -503,7 +506,7 @@ function parseLines(code, languages) {
   }
 
   function pIcon() {
-    var c = tok
+    let c = tok
     next()
     switch (c) {
       case "▸":
@@ -518,8 +521,8 @@ function parseLines(code, languages) {
   function pOverrides(end) {
     next()
     next()
-    var overrides = []
-    var override = ""
+    let overrides = []
+    let override = ""
     while (tok && tok !== "\n" && tok !== end) {
       if (tok === " ") {
         if (override) {
@@ -542,7 +545,7 @@ function parseLines(code, languages) {
   function pComment(end) {
     next()
     next()
-    var comment = ""
+    let comment = ""
     while (tok && tok !== "\n" && tok !== end) {
       comment += tok
       next()
@@ -554,14 +557,14 @@ function parseLines(code, languages) {
   }
 
   function pLine() {
-    var diff
+    let diff
     if (tok === "+" || tok === "-") {
       diff = tok
       next()
     }
-    var block = pBlock()
+    let block = pBlock()
     if (tok === "/" && peek() === "/") {
-      var comment = pComment()
+      let comment = pComment()
       comment.hasBlock = block && block.children.length
       if (!comment.hasBlock) {
         return comment
@@ -578,7 +581,7 @@ function parseLines(code, languages) {
     if (!tok) {
       return undefined
     }
-    var line = pLine()
+    let line = pLine()
     return line || "NL"
   }
 }
@@ -586,7 +589,7 @@ function parseLines(code, languages) {
 /* * */
 
 function parseScripts(getLine) {
-  var line = getLine()
+  let line = getLine()
   function next() {
     line = getLine()
   }
@@ -595,12 +598,12 @@ function parseScripts(getLine) {
     while (line === "NL") {
       next()
     }
-    var scripts = []
+    let scripts = []
     while (line) {
-      var blocks = []
+      let blocks = []
       while (line && line !== "NL") {
-        var b = pLine()
-        var isGlow = b.diff === "+"
+        let b = pLine()
+        let isGlow = b.diff === "+"
         if (isGlow) {
           b.diff = null
         }
@@ -610,13 +613,11 @@ function parseScripts(getLine) {
         }
 
         if (isGlow) {
-          var last = blocks[blocks.length - 1]
+          let last = blocks[blocks.length - 1]
           let children = []
           if (last && last.isGlow) {
             blocks.pop()
-            children = last.child.isScript
-              ? last.child.blocks
-              : [last.child]
+            children = last.child.isScript ? last.child.blocks : [last.child]
           }
           children.push(b)
           blocks.push(new Glow(new Script(children)))
@@ -651,12 +652,12 @@ function parseScripts(getLine) {
   }
 
   function pLine() {
-    var b = line
+    let b = line
     next()
 
     if (b.hasScript) {
       while (true) {
-        var blocks = pMouth()
+        let blocks = pMouth()
         b.children.push(new Script(blocks))
         if (line && line.isElse) {
           for (const child of line.children) {
@@ -675,7 +676,7 @@ function parseScripts(getLine) {
   }
 
   function pMouth() {
-    var blocks = []
+    let blocks = []
     while (line) {
       if (line === "NL") {
         next()
@@ -685,14 +686,14 @@ function parseScripts(getLine) {
         return blocks
       }
 
-      var b = pLine()
-      var isGlow = b.diff === "+"
+      let b = pLine()
+      let isGlow = b.diff === "+"
       if (isGlow) {
         b.diff = null
       }
 
       if (isGlow) {
-        var last = blocks[blocks.length - 1]
+        let last = blocks[blocks.length - 1]
         let children = []
         if (last && last.isGlow) {
           blocks.pop()
@@ -728,7 +729,7 @@ function eachBlock(x, cb) {
   }
 }
 
-var listBlocks = {
+let listBlocks = {
   "append:toList:": 1,
   "deleteLine:ofList:": 1,
   "insert:at:ofList:": 2,
@@ -740,12 +741,12 @@ var listBlocks = {
 function recogniseStuff(scripts) {
   // Object.create(null) is JS magic for an "empty dictionary"
   // In ES6-land a Set would be more appropriate
-  var customBlocksByHash = Object.create(null)
-  var listNames = Object.create(null)
-  var variableNames = Object.create(null)
+  let customBlocksByHash = Object.create(null)
+  let listNames = Object.create(null)
+  let variableNames = Object.create(null)
 
   scripts.forEach(function (script) {
-    var customArgs = Object.create(null)
+    let customArgs = Object.create(null)
 
     eachBlock(script, function (block) {
       if (!block.isBlock) {
@@ -755,13 +756,13 @@ function recogniseStuff(scripts) {
       // custom blocks
       if (block.info.shape === "define-hat") {
         // There should be exactly one `outline` child, added in paintBlock.
-        var outline = block.children.find(child => child.isOutline)
+        let outline = block.children.find(child => child.isOutline)
         if (!outline) {
           return
         }
 
-        var names = []
-        var parts = []
+        let names = []
+        let parts = []
         for (const child of outline.children) {
           if (child.isLabel) {
             parts.push(child.value)
@@ -782,10 +783,10 @@ function recogniseStuff(scripts) {
             customArgs[name] = true
           }
         }
-        var spec = parts.join(" ")
-        var hash = hashSpec(spec)
+        let spec = parts.join(" ")
+        let hash = hashSpec(spec)
 
-        var info = {
+        let info = {
           spec: spec,
           names: names,
         }
@@ -812,11 +813,11 @@ function recogniseStuff(scripts) {
 
         // list names
       } else if (listBlocks.hasOwnProperty(block.info.selector)) {
-        var argIndex = listBlocks[block.info.selector]
-        var inputs = block.children.filter(function (child) {
+        let argIndex = listBlocks[block.info.selector]
+        let inputs = block.children.filter(function (child) {
           return !child.isLabel
         })
-        var input = inputs[argIndex]
+        let input = inputs[argIndex]
         if (input && input.isInput) {
           listNames[input.value] = true
         }
@@ -842,7 +843,7 @@ function recogniseStuff(scripts) {
         return
       }
 
-      var name, info
+      let name, info
       if (
         block.isReporter &&
         block.info.category === "variables" &&
@@ -894,8 +895,8 @@ export function parse(code, options) {
     code = code.replace(/\n/g, " ")
   }
 
-  var languages = options.languages.map(function (code) {
-    var lang = allLanguages[code]
+  let languages = options.languages.map(function (code) {
+    let lang = allLanguages[code]
     if (!lang) {
       throw new Error("Unknown language: '" + code + "'")
     }
@@ -904,8 +905,8 @@ export function parse(code, options) {
 
   /* * */
 
-  var f = parseLines(code, languages)
-  var scripts = parseScripts(f)
+  let f = parseLines(code, languages)
+  let scripts = parseScripts(f)
   recogniseStuff(scripts)
   return new Document(scripts)
 }

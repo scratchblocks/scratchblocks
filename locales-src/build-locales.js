@@ -195,7 +195,7 @@ const buildLocale = (code, rawLocale) => {
 
 const fixup = (key, value, englishValue) => {
   let number = 0
-  var variables = {}
+  let variables = {}
   englishValue.replace(/\[[^\]]+\]/g, key => {
     variables[key] = "%" + ++number
   })

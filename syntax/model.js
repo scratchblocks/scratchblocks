@@ -105,7 +105,7 @@ export class Input {
       assert(this.value[0] === "#")
       return "[" + this.value + "]"
     }
-    var text = (this.value ? "" + this.value : "")
+    let text = (this.value ? "" + this.value : "")
       .replace(/ v$/, " \\v")
       .replace(/([\]\\])/g, "\\$1")
     if (this.hasArrow) {
@@ -124,7 +124,7 @@ export class Input {
 
   translate(_lang) {
     if (this.hasArrow) {
-      var value = this.menu || this.value
+      let value = this.menu || this.value
       this.value = value // TODO translate dropdown value
       this.label = new Label(this.value, "literal-" + this.shape)
     }
@@ -139,7 +139,7 @@ export class Block {
     this.comment = comment || null
     this.diff = null
 
-    var shape = this.info.shape
+    let shape = this.info.shape
     this.isHat = shape === "hat" || shape === "cat" || shape === "define-hat"
     this.hasPuzzle =
       shape === "stack" ||
@@ -162,9 +162,9 @@ export class Block {
   }
 
   stringify(extras) {
-    var firstInput = null
-    var checkAlias = false
-    var text = this.children
+    let firstInput = null
+    let checkAlias = false
+    let text = this.children
       .map(function (child) {
         if (child.isIcon) {
           checkAlias = true
@@ -179,11 +179,11 @@ export class Block {
       .join("")
       .trim()
 
-    var lang = this.info.language
+    let lang = this.info.language
     if (checkAlias && lang && this.info.selector) {
-      var aliases = lang.nativeAliases[this.info.id]
+      let aliases = lang.nativeAliases[this.info.id]
       if (aliases && aliases.length) {
-        var alias = aliases[0]
+        let alias = aliases[0]
         // TODO make translate() not in-place, and use that
         if (inputPat.test(alias) && firstInput) {
           alias = alias.replace(inputPat, firstInput.stringify())
@@ -192,7 +192,7 @@ export class Block {
       }
     }
 
-    var overrides = extras || ""
+    let overrides = extras || ""
     if (
       this.info.categoryIsDefault === false ||
       (this.info.category === "custom-arg" &&
@@ -221,7 +221,7 @@ export class Block {
       throw new Error("Missing language")
     }
 
-    var id = this.info.id
+    let id = this.info.id
     if (!id) {
       return
     }
@@ -241,15 +241,15 @@ export class Block {
       return
     }
 
-    var oldSpec = this.info.language.commands[id]
+    let oldSpec = this.info.language.commands[id]
 
-    var nativeSpec = lang.commands[id]
+    let nativeSpec = lang.commands[id]
     if (!nativeSpec) {
       return
     }
-    var nativeInfo = parseSpec(nativeSpec)
+    let nativeInfo = parseSpec(nativeSpec)
 
-    var rawArgs = this.children.filter(function (child) {
+    let rawArgs = this.children.filter(function (child) {
       return !child.isLabel && !child.isIcon
     })
 
@@ -260,17 +260,17 @@ export class Block {
     }
 
     // Work out indexes of existing children
-    var oldParts = parseSpec(oldSpec).parts
-    var oldInputOrder = oldParts
+    let oldParts = parseSpec(oldSpec).parts
+    let oldInputOrder = oldParts
       .map(part => parseInputNumber(part))
       .filter(x => !!x)
 
-    var highestNumber = 0
-    var args = oldInputOrder.map(number => {
+    let highestNumber = 0
+    let args = oldInputOrder.map(number => {
       highestNumber = Math.max(highestNumber, number)
       return rawArgs[number - 1]
     })
-    var remainingArgs = rawArgs.slice(highestNumber)
+    let remainingArgs = rawArgs.slice(highestNumber)
 
     // Get new children by index
     this.children = nativeInfo.parts
@@ -279,7 +279,7 @@ export class Block {
         if (!part) {
           return
         }
-        var number = parseInputNumber(part)
+        let number = parseInputNumber(part)
         if (number) {
           return args[number - 1]
         }
@@ -335,7 +335,7 @@ export class Glow {
     if (this.child.isBlock) {
       return this.child.stringify("+")
     }
-    var lines = this.child.stringify().split("\n")
+    let lines = this.child.stringify().split("\n")
     return lines.map(line => "+ " + line).join("\n")
   }
 
@@ -357,7 +357,7 @@ export class Script {
   stringify() {
     return this.blocks
       .map(function (block) {
-        var line = block.stringify()
+        let line = block.stringify()
         if (block.comment) {
           line += " " + block.comment.stringify()
         }

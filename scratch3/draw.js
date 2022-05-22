@@ -1,10 +1,10 @@
 /* for constucting SVGs */
 
 // set by SVG.init
-var document
-var xml
+let document
+let xml
 
-var directProps = {
+let directProps = {
   textContent: true,
 }
 
@@ -12,7 +12,7 @@ let SVG
 export default SVG = {
   init(window) {
     document = window.document
-    var DOMParser = window.DOMParser
+    let DOMParser = window.DOMParser
     xml = new DOMParser().parseFromString("<xml></xml>", "application/xml")
     SVG.XMLSerializer = window.XMLSerializer
   },
@@ -26,13 +26,13 @@ export default SVG = {
   },
 
   el(name, props) {
-    var el = document.createElementNS("http://www.w3.org/2000/svg", name)
+    let el = document.createElementNS("http://www.w3.org/2000/svg", name)
     return SVG.setProps(el, props)
   },
 
   setProps(el, props) {
     for (const key in props) {
-      var value = "" + props[key]
+      let value = "" + props[key]
       if (directProps[key]) {
         el[key] = value
       } else if (props[key] != null && props.hasOwnProperty(key)) {
@@ -71,7 +71,7 @@ export default SVG = {
   },
 
   text(x, y, content, props) {
-    var text = SVG.el("text", { ...props, x: x, y: y, textContent: content })
+    let text = SVG.el("text", { ...props, x: x, y: y, textContent: content })
     return text
   },
 
@@ -99,12 +99,12 @@ export default SVG = {
   },
 
   pillRect(w, h, props) {
-    var r = h / 2
+    let r = h / 2
     return SVG.rect(w, h, { ...props, rx: r, ry: r })
   },
 
   pointedPath(w, h) {
-    var r = h / 2
+    let r = h / 2
     return [
       ["M", r, 0].join(" "),
       ["L", w - r, 0, w, r].join(" "),
@@ -171,7 +171,7 @@ export default SVG = {
       inset = 0
     }
 
-    var arr = [["L", w, y - 4].join(" "), ["a", 4, 4, 0, 0, 1, -4, 4].join(" ")]
+    let arr = [["L", w, y - 4].join(" "), ["a", 4, 4, 0, 0, 1, -4, 4].join(" ")]
 
     if (hasNotch) {
       arr = arr.concat([
@@ -323,12 +323,12 @@ export default SVG = {
   },
 
   mouthRect(w, h, isFinal, lines, props) {
-    var y = lines[0].height
-    var p = [SVG.getTop(w), SVG.getRightAndBottom(w, y, true, 16)]
-    for (var i = 1; i < lines.length; i += 2) {
-      var isLast = i + 2 === lines.length
+    let y = lines[0].height
+    let p = [SVG.getTop(w), SVG.getRightAndBottom(w, y, true, 16)]
+    for (let i = 1; i < lines.length; i += 2) {
+      let isLast = i + 2 === lines.length
 
-      var line = lines[i]
+      let line = lines[i]
       y += line.height - 3
 
       if (line.isFinal) {
@@ -337,8 +337,8 @@ export default SVG = {
         p.push(SVG.getArm(w, y))
       }
 
-      var hasNotch = !(isLast && isFinal)
-      var inset = isLast ? 0 : 16
+      let hasNotch = !(isLast && isFinal)
+      let inset = isLast ? 0 : 16
       y += lines[i + 1].height + 3
       p.push(SVG.getRightAndBottom(w, y, hasNotch, inset))
     }

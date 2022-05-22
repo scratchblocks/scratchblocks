@@ -14,8 +14,8 @@ export default class Filter {
   }
 
   fe(name, props, children) {
-    var shortName = name.toLowerCase().replace(/gaussian|osite/, "")
-    var id = [shortName, "-", ++this.highestId].join("")
+    let shortName = name.toLowerCase().replace(/gaussian|osite/, "")
+    let id = [shortName, "-", ++this.highestId].join("")
     this.el.appendChild(
       SVG.withChildren(
         SVG.el("fe" + name, { ...props, result: id }),
