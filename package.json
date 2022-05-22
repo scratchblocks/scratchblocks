@@ -84,7 +84,8 @@
           "sourceType": "module"
       },
       "rules": {
-          "curly": [2, "all"]
+          "curly": [2, "all"],
+          "no-const-assign": 2
       }
   }
 }
