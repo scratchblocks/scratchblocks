@@ -7,7 +7,7 @@ function assert(bool, message) {
 function indent(text) {
   return text
     .split("\n")
-    .map(function (line) {
+    .map(line => {
       return "  " + line
     })
     .join("\n")
@@ -165,7 +165,7 @@ export class Block {
     let firstInput = null
     let checkAlias = false
     let text = this.children
-      .map(function (child) {
+      .map(child => {
         if (child.isIcon) {
           checkAlias = true
         }
@@ -249,12 +249,12 @@ export class Block {
     }
     const nativeInfo = parseSpec(nativeSpec)
 
-    const rawArgs = this.children.filter(function (child) {
+    const rawArgs = this.children.filter(child => {
       return !child.isLabel && !child.isIcon
     })
 
     if (!isShallow) {
-      rawArgs.forEach(function (child) {
+      rawArgs.forEach(child => {
         child.translate(lang)
       })
     }
@@ -274,7 +274,7 @@ export class Block {
 
     // Get new children by index
     this.children = nativeInfo.parts
-      .map(function (part) {
+      .map(part => {
         part = part.trim()
         if (!part) {
           return
@@ -356,7 +356,7 @@ export class Script {
 
   stringify() {
     return this.blocks
-      .map(function (block) {
+      .map(block => {
         let line = block.stringify()
         if (block.comment) {
           line += " " + block.comment.stringify()
@@ -367,7 +367,7 @@ export class Script {
   }
 
   translate(lang) {
-    this.blocks.forEach(function (block) {
+    this.blocks.forEach(block => {
       block.translate(lang)
     })
   }
@@ -380,14 +380,14 @@ export class Document {
 
   stringify() {
     return this.scripts
-      .map(function (script) {
+      .map(script => {
         return script.stringify()
       })
       .join("\n\n")
   }
 
   translate(lang) {
-    this.scripts.forEach(function (script) {
+    this.scripts.forEach(script => {
       script.translate(lang)
     })
   }

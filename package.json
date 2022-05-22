@@ -132,7 +132,8 @@
           "no-useless-catch": 2,
           "no-useless-concat": 2,
           "no-var": 2,
-          "prefer-const": 2
+          "prefer-const": 2,
+          "prefer-arrow-callback": 2
       }
   }
 }

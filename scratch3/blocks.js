@@ -771,7 +771,7 @@ class DocumentView {
   }
 
   measure() {
-    this.scripts.forEach(function (script) {
+    this.scripts.forEach(script => {
       script.measure()
     })
   }
@@ -858,9 +858,9 @@ class DocumentView {
   }
 
   exportPNG(cb, scale) {
-    this.toCanvas(function (canvas) {
+    this.toCanvas(canvas => {
       if (URL && URL.createObjectURL && Blob && canvas.toBlob) {
-        canvas.toBlob(function (blob) {
+        canvas.toBlob(blob => {
           cb(URL.createObjectURL(blob))
         }, "image/png")
       } else {

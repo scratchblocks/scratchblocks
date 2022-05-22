@@ -68,7 +68,7 @@ export default class Filter {
     this.fe(
       "Merge",
       {},
-      children.map(function (name) {
+      children.map(name => {
         return SVG.el("feMergeNode", {
           in: name,
         })

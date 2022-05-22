@@ -221,12 +221,12 @@ function parseLines(code, languages) {
   let sawNL
 
   let define = []
-  languages.map(function (lang) {
+  languages.map(lang => {
     define = define.concat(lang.define)
   })
 
   function makeBlock(shape, children) {
-    const hasInputs = !!children.filter(function (x) {
+    const hasInputs = !!children.filter(x => {
       return !x.isLabel
     }).length
 
@@ -434,7 +434,7 @@ function parseLines(code, languages) {
       if (last.value === "v") {
         children.pop()
         const value = children
-          .map(function (l) {
+          .map(l => {
             return l.value
           })
           .join(" ")
@@ -491,7 +491,7 @@ function parseLines(code, languages) {
     }
     const scripts = parseScripts(f)
     let blocks = []
-    scripts.forEach(function (script) {
+    scripts.forEach(script => {
       blocks = blocks.concat(script.blocks)
     })
 
@@ -715,12 +715,12 @@ function parseScripts(getLine) {
 
 function eachBlock(x, cb) {
   if (x.isScript) {
-    x.blocks = x.blocks.map(function (block) {
+    x.blocks = x.blocks.map(block => {
       eachBlock(block, cb)
       return cb(block) || block
     })
   } else if (x.isBlock) {
-    x.children = x.children.map(function (child) {
+    x.children = x.children.map(child => {
       eachBlock(child, cb)
       return cb(child) || child
     })
@@ -745,10 +745,10 @@ function recogniseStuff(scripts) {
   const listNames = Object.create(null)
   const variableNames = Object.create(null)
 
-  scripts.forEach(function (script) {
+  scripts.forEach(script => {
     const customArgs = Object.create(null)
 
-    eachBlock(script, function (block) {
+    eachBlock(script, block => {
       if (!block.isBlock) {
         return
       }
@@ -814,7 +814,7 @@ function recogniseStuff(scripts) {
         // list names
       } else if (listBlocks.hasOwnProperty(block.info.selector)) {
         const argIndex = listBlocks[block.info.selector]
-        const inputs = block.children.filter(function (child) {
+        const inputs = block.children.filter(child => {
           return !child.isLabel
         })
         const input = inputs[argIndex]
@@ -825,8 +825,8 @@ function recogniseStuff(scripts) {
     })
   })
 
-  scripts.forEach(function (script) {
-    eachBlock(script, function (block) {
+  scripts.forEach(script => {
+    eachBlock(script, block => {
       if (
         block.info &&
         block.info.categoryIsDefault &&
@@ -895,7 +895,7 @@ export function parse(code, options) {
     code = code.replace(/\n/g, " ")
   }
 
-  const languages = options.languages.map(function (code) {
+  const languages = options.languages.map(code => {
     const lang = allLanguages[code]
     if (!lang) {
       throw new Error("Unknown language: '" + code + "'")
