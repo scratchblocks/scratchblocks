@@ -119,7 +119,10 @@
           "default-case-last": 2,
           "default-case": 2,
           "dot-notation": 2,
-          "eqeqeq": [2, "always", {"null": "never"}]
+          "eqeqeq": [2, "always", {"null": "never"}],
+          "no-case-declarations": 2,
+          "no-delete-var": 2,
+          "no-else-return": 2
       }
   }
 }

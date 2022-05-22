@@ -282,9 +282,8 @@ export class Block {
         var number = parseInputNumber(part)
         if (number) {
           return args[number - 1]
-        } else {
-          return iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part)
         }
+        return iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part)
       })
       .filter(x => !!x)
 
@@ -335,10 +334,9 @@ export class Glow {
   stringify() {
     if (this.child.isBlock) {
       return this.child.stringify("+")
-    } else {
-      var lines = this.child.stringify().split("\n")
-      return lines.map(line => "+ " + line).join("\n")
     }
+    var lines = this.child.stringify().split("\n")
+    return lines.map(line => "+ " + line).join("\n")
   }
 
   translate(lang) {

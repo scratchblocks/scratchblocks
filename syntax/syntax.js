@@ -167,9 +167,9 @@ function paintBlock(info, children, languages) {
   // diffs
   if (info.diff === "+") {
     return new Glow(block)
-  } else {
-    block.diff = info.diff
   }
+  block.diff = info.diff
+
   return block
 }
 
