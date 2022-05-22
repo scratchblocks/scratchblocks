@@ -41,7 +41,7 @@ export default SVG = {
       var value = "" + props[key]
       if (directProps[key]) {
         el[key] = value
-      } else if (props[key] !== null && props.hasOwnProperty(key)) {
+      } else if (props[key] != null && props.hasOwnProperty(key)) {
         el.setAttributeNS(null, key, value)
       }
     }
