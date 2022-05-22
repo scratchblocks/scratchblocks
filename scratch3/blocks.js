@@ -720,8 +720,7 @@ class ScriptView {
     const children = []
     let y = 1
     this.width = 0
-    let block
-    for (block of this.blocks) {
+    for (const block of this.blocks) {
       const x = inside ? 0 : 2
       const child = block.draw()
       children.push(SVG.move(x, y, child))
@@ -747,11 +746,12 @@ class ScriptView {
         this.width = Math.max(this.width, cx + comment.width)
       }
     }
+    const lastBlock = this.blocks[this.blocks.length - 1]
     this.height = y + 1
     if (!inside && !this.isFinal) {
-      this.height += block.hasPuzzle ? 8 : 0
+      this.height += lastBlock.hasPuzzle ? 8 : 0
     }
-    if (!inside && block.isGlow) {
+    if (!inside && lastBlock.isGlow) {
       this.height += 7 // TODO unbreak this
     }
     return SVG.group(children)
