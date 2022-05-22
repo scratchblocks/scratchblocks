@@ -133,7 +133,11 @@
           "no-useless-concat": 2,
           "no-var": 2,
           "prefer-const": 2,
-          "prefer-arrow-callback": 2
+          "prefer-arrow-callback": 2,
+          "prefer-object-spread": 2,
+          "prefer-spread": 2,
+          "prefer-rest-params": 2,
+          "yoda": [2, "never"]
       }
   }
 }
