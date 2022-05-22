@@ -36,7 +36,7 @@ export const rtlLanguages = ["ar", "ckb", "fa", "he"]
 // List of commands taken from Scratch
 import scratchCommands from "./commands.js"
 
-const inputNumberPat = /\%([0-9]+)/
+const inputNumberPat = /%([0-9]+)/
 export const inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
 const inputPatGlobal = new RegExp(inputPat.source, "g")
 export const iconPat = /(@[a-zA-Z]+)/

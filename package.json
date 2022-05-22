@@ -75,69 +75,48 @@
     "transform": {}
   },
   "eslintConfig": {
-      "env": {
-          "browser": true,
-          "es6": true,
-          "node": true
-      },
-      "parserOptions": {
-          "ecmaVersion": 13,
-          "sourceType": "module"
-      },
-      "rules": {
-          "curly": [2, "all"],
-          "no-const-assign": 2,
-          "no-debugger": 2,
-          "no-dupe-args": 2,
-          "no-dupe-class-members": 2,
-          "no-dupe-else-if": 2,
-          "no-dupe-keys": 2,
-          "no-duplicate-case": 2,
-          "no-duplicate-imports": 2,
-          "no-ex-assign": 2,
-          "no-fallthrough": 2,
-          "no-func-assign": 2,
-          "no-import-assign": 2,
-          "no-loss-of-precision": 2,
-          "no-new-symbol": 2,
-          "no-self-compare": 2,
-          "no-sparse-arrays": 2,
-          "no-this-before-super": 2,
-          "no-undef": 2,
-          "no-unreachable": 2,
-          "no-unreachable-loop": 2,
-          "no-unsafe-finally": 2,
-          "no-unsafe-negation": 2,
-          "no-unsafe-optional-chaining": 2,
-          "no-unused-private-class-members": 2,
-          "no-unused-vars": [2, {
-              "argsIgnorePattern": "^_",
-              "varsIgnorePattern": "^_"
-          }],
-          "use-isnan": 2,
-          "valid-typeof": 2,
-          "default-case-last": 2,
-          "default-case": 2,
-          "dot-notation": 2,
-          "eqeqeq": [2, "always", {"null": "never"}],
-          "no-case-declarations": 2,
-          "no-delete-var": 2,
-          "no-else-return": 2,
-          "no-empty": 2,
-          "no-lonely-if": 2,
-          "no-loop-func": 2,
-          "no-redeclare": 2,
-          "no-sequences": 2,
-          "no-shadow-restricted-names": 2,
-          "no-useless-catch": 2,
-          "no-useless-concat": 2,
-          "no-var": 2,
-          "prefer-const": 2,
-          "prefer-arrow-callback": 2,
-          "prefer-object-spread": 2,
-          "prefer-spread": 2,
-          "prefer-rest-params": 2,
-          "yoda": [2, "never"]
-      }
+    "extends": "eslint:recommended",
+    "env": {
+      "browser": true,
+      "es6": true,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 13,
+      "sourceType": "module"
+    },
+    "rules": {
+      "curly": [2, "all"],
+      "default-case": 2,
+      "default-case-last": 2,
+      "dot-notation": 2,
+      "eqeqeq": [2, "always", {
+        "null": "never"
+      }],
+      "no-constant-condition": [2, {
+        "checkLoops": false
+      }],
+      "no-duplicate-imports": 2,
+      "no-else-return": 2,
+      "no-lonely-if": 2,
+      "no-loop-func": 2,
+      "no-prototype-builtins": 0,
+      "no-self-compare": 2,
+      "no-sequences": 2,
+      "no-unreachable-loop": 2,
+      "no-unused-private-class-members": 2,
+      "no-unused-vars": [2, {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }],
+      "no-useless-concat": 2,
+      "no-var": 2,
+      "prefer-arrow-callback": 2,
+      "prefer-const": 2,
+      "prefer-object-spread": 2,
+      "prefer-rest-params": 2,
+      "prefer-spread": 2,
+      "yoda": [2, "never"]
+    }
   }
 }
