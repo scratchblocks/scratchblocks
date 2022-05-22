@@ -232,8 +232,7 @@ class BlockView {
   }
 
   measure() {
-    for (var i = 0; i < this.children.length; i++) {
-      var child = this.children[i]
+    for (const child of this.children) {
       if (child.measure) child.measure()
     }
     if (this.comment) this.comment.measure()
@@ -444,8 +443,7 @@ class BlockView {
 
     var objects = []
 
-    for (var i = 0; i < lines.length; i++) {
-      var line = lines[i]
+    for (const line of lines) {
       if (line.isScript) {
         objects.push(SVG.move(15, line.y, line.el))
         continue
@@ -453,8 +451,7 @@ class BlockView {
 
       var h = line.height
 
-      for (var j = 0; j < line.children.length; j++) {
-        var child = line.children[j]
+      for (const child of line.children) {
         if (child.isArrow) {
           objects.push(SVG.move(innerWidth - 15, this.height - 3, child.el))
           continue
@@ -596,8 +593,8 @@ class ScriptView {
   }
 
   measure() {
-    for (var i = 0; i < this.blocks.length; i++) {
-      this.blocks[i].measure()
+    for (const block of this.blocks) {
+      block.measure()
     }
   }
 
@@ -605,8 +602,8 @@ class ScriptView {
     var children = []
     var y = 0
     this.width = 0
-    for (var i = 0; i < this.blocks.length; i++) {
-      var block = this.blocks[i]
+    let block
+    for (block of this.blocks) {
       var x = inside ? 0 : 2
       var child = block.draw()
       children.push(SVG.move(x, y, child))
@@ -674,8 +671,7 @@ class DocumentView {
     var width = 0
     var height = 0
     var elements = []
-    for (var i = 0; i < this.scripts.length; i++) {
-      var script = this.scripts[i]
+    for (const script of this.scripts) {
       if (height) height += 10
       script.y = height
       elements.push(SVG.move(0, height, script.draw()))

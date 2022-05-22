@@ -287,8 +287,7 @@ class BlockView {
   }
 
   measure() {
-    for (var i = 0; i < this.children.length; i++) {
-      var child = this.children[i]
+    for (const child of this.children) {
       if (child.measure) child.measure()
     }
     if (this.comment) this.comment.measure()
@@ -707,8 +706,8 @@ class ScriptView {
   }
 
   measure() {
-    for (var i = 0; i < this.blocks.length; i++) {
-      this.blocks[i].measure()
+    for (const block of this.blocks) {
+      block.measure()
     }
   }
 
@@ -716,8 +715,8 @@ class ScriptView {
     var children = []
     var y = 1
     this.width = 0
-    for (var i = 0; i < this.blocks.length; i++) {
-      var block = this.blocks[i]
+    let block
+    for (block of this.blocks) {
       var x = inside ? 0 : 2
       var child = block.draw()
       children.push(SVG.move(x, y, child))

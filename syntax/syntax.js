@@ -37,8 +37,7 @@ function paintBlock(info, children, languages) {
 
   // build hash
   var words = []
-  for (var i = 0; i < children.length; i++) {
-    var child = children[i]
+  for (const child of children) {
     if (child.isLabel) {
       words.push(child.value)
     } else if (child.isIcon) {
@@ -90,48 +89,47 @@ function paintBlock(info, children, languages) {
 
       // Move the children of the define block into an "outline", transforming
       // () and [] shapes as we go.
-      const outlineChildren = children.splice(
-        lang.definePrefix.length,
-        children.length - lang.defineSuffix.length,
-      )
-
-      for (let i = 0; i < outlineChildren.length; i++) {
-        let child = outlineChildren[i]
-        if (child.isInput && child.isBoolean) {
-          // Convert empty boolean slot to empty boolean argument.
-          child = paintBlock(
-            {
-              shape: "boolean",
-              argument: "boolean",
-              category: "custom-arg",
-            },
-            [new Label("")],
-            languages,
-          )
-        } else if (
-          child.isInput &&
-          (child.shape === "string" || child.shape === "number")
-        ) {
-          // Convert string inputs to string arguments, number inputs to number arguments.
-          const labels = child.value.split(/ +/g).map(word => new Label(word))
-          child = paintBlock(
-            {
-              shape: "reporter",
-              argument: child.shape === "string" ? "string" : "number",
-              category: "custom-arg",
-            },
-            labels,
-            languages,
-          )
-        } else if (child.isReporter || child.isBoolean) {
-          // Convert variables to number arguments, predicates to boolean arguments.
-          if (child.info.categoryIsDefault) {
-            child.info.category = "custom-arg"
-            child.info.argument = child.isBoolean ? "boolean" : "number"
+      const outlineChildren = children
+        .splice(
+          lang.definePrefix.length,
+          children.length - lang.defineSuffix.length,
+        )
+        .map(child => {
+          if (child.isInput && child.isBoolean) {
+            // Convert empty boolean slot to empty boolean argument.
+            child = paintBlock(
+              {
+                shape: "boolean",
+                argument: "boolean",
+                category: "custom-arg",
+              },
+              [new Label("")],
+              languages,
+            )
+          } else if (
+            child.isInput &&
+            (child.shape === "string" || child.shape === "number")
+          ) {
+            // Convert string inputs to string arguments, number inputs to number arguments.
+            const labels = child.value.split(/ +/g).map(word => new Label(word))
+            child = paintBlock(
+              {
+                shape: "reporter",
+                argument: child.shape === "string" ? "string" : "number",
+                category: "custom-arg",
+              },
+              labels,
+              languages,
+            )
+          } else if (child.isReporter || child.isBoolean) {
+            // Convert variables to number arguments, predicates to boolean arguments.
+            if (child.info.categoryIsDefault) {
+              child.info.category = "custom-arg"
+              child.info.argument = child.isBoolean ? "boolean" : "number"
+            }
           }
-        }
-        outlineChildren[i] = child
-      }
+          return child
+        })
 
       const outlineInfo = {
         shape: "outline",
@@ -399,14 +397,9 @@ function parseLines(code, languages) {
     }
 
     // number-dropdown
-    for (var i = 0; i < children.length; i++) {
-      if (!children[i].isLabel) {
-        break
-      }
-    }
-    if (i === children.length) {
-      var last = children[i - 1]
-      if (i > 1 && last.value === "v") {
+    if (children.length > 1 && children.every(child => child.isLabel)) {
+      var last = children[children.length - 1]
+      if (last.value === "v") {
         children.pop()
         var value = children
           .map(function (l) {
@@ -611,8 +604,8 @@ function parseScripts(getLine) {
         var blocks = pMouth()
         b.children.push(new Script(blocks))
         if (line && line.isElse) {
-          for (var i = 0; i < line.children.length; i++) {
-            b.children.push(line.children[i])
+          for (const child of line.children) {
+            b.children.push(child)
           }
           next()
           continue
@@ -717,8 +710,7 @@ function recogniseStuff(scripts) {
 
         var names = []
         var parts = []
-        for (var i = 0; i < outline.children.length; i++) {
-          var child = outline.children[i]
+        for (const child of outline.children) {
           if (child.isLabel) {
             parts.push(child.value)
           } else if (child.isBlock) {

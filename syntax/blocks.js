@@ -286,11 +286,10 @@ disambig(
   "LOOKS_CHANGEEFFECTBY",
   function (children, lang) {
     // Sound if sound effect, otherwise default to graphic effect
-    for (var i = 0; i < children.length; i++) {
-      var child = children[i]
+    for (const child of children) {
       if (child.shape === "dropdown") {
         var name = child.value
-        for (let effect of lang.soundEffects) {
+        for (const effect of lang.soundEffects) {
           if (minifyHash(effect) === minifyHash(name)) {
             return true
           }
@@ -303,11 +302,10 @@ disambig(
 
 disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function (children, lang) {
   // Sound if sound effect, otherwise default to graphic effect
-  for (var i = 0; i < children.length; i++) {
-    var child = children[i]
+  for (const child of children) {
     if (child.shape === "dropdown") {
       var name = child.value
-      for (let effect of lang.soundEffects) {
+      for (const effect of lang.soundEffects) {
         if (minifyHash(effect) === minifyHash(name)) {
           return true
         }
@@ -347,12 +345,11 @@ disambig(
   "microbit.whenGesture",
   "gdxfor.whenGesture",
   function (children, lang) {
-    for (var i = 0; i < children.length; i++) {
-      var child = children[i]
+    for (const child of children) {
       if (child.shape === "dropdown") {
         var name = child.value
         // Yes, "when shaken" gdxfor block exists. But microbit is more common.
-        for (let effect of lang.microbitWhen) {
+        for (const effect of lang.microbitWhen) {
           if (minifyHash(effect) === minifyHash(name)) {
             return true
           }
@@ -369,8 +366,7 @@ disambig(
   "ev3.buttonPressed",
   "microbit.isButtonPressed",
   function (children, lang) {
-    for (var i = 0; i < children.length; i++) {
-      var child = children[i]
+    for (const child of children) {
       if (child.shape === "dropdown") {
         // EV3 "button pressed" block uses numeric identifier
         // and does not support "any".
@@ -398,12 +394,10 @@ specialCase("CONTROL_STOP", function (info, children, lang) {
 })
 
 export function lookupHash(hash, info, children, languages) {
-  for (var i = 0; i < languages.length; i++) {
-    var lang = languages[i]
+  for (const lang of languages) {
     if (lang.blocksByHash.hasOwnProperty(hash)) {
-      var collisions = lang.blocksByHash[hash].length
-      for (var j = 0; j < collisions; j++) {
-        var block = lang.blocksByHash[hash][j]
+      const collisions = lang.blocksByHash[hash]
+      for (let block of collisions) {
         if (
           info.shape === "reporter" &&
           block.shape !== "reporter" &&
@@ -412,7 +406,7 @@ export function lookupHash(hash, info, children, languages) {
           continue
         }
         if (info.shape === "boolean" && block.shape !== "boolean") continue
-        if (collisions > 1) {
+        if (collisions.length > 1) {
           // Only check in case of collision;
           // perform "disambiguation"
           if (block.accepts && !block.accepts(info, children, lang)) continue
@@ -426,8 +420,7 @@ export function lookupHash(hash, info, children, languages) {
 }
 
 export function lookupDropdown(name, languages) {
-  for (var i = 0; i < languages.length; i++) {
-    var lang = languages[i]
+  for (const lang of languages) {
     if (lang.nativeDropdowns.hasOwnProperty(name)) {
       var nativeName = lang.nativeDropdowns[name]
       return nativeName
@@ -436,8 +429,7 @@ export function lookupDropdown(name, languages) {
 }
 
 export function applyOverrides(info, overrides) {
-  for (var i = 0; i < overrides.length; i++) {
-    var name = overrides[i]
+  for (const name of overrides) {
     if (hexColorPat.test(name)) {
       info.color = name
       info.category = ""
@@ -457,8 +449,7 @@ export function applyOverrides(info, overrides) {
 
 export function blockName(block) {
   var words = []
-  for (var i = 0; i < block.children.length; i++) {
-    var child = block.children[i]
+  for (const child of block.children) {
     if (!child.isLabel) return
     words.push(child.value)
   }

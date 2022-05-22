@@ -35,7 +35,7 @@ export default SVG = {
   },
 
   setProps(el, props) {
-    for (var key in props) {
+    for (const key in props) {
       var value = "" + props[key]
       if (directProps[key]) {
         el[key] = value
@@ -47,8 +47,8 @@ export default SVG = {
   },
 
   withChildren(el, children) {
-    for (var i = 0; i < children.length; i++) {
-      el.appendChild(children[i])
+    for (const child of children) {
+      el.appendChild(child)
     }
     return el
   },
