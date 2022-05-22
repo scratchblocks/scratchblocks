@@ -344,7 +344,7 @@ class BlockView {
     var isDefine = this.info.shape === "define-hat"
     var children = this.children
 
-    var padding = BlockView.padding[this.info.shape] || BlockView.padding[null]
+    var padding = BlockView.padding[this.info.shape] || BlockView.padding.null
     var pt = padding[0],
       px = padding[1],
       pb = padding[2]

@@ -410,7 +410,7 @@ class BlockView {
     var children = this.children
     var isCommand = this.isCommand
 
-    var padding = BlockView.padding[this.info.shape] || BlockView.padding[null]
+    var padding = BlockView.padding[this.info.shape] || BlockView.padding.null
     var pt = padding[0],
       pb = padding[1]
 

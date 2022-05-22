@@ -13,7 +13,6 @@ function indent(text) {
     .join("\n")
 }
 
-
 import {
   parseSpec,
   inputPat,
@@ -292,7 +291,7 @@ export class Block {
     // Push any remaining children, so we pick up C block bodies
     remainingArgs.forEach((arg, index) => {
       if (index === 1 && this.info.id === "CONTROL_IF") {
-        this.children.push(new Label(lang.commands["CONTROL_ELSE"]))
+        this.children.push(new Label(lang.commands.CONTROL_ELSE))
       }
       this.children.push(arg)
     })

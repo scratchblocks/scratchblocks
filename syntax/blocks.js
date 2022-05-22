@@ -410,7 +410,7 @@ specialCase("CONTROL_STOP", function (info, children, lang) {
   }
   var value = last.value
   if (lang.osis.indexOf(value) > -1) {
-    return { ...blocksById["CONTROL_STOP"], shape: "stack" }
+    return { ...blocksById.CONTROL_STOP, shape: "stack" }
   }
 })
 
