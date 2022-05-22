@@ -1,5 +1,7 @@
 function assert(bool, message) {
-  if (!bool) throw "Assertion failed! " + (message || "")
+  if (!bool) {
+    throw "Assertion failed! " + (message || "")
+  }
 }
 function isArray(o) {
   return o && o.constructor === Array
@@ -53,7 +55,9 @@ export class Label {
   }
 
   stringify() {
-    if (this.value === "<" || this.value === ">") return this.value
+    if (this.value === "<" || this.value === ">") {
+      return this.value
+    }
     return this.value.replace(/([<>[\](){}])/g, "\\$1")
   }
 }
@@ -123,7 +127,9 @@ export class Input {
     var text = (this.value ? "" + this.value : "")
       .replace(/ v$/, " \\v")
       .replace(/([\]\\])/g, "\\$1")
-    if (this.hasArrow) text += " v"
+    if (this.hasArrow) {
+      text += " v"
+    }
     return this.isRound
       ? "(" + text + ")"
       : this.isSquare
@@ -179,8 +185,12 @@ export class Block {
     var checkAlias = false
     var text = this.children
       .map(function (child) {
-        if (child.isIcon) checkAlias = true
-        if (!firstInput && !(child.isLabel || child.isIcon)) firstInput = child
+        if (child.isIcon) {
+          checkAlias = true
+        }
+        if (!firstInput && !(child.isLabel || child.isIcon)) {
+          firstInput = child
+        }
         return child.isScript
           ? "\n" + indent(child.stringify()) + "\n"
           : child.stringify().trim() + " "
@@ -210,7 +220,9 @@ export class Block {
         (this.isReporter || this.isBoolean)) ||
       (this.info.category === "custom" && this.info.shape === "stack")
     ) {
-      if (overrides) overrides += " "
+      if (overrides) {
+        overrides += " "
+      }
       overrides += this.info.category
     }
     if (overrides) {
@@ -226,10 +238,14 @@ export class Block {
   }
 
   translate(lang, isShallow) {
-    if (!lang) throw new Error("Missing language")
+    if (!lang) {
+      throw new Error("Missing language")
+    }
 
     var id = this.info.id
-    if (!id) return
+    if (!id) {
+      return
+    }
 
     if (id === "PROCEDURES_DEFINITION") {
       // Find the first 'outline' child (there should be exactly one).
@@ -250,7 +266,9 @@ export class Block {
     var oldSpec = this.info.language.commands[id]
 
     var nativeSpec = lang.commands[id]
-    if (!nativeSpec) return
+    if (!nativeSpec) {
+      return
+    }
     var nativeInfo = parseSpec(nativeSpec)
 
     var rawArgs = this.children.filter(function (child) {
@@ -280,7 +298,9 @@ export class Block {
     this.children = nativeInfo.parts
       .map(function (part) {
         var part = part.trim()
-        if (!part) return
+        if (!part) {
+          return
+        }
         var number = parseInputNumber(part)
         if (number) {
           return args[number - 1]
@@ -362,7 +382,9 @@ export class Script {
     return this.blocks
       .map(function (block) {
         var line = block.stringify()
-        if (block.comment) line += " " + block.comment.stringify()
+        if (block.comment) {
+          line += " " + block.comment.stringify()
+        }
         return line
       })
       .join("\n")

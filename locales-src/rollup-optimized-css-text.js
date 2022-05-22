@@ -6,7 +6,9 @@
  */
 export default opts => {
   opts = opts || {}
-  if (opts.minify === undefined) opts.minify = true
+  if (opts.minify === undefined) {
+    opts.minify = true
+  }
   return {
     name: "optimized-css-text",
     transform: (code, id) => {

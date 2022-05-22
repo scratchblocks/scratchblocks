@@ -1,7 +1,9 @@
 import { extensions, aliasExtensions } from "./extensions.js"
 
 function assert(bool, message) {
-  if (!bool) throw "Assertion failed! " + (message || "")
+  if (!bool) {
+    throw "Assertion failed! " + (message || "")
+  }
 }
 function isArray(o) {
   return o && o.constructor === Array
@@ -96,10 +98,14 @@ export var blocksById = {}
 var allBlocks = scratchCommands.map(function (def) {
   var spec = def.spec
   if (!def.id) {
-    if (!def.selector) throw new Error("Missing ID: " + def.spec)
+    if (!def.selector) {
+      throw new Error("Missing ID: " + def.spec)
+    }
     def.id = "sb2:" + def.selector
   }
-  if (!def.spec) throw new Error("Missing spec: " + def.id)
+  if (!def.spec) {
+    throw new Error("Missing spec: " + def.id)
+  }
 
   var info = {
     id: def.id, // Used for Scratch 3 translations
@@ -135,7 +141,9 @@ function loadLanguage(code, language) {
     var block = blocksById[blockId]
 
     var nativeHash = hashSpec(nativeSpec)
-    if (!blocksByHash[nativeHash]) blocksByHash[nativeHash] = []
+    if (!blocksByHash[nativeHash]) {
+      blocksByHash[nativeHash] = []
+    }
     blocksByHash[nativeHash].push(block)
 
     // fallback image replacement, for languages without aliases
@@ -143,7 +151,9 @@ function loadLanguage(code, language) {
     if (m) {
       var image = m[0]
       var hash = nativeHash.replace(hashSpec(image), unicodeIcons[image])
-      if (!blocksByHash[hash]) blocksByHash[hash] = []
+      if (!blocksByHash[hash]) {
+        blocksByHash[hash] = []
+      }
       blocksByHash[hash].push(block)
     }
   })
@@ -156,10 +166,14 @@ function loadLanguage(code, language) {
       throw new Error("Invalid alias '" + blockId + "'")
     }
     var aliasHash = hashSpec(alias)
-    if (!blocksByHash[aliasHash]) blocksByHash[aliasHash] = []
+    if (!blocksByHash[aliasHash]) {
+      blocksByHash[aliasHash] = []
+    }
     blocksByHash[aliasHash].push(block)
 
-    if (!language.nativeAliases[blockId]) language.nativeAliases[blockId] = []
+    if (!language.nativeAliases[blockId]) {
+      language.nativeAliases[blockId] = []
+    }
     language.nativeAliases[blockId].push(alias)
   })
 
@@ -167,10 +181,14 @@ function loadLanguage(code, language) {
   // into language.blocksByHash
   Object.keys(language.renamedBlocks || {}).forEach(function (alt) {
     const id = language.renamedBlocks[alt]
-    if (!blocksById[id]) throw new Error("Unknown ID: " + id)
+    if (!blocksById[id]) {
+      throw new Error("Unknown ID: " + id)
+    }
     const block = blocksById[id]
     var hash = hashSpec(alt)
-    if (!english.blocksByHash[hash]) english.blocksByHash[hash] = []
+    if (!english.blocksByHash[hash]) {
+      english.blocksByHash[hash] = []
+    }
     english.blocksByHash[hash].push(block)
   })
 
@@ -255,12 +273,16 @@ loadLanguages({
 /*****************************************************************************/
 
 function registerCheck(id, func) {
-  if (!blocksById[id]) throw new Error("Unknown ID: " + id)
+  if (!blocksById[id]) {
+    throw new Error("Unknown ID: " + id)
+  }
   blocksById[id].accepts = func
 }
 
 function specialCase(id, func) {
-  if (!blocksById[id]) throw new Error("Unknown ID: " + id)
+  if (!blocksById[id]) {
+    throw new Error("Unknown ID: " + id)
+  }
   blocksById[id].specialCase = func
 }
 
@@ -276,7 +298,9 @@ function disambig(id1, id2, test) {
 disambig("OPERATORS_MATHOP", "SENSING_OF", function (children, lang) {
   // Operators if math function, otherwise sensing "attribute of" block
   var first = children[0]
-  if (!first.isInput) return
+  if (!first.isInput) {
+    return
+  }
   var name = first.value
   return lang.math.indexOf(name) > -1
 })
@@ -318,7 +342,9 @@ disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function (children, lang) {
 disambig("DATA_LENGTHOFLIST", "OPERATORS_LENGTH", function (children, lang) {
   // List block if dropdown, otherwise operators
   var last = children[children.length - 1]
-  if (!last.isInput) return
+  if (!last.isInput) {
+    return
+  }
   return last.shape === "dropdown"
 })
 
@@ -328,7 +354,9 @@ disambig(
   function (children, lang) {
     // List block if dropdown, otherwise operators
     var first = children[0]
-    if (!first.isInput) return
+    if (!first.isInput) {
+      return
+    }
     return first.shape === "dropdown"
   },
 )
@@ -386,7 +414,9 @@ disambig(
 specialCase("CONTROL_STOP", function (info, children, lang) {
   // Cap block unless argument is "other scripts in sprite"
   var last = children[children.length - 1]
-  if (!last.isInput) return
+  if (!last.isInput) {
+    return
+  }
   var value = last.value
   if (lang.osis.indexOf(value) > -1) {
     return { ...blocksById["CONTROL_STOP"], shape: "stack" }
@@ -405,14 +435,19 @@ export function lookupHash(hash, info, children, languages) {
         ) {
           continue
         }
-        if (info.shape === "boolean" && block.shape !== "boolean") continue
+        if (info.shape === "boolean" && block.shape !== "boolean") {
+          continue
+        }
         if (collisions.length > 1) {
           // Only check in case of collision;
           // perform "disambiguation"
-          if (block.accepts && !block.accepts(info, children, lang)) continue
+          if (block.accepts && !block.accepts(info, children, lang)) {
+            continue
+          }
         }
-        if (block.specialCase)
+        if (block.specialCase) {
           block = block.specialCase(info, children, lang) || block
+        }
         return { type: block, lang: lang }
       }
     }
@@ -450,7 +485,9 @@ export function applyOverrides(info, overrides) {
 export function blockName(block) {
   var words = []
   for (const child of block.children) {
-    if (!child.isLabel) return
+    if (!child.isLabel) {
+      return
+    }
     words.push(child.value)
   }
   return words.join(" ")

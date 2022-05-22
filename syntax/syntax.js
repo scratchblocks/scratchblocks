@@ -2,7 +2,9 @@ function isArray(o) {
   return o && o.constructor === Array
 }
 function assert(bool, message) {
-  if (!bool) throw "Assertion failed! " + (message || "")
+  if (!bool) {
+    throw "Assertion failed! " + (message || "")
+  }
 }
 
 import {
@@ -65,8 +67,12 @@ function paintBlock(info, children, languages) {
     info.category = type.category
     info.categoryIsDefault = true
     // store selector, used for translation among other things
-    if (type.selector) info.selector = type.selector
-    if (type.id) info.id = type.id
+    if (type.selector) {
+      info.selector = type.selector
+    }
+    if (type.id) {
+      info.id = type.id
+    }
     info.hasLoopArrow = type.hasLoopArrow
 
     // ellipsis block
@@ -168,8 +174,12 @@ function paintBlock(info, children, languages) {
 }
 
 function isDefineBlock(children, lang) {
-  if (children.length < lang.definePrefix.length) return false
-  if (children.length < lang.defineSuffix.length) return false
+  if (children.length < lang.definePrefix.length) {
+    return false
+  }
+  if (children.length < lang.defineSuffix.length) {
+    return false
+  }
 
   for (var i = 0; i < lang.definePrefix.length; i++) {
     const defineWord = lang.definePrefix[i]
@@ -201,7 +211,9 @@ function parseLines(code, languages) {
   }
   function peekNonWs() {
     for (var i = index + 1; i < code.length; i++) {
-      if (code[i] !== " ") return code[i]
+      if (code[i] !== " ") {
+        return code[i]
+      }
     }
   }
   var sawNL
@@ -253,8 +265,12 @@ function parseLines(code, languages) {
           continue
         }
       }
-      if (tok === end) break
-      if (tok === "/" && peek() === "/" && !end) break
+      if (tok === end) {
+        break
+      }
+      if (tok === "/" && peek() === "/" && !end) {
+        break
+      }
 
       switch (tok) {
         case "[":
@@ -310,7 +326,9 @@ function parseLines(code, languages) {
             return children
           } // fall-thru
         default:
-          if (!label) children.push((label = new Label("")))
+          if (!label) {
+            children.push((label = new Label("")))
+          }
           label.value += tok
           next()
       }
@@ -325,15 +343,21 @@ function parseLines(code, languages) {
     while (tok && tok !== "]" && tok !== "\n") {
       if (tok === "\\") {
         next()
-        if (tok === "v") escapeV = true
-        if (!tok) break
+        if (tok === "v") {
+          escapeV = true
+        }
+        if (!tok) {
+          break
+        }
       } else {
         escapeV = false
       }
       s += tok
       next()
     }
-    if (tok === "]") next()
+    if (tok === "]") {
+      next()
+    }
     if (hexColorPat.test(s)) {
       return new Input("color", s)
     }
@@ -348,7 +372,9 @@ function parseLines(code, languages) {
       sawNL = true
       next()
     }
-    if (children.length === 0) return
+    if (children.length === 0) {
+      return
+    }
 
     // standalone reporters
     if (children.length === 1) {
@@ -378,7 +404,9 @@ function parseLines(code, languages) {
     }
 
     var children = pParts(")")
-    if (tok && tok === ")") next()
+    if (tok && tok === ")") {
+      next()
+    }
 
     // empty numbers
     if (children.length === 0) {
@@ -436,7 +464,9 @@ function parseLines(code, languages) {
   function pPredicate() {
     next() // '<'
     var children = pParts(">")
-    if (tok && tok === ">") next()
+    if (tok && tok === ">") {
+      next()
+    }
     if (children.length === 0) {
       return new Input("boolean")
     }
@@ -450,7 +480,9 @@ function parseLines(code, languages) {
     var f = function () {
       while (tok && tok !== "}") {
         var block = pBlock("}")
-        if (block) return block
+        if (block) {
+          return block
+        }
       }
     }
     var scripts = parseScripts(f)
@@ -459,7 +491,9 @@ function parseLines(code, languages) {
       blocks = blocks.concat(script.blocks)
     })
 
-    if (tok === "}") next()
+    if (tok === "}") {
+      next()
+    }
     if (!sawNL) {
       assert(blocks.length <= 1)
       return blocks.length ? blocks[0] : makeBlock("stack", [])
@@ -496,7 +530,9 @@ function parseLines(code, languages) {
       }
       next()
     }
-    if (override) overrides.push(override)
+    if (override) {
+      overrides.push(override)
+    }
     return overrides
   }
 
@@ -508,7 +544,9 @@ function parseLines(code, languages) {
       comment += tok
       next()
     }
-    if (tok && tok === "\n") next()
+    if (tok && tok === "\n") {
+      next()
+    }
     return new Comment(comment, true)
   }
 
@@ -527,12 +565,16 @@ function parseLines(code, languages) {
       }
       block.comment = comment
     }
-    if (block) block.diff = diff
+    if (block) {
+      block.diff = diff
+    }
     return block
   }
 
   return function () {
-    if (!tok) return undefined
+    if (!tok) {
+      return undefined
+    }
     var line = pLine()
     return line || "NL"
   }
@@ -547,7 +589,9 @@ function parseScripts(getLine) {
   }
 
   function pFile() {
-    while (line === "NL") next()
+    while (line === "NL") {
+      next()
+    }
     var scripts = []
     while (line) {
       var blocks = []
@@ -574,7 +618,9 @@ function parseScripts(getLine) {
           children.push(b)
           blocks.push(new Glow(new Script(children)))
         } else if (b.isHat) {
-          if (blocks.length) scripts.push(new Script(blocks))
+          if (blocks.length) {
+            scripts.push(new Script(blocks))
+          }
           blocks = [b]
         } else if (b.isFinal) {
           blocks.push(b)
@@ -583,14 +629,20 @@ function parseScripts(getLine) {
           blocks.push(b)
         } else {
           // reporter or predicate
-          if (blocks.length) scripts.push(new Script(blocks))
+          if (blocks.length) {
+            scripts.push(new Script(blocks))
+          }
           scripts.push(new Script([b]))
           blocks = []
           break
         }
       }
-      if (blocks.length) scripts.push(new Script(blocks))
-      while (line === "NL") next()
+      if (blocks.length) {
+        scripts.push(new Script(blocks))
+      }
+      while (line === "NL") {
+        next()
+      }
     }
     return scripts
   }
@@ -700,13 +752,17 @@ function recogniseStuff(scripts) {
     var customArgs = Object.create(null)
 
     eachBlock(script, function (block) {
-      if (!block.isBlock) return
+      if (!block.isBlock) {
+        return
+      }
 
       // custom blocks
       if (block.info.shape === "define-hat") {
         // There should be exactly one `outline` child, added in paintBlock.
         var outline = block.children.find(child => child.isOutline)
-        if (!outline) return
+        if (!outline) {
+          return
+        }
 
         var names = []
         var parts = []
@@ -714,7 +770,9 @@ function recogniseStuff(scripts) {
           if (child.isLabel) {
             parts.push(child.value)
           } else if (child.isBlock) {
-            if (!child.info.argument) return
+            if (!child.info.argument) {
+              return
+            }
             parts.push(
               {
                 number: "%n",
@@ -735,7 +793,9 @@ function recogniseStuff(scripts) {
           spec: spec,
           names: names,
         }
-        if (!customBlocksByHash[hash]) customBlocksByHash[hash] = info
+        if (!customBlocksByHash[hash]) {
+          customBlocksByHash[hash] = info
+        }
         block.info.id = "PROCEDURES_DEFINITION"
         block.info.selector = "procDef"
         block.info.call = info.spec
@@ -797,7 +857,9 @@ function recogniseStuff(scripts) {
         name = blockName(block)
         info = block.info
       }
-      if (!name) return
+      if (!name) {
+        return
+      }
 
       // list reporters
       if (listNames[name]) {
@@ -838,7 +900,9 @@ export function parse(code, options) {
 
   var languages = options.languages.map(function (code) {
     var lang = allLanguages[code]
-    if (!lang) throw new Error("Unknown language: '" + code + "'")
+    if (!lang) {
+      throw new Error("Unknown language: '" + code + "'")
+    }
     return lang
   })
 

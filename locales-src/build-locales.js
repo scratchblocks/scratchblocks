@@ -117,7 +117,9 @@ const translateKey = (raw, key) => {
   if (!englishResult) {
     throw new Error("Unknown key: '" + key + "'")
   }
-  if (!result) return
+  if (!result) {
+    return
+  }
   //if (result === englishResult) return
   return fixup(key, result, englishResult)
 }
@@ -126,7 +128,9 @@ const lookupEachIn = raw => items => {
   const output = []
   for (let key of items) {
     const result = translateKey(raw, key)
-    if (!result) continue
+    if (!result) {
+      continue
+    }
     output.push(result)
   }
   return output
@@ -137,7 +141,9 @@ const translateEachIn = raw => items => {
   for (let key of items) {
     const result = translateKey(raw, key)
     const englishResult = english.mappings[key]
-    if (!result) continue
+    if (!result) {
+      continue
+    }
     output[englishResult] = result
   }
   return output
@@ -176,11 +182,19 @@ const buildLocale = (code, rawLocale) => {
   }
 
   for (let command of scratchCommands) {
-    if (!command.id) continue
-    if (/^sb2:/.test(command.id)) continue
-    if (/^scratchblocks:/.test(command.id)) continue
+    if (!command.id) {
+      continue
+    }
+    if (/^sb2:/.test(command.id)) {
+      continue
+    }
+    if (/^scratchblocks:/.test(command.id)) {
+      continue
+    }
     const result = translateKey(rawLocale, command.id)
-    if (!result) continue
+    if (!result) {
+      continue
+    }
     locale.commands[command.id] = result
   }
 
@@ -268,7 +282,9 @@ const main = async () => {
   // check every extra language was used
   const seen = new Set(validLocales.map(([code, locale]) => code))
   for (const code in extraAliases) {
-    if (!seen.has(code)) console.error(`extra_aliases: '${code}' not used`)
+    if (!seen.has(code)) {
+      console.error(`extra_aliases: '${code}' not used`)
+    }
   }
 
   const codes = Array.from(seen)

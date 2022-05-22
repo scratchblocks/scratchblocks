@@ -84,6 +84,7 @@
           "sourceType": "module"
       },
       "rules": {
+          "curly": [2, "all"]
       }
   }
 }

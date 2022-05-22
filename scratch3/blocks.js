@@ -161,7 +161,9 @@ export class InputView {
   }
 
   measure() {
-    if (this.hasLabel) this.label.measure()
+    if (this.hasLabel) {
+      this.label.measure()
+    }
   }
 
   static get shapes() {
@@ -194,7 +196,9 @@ export class InputView {
     } else {
       var w = this.isInset ? 30 : null
     }
-    if (this.hasArrow) w += 20
+    if (this.hasArrow) {
+      w += 20
+    }
     this.width = w
 
     var h = (this.height = 32)
@@ -288,9 +292,13 @@ class BlockView {
 
   measure() {
     for (const child of this.children) {
-      if (child.measure) child.measure()
+      if (child.measure) {
+        child.measure()
+      }
     }
-    if (this.comment) this.comment.measure()
+    if (this.comment) {
+      this.comment.measure()
+    }
   }
 
   static get shapes() {
@@ -786,11 +794,15 @@ class DocumentView {
     var elements = []
     for (var i = 0; i < this.scripts.length; i++) {
       var script = this.scripts[i]
-      if (height) height += 10
+      if (height) {
+        height += 10
+      }
       script.y = height
       elements.push(SVG.move(0, height, script.draw()))
       height += script.height
-      if (i !== this.scripts.length - 1) height += 36
+      if (i !== this.scripts.length - 1) {
+        height += 36
+      }
       width = Math.max(width, script.width + 4)
     }
     this.width = width

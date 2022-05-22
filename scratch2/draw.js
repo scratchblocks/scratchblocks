@@ -1,7 +1,9 @@
 /* for constucting SVGs */
 
 function assert(bool, message) {
-  if (!bool) throw "Assertion failed! " + (message || "")
+  if (!bool) {
+    throw "Assertion failed! " + (message || "")
+  }
 }
 
 // set by SVG.init
