@@ -1,14 +1,5 @@
 import { extensions, aliasExtensions } from "./extensions.js"
 
-function assert(bool, message) {
-  if (!bool) {
-    throw "Assertion failed! " + (message || "")
-  }
-}
-function isArray(o) {
-  return o && o.constructor === Array
-}
-
 // List of classes we're allowed to override.
 
 var overrideCategories = [
@@ -96,7 +87,6 @@ export function minifyHash(hash) {
 
 export var blocksById = {}
 var allBlocks = scratchCommands.map(function (def) {
-  var spec = def.spec
   if (!def.id) {
     if (!def.selector) {
       throw new Error("Missing ID: " + def.spec)
@@ -339,7 +329,7 @@ disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function (children, lang) {
   return false
 })
 
-disambig("DATA_LENGTHOFLIST", "OPERATORS_LENGTH", function (children, lang) {
+disambig("DATA_LENGTHOFLIST", "OPERATORS_LENGTH", function (children, _lang) {
   // List block if dropdown, otherwise operators
   var last = children[children.length - 1]
   if (!last.isInput) {
@@ -351,7 +341,7 @@ disambig("DATA_LENGTHOFLIST", "OPERATORS_LENGTH", function (children, lang) {
 disambig(
   "DATA_LISTCONTAINSITEM",
   "OPERATORS_CONTAINS",
-  function (children, lang) {
+  function (children, _lang) {
     // List block if dropdown, otherwise operators
     var first = children[0]
     if (!first.isInput) {
@@ -361,7 +351,7 @@ disambig(
   },
 )
 
-disambig("pen.setColor", "pen.setHue", function (children, lang) {
+disambig("pen.setColor", "pen.setHue", function (children, _lang) {
   // Color block if color input, otherwise numeric
   var last = children[children.length - 1]
   // If variable, assume color input, since the RGBA hack is common.
@@ -393,7 +383,7 @@ disambig(
 disambig(
   "ev3.buttonPressed",
   "microbit.isButtonPressed",
-  function (children, lang) {
+  function (children, _lang) {
     for (const child of children) {
       if (child.shape === "dropdown") {
         // EV3 "button pressed" block uses numeric identifier

@@ -1,7 +1,6 @@
 import fs from "fs"
 import path from "path"
 import { promisify } from "util"
-const readDir = promisify(fs.readdir)
 const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 
@@ -61,26 +60,6 @@ const palette = [
   "CATEGORY_MYBLOCKS",
 ]
 
-const forumLangs = [
-  "de",
-  "es",
-  "fr",
-  "zh_CN",
-  "pl",
-  "ja",
-  "nl",
-  "pt",
-  "it",
-  "he",
-  "ko",
-  "nb",
-  "tr",
-  "el",
-  "ru",
-  "ca",
-  "id",
-]
-
 const mathFuncs = [
   "OPERATORS_MATHOP_ABS",
   "OPERATORS_MATHOP_FLOOR",
@@ -101,14 +80,6 @@ const mathFuncs = [
 const writeJSON = async (outputPath, obj) => {
   const contents = JSON.stringify(obj, null, "  ")
   await writeFile(outputPath, contents, "utf-8")
-}
-
-const reverseDict = d => {
-  const o = {}
-  for (var k in d) {
-    o[d[k]] = k
-  }
-  return o
 }
 
 const translateKey = (raw, key) => {
@@ -280,7 +251,7 @@ const main = async () => {
   const validLocales = locales.filter(x => !!x)
 
   // check every extra language was used
-  const seen = new Set(validLocales.map(([code, locale]) => code))
+  const seen = new Set(validLocales.map(([code, _locale]) => code))
   for (const code in extraAliases) {
     if (!seen.has(code)) {
       console.error(`extra_aliases: '${code}' not used`)

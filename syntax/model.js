@@ -3,9 +3,6 @@ function assert(bool, message) {
     throw "Assertion failed! " + (message || "")
   }
 }
-function isArray(o) {
-  return o && o.constructor === Array
-}
 
 function indent(text) {
   return text
@@ -16,29 +13,14 @@ function indent(text) {
     .join("\n")
 }
 
-function maybeNumber(v) {
-  v = "" + v
-  var n = parseInt(v)
-  if (!isNaN(n)) {
-    return n
-  }
-  var f = parseFloat(v)
-  if (!isNaN(f)) {
-    return f
-  }
-  return v
-}
 
 import {
-  blocksById,
   parseSpec,
   inputPat,
   parseInputNumber,
   iconPat,
   rtlLanguages,
   unicodeIcons,
-  english,
-  blockName,
 } from "./blocks.js"
 
 export class Label {
@@ -141,7 +123,7 @@ export class Input {
       : text
   }
 
-  translate(lang) {
+  translate(_lang) {
     if (this.hasArrow) {
       var value = this.menu || this.value
       this.value = value // TODO translate dropdown value
@@ -200,8 +182,6 @@ export class Block {
 
     var lang = this.info.language
     if (checkAlias && lang && this.info.selector) {
-      var type = blocksById[this.info.id]
-      var spec = type.spec
       var aliases = lang.nativeAliases[this.info.id]
       if (aliases && aliases.length) {
         var alias = aliases[0]
@@ -262,7 +242,6 @@ export class Block {
       return
     }
 
-    var type = blocksById[id]
     var oldSpec = this.info.language.commands[id]
 
     var nativeSpec = lang.commands[id]

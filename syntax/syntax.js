@@ -735,13 +735,6 @@ var listBlocks = {
   "hideList:": 0,
 }
 
-var variableBlocks = {
-  "setVar:to:": 0,
-  "changeVar:by:": 0,
-  "showVariable:": 0,
-  "hideVariable:": 0,
-}
-
 function recogniseStuff(scripts) {
   // Object.create(null) is JS magic for an "empty dictionary"
   // In ES6-land a Set would be more appropriate

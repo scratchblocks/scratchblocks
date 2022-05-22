@@ -667,7 +667,7 @@ class DocumentView {
   }
 
   render(cb) {
-    if (typeof ocbptions === "function") {
+    if (typeof cb === "function") {
       throw new Error("render() no longer takes a callback")
     }
 
@@ -751,7 +751,7 @@ class DocumentView {
   exportPNG(cb, scale) {
     this.toCanvas(function (canvas) {
       if (URL && URL.createObjectURL && Blob && canvas.toBlob) {
-        var blob = canvas.toBlob(function (blob) {
+        canvas.toBlob(function (blob) {
           cb(URL.createObjectURL(blob))
         }, "image/png")
       } else {

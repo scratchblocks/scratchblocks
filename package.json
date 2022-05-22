@@ -110,6 +110,10 @@
           "no-unsafe-negation": 2,
           "no-unsafe-optional-chaining": 2,
           "no-unused-private-class-members": 2,
+          "no-unused-vars": [2, {
+              "argsIgnorePattern": "^_",
+              "varsIgnorePattern": "^_"
+          }],
           "use-isnan": 2,
           "valid-typeof": 2
       }

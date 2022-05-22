@@ -1,11 +1,5 @@
 /* for constucting SVGs */
 
-function assert(bool, message) {
-  if (!bool) {
-    throw "Assertion failed! " + (message || "")
-  }
-}
-
 // set by SVG.init
 var document
 var xml
@@ -353,7 +347,6 @@ export default SVG = {
   },
 
   commentRect(w, h, props) {
-    var r = 6
     return SVG.roundRect(w, h, { ...props, class: "sb3-comment" })
   },
 

@@ -136,12 +136,10 @@ export default SVG = {
   },
 
   arc(p1x, p1y, p2x, p2y, rx, ry) {
-    var r = p2y - p1y
     return ["L", p1x, p1y, "A", rx, ry, 0, 0, 1, p2x, p2y].join(" ")
   },
 
   arcw(p1x, p1y, p2x, p2y, rx, ry) {
-    var r = p2y - p1y
     return ["L", p1x, p1y, "A", rx, ry, 0, 0, 0, p2x, p2y].join(" ")
   },
 

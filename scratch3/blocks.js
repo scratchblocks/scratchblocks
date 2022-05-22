@@ -181,7 +181,6 @@ export class InputView {
   }
 
   draw(parent) {
-    var labelX = 11
     if (this.isBoolean) {
       var w = 48
     } else if (this.isColor) {
@@ -341,11 +340,6 @@ class BlockView {
     if (this.isRing) {
       var child = this.children[0]
       if (child && (child.isInput || child.isBlock || child.isScript)) {
-        var shape = child.isScript
-          ? "stack"
-          : child.isInput
-          ? child.shape
-          : child.info.shape
         return SVG.roundRect(w, h, {
           class: ["sb3-" + this.info.category].join(" "),
         })
@@ -780,7 +774,7 @@ class DocumentView {
   }
 
   render(cb) {
-    if (typeof ocbptions === "function") {
+    if (typeof cb === "function") {
       throw new Error("render() no longer takes a callback")
     }
 
@@ -863,7 +857,7 @@ class DocumentView {
   exportPNG(cb, scale) {
     this.toCanvas(function (canvas) {
       if (URL && URL.createObjectURL && Blob && canvas.toBlob) {
-        var blob = canvas.toBlob(function (blob) {
+        canvas.toBlob(function (blob) {
           cb(URL.createObjectURL(blob))
         }, "image/png")
       } else {
