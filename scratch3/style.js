@@ -568,7 +568,7 @@ export default Style = {
   },
 
   makeStyle() {
-    let style = SVG.el("style")
+    const style = SVG.el("style")
     style.appendChild(SVG.cdata(Style.cssContent))
     return style
   },

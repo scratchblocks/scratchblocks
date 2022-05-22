@@ -20,7 +20,7 @@ const readJSONFile = async path => {
 let english
 const rawLocales = async () => {
   const result = []
-  for (let code in localeNames) {
+  for (const code in localeNames) {
     const raw = {
       code: code,
       mappings: await readJSONFile(
@@ -97,7 +97,7 @@ const translateKey = (raw, key) => {
 
 const lookupEachIn = raw => items => {
   const output = []
-  for (let key of items) {
+  for (const key of items) {
     const result = translateKey(raw, key)
     if (!result) {
       continue
@@ -109,7 +109,7 @@ const lookupEachIn = raw => items => {
 
 const translateEachIn = raw => items => {
   const output = {}
-  for (let key of items) {
+  for (const key of items) {
     const result = translateKey(raw, key)
     const englishResult = english.mappings[key]
     if (!result) {
@@ -152,7 +152,7 @@ const buildLocale = (code, rawLocale) => {
     name: localeNames[code].name,
   }
 
-  for (let command of scratchCommands) {
+  for (const command of scratchCommands) {
     if (!command.id) {
       continue
     }
@@ -195,7 +195,7 @@ const buildLocale = (code, rawLocale) => {
 
 const fixup = (key, value, englishValue) => {
   let number = 0
-  let variables = {}
+  const variables = {}
   englishValue.replace(/\[[^\]]+\]/g, key => {
     variables[key] = "%" + ++number
   })
@@ -232,12 +232,12 @@ const convertFile = async rawLocale => {
 
 const writeIndex = async codes => {
   let contents = ""
-  for (let code of codes) {
+  for (const code of codes) {
     contents += `import ${code.replace(/-/g, "_")} from "./${code}.json"\n`
   }
   contents += `\n`
   contents += `export default {\n`
-  for (let code of codes) {
+  for (const code of codes) {
     contents += `  ${code.replace(/-/g, "_")},\n`
   }
   contents += `}\n`

@@ -6,7 +6,7 @@ export function init(window) {
   SVG.init(window)
 
   LabelView.measuring = (function () {
-    let canvas = SVG.makeCanvas()
+    const canvas = SVG.makeCanvas()
     return canvas.getContext("2d")
   })()
 }

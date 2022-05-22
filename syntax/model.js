@@ -124,7 +124,7 @@ export class Input {
 
   translate(_lang) {
     if (this.hasArrow) {
-      let value = this.menu || this.value
+      const value = this.menu || this.value
       this.value = value // TODO translate dropdown value
       this.label = new Label(this.value, "literal-" + this.shape)
     }
@@ -139,7 +139,7 @@ export class Block {
     this.comment = comment || null
     this.diff = null
 
-    let shape = this.info.shape
+    const shape = this.info.shape
     this.isHat = shape === "hat" || shape === "cat" || shape === "define-hat"
     this.hasPuzzle =
       shape === "stack" ||
@@ -179,9 +179,9 @@ export class Block {
       .join("")
       .trim()
 
-    let lang = this.info.language
+    const lang = this.info.language
     if (checkAlias && lang && this.info.selector) {
-      let aliases = lang.nativeAliases[this.info.id]
+      const aliases = lang.nativeAliases[this.info.id]
       if (aliases && aliases.length) {
         let alias = aliases[0]
         // TODO make translate() not in-place, and use that
@@ -221,7 +221,7 @@ export class Block {
       throw new Error("Missing language")
     }
 
-    let id = this.info.id
+    const id = this.info.id
     if (!id) {
       return
     }
@@ -241,15 +241,15 @@ export class Block {
       return
     }
 
-    let oldSpec = this.info.language.commands[id]
+    const oldSpec = this.info.language.commands[id]
 
-    let nativeSpec = lang.commands[id]
+    const nativeSpec = lang.commands[id]
     if (!nativeSpec) {
       return
     }
-    let nativeInfo = parseSpec(nativeSpec)
+    const nativeInfo = parseSpec(nativeSpec)
 
-    let rawArgs = this.children.filter(function (child) {
+    const rawArgs = this.children.filter(function (child) {
       return !child.isLabel && !child.isIcon
     })
 
@@ -260,17 +260,17 @@ export class Block {
     }
 
     // Work out indexes of existing children
-    let oldParts = parseSpec(oldSpec).parts
-    let oldInputOrder = oldParts
+    const oldParts = parseSpec(oldSpec).parts
+    const oldInputOrder = oldParts
       .map(part => parseInputNumber(part))
       .filter(x => !!x)
 
     let highestNumber = 0
-    let args = oldInputOrder.map(number => {
+    const args = oldInputOrder.map(number => {
       highestNumber = Math.max(highestNumber, number)
       return rawArgs[number - 1]
     })
-    let remainingArgs = rawArgs.slice(highestNumber)
+    const remainingArgs = rawArgs.slice(highestNumber)
 
     // Get new children by index
     this.children = nativeInfo.parts
@@ -279,7 +279,7 @@ export class Block {
         if (!part) {
           return
         }
-        let number = parseInputNumber(part)
+        const number = parseInputNumber(part)
         if (number) {
           return args[number - 1]
         }
@@ -335,7 +335,7 @@ export class Glow {
     if (this.child.isBlock) {
       return this.child.stringify("+")
     }
-    let lines = this.child.stringify().split("\n")
+    const lines = this.child.stringify().split("\n")
     return lines.map(line => "+ " + line).join("\n")
   }
 

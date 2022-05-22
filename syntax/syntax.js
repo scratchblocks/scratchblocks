@@ -38,7 +38,7 @@ function paintBlock(info, children, languages) {
   }
 
   // build hash
-  let words = []
+  const words = []
   for (const child of children) {
     if (child.isLabel) {
       words.push(child.value)
@@ -48,11 +48,11 @@ function paintBlock(info, children, languages) {
       words.push("_")
     }
   }
-  let string = words.join(" ")
-  let shortHash = (info.hash = minifyHash(string))
+  const string = words.join(" ")
+  const shortHash = (info.hash = minifyHash(string))
 
   // paint
-  let o = lookupHash(shortHash, info, children, languages)
+  const o = lookupHash(shortHash, info, children, languages)
   let lang
   let type
   if (o) {
@@ -159,7 +159,7 @@ function paintBlock(info, children, languages) {
     children.push(new Icon("loopArrow"))
   }
 
-  let block = new Block(info, children)
+  const block = new Block(info, children)
 
   // image replacement
   if (type && iconPat.test(type.spec)) {
@@ -226,11 +226,11 @@ function parseLines(code, languages) {
   })
 
   function makeBlock(shape, children) {
-    let hasInputs = !!children.filter(function (x) {
+    const hasInputs = !!children.filter(function (x) {
       return !x.isLabel
     }).length
 
-    let info = {
+    const info = {
       shape: shape,
       category: shape === "reporter" && !hasInputs ? "variables" : "obsolete",
       categoryIsDefault: true,
@@ -241,12 +241,12 @@ function parseLines(code, languages) {
   }
 
   function makeMenu(shape, value) {
-    let menu = lookupDropdown(value, languages) || value
+    const menu = lookupDropdown(value, languages) || value
     return new Input(shape, value, menu)
   }
 
   function pParts(end) {
-    let children = []
+    const children = []
     let label
     while (tok && tok !== "\n") {
       // So that comparison operators `<()<()>` and `<()>()>` don't need the
@@ -258,7 +258,7 @@ function parseLines(code, languages) {
         children.length === 1 && // There's exactly one AST node behind us.
         !children[children.length - 1].isLabel // That node is not a label.
       ) {
-        let c = peekNonWs()
+        const c = peekNonWs()
         // The next token starts some kind of input.
         if (c === "[" || c === "(" || c === "<" || c === "{") {
           label = null
@@ -371,7 +371,7 @@ function parseLines(code, languages) {
   }
 
   function pBlock(end) {
-    let children = pParts(end)
+    const children = pParts(end)
     if (tok && tok === "\n") {
       sawNL = true
       next()
@@ -382,7 +382,7 @@ function parseLines(code, languages) {
 
     // standalone reporters
     if (children.length === 1) {
-      let child = children[0]
+      const child = children[0]
       if (
         child.isBlock &&
         (child.isReporter || child.isBoolean || child.isRing)
@@ -407,7 +407,7 @@ function parseLines(code, languages) {
       }
     }
 
-    let children = pParts(")")
+    const children = pParts(")")
     if (tok && tok === ")") {
       next()
     }
@@ -430,7 +430,7 @@ function parseLines(code, languages) {
 
     // number-dropdown
     if (children.length > 1 && children.every(child => child.isLabel)) {
-      let last = children[children.length - 1]
+      const last = children[children.length - 1]
       if (last.value === "v") {
         children.pop()
         const value = children
@@ -442,11 +442,11 @@ function parseLines(code, languages) {
       }
     }
 
-    let block = makeBlock("reporter", children)
+    const block = makeBlock("reporter", children)
 
     // rings
     if (block.info && block.info.shape === "ring") {
-      let first = block.children[0]
+      const first = block.children[0]
       if (
         first &&
         first.isInput &&
@@ -467,7 +467,7 @@ function parseLines(code, languages) {
 
   function pPredicate() {
     next() // '<'
-    let children = pParts(">")
+    const children = pParts(">")
     if (tok && tok === ">") {
       next()
     }
@@ -481,15 +481,15 @@ function parseLines(code, languages) {
     next() // '{'
 
     sawNL = false
-    let f = function () {
+    const f = function () {
       while (tok && tok !== "}") {
-        let block = pBlock("}")
+        const block = pBlock("}")
         if (block) {
           return block
         }
       }
     }
-    let scripts = parseScripts(f)
+    const scripts = parseScripts(f)
     let blocks = []
     scripts.forEach(function (script) {
       blocks = blocks.concat(script.blocks)
@@ -506,7 +506,7 @@ function parseLines(code, languages) {
   }
 
   function pIcon() {
-    let c = tok
+    const c = tok
     next()
     switch (c) {
       case "▸":
@@ -521,7 +521,7 @@ function parseLines(code, languages) {
   function pOverrides(end) {
     next()
     next()
-    let overrides = []
+    const overrides = []
     let override = ""
     while (tok && tok !== "\n" && tok !== end) {
       if (tok === " ") {
@@ -562,9 +562,9 @@ function parseLines(code, languages) {
       diff = tok
       next()
     }
-    let block = pBlock()
+    const block = pBlock()
     if (tok === "/" && peek() === "/") {
-      let comment = pComment()
+      const comment = pComment()
       comment.hasBlock = block && block.children.length
       if (!comment.hasBlock) {
         return comment
@@ -581,7 +581,7 @@ function parseLines(code, languages) {
     if (!tok) {
       return undefined
     }
-    let line = pLine()
+    const line = pLine()
     return line || "NL"
   }
 }
@@ -598,12 +598,12 @@ function parseScripts(getLine) {
     while (line === "NL") {
       next()
     }
-    let scripts = []
+    const scripts = []
     while (line) {
       let blocks = []
       while (line && line !== "NL") {
         let b = pLine()
-        let isGlow = b.diff === "+"
+        const isGlow = b.diff === "+"
         if (isGlow) {
           b.diff = null
         }
@@ -613,7 +613,7 @@ function parseScripts(getLine) {
         }
 
         if (isGlow) {
-          let last = blocks[blocks.length - 1]
+          const last = blocks[blocks.length - 1]
           let children = []
           if (last && last.isGlow) {
             blocks.pop()
@@ -652,12 +652,12 @@ function parseScripts(getLine) {
   }
 
   function pLine() {
-    let b = line
+    const b = line
     next()
 
     if (b.hasScript) {
       while (true) {
-        let blocks = pMouth()
+        const blocks = pMouth()
         b.children.push(new Script(blocks))
         if (line && line.isElse) {
           for (const child of line.children) {
@@ -676,7 +676,7 @@ function parseScripts(getLine) {
   }
 
   function pMouth() {
-    let blocks = []
+    const blocks = []
     while (line) {
       if (line === "NL") {
         next()
@@ -686,14 +686,14 @@ function parseScripts(getLine) {
         return blocks
       }
 
-      let b = pLine()
-      let isGlow = b.diff === "+"
+      const b = pLine()
+      const isGlow = b.diff === "+"
       if (isGlow) {
         b.diff = null
       }
 
       if (isGlow) {
-        let last = blocks[blocks.length - 1]
+        const last = blocks[blocks.length - 1]
         let children = []
         if (last && last.isGlow) {
           blocks.pop()
@@ -729,7 +729,7 @@ function eachBlock(x, cb) {
   }
 }
 
-let listBlocks = {
+const listBlocks = {
   "append:toList:": 1,
   "deleteLine:ofList:": 1,
   "insert:at:ofList:": 2,
@@ -741,12 +741,12 @@ let listBlocks = {
 function recogniseStuff(scripts) {
   // Object.create(null) is JS magic for an "empty dictionary"
   // In ES6-land a Set would be more appropriate
-  let customBlocksByHash = Object.create(null)
-  let listNames = Object.create(null)
-  let variableNames = Object.create(null)
+  const customBlocksByHash = Object.create(null)
+  const listNames = Object.create(null)
+  const variableNames = Object.create(null)
 
   scripts.forEach(function (script) {
-    let customArgs = Object.create(null)
+    const customArgs = Object.create(null)
 
     eachBlock(script, function (block) {
       if (!block.isBlock) {
@@ -756,13 +756,13 @@ function recogniseStuff(scripts) {
       // custom blocks
       if (block.info.shape === "define-hat") {
         // There should be exactly one `outline` child, added in paintBlock.
-        let outline = block.children.find(child => child.isOutline)
+        const outline = block.children.find(child => child.isOutline)
         if (!outline) {
           return
         }
 
-        let names = []
-        let parts = []
+        const names = []
+        const parts = []
         for (const child of outline.children) {
           if (child.isLabel) {
             parts.push(child.value)
@@ -783,10 +783,10 @@ function recogniseStuff(scripts) {
             customArgs[name] = true
           }
         }
-        let spec = parts.join(" ")
-        let hash = hashSpec(spec)
+        const spec = parts.join(" ")
+        const hash = hashSpec(spec)
 
-        let info = {
+        const info = {
           spec: spec,
           names: names,
         }
@@ -813,11 +813,11 @@ function recogniseStuff(scripts) {
 
         // list names
       } else if (listBlocks.hasOwnProperty(block.info.selector)) {
-        let argIndex = listBlocks[block.info.selector]
-        let inputs = block.children.filter(function (child) {
+        const argIndex = listBlocks[block.info.selector]
+        const inputs = block.children.filter(function (child) {
           return !child.isLabel
         })
-        let input = inputs[argIndex]
+        const input = inputs[argIndex]
         if (input && input.isInput) {
           listNames[input.value] = true
         }
@@ -895,8 +895,8 @@ export function parse(code, options) {
     code = code.replace(/\n/g, " ")
   }
 
-  let languages = options.languages.map(function (code) {
-    let lang = allLanguages[code]
+  const languages = options.languages.map(function (code) {
+    const lang = allLanguages[code]
     if (!lang) {
       throw new Error("Unknown language: '" + code + "'")
     }
@@ -905,8 +905,8 @@ export function parse(code, options) {
 
   /* * */
 
-  let f = parseLines(code, languages)
-  let scripts = parseScripts(f)
+  const f = parseLines(code, languages)
+  const scripts = parseScripts(f)
   recogniseStuff(scripts)
   return new Document(scripts)
 }

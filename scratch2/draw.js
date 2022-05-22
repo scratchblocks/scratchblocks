@@ -10,7 +10,7 @@ function assert(bool, message) {
 let document
 let xml
 
-let directProps = {
+const directProps = {
   textContent: true,
 }
 
@@ -18,7 +18,7 @@ let SVG
 export default SVG = {
   init(window) {
     document = window.document
-    let DOMParser = window.DOMParser
+    const DOMParser = window.DOMParser
     xml = new DOMParser().parseFromString("<xml></xml>", "application/xml")
     SVG.XMLSerializer = window.XMLSerializer
   },
@@ -32,13 +32,13 @@ export default SVG = {
   },
 
   el(name, props) {
-    let el = document.createElementNS("http://www.w3.org/2000/svg", name)
+    const el = document.createElementNS("http://www.w3.org/2000/svg", name)
     return SVG.setProps(el, props)
   },
 
   setProps(el, props) {
     for (const key in props) {
-      let value = "" + props[key]
+      const value = "" + props[key]
       if (directProps[key]) {
         el[key] = value
       } else if (props[key] != null && props.hasOwnProperty(key)) {
@@ -77,7 +77,7 @@ export default SVG = {
   },
 
   text(x, y, content, props) {
-    let text = SVG.el("text", { ...props, x: x, y: y, textContent: content })
+    const text = SVG.el("text", { ...props, x: x, y: y, textContent: content })
     return text
   },
 
@@ -96,12 +96,12 @@ export default SVG = {
 
   translatePath(dx, dy, path) {
     let isX = true
-    let parts = path.split(" ")
-    let out = []
+    const parts = path.split(" ")
+    const out = []
     for (let i = 0; i < parts.length; i++) {
       let part = parts[i]
       if (part === "A") {
-        let j = i + 5
+        const j = i + 5
         out.push("A")
         while (i < j) {
           out.push(parts[++i])
@@ -144,7 +144,7 @@ export default SVG = {
   },
 
   roundedPath(w, h) {
-    let r = h / 2
+    const r = h / 2
     return [
       "M",
       r,
@@ -160,7 +160,7 @@ export default SVG = {
   },
 
   pointedPath(w, h) {
-    let r = h / 2
+    const r = h / 2
     return [
       "M",
       r,
@@ -334,10 +334,10 @@ export default SVG = {
 
   curve(p1x, p1y, p2x, p2y, roundness) {
     roundness = roundness || 0.42
-    let midX = (p1x + p2x) / 2.0
-    let midY = (p1y + p2y) / 2.0
-    let cx = Math.round(midX + roundness * (p2y - p1y))
-    let cy = Math.round(midY - roundness * (p2x - p1x))
+    const midX = (p1x + p2x) / 2.0
+    const midY = (p1y + p2y) / 2.0
+    const cx = Math.round(midX + roundness * (p2y - p1y))
+    const cy = Math.round(midY - roundness * (p2x - p1x))
     return [cx, cy, p2x, p2y].join(" ")
   },
 
@@ -392,10 +392,10 @@ export default SVG = {
   },
 
   procHatRect(w, h, props) {
-    let q = 52
-    let y = h - q
+    const q = 52
+    const y = h - q
 
-    let archRoundness = Math.min(0.2, 35 / w)
+    const archRoundness = Math.min(0.2, 35 / w)
 
     return SVG.move(
       0,
@@ -409,15 +409,15 @@ export default SVG = {
 
   mouthRect(w, h, isFinal, lines, props) {
     let y = lines[0].height
-    let p = [SVG.getTop(w), SVG.getRightAndBottom(w, y, true, 15)]
+    const p = [SVG.getTop(w), SVG.getRightAndBottom(w, y, true, 15)]
     for (let i = 1; i < lines.length; i += 2) {
-      let isLast = i + 2 === lines.length
+      const isLast = i + 2 === lines.length
 
       y += lines[i].height - 3
       p.push(SVG.getArm(w, y))
 
-      let hasNotch = !(isLast && isFinal)
-      let inset = isLast ? 0 : 15
+      const hasNotch = !(isLast && isFinal)
+      const inset = isLast ? 0 : 15
       y += lines[i + 1].height + 3
       p.push(SVG.getRightAndBottom(w, y, hasNotch, inset))
     }
@@ -425,8 +425,8 @@ export default SVG = {
   },
 
   ringRect(w, h, cy, cw, ch, shape, props) {
-    let r = 8
-    let func =
+    const r = 8
+    const func =
       shape === "reporter"
         ? SVG.roundedPath
         : shape === "boolean"
@@ -450,7 +450,7 @@ export default SVG = {
   },
 
   commentRect(w, h, props) {
-    let r = 6
+    const r = 6
     return SVG.path({
       ...props,
       class: "sb-comment",

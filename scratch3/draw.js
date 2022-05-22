@@ -4,7 +4,7 @@
 let document
 let xml
 
-let directProps = {
+const directProps = {
   textContent: true,
 }
 
@@ -12,7 +12,7 @@ let SVG
 export default SVG = {
   init(window) {
     document = window.document
-    let DOMParser = window.DOMParser
+    const DOMParser = window.DOMParser
     xml = new DOMParser().parseFromString("<xml></xml>", "application/xml")
     SVG.XMLSerializer = window.XMLSerializer
   },
@@ -26,13 +26,13 @@ export default SVG = {
   },
 
   el(name, props) {
-    let el = document.createElementNS("http://www.w3.org/2000/svg", name)
+    const el = document.createElementNS("http://www.w3.org/2000/svg", name)
     return SVG.setProps(el, props)
   },
 
   setProps(el, props) {
     for (const key in props) {
-      let value = "" + props[key]
+      const value = "" + props[key]
       if (directProps[key]) {
         el[key] = value
       } else if (props[key] != null && props.hasOwnProperty(key)) {
@@ -71,7 +71,7 @@ export default SVG = {
   },
 
   text(x, y, content, props) {
-    let text = SVG.el("text", { ...props, x: x, y: y, textContent: content })
+    const text = SVG.el("text", { ...props, x: x, y: y, textContent: content })
     return text
   },
 
@@ -99,12 +99,12 @@ export default SVG = {
   },
 
   pillRect(w, h, props) {
-    let r = h / 2
+    const r = h / 2
     return SVG.rect(w, h, { ...props, rx: r, ry: r })
   },
 
   pointedPath(w, h) {
-    let r = h / 2
+    const r = h / 2
     return [
       ["M", r, 0].join(" "),
       ["L", w - r, 0, w, r].join(" "),
@@ -324,11 +324,11 @@ export default SVG = {
 
   mouthRect(w, h, isFinal, lines, props) {
     let y = lines[0].height
-    let p = [SVG.getTop(w), SVG.getRightAndBottom(w, y, true, 16)]
+    const p = [SVG.getTop(w), SVG.getRightAndBottom(w, y, true, 16)]
     for (let i = 1; i < lines.length; i += 2) {
-      let isLast = i + 2 === lines.length
+      const isLast = i + 2 === lines.length
 
-      let line = lines[i]
+      const line = lines[i]
       y += line.height - 3
 
       if (line.isFinal) {
@@ -337,8 +337,8 @@ export default SVG = {
         p.push(SVG.getArm(w, y))
       }
 
-      let hasNotch = !(isLast && isFinal)
-      let inset = isLast ? 0 : 16
+      const hasNotch = !(isLast && isFinal)
+      const inset = isLast ? 0 : 16
       y += lines[i + 1].height + 3
       p.push(SVG.getRightAndBottom(w, y, hasNotch, inset))
     }
