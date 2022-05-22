@@ -22,6 +22,7 @@
     "build": "rollup -c --environment buildTarget:PROD",
     "fmt": "prettier --write *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js snapshots/*.html",
     "lint:staged": "lint-staged",
+    "lint": "eslint syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js",
     "locales": "node locales-src/build-locales.js",
     "rollup": "rollup -c",
     "snapshots": "node ./snapshots/index.js",
@@ -38,6 +39,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "cross-env": "^7.0.3",
     "csso": "^5.0.3",
+    "eslint": "^8.16.0",
     "express": "^4.18.0",
     "jest": "^28.0.2",
     "lint-staged": "^12.4.1",
@@ -71,5 +73,17 @@
   },
   "jest": {
     "transform": {}
+  },
+  "eslintConfig": {
+      "env": {
+          "browser": true,
+          "es6": true
+      },
+      "parserOptions": {
+          "ecmaVersion": 13,
+          "sourceType": "module"
+      },
+      "rules": {
+      }
   }
 }
