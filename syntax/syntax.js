@@ -510,6 +510,8 @@ function parseLines(code, languages) {
         return new Icon("addInput")
       case "◂":
         return new Icon("delInput")
+      default:
+        return
     }
   }
 

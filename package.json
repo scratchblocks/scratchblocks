@@ -115,7 +115,9 @@
               "varsIgnorePattern": "^_"
           }],
           "use-isnan": 2,
-          "valid-typeof": 2
+          "valid-typeof": 2,
+          "default-case-last": 2,
+          "default-case": 2
       }
   }
 }
