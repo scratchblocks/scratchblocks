@@ -333,7 +333,7 @@ export default SVG = {
   },
 
   curve(p1x, p1y, p2x, p2y, roundness) {
-    var roundness = roundness || 0.42
+    roundness = roundness || 0.42
     var midX = (p1x + p2x) / 2.0
     var midY = (p1y + p2y) / 2.0
     var cx = Math.round(midX + roundness * (p2y - p1y))
@@ -343,7 +343,7 @@ export default SVG = {
 
   procHatBase(w, h, archRoundness, props) {
     // TODO use arc()
-    var archRoundness = Math.min(0.2, 35 / w)
+    archRoundness = Math.min(0.2, 35 / w)
     return SVG.path({
       ...props,
       path: [

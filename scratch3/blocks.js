@@ -181,19 +181,20 @@ export class InputView {
   }
 
   draw(parent) {
+    let w
     if (this.isBoolean) {
-      var w = 48
+      w = 48
     } else if (this.isColor) {
-      var w = 40
+      w = 40
     } else if (this.hasLabel) {
       var label = this.label.draw()
       // Minimum padding of 11
       // Minimum width of 40, at which point we center the label
       var px = this.label.width >= 18 ? 11 : (40 - this.label.width) / 2
-      var w = this.label.width + 2 * px
+      w = this.label.width + 2 * px
       label = SVG.move(px, 9, label)
     } else {
-      var w = this.isInset ? 30 : null
+      w = this.isInset ? 30 : null
     }
     if (this.hasArrow) {
       w += 20
@@ -445,7 +446,8 @@ class BlockView {
           .concat(children.slice(start, i).reverse())
           .concat(children.slice(i))
       }.bind(this)
-      for (var i = 0; i < children.length; i++) {
+      let i
+      for (i = 0; i < children.length; i++) {
         if (children[i].isScript) {
           flip()
           start = i + 1
@@ -459,7 +461,7 @@ class BlockView {
     var lines = []
     var previousChild
     var lastChild
-    for (var i = 0; i < children.length; i++) {
+    for (let i = 0; i < children.length; i++) {
       var child = children[i]
       child.el = child.draw(this)
 
@@ -553,8 +555,8 @@ class BlockView {
 
     var objects = []
 
-    for (var i = 0; i < lines.length; i++) {
-      var line = lines[i]
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i]
       if (line.isScript) {
         objects.push(SVG.move(16, line.y, line.el))
         continue
@@ -563,13 +565,13 @@ class BlockView {
       var h = line.height
 
       for (var j = 0; j < line.children.length; j++) {
-        var child = line.children[j]
+        const child = line.children[j]
         if (child.isArrow) {
           objects.push(SVG.move(innerWidth - 32, this.height - 28, child.el))
           continue
         }
 
-        var y = pt + (h - child.height - pt - pb) / 2
+        let y = pt + (h - child.height - pt - pb) / 2
         if (child.isLabel && i === 0) {
           // We only do this for the first line so that the `else` label is
           // correctly aligned
@@ -675,7 +677,7 @@ class GlowView {
         el = SVG.stackRect(w, h)
       }
     } else {
-      var el = c.drawSelf(w, h, [])
+      el = c.drawSelf(w, h, [])
     }
     return SVG.setProps(el, {
       class: "sb3-diff sb3-diff-ins",

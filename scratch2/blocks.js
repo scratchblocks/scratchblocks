@@ -150,15 +150,16 @@ class InputView {
   }
 
   draw(parent) {
+    var w
     if (this.hasLabel) {
       var label = this.label.draw()
-      var w = Math.max(
+      w = Math.max(
         14,
         this.label.width +
           (this.shape === "string" || this.shape === "number-dropdown" ? 6 : 9),
       )
     } else {
-      var w = this.isInset ? 30 : this.isColor ? 13 : null
+      w = this.isInset ? 30 : this.isColor ? 13 : null
     }
     if (this.hasArrow) {
       w += 10
@@ -379,7 +380,8 @@ class BlockView {
           .concat(children.slice(start, i).reverse())
           .concat(children.slice(i))
       }.bind(this)
-      for (var i = 0; i < children.length; i++) {
+      let i
+      for (i = 0; i < children.length; i++) {
         if (children[i].isScript) {
           flip()
           start = i + 1
@@ -391,7 +393,7 @@ class BlockView {
     }
 
     var lines = []
-    for (var i = 0; i < children.length; i++) {
+    for (let i = 0; i < children.length; i++) {
       var child = children[i]
       child.el = child.draw(this)
 
@@ -465,7 +467,7 @@ class BlockView {
           continue
         }
 
-        var y = pt + (h - child.height - pt - pb) / 2 - 1
+        let y = pt + (h - child.height - pt - pb) / 2 - 1
         if (isDefine && child.isLabel) {
           y += 3
         } else if (child.isIcon) {
@@ -568,7 +570,7 @@ class GlowView {
         el = SVG.stackRect(w, h)
       }
     } else {
-      var el = c.drawSelf(w, h, [])
+      el = c.drawSelf(w, h, [])
     }
     return SVG.setProps(el, {
       class: "sb-diff sb-diff-ins",

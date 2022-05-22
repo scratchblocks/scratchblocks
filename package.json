@@ -122,7 +122,11 @@
           "eqeqeq": [2, "always", {"null": "never"}],
           "no-case-declarations": 2,
           "no-delete-var": 2,
-          "no-else-return": 2
+          "no-else-return": 2,
+          "no-empty": 2,
+          "no-lonely-if": 2,
+          "no-loop-func": 2,
+          "no-redeclare": 2
       }
   }
 }

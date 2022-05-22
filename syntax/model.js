@@ -275,7 +275,7 @@ export class Block {
     // Get new children by index
     this.children = nativeInfo.parts
       .map(function (part) {
-        var part = part.trim()
+        part = part.trim()
         if (!part) {
           return
         }

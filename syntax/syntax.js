@@ -189,7 +189,7 @@ function isDefineBlock(children, lang) {
     }
   }
 
-  for (var i = 1; i <= lang.defineSuffix.length; i++) {
+  for (let i = 1; i <= lang.defineSuffix.length; i++) {
     const defineWord = lang.defineSuffix[lang.defineSuffix.length - i]
     const child = children[children.length - i]
     if (!child.isLabel || minifyHash(child.value) !== minifyHash(defineWord)) {
@@ -416,7 +416,7 @@ function parseLines(code, languages) {
 
     // number
     if (children.length === 1 && children[0].isLabel) {
-      var value = children[0].value
+      const value = children[0].value
       if (/^[0-9e.-]*$/.test(value)) {
         return new Input("number", value)
       }
@@ -430,7 +430,7 @@ function parseLines(code, languages) {
       var last = children[children.length - 1]
       if (last.value === "v") {
         children.pop()
-        var value = children
+        const value = children
           .map(function (l) {
             return l.value
           })
@@ -611,10 +611,10 @@ function parseScripts(getLine) {
 
         if (isGlow) {
           var last = blocks[blocks.length - 1]
-          var children = []
+          let children = []
           if (last && last.isGlow) {
             blocks.pop()
-            var children = last.child.isScript
+            children = last.child.isScript
               ? last.child.blocks
               : [last.child]
           }
@@ -693,10 +693,10 @@ function parseScripts(getLine) {
 
       if (isGlow) {
         var last = blocks[blocks.length - 1]
-        var children = []
+        let children = []
         if (last && last.isGlow) {
           blocks.pop()
-          var children = last.child.isScript ? last.child.blocks : [last.child]
+          children = last.child.isScript ? last.child.blocks : [last.child]
         }
         children.push(b)
         blocks.push(new Glow(new Script(children)))
@@ -777,7 +777,7 @@ function recogniseStuff(scripts) {
               }[child.info.argument],
             )
 
-            var name = blockName(child)
+            const name = blockName(child)
             names.push(name)
             customArgs[name] = true
           }
@@ -803,7 +803,7 @@ function recogniseStuff(scripts) {
         block.info.categoryIsDefault &&
         (block.isReporter || block.isBoolean)
       ) {
-        var name = blockName(block)
+        const name = blockName(block)
         if (customArgs[name]) {
           block.info.category = "custom-arg"
           block.info.categoryIsDefault = false
@@ -832,7 +832,7 @@ function recogniseStuff(scripts) {
         block.info.category === "obsolete"
       ) {
         // custom blocks
-        var info = customBlocksByHash[block.info.hash]
+        const info = customBlocksByHash[block.info.hash]
         if (info) {
           block.info.selector = "call"
           block.info.call = info.spec
@@ -878,7 +878,7 @@ function recogniseStuff(scripts) {
 }
 
 export function parse(code, options) {
-  var options = {
+  options = {
     inline: false,
     languages: ["en"],
     ...options,
