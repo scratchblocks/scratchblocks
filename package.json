@@ -92,7 +92,9 @@
           "no-dupe-else-if": 2,
           "no-dupe-keys": 2,
           "no-duplicate-case": 2,
-          "no-duplicate-imports": 2
+          "no-duplicate-imports": 2,
+          "no-ex-assign": 2,
+          "no-fallthrough": 2
       }
   }
 }

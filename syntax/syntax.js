@@ -319,12 +319,13 @@ function parseLines(code, languages) {
           break
         case "\\":
           next() // escape character
-        // fall-thru
+        // fallthrough
         case ":":
           if (tok === ":" && peek() === ":") {
             children.push(pOverrides(end))
             return children
-          } // fall-thru
+          }
+        // fallthrough
         default:
           if (!label) {
             children.push((label = new Label("")))
