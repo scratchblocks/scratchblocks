@@ -1,15 +1,8 @@
 import { extensions, aliasExtensions } from "./extensions.js"
 
-function assert(bool, message) {
-  if (!bool) throw "Assertion failed! " + (message || "")
-}
-function isArray(o) {
-  return o && o.constructor === Array
-}
-
 // List of classes we're allowed to override.
 
-var overrideCategories = [
+const overrideCategories = [
   "motion",
   "looks",
   "sound",
@@ -27,7 +20,7 @@ var overrideCategories = [
 ]
   .concat(Object.keys(extensions))
   .concat(Object.keys(aliasExtensions))
-var overrideShapes = [
+const overrideShapes = [
   "hat",
   "cap",
   "stack",
@@ -38,31 +31,31 @@ var overrideShapes = [
 ]
 
 // languages that should be displayed right to left
-export var rtlLanguages = ["ar", "ckb", "fa", "he"]
+export const rtlLanguages = ["ar", "ckb", "fa", "he"]
 
 // List of commands taken from Scratch
 import scratchCommands from "./commands.js"
 
-var inputNumberPat = /\%([0-9]+)/
-export var inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
-var inputPatGlobal = new RegExp(inputPat.source, "g")
-export var iconPat = /(@[a-zA-Z]+)/
-var splitPat = new RegExp(
+const inputNumberPat = /%([0-9]+)/
+export const inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
+const inputPatGlobal = new RegExp(inputPat.source, "g")
+export const iconPat = /(@[a-zA-Z]+)/
+const splitPat = new RegExp(
   [inputPat.source, "|", iconPat.source, "| +"].join(""),
   "g",
 )
 
-export var hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/
+export const hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/
 
 export function parseInputNumber(part) {
-  var m = inputNumberPat.exec(part)
+  const m = inputNumberPat.exec(part)
   return m ? +m[1] : 0
 }
 
 // used for procDefs
 export function parseSpec(spec) {
-  var parts = spec.split(splitPat).filter(x => !!x)
-  var inputs = parts.filter(function (p) {
+  const parts = spec.split(splitPat).filter(x => !!x)
+  const inputs = parts.filter(p => {
     return inputPat.test(p)
   })
   return {
@@ -92,16 +85,19 @@ export function minifyHash(hash) {
     .toLowerCase()
 }
 
-export var blocksById = {}
-var allBlocks = scratchCommands.map(function (def) {
-  var spec = def.spec
+export const blocksById = {}
+const allBlocks = scratchCommands.map(def => {
   if (!def.id) {
-    if (!def.selector) throw new Error("Missing ID: " + def.spec)
+    if (!def.selector) {
+      throw new Error("Missing ID: " + def.spec)
+    }
     def.id = "sb2:" + def.selector
   }
-  if (!def.spec) throw new Error("Missing spec: " + def.id)
+  if (!def.spec) {
+    throw new Error("Missing spec: " + def.id)
+  }
 
-  var info = {
+  const info = {
     id: def.id, // Used for Scratch 3 translations
     spec: def.spec, // Used for Scratch 2 translations
     parts: def.spec.split(splitPat).filter(x => !!x),
@@ -118,7 +114,7 @@ var allBlocks = scratchCommands.map(function (def) {
   return info
 })
 
-export var unicodeIcons = {
+export const unicodeIcons = {
   "@greenFlag": "⚑",
   "@turnRight": "↻",
   "@turnLeft": "↺",
@@ -126,57 +122,69 @@ export var unicodeIcons = {
   "@delInput": "◂",
 }
 
-export var allLanguages = {}
+export const allLanguages = {}
 function loadLanguage(code, language) {
-  var blocksByHash = (language.blocksByHash = {})
+  const blocksByHash = (language.blocksByHash = {})
 
-  Object.keys(language.commands).forEach(function (blockId) {
-    var nativeSpec = language.commands[blockId]
-    var block = blocksById[blockId]
+  Object.keys(language.commands).forEach(blockId => {
+    const nativeSpec = language.commands[blockId]
+    const block = blocksById[blockId]
 
-    var nativeHash = hashSpec(nativeSpec)
-    if (!blocksByHash[nativeHash]) blocksByHash[nativeHash] = []
+    const nativeHash = hashSpec(nativeSpec)
+    if (!blocksByHash[nativeHash]) {
+      blocksByHash[nativeHash] = []
+    }
     blocksByHash[nativeHash].push(block)
 
     // fallback image replacement, for languages without aliases
-    var m = iconPat.exec(block.spec)
+    const m = iconPat.exec(block.spec)
     if (m) {
-      var image = m[0]
-      var hash = nativeHash.replace(hashSpec(image), unicodeIcons[image])
-      if (!blocksByHash[hash]) blocksByHash[hash] = []
+      const image = m[0]
+      const hash = nativeHash.replace(hashSpec(image), unicodeIcons[image])
+      if (!blocksByHash[hash]) {
+        blocksByHash[hash] = []
+      }
       blocksByHash[hash].push(block)
     }
   })
 
   language.nativeAliases = {}
-  Object.keys(language.aliases).forEach(function (alias) {
-    var blockId = language.aliases[alias]
-    var block = blocksById[blockId]
+  Object.keys(language.aliases).forEach(alias => {
+    const blockId = language.aliases[alias]
+    const block = blocksById[blockId]
     if (block === undefined) {
       throw new Error("Invalid alias '" + blockId + "'")
     }
-    var aliasHash = hashSpec(alias)
-    if (!blocksByHash[aliasHash]) blocksByHash[aliasHash] = []
+    const aliasHash = hashSpec(alias)
+    if (!blocksByHash[aliasHash]) {
+      blocksByHash[aliasHash] = []
+    }
     blocksByHash[aliasHash].push(block)
 
-    if (!language.nativeAliases[blockId]) language.nativeAliases[blockId] = []
+    if (!language.nativeAliases[blockId]) {
+      language.nativeAliases[blockId] = []
+    }
     language.nativeAliases[blockId].push(alias)
   })
 
   // Some English blocks were renamed between Scratch 2 and Scratch 3. Wire them
   // into language.blocksByHash
-  Object.keys(language.renamedBlocks || {}).forEach(function (alt) {
+  Object.keys(language.renamedBlocks || {}).forEach(alt => {
     const id = language.renamedBlocks[alt]
-    if (!blocksById[id]) throw new Error("Unknown ID: " + id)
+    if (!blocksById[id]) {
+      throw new Error("Unknown ID: " + id)
+    }
     const block = blocksById[id]
-    var hash = hashSpec(alt)
-    if (!english.blocksByHash[hash]) english.blocksByHash[hash] = []
+    const hash = hashSpec(alt)
+    if (!english.blocksByHash[hash]) {
+      english.blocksByHash[hash] = []
+    }
     english.blocksByHash[hash].push(block)
   })
 
   language.nativeDropdowns = {}
-  Object.keys(language.dropdowns).forEach(function (name) {
-    var nativeName = language.dropdowns[name]
+  Object.keys(language.dropdowns).forEach(name => {
+    const nativeName = language.dropdowns[name]
     language.nativeDropdowns[nativeName] = name
   })
 
@@ -184,12 +192,12 @@ function loadLanguage(code, language) {
   allLanguages[code] = language
 }
 export function loadLanguages(languages) {
-  Object.keys(languages).forEach(function (code) {
+  Object.keys(languages).forEach(code => {
     loadLanguage(code, languages[code])
   })
 }
 
-export var english = {
+export const english = {
   aliases: {
     "turn ccw %1 degrees": "MOTION_TURNLEFT",
     "turn left %1 degrees": "MOTION_TURNLEFT",
@@ -245,7 +253,7 @@ export var english = {
 
   commands: {},
 }
-allBlocks.forEach(function (info) {
+allBlocks.forEach(info => {
   english.commands[info.id] = info.spec
 })
 loadLanguages({
@@ -255,59 +263,44 @@ loadLanguages({
 /*****************************************************************************/
 
 function registerCheck(id, func) {
-  if (!blocksById[id]) throw new Error("Unknown ID: " + id)
+  if (!blocksById[id]) {
+    throw new Error("Unknown ID: " + id)
+  }
   blocksById[id].accepts = func
 }
 
 function specialCase(id, func) {
-  if (!blocksById[id]) throw new Error("Unknown ID: " + id)
+  if (!blocksById[id]) {
+    throw new Error("Unknown ID: " + id)
+  }
   blocksById[id].specialCase = func
 }
 
 function disambig(id1, id2, test) {
-  registerCheck(id1, function (info, children, lang) {
+  registerCheck(id1, (info, children, lang) => {
     return test(children, lang)
   })
-  registerCheck(id2, function (info, children, lang) {
+  registerCheck(id2, (info, children, lang) => {
     return !test(children, lang)
   })
 }
 
-disambig("OPERATORS_MATHOP", "SENSING_OF", function (children, lang) {
+disambig("OPERATORS_MATHOP", "SENSING_OF", (children, lang) => {
   // Operators if math function, otherwise sensing "attribute of" block
-  var first = children[0]
-  if (!first.isInput) return
-  var name = first.value
+  const first = children[0]
+  if (!first.isInput) {
+    return
+  }
+  const name = first.value
   return lang.math.indexOf(name) > -1
 })
 
-disambig(
-  "SOUND_CHANGEEFFECTBY",
-  "LOOKS_CHANGEEFFECTBY",
-  function (children, lang) {
-    // Sound if sound effect, otherwise default to graphic effect
-    for (var i = 0; i < children.length; i++) {
-      var child = children[i]
-      if (child.shape === "dropdown") {
-        var name = child.value
-        for (let effect of lang.soundEffects) {
-          if (minifyHash(effect) === minifyHash(name)) {
-            return true
-          }
-        }
-      }
-    }
-    return false
-  },
-)
-
-disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function (children, lang) {
+disambig("SOUND_CHANGEEFFECTBY", "LOOKS_CHANGEEFFECTBY", (children, lang) => {
   // Sound if sound effect, otherwise default to graphic effect
-  for (var i = 0; i < children.length; i++) {
-    var child = children[i]
+  for (const child of children) {
     if (child.shape === "dropdown") {
-      var name = child.value
-      for (let effect of lang.soundEffects) {
+      const name = child.value
+      for (const effect of lang.soundEffects) {
         if (minifyHash(effect) === minifyHash(name)) {
           return true
         }
@@ -317,93 +310,99 @@ disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", function (children, lang) {
   return false
 })
 
-disambig("DATA_LENGTHOFLIST", "OPERATORS_LENGTH", function (children, lang) {
+disambig("SOUND_SETEFFECTO", "LOOKS_SETEFFECTTO", (children, lang) => {
+  // Sound if sound effect, otherwise default to graphic effect
+  for (const child of children) {
+    if (child.shape === "dropdown") {
+      const name = child.value
+      for (const effect of lang.soundEffects) {
+        if (minifyHash(effect) === minifyHash(name)) {
+          return true
+        }
+      }
+    }
+  }
+  return false
+})
+
+disambig("DATA_LENGTHOFLIST", "OPERATORS_LENGTH", (children, _lang) => {
   // List block if dropdown, otherwise operators
-  var last = children[children.length - 1]
-  if (!last.isInput) return
+  const last = children[children.length - 1]
+  if (!last.isInput) {
+    return
+  }
   return last.shape === "dropdown"
 })
 
-disambig(
-  "DATA_LISTCONTAINSITEM",
-  "OPERATORS_CONTAINS",
-  function (children, lang) {
-    // List block if dropdown, otherwise operators
-    var first = children[0]
-    if (!first.isInput) return
-    return first.shape === "dropdown"
-  },
-)
+disambig("DATA_LISTCONTAINSITEM", "OPERATORS_CONTAINS", (children, _lang) => {
+  // List block if dropdown, otherwise operators
+  const first = children[0]
+  if (!first.isInput) {
+    return
+  }
+  return first.shape === "dropdown"
+})
 
-disambig("pen.setColor", "pen.setHue", function (children, lang) {
+disambig("pen.setColor", "pen.setHue", (children, _lang) => {
   // Color block if color input, otherwise numeric
-  var last = children[children.length - 1]
+  const last = children[children.length - 1]
   // If variable, assume color input, since the RGBA hack is common.
   // TODO fix Scratch :P
   return (last.isInput && last.isColor) || last.isBlock
 })
 
-disambig(
-  "microbit.whenGesture",
-  "gdxfor.whenGesture",
-  function (children, lang) {
-    for (var i = 0; i < children.length; i++) {
-      var child = children[i]
-      if (child.shape === "dropdown") {
-        var name = child.value
-        // Yes, "when shaken" gdxfor block exists. But microbit is more common.
-        for (let effect of lang.microbitWhen) {
-          if (minifyHash(effect) === minifyHash(name)) {
-            return true
-          }
+disambig("microbit.whenGesture", "gdxfor.whenGesture", (children, lang) => {
+  for (const child of children) {
+    if (child.shape === "dropdown") {
+      const name = child.value
+      // Yes, "when shaken" gdxfor block exists. But microbit is more common.
+      for (const effect of lang.microbitWhen) {
+        if (minifyHash(effect) === minifyHash(name)) {
+          return true
         }
       }
     }
-    return false
-  },
-)
+  }
+  return false
+})
 
 // This block does not need disambiguation in English;
 // however, many other languages do require that.
-disambig(
-  "ev3.buttonPressed",
-  "microbit.isButtonPressed",
-  function (children, lang) {
-    for (var i = 0; i < children.length; i++) {
-      var child = children[i]
-      if (child.shape === "dropdown") {
-        // EV3 "button pressed" block uses numeric identifier
-        // and does not support "any".
-        switch (minifyHash(child.value)) {
-          case "1":
-          case "2":
-          case "3":
-          case "4":
-            return true
-        }
+disambig("ev3.buttonPressed", "microbit.isButtonPressed", (children, _lang) => {
+  for (const child of children) {
+    if (child.shape === "dropdown") {
+      // EV3 "button pressed" block uses numeric identifier
+      // and does not support "any".
+      switch (minifyHash(child.value)) {
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+          return true
+        default:
       }
     }
-    return false
-  },
-)
+  }
+  return false
+})
 
-specialCase("CONTROL_STOP", function (info, children, lang) {
+specialCase("CONTROL_STOP", (info, children, lang) => {
   // Cap block unless argument is "other scripts in sprite"
-  var last = children[children.length - 1]
-  if (!last.isInput) return
-  var value = last.value
+  const last = children[children.length - 1]
+  if (!last.isInput) {
+    return
+  }
+  const value = last.value
   if (lang.osis.indexOf(value) > -1) {
-    return { ...blocksById["CONTROL_STOP"], shape: "stack" }
+    return { ...blocksById.CONTROL_STOP, shape: "stack" }
   }
 })
 
 export function lookupHash(hash, info, children, languages) {
-  for (var i = 0; i < languages.length; i++) {
-    var lang = languages[i]
+  for (const lang of languages) {
     if (lang.blocksByHash.hasOwnProperty(hash)) {
-      var collisions = lang.blocksByHash[hash].length
-      for (var j = 0; j < collisions; j++) {
-        var block = lang.blocksByHash[hash][j]
+      const collisions = lang.blocksByHash[hash]
+      for (let block of collisions) {
         if (
           info.shape === "reporter" &&
           block.shape !== "reporter" &&
@@ -411,14 +410,19 @@ export function lookupHash(hash, info, children, languages) {
         ) {
           continue
         }
-        if (info.shape === "boolean" && block.shape !== "boolean") continue
-        if (collisions > 1) {
+        if (info.shape === "boolean" && block.shape !== "boolean") {
+          continue
+        }
+        if (collisions.length > 1) {
           // Only check in case of collision;
           // perform "disambiguation"
-          if (block.accepts && !block.accepts(info, children, lang)) continue
+          if (block.accepts && !block.accepts(info, children, lang)) {
+            continue
+          }
         }
-        if (block.specialCase)
+        if (block.specialCase) {
           block = block.specialCase(info, children, lang) || block
+        }
         return { type: block, lang: lang }
       }
     }
@@ -426,18 +430,16 @@ export function lookupHash(hash, info, children, languages) {
 }
 
 export function lookupDropdown(name, languages) {
-  for (var i = 0; i < languages.length; i++) {
-    var lang = languages[i]
+  for (const lang of languages) {
     if (lang.nativeDropdowns.hasOwnProperty(name)) {
-      var nativeName = lang.nativeDropdowns[name]
+      const nativeName = lang.nativeDropdowns[name]
       return nativeName
     }
   }
 }
 
 export function applyOverrides(info, overrides) {
-  for (var i = 0; i < overrides.length; i++) {
-    var name = overrides[i]
+  for (const name of overrides) {
     if (hexColorPat.test(name)) {
       info.color = name
       info.category = ""
@@ -456,10 +458,11 @@ export function applyOverrides(info, overrides) {
 }
 
 export function blockName(block) {
-  var words = []
-  for (var i = 0; i < block.children.length; i++) {
-    var child = block.children[i]
-    if (!child.isLabel) return
+  const words = []
+  for (const child of block.children) {
+    if (!child.isLabel) {
+      return
+    }
     words.push(child.value)
   }
   return words.join(" ")

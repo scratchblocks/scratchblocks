@@ -1,7 +1,6 @@
 import fs from "fs"
 import path from "path"
 import { promisify } from "util"
-const readDir = promisify(fs.readdir)
 const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 
@@ -21,7 +20,7 @@ const readJSONFile = async path => {
 let english
 const rawLocales = async () => {
   const result = []
-  for (let code in localeNames) {
+  for (const code in localeNames) {
     const raw = {
       code: code,
       mappings: await readJSONFile(
@@ -61,26 +60,6 @@ const palette = [
   "CATEGORY_MYBLOCKS",
 ]
 
-const forumLangs = [
-  "de",
-  "es",
-  "fr",
-  "zh_CN",
-  "pl",
-  "ja",
-  "nl",
-  "pt",
-  "it",
-  "he",
-  "ko",
-  "nb",
-  "tr",
-  "el",
-  "ru",
-  "ca",
-  "id",
-]
-
 const mathFuncs = [
   "OPERATORS_MATHOP_ABS",
   "OPERATORS_MATHOP_FLOOR",
@@ -103,30 +82,26 @@ const writeJSON = async (outputPath, obj) => {
   await writeFile(outputPath, contents, "utf-8")
 }
 
-const reverseDict = d => {
-  const o = {}
-  for (var k in d) {
-    o[d[k]] = k
-  }
-  return o
-}
-
 const translateKey = (raw, key) => {
   const result = raw.mappings[key] || raw.extensionMappings[key]
   const englishResult = english.mappings[key] || english.extensionMappings[key]
   if (!englishResult) {
     throw new Error("Unknown key: '" + key + "'")
   }
-  if (!result) return
+  if (!result) {
+    return
+  }
   //if (result === englishResult) return
   return fixup(key, result, englishResult)
 }
 
 const lookupEachIn = raw => items => {
   const output = []
-  for (let key of items) {
+  for (const key of items) {
     const result = translateKey(raw, key)
-    if (!result) continue
+    if (!result) {
+      continue
+    }
     output.push(result)
   }
   return output
@@ -134,10 +109,12 @@ const lookupEachIn = raw => items => {
 
 const translateEachIn = raw => items => {
   const output = {}
-  for (let key of items) {
+  for (const key of items) {
     const result = translateKey(raw, key)
     const englishResult = english.mappings[key]
-    if (!result) continue
+    if (!result) {
+      continue
+    }
     output[englishResult] = result
   }
   return output
@@ -175,12 +152,20 @@ const buildLocale = (code, rawLocale) => {
     name: localeNames[code].name,
   }
 
-  for (let command of scratchCommands) {
-    if (!command.id) continue
-    if (/^sb2:/.test(command.id)) continue
-    if (/^scratchblocks:/.test(command.id)) continue
+  for (const command of scratchCommands) {
+    if (!command.id) {
+      continue
+    }
+    if (/^sb2:/.test(command.id)) {
+      continue
+    }
+    if (/^scratchblocks:/.test(command.id)) {
+      continue
+    }
     const result = translateKey(rawLocale, command.id)
-    if (!result) continue
+    if (!result) {
+      continue
+    }
     locale.commands[command.id] = result
   }
 
@@ -210,7 +195,7 @@ const buildLocale = (code, rawLocale) => {
 
 const fixup = (key, value, englishValue) => {
   let number = 0
-  var variables = {}
+  const variables = {}
   englishValue.replace(/\[[^\]]+\]/g, key => {
     variables[key] = "%" + ++number
   })
@@ -247,12 +232,12 @@ const convertFile = async rawLocale => {
 
 const writeIndex = async codes => {
   let contents = ""
-  for (let code of codes) {
+  for (const code of codes) {
     contents += `import ${code.replace(/-/g, "_")} from "./${code}.json"\n`
   }
   contents += `\n`
   contents += `export default {\n`
-  for (let code of codes) {
+  for (const code of codes) {
     contents += `  ${code.replace(/-/g, "_")},\n`
   }
   contents += `}\n`
@@ -266,9 +251,11 @@ const main = async () => {
   const validLocales = locales.filter(x => !!x)
 
   // check every extra language was used
-  const seen = new Set(validLocales.map(([code, locale]) => code))
+  const seen = new Set(validLocales.map(([code, _locale]) => code))
   for (const code in extraAliases) {
-    if (!seen.has(code)) console.error(`extra_aliases: '${code}' not used`)
+    if (!seen.has(code)) {
+      console.error(`extra_aliases: '${code}' not used`)
+    }
   }
 
   const codes = Array.from(seen)

@@ -2,7 +2,7 @@ import SVG from "./draw.js"
 import Filter from "./filter.js"
 import cssContent from "./style.css.js"
 
-var Style
+let Style
 export default Style = {
   cssContent: cssContent,
 
@@ -156,17 +156,17 @@ export default Style = {
   },
 
   makeStyle() {
-    var style = SVG.el("style")
+    const style = SVG.el("style")
     style.appendChild(SVG.cdata(Style.cssContent))
     return style
   },
 
   bevelFilter(id, inset) {
-    var f = new Filter(id)
+    const f = new Filter(id)
 
-    var alpha = "SourceAlpha"
-    var s = inset ? -1 : 1
-    var blur = f.blur(1, alpha)
+    const alpha = "SourceAlpha"
+    const s = inset ? -1 : 1
+    const blur = f.blur(1, alpha)
 
     f.merge([
       "SourceGraphic",
@@ -186,7 +186,7 @@ export default Style = {
   },
 
   darkFilter(id) {
-    var f = new Filter(id)
+    const f = new Filter(id)
 
     f.merge([
       "SourceGraphic",

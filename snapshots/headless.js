@@ -61,7 +61,9 @@ class Renderer {
 
   async stop() {
     await this.browser.close()
-    if (this.server) this.server.close()
+    if (this.server) {
+      this.server.close()
+    }
   }
 }
 

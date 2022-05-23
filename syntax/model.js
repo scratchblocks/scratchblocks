@@ -1,42 +1,25 @@
 function assert(bool, message) {
-  if (!bool) throw "Assertion failed! " + (message || "")
-}
-function isArray(o) {
-  return o && o.constructor === Array
+  if (!bool) {
+    throw "Assertion failed! " + (message || "")
+  }
 }
 
 function indent(text) {
   return text
     .split("\n")
-    .map(function (line) {
+    .map(line => {
       return "  " + line
     })
     .join("\n")
 }
 
-function maybeNumber(v) {
-  v = "" + v
-  var n = parseInt(v)
-  if (!isNaN(n)) {
-    return n
-  }
-  var f = parseFloat(v)
-  if (!isNaN(f)) {
-    return f
-  }
-  return v
-}
-
 import {
-  blocksById,
   parseSpec,
   inputPat,
   parseInputNumber,
   iconPat,
   rtlLanguages,
   unicodeIcons,
-  english,
-  blockName,
 } from "./blocks.js"
 
 export class Label {
@@ -53,7 +36,9 @@ export class Label {
   }
 
   stringify() {
-    if (this.value === "<" || this.value === ">") return this.value
+    if (this.value === "<" || this.value === ">") {
+      return this.value
+    }
     return this.value.replace(/([<>[\](){}])/g, "\\$1")
   }
 }
@@ -120,10 +105,12 @@ export class Input {
       assert(this.value[0] === "#")
       return "[" + this.value + "]"
     }
-    var text = (this.value ? "" + this.value : "")
+    let text = (this.value ? "" + this.value : "")
       .replace(/ v$/, " \\v")
       .replace(/([\]\\])/g, "\\$1")
-    if (this.hasArrow) text += " v"
+    if (this.hasArrow) {
+      text += " v"
+    }
     return this.isRound
       ? "(" + text + ")"
       : this.isSquare
@@ -135,9 +122,9 @@ export class Input {
       : text
   }
 
-  translate(lang) {
+  translate(_lang) {
     if (this.hasArrow) {
-      var value = this.menu || this.value
+      const value = this.menu || this.value
       this.value = value // TODO translate dropdown value
       this.label = new Label(this.value, "literal-" + this.shape)
     }
@@ -152,7 +139,7 @@ export class Block {
     this.comment = comment || null
     this.diff = null
 
-    var shape = this.info.shape
+    const shape = this.info.shape
     this.isHat = shape === "hat" || shape === "cat" || shape === "define-hat"
     this.hasPuzzle =
       shape === "stack" ||
@@ -175,12 +162,16 @@ export class Block {
   }
 
   stringify(extras) {
-    var firstInput = null
-    var checkAlias = false
-    var text = this.children
-      .map(function (child) {
-        if (child.isIcon) checkAlias = true
-        if (!firstInput && !(child.isLabel || child.isIcon)) firstInput = child
+    let firstInput = null
+    let checkAlias = false
+    let text = this.children
+      .map(child => {
+        if (child.isIcon) {
+          checkAlias = true
+        }
+        if (!firstInput && !(child.isLabel || child.isIcon)) {
+          firstInput = child
+        }
         return child.isScript
           ? "\n" + indent(child.stringify()) + "\n"
           : child.stringify().trim() + " "
@@ -188,13 +179,11 @@ export class Block {
       .join("")
       .trim()
 
-    var lang = this.info.language
+    const lang = this.info.language
     if (checkAlias && lang && this.info.selector) {
-      var type = blocksById[this.info.id]
-      var spec = type.spec
-      var aliases = lang.nativeAliases[this.info.id]
+      const aliases = lang.nativeAliases[this.info.id]
       if (aliases && aliases.length) {
-        var alias = aliases[0]
+        let alias = aliases[0]
         // TODO make translate() not in-place, and use that
         if (inputPat.test(alias) && firstInput) {
           alias = alias.replace(inputPat, firstInput.stringify())
@@ -203,14 +192,16 @@ export class Block {
       }
     }
 
-    var overrides = extras || ""
+    let overrides = extras || ""
     if (
       this.info.categoryIsDefault === false ||
       (this.info.category === "custom-arg" &&
         (this.isReporter || this.isBoolean)) ||
       (this.info.category === "custom" && this.info.shape === "stack")
     ) {
-      if (overrides) overrides += " "
+      if (overrides) {
+        overrides += " "
+      }
       overrides += this.info.category
     }
     if (overrides) {
@@ -226,10 +217,14 @@ export class Block {
   }
 
   translate(lang, isShallow) {
-    if (!lang) throw new Error("Missing language")
+    if (!lang) {
+      throw new Error("Missing language")
+    }
 
-    var id = this.info.id
-    if (!id) return
+    const id = this.info.id
+    if (!id) {
+      return
+    }
 
     if (id === "PROCEDURES_DEFINITION") {
       // Find the first 'outline' child (there should be exactly one).
@@ -246,54 +241,56 @@ export class Block {
       return
     }
 
-    var type = blocksById[id]
-    var oldSpec = this.info.language.commands[id]
+    const oldSpec = this.info.language.commands[id]
 
-    var nativeSpec = lang.commands[id]
-    if (!nativeSpec) return
-    var nativeInfo = parseSpec(nativeSpec)
+    const nativeSpec = lang.commands[id]
+    if (!nativeSpec) {
+      return
+    }
+    const nativeInfo = parseSpec(nativeSpec)
 
-    var rawArgs = this.children.filter(function (child) {
+    const rawArgs = this.children.filter(child => {
       return !child.isLabel && !child.isIcon
     })
 
     if (!isShallow) {
-      rawArgs.forEach(function (child) {
+      rawArgs.forEach(child => {
         child.translate(lang)
       })
     }
 
     // Work out indexes of existing children
-    var oldParts = parseSpec(oldSpec).parts
-    var oldInputOrder = oldParts
+    const oldParts = parseSpec(oldSpec).parts
+    const oldInputOrder = oldParts
       .map(part => parseInputNumber(part))
       .filter(x => !!x)
 
-    var highestNumber = 0
-    var args = oldInputOrder.map(number => {
+    let highestNumber = 0
+    const args = oldInputOrder.map(number => {
       highestNumber = Math.max(highestNumber, number)
       return rawArgs[number - 1]
     })
-    var remainingArgs = rawArgs.slice(highestNumber)
+    const remainingArgs = rawArgs.slice(highestNumber)
 
     // Get new children by index
     this.children = nativeInfo.parts
-      .map(function (part) {
-        var part = part.trim()
-        if (!part) return
-        var number = parseInputNumber(part)
+      .map(part => {
+        part = part.trim()
+        if (!part) {
+          return
+        }
+        const number = parseInputNumber(part)
         if (number) {
           return args[number - 1]
-        } else {
-          return iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part)
         }
+        return iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part)
       })
       .filter(x => !!x)
 
     // Push any remaining children, so we pick up C block bodies
     remainingArgs.forEach((arg, index) => {
       if (index === 1 && this.info.id === "CONTROL_IF") {
-        this.children.push(new Label(lang.commands["CONTROL_ELSE"]))
+        this.children.push(new Label(lang.commands.CONTROL_ELSE))
       }
       this.children.push(arg)
     })
@@ -337,10 +334,9 @@ export class Glow {
   stringify() {
     if (this.child.isBlock) {
       return this.child.stringify("+")
-    } else {
-      var lines = this.child.stringify().split("\n")
-      return lines.map(line => "+ " + line).join("\n")
     }
+    const lines = this.child.stringify().split("\n")
+    return lines.map(line => "+ " + line).join("\n")
   }
 
   translate(lang) {
@@ -360,16 +356,18 @@ export class Script {
 
   stringify() {
     return this.blocks
-      .map(function (block) {
-        var line = block.stringify()
-        if (block.comment) line += " " + block.comment.stringify()
+      .map(block => {
+        let line = block.stringify()
+        if (block.comment) {
+          line += " " + block.comment.stringify()
+        }
         return line
       })
       .join("\n")
   }
 
   translate(lang) {
-    this.blocks.forEach(function (block) {
+    this.blocks.forEach(block => {
       block.translate(lang)
     })
   }
@@ -382,14 +380,14 @@ export class Document {
 
   stringify() {
     return this.scripts
-      .map(function (script) {
+      .map(script => {
         return script.stringify()
       })
       .join("\n\n")
   }
 
   translate(lang) {
-    this.scripts.forEach(function (script) {
+    this.scripts.forEach(script => {
       script.translate(lang)
     })
   }

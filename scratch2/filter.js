@@ -14,8 +14,8 @@ export default class Filter {
   }
 
   fe(name, props, children) {
-    var shortName = name.toLowerCase().replace(/gaussian|osite/, "")
-    var id = [shortName, "-", ++this.highestId].join("")
+    const shortName = name.toLowerCase().replace(/gaussian|osite/, "")
+    const id = [shortName, "-", ++this.highestId].join("")
     this.el.appendChild(
       SVG.withChildren(
         SVG.el("fe" + name, { ...props, result: id }),
@@ -68,7 +68,7 @@ export default class Filter {
     this.fe(
       "Merge",
       {},
-      children.map(function (name) {
+      children.map(name => {
         return SVG.el("feMergeNode", {
           in: name,
         })
