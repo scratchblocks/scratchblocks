@@ -153,6 +153,44 @@ describe("literals", () => {
   })
 })
 
+describe("escaping and stringifying", () => {
+  test("closing bracket", () => {
+    const code = String.raw`say [\]]`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("backslash", () => {
+    const code = String.raw`say [\\]`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("dropdown v should be escaped", () => {
+    const code = String.raw`say [ \v]`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("non-dropdown v should not be escaped", () => {
+    const code = String.raw`say [v]`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("backslash and v", () => {
+    const code = String.raw`say [ \\v]`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("multiple escapes", () => {
+    const code = String.raw`say [\\\] \v]`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("unnecessary escapes should be removed", () => {
+    const input = String.raw`say [\[\)\v]`
+    const expected = String.raw`say [[)v]`
+    expect(parseBlock(input).stringify()).toBe(expected)
+  })
+})
+
 describe("color literals", () => {
   test("work", () => {
     const b = parseBlock("<touching color [#f0f] ?>")
