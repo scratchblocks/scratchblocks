@@ -30,27 +30,27 @@
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "devDependencies": {
-    "@babel/cli": "^7.17.6",
-    "@babel/core": "^7.17.9",
-    "@babel/plugin-external-helpers": "^7.16.7",
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.2",
+    "@babel/plugin-external-helpers": "^7.17.12",
     "@babel/plugin-transform-object-assign": "^7.16.7",
-    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-env": "^7.18.2",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-json": "^4.1.0",
     "cross-env": "^7.0.3",
     "csso": "^5.0.3",
     "eslint": "^8.16.0",
-    "express": "^4.18.0",
-    "jest": "^28.0.2",
-    "lint-staged": "^12.4.1",
+    "express": "^4.18.1",
+    "jest": "^28.1.0",
+    "lint-staged": "^13.0.0",
     "prettier": "^2.6.2",
     "prettier-package-json": "^2.6.3",
-    "puppeteer": "^13.7.0",
-    "rollup": "^2.70.2",
-    "rollup-plugin-license": "^2.7.0",
+    "puppeteer": "^14.2.0",
+    "rollup": "^2.75.5",
+    "rollup-plugin-license": "^2.8.0",
     "rollup-plugin-serve": "^1.1.0",
     "rollup-plugin-terser": "^7.0.2",
-    "scratch-l10n": "^3.14.20220428031608"
+    "scratch-l10n": "^3.14.20220602031631"
   },
   "keywords": [
     "scratch"
@@ -86,16 +86,26 @@
       "sourceType": "module"
     },
     "rules": {
-      "curly": [2, "all"],
+      "curly": [
+        2,
+        "all"
+      ],
       "default-case": 2,
       "default-case-last": 2,
       "dot-notation": 2,
-      "eqeqeq": [2, "always", {
-        "null": "never"
-      }],
-      "no-constant-condition": [2, {
-        "checkLoops": false
-      }],
+      "eqeqeq": [
+        2,
+        "always",
+        {
+          "null": "never"
+        }
+      ],
+      "no-constant-condition": [
+        2,
+        {
+          "checkLoops": false
+        }
+      ],
       "no-duplicate-imports": 2,
       "no-else-return": 2,
       "no-lonely-if": 2,
@@ -105,10 +115,13 @@
       "no-sequences": 2,
       "no-unreachable-loop": 2,
       "no-unused-private-class-members": 2,
-      "no-unused-vars": [2, {
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_"
-      }],
+      "no-unused-vars": [
+        2,
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_"
+        }
+      ],
       "no-useless-concat": 2,
       "no-var": 2,
       "prefer-arrow-callback": 2,
@@ -116,11 +129,16 @@
       "prefer-object-spread": 2,
       "prefer-rest-params": 2,
       "prefer-spread": 2,
-      "yoda": [2, "never"]
+      "yoda": [
+        2,
+        "never"
+      ]
     },
     "overrides": [
       {
-        "files": ["tests/*.js"],
+        "files": [
+          "tests/*.js"
+        ],
         "env": {
           "jest": true
         }
