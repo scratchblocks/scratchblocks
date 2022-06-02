@@ -22,7 +22,7 @@ import * as scratch2 from "./scratch2/index.js"
 import * as scratch3 from "./scratch3/index.js"
 
 export default function (window) {
-  var document = window.document
+  const document = window.document
 
   scratch2.init(window)
   scratch3.init(window)
@@ -33,7 +33,7 @@ export default function (window) {
   }
 
   function newView(doc, options) {
-    var options = {
+    options = {
       style: "scratch2",
       ...options,
     }
@@ -53,8 +53,8 @@ export default function (window) {
     if (typeof options === "function") {
       throw new Error("render() no longer takes a callback")
     }
-    var view = newView(doc, options)
-    var svg = view.render()
+    const view = newView(doc, options)
+    const svg = view.render()
     return svg
   }
 
@@ -64,15 +64,15 @@ export default function (window) {
 
   // read code from a DOM element
   function readCode(el, options) {
-    var options = {
+    options = {
       inline: false,
       ...options,
     }
 
-    var html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/gi, "\n")
-    var pre = document.createElement("pre")
+    const html = el.innerHTML.replace(/<br>\s?|\n|\r\n|\r/gi, "\n")
+    const pre = document.createElement("pre")
     pre.innerHTML = html
-    var code = pre.textContent
+    let code = pre.textContent
     if (options.inline) {
       code = code.replace("\n", "")
     }
@@ -81,9 +81,10 @@ export default function (window) {
 
   // insert 'svg' into 'el', with appropriate wrapper elements
   function replace(el, svg, doc, options) {
+    let container;
     if (options.inline) {
-      var container = document.createElement("span")
-      var cls = "scratchblocks scratchblocks-inline"
+      container = document.createElement("span")
+      let cls = "scratchblocks scratchblocks-inline"
       if (doc.scripts[0] && !doc.scripts[0].isEmpty) {
         cls += " scratchblocks-inline-" + doc.scripts[0].blocks[0].shape
       }
@@ -91,7 +92,7 @@ export default function (window) {
       container.style.display = "inline-block"
       container.style.verticalAlign = "middle"
     } else {
-      var container = document.createElement("div")
+      container = document.createElement("div")
       container.className = "scratchblocks"
     }
     container.appendChild(svg)
@@ -107,9 +108,9 @@ export default function (window) {
    *
    * Like the old 'scratchblocks2.parse().
    */
-  var renderMatching = function (selector, options) {
-    var selector = selector || "pre.blocks"
-    var options = {
+  const renderMatching = function (selector, options) {
+    selector = selector || "pre.blocks"
+    options = {
       // Default values for the options
       style: "scratch2",
       inline: false,
@@ -125,13 +126,13 @@ export default function (window) {
     }
 
     // find elements
-    var results = [].slice.apply(document.querySelectorAll(selector))
-    results.forEach(function (el) {
-      var code = options.read(el, options)
+    const results = [].slice.apply(document.querySelectorAll(selector))
+    results.forEach((el) => {
+      const code = options.read(el, options)
 
-      var doc = options.parse(code, options)
+      const doc = options.parse(code, options)
 
-      var svg = options.render(doc, options)
+      const svg = options.render(doc, options)
 
       options.replace(el, svg, doc, options)
     })
