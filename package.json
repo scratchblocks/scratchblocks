@@ -20,9 +20,9 @@
   },
   "scripts": {
     "build": "rollup -c --environment buildTarget:PROD",
-    "fmt": "prettier --write *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js snapshots/*.html",
+    "fmt": "prettier --write *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js snapshots/*.html tests/*.js",
     "lint:staged": "lint-staged",
-    "lint": "eslint syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js",
+    "lint": "eslint syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js tests/*.js",
     "locales": "node locales-src/build-locales.js",
     "rollup": "rollup -c",
     "snapshots": "node ./snapshots/index.js",
@@ -117,6 +117,14 @@
       "prefer-rest-params": 2,
       "prefer-spread": 2,
       "yoda": [2, "never"]
-    }
+    },
+    "overrides": [
+      {
+        "files": ["tests/*.js"],
+        "env": {
+          "jest": true
+        }
+      }
+    ]
   }
 }
