@@ -4,16 +4,16 @@
     <meta charset="utf-8" />
     <title>Snapshot Test</title>
     <script>
-      window.render = function (source, options, scale) {
-        var doc = scratchblocks.parse(source, {
+      window.render = (source, options, scale) => {
+        const doc = scratchblocks.parse(source, {
           languages: options.lang ? ["en", options.lang] : ["en"],
         })
 
-        var view = scratchblocks.newView(doc, {
+        const view = scratchblocks.newView(doc, {
           style: options.style,
           scale: options.scale,
         })
-        var svg = view.render()
+        view.render()
 
         return new Promise(function (resolve) {
           view.toCanvas(function (canvas) {
