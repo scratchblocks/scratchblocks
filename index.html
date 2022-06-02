@@ -147,7 +147,7 @@ function decodeHash() {
     };
   } else {
     var newObj = {};
-    parts = hash.slice(1).split('&');
+    var parts = hash.slice(1).split('&');
     parts.forEach(function(part) {
       var match = /^(.*)=(.*)$/.exec(part);
       if (!match) return;
