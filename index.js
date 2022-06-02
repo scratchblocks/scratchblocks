@@ -81,7 +81,7 @@ export default function (window) {
 
   // insert 'svg' into 'el', with appropriate wrapper elements
   function replace(el, svg, doc, options) {
-    let container;
+    let container
     if (options.inline) {
       container = document.createElement("span")
       let cls = "scratchblocks scratchblocks-inline"
@@ -127,7 +127,7 @@ export default function (window) {
 
     // find elements
     const results = [].slice.apply(document.querySelectorAll(selector))
-    results.forEach((el) => {
+    results.forEach(el => {
       const code = options.read(el, options)
 
       const doc = options.parse(code, options)
