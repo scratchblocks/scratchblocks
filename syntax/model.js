@@ -105,9 +105,10 @@ export class Input {
       assert(this.value[0] === "#")
       return "[" + this.value + "]"
     }
+    // Order sensitive; see #439
     let text = (this.value ? "" + this.value : "")
-      .replace(/ v$/, " \\v")
       .replace(/([\]\\])/g, "\\$1")
+      .replace(/ v$/, " \\v")
     if (this.hasArrow) {
       text += " v"
     }
