@@ -110,7 +110,13 @@
       "no-else-return": 2,
       "no-lonely-if": 2,
       "no-loop-func": 2,
-      "no-prototype-builtins": 0,
+      "no-restricted-syntax": [
+        2,
+        {
+          "selector": "CallExpression > MemberExpression[property.name=\"join\"] > ArrayExpression",
+          "message": "Do not call Array.join on newly constructed array; use template string instead"
+        }
+      ],
       "no-self-compare": 2,
       "no-sequences": 2,
       "no-unreachable-loop": 2,
