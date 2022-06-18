@@ -2,11 +2,12 @@ import SVG from "./draw.js"
 import Filter from "./filter.js"
 import cssContent from "./style.css.js"
 
-let Style
-export default Style = {
-  cssContent: cssContent,
+export default class Style {
+  static get cssContent() {
+    return cssContent
+  }
 
-  makeIcons() {
+  static makeIcons() {
     return [
       SVG.el("path", {
         d: "M1.504 21L0 19.493 4.567 0h1.948l-.5 2.418s1.002-.502 3.006 0c2.006.503 3.008 2.01 6.517 2.01 3.508 0 4.463-.545 4.463-.545l-.823 9.892s-2.137 1.005-5.144.696c-3.007-.307-3.007-2.007-6.014-2.51-3.008-.502-4.512.503-4.512.503L1.504 21z",
@@ -153,15 +154,15 @@ export default Style = {
         },
       ),
     ]
-  },
+  }
 
-  makeStyle() {
+  static makeStyle() {
     const style = SVG.el("style")
     style.appendChild(SVG.cdata(Style.cssContent))
     return style
-  },
+  }
 
-  bevelFilter(id, inset) {
+  static bevelFilter(id, inset) {
     const f = new Filter(id)
 
     const alpha = "SourceAlpha"
@@ -183,9 +184,9 @@ export default Style = {
     ])
 
     return f.el
-  },
+  }
 
-  darkFilter(id) {
+  static darkFilter(id) {
     const f = new Filter(id)
 
     f.merge([
@@ -194,18 +195,20 @@ export default Style = {
     ])
 
     return f.el
-  },
+  }
 
-  darkRect(w, h, category, el) {
+  static darkRect(w, h, category, el) {
     return SVG.setProps(
       SVG.group([
         SVG.setProps(el, {
-          class: ["sb-" + category, "sb-darker"].join(" "),
+          class: `sb-${category} sb-darker`,
         }),
       ]),
       { width: w, height: h },
     )
-  },
+  }
 
-  defaultFontFamily: "Lucida Grande, Verdana, Arial, DejaVu Sans, sans-serif",
+  static get defaultFontFamily() {
+    return "Lucida Grande, Verdana, Arial, DejaVu Sans, sans-serif"
+  }
 }
