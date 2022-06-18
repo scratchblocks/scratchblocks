@@ -1,6 +1,3 @@
-function isArray(o) {
-  return o && o.constructor === Array
-}
 function assert(bool, message) {
   if (!bool) {
     throw "Assertion failed! " + (message || "")
@@ -33,7 +30,7 @@ import {
 
 function paintBlock(info, children, languages) {
   let overrides = []
-  if (isArray(children[children.length - 1])) {
+  if (Array.isArray(children[children.length - 1])) {
     overrides = children.pop()
   }
 
@@ -59,7 +56,7 @@ function paintBlock(info, children, languages) {
     lang = o.lang
     type = o.type
     info.language = lang
-    info.isRTL = rtlLanguages.indexOf(lang.code) > -1
+    info.isRTL = rtlLanguages.includes(lang.code)
 
     if (
       type.shape === "ring" ? info.shape === "reporter" : info.shape === "stack"
@@ -226,9 +223,7 @@ function parseLines(code, languages) {
   })
 
   function makeBlock(shape, children) {
-    const hasInputs = !!children.filter(x => {
-      return !x.isLabel
-    }).length
+    const hasInputs = children.filter(x => !x.isLabel).length
 
     const info = {
       shape: shape,
@@ -312,7 +307,7 @@ function parseLines(code, languages) {
             children.push(new Label("☁"))
           } else {
             children.push(
-              Icon.icons.hasOwnProperty(name)
+              Object.prototype.hasOwnProperty.call(Icon.icons, name)
                 ? new Icon(name)
                 : new Label("@" + name),
             )
@@ -433,11 +428,7 @@ function parseLines(code, languages) {
       const last = children[children.length - 1]
       if (last.value === "v") {
         children.pop()
-        const value = children
-          .map(l => {
-            return l.value
-          })
-          .join(" ")
+        const value = children.map(l => l.value).join(" ")
         return makeMenu("number-dropdown", value)
       }
     }
@@ -577,7 +568,7 @@ function parseLines(code, languages) {
     return block
   }
 
-  return function () {
+  return () => {
     if (!tok) {
       return undefined
     }
@@ -739,14 +730,11 @@ const listBlocks = {
 }
 
 function recogniseStuff(scripts) {
-  // Object.create(null) is JS magic for an "empty dictionary"
-  // In ES6-land a Set would be more appropriate
   const customBlocksByHash = Object.create(null)
-  const listNames = Object.create(null)
-  const variableNames = Object.create(null)
+  const listNames = new Set()
 
   scripts.forEach(script => {
-    const customArgs = Object.create(null)
+    const customArgs = new Set()
 
     eachBlock(script, block => {
       if (!block.isBlock) {
@@ -780,7 +768,7 @@ function recogniseStuff(scripts) {
 
             const name = blockName(child)
             names.push(name)
-            customArgs[name] = true
+            customArgs.add(name)
           }
         }
         const spec = parts.join(" ")
@@ -805,21 +793,21 @@ function recogniseStuff(scripts) {
         (block.isReporter || block.isBoolean)
       ) {
         const name = blockName(block)
-        if (customArgs[name]) {
+        if (customArgs.has(name)) {
           block.info.category = "custom-arg"
           block.info.categoryIsDefault = false
           block.info.selector = "getParam"
         }
 
         // list names
-      } else if (listBlocks.hasOwnProperty(block.info.selector)) {
+      } else if (
+        Object.prototype.hasOwnProperty.call(listBlocks, block.info.selector)
+      ) {
         const argIndex = listBlocks[block.info.selector]
-        const inputs = block.children.filter(child => {
-          return !child.isLabel
-        })
+        const inputs = block.children.filter(child => !child.isLabel)
         const input = inputs[argIndex]
         if (input && input.isInput) {
-          listNames[input.value] = true
+          listNames.add(input.value)
         }
       }
     })
@@ -859,18 +847,10 @@ function recogniseStuff(scripts) {
       }
 
       // list reporters
-      if (listNames[name]) {
+      if (listNames.has(name)) {
         info.category = "list"
         info.categoryIsDefault = false
         info.selector = "contentsOfList:"
-
-        // variable reporters
-      } else if (variableNames[name]) {
-        info.category = "variables"
-        info.categoryIsDefault = false
-        info.selector = "readVariable"
-      } else {
-        return
       }
 
       return // already done
@@ -898,7 +878,7 @@ export function parse(code, options) {
   const languages = options.languages.map(code => {
     const lang = allLanguages[code]
     if (!lang) {
-      throw new Error("Unknown language: '" + code + "'")
+      throw new Error(`Unknown language: '${code}'`)
     }
     return lang
   })
