@@ -1,11 +1,12 @@
 import SVG from "./draw.js"
 import cssContent from "./style.css.js"
 
-let Style
-export default Style = {
-  cssContent: cssContent,
+export default class Style {
+  static get cssContent() {
+    return cssContent
+  }
 
-  makeIcons() {
+  static makeIcons() {
     return [
       SVG.setProps(
         SVG.group([
@@ -565,14 +566,18 @@ export default Style = {
         href: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQBAMAAAB8P++eAAAAKlBMVEUAAAD///98h6Xm5+iVnrb/Zhq+w9L5hk73+Pnf4eSQmbLr7Ozo39vp184hSCf6AAAAAXRSTlMAQObYZgAAAOFJREFUSMftlDEOgjAUhonhAi1sLvIk7NDJDTYu0LhzBzcXruHoDTyFB/BCNi30KU3InzioSb++hAS+vPfKa5pEIpHvk7a8gpf8ISWINtlg4i7ZFOKVTBlqsUR+ItYZJG7VzQQgMqGYd7zWRArpULEAe5Q/J9JMj4rluC7uleNw7TFRXcoREDnlinjX57eUsvRTn8+AE0/6OKV0g5buYTTyWFFr/XAp3aDzed4yFJWnKbhPbtaXXohDNYlDJWz4zSxEokkkEjb496AiVtqAbIYgYNGWBmhgES+NX6SRSORfeAJMWajr95DdqQAAAABJRU5ErkJggg==",
       }),
     ]
-  },
+  }
 
-  makeStyle() {
+  static makeStyle() {
     const style = SVG.el("style")
     style.appendChild(SVG.cdata(Style.cssContent))
     return style
-  },
+  }
 
-  defaultFont: "500 12pt Helevetica Neue, Helvetica, sans-serif",
-  commentFont: "400 12pt Helevetica Neue, Helvetica, sans-serif",
+  static get defaultFont() {
+    return "500 12pt Helevetica Neue, Helvetica, sans-serif"
+  }
+  static get commentFont() {
+    return "400 12pt Helevetica Neue, Helvetica, sans-serif"
+  }
 }
