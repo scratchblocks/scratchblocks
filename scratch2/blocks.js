@@ -185,7 +185,7 @@ class InputView {
 
     const result = SVG.group([
       SVG.setProps(el, {
-        class: ["sb-input", "sb-input-" + this.shape].join(" "),
+        class: "sb-input sb-input-" + this.shape,
       }),
     ])
     if (this.hasLabel) {
@@ -216,13 +216,19 @@ class BlockView {
     this.children = block.children.map(newView)
     this.comment = this.comment ? newView(this.comment) : null
 
-    if (aliasExtensions.hasOwnProperty(this.info.category)) {
+    if (
+      Object.prototype.hasOwnProperty.call(aliasExtensions, this.info.category)
+    ) {
       // handle aliases first
       this.info.category = aliasExtensions[this.info.category]
     }
-    if (movedExtensions.hasOwnProperty(this.info.category)) {
+    if (
+      Object.prototype.hasOwnProperty.call(movedExtensions, this.info.category)
+    ) {
       this.info.category = movedExtensions[this.info.category]
-    } else if (extensions.hasOwnProperty(this.info.category)) {
+    } else if (
+      Object.prototype.hasOwnProperty.call(extensions, this.info.category)
+    ) {
       this.info.category = "extension"
     }
 
@@ -270,7 +276,7 @@ class BlockView {
     // mouths
     if (lines.length > 1) {
       return SVG.mouthRect(w, h, this.isFinal, lines, {
-        class: ["sb-" + this.info.category, "sb-bevel"].join(" "),
+        class: `sb-${this.info.category} sb-bevel`,
       })
     }
 
@@ -292,7 +298,7 @@ class BlockView {
           ? child.shape
           : child.info.shape
         return SVG.ringRect(w, h, child.y, child.width, child.height, shape, {
-          class: ["sb-" + this.info.category, "sb-bevel"].join(" "),
+          class: `sb-${this.info.category} sb-bevel`,
         })
       }
     }
@@ -302,7 +308,7 @@ class BlockView {
       throw new Error("no shape func: " + this.info.shape)
     }
     return func(w, h, {
-      class: ["sb-" + this.info.category, "sb-bevel"].join(" "),
+      class: `sb-${this.info.category} sb-bevel`,
     })
   }
 
@@ -362,7 +368,7 @@ class BlockView {
     let innerWidth = 0
     let scriptWidth = 0
     let line = new Line(y)
-    function pushLine(isLast) {
+    const pushLine = isLast => {
       if (lines.length === 0) {
         line.height += pt + pb
       } else {
@@ -375,12 +381,12 @@ class BlockView {
 
     if (this.info.isRTL) {
       let start = 0
-      const flip = function () {
+      const flip = () => {
         children = children
           .slice(0, start)
           .concat(children.slice(start, i).reverse())
           .concat(children.slice(i))
-      }.bind(this)
+      }
       let i
       for (i = 0; i < children.length; i++) {
         if (children[i].isScript) {
@@ -664,9 +670,7 @@ class DocumentView {
   }
 
   measure() {
-    this.scripts.forEach(script => {
-      script.measure()
-    })
+    this.scripts.forEach(script => script.measure())
   }
 
   render(cb) {
@@ -697,14 +701,12 @@ class DocumentView {
     // return SVG
     const svg = SVG.newSVG(width, height, this.scale)
     svg.appendChild(
-      (this.defs = SVG.withChildren(
-        SVG.el("defs"),
-        [
-          bevelFilter("bevelFilter", false),
-          bevelFilter("inputBevelFilter", true),
-          darkFilter("inputDarkFilter"),
-        ].concat(makeIcons()),
-      )),
+      (this.defs = SVG.withChildren(SVG.el("defs"), [
+        bevelFilter("bevelFilter", false),
+        bevelFilter("inputBevelFilter", true),
+        darkFilter("inputDarkFilter"),
+        ...makeIcons(),
+      ])),
     )
 
     svg.appendChild(SVG.group(elements))
@@ -741,7 +743,7 @@ class DocumentView {
 
     const image = new Image()
     image.src = this.exportSVG()
-    image.onload = function () {
+    image.onload = () => {
       context.save()
       context.scale(exportScale, exportScale)
       context.drawImage(image, 0, 0)
