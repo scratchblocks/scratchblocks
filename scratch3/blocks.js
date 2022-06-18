@@ -58,7 +58,7 @@ export class LabelView {
     }
   }
 
-  static measure = function (value, font) {
+  static measure(value, font) {
     const context = LabelView.measuring
     context.font = font
     const textMetrics = context.measureText(value)
@@ -128,12 +128,12 @@ export class LineView {
     return true
   }
 
-  measure = () => {}
+  measure() {}
 
   draw(parent) {
     const category = parent.info.category
     return SVG.el("line", {
-      class: "sb3-" + category + "-line",
+      class: `sb3-${category}-line`,
       "stroke-linecap": "round",
       x1: 0,
       y1: 0,
@@ -206,11 +206,9 @@ export class InputView {
 
     const el = InputView.shapes[this.shape](w, h)
     SVG.setProps(el, {
-      class: [
-        this.isColor ? "" : "sb3-" + parent.info.category,
-        "sb3-input",
-        "sb3-input-" + this.shape,
-      ].join(" "),
+      class: `${
+        this.isColor ? "" : "sb3-" + parent.info.category
+      } sb3-input sb3-input-${this.shape}`,
     })
 
     if (this.isColor) {
@@ -226,7 +224,7 @@ export class InputView {
         })
       }
     } else if (this.shape === "number-dropdown") {
-      el.classList.add("sb3-" + parent.info.category + "-alt")
+      el.classList.add(`sb3-${parent.info.category}-alt`)
 
       // custom colors
       if (parent.info.color) {
@@ -237,7 +235,7 @@ export class InputView {
       }
     } else if (this.shape === "boolean") {
       el.classList.remove("sb3-" + parent.info.category)
-      el.classList.add("sb3-" + parent.info.category + "-dark")
+      el.classList.add(`sb3-${parent.info.category}-dark`)
 
       // custom colors
       if (parent.info.color) {
@@ -269,10 +267,12 @@ class BlockView {
 
     // Avoid accidental mutation
     this.info = { ...block.info }
-    if (aliasExtensions.hasOwnProperty(this.info.category)) {
+    if (
+      Object.prototype.hasOwnProperty.call(aliasExtensions, this.info.category)
+    ) {
       this.info.category = aliasExtensions[this.info.category]
     }
-    if (extensions.hasOwnProperty(this.info.category)) {
+    if (Object.prototype.hasOwnProperty.call(extensions, this.info.category)) {
       this.children.unshift(new LineView())
       this.children.unshift(
         new IconView({ name: this.info.category + "Block" }),
@@ -324,17 +324,14 @@ class BlockView {
     // mouths
     if (lines.length > 1) {
       return SVG.mouthRect(w, h, this.isFinal, lines, {
-        class: ["sb3-" + this.info.category].join(" "),
+        class: "sb3-" + this.info.category,
       })
     }
 
     // outlines
     if (this.info.shape === "outline") {
       return SVG.setProps(SVG.stackRect(w, h), {
-        class: [
-          "sb3-" + this.info.category,
-          "sb3-" + this.info.category + "-alt",
-        ].join(" "),
+        class: `sb3-${this.info.category} sb3-${this.info.category}-alt`,
       })
     }
 
@@ -343,7 +340,7 @@ class BlockView {
       const child = this.children[0]
       if (child && (child.isInput || child.isBlock || child.isScript)) {
         return SVG.roundRect(w, h, {
-          class: ["sb3-" + this.info.category].join(" "),
+          class: "sb3-" + this.info.category,
         })
       }
     }
@@ -353,7 +350,7 @@ class BlockView {
       throw new Error("no shape func: " + this.info.shape)
     }
     return func(w, h, {
-      class: ["sb3-" + this.info.category].join(" "),
+      class: "sb3-" + this.info.category,
     })
   }
 
@@ -416,7 +413,6 @@ class BlockView {
     const pt = padding[0],
       pb = padding[1]
 
-    const _this = this
     let y = this.info.shape === "cat" ? 16 : 0
     const Line = function (y) {
       this.y = y
@@ -428,7 +424,7 @@ class BlockView {
     let innerWidth = 0
     let scriptWidth = 0
     let line = new Line(y)
-    function pushLine() {
+    const pushLine = () => {
       if (lines.length === 0) {
         line.height += pt + pb
       } else {
@@ -441,12 +437,12 @@ class BlockView {
 
     if (this.info.isRTL) {
       let start = 0
-      const flip = function () {
+      const flip = () => {
         children = children
           .slice(0, start)
           .concat(children.slice(start, i).reverse())
           .concat(children.slice(i))
-      }.bind(this)
+      }
       let i
       for (i = 0; i < children.length; i++) {
         if (children[i].isScript) {
@@ -847,7 +843,7 @@ class DocumentView {
 
     const image = new Image()
     image.src = this.exportSVG()
-    image.onload = function () {
+    image.onload = () => {
       context.save()
       context.scale(exportScale, exportScale)
       context.drawImage(image, 0, 0)
