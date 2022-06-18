@@ -15,7 +15,7 @@ export default class Filter {
 
   fe(name, props, children) {
     const shortName = name.toLowerCase().replace(/gaussian|osite/, "")
-    const id = [shortName, "-", ++this.highestId].join("")
+    const id = `${shortName}-${++this.highestId}`
     this.el.appendChild(
       SVG.withChildren(
         SVG.el("fe" + name, { ...props, result: id }),
@@ -52,7 +52,7 @@ export default class Filter {
   blur(dev, in1) {
     return this.fe("GaussianBlur", {
       in: in1,
-      stdDeviation: [dev, dev].join(" "),
+      stdDeviation: `${dev} ${dev}`,
     })
   }
 
@@ -68,11 +68,11 @@ export default class Filter {
     this.fe(
       "Merge",
       {},
-      children.map(name => {
-        return SVG.el("feMergeNode", {
+      children.map(name =>
+        SVG.el("feMergeNode", {
           in: name,
-        })
-      }),
+        }),
+      ),
     )
   }
 }
