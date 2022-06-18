@@ -14,87 +14,89 @@ const directProps = {
   textContent: true,
 }
 
-let SVG
-export default SVG = {
-  init(window) {
+export default class SVG {
+  static init(window) {
     document = window.document
     const DOMParser = window.DOMParser
     xml = new DOMParser().parseFromString("<xml></xml>", "application/xml")
     SVG.XMLSerializer = window.XMLSerializer
-  },
+  }
 
-  makeCanvas() {
+  static makeCanvas() {
     return document.createElement("canvas")
-  },
+  }
 
-  cdata(content) {
+  static cdata(content) {
     return xml.createCDATASection(content)
-  },
+  }
 
-  el(name, props) {
+  static el(name, props) {
     const el = document.createElementNS("http://www.w3.org/2000/svg", name)
     return SVG.setProps(el, props)
-  },
+  }
 
-  setProps(el, props) {
+  static setProps(el, props) {
     for (const key in props) {
       const value = "" + props[key]
       if (directProps[key]) {
         el[key] = value
-      } else if (props[key] != null && props.hasOwnProperty(key)) {
+      } else if (
+        props[key] != null &&
+        Object.prototype.hasOwnProperty.call(props, key)
+      ) {
         el.setAttributeNS(null, key, value)
       }
     }
     return el
-  },
+  }
 
-  withChildren(el, children) {
+  static withChildren(el, children) {
     for (const child of children) {
       el.appendChild(child)
     }
     return el
-  },
+  }
 
-  group(children) {
+  static group(children) {
     return SVG.withChildren(SVG.el("g"), children)
-  },
+  }
 
-  newSVG(width, height, scale) {
+  static newSVG(width, height, scale) {
     return SVG.el("svg", {
       version: "1.1",
       width: width * scale,
       height: height * scale,
       viewBox: `0 0 ${width} ${height}`,
     })
-  },
+  }
 
-  polygon(props) {
+  static polygon(props) {
     return SVG.el("polygon", { ...props, points: props.points.join(" ") })
-  },
+  }
 
-  path(props) {
+  static path(props) {
     return SVG.el("path", { ...props, path: null, d: props.path.join(" ") })
-  },
+  }
 
-  text(x, y, content, props) {
+  static text(x, y, content, props) {
     const text = SVG.el("text", { ...props, x: x, y: y, textContent: content })
     return text
-  },
+  }
 
-  symbol(href) {
+  static symbol(href) {
     return SVG.el("use", {
       href: href,
     })
-  },
+  }
 
-  move(dx, dy, el) {
+  static move(dx, dy, el) {
     SVG.setProps(el, {
-      transform: ["translate(", dx, " ", dy, ")"].join(""),
+      transform: `translate(${dx} ${dy})`,
     })
     return el
-  },
+  }
 
-  translatePath(dx, dy, path) {
+  static translatePath(dx, dy, path) {
     let isX = true
     const parts = path.split(" ")
     const out = []
@@ -117,15 +119,15 @@ export default SVG = {
       out.push(part)
     }
     return out.join(" ")
-  },
+  }
 
   /* shapes */
 
-  rect(w, h, props) {
+  static rect(w, h, props) {
     return SVG.el("rect", { ...props, x: 0, y: 0, width: w, height: h })
-  },
+  }
 
-  ellipse(w, h, props) {
+  static ellipse(w, h, props) {
     return SVG.el("ellipse", {
       ...props,
       cx: w / 2,
@@ -133,17 +135,17 @@ export default SVG = {
       rx: w / 2,
       ry: h / 2,
     })
-  },
+  }
 
-  arc(p1x, p1y, p2x, p2y, rx, ry) {
-    return ["L", p1x, p1y, "A", rx, ry, 0, 0, 1, p2x, p2y].join(" ")
-  },
+  static arc(p1x, p1y, p2x, p2y, rx, ry) {
+    return `L ${p1x} ${p1y} A ${rx} ${ry} 0 0 1 ${p2x} ${p2y}`
+  }
 
-  arcw(p1x, p1y, p2x, p2y, rx, ry) {
-    return ["L", p1x, p1y, "A", rx, ry, 0, 0, 0, p2x, p2y].join(" ")
-  },
+  static arcw(p1x, p1y, p2x, p2y, rx, ry) {
+    return `L ${p1x} ${p1y} A ${rx} ${ry} 0 0 0 ${p2x} ${p2y}`
+  }
 
-  roundedPath(w, h) {
+  static roundedPath(w, h) {
     const r = h / 2
     return [
       "M",
@@ -153,13 +155,13 @@ export default SVG = {
       SVG.arc(r, h, r, 0, r, r),
       "Z",
     ]
-  },
+  }
 
-  roundedRect(w, h, props) {
+  static roundedRect(w, h, props) {
     return SVG.path({ ...props, path: SVG.roundedPath(w, h) })
-  },
+  }
 
-  pointedPath(w, h) {
+  static pointedPath(w, h) {
     const r = h / 2
     return [
       "M",
@@ -187,71 +189,21 @@ export default SVG = {
       0,
       "Z",
     ]
-  },
+  }
 
-  pointedRect(w, h, props) {
+  static pointedRect(w, h, props) {
     return SVG.path({ ...props, path: SVG.pointedPath(w, h) })
-  },
+  }
 
-  getTop(w) {
-    return [
-      "M",
-      0,
-      3,
-      "L",
-      3,
-      0,
-      "L",
-      13,
-      0,
-      "L",
-      16,
-      3,
-      "L",
-      24,
-      3,
-      "L",
-      27,
-      0,
-      "L",
-      w - 3,
-      0,
-      "L",
-      w,
-      3,
-    ].join(" ")
-  },
+  static getTop(w) {
+    return `M 0 3 L 3 0 L 13 0 L 16 3 L 24 3 L 27 0 L ${w - 3} 0 L ${w} 3`
+  }
 
-  getRingTop(w) {
-    return [
-      "M",
-      0,
-      3,
-      "L",
-      3,
-      0,
-      "L",
-      7,
-      0,
-      "L",
-      10,
-      3,
-      "L",
-      16,
-      3,
-      "L",
-      19,
-      0,
-      "L",
-      w - 3,
-      0,
-      "L",
-      w,
-      3,
-    ].join(" ")
-  },
+  static getRingTop(w) {
+    return `M 0 3 L 3 0 L 7 0 L 10 3 L 16 3 L 19 0 L ${w - 3} 0 L ${w} 3`
+  }
 
-  getRightAndBottom(w, y, hasNotch, inset) {
+  static getRightAndBottom(w, y, hasNotch, inset) {
     if (typeof inset === "undefined") {
       inset = 0
     }
@@ -278,41 +230,30 @@ export default SVG = {
       arr = arr.concat(["L", inset + 3, y, "L", 0, y - 3])
     }
     return arr.join(" ")
-  },
+  }
 
-  getArm(w, armTop) {
-    return [
-      "L",
-      15,
-      armTop - 2,
-      "L",
-      15 + 2,
-      armTop,
-      "L",
-      w - 3,
-      armTop,
-      "L",
-      w,
-      armTop + 3,
-    ].join(" ")
-  },
+  static getArm(w, armTop) {
+    return `L 15 ${armTop - 2} L 17 ${armTop} L ${w - 3} ${armTop} L ${w} ${
+      armTop + 3
+    }`
+  }
 
-  stackRect(w, h, props) {
+  static stackRect(w, h, props) {
     return SVG.path({
       ...props,
       path: [SVG.getTop(w), SVG.getRightAndBottom(w, h, true, 0), "Z"],
     })
-  },
+  }
 
-  capPath(w, h) {
+  static capPath(w, h) {
     return [SVG.getTop(w), SVG.getRightAndBottom(w, h, false, 0), "Z"]
-  },
+  }
 
-  capRect(w, h, props) {
+  static capRect(w, h, props) {
     return SVG.path({ ...props, path: SVG.capPath(w, h) })
-  },
+  }
 
-  hatRect(w, h, props) {
+  static hatRect(w, h, props) {
     return SVG.path({
       ...props,
       path: [
@@ -330,18 +271,18 @@ export default SVG = {
         "Z",
       ],
     })
-  },
+  }
 
-  curve(p1x, p1y, p2x, p2y, roundness) {
+  static curve(p1x, p1y, p2x, p2y, roundness) {
     roundness = roundness || 0.42
     const midX = (p1x + p2x) / 2.0
     const midY = (p1y + p2y) / 2.0
     const cx = Math.round(midX + roundness * (p2y - p1y))
     const cy = Math.round(midY - roundness * (p2x - p1x))
-    return [cx, cy, p2x, p2y].join(" ")
-  },
+    return `${cx} ${cy} ${p2x} ${p2y}`
+  }
 
-  procHatBase(w, h, archRoundness, props) {
+  static procHatBase(w, h, archRoundness, props) {
     // TODO use arc()
     archRoundness = Math.min(0.2, 35 / w)
     return SVG.path({
@@ -367,9 +308,9 @@ export default SVG = {
         "Z",
       ],
     })
-  },
+  }
 
-  procHatCap(w, h, archRoundness) {
+  static procHatCap(w, h, archRoundness) {
     // TODO use arc()
     // TODO this doesn't look quite right
     return SVG.path({
@@ -389,9 +330,9 @@ export default SVG = {
       ],
       class: "sb-define-hat-cap",
     })
-  },
+  }
 
-  procHatRect(w, h, props) {
+  static procHatRect(w, h, props) {
     const q = 52
     const y = h - q
 
@@ -405,9 +346,9 @@ export default SVG = {
         SVG.procHatCap(w, q, archRoundness),
       ]),
     )
-  },
+  }
 
-  mouthRect(w, h, isFinal, lines, props) {
+  static mouthRect(w, h, isFinal, lines, props) {
     let y = lines[0].height
     const p = [SVG.getTop(w), SVG.getRightAndBottom(w, y, true, 15)]
     for (let i = 1; i < lines.length; i += 2) {
@@ -422,9 +363,9 @@ export default SVG = {
       p.push(SVG.getRightAndBottom(w, y, hasNotch, inset))
     }
     return SVG.path({ ...props, path: p })
-  },
+  }
 
-  ringRect(w, h, cy, cw, ch, shape, props) {
+  static ringRect(w, h, cy, cw, ch, shape, props) {
     const r = 8
     const func =
       shape === "reporter"
@@ -447,9 +388,9 @@ export default SVG = {
       ],
       "fill-rule": "even-odd",
     })
-  },
+  }
 
-  commentRect(w, h, props) {
+  static commentRect(w, h, props) {
     const r = 6
     return SVG.path({
       ...props,
@@ -465,21 +406,21 @@ export default SVG = {
         "Z",
       ],
     })
-  },
+  }
 
-  commentLine(width, props) {
+  static commentLine(width, props) {
     return SVG.move(
       -width,
       9,
       SVG.rect(width, 2, { ...props, class: "sb-comment-line" }),
     )
-  },
+  }
 
-  strikethroughLine(w, props) {
+  static strikethroughLine(w, props) {
     return SVG.path({
       ...props,
       path: ["M", 0, 0, "L", w, 0],
       class: "sb-diff sb-diff-del",
     })
-  },
+  }
 }
