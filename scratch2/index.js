@@ -5,10 +5,7 @@ import style from "./style.js"
 export function init(window) {
   SVG.init(window)
 
-  LabelView.measuring = (function () {
-    const canvas = SVG.makeCanvas()
-    return canvas.getContext("2d")
-  })()
+  LabelView.measuring = SVG.makeCanvas().getContext("2d")
 }
 
 export const makeStyle = style.makeStyle
