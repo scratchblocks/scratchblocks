@@ -34,7 +34,10 @@ export default class SVG {
       const value = "" + props[key]
       if (directProps[key]) {
         el[key] = value
-      } else if (props[key] != null && props.hasOwnProperty(key)) {
+      } else if (
+        props[key] != null &&
+        Object.prototype.hasOwnProperty.call(props, key)
+      ) {
         el.setAttributeNS(null, key, value)
       }
     }
@@ -82,7 +85,7 @@ export default class SVG {
 
   static move(dx, dy, el) {
     SVG.setProps(el, {
-      transform: ["translate(", dx, " ", dy, ")"].join(""),
+      transform: `translate(${dx} ${dy})`,
     })
     return el
   }
@@ -105,11 +108,11 @@ export default class SVG {
   static pointedPath(w, h) {
     const r = h / 2
     return [
-      ["M", r, 0].join(" "),
-      ["L", w - r, 0, w, r].join(" "),
-      ["L", w, r, w - r, h].join(" "),
-      ["L", r, h, 0, r].join(" "),
-      ["L", 0, r, r, 0].join(" "),
+      `M ${r} 0`,
+      `L ${w - r} 0 ${w} ${r}`,
+      `L ${w} ${r} ${w - r} ${h}`,
+      `L ${r} ${h} 0 ${r}`,
+      `L 0 ${r} ${r} 0`,
       "Z",
     ]
   }
@@ -119,50 +122,17 @@ export default class SVG {
   }
 
   static topNotch(w, y) {
-    return [
-      "c 2 0 3 1 4 2",
-      "l 4 4",
-      "c 1 1 2 2 4 2",
-      "h 12",
-      "c 2 0 3 -1 4 -2",
-      "l 4 -4",
-      "c 1 -1 2 -2 4 -2",
-      ["L", w - 4, y].join(" "),
-      "a 4 4 0 0 1 4 4",
-    ].join(" ")
+    return `c 2 0 3 1 4 2 l 4 4 c 1 1 2 2 4 2 h 12 c 2 0 3 -1 4 -2 l 4 -4 c 1 -1 2 -2 4 -2 L ${
+      w - 4
+    } ${y} a 4 4 0 0 1 4 4`
   }
 
   static getTop(w) {
-    return ["M 0 4", "A 4 4 0 0 1 4 0", "H 12", SVG.topNotch(w, 0)].join(" ")
+    return `M 0 4 A 4 4 0 0 1 4 0 H 12 ${SVG.topNotch(w, 0)}`
   }
 
   static getRingTop(w) {
-    return [
-      "M",
-      0,
-      3,
-      "L",
-      3,
-      0,
-      "L",
-      7,
-      0,
-      "L",
-      10,
-      3,
-      "L",
-      16,
-      3,
-      "L",
-      19,
-      0,
-      "L",
-      w - 3,
-      0,
-      "L",
-      w,
-      3,
-    ].join(" ")
+    return `M 0 3 L 3 0 L 7 0 L 10 3 L 16 3 L 19 0 L ${w - 3} 0 L ${w} 3`
   }
 
   static getRightAndBottom(w, y, hasNotch, inset) {
@@ -170,11 +140,11 @@ export default class SVG {
       inset = 0
     }
 
-    let arr = [["L", w, y - 4].join(" "), ["a", 4, 4, 0, 0, 1, -4, 4].join(" ")]
+    let arr = [`L ${w} ${y - 4}`, `a 4 4 0 0 1 -4 4`]
 
     if (hasNotch) {
       arr = arr.concat([
-        ["L", inset + 48, y].join(" "),
+        `L ${inset + 48} ${y}`,
         "c -2 0 -3 1 -4 2",
         "l -4 4",
         "c -1 1 -2 2 -4 2",
@@ -195,22 +165,16 @@ export default class SVG {
   }
 
   static getArm(w, armTop) {
-    return [
-      ["L", 16, armTop - 4].join(" "),
-      "a 4 4 0 0 0 4 4",
-      ["L", 28, armTop].join(" "),
-      SVG.topNotch(w, armTop),
-    ].join(" ")
+    return `L 16 ${armTop - 4} a 4 4 0 0 0 4 4 L 28 ${armTop} ${SVG.topNotch(
+      w,
+      armTop,
+    )}`
   }
 
   static getArmNoNotch(w, armTop) {
-    return [
-      ["L", 16, armTop - 4].join(" "),
-      "a 4 4 0 0 0 4 4",
-      ["L", 28, armTop].join(" "),
-      ["L", w - 4, armTop].join(" "),
-      "a 4 4 0 0 1 4 4",
-    ].join(" ")
+    return `L 16 ${armTop - 4} a 4 4 0 0 0 4 4 L 28 ${armTop} L ${
+      w - 4
+    } ${armTop} a 4 4 0 0 1 4 4`
   }
 
   static stackRect(w, h, props) {
@@ -229,21 +193,13 @@ export default class SVG {
   }
 
   static getHatTop(w) {
-    return [
-      "M 0 16",
-      "c 25,-22 71,-22 96,0",
-      ["L", w - 4, 16].join(" "),
-      "a 4 4 0 0 1 4 4",
-    ].join(" ")
+    return `M 0 16 c 25,-22 71,-22 96,0 L ${w - 4} 16 a 4 4 0 0 1 4 4`
   }
 
   static getCatTop(w) {
-    return [
-      "M 0 32",
-      "c2.6,-2.3 5.5,-4.3 8.5,-6.2c-1,-12.5 5.3,-23.3 8.4,-24.8c3.7,-1.8 16.5,13.1 18.4,15.4c8.4,-1.3 17,-1.3 25.4,0c1.9,-2.3 14.7,-17.2 18.4,-15.4c3.1,1.5 9.4,12.3 8.4,24.8c3,1.8 5.9,3.9 8.5,6.1",
-      ["L", w - 4, 32].join(" "),
-      "a 4 4 0 0 1 4 4",
-    ].join(" ")
+    return `M 0 32 c2.6,-2.3 5.5,-4.3 8.5,-6.2c-1,-12.5 5.3,-23.3 8.4,-24.8c3.7,-1.8 \
+16.5,13.1 18.4,15.4c8.4,-1.3 17,-1.3 25.4,0c1.9,-2.3 14.7,-17.2 18.4,-15.4c3.1,1.5 \
+9.4,12.3 8.4,24.8c3,1.8 5.9,3.9 8.5,6.1 L ${w - 4} 32 a 4 4 0 0 1 4 4`
   }
 
   static hatRect(w, h, props) {
@@ -306,12 +262,7 @@ export default class SVG {
   }
 
   static getProcHatTop(w) {
-    return [
-      "M 0 20",
-      "a 20 20 0 0 1 20 -20",
-      ["L", w - 20, 0].join(" "),
-      "a 20,20 0 0,1 20,20",
-    ].join(" ")
+    return `M 0 20 a 20 20 0 0 1 20 -20 L ${w - 20} 0 a 20,20 0 0,1 20,20`
   }
 
   static procHatRect(w, h, props) {
