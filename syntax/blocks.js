@@ -17,9 +17,10 @@ const overrideCategories = [
   "extension",
   "grey",
   "obsolete",
+  ...Object.keys(extensions),
+  ...Object.keys(aliasExtensions),
 ]
-  .concat(Object.keys(extensions))
-  .concat(Object.keys(aliasExtensions))
+
 const overrideShapes = [
   "hat",
   "cap",
@@ -40,10 +41,7 @@ const inputNumberPat = /%([0-9]+)/
 export const inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
 const inputPatGlobal = new RegExp(inputPat.source, "g")
 export const iconPat = /(@[a-zA-Z]+)/
-const splitPat = new RegExp(
-  [inputPat.source, "|", iconPat.source, "| +"].join(""),
-  "g",
-)
+const splitPat = new RegExp(`${inputPat.source}|${iconPat.source}| +`, "g")
 
 export const hexColorPat = /^#(?:[0-9a-fA-F]{3}){1,2}?$/
 
@@ -54,10 +52,8 @@ export function parseInputNumber(part) {
 
 // used for procDefs
 export function parseSpec(spec) {
-  const parts = spec.split(splitPat).filter(x => !!x)
-  const inputs = parts.filter(p => {
-    return inputPat.test(p)
-  })
+  const parts = spec.split(splitPat).filter(x => x)
+  const inputs = parts.filter(p => inputPat.test(p))
   return {
     spec: spec,
     parts: parts,
@@ -100,7 +96,7 @@ const allBlocks = scratchCommands.map(def => {
   const info = {
     id: def.id, // Used for Scratch 3 translations
     spec: def.spec, // Used for Scratch 2 translations
-    parts: def.spec.split(splitPat).filter(x => !!x),
+    parts: def.spec.split(splitPat).filter(x => x),
     selector: def.selector || "sb3:" + def.id, // Used for JSON marshalling
     inputs: def.inputs == null ? [] : def.inputs,
     shape: def.shape,
@@ -153,7 +149,7 @@ function loadLanguage(code, language) {
     const blockId = language.aliases[alias]
     const block = blocksById[blockId]
     if (block === undefined) {
-      throw new Error("Invalid alias '" + blockId + "'")
+      throw new Error(`Invalid alias '${blockId}'`)
     }
     const aliasHash = hashSpec(alias)
     if (!blocksByHash[aliasHash]) {
@@ -192,9 +188,7 @@ function loadLanguage(code, language) {
   allLanguages[code] = language
 }
 export function loadLanguages(languages) {
-  Object.keys(languages).forEach(code => {
-    loadLanguage(code, languages[code])
-  })
+  Object.keys(languages).forEach(code => loadLanguage(code, languages[code]))
 }
 
 export const english = {
@@ -277,10 +271,10 @@ function specialCase(id, func) {
 }
 
 function disambig(id1, id2, test) {
-  registerCheck(id1, (info, children, lang) => {
+  registerCheck(id1, (_, children, lang) => {
     return test(children, lang)
   })
-  registerCheck(id2, (info, children, lang) => {
+  registerCheck(id2, (_, children, lang) => {
     return !test(children, lang)
   })
 }
@@ -292,7 +286,7 @@ disambig("OPERATORS_MATHOP", "SENSING_OF", (children, lang) => {
     return
   }
   const name = first.value
-  return lang.math.indexOf(name) > -1
+  return lang.math.includes(name)
 })
 
 disambig("SOUND_CHANGEEFFECTBY", "LOOKS_CHANGEEFFECTBY", (children, lang) => {
@@ -386,21 +380,21 @@ disambig("ev3.buttonPressed", "microbit.isButtonPressed", (children, _lang) => {
   return false
 })
 
-specialCase("CONTROL_STOP", (info, children, lang) => {
+specialCase("CONTROL_STOP", (_, children, lang) => {
   // Cap block unless argument is "other scripts in sprite"
   const last = children[children.length - 1]
   if (!last.isInput) {
     return
   }
   const value = last.value
-  if (lang.osis.indexOf(value) > -1) {
+  if (lang.osis.includes(value)) {
     return { ...blocksById.CONTROL_STOP, shape: "stack" }
   }
 })
 
 export function lookupHash(hash, info, children, languages) {
   for (const lang of languages) {
-    if (lang.blocksByHash.hasOwnProperty(hash)) {
+    if (Object.prototype.hasOwnProperty.call(lang.blocksByHash, hash)) {
       const collisions = lang.blocksByHash[hash]
       for (let block of collisions) {
         if (
@@ -431,9 +425,8 @@ export function lookupHash(hash, info, children, languages) {
 
 export function lookupDropdown(name, languages) {
   for (const lang of languages) {
-    if (lang.nativeDropdowns.hasOwnProperty(name)) {
-      const nativeName = lang.nativeDropdowns[name]
-      return nativeName
+    if (Object.prototype.hasOwnProperty.call(lang.nativeDropdowns, name)) {
+      return lang.nativeDropdowns[name]
     }
   }
 }
@@ -444,10 +437,10 @@ export function applyOverrides(info, overrides) {
       info.color = name
       info.category = ""
       info.categoryIsDefault = false
-    } else if (overrideCategories.indexOf(name) > -1) {
+    } else if (overrideCategories.includes(name)) {
       info.category = name
       info.categoryIsDefault = false
-    } else if (overrideShapes.indexOf(name) > -1) {
+    } else if (overrideShapes.includes(name)) {
       info.shape = name
     } else if (name === "loop") {
       info.hasLoopArrow = true
