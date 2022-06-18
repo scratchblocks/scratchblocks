@@ -103,7 +103,7 @@ export class Input {
   stringify() {
     if (this.isColor) {
       assert(this.value[0] === "#")
-      return "[" + this.value + "]"
+      return `[${this.value}]`
     }
     // Order sensitive; see #439
     let text = (this.value ? "" + this.value : "")
@@ -113,9 +113,9 @@ export class Input {
       text += " v"
     }
     return this.isRound
-      ? "(" + text + ")"
+      ? `(${text})`
       : this.isSquare
-      ? "[" + text + "]"
+      ? `[${text}]`
       : this.isBoolean
       ? "<>"
       : this.isStack
@@ -174,7 +174,7 @@ export class Block {
           firstInput = child
         }
         return child.isScript
-          ? "\n" + indent(child.stringify()) + "\n"
+          ? `\n${indent(child.stringify())}\n`
           : child.stringify().trim() + " "
       })
       .join("")
@@ -211,9 +211,9 @@ export class Block {
     return this.hasScript
       ? text + "\nend"
       : this.info.shape === "reporter"
-      ? "(" + text + ")"
+      ? `(${text})`
       : this.info.shape === "boolean"
-      ? "<" + text + ">"
+      ? `<${text}>`
       : text
   }
 
@@ -250,21 +250,19 @@ export class Block {
     }
     const nativeInfo = parseSpec(nativeSpec)
 
-    const rawArgs = this.children.filter(child => {
-      return !child.isLabel && !child.isIcon
-    })
+    const rawArgs = this.children.filter(
+      child => !child.isLabel && !child.isIcon,
+    )
 
     if (!isShallow) {
-      rawArgs.forEach(child => {
-        child.translate(lang)
-      })
+      rawArgs.forEach(child => child.translate(lang))
     }
 
     // Work out indexes of existing children
     const oldParts = parseSpec(oldSpec).parts
     const oldInputOrder = oldParts
       .map(part => parseInputNumber(part))
-      .filter(x => !!x)
+      .filter(x => x)
 
     let highestNumber = 0
     const args = oldInputOrder.map(number => {
@@ -286,7 +284,7 @@ export class Block {
         }
         return iconPat.test(part) ? new Icon(part.slice(1)) : new Label(part)
       })
-      .filter(x => !!x)
+      .filter(x => x)
 
     // Push any remaining children, so we pick up C block bodies
     remainingArgs.forEach((arg, index) => {
@@ -297,7 +295,7 @@ export class Block {
     })
 
     this.info.language = lang
-    this.info.isRTL = rtlLanguages.indexOf(lang.code) > -1
+    this.info.isRTL = rtlLanguages.includes(lang.code)
     this.info.categoryIsDefault = true
   }
 }
@@ -368,9 +366,7 @@ export class Script {
   }
 
   translate(lang) {
-    this.blocks.forEach(block => {
-      block.translate(lang)
-    })
+    this.blocks.forEach(block => block.translate(lang))
   }
 }
 
@@ -380,16 +376,10 @@ export class Document {
   }
 
   stringify() {
-    return this.scripts
-      .map(script => {
-        return script.stringify()
-      })
-      .join("\n\n")
+    return this.scripts.map(script => script.stringify()).join("\n\n")
   }
 
   translate(lang) {
-    this.scripts.forEach(script => {
-      script.translate(lang)
-    })
+    this.scripts.forEach(script => script.translate(lang))
   }
 }
