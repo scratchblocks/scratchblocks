@@ -116,6 +116,10 @@
         {
           "selector": "CallExpression > MemberExpression[property.name=\"join\"] > ArrayExpression",
           "message": "Do not call Array.join on newly constructed array; use template string instead"
+        },
+        {
+          "selector": "BinaryExpression[operator=\">\"][left.callee.property.name=\"indexOf\"] > UnaryExpression[operator=\"-\"][argument.value=\"1\"]",
+          "message": "Use includes method instead of indexOf method"
         }
       ],
       "no-self-compare": 2,
