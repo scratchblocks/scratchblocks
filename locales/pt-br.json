@@ -3,7 +3,7 @@
     "MOTION_MOVESTEPS": "mova %1 passos",
     "MOTION_TURNRIGHT": "gire @turnRight %1 graus",
     "MOTION_TURNLEFT": "gire @turnLeft %1 graus",
-    "MOTION_POINTINDIRECTION": "aponte  para a direção %1",
+    "MOTION_POINTINDIRECTION": "aponte para a direção %1",
     "MOTION_POINTTOWARDS": "aponte para %1",
     "MOTION_GOTOXY": "vá para x: %1 y: %2",
     "MOTION_GOTO": "vá para %1",
