@@ -20,7 +20,7 @@
   },
   "scripts": {
     "build": "rollup -c --environment buildTarget:PROD",
-    "fmt": "prettier --write *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js snapshots/*.html tests/*.js",
+    "fmt": "prettier --cache --write *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js snapshots/*.html tests/*.js",
     "lint:staged": "lint-staged",
     "lint": "eslint *.js syntax/*.js scratch2/*.js scratch3/*.js locales-src/*.js snapshots/*.js tests/*.js",
     "locales": "node locales-src/build-locales.js",
@@ -106,6 +106,7 @@
           "checkLoops": false
         }
       ],
+      "no-constant-binary-expression": 2,
       "no-duplicate-imports": 2,
       "no-else-return": 2,
       "no-lonely-if": 2,
