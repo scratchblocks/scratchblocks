@@ -98,7 +98,7 @@ languageCodes.forEach(function(code) {
   option.value = code
 
   var language = scratchblocks.allLanguages[code]
-  option.textContent = language.name && language.altName ? language.name + " — " + language.altName : language.name || language.altName || code
+  option.textContent = language.name && language.altName ? `${language.name} — ${language.altName}` : language.name || language.altName || code
   chooseLang.appendChild(option)
 })
 
@@ -249,7 +249,7 @@ function objUpdated() {
 
   // update language dropdown
   var lang = scratchblocks.allLanguages[obj.lang]
-  langStatus.textContent = lang ? lang.percentTranslated + "%" : "";
+  langStatus.textContent = lang ? `${lang.percentTranslated}%` : "";
 }
 
 setInterval(function() {

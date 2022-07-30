@@ -39,9 +39,9 @@ export class LabelView {
 
   measure() {
     const value = this.value
-    const cls = "sb3-" + this.cls
+    const cls = `sb3-${this.cls}`
     this.el = SVG.text(0, 13, value, {
-      class: "sb3-label " + cls,
+      class: `sb3-label ${cls}`,
     })
 
     let cache = LabelView.metricsCache[cls]
@@ -76,7 +76,7 @@ export class IconView {
 
     const info = IconView.icons[this.name]
     if (!info) {
-      throw new Error("no info for icon: " + this.name)
+      throw new Error(`no info for icon: ${this.name}`)
     }
     Object.assign(this, info)
   }
@@ -86,7 +86,7 @@ export class IconView {
   }
 
   draw() {
-    return SVG.symbol("#sb3-" + this.name, {
+    return SVG.symbol(`#sb3-${this.name}`, {
       width: this.width,
       height: this.height,
     })
@@ -207,7 +207,7 @@ export class InputView {
     const el = InputView.shapes[this.shape](w, h)
     SVG.setProps(el, {
       class: `${
-        this.isColor ? "" : "sb3-" + parent.info.category
+        this.isColor ? "" : `sb3-${parent.info.category}`
       } sb3-input sb3-input-${this.shape}`,
     })
 
@@ -234,7 +234,7 @@ export class InputView {
         })
       }
     } else if (this.shape === "boolean") {
-      el.classList.remove("sb3-" + parent.info.category)
+      el.classList.remove(`sb3-${parent.info.category}`)
       el.classList.add(`sb3-${parent.info.category}-dark`)
 
       // custom colors
@@ -324,7 +324,7 @@ class BlockView {
     // mouths
     if (lines.length > 1) {
       return SVG.mouthRect(w, h, this.isFinal, lines, {
-        class: "sb3-" + this.info.category,
+        class: `sb3-${this.info.category}`,
       })
     }
 
@@ -340,17 +340,17 @@ class BlockView {
       const child = this.children[0]
       if (child && (child.isInput || child.isBlock || child.isScript)) {
         return SVG.roundRect(w, h, {
-          class: "sb3-" + this.info.category,
+          class: `sb3-${this.info.category}`,
         })
       }
     }
 
     const func = BlockView.shapes[this.info.shape]
     if (!func) {
-      throw new Error("no shape func: " + this.info.shape)
+      throw new Error(`no shape func: ${this.info.shape}`)
     }
     return func(w, h, {
-      class: "sb3-" + this.info.category,
+      class: `sb3-${this.info.category}`,
     })
   }
 
@@ -830,7 +830,7 @@ class DocumentView {
   /* Export SVG image as data URI */
   exportSVG() {
     const xml = this.exportSVGString()
-    return "data:image/svg+xml;utf8," + xml.replace(/[#]/g, encodeURIComponent)
+    return `data:image/svg+xml;utf8,${xml.replace(/[#]/g, encodeURIComponent)}`
   }
 
   toCanvas(cb, exportScale) {
@@ -885,7 +885,7 @@ const viewFor = node => {
     case Document:
       return DocumentView
     default:
-      throw new Error("no view for " + node.constructor.name)
+      throw new Error(`no view for ${node.constructor.name}`)
   }
 }
 

@@ -86,7 +86,7 @@ const translateKey = (raw, key) => {
   const result = raw.mappings[key] || raw.extensionMappings[key]
   const englishResult = english.mappings[key] || english.extensionMappings[key]
   if (!englishResult) {
-    throw new Error("Unknown key: '" + key + "'")
+    throw new Error(`Unknown key: '${key}'`)
   }
   if (!result) {
     return
@@ -171,7 +171,7 @@ const buildLocale = (code, rawLocale) => {
 
   const commandCount = Object.keys(locale.commands).length
   if (commandCount === 0) {
-    console.log("No blocks: " + localeNames[code].name)
+    console.log("No blocks:", localeNames[code].name)
     return
   }
   const frac = commandCount / scratchSpecs.length
@@ -197,7 +197,7 @@ const fixup = (key, value, englishValue) => {
   let number = 0
   const variables = {}
   englishValue.replace(/\[[^\]]+\]/g, key => {
-    variables[key] = "%" + ++number
+    variables[key] = `%${++number}`
   })
 
   value = value.replace(/\[[^\]]+\]/g, key => variables[key])

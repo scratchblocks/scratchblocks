@@ -1,6 +1,6 @@
 function assert(bool, message) {
   if (!bool) {
-    throw "Assertion failed! " + (message || "")
+    throw new Error(`Assertion failed! ${message || ""}`)
   }
 }
 
@@ -8,7 +8,7 @@ function indent(text) {
   return text
     .split("\n")
     .map(line => {
-      return "  " + line
+      return `  ${line}`
     })
     .join("\n")
 }
@@ -48,7 +48,7 @@ export class Icon {
     this.name = name
     this.isArrow = name === "loopArrow"
 
-    assert(Icon.icons[name], "no info for icon " + name)
+    assert(Icon.icons[name], `no info for icon ${name}`)
   }
   get isIcon() {
     return true
@@ -68,7 +68,7 @@ export class Icon {
   }
 
   stringify() {
-    return unicodeIcons["@" + this.name] || ""
+    return unicodeIcons[`@${this.name}`] || ""
   }
 }
 
@@ -92,7 +92,7 @@ export class Input {
 
     this.hasLabel = !(this.isColor || this.isInset)
     this.label = this.hasLabel
-      ? new Label(value, "literal-" + this.shape)
+      ? new Label(value, `literal-${this.shape}`)
       : null
     this.x = 0
   }
@@ -106,7 +106,7 @@ export class Input {
       return `[${this.value}]`
     }
     // Order sensitive; see #439
-    let text = (this.value ? "" + this.value : "")
+    let text = (this.value ? String(this.value) : "")
       .replace(/([\]\\])/g, "\\$1")
       .replace(/ v$/, " \\v")
     if (this.hasArrow) {
@@ -127,7 +127,7 @@ export class Input {
     if (this.hasArrow) {
       const value = this.menu || this.value
       this.value = value // TODO translate dropdown value
-      this.label = new Label(this.value, "literal-" + this.shape)
+      this.label = new Label(this.value, `literal-${this.shape}`)
     }
   }
 }
@@ -206,7 +206,7 @@ export class Block {
       overrides += this.info.category
     }
     if (overrides) {
-      text += " :: " + overrides
+      text += ` :: ${overrides}`
     }
     return this.hasScript
       ? text + "\nend"
@@ -311,7 +311,7 @@ export class Comment {
   }
 
   stringify() {
-    return "// " + this.label.value
+    return `// ${this.label.value}`
   }
 }
 
@@ -335,7 +335,7 @@ export class Glow {
       return this.child.stringify("+")
     }
     const lines = this.child.stringify().split("\n")
-    return lines.map(line => "+ " + line).join("\n")
+    return lines.map(line => `+ ${line}`).join("\n")
   }
 
   translate(lang) {
@@ -358,7 +358,7 @@ export class Script {
       .map(block => {
         let line = block.stringify()
         if (block.comment) {
-          line += " " + block.comment.stringify()
+          line += ` ${block.comment.stringify()}`
         }
         return line
       })

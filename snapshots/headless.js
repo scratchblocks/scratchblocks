@@ -10,7 +10,7 @@ import express from "express"
 const parseDataUrl = url => {
   const match = url.match(/^data:image\/png;base64,(.+)$/)
   if (!match) {
-    throw new Error("Could not parse data URL: " + JSON.stringify(url))
+    throw new Error(`Could not parse data URL: ${JSON.stringify(url)}`)
   }
   return Buffer.from(match[1], "base64")
 }
@@ -46,7 +46,7 @@ class Renderer {
     const args = [script, options, this.scale]
       .map(x => JSON.stringify(x))
       .join(", ")
-    const dataURL = await this.page.evaluate("render(" + args + ")")
+    const dataURL = await this.page.evaluate(`render(${args})`)
     try {
       return parseDataUrl(dataURL)
     } catch (e) {

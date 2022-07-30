@@ -85,26 +85,26 @@ export const blocksById = {}
 const allBlocks = scratchCommands.map(def => {
   if (!def.id) {
     if (!def.selector) {
-      throw new Error("Missing ID: " + def.spec)
+      throw new Error(`Missing ID: ${def.spec}`)
     }
-    def.id = "sb2:" + def.selector
+    def.id = `sb2:${def.selector}`
   }
   if (!def.spec) {
-    throw new Error("Missing spec: " + def.id)
+    throw new Error(`Missing spec: ${def.id}`)
   }
 
   const info = {
     id: def.id, // Used for Scratch 3 translations
     spec: def.spec, // Used for Scratch 2 translations
     parts: def.spec.split(splitPat).filter(x => x),
-    selector: def.selector || "sb3:" + def.id, // Used for JSON marshalling
+    selector: def.selector || `sb3:${def.id}`, // Used for JSON marshalling
     inputs: def.inputs == null ? [] : def.inputs,
     shape: def.shape,
     category: def.category,
     hasLoopArrow: !!def.hasLoopArrow,
   }
   if (blocksById[info.id]) {
-    throw new Error("Duplicate ID: " + info.id)
+    throw new Error(`Duplicate ID: ${info.id}`)
   }
   blocksById[info.id] = info
   return info
@@ -168,7 +168,7 @@ function loadLanguage(code, language) {
   Object.keys(language.renamedBlocks || {}).forEach(alt => {
     const id = language.renamedBlocks[alt]
     if (!blocksById[id]) {
-      throw new Error("Unknown ID: " + id)
+      throw new Error(`Unknown ID: ${id}`)
     }
     const block = blocksById[id]
     const hash = hashSpec(alt)
@@ -258,14 +258,14 @@ loadLanguages({
 
 function registerCheck(id, func) {
   if (!blocksById[id]) {
-    throw new Error("Unknown ID: " + id)
+    throw new Error(`Unknown ID: ${id}`)
   }
   blocksById[id].accepts = func
 }
 
 function specialCase(id, func) {
   if (!blocksById[id]) {
-    throw new Error("Unknown ID: " + id)
+    throw new Error(`Unknown ID: ${id}`)
   }
   blocksById[id].specialCase = func
 }

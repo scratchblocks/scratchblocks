@@ -1,6 +1,6 @@
 function assert(bool, message) {
   if (!bool) {
-    throw "Assertion failed! " + (message || "")
+    throw new Error(`Assertion failed! ${message || ""}`)
   }
 }
 
@@ -40,7 +40,7 @@ function paintBlock(info, children, languages) {
     if (child.isLabel) {
       words.push(child.value)
     } else if (child.isIcon) {
-      words.push("@" + child.name)
+      words.push(`@${child.name}`)
     } else {
       words.push("_")
     }
@@ -309,7 +309,7 @@ function parseLines(code, languages) {
             children.push(
               Object.prototype.hasOwnProperty.call(Icon.icons, name)
                 ? new Icon(name)
-                : new Label("@" + name),
+                : new Label(`@${name}`),
             )
           }
           label = null
