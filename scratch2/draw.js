@@ -196,11 +196,25 @@ export default class SVG {
   }
 
   static getTop(w) {
-    return `M 0 3 L 3 0 L 13 0 L 16 3 L 24 3 L 27 0 L ${w - 3} 0 L ${w} 3`
+    return `M 0 3
+      L 3 0
+      L 13 0
+      L 16 3
+      L 24 3
+      L 27 0
+      L ${w - 3} 0
+      L ${w} 3`
   }
 
   static getRingTop(w) {
-    return `M 0 3 L 3 0 L 7 0 L 10 3 L 16 3 L 19 0 L ${w - 3} 0 L ${w} 3`
+    return `M 0 3
+      L 3 0
+      L 7 0
+      L 10 3
+      L 16 3
+      L 19 0
+      L ${w - 3} 0
+      L ${w} 3`
   }
 
   static getRightAndBottom(w, y, hasNotch, inset) {
@@ -233,9 +247,10 @@ export default class SVG {
   }
 
   static getArm(w, armTop) {
-    return `L 15 ${armTop - 2} L 17 ${armTop} L ${w - 3} ${armTop} L ${w} ${
-      armTop + 3
-    }`
+    return `L 15 ${armTop - 2}
+      L 17 ${armTop}
+      L ${w - 3} ${armTop}
+      L ${w} ${armTop + 3}`
   }
 
   static stackRect(w, h, props) {
