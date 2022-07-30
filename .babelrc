@@ -9,5 +9,13 @@
         "modules": false
       }
     ]
-  ]
+  ],
+  "assumptions": {
+    "constantSuper": true,
+    "ignoreToPrimitiveHint": true,
+    "noClassCalls": true,
+    "noDocumentAll": true,
+    "noNewArrows": true,
+    "objectRestNoSymbols": true
+  }
 }
