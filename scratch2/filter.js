@@ -18,7 +18,7 @@ export default class Filter {
     const id = `${shortName}-${++this.highestId}`
     this.el.appendChild(
       SVG.withChildren(
-        SVG.el("fe" + name, { ...props, result: id }),
+        SVG.el(`fe${name}`, { ...props, result: id }),
         children || [],
       ),
     )

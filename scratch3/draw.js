@@ -31,7 +31,7 @@ export default class SVG {
 
   static setProps(el, props) {
     for (const key in props) {
-      const value = "" + props[key]
+      const value = String(props[key])
       if (directProps[key]) {
         el[key] = value
       } else if (

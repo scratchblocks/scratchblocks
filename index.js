@@ -45,7 +45,7 @@ export default function (window) {
       case "scratch3":
         return scratch3.newView(doc, options)
       default:
-        throw new Error("Unknown style: " + options.style)
+        throw new Error(`Unknown style: ${options.style}`)
     }
   }
 
@@ -86,7 +86,7 @@ export default function (window) {
       container = document.createElement("span")
       let cls = "scratchblocks scratchblocks-inline"
       if (doc.scripts[0] && !doc.scripts[0].isEmpty) {
-        cls += " scratchblocks-inline-" + doc.scripts[0].blocks[0].shape
+        cls += ` scratchblocks-inline-${doc.scripts[0].blocks[0].shape}`
       }
       container.className = cls
       container.style.display = "inline-block"

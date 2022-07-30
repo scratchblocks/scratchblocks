@@ -48,9 +48,9 @@ export class LabelView {
 
   measure() {
     const value = this.value
-    const cls = "sb-" + this.cls
+    const cls = `sb-${this.cls}`
     this.el = SVG.text(0, 10, value, {
-      class: "sb-label " + cls,
+      class: `sb-label ${cls}`,
     })
 
     let cache = LabelView.metricsCache[cls]
@@ -64,8 +64,8 @@ export class LabelView {
       const font = /comment-label/.test(this.cls)
         ? "bold 12px Helevetica, Arial, DejaVu Sans, sans-serif"
         : /literal/.test(this.cls)
-        ? "normal 9px " + defaultFontFamily
-        : "bold 10px " + defaultFontFamily
+        ? `normal 9px ${defaultFontFamily}`
+        : `bold 10px ${defaultFontFamily}`
       this.metrics = cache[value] = LabelView.measure(value, font)
       // TODO: word-spacing? (fortunately it seems to have no effect!)
     }
@@ -89,7 +89,7 @@ class IconView {
 
     const info = IconView.icons[this.name]
     if (!info) {
-      throw new Error("no info for icon: " + this.name)
+      throw new Error(`no info for icon: ${this.name}`)
     }
     Object.assign(this, info)
   }
@@ -99,7 +99,7 @@ class IconView {
   }
 
   draw() {
-    return SVG.symbol("#" + this.name, {
+    return SVG.symbol(`#${this.name}`, {
       width: this.width,
       height: this.height,
     })
@@ -185,7 +185,7 @@ class InputView {
 
     const result = SVG.group([
       SVG.setProps(el, {
-        class: "sb-input sb-input-" + this.shape,
+        class: `sb-input sb-input-${this.shape}`,
       }),
     ])
     if (this.hasLabel) {
@@ -305,7 +305,7 @@ class BlockView {
 
     const func = BlockView.shapes[this.info.shape]
     if (!func) {
-      throw new Error("no shape func: " + this.info.shape)
+      throw new Error(`no shape func: ${this.info.shape}`)
     }
     return func(w, h, {
       class: `sb-${this.info.category} sb-bevel`,
@@ -730,7 +730,7 @@ class DocumentView {
   /* Export SVG image as data URI */
   exportSVG() {
     const xml = this.exportSVGString()
-    return "data:image/svg+xml;utf8," + xml.replace(/[#]/g, encodeURIComponent)
+    return `data:image/svg+xml;utf8,${xml.replace(/[#]/g, encodeURIComponent)}`
   }
 
   toCanvas(cb, exportScale) {
@@ -785,7 +785,7 @@ const viewFor = node => {
     case Document:
       return DocumentView
     default:
-      throw new Error("no view for " + node.constructor.name)
+      throw new Error(`no view for ${node.constructor.name}`)
   }
 }
 
