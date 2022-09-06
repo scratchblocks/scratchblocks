@@ -155,7 +155,7 @@
     "translate.viewerLanguage": "idioma",
     "makeymakey.whenKeyPressed": "quando a tecla %1 for pressionada",
     "makeymakey.whenKeysPressedInOrder": "quando %1 forem pressionados em ordem",
-    "microbit.whenButtonPressed": "quando o botão %1 estiver pressionado",
+    "microbit.whenButtonPressed": "quando o botão %1 for pressionado",
     "microbit.isButtonPressed": "botão %1 pressionado?",
     "microbit.whenGesture": "quando %1",
     "microbit.displaySymbol": "exiba %1",
@@ -164,12 +164,12 @@
     "microbit.whenTilted": "quando inclinado para %1",
     "microbit.isTilted": "inclinado para %1?",
     "microbit.tiltAngle": "ângulo de inclinação para %1",
-    "microbit.whenPinConnected": "quando o pino %1 estiver conectado",
+    "microbit.whenPinConnected": "quando o pino %1 for conectado",
     "ev3.motorTurnClockwise": "gire o motor %1 nesse sentido por %2 segundos",
     "ev3.motorTurnCounterClockwise": "gire o motor %1 naquele sentido por %2 segundos",
     "ev3.motorSetPower": "defina potência do motor %1 em %2 %",
     "ev3.getMotorPosition": "posição do motor %1",
-    "ev3.whenButtonPressed": "quando botão %1 estiver pressionado",
+    "ev3.whenButtonPressed": "quando botão %1 for pressionado",
     "ev3.whenDistanceLessThan": "quando distância < %1",
     "ev3.whenBrightnessLessThan": "quando brilho < %1",
     "ev3.buttonPressed": "botão %1 pressionado?",
@@ -191,9 +191,9 @@
     "gdxfor.whenGesture": "quando %1",
     "gdxfor.whenForcePushedOrPulled": "quando o sensor de força estiver sendo %1",
     "gdxfor.getForce": "força",
-    "gdxfor.whenTilted": "quando inclinado %1",
-    "gdxfor.isTilted": "intitulado %1",
-    "gdxfor.getTilt": "inclinar ângulo %1",
+    "gdxfor.whenTilted": "quando inclinado para %1",
+    "gdxfor.isTilted": "inclinado para %1?",
+    "gdxfor.getTilt": "ângulo de inclinação para %1",
     "gdxfor.isFreeFalling": "caindo?",
     "gdxfor.getSpin": "velocidade de rotação %1",
     "gdxfor.getAcceleration": "aceleração %1",
@@ -204,8 +204,8 @@
     "boost.setMotorPower": "mude a velocidade do motor %1 para %2 %",
     "boost.setMotorDirection": "mude a direção do motor %1 para %2",
     "boost.getMotorPosition": "posição do motor %1",
-    "boost.whenColor": "quando um tijolo %1 for visto",
-    "boost.seeingColor": "vendo tijolo %1?",
+    "boost.whenColor": "quando um bloco %1 for visto",
+    "boost.seeingColor": "vendo bloco %1?",
     "boost.whenTilted": "quando inclinado para %1",
     "boost.getTiltAngle": "ângulo de inclinação %1",
     "boost.setLightHue": "defina a cor como %1"
@@ -217,9 +217,9 @@
     "balanço esquerda/direita"
   ],
   "microbitWhen": [
-    "moveu",
-    "agitou",
-    "pulou"
+    "mover",
+    "agitar",
+    "pular"
   ],
   "osis": [
     "outros scripts no ator"
