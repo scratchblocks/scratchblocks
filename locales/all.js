@@ -3,6 +3,7 @@ import af from "./af.json"
 import am from "./am.json"
 import an from "./an.json"
 import ar from "./ar.json"
+import ast from "./ast.json"
 import az from "./az.json"
 import be from "./be.json"
 import bg from "./bg.json"
@@ -14,17 +15,20 @@ import cy from "./cy.json"
 import da from "./da.json"
 import de from "./de.json"
 import el from "./el.json"
+import eo from "./eo.json"
 import es from "./es.json"
 import es_419 from "./es-419.json"
 import et from "./et.json"
 import eu from "./eu.json"
 import fa from "./fa.json"
 import fi from "./fi.json"
+import fil from "./fil.json"
 import fr from "./fr.json"
 import fy from "./fy.json"
 import ga from "./ga.json"
 import gd from "./gd.json"
 import gl from "./gl.json"
+import ha from "./ha.json"
 import he from "./he.json"
 import hr from "./hr.json"
 import ht from "./ht.json"
@@ -48,6 +52,7 @@ import nb from "./nb.json"
 import nl from "./nl.json"
 import nn from "./nn.json"
 import nso from "./nso.json"
+import oc from "./oc.json"
 import or from "./or.json"
 import pl from "./pl.json"
 import pt from "./pt.json"
@@ -78,6 +83,7 @@ export default {
   am,
   an,
   ar,
+  ast,
   az,
   be,
   bg,
@@ -89,17 +95,20 @@ export default {
   da,
   de,
   el,
+  eo,
   es,
   es_419,
   et,
   eu,
   fa,
   fi,
+  fil,
   fr,
   fy,
   ga,
   gd,
   gl,
+  ha,
   he,
   hr,
   ht,
@@ -123,6 +132,7 @@ export default {
   nl,
   nn,
   nso,
+  oc,
   or,
   pl,
   pt,
