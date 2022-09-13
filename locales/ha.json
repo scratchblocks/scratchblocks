@@ -64,7 +64,7 @@
     "EVENT_WHENTHISSPRITECLICKED": "lokacin da aka danna wannan sprite ɗin",
     "EVENT_WHENSTAGECLICKED": "lokacin da aka danna mataki",
     "EVENT_WHENBACKDROPSWITCHESTO": "lokacin da hoton fage ya koma zuwa %1",
-    "EVENT_WHENGREATERTHAN": "lokacin da 1% > %2",
+    "EVENT_WHENGREATERTHAN": "lokacin da %1 > %2",
     "EVENT_WHENBROADCASTRECEIVED": "lokacin da na karɓi %1",
     "EVENT_BROADCAST": "yaɗa %1",
     "EVENT_BROADCASTANDWAIT": "yaɗa %1 kuma a jira",
