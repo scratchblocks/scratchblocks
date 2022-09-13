@@ -60,7 +60,7 @@
     "pen.changeSize": "camudar el tamañu del llápiz por %1",
     "pen.setSize": "apitar el tamañu del llápiz como %1",
     "EVENT_WHENFLAGCLICKED": "cuando se calca en @greenFlag",
-    "EVENT_WHENKEYPRESSED": "cuando se calca la tecla %º1",
+    "EVENT_WHENKEYPRESSED": "cuando se calca la tecla %1",
     "EVENT_WHENTHISSPRITECLICKED": "cuando se calque nesti personaxe",
     "EVENT_WHENSTAGECLICKED": "cuando se calque nel escenariu",
     "EVENT_WHENBACKDROPSWITCHESTO": "cuando'l fondu cambie a %1",
