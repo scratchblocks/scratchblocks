@@ -84,7 +84,7 @@
     "videoSensing.whenMotionGreaterThan": "umakunyakaza ividiyo > %1",
     "SENSING_RESETTIMER": "qalakabusha isibali sikhathi",
     "DATA_SETVARIABLETO": "lungisa %1 sibe ku %2",
-    "DATA_CHANGEVARIABLEBY": "shintsha %1 ngoku %2 /",
+    "DATA_CHANGEVARIABLEBY": "shintsha %1 ngoku %2",
     "DATA_SHOWVARIABLE": "khombisa okuguqukayo nge %1",
     "DATA_HIDEVARIABLE": "fihla okuguqukayo ngokwe %1",
     "DATA_ADDTOLIST": "engeza %1 kuya %2",
