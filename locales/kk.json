@@ -43,7 +43,7 @@
     "music.playNoteForBeats": "%1  нотасында %2  такт ойнау",
     "music.setInstrument": "%1 аспабын орнату",
     "SOUND_CHANGEVOLUMEBY": "мәнін %1-ге өзгерту",
-    "SOUND_SETVOLUMETO": "дыбыс күштілігін 1%1% орнату",
+    "SOUND_SETVOLUMETO": "дыбыс күштілігін %1% орнату",
     "music.changeTempo": "темпті %1 өзгерткенде",
     "music.setTempo": "Ырғақты %1 орнатыңыз",
     "pen.clear": "Бәрін өшіру",

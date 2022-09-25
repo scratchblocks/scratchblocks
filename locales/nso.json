@@ -43,7 +43,7 @@
     "music.playNoteForBeats": "bapala noto %1 ya %2 merethetho",
     "music.setInstrument": "bea seletšwa go %1",
     "SOUND_CHANGEVOLUMEBY": "fetola volume ka %1",
-    "SOUND_SETVOLUMETO": "bea volume go 1%1%",
+    "SOUND_SETVOLUMETO": "bea volume go %1%",
     "music.changeTempo": "fetola tempo ka %1",
     "music.setTempo": "bea lebelo go %1",
     "pen.clear": "phumula ka moka",
