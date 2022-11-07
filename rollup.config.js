@@ -1,9 +1,9 @@
 import babel from "@rollup/plugin-babel"
 import json from "@rollup/plugin-json"
-import pkg from "./package.json"
+import pkg from "./package.json" assert { "type": "json" }
 import serve from "rollup-plugin-serve"
 import license from "rollup-plugin-license"
-import { terser } from "rollup-plugin-terser"
+import terser from "@rollup/plugin-terser"
 import csso from "./locales-src/rollup-optimized-css-text.js"
 
 let { buildTarget } = process.env

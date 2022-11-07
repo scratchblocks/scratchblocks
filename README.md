@@ -43,7 +43,7 @@ There are a few ways of getting one:
 
 * Download it from the <https://github.com/scratchblocks/scratchblocks/releases> page
 * If you have a fancy JS build system, you might like to include the `scratchblocks` package from NPM
-* You could clone this repository and build it yourself using Node (`npm run build`).
+* You could clone this repository and build it yourself using Node 16.14.0+ (`npm run build`).
 
 ```html
 <script src="scratchblocks-min.js"></script>
