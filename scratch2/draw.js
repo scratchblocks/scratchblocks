@@ -96,9 +96,15 @@ export default class SVG {
     return el
   }
 
+  // translatePath takes a path string such as "M 0 0 L 0 10 L 10 0 Z", fins
+  // the individual X/Y components, and translates them by dx/dy, so as to
+  // "move" the path.
+  //
+  // This is not a particularly good way of doing this, but given we control
+  // the inputs to it it works well enough I guess?
   static translatePath(dx, dy, path) {
     let isX = true
-    const parts = path.split(" ")
+    const parts = path.split(/\s+/)
     const out = []
     for (let i = 0; i < parts.length; i++) {
       let part = parts[i]
@@ -110,7 +116,12 @@ export default class SVG {
         }
         continue
       } else if (/[A-Za-z]/.test(part)) {
-        assert(isX)
+        // This assertion means the path was not a valid sequence of
+        // [operation, X coordinate, Y coordinate, ...].
+        //
+        // It could indicate missing whitespace between the coordinates and the
+        // operation.
+        assert(isX, "translatePath: invalid argument")
       } else {
         part = +part
         part += isX ? dx : dy
