@@ -39,7 +39,7 @@
     "@babel/preset-env": "^7.20.2",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-json": "^5.0.2",
-    "@rollup/plugin-terser": "^0.2.0",
+    "@rollup/plugin-terser": "^0.1.0",
     "cross-env": "^7.0.3",
     "csso": "^5.0.5",
     "eslint": "^8.29.0",
