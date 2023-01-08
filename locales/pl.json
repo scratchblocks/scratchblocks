@@ -198,7 +198,7 @@
     "gdxfor.getSpin": "prędkość wirowania %1",
     "gdxfor.getAcceleration": "acceleration %1",
     "boost.motorOnFor": "włącz silnik %1 na %2 sekund",
-    "boost.motorOnForRotation": "turn motor %1 for %2 rotations",
+    "boost.motorOnForRotation": "włącz silnik %1 na %2 obrotów",
     "boost.motorOn": "włącz silnik %1",
     "boost.motorOff": "wyłącz silnik %1",
     "boost.setMotorPower": "ustaw moc silnika %1 na %2 %",
