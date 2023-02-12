@@ -5,9 +5,7 @@
 
 <meta name=description content="Use scratchblocks to write pictures of Scratch scripts in forum posts.">
 
-<!--
-<link rel=stylesheet href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700">
--->
+
 <link rel=stylesheet href="index.css">
 
 <style>
@@ -40,21 +38,20 @@
 .cmp img {
   display: none;
 }
-body {
-  background: #dddede;
-}
+
 </style>
 
 <!---------------------------------------------------------------------------->
+<h1 id="titleH1"><a id=title href="/">scratchblocks dev</a></h1>
 
-<h1>
-  <a id=title href="/">scratchblocks dev</a>
+<div class="some-links">
+  
   <span>
     <a target="_blank" href="http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax">help</a>
     <a href="http://github.com/blob8108/scratchblocks2">github</a>
     <a href="generator/"><b>generate</b></a>
   </span>
-</h1>
+</div>
 
 <div id="side">
 <div>
@@ -69,7 +66,7 @@ body {
 </div>
 
 <pre id="preview" class="blocks"></pre>
-
+<div id="exports-div"></div>
 <!---------------------------------------------------------------------------->
 
 <script src="build/scratchblocks.min.js"></script>
@@ -228,22 +225,23 @@ function objUpdated() {
 
   // add export link
   setTimeout(function() {
-    if (exportSVGLink) document.body.removeChild(exportSVGLink);
+    let exportsDiv = document.getElementById("exports-div");
+    if (exportSVGLink) exportsDiv.removeChild(exportSVGLink);
     var link = exportSVGLink = document.createElement('a');
     link.href = docView3.exportSVG();
     link.setAttribute('download', 'scratchblocks.svg');
     link.textContent = "Export SVG";
     link.className = 'export-link';
-    document.body.appendChild(link);
+    exportsDiv.appendChild(link);
 
-    if (exportPNGLink) document.body.removeChild(exportPNGLink);
+    if (exportPNGLink) exportsDiv.removeChild(exportPNGLink);
     docView3.exportPNG(function(pngDataURL) {
       var link = exportPNGLink = document.createElement('a');
       link.href = pngDataURL;
       link.setAttribute('download', 'scratchblocks.png');
       link.textContent = "Export PNG";
       link.className = 'export-link';
-      document.body.appendChild(link);
+      exportsDiv.appendChild(link);
     }, 1);
   }, 0);
 

@@ -14,9 +14,9 @@ body {
   padding: 1em;
   margin: 0 auto;
   max-width: 60em;
-
-  background: white;
+  background: #333333;
   color: black;
+  overflow-x:clip;
 }
 
 body, .CodeMirror {
@@ -40,40 +40,42 @@ h1, h2, code, input[type=url], #num-chosen-scripts {
 h1 {
   font-weight: 700;
   font-size: 1.5em;
+  margin-bottom:60px;
 }
 
-h1 span {
-  font-weight: 400;
-  font-size: 1.125rem;
-  letter-spacing: 0;
-}
 
-h1 span a {
-  margin-right: 0.5em;
-}
-
-h1 span a b {
-  font-weight: 600;
-}
-
-a#title {
-  background: none;
-  margin-right: 0.5em;
+#title {
+  background-color:#000000;
+  color:white;
+  position:fixed;
+  top:0;
+  left:0;
+  padding:15px;
+  width:100%;
+  z-index:300;
+  box-shadow:0 0 5px #656565;
+  border-radius:0px;
 }
 
 a {
-  color: black;
+  transition-duration:0.3s;
+  color: #ffffff;
   text-decoration: none;
-  background: #fffccc;
+  background: #004d65;
+  padding:20px;
+  border-radius:5px/5px;
   cursor: pointer;
+  border:none;
+  margin:2px;
 }
 a:hover {
-  border-bottom: 0.1em solid;
+  transition-duration:0.2s;
   cursor: pointer;
-  background: #fffc7d;
+  background: #016e8f;
 }
 a:active {
-  opacity: 0.4;
+  transform:translateY(3px);
+  transition-duration:0.2s;
 }
 
 p {
@@ -158,12 +160,20 @@ button:active, button.pressed, .button:active, .button.pressed {
 #lang-status {
   font-size: 0.6rem;
   line-height: 1em;
+  color:white;
 }
-
+#choose-lang {
+  margin:15px;
+  color:white;
+  background-color:#00a1d8;
+  border-radius:5px/5px;
+  border:none;
+  outline:none;
+}
 #editor {
   position: relative;
   overflow: hidden;
-  margin: 1em 0;
+  margin: 10px;
   border: 1px solid #bbb;
   max-width: 40em;
   height: 16em;
@@ -194,11 +204,22 @@ button:active, button.pressed, .button:active, .button.pressed {
 }
 
 #preview {
+  margin-top:100px;
   position: relative;
-}
 
+}
+#exports-div {
+  width:400px;
+  max-width:100%;
+  text-align:center;
+  margin-left: 2px;
+  margin-top: 2em;
+  margin-right: 1em;
+}
 .export-link {
   display: inline-block;
+  position:relative;
+  text-align:center;
   margin-left: 2px;
   margin-top: 2em;
   margin-right: 1em;
@@ -250,6 +271,15 @@ button:active, button.pressed, .button:active, .button.pressed {
     margin-left: 0;
     margin-right: 0.5em;
   }
+}
+
+.some-links {
+  position:relative;
+  margin-top:77px;
+  margin-bottom:25px;
+  text-align:center;
+  width:400px;
+  max-width:100%;
 }
 
 @media screen and (max-width: 32em) {
