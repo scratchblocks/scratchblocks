@@ -45,11 +45,13 @@ h1 {
 
 
 #title {
+  border:none;
   background-color:#000000;
   color:white;
   position:fixed;
   top:0;
   left:0;
+  margin:0;
   padding:15px;
   width:100%;
   z-index:300;
