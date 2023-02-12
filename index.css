@@ -44,7 +44,8 @@ h1 {
 }
 
 
-#title {
+#titleH1 {
+  display:inline;
   border:none;
   background-color:#000000;
   color:white;
@@ -58,8 +59,27 @@ h1 {
   box-shadow:0 0 5px #656565;
   border-radius:0px;
 }
+#titleH1 h1 {
+  width:0px;
+  margin:0;
+  display:flex;
+}
+#title {
+  color:white;
+  width:0px;
+  display:inline;
+  border:none;
+  padding:0px;
+  margin:0px;
+  box-shadow:none;
+  background-color:none;
+  border-radius:none;
+}
+#titleH1 p {
+  margin:0;
+}
 
-a {
+.some-links a, #exports-div a {
   transition-duration:0.3s;
   color: #ffffff;
   text-decoration: none;
@@ -70,12 +90,12 @@ a {
   border:none;
   margin:2px;
 }
-a:hover {
+.some-links a, #exports-div a:hover {
   transition-duration:0.2s;
   cursor: pointer;
   background: #016e8f;
 }
-a:active {
+.some-links a, #exports-div a:active {
   transform:translateY(3px);
   transition-duration:0.2s;
 }
@@ -207,7 +227,7 @@ button:active, button.pressed, .button:active, .button.pressed {
 }
 
 #preview {
-  margin-top:100px;
+  margin-top:130px;
   position: relative;
 
 }
@@ -278,7 +298,7 @@ button:active, button.pressed, .button:active, .button.pressed {
 
 .some-links {
   position:relative;
-  margin-top:77px;
+  margin-top:100px;
   margin-bottom:25px;
   text-align:center;
   width:400px;
