@@ -158,6 +158,14 @@ export default {
     अंत: "scratchblocks:end",
   },
 
+  hu: {
+    // Hungarian
+    'fordulj balra %1 fokot': 'MOTION_TURNLEFT',
+    'fordulj jobbra %1 fokot': 'MOTION_TURNRIGHT',
+    'a zászlóra kattintáskor': 'EVENT_WHENFLAGCLICKED',
+    'vége': 'end',
+  },
+
   ro: {
     // Romanian
     "rotește la stânga %1 grade": "MOTION_TURNLEFT",
