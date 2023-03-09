@@ -162,6 +162,7 @@ export default {
     // Hungarian
     "fordulj balra %1 fokot": "MOTION_TURNLEFT",
     "fordulj jobbra %1 fokot": "MOTION_TURNRIGHT",
+    "zászlóra kattintáskor": "EVENT_WHENFLAGCLICKED",
     "a zászlóra kattintáskor": "EVENT_WHENFLAGCLICKED",
     vége: "end",
   },
