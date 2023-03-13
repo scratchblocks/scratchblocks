@@ -135,7 +135,7 @@
     "OPERATORS_OR": "%1 eller %2",
     "OPERATORS_NOT": "ikke %1",
     "OPERATORS_JOIN": "%1 tilkobles %2",
-    "OPERATORS_LETTEROF": "bogstav %1 af %2",
+    "OPERATORS_LETTEROF": "tegn %1 af %2",
     "OPERATORS_LENGTH": "længden af %1",
     "OPERATORS_MOD": "%1 modulo %2",
     "OPERATORS_ROUND": "afrund %1",
