@@ -139,7 +139,7 @@
     "OPERATORS_LENGTH": "%1 hossza",
     "OPERATORS_MOD": "%1 / %2 maradéka",
     "OPERATORS_ROUND": "%1 kerekítve",
-    "OPERATORS_MATHOP": "%2 %1 értéke",
+    "OPERATORS_MATHOP": "%1 %2",
     "OPERATORS_CONTAINS": "%1 tartalmazza %2?",
     "DATA_ITEMOFLIST": "%2 %1 eleme",
     "DATA_ITEMNUMOFLIST": "%1 sorszáma %2 listában",
@@ -240,22 +240,28 @@
     "My Blocks": "Blokkjaim"
   },
   "math": [
-    "abszolut értéke",
+    "abszolut érték",
     "lefelé kerekítve",
     "felfelé kerekítve",
-    "gyöke",
-    "szinusza",
-    "koszinusza",
-    "tangense",
+    "gyök",
+    "sin",
+    "cos",
+    "tg",
     "arcsin",
     "arccos",
     "arctan",
     "ln",
-    "logaritmusa",
+    "log",
     "e^",
     "10^"
   ],
-  "aliases": {},
+  "aliases": {
+    "fordulj balra %1 fokot": "MOTION_TURNLEFT",
+    "fordulj jobbra %1 fokot": "MOTION_TURNRIGHT",
+    "zászlóra kattintáskor": "EVENT_WHENFLAGCLICKED",
+    "a zászlóra kattintáskor": "EVENT_WHENFLAGCLICKED",
+    "vége": "scratchblocks:end"
+  },
   "name": "Magyar",
   "percentTranslated": 100
 }
