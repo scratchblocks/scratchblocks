@@ -22,7 +22,7 @@ export default `
   --sb3-looks-secondary: #855cd6;
   --sb3-looks-tertiary: #774dcb;
 
-  --sb3-sound-primary: #cf53cf;
+  --sb3-sound-primary: #cf63cf;
   --sb3-sound-secondary: #c94fc9;
   --sb3-sound-tertiary: #bd42bd;
 
