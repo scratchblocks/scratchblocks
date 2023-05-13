@@ -39,14 +39,14 @@ export default function (window) {
     }
 
     options.scale = options.scale || 1
-    switch (options.style) {
-      case "scratch2":
-        return scratch2.newView(doc, options)
-      case "scratch3":
-        return scratch3.newView(doc, options)
-      default:
-        throw new Error(`Unknown style: ${options.style}`)
+
+    if (options.style.startsWith("scratch2")) {
+      return scratch2.newView(doc, options)
+    } else if (options.style.startsWith("scratch3")) {
+      return scratch3.newView(doc, options)
     }
+
+    throw new Error(`Unknown style: ${options.style}`)
   }
 
   function render(doc, options) {
