@@ -32,10 +32,10 @@ export default `
 
   --sb3-events-primary: #ffbf00;
   --sb3-events-secondary: #e6ac00;
-  --sb3-events-tertiary: #cc9000;
+  --sb3-events-tertiary: #cc9900;
 
   --sb3-sensing-primary: #5cb1d6;
-  --sb3-sensing-secondary: #0da57a;
+  --sb3-sensing-secondary: #47a8d1;
   --sb3-sensing-tertiary: #2e8eb8;
 
   --sb3-operators-primary: #59c059;
