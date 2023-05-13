@@ -843,6 +843,29 @@ move (10) steps
 `,
 )
 
+// Scratch 3, color regression testing
+// See #472, #473
+
+test(
+  "scratch3",
+  "en-color-regression",
+  `
+test <> [item v] ()::motion
+test <> [item v] ()::looks
+test <> [item v] ()::sound
+test <> [item v] ()::control
+test <> [item v] ()::events
+test <> [item v] ()::sensing
+test <> [item v] ()::operators
+test <> [item v] ()::variables
+test <> [item v] ()::list
+test <> [item v] ()::custom
+test <> [item v] ()::extension
+test <> [item v] ()::obsolete
+test <> [item v] ()::grey
+`,
+)
+
 /*****************************************************************************/
 
 // Scratch 3, German
