@@ -55,6 +55,7 @@ export default function (window) {
     }
     const view = newView(doc, options)
     const svg = view.render()
+    svg.classList.add(`scratchblocks-style-${options.style}`)
     return svg
   }
 

@@ -225,6 +225,8 @@ function objUpdated() {
   preview.appendChild(svg3);
   preview.appendChild(svg2);
   svg3.classList.add("scratch3")
+  // Need to add manually if calling View#rener (folks, this is why you shouldn't use private API!)
+  svg3.classList.add("scratchblocks-style-scratch3")
 
   // add export link
   setTimeout(function() {

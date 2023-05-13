@@ -1,153 +1,225 @@
 // Processed by Rollup
 export default `
+.scratchblocks-style-scratch3 {
+  --sb3-label: #fff;
+
+  /**
+   * Primary, secondary, and tertiary colors are called
+   * fill, alt, and stroke/dark (bool input) in the class names.
+   * See https://github.com/scratchfoundation/scratch-blocks/blob/develop/core/colours.js
+   * for color reference.
+   * Upcoming quaternary color is unused when rendering a block; only the dropdown GUI.
+   */
+  --sb3-motion-primary: #4c97ff;
+  --sb3-motion-secondary: #4280d7;
+  --sb3-motion-tertiary: #3373cc;
+
+  --sb3-looks-primary: #9966ff;
+  --sb3-looks-secondary: #855cd6;
+  --sb3-looks-tertiary: #774dcb;
+
+  --sb3-sound-primary: #cf53cf;
+  --sb3-sound-secondary: #c94fc9;
+  --sb3-sound-tertiary: #bd42bd;
+
+  --sb3-control-primary: #ffab19;
+  --sb3-control-secondary: #ec9c13;
+  --sb3-control-tertiary: #cf8b17;
+
+  --sb3-events-primary: #ffbf00;
+  --sb3-events-secondary: #e6ac00;
+  --sb3-events-tertiary: #cc9000;
+
+  --sb3-sensing-primary: #5cb1d6;
+  --sb3-sensing-secondary: #0da57a;
+  --sb3-sensing-tertiary: #2e8eb8;
+
+  --sb3-operators-primary: #59c059;
+  --sb3-operators-secondary: #46b946;
+  --sb3-operators-tertiary: #389438;
+
+  --sb3-variables-primary: #ff8c1a;
+  --sb3-variables-secondary: #ff8000;
+  --sb3-variables-tertiary: #db6e00;
+
+  --sb3-list-primary: #ff661a;
+  --sb3-list-secondary: #ff5500;
+  --sb3-list-tertiary: #e64d00;
+
+  --sb3-custom-primary: #ff6680;
+  --sb3-custom-secondary: #ff4d6a;
+  --sb3-custom-tertiary: #ff3355;
+
+  --sb3-extension-primary: #0fbd8c;
+  --sb3-extension-secondary: #0da57a;
+  --sb3-extension-tertiary: #0b8e69;
+
+  /**
+   * Custom color types. Not defined by Scratch.
+   */
+  --sb3-obsolete-primary: #ed4242;
+  --sb3-obsolete-secondary: #db3333;
+  --sb3-obsolete-tertiary: #ca2b2b;
+
+  /* From early prototype colors */
+  --sb3-grey-primary: #bfbfbf;
+  --sb3-grey-secondary: #b2b2b2;
+  --sb3-grey-tertiary: #909090;
+}
+
 .sb3-label {
   font: 500 12pt Helevetica Neue, Helvetica, sans-serif;
   fill: #fff;
   word-spacing: +1pt;
 }
 
+/*
+ * Note: we specify default just in case it uses
+ * the internal API directly and does not set the classes.
+ */
+
 .sb3-motion {
-  fill: #4c97ff;
-  stroke: #3373cc;
+  fill: var(--sb3-motion-primary, #4c97ff);
+  stroke: var(--sb3-motion-tertiary, #3373cc);
 }
 .sb3-motion-alt {
-  fill: #4280d7;
+  fill: var(--sb3-motion-secondary, #4280d7);
 }
 .sb3-motion-dark {
-  fill: #4c97ff;
+  fill: var(--sb3-motion-tertiary, #3373cc);
 }
 .sb3-looks {
-  fill: #9966ff;
-  stroke: #774dcb;
+  fill: var(--sb3-looks-primary, #9966ff);
+  stroke: var(--sb3-looks-tertiary, #774dcb);
 }
 .sb3-looks-alt {
-  fill: #855cd6;
+  fill: var(--sb3-looks-secondary, #855cd6);
 }
 .sb3-looks-dark {
-  fill: #bd42bd;
+  fill: var(--sb3-looks-tertiary, #774dcb);
 }
 .sb3-sound {
-  fill: #cf63cf;
-  stroke: #bd42bd;
+  fill: var(--sb3-sound-primary, #cf63cf);
+  stroke: var(--sb3-sound-tertiary, #bd42bd);
 }
 .sb3-sound-alt {
-  fill: #c94fc9;
+  fill: var(--sb3-sound-secondary, #c94fc9);
 }
 .sb3-sound-dark {
-  fill: #bd42bd;
+  fill: var(--sb3-sound-tertiary, #bd42bd);
 }
 .sb3-control {
-  fill: #ffab19;
-  stroke: #cf8b17;
+  fill: var(--sb3-control-primary, #ffab19);
+  stroke: var(--sb3-control-tertiary, #cf8b17);
 }
 .sb3-control-alt {
-  fill: #ec9c13;
+  fill: var(--sb3-control-secondary, #ec9c13);
 }
 .sb3-control-dark {
-  fill: #cf8b17;
+  fill: var(--sb3-control-tertiary, #cf8b17);
 }
 .sb3-events {
-  fill: #ffbf00;
-  stroke: #cc9900;
+  fill: var(--sb3-events-primary, #ffbf00);
+  stroke: var(--sb3-events-tertiary, #cc9900);
 }
 .sb3-events-alt {
-  fill: #e6ac00;
+  fill: var(--sb3-events-secondary, #e6ac00);
 }
 .sb3-events-dark {
-  fill: #cc9900;
+  fill: var(--sb3-events-tertiary, #cc9900);
 }
 .sb3-sensing {
-  fill: #5cb1d6;
-  stroke: #2e8eb8;
+  fill: var(--sb3-sensing-primary, #5cb1d6);
+  stroke: var(--sb3-sensing-tertiary, #2e8eb8);
 }
 .sb3-sensing-alt {
-  fill: #47a8d1;
+  fill: var(--sb3-sensing-secondary, #47a8d1);
 }
 .sb3-sensing-dark {
-  fill: #2e8eb8;
+  fill: var(--sb3-sensing-tertiary, #2e8eb8);
 }
 .sb3-operators {
-  fill: #59c059;
-  stroke: #389438;
+  fill: var(--sb3-operators-primary, #59c059);
+  stroke: var(--sb3-operators-tertiary, #389438);
 }
 .sb3-operators-alt {
-  fill: #46b946;
+  fill: var(--sb3-operators-secondary, #46b946);
 }
 .sb3-operators-dark {
-  fill: #389438;
+  fill: var(--sb3-operators-tertiary, #389438);
 }
 .sb3-variables {
-  fill: #ff8c1a;
-  stroke: #db6e00;
+  fill: var(--sb3-variables-primary, #ff8c1a);
+  stroke: var(--sb3-variables-tertiary, #db6e00);
 }
 .sb3-variables-alt {
-  fill: #ff8000;
+  fill: var(--sb3-variables-secondary, #ff8000);
 }
 .sb3-variables-dark {
-  fill: #db6e00;
+  fill: var(--sb3-variables-tertiary, #db6e00);
 }
 .sb3-list {
-  fill: #ff661a;
-  stroke: #e64d00;
+  fill: var(--sb3-list-primary, #ff661a);
+  stroke: var(--sb3-list-tertiary, #e64d00);
 }
 .sb3-list-alt {
-  fill: #ff5500;
+  fill: var(--sb3-list-secondary, #ff5500);
 }
 .sb3-list-dark {
-  fill: #e64d00;
+  fill: var(--sb3-list-tertiary, #e64d00);
 }
 .sb3-custom {
-  fill: #ff6680;
-  stroke: #ff3355;
+  fill: var(--sb3-custom-primary, #ff6680);
+  stroke: var(--sb3-custom-tertiary, #ff3355);
 }
 .sb3-custom-alt {
-  fill: #ff4d6a;
+  fill: var(--sb3-custom-secondary, #ff4d6a);
 }
 .sb3-custom-dark {
-  fill: #ff3355;
+  fill: var(--sb3-custom-tertiary, #ff3355);
 }
 .sb3-custom-arg {
-  fill: #ff6680;
-  stroke: #ff3355;
+  fill: var(--sb3-custom-primary, #ff6680);
+  stroke: var(--sb3-custom-tertiary, #ff3355);
 }
 
 /* extension blocks, e.g. pen */
 .sb3-extension {
-  fill: #0fbd8c;
-  stroke: #0b8e69;
+  fill: var(--sb3-extension-primary, #0fbd8c);
+  stroke: var(--sb3-extension-tertiary, #0b8e69);
 }
 .sb3-extension-alt {
-  fill: #0da57a;
+  fill: var(--sb3-extension-secondary, #0da57a);
 }
 .sb3-extension-line {
-  stroke: #0da57a;
+  stroke: var(--sb3-extension-secondary, #0da57a);
 }
 .sb3-extension-dark {
-  fill: #0b8e69;
+  fill: var(--sb3-extension-tertiary, #0b8e69);
 }
 
 /* obsolete colors: chosen by hand, indicates invalid blocks */
 .sb3-obsolete {
-  fill: #ed4242;
-  stroke: #ca2b2b;
+  fill: var(--sb3-obsolete-primary, #ed4242);
+  stroke: var(--sb3-obsolete-tertiary, #ca2b2b);
 }
 .sb3-obsolete-alt {
-  fill: #db3333;
+  fill: var(--sb3-obsolete-secondary, #db3333);
 }
 .sb3-obsolete-dark {
-  fill: #ca2b2b;
+  fill: var(--sb3-obsolete-tertiary, #ca2b2b);
 }
 
 /* grey: special color from the Scratch 3.0 design mockups */
 .sb3-grey {
-  fill: #bfbfbf;
-  stroke: #909090;
+  fill: var(--sb3-grey-primary, #bfbfbf);
+  stroke: var(--sb3-grey-tertiary, #909090);
 }
 .sb3-grey-alt {
-  fill: #b2b2b2;
+  fill: var(--sb3-grey-secondary, #b2b2b2);
 }
 .sb3-grey-dark {
-  fill: #909090;
+  fill: var(--sb3-grey-tertiary, #909090);
 }
 
 .sb3-input-color {
