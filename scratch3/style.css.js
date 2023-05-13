@@ -2,6 +2,10 @@
 export default `
 .scratchblocks-style-scratch3 {
   --sb3-label: #fff;
+  --sb3-input-color-stroke: #fff;
+  --sb3-input-fill: #fff;
+  /* Blockly color: text */
+  --sb3-literal: #575e75;
 
   /**
    * Primary, secondary, and tertiary colors are called
@@ -69,7 +73,7 @@ export default `
 
 .sb3-label {
   font: 500 12pt Helevetica Neue, Helvetica, sans-serif;
-  fill: #fff;
+  fill: var(--sb3-label, #fff);
   word-spacing: +1pt;
 }
 
@@ -223,12 +227,12 @@ export default `
 }
 
 .sb3-input-color {
-  stroke: #fff;
+  stroke: var(--sb3-input-color-stroke, #fff);
 }
 
 .sb3-input-number,
 .sb3-input-string {
-  fill: #fff;
+  fill: var(--sb3-input-fill, #fff);
 }
 .sb3-literal-number,
 .sb3-literal-string,
@@ -238,8 +242,10 @@ export default `
 }
 .sb3-literal-number,
 .sb3-literal-string {
-  fill: #575e75;
+  fill: var(--sb3-literal, #575e75);
 }
+
+/* Note: comment colors are different from Scratch. */
 
 .sb3-comment {
   fill: #ffffa5;
