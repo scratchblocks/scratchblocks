@@ -13,7 +13,9 @@
           style: options.style,
           scale: options.scale,
         })
-        view.render()
+        // Need to add manually if calling View#rener (folks, this is why you shouldn't use private API!)
+        const svg = view.render()
+        svg.classList.add("scratchblocks-style-scratch3")
 
         return new Promise(function (resolve) {
           view.toCanvas(function (canvas) {
