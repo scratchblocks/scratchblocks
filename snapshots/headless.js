@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
-import fs from "fs"
-import util from "util"
-const fs_writeFile = util.promisify(fs.writeFile)
+import fs from "fs/promises"
+import path from "path"
 
 import puppeteer from "puppeteer"
 import express from "express"
@@ -54,9 +53,10 @@ class Renderer {
     }
   }
 
-  async snapshotToFile(script, options, path) {
+  async snapshotToFile(script, options, fpath) {
     const buffer = await this.snapshot(script, options, this.scale)
-    await fs_writeFile(path, buffer)
+    await fs.mkdir(path.dirname(fpath), { recursive: true })
+    await fs.writeFile(fpath, buffer)
   }
 
   async stop() {
