@@ -211,6 +211,10 @@ function objUpdated() {
   // });
 
   console.log(scratchblocks.stringify(doc));
+  var docView3New = scratchblocks.newView(doc, {
+    style: "scratch3-new",
+    scale: 0.675
+  });
   var docView3 = scratchblocks.newView(doc, {
     style: "scratch3",
     scale: 0.675
@@ -219,33 +223,36 @@ function objUpdated() {
     style: "scratch2",
     scale: 1
   });
+  var svg3New = docView3New.render();
   var svg3 = docView3.render();
   var svg2 = docView2.render();
   preview.innerHTML = "";
+  preview.appendChild(svg3New);
   preview.appendChild(svg3);
   preview.appendChild(svg2);
+  svg3New.classList.add("scratch3");
   svg3.classList.add("scratch3")
   // Need to add manually if calling View#rener (folks, this is why you shouldn't use private API!)
+  svg3New.classList.add("scratchblocks-style-scratch3-new")
   svg3.classList.add("scratchblocks-style-scratch3")
 
   // add export link
   setTimeout(function() {
-    if (exportSVGLink) exportSVGLink.remove();
-    var link = exportSVGLink = document.createElement('a');
-    link.href = docView3.exportSVG();
-    link.setAttribute('download', 'scratchblocks.svg');
-    link.textContent = "Export SVG";
-    link.className = 'export-link';
-    document.body.appendChild(link);
+    if (!exportSVGLink) exportSVGLink = document.createElement('a');
+    exportSVGLink.href = docView3.exportSVG();
+    exportSVGLink.setAttribute('download', 'scratchblocks.svg');
+    exportSVGLink.textContent = "Export SVG";
+    exportSVGLink.className = 'export-link';
+    if (!exportSVGLink.isConnected) document.body.appendChild(exportSVGLink);
 
     if (exportPNGLink) exportPNGLink.remove();
     docView3.exportPNG(function(pngDataURL) {
-      var link = exportPNGLink = document.createElement('a');
-      link.href = pngDataURL;
-      link.setAttribute('download', 'scratchblocks.png');
-      link.textContent = "Export PNG";
-      link.className = 'export-link';
-      document.body.appendChild(link);
+      if (!exportPNGLink) exportPNGLink = document.createElement('a');
+      exportPNGLink.href = pngDataURL;
+      exportPNGLink.setAttribute('download', 'scratchblocks.png');
+      exportPNGLink.textContent = "Export PNG";
+      exportPNGLink.className = 'export-link';
+      if (!exportPNGLink.isConnected) document.body.appendChild(exportPNGLink);
     }, 1);
   }, 0);
 
