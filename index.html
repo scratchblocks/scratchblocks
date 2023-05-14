@@ -77,6 +77,7 @@ body {
 
 <script>
 var editor = document.getElementById('editor');
+var exportDropdown;
 var exportSVGLink;
 var exportPNGLink;
 
@@ -161,6 +162,16 @@ function decodeHash() {
   }
 }
 
+function download(filename, content) {
+  const elem = document.createElement("a");
+  elem.hidden = true;
+  elem.download = filename;
+  elem.href = content;
+  document.body.appendChild(elem);
+  elem.click();
+  document.body.removeChild(elem);
+}
+
 function objUpdated() {
   // set hash
   if (obj.lang) {
@@ -236,24 +247,47 @@ function objUpdated() {
   svg3New.classList.add("scratchblocks-style-scratch3-new")
   svg3.classList.add("scratchblocks-style-scratch3")
 
+  const getSelectedView = () => {
+    switch (exportDropdown.value) {
+      case "3new":
+        return docView3New;
+      case "2":
+        return docView2;
+      default:
+        return docView3;
+    }
+  }
+
   // add export link
   setTimeout(function() {
     if (!exportSVGLink) exportSVGLink = document.createElement('a');
-    exportSVGLink.href = docView3.exportSVG();
-    exportSVGLink.setAttribute('download', 'scratchblocks.svg');
+    exportSVGLink.onclick = () => download("scratchblocks.svg", getSelectedView().exportSVG());
     exportSVGLink.textContent = "Export SVG";
     exportSVGLink.className = 'export-link';
     if (!exportSVGLink.isConnected) document.body.appendChild(exportSVGLink);
 
-    if (exportPNGLink) exportPNGLink.remove();
-    docView3.exportPNG(function(pngDataURL) {
-      if (!exportPNGLink) exportPNGLink = document.createElement('a');
-      exportPNGLink.href = pngDataURL;
-      exportPNGLink.setAttribute('download', 'scratchblocks.png');
-      exportPNGLink.textContent = "Export PNG";
-      exportPNGLink.className = 'export-link';
-      if (!exportPNGLink.isConnected) document.body.appendChild(exportPNGLink);
-    }, 1);
+    if (!exportPNGLink) exportPNGLink = document.createElement('a');
+    exportPNGLink.onclick = () => getSelectedView().exportPNG((url) => download("scratchblocks.png", url));
+    exportPNGLink.textContent = "Export PNG";
+    exportPNGLink.className = 'export-link';
+    if (!exportPNGLink.isConnected) document.body.appendChild(exportPNGLink);
+
+    if (!exportDropdown) exportDropdown = document.createElement("select");
+    exportDropdown.appendChild(Object.assign(document.createElement("option"), {
+      label: "3.0",
+      value: "3",
+      selected: true,
+    }));
+    exportDropdown.appendChild(Object.assign(document.createElement("option"), {
+      label: "3.0 (new colors)",
+      value: "3new",
+    }));
+    exportDropdown.appendChild(Object.assign(document.createElement("option"), {
+      label: "2.0",
+      value: "2",
+    }));
+    exportDropdown.className = 'export-link';
+    document.body.appendChild(exportDropdown);
   }, 0);
 
   // update language dropdown
