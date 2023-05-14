@@ -71,6 +71,67 @@ export default `
   --sb3-grey-tertiary: #909090;
 }
 
+.scratchblocks-style-scratch3-new {
+  --sb3-label: #fff;
+  --sb3-input-color-stroke: #fff;
+  --sb3-input-fill: #fff;
+  --sb3-literal: #000;
+
+  --sb3-motion-primary: #80b5ff;
+  --sb3-motion-secondary: #b3d2ff;
+  --sb3-motion-tertiary: #3373cc;
+
+  --sb3-looks-primary: #ccb3ff;
+  --sb3-looks-secondary: #ddccff;
+  --sb3-looks-tertiary: #774dcb;
+
+  --sb3-sound-primary: #e19de1;
+  --sb3-sound-secondary: #ffb3ff;
+  --sb3-sound-tertiary: #bd42bd;
+
+  --sb3-control-primary: #ffbe4c;
+  --sb3-control-secondary: #ffda99;
+  --sb3-control-tertiary: #cf8b17;
+
+  --sb3-events-primary: #ffd966;
+  --sb3-events-secondary: #ffecb3;
+  --sb3-events-tertiary: #cc9900;
+
+  --sb3-sensing-primary: #85c4e0;
+  --sb3-sensing-secondary: #aed8ea;
+  --sb3-sensing-tertiary: #2e8eb8;
+
+  --sb3-operators-primary: #7ece7e;
+  --sb3-operators-secondary: #b5e3b5;
+  --sb3-operators-tertiary: #389438;
+
+  --sb3-variables-primary: #ffa54c;
+  --sb3-variables-secondary: #ffcc99;
+  --sb3-variables-tertiary: #db6e00;
+
+  --sb3-list-primary: #ff9966;
+  --sb3-list-secondary: #ffcab0;
+  --sb3-list-tertiary: #e64d00;
+
+  --sb3-custom-primary: #ff99aa;
+  --sb3-custom-secondary: #ffccd5;
+  --sb3-custom-tertiary: #e64d00;
+
+  --sb3-extension-primary: #13ecaf;
+  --sb3-extension-secondary: #75f0cd;
+  --sb3-extension-tertiary: #0b8e69;
+
+  /* Manually picked to be readable on black text */
+  --sb3-obsolete-primary: #fc6666;
+  --sb3-obsolete-secondary: #fcb0b0;
+  --sb3-obsolete-tertiary: #d37070;
+
+  --sb3-grey-primary: #bfbfbf;
+  --sb3-grey-secondary: #b2b2b2;
+  /* Changed to be AAA against #000000, was AA */
+  --sb3-grey-tertiary: #959595;
+}
+
 .sb3-label {
   font: 500 12pt Helevetica Neue, Helvetica, sans-serif;
   fill: var(--sb3-label, #fff);
