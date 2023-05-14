@@ -124,7 +124,7 @@ export default `
   /* Manually picked to be readable on black text */
   --sb3-obsolete-primary: #fc6666;
   --sb3-obsolete-secondary: #fcb0b0;
-  --sb3-obsolete-tertiary: #d37070;
+  --sb3-obsolete-tertiary: #d32121;
 
   --sb3-grey-primary: #bfbfbf;
   --sb3-grey-secondary: #b2b2b2;
