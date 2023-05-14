@@ -230,7 +230,7 @@ function objUpdated() {
 
   // add export link
   setTimeout(function() {
-    if (exportSVGLink) document.body.removeChild(exportSVGLink);
+    if (exportSVGLink) exportSVGLink.remove();
     var link = exportSVGLink = document.createElement('a');
     link.href = docView3.exportSVG();
     link.setAttribute('download', 'scratchblocks.svg');
@@ -238,7 +238,7 @@ function objUpdated() {
     link.className = 'export-link';
     document.body.appendChild(link);
 
-    if (exportPNGLink) document.body.removeChild(exportPNGLink);
+    if (exportPNGLink) exportPNGLink.remove();
     docView3.exportPNG(function(pngDataURL) {
       var link = exportPNGLink = document.createElement('a');
       link.href = pngDataURL;
