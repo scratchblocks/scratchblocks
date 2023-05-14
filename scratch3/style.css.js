@@ -72,7 +72,7 @@ export default `
 }
 
 .scratchblocks-style-scratch3-new {
-  --sb3-label: #fff;
+  --sb3-label: #000;
   --sb3-input-color-stroke: #fff;
   --sb3-input-fill: #fff;
   --sb3-literal: #000;
