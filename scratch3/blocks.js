@@ -13,7 +13,14 @@ import {
 
 import SVG from "./draw.js"
 import style from "./style.js"
-const { defaultFont, commentFont, makeStyle, makeIcons, makeNewIcons } = style
+const {
+  defaultFont,
+  commentFont,
+  makeStyle,
+  makeIcons,
+  makeNewIcons,
+  iconName,
+} = style
 
 export class LabelView {
   constructor(label) {
@@ -29,7 +36,7 @@ export class LabelView {
     return true
   }
 
-  draw() {
+  draw(_iconStyle) {
     return this.el
   }
 
@@ -85,8 +92,8 @@ export class IconView {
     return true
   }
 
-  draw() {
-    return SVG.symbol(`#sb3-${this.name}`, {
+  draw(iconStyle) {
+    return SVG.symbol(`#sb3-${iconName(this.name, iconStyle)}`, {
       width: this.width,
       height: this.height,
     })
@@ -130,7 +137,7 @@ export class LineView {
 
   measure() {}
 
-  draw(parent) {
+  draw(_iconStyle, parent) {
     const category = parent.info.category
     return SVG.el("line", {
       class: `sb3-${category}-line`,
@@ -180,7 +187,7 @@ export class InputView {
     }
   }
 
-  draw(parent) {
+  draw(iconStyle, parent) {
     let w
     let label
     if (this.isBoolean) {
@@ -188,7 +195,7 @@ export class InputView {
     } else if (this.isColor) {
       w = 40
     } else if (this.hasLabel) {
-      label = this.label.draw()
+      label = this.label.draw(iconStyle)
       // Minimum padding of 11
       // Minimum width of 40, at which point we center the label
       const px = this.label.width >= 18 ? 11 : (40 - this.label.width) / 2
@@ -251,7 +258,16 @@ export class InputView {
     }
     if (this.hasArrow) {
       result.appendChild(
-        SVG.move(w - 24, 13, SVG.symbol("#sb3-dropdownArrow", {})),
+        SVG.move(
+          w - 24,
+          13,
+          SVG.symbol(
+            iconStyle === "new"
+              ? "#sb3-dropdownArrow-new"
+              : "#sb3-dropdownArrow",
+            {},
+          ),
+        ),
       )
     }
     return result
@@ -320,7 +336,7 @@ class BlockView {
     }
   }
 
-  drawSelf(w, h, lines) {
+  drawSelf(iconStyle, w, h, lines) {
     // mouths
     if (lines.length > 1) {
       return SVG.mouthRect(w, h, this.isFinal, lines, {
@@ -404,7 +420,7 @@ class BlockView {
     return 8 // default: 2 units
   }
 
-  draw() {
+  draw(iconStyle) {
     const isDefine = this.info.shape === "define-hat"
     let children = this.children
     const isCommand = this.isCommand
@@ -460,7 +476,7 @@ class BlockView {
     let lastChild
     for (let i = 0; i < children.length; i++) {
       const child = children[i]
-      child.el = child.draw(this)
+      child.el = child.draw(iconStyle, this)
 
       if (child.isScript && this.isCommand) {
         this.hasScript = true
@@ -591,7 +607,7 @@ class BlockView {
       }
     }
 
-    const el = this.drawSelf(innerWidth, this.height, lines)
+    const el = this.drawSelf(iconStyle, innerWidth, this.height, lines)
     objects.splice(0, 0, el)
     if (this.info.color) {
       SVG.setProps(el, {
@@ -628,8 +644,8 @@ export class CommentView {
     this.label.measure()
   }
 
-  draw() {
-    const labelEl = this.label.draw()
+  draw(iconStyle) {
+    const labelEl = this.label.draw(iconStyle)
 
     this.width = this.label.width + 16
     return SVG.group([
@@ -682,9 +698,9 @@ class GlowView {
   }
   // TODO how can we always raise Glows above their parents?
 
-  draw() {
+  draw(iconStyle) {
     const c = this.child
-    const el = c.isScript ? c.draw(true) : c.draw()
+    const el = c.isScript ? c.draw(iconStyle, true) : c.draw(iconStyle)
 
     this.width = c.width
     this.height = (c.isBlock && c.firstLine.height) || c.height
@@ -712,13 +728,13 @@ class ScriptView {
     }
   }
 
-  draw(inside) {
+  draw(iconStyle, inside) {
     const children = []
     let y = 1
     this.width = 0
     for (const block of this.blocks) {
       const x = inside ? 0 : 2
-      const child = block.draw()
+      const child = block.draw(iconStyle)
       children.push(SVG.move(x, y, child))
       this.width = Math.max(this.width, block.width)
 
@@ -737,7 +753,7 @@ class ScriptView {
         const line = block.firstLine
         const cx = block.innerWidth + 2 + CommentView.lineLength
         const cy = y - block.height + line.height / 2
-        const el = comment.draw()
+        const el = comment.draw(iconStyle)
         children.push(SVG.move(cx, cy - comment.height / 2, el))
         this.width = Math.max(this.width, cx + comment.width)
       }
@@ -792,7 +808,7 @@ class DocumentView {
         height += 10
       }
       script.y = height
-      elements.push(SVG.move(0, height, script.draw()))
+      elements.push(SVG.move(0, height, script.draw(this.iconStyle)))
       height += script.height
       if (i !== this.scripts.length - 1) {
         height += 36
