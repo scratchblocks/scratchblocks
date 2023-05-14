@@ -13,7 +13,7 @@ import {
 
 import SVG from "./draw.js"
 import style from "./style.js"
-const { defaultFont, commentFont, makeStyle, makeIcons } = style
+const { defaultFont, commentFont, makeStyle, makeIcons, makeNewIcons } = style
 
 export class LabelView {
   constructor(label) {
@@ -764,6 +764,7 @@ class DocumentView {
     this.el = null
     this.defs = null
     this.scale = options.scale
+    this.iconStyle = options.style.replace("scratch3-", "")
   }
 
   measure() {
@@ -803,7 +804,8 @@ class DocumentView {
 
     // return SVG
     const svg = SVG.newSVG(width, height, this.scale)
-    svg.appendChild((this.defs = SVG.withChildren(SVG.el("defs"), makeIcons())))
+    const icons = this.iconStyle === "new" ? makeNewIcons() : makeIcons()
+    svg.appendChild((this.defs = SVG.withChildren(SVG.el("defs"), icons)))
 
     svg.appendChild(
       SVG.setProps(SVG.group(elements), {
