@@ -9,6 +9,15 @@ export function test(style, name, source, lang) {
     source,
     lang: lang || "en",
   })
+
+  if (style === "scratch3") {
+    tests.push({
+      style: "scratch3-new",
+      name,
+      source,
+      lang: lang || "en",
+    })
+  }
 }
 
 export function runTests(r) {
