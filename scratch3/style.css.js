@@ -71,7 +71,7 @@ export default `
   --sb3-grey-tertiary: #909090;
 }
 
-.scratchblocks-style-scratch3-new {
+.scratchblocks-style-scratch3-high-contrast {
   --sb3-label: #000;
   --sb3-input-color-stroke: #fff;
   --sb3-input-fill: #fff;

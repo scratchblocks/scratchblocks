@@ -3,7 +3,7 @@ import cssContent from "./style.css.js"
 
 // Need to define here, as we cannot reference Style#makeNewIcons
 // during JS loading phase.
-const newIcons = new Set([
+const highContrastIcons = new Set([
   "dropdownArrow",
   "turnRight",
   "turnLeft",
@@ -584,8 +584,8 @@ export default class Style {
     ]
   }
 
-  static makeNewIcons() {
-    // Make sure to update the newIcons set above!
+  static makeHighContrastIcons() {
+    // Make sure to update the highContrastIcons set above!
     return [
       ...Style.makeCommonIcons(),
       // https://github.com/scratchfoundation/scratch-gui/tree/beta/src/lib/themes/high-contrast/blocks-media
@@ -602,7 +602,7 @@ export default class Style {
           }),
         ]),
         {
-          id: "sb3-dropdownArrow-new",
+          id: "sb3-dropdownArrow-high-contrast",
           transform: "scale(0.944)",
         },
       ),
@@ -619,7 +619,7 @@ export default class Style {
           }),
         ]),
         {
-          id: "sb3-turnRight-new",
+          id: "sb3-turnRight-high-contrast",
         },
       ),
       SVG.setProps(
@@ -634,7 +634,7 @@ export default class Style {
           }),
         ]),
         {
-          id: "sb3-turnLeft-new",
+          id: "sb3-turnLeft-high-contrast",
         },
       ),
       SVG.setProps(
@@ -649,7 +649,7 @@ export default class Style {
           }),
         ]),
         {
-          id: "sb3-loopArrow-new",
+          id: "sb3-loopArrow-high-contrast",
         },
       ),
 
@@ -666,7 +666,7 @@ export default class Style {
           }),
         ]),
         {
-          id: "sb3-musicBlock-new",
+          id: "sb3-musicBlock-high-contrast",
           fill: "none",
         },
       ),
@@ -694,7 +694,7 @@ export default class Style {
           }),
         ]),
         {
-          id: "sb3-penBlock-new",
+          id: "sb3-penBlock-high-contrast",
           stroke: "#0b8e69",
           fill: "none",
           "stroke-linejoin": "round",
@@ -732,7 +732,7 @@ export default class Style {
           }),
         ]),
         {
-          id: "sb3-videoBlock-new",
+          id: "sb3-videoBlock-high-contrast",
           stroke: "#0b8e69",
           fill: "#FFF",
           "stroke-opacity": 0.15,
@@ -751,17 +751,17 @@ export default class Style {
           }),
         ]),
         {
-          id: "sb3-ttsBlock-new",
+          id: "sb3-ttsBlock-high-contrast",
           "stroke-opacity": 0.15,
         },
       ),
 
-      // The original icon is in PNG, but the newer version uses SVG.
+      // The original icon is in PNG, but the high contrast version uses SVG.
       // For consistency we use PNG in both places.
       // https://github.com/scratchfoundation/scratch-gui/blob/beta/src/lib/themes/high-contrast/extensions/translateIcon.svg
       // Exported via Inkscape and compressed
       SVG.el("image", {
-        id: "sb3-translateBlock-new",
+        id: "sb3-translateBlock-high-contrast",
         width: "40px",
         height: "40px",
         href: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAxoAAARjCAMAAADfFKLnAAABhlBMVEUAAAALjWkOj2oLjmkAAAAQj2wkmnkYlHILj2kLjmkAAAAAAABsu6VouaIJjmgimncAAAAAAAALjml0v6kAAAAAAAAAAAAATzhjt6A9pogVk28XlHAVk28ZlHEAAAAAAAAAAAANj2oAAAAJj2oAAAAAAAByvahsu6VVsZcqnXwAAAAAAAAAAAAMj2oQkWsAAAAPkGwAAABHqo4AAAAclnMcl3MKj2kXlHIXk3EAAAALj2gAAAD///8AAAB9w6+ExrONyrmHyLWrzv/3+/r8/v6Fx7VpqP/0+fh7s/9Ml//4/PvK59/4+//u9f/l8P/V5v9vrP9an/9Smv/o6OjMzMwrKysDAwPp8//e7P+w0f+axf9xrf9kpf9jpP9ho/9Nl//e3t7E5Nu+4dfT09OUzb2QzLuZmZlMrJKGhoYpnHxlZWVgYGBCQkINDQ30+P/J4P/D3P+11P+Nvf90rv9Jlvby8vLc3Nyl1cik1ce+vr6DxrKlpaWfn58xnJZBpJWJiYl+fn4fHx9PedmHAAAAPHRSTlMAd4OAxg/0wohyDv78+Tj16Ik6+ux+WAb79e7mvbCemW1rZDYXC/n39PTw39u8t7RVNvX11NLDm5qOWx0x5AFdAAAGd0lEQVR42uzbV3faQBCG4XGChMEU4wLujntv6WXXIUAwxd3Gvfea3nv+eQaBcgS5ztV8zwWMfsB7js7uiAAAAAAAAP6fgKfCwRMg1l49OBzqJgC5DLfZO+nQa7oNovq2Ia2rJwhArFZ/QpVI+Fspr57b8BKAUAEzrgpmXhSHjBmgvDGtQwQglKdWFaU27KnWQ0TekEvruvYwAYh08ym3ML0ei8V2NvlnfZofn98gorC2DBKASFYaq8md9MLW1kJ6O7lqp9Hj0qzqFgGIxGlYtjeUepPkwU6D20AZIJidRmxhZnbxtTMN8rpQBshlpzGdTL2dTzjSYJEnBCCVnYaaS++uqb9pAEhnpzGXXFycn1PZo2g0ejpiL410EYBQhTRepnZTs2vz776f+yYd/EG3QQAiWVd+s+nNV/yX+NEQVyXiDS0EIFKNmeAEZlRe9jyuysSDNQQgkrsvo4qOfOofvgoCEMloNWs/cgNTx9FT+7RqaUV/KI7PcFoFYgVG+7iMxpbK+19UwU+tfyENEC/SvK+yAw8cdxy5XO53AmmAdI8bD/qbxh13HMv67Ex/RhogXVfzvQ6DHGlc6L09fYk0AJgjjalrza7fIw2QrjtSksZXfXFycqm/IQ0QrrPK5XWmcbWylD+/vUIaIFtnldaFNjx+lbd8qNjhMq78QDQug7l6eAwE46pMxsSiCAhVpy1hYu7y9cKM300AMoXbOQ5XyEvMaAn6opbjKQ7jkw9L6SBZSOsxe66pqLSMNnIb/hG8TYFk3mqt66nMw4Gs2m+OEIBgE9zGcFtZHeNN/Qe3OwhAsu5HQ3fq2qiU0XG3Cd+GAwAAAAD8YQ8OBAAAAACA/F8bQVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVYQ8OBAAAAACA/F8bQVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV2IMDAQAAAAAg/9dGUFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVUV9uBAAAAAAADI/7URVFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWFPTgQAAAAAADyf20EVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVhDw4EAAAAAID8XxtBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVXYgwMBAAAAACD/10ZQVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVRX24EAAAAAAAMj/tRFUVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVYU9OBAAAAAAAPJ/bQRVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVWEPDgQAAAAAgPxfG0FVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVdiDAwEAAAAAIP/XRlBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVFfbgQAAAAAAAyP+1EVRVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVhT04EAAAAAAA8n9tBFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVYQ8OBAAAAACA/F8bQVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV2oNDAgAAAABB/1/7wgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMArKwCvdMdAc1YAAAAASUVORK5CYII=",
@@ -770,11 +770,11 @@ export default class Style {
   }
 
   /**
-   * @return the icon name with new prefix, if a new icon is defined
+   * @return the icon name with suffix, if a high contrast icon is defined
    */
   static iconName(name, iconStyle) {
-    if (iconStyle === "new" && newIcons.has(name)) {
-      return `${name}-new`
+    if (iconStyle === "high-contrast" && highContrastIcons.has(name)) {
+      return `${name}-high-contrast`
     }
 
     return name

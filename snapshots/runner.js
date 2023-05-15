@@ -12,7 +12,7 @@ export function test(style, name, source, lang) {
 
   if (style === "scratch3") {
     tests.push({
-      style: "scratch3-new",
+      style: "scratch3-high-contrast",
       name,
       source,
       lang: lang || "en",

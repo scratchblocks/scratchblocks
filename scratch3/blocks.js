@@ -18,7 +18,7 @@ const {
   commentFont,
   makeStyle,
   makeIcons,
-  makeNewIcons,
+  makeHighContrastIcons,
   iconName,
 } = style
 
@@ -262,8 +262,8 @@ export class InputView {
           w - 24,
           13,
           SVG.symbol(
-            iconStyle === "new"
-              ? "#sb3-dropdownArrow-new"
+            iconStyle === "high-contrast"
+              ? "#sb3-dropdownArrow-high-contrast"
               : "#sb3-dropdownArrow",
             {},
           ),
@@ -820,7 +820,7 @@ class DocumentView {
 
     // return SVG
     const svg = SVG.newSVG(width, height, this.scale)
-    const icons = this.iconStyle === "new" ? makeNewIcons() : makeIcons()
+    const icons = this.iconStyle === "high-contrast" ? makeHighContrastIcons() : makeIcons()
     svg.appendChild((this.defs = SVG.withChildren(SVG.el("defs"), icons)))
 
     svg.appendChild(

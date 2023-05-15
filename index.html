@@ -222,8 +222,8 @@ function objUpdated() {
   // });
 
   console.log(scratchblocks.stringify(doc));
-  var docView3New = scratchblocks.newView(doc, {
-    style: "scratch3-new",
+  var docView3HighContrast = scratchblocks.newView(doc, {
+    style: "scratch3-high-contrast",
     scale: 0.675
   });
   var docView3 = scratchblocks.newView(doc, {
@@ -234,23 +234,23 @@ function objUpdated() {
     style: "scratch2",
     scale: 1
   });
-  var svg3New = docView3New.render();
+  var svg3HighContrast = docView3HighContrast.render();
   var svg3 = docView3.render();
   var svg2 = docView2.render();
   preview.innerHTML = "";
-  preview.appendChild(svg3New);
+  preview.appendChild(svg3HighContrast);
   preview.appendChild(svg3);
   preview.appendChild(svg2);
-  svg3New.classList.add("scratch3");
+  svg3HighContrast.classList.add("scratch3");
   svg3.classList.add("scratch3")
   // Need to add manually if calling View#rener (folks, this is why you shouldn't use private API!)
-  svg3New.classList.add("scratchblocks-style-scratch3-new")
+  svg3HighContrast.classList.add("scratchblocks-style-scratch3-high-contrast")
   svg3.classList.add("scratchblocks-style-scratch3")
 
   const getSelectedView = () => {
     switch (exportDropdown.value) {
-      case "3new":
-        return docView3New;
+      case "3-high-contrast":
+        return docView3HighContrast;
       case "2":
         return docView2;
       default:
@@ -274,13 +274,13 @@ function objUpdated() {
 
     if (!exportDropdown) exportDropdown = document.createElement("select");
     exportDropdown.appendChild(Object.assign(document.createElement("option"), {
-      label: "3.0",
+      label: "3.0 (original)",
       value: "3",
       selected: true,
     }));
     exportDropdown.appendChild(Object.assign(document.createElement("option"), {
-      label: "3.0 (new colors)",
-      value: "3new",
+      label: "3.0 (high contrast)",
+      value: "3-high-contrast",
     }));
     exportDropdown.appendChild(Object.assign(document.createElement("option"), {
       label: "2.0",
