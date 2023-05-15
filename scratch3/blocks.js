@@ -17,7 +17,7 @@ const {
   defaultFont,
   commentFont,
   makeStyle,
-  makeIcons,
+  makeOriginalIcons,
   makeHighContrastIcons,
   iconName,
 } = style
@@ -820,7 +820,7 @@ class DocumentView {
 
     // return SVG
     const svg = SVG.newSVG(width, height, this.scale)
-    const icons = this.iconStyle === "high-contrast" ? makeHighContrastIcons() : makeIcons()
+    const icons = this.iconStyle === "high-contrast" ? makeHighContrastIcons() : makeOriginalIcons()
     svg.appendChild((this.defs = SVG.withChildren(SVG.el("defs"), icons)))
 
     svg.appendChild(

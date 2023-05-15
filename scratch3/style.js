@@ -400,7 +400,7 @@ export default class Style {
       }),
     ]
   }
-  static makeIcons() {
+  static makeOriginalIcons() {
     return [
       ...Style.makeCommonIcons(),
       SVG.setProps(
