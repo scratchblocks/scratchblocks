@@ -272,22 +272,24 @@ function objUpdated() {
     exportPNGLink.className = 'export-link';
     if (!exportPNGLink.isConnected) document.body.appendChild(exportPNGLink);
 
-    if (!exportDropdown) exportDropdown = document.createElement("select");
-    exportDropdown.appendChild(Object.assign(document.createElement("option"), {
-      label: "3.0 (original)",
-      value: "3",
-      selected: true,
-    }));
-    exportDropdown.appendChild(Object.assign(document.createElement("option"), {
-      label: "3.0 (high contrast)",
-      value: "3-high-contrast",
-    }));
-    exportDropdown.appendChild(Object.assign(document.createElement("option"), {
-      label: "2.0",
-      value: "2",
-    }));
-    exportDropdown.className = 'export-link';
-    document.body.appendChild(exportDropdown);
+    if (!exportDropdown) {
+      exportDropdown = document.createElement("select");
+      exportDropdown.appendChild(Object.assign(document.createElement("option"), {
+        label: "3.0 (original)",
+        value: "3",
+        selected: true,
+      }));
+      exportDropdown.appendChild(Object.assign(document.createElement("option"), {
+        label: "3.0 (high contrast)",
+        value: "3-high-contrast",
+      }));
+      exportDropdown.appendChild(Object.assign(document.createElement("option"), {
+        label: "2.0",
+        value: "2",
+      }));
+      exportDropdown.className = 'export-link';
+    }
+    if (!exportDropdown.isConnected) document.body.appendChild(exportDropdown);
   }, 0);
 
   // update language dropdown
