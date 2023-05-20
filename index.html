@@ -77,6 +77,7 @@ body {
 
 <script>
 var editor = document.getElementById('editor');
+var exportDropdown;
 var exportSVGLink;
 var exportPNGLink;
 
@@ -161,6 +162,16 @@ function decodeHash() {
   }
 }
 
+function download(filename, content) {
+  const elem = document.createElement("a");
+  elem.hidden = true;
+  elem.download = filename;
+  elem.href = content;
+  document.body.appendChild(elem);
+  elem.click();
+  document.body.removeChild(elem);
+}
+
 function objUpdated() {
   // set hash
   if (obj.lang) {
@@ -211,6 +222,10 @@ function objUpdated() {
   // });
 
   console.log(scratchblocks.stringify(doc));
+  var docView3HighContrast = scratchblocks.newView(doc, {
+    style: "scratch3-high-contrast",
+    scale: 0.675
+  });
   var docView3 = scratchblocks.newView(doc, {
     style: "scratch3",
     scale: 0.675
@@ -219,32 +234,62 @@ function objUpdated() {
     style: "scratch2",
     scale: 1
   });
+  var svg3HighContrast = docView3HighContrast.render();
   var svg3 = docView3.render();
   var svg2 = docView2.render();
   preview.innerHTML = "";
+  preview.appendChild(svg3HighContrast);
   preview.appendChild(svg3);
   preview.appendChild(svg2);
+  svg3HighContrast.classList.add("scratch3");
   svg3.classList.add("scratch3")
+  // Need to add manually if calling View#rener (folks, this is why you shouldn't use private API!)
+  svg3HighContrast.classList.add("scratchblocks-style-scratch3-high-contrast")
+  svg3.classList.add("scratchblocks-style-scratch3")
+
+  const getSelectedView = () => {
+    switch (exportDropdown.value) {
+      case "3-high-contrast":
+        return docView3HighContrast;
+      case "2":
+        return docView2;
+      default:
+        return docView3;
+    }
+  }
 
   // add export link
   setTimeout(function() {
-    if (exportSVGLink) document.body.removeChild(exportSVGLink);
-    var link = exportSVGLink = document.createElement('a');
-    link.href = docView3.exportSVG();
-    link.setAttribute('download', 'scratchblocks.svg');
-    link.textContent = "Export SVG";
-    link.className = 'export-link';
-    document.body.appendChild(link);
+    if (!exportSVGLink) exportSVGLink = document.createElement('a');
+    exportSVGLink.onclick = () => download("scratchblocks.svg", getSelectedView().exportSVG());
+    exportSVGLink.textContent = "Export SVG";
+    exportSVGLink.className = 'export-link';
+    if (!exportSVGLink.isConnected) document.body.appendChild(exportSVGLink);
 
-    if (exportPNGLink) document.body.removeChild(exportPNGLink);
-    docView3.exportPNG(function(pngDataURL) {
-      var link = exportPNGLink = document.createElement('a');
-      link.href = pngDataURL;
-      link.setAttribute('download', 'scratchblocks.png');
-      link.textContent = "Export PNG";
-      link.className = 'export-link';
-      document.body.appendChild(link);
-    }, 1);
+    if (!exportPNGLink) exportPNGLink = document.createElement('a');
+    exportPNGLink.onclick = () => getSelectedView().exportPNG((url) => download("scratchblocks.png", url));
+    exportPNGLink.textContent = "Export PNG";
+    exportPNGLink.className = 'export-link';
+    if (!exportPNGLink.isConnected) document.body.appendChild(exportPNGLink);
+
+    if (!exportDropdown) {
+      exportDropdown = document.createElement("select");
+      exportDropdown.appendChild(Object.assign(document.createElement("option"), {
+        label: "3.0 (original)",
+        value: "3",
+        selected: true,
+      }));
+      exportDropdown.appendChild(Object.assign(document.createElement("option"), {
+        label: "3.0 (high contrast)",
+        value: "3-high-contrast",
+      }));
+      exportDropdown.appendChild(Object.assign(document.createElement("option"), {
+        label: "2.0",
+        value: "2",
+      }));
+      exportDropdown.className = 'export-link';
+    }
+    if (!exportDropdown.isConnected) document.body.appendChild(exportDropdown);
   }, 0);
 
   // update language dropdown

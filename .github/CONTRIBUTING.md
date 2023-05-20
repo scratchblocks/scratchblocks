@@ -1,7 +1,7 @@
 Hello!
 Thanks for your interest in contributing to scratchblocks.
 
-The [Community Guidelines](https://github.com/LLK/scratch-www/wiki/Community-Guidelines) for **[scratch-www](https://github.com/LLK/scratch-www)** also apply here. :-)
+The [Community Guidelines](https://github.com/scratchfoundation/scratch-www/wiki/Community-Guidelines) for **[scratch-www](https://github.com/scratchfoundation/scratch-www)** also apply here. :-)
 
 In particular, although this code is used on the Scratch website, it's not maintained by the Scratch Team. So please remember developing this isn't our job!
 
@@ -9,8 +9,8 @@ In particular, although this code is used on the Scratch website, it's not maint
 
 When **reporting an issue**, please do the following:
 
-* Read [the **syntax guide**](http://wiki.scratch.mit.edu/wiki/Block_Plugin/Syntax)
-* Use **code examples** and links to <http://scratchblocks.github.io/>, where relevant
+* Read [the **syntax guide**](https://en.scratch-wiki.info/wiki/Block_Plugin/Syntax)
+* Use **code examples** and links to <https://scratchblocks.github.io/>, where relevant
 * Provide **screenshots**/comparison with Scratch, where relevant
 
 ---
@@ -25,5 +25,5 @@ For **pull requests**:
 
 * Browse to <http://localhost:8000/> to access the development version.
 
-To modify the homepage, send a PR to the [scratchblocks/scratchblocks.github.io](//github.com/scratchblocks/scratchblocks.github.io) repo.
+To modify the homepage, send a PR to the [scratchblocks/scratchblocks.github.io](https://github.com/scratchblocks/scratchblocks.github.io) repo.
 
