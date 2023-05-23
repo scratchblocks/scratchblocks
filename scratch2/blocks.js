@@ -62,7 +62,7 @@ export class LabelView {
       this.metrics = cache[value]
     } else {
       const font = /comment-label/.test(this.cls)
-        ? "bold 12px Helevetica, Arial, DejaVu Sans, sans-serif"
+        ? "bold 12px Helvetica, Arial, DejaVu Sans, sans-serif"
         : /literal/.test(this.cls)
         ? `normal 9px ${defaultFontFamily}`
         : `bold 10px ${defaultFontFamily}`
