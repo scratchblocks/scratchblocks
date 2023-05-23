@@ -98,7 +98,7 @@ If you want to use languages other than English, you'll need to include a second
 The releases page includes two options; you can pick one:
 
 * `translations.js` includes a limited set of languages, as seen on the Scratch Forums
-* `translations-all.js` includes every langauge that Scratch supports.
+* `translations-all.js` includes every language that Scratch supports.
 
 The translations files are hundreds of kilobytes in size, so to keep your page bundle size down you might like to build your own file with just the languages you need.
 
