@@ -1,8 +1,5 @@
-import fs from "fs"
+import { readFile, writeFile } from "fs/promises"
 import path from "path"
-import { promisify } from "util"
-const readFile = promisify(fs.readFile)
-const writeFile = promisify(fs.writeFile)
 
 import scratchCommands from "../syntax/commands.js"
 import extraAliases from "./extra_aliases.js"
