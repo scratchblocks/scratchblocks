@@ -106,7 +106,7 @@ export default `
   fill: #ffff80;
 }
 .sb-comment-label {
-  font-family: Helevetica, Arial, DejaVu Sans, sans-serif;
+  font-family: Helvetica, Arial, DejaVu Sans, sans-serif;
   font-weight: bold;
   fill: #5c5d5f;
   word-spacing: 0;

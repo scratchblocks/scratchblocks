@@ -1,4 +1,4 @@
-/* for constucting SVGs */
+/* for constructing SVGs */
 
 function assert(bool, message) {
   if (!bool) {

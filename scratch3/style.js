@@ -787,9 +787,9 @@ export default class Style {
   }
 
   static get defaultFont() {
-    return "500 12pt Helevetica Neue, Helvetica, sans-serif"
+    return "500 12pt Helvetica Neue, Helvetica, sans-serif"
   }
   static get commentFont() {
-    return "400 12pt Helevetica Neue, Helvetica, sans-serif"
+    return "400 12pt Helvetica Neue, Helvetica, sans-serif"
   }
 }

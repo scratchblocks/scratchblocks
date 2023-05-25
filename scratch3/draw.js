@@ -1,4 +1,4 @@
-/* for constucting SVGs */
+/* for constructing SVGs */
 
 // set by SVG.init
 let document

@@ -40,9 +40,9 @@ export default function (window) {
 
     options.scale = options.scale || 1
 
-    if (options.style.startsWith("scratch2")) {
+    if (options.style === "scratch2") {
       return scratch2.newView(doc, options)
-    } else if (options.style.startsWith("scratch3")) {
+    } else if (/^scratch3($|-)/.test(options.style)) {
       return scratch3.newView(doc, options)
     }
 
@@ -55,6 +55,7 @@ export default function (window) {
     }
     const view = newView(doc, options)
     const svg = view.render()
+    // Used in high contrast theme
     svg.classList.add(`scratchblocks-style-${options.style}`)
     return svg
   }
