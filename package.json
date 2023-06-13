@@ -1,6 +1,6 @@
 {
   "name": "scratchblocks",
-  "version": "3.6.1",
+  "version": "3.6.2",
   "description": "Render scratchblocks code to SVG images.",
   "license": "MIT",
   "author": "Tim Radvan",
