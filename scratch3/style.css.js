@@ -13,6 +13,20 @@ const common = `
   word-spacing: 0;
 }
 
+.sb3-diff {
+  fill: none;
+  stroke: #000;
+}
+.sb3-diff-ins {
+  stroke-width: 2px;
+}
+.sb3-diff-del {
+  stroke-width: 3px;
+}
+`
+
+// These override colors defined per style
+const commonOverride = `
 /* Note: comment colors are different from Scratch. */
 
 .sb3-comment {
@@ -27,19 +41,7 @@ const common = `
   font: 400 12pt Helvetica Neue, Helvetica, sans-serif;
   fill: #000;
   word-spacing: 0;
-}
-
-.sb3-diff {
-  fill: none;
-  stroke: #000;
-}
-.sb3-diff-ins {
-  stroke-width: 2px;
-}
-.sb3-diff-del {
-  stroke-width: 3px;
-}
-`
+}`
 
 const createRule = (category, name, style) => `
 svg${name} .sb3-${category} {
@@ -219,4 +221,5 @@ const highContrastStyle = {
 
 export default common +
   create("", originalStyle) +
-  create(".scratchblocks-style-scratch3-high-contrast", highContrastStyle)
+  create(".scratchblocks-style-scratch3-high-contrast", highContrastStyle) +
+  commonOverride
