@@ -85,6 +85,11 @@ svg${name} .sb3-literal-number,
 svg${name} .sb3-literal-string {
   fill: ${style.literal};
 }
+
+svg${name} .sb3-custom-arg {
+  fill: ${style.customPrimary};
+  stroke: ${style.customTertiary};
+}
 `
 
 const originalStyle = {
