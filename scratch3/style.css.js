@@ -37,7 +37,8 @@ const commonOverride = `
 .sb3-comment-line {
   fill: #ffff80;
 }
-.sb3-comment-label {
+/* specificity */
+.sb3-comment-label, .sb3-label.sb3-comment-label {
   font: 400 12pt Helvetica Neue, Helvetica, sans-serif;
   fill: #000;
   word-spacing: 0;
