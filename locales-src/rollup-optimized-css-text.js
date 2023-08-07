@@ -1,3 +1,5 @@
+import { pathToFileURL } from "url"
+
 /**
  * Processes ".css.js" file.
  * The file is a valid JavaScript file that CJS-exports the CSS,
@@ -13,7 +15,7 @@ export default opts => {
     name: "optimized-css-text",
     transform: (code, id) => {
       if (id.endsWith(".css.js")) {
-        return import(id)
+        return import(pathToFileURL(id))
           .then(({ default: code }) =>
             opts.minify
               ? import("csso").then(csso => csso.minify(code).css)
