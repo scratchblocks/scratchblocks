@@ -13,22 +13,6 @@ const common = `
   word-spacing: 0;
 }
 
-/* Note: comment colors are different from Scratch. */
-
-.sb3-comment {
-  fill: #ffffa5;
-  stroke: #d0d1d2;
-  stroke-width: 1;
-}
-.sb3-comment-line {
-  fill: #ffff80;
-}
-.sb3-comment-label {
-  font: 400 12pt Helvetica Neue, Helvetica, sans-serif;
-  fill: #000;
-  word-spacing: 0;
-}
-
 .sb3-diff {
   fill: none;
   stroke: #000;
@@ -40,6 +24,25 @@ const common = `
   stroke-width: 3px;
 }
 `
+
+// These override colors defined per style
+const commonOverride = `
+/* Note: comment colors are different from Scratch. */
+
+.sb3-comment {
+  fill: #ffffa5;
+  stroke: #d0d1d2;
+  stroke-width: 1;
+}
+.sb3-comment-line {
+  fill: #ffff80;
+}
+/* specificity */
+.sb3-comment-label, .sb3-label.sb3-comment-label {
+  font: 400 12pt Helvetica Neue, Helvetica, sans-serif;
+  fill: #000;
+  word-spacing: 0;
+}`
 
 const createRule = (category, name, style) => `
 svg${name} .sb3-${category} {
@@ -84,6 +87,11 @@ svg${name} .sb3-input-string {
 svg${name} .sb3-literal-number,
 svg${name} .sb3-literal-string {
   fill: ${style.literal};
+}
+
+svg${name} .sb3-custom-arg {
+  fill: ${style.customPrimary};
+  stroke: ${style.customTertiary};
 }
 `
 
@@ -214,4 +222,5 @@ const highContrastStyle = {
 
 export default common +
   create("", originalStyle) +
-  create(".scratchblocks-style-scratch3-high-contrast", highContrastStyle)
+  create(".scratchblocks-style-scratch3-high-contrast", highContrastStyle) +
+  commonOverride
