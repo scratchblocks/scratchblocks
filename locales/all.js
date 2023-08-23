@@ -30,6 +30,7 @@ import gd from "./gd.json"
 import gl from "./gl.json"
 import ha from "./ha.json"
 import he from "./he.json"
+import hi from "./hi.json"
 import hr from "./hr.json"
 import ht from "./ht.json"
 import hu from "./hu.json"
@@ -110,6 +111,7 @@ export default {
   gl,
   ha,
   he,
+  hi,
   hr,
   ht,
   hu,
