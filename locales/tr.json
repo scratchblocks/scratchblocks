@@ -257,10 +257,10 @@
     "10 ^"
   ],
   "aliases": {
-    "_ derece sola dön": "MOTION_TURNLEFT",
-    "_ derece sağa dön": "MOTION_TURNRIGHT",
-    "_ derece saatin tersi yönde dön": "MOTION_TURNLEFT",
-    "_ derece saat yönünde dön": "MOTION_TURNRIGHT",
+    "%1 derece sola dön": "MOTION_TURNLEFT",
+    "%1 derece sağa dön": "MOTION_TURNRIGHT",
+    "%1 derece saatin tersi yönde dön": "MOTION_TURNLEFT",
+    "%1 derece saat yönünde dön": "MOTION_TURNRIGHT",
     "yeşil bayrak tıklandığında": "EVENT_WHENFLAGCLICKED",
     "son": "scratchblocks:end"
   },
