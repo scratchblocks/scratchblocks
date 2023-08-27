@@ -7,6 +7,7 @@ import extraAliases from "./extra_aliases.js"
 import scratch_l10n from "scratch-l10n"
 // We can't `import {default}` since it's a reserved word.
 const localeNames = scratch_l10n.default
+localeNames.en.name = "English";
 
 const readJSONFile = async path => {
   const contents = await readFile(path, "utf-8")
