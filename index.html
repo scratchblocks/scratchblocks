@@ -94,7 +94,6 @@ var chooseLang = document.getElementById('choose-lang');
 var languageCodes = Object.keys(scratchblocks.allLanguages)
 languageCodes.sort()
 languageCodes.forEach(function(code) {
-  if (code === "en") return
   var option = document.createElement("option")
   option.value = code
 
