@@ -1,7 +1,7 @@
 {
   "name": "scratchblocks",
   "version": "3.6.3",
-  "description": "Render scratchblocks code to SVG images.",
+  "description": "Make pictures of Scratch blocks from text.",
   "license": "MIT",
   "author": "Tim Radvan",
   "homepage": "https://scratchblocks.github.io/",
