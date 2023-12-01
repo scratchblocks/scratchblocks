@@ -481,3 +481,23 @@ img .hidden {
   opacity: 0;
 }
 
+/* Styles pour les écrans de petite taille (smartphones) */
+@media screen and (max-width: 768px) {
+  /* Vos règles CSS pour les smartphones ici */
+  body {
+    font-size: 14px; /* Par exemple, ajuster la taille de la police pour les petits écrans */
+  }
+  /* Autres modifications pour une meilleure expérience sur les smartphones */
+}
+
+/* Styles pour les tablettes */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  /* Vos règles CSS pour les tablettes ici */
+  /* Ajustez la disposition ou la taille des éléments pour les tablettes */
+}
+
+/* Styles pour les ordinateurs de bureau */
+@media screen and (min-width: 1025px) {
+  /* Vos règles CSS pour les ordinateurs de bureau ici */
+  /* Vous pouvez avoir des styles plus détaillés pour les écrans plus larges */
+}
