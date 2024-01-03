@@ -148,7 +148,7 @@
     "CONTROL_ELSE": "senão",
     "SENSING_USERID": "id do usuário",
     "SENSING_LOUD": "alto?",
-    "text2speech.speakAndWaitBlock": "falar %1",
+    "text2speech.speakAndWaitBlock": "fale %1",
     "text2speech.setVoiceBlock": "defina a voz para %1",
     "text2speech.setLanguageBlock": "defina o idioma como %1",
     "translate.translateBlock": "traduza %1 para %2",
