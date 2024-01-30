@@ -234,6 +234,9 @@ export const english = {
     "10 ^",
   ],
 
+  // Language name is needed for the English locale as well
+  name: "English",
+
   // Valid arguments to "sound effect" dropdown, for resolving ambiguous situations
   soundEffects: ["pitch", "pan left/right"],
 
