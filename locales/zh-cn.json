@@ -63,7 +63,7 @@
     "EVENT_WHENKEYPRESSED": "当按下 %1 键",
     "EVENT_WHENTHISSPRITECLICKED": "当角色被点击",
     "EVENT_WHENSTAGECLICKED": "当舞台被点击",
-    "EVENT_WHENBACKDROPSWITCHESTO": "当背景换成 %1",
+    "EVENT_WHENBACKDROPSWITCHESTO": "当背景切换到 %1",
     "EVENT_WHENGREATERTHAN": "当 %1 > %2",
     "EVENT_WHENBROADCASTRECEIVED": "当接收到 %1",
     "EVENT_BROADCAST": "广播 %1",
@@ -258,7 +258,7 @@
   "aliases": {
     "左转 %1 度": "MOTION_TURNLEFT",
     "右转 %1 度": "MOTION_TURNRIGHT",
-    "点击绿旗时": "EVENT_WHENFLAGCLICKED",
+    "当 被点击": "EVENT_WHENFLAGCLICKED",
     "结束": "scratchblocks:end"
   },
   "name": "简体中文",

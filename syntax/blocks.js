@@ -2,7 +2,7 @@ import { extensions, aliasExtensions } from "./extensions.js"
 
 // List of classes we're allowed to override.
 
-const overrideCategories = [
+export const overrideCategories = [
   "motion",
   "looks",
   "sound",

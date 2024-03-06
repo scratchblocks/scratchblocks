@@ -22,6 +22,8 @@ const {
   iconName,
 } = style
 
+const officialExtensions = {...extensions};
+
 export class LabelView {
   constructor(label) {
     Object.assign(this, label)
@@ -81,10 +83,7 @@ export class IconView {
   constructor(icon) {
     Object.assign(this, icon)
 
-    const info = IconView.icons[this.name]
-    if (!info) {
-      throw new Error(`no info for icon: ${this.name}`)
-    }
+    const info = IconView.icons[this.name] || { width: 40, height: 40 };
     Object.assign(this, info)
   }
 
@@ -293,7 +292,9 @@ class BlockView {
       this.children.unshift(
         new IconView({ name: this.info.category + "Block" }),
       )
-      this.info.category = "extension"
+      if (Object.prototype.hasOwnProperty.call(officialExtensions, this.info.category)) {
+        this.info.category = "extension"
+      }
     }
 
     this.x = 0

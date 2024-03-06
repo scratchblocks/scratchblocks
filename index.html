@@ -11,38 +11,44 @@
 <link rel=stylesheet href="index.css">
 
 <style>
-#preview > svg {
-  display: block;
-  margin-bottom: 20px;
-}
-#preview:before {
-  position: relative;
-  left: 1px;
-  min-width: 695px;
-  min-height: 842px;
-  z-index: 1;
-  transform: scale(0.66666);
-  transform-origin: 0 0;
-}
-.cmp #preview:before,
-.diff #preview:before {
-  position: absolute;
-  display: block;
-  content: "";
-  background: url(screenshot.png) no-repeat -2px -3px;
-}
-.cmp.diff #preview:before {
-  -webkit-filter: invert(100%) opacity(50%);
-}
-.diff #preview:before {
-  -webkit-filter: opacity(50%);
-}
-.cmp img {
-  display: none;
-}
-body {
-  background: #dddede;
-}
+  #preview>svg {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  #preview:before {
+    position: relative;
+    left: 1px;
+    min-width: 695px;
+    min-height: 842px;
+    z-index: 1;
+    transform: scale(0.66666);
+    transform-origin: 0 0;
+  }
+
+  .cmp #preview:before,
+  .diff #preview:before {
+    position: absolute;
+    display: block;
+    content: "";
+    background: url(screenshot.png) no-repeat -2px -3px;
+  }
+
+  .cmp.diff #preview:before {
+    -webkit-filter: invert(100%) opacity(50%);
+  }
+
+  .diff #preview:before {
+    -webkit-filter: opacity(50%);
+  }
+
+  .cmp img {
+    display: none;
+  }
+
+  body {
+    background: #dddede;
+  }
 </style>
 
 <!---------------------------------------------------------------------------->
@@ -57,15 +63,15 @@ body {
 </h1>
 
 <div id="side">
-<div>
-  <select id="choose-lang">
-    <option value="">Select language…
-  </select>
+  <div>
+    <select id="choose-lang">
+      <option value="">Select language…
+    </select>
 
-  <small id=lang-status></small>
-</div>
+    <small id=lang-status></small>
+  </div>
 
-<textarea id="editor"></textarea>
+  <textarea id="editor"></textarea>
 </div>
 
 <pre id="preview" class="blocks"></pre>
@@ -76,250 +82,258 @@ body {
 <script src="build/translations-all.js"></script>
 
 <script>
-var editor = document.getElementById('editor');
-var exportDropdown;
-var exportSVGLink;
-var exportPNGLink;
+  var editor = document.getElementById('editor');
+  var exportDropdown;
+  var exportSVGLink;
+  var exportPNGLink;
 
-var obj = {};
-extractHash();
+  var obj = {};
+  extractHash();
 
-editor.addEventListener('input', function(e) {
-  obj.script = editor.value;
-  objUpdated();
-});
+  editor.addEventListener('input', function (e) {
+    obj.script = editor.value;
+    objUpdated();
+  });
 
-var chooseLang = document.getElementById('choose-lang');
+  var chooseLang = document.getElementById('choose-lang');
 
-var languageCodes = Object.keys(scratchblocks.allLanguages)
-languageCodes.sort()
-languageCodes.forEach(function(code) {
-  if (code === "en") return
-  var option = document.createElement("option")
-  option.value = code
+  var languageCodes = Object.keys(scratchblocks.allLanguages)
+  languageCodes.sort()
+  languageCodes.forEach(function (code) {
+    if (code === "en") return
+    var option = document.createElement("option")
+    option.value = code
 
-  var language = scratchblocks.allLanguages[code]
-  option.textContent = language.name && language.altName ? `${language.name} — ${language.altName}` : language.name || language.altName || code
-  chooseLang.appendChild(option)
-})
+    var language = scratchblocks.allLanguages[code]
+    option.textContent = language.name && language.altName ? `${language.name} — ${language.altName}` : language.name || language.altName || code
+    chooseLang.appendChild(option)
+  })
 
-var incompleteLangs = [];
-var newOnlyLangs = [];
-[].slice.apply(chooseLang.options).forEach(function(el) {
-  var text = el.textContent;
-  if (/\*/.test(text)) incompleteLangs.push(el.value);
-  if (/\†/.test(text)) newOnlyLangs.push(el.value);
-});
+  scratchblocks.appendExtension({
+    id: "gandiJoystick",
+    width: "40px",
+    height: "40px",
+    colour: "#3BCCA9",
+    colourSecondary: "#2fa387",
+    href: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIyLjg4MDUgN0gxNy4xMTk1QzEyLjI0NDcgNyA5LjgwNzM0IDcgNy44OTQxOSA3LjkyMzc5QzYuMjA5NzUgOC43MzcxNiA0LjgxMDIyIDEwLjA0MDMgMy44Nzg5MSAxMS42NjI1QzIuODIxMTYgMTMuNTA1IDIuNjQ3NSAxNS45MzYyIDIuMzAwMTkgMjAuNzk4NUwxLjg0MzI3IDI3LjE5NTRDMS42MTkyMyAzMC4zMzE5IDQuMTAzMzggMzIuOTk5OCA3LjI0NzkxIDMyLjk5OThDOC44NTU5OSAzMi45OTk4IDEwLjM4MSAzMi4yODU2IDExLjQxMDQgMzEuMDUwMkwxMi4xMDcyIDMwLjIxNDFDMTIuNzQ0NSAyOS40NDk0IDEzLjA2MzEgMjkuMDY3IDEzLjQyNTkgMjguNzU4MUMxNC4xODY2IDI4LjExMDMgMTUuMTA3NCAyNy42NzkgMTYuMDkxOSAyNy41MDk0QzE2LjU2MTUgMjcuNDI4NCAxNy4wNTkzIDI3LjQyODQgMTguMDU0OCAyNy40Mjg0SDIxLjk0NTJDMjIuOTQwNyAyNy40Mjg0IDIzLjQzODQgMjcuNDI4NCAyMy45MDgxIDI3LjUwOTRDMjQuODkyNiAyNy42NzkgMjUuODEzNCAyOC4xMTAzIDI2LjU3NCAyOC43NTgxQzI2LjkzNjggMjkuMDY3IDI3LjI1NTUgMjkuNDQ5NCAyNy44OTI4IDMwLjIxNDFMMjguNTg5NSAzMS4wNTAyQzI5LjYxOSAzMi4yODU2IDMxLjE0NCAzMi45OTk4IDMyLjc1MiAzMi45OTk4QzM1Ljg5NjYgMzIuOTk5OCAzOC4zODA3IDMwLjMzMTkgMzguMTU2NyAyNy4xOTU0TDM3LjY5OTggMjAuNzk4NUMzNy4zNTI1IDE1LjkzNjIgMzcuMTc4OCAxMy41MDUgMzYuMTIxMSAxMS42NjI1QzM1LjE4OTcgMTAuMDQwMyAzMy43OTAyIDguNzM3MTYgMzIuMTA1OCA3LjkyMzc5QzMwLjE5MjYgNyAyNy43NTUyIDcgMjIuODgwNSA3WiIgZmlsbD0iIzQwRjJDNyIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPGNpcmNsZSBjeD0iMTIuMjAwMSIgY3k9IjE3Ljc3MTMiIHI9IjUuODcxMzkiIGZpbGw9IndoaXRlIiBmaWxsLW9wYWNpdHk9IjAuMzYiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMC42Ii8+CjxjaXJjbGUgY3g9IjI4LjkxNDIiIGN5PSIxNy43NzEzIiByPSI1Ljg3MTM5IiBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjM2IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjAuNiIvPgo8cmVjdCB4PSIxMS4wODU4IiB5PSIxMy4zMTQ1IiB3aWR0aD0iMi4yMjg1NiIgaGVpZ2h0PSI4LjkxNDIzIiByeD0iMS4xMTQyOCIgZmlsbD0iYmxhY2siLz4KPHJlY3QgeD0iMTYuNjU3MiIgeT0iMTYuNjU3MiIgd2lkdGg9IjIuMjI4NTYiIGhlaWdodD0iOC45MTQyMyIgcng9IjEuMTE0MjgiIHRyYW5zZm9ybT0icm90YXRlKDkwIDE2LjY1NzIgMTYuNjU3MikiIGZpbGw9ImJsYWNrIi8+CjxjaXJjbGUgY3g9IjI4LjkxNDIiIGN5PSIxNC40Mjg3IiByPSIxLjQxNDI4IiBmaWxsPSIjRkZDNzAwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjAuNiIvPgo8Y2lyY2xlIGN4PSIyOC45MTQyIiBjeT0iMjEuMTE0MyIgcj0iMS40MTQyOCIgZmlsbD0iIzM5QzY2QyIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIwLjYiLz4KPGNpcmNsZSBjeD0iMjUuNTcxNCIgY3k9IjE3Ljc3MTUiIHI9IjEuNDE0MjgiIGZpbGw9IiMyRDhDRkYiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMC42Ii8+CjxjaXJjbGUgY3g9IjMyLjI1NyIgY3k9IjE3Ljc3MTUiIHI9IjEuNDE0MjgiIGZpbGw9IiNGQTU5NEMiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMC42Ii8+Cjwvc3ZnPgo=",
+  })
 
-var langStatus = document.createTextNode("");
-document.getElementById('lang-status').appendChild(langStatus);
+  var incompleteLangs = [];
+  var newOnlyLangs = [];
+  [].slice.apply(chooseLang.options).forEach(function (el) {
+    var text = el.textContent;
+    if (/\*/.test(text)) incompleteLangs.push(el.value);
+    if (/\†/.test(text)) newOnlyLangs.push(el.value);
+  });
 
-chooseLang.addEventListener('change', function(e) {
-  obj.lang = chooseLang.value;
-  console.log(obj);
-  objUpdated();
-});
+  var langStatus = document.createTextNode("");
+  document.getElementById('lang-status').appendChild(langStatus);
+
+  chooseLang.addEventListener('change', function (e) {
+    obj.lang = chooseLang.value;
+    console.log(obj);
+    objUpdated();
+  });
 
 
-/* Extract hash from location. Returns true if changed */
-function extractHash() {
-  var newObj = decodeHash();
-  if (!newObj || !newObj.script) {
-    newObj = {
-      script: "",
-      lang: obj.lang,
-    };
-  }
-
-  if (newObj.lang !== obj.lang || newObj.script !== obj.script) {
-    obj = newObj;
-    return true;
-  }
-  return false;
-}
-
-function decodeHash() {
-  var hash = location.href.split('#')[1];
-  if (!hash) return;
-
-  if (!/^\?/.test(hash)) {
-    return {
-      script: decodeURIComponent(hash),
-    };
-  } else {
-    var newObj = {};
-    var parts = hash.slice(1).split('&');
-    parts.forEach(function(part) {
-      var match = /^(.*)=(.*)$/.exec(part);
-      if (!match) return;
-      var key = decodeURIComponent(match[1]);
-      var value = decodeURIComponent(match[2]);
-      if (key === "lang" || key === "script") {
-        newObj[key] = value;
-      }
-    });
-    return newObj;
-  }
-}
-
-function download(filename, content) {
-  const elem = document.createElement("a");
-  elem.hidden = true;
-  elem.download = filename;
-  elem.href = content;
-  document.body.appendChild(elem);
-  elem.click();
-  document.body.removeChild(elem);
-}
-
-function objUpdated() {
-  // set hash
-  if (obj.lang) {
-    location.hash = ('#?lang=' + encodeURIComponent(obj.lang) +
-                     '&script='+encodeURIComponent(obj.script));
-  } else if (obj.script) {
-    location.hash = '#'+encodeURIComponent(obj.script);
-  } else {
-    if (!(location.hash == '' || location.hash == '#')) {
-      location.hash = '#';
+  /* Extract hash from location. Returns true if changed */
+  function extractHash() {
+    var newObj = decodeHash();
+    if (!newObj || !newObj.script) {
+      newObj = {
+        script: "",
+        lang: obj.lang,
+      };
     }
+
+    if (newObj.lang !== obj.lang || newObj.script !== obj.script) {
+      obj = newObj;
+      return true;
+    }
+    return false;
   }
-  // TODO: don't spam history on every keypress!
 
-  /*
-  // renderMatching API example
-  preview.innerHTML = obj.script;
-  scratchblocks.renderMatching('pre.blocks', {
-    languages: ['en', obj.lang],
-    render: function(doc, cb) {
-      doc.render(function(svg) {
-        var el = document.createElement('div');
-        el.appendChild(svg);
+  function decodeHash() {
+    var hash = location.href.split('#')[1];
+    if (!hash) return;
 
-        var link = exportSVGLink = document.createElement('a');
-        exportLink.href = scratchblocks.exportSVG(svg);
-        exportLink.setAttribute('download', 'scratchblocks.svg');
-        exportLink.textContent = "Export SVG";
-        exportLink.className = 'export-link';
-        var p = document.createElement('p');
-        p.appendChild(exportLink);
-        el.appendChild(p);
-
-        cb(el);
+    if (!/^\?/.test(hash)) {
+      return {
+        script: decodeURIComponent(hash),
+      };
+    } else {
+      var newObj = {};
+      var parts = hash.slice(1).split('&');
+      parts.forEach(function (part) {
+        var match = /^(.*)=(.*)$/.exec(part);
+        if (!match) return;
+        var key = decodeURIComponent(match[1]);
+        var value = decodeURIComponent(match[2]);
+        if (key === "lang" || key === "script") {
+          newObj[key] = value;
+        }
       });
-    },
-  });
-  */
-
-  var doc = window.doc = scratchblocks.parse(obj.script, {
-    languages: obj.lang ? ['en', obj.lang] : ['en'],
-  });
-
-  // doc.translate(scratchblocks.allLanguages['de']);
-
-  // var doc = window.doc = scratchblocks.fromJSON({
-  //   scripts: eval(obj.script),
-  // });
-
-  console.log(scratchblocks.stringify(doc));
-  var docView3HighContrast = scratchblocks.newView(doc, {
-    style: "scratch3-high-contrast",
-    scale: 0.675
-  });
-  var docView3 = scratchblocks.newView(doc, {
-    style: "scratch3",
-    scale: 0.675
-  });
-  var docView2 = scratchblocks.newView(doc, {
-    style: "scratch2",
-    scale: 1
-  });
-  var svg3HighContrast = docView3HighContrast.render();
-  var svg3 = docView3.render();
-  var svg2 = docView2.render();
-  preview.innerHTML = "";
-  preview.appendChild(svg3HighContrast);
-  preview.appendChild(svg3);
-  preview.appendChild(svg2);
-  svg3HighContrast.classList.add("scratch3");
-  svg3.classList.add("scratch3")
-  // Need to add manually if calling View#render (folks, this is why you shouldn't use private API!)
-  svg3HighContrast.classList.add("scratchblocks-style-scratch3-high-contrast")
-  svg3.classList.add("scratchblocks-style-scratch3")
-
-  const getSelectedView = () => {
-    switch (exportDropdown.value) {
-      case "3-high-contrast":
-        return docView3HighContrast;
-      case "2":
-        return docView2;
-      default:
-        return docView3;
+      return newObj;
     }
   }
 
-  // add export link
-  setTimeout(function() {
-    if (!exportSVGLink) exportSVGLink = document.createElement('a');
-    exportSVGLink.onclick = () => download("scratchblocks.svg", getSelectedView().exportSVG());
-    exportSVGLink.textContent = "Export SVG";
-    exportSVGLink.className = 'export-link';
-    if (!exportSVGLink.isConnected) document.body.appendChild(exportSVGLink);
-
-    if (!exportPNGLink) exportPNGLink = document.createElement('a');
-    exportPNGLink.onclick = () => getSelectedView().exportPNG((url) => download("scratchblocks.png", url));
-    exportPNGLink.textContent = "Export PNG";
-    exportPNGLink.className = 'export-link';
-    if (!exportPNGLink.isConnected) document.body.appendChild(exportPNGLink);
-
-    if (!exportDropdown) {
-      exportDropdown = document.createElement("select");
-      exportDropdown.appendChild(Object.assign(document.createElement("option"), {
-        label: "3.0 (original)",
-        value: "3",
-        selected: true,
-      }));
-      exportDropdown.appendChild(Object.assign(document.createElement("option"), {
-        label: "3.0 (high contrast)",
-        value: "3-high-contrast",
-      }));
-      exportDropdown.appendChild(Object.assign(document.createElement("option"), {
-        label: "2.0",
-        value: "2",
-      }));
-      exportDropdown.className = 'export-link';
-    }
-    if (!exportDropdown.isConnected) document.body.appendChild(exportDropdown);
-  }, 0);
-
-  // update language dropdown
-  var lang = scratchblocks.allLanguages[obj.lang]
-  langStatus.textContent = lang ? `${lang.percentTranslated}%` : "";
-}
-
-setInterval(function() {
-  if (extractHash()) {
-    updatedFromHash();
+  function download(filename, content) {
+    const elem = document.createElement("a");
+    elem.hidden = true;
+    elem.download = filename;
+    elem.href = content;
+    document.body.appendChild(elem);
+    elem.click();
+    document.body.removeChild(elem);
   }
-}, 200);
 
-function updatedFromHash() {
-  editor.value = obj.script;
-  objUpdated();
-  chooseLang.value = obj.lang || "";
-}
+  function objUpdated() {
+    // set hash
+    if (obj.lang) {
+      location.hash = ('#?lang=' + encodeURIComponent(obj.lang) +
+        '&script=' + encodeURIComponent(obj.script));
+    } else if (obj.script) {
+      location.hash = '#' + encodeURIComponent(obj.script);
+    } else {
+      if (!(location.hash == '' || location.hash == '#')) {
+        location.hash = '#';
+      }
+    }
+    // TODO: don't spam history on every keypress!
 
-updatedFromHash();
+    /*
+    // renderMatching API example
+    preview.innerHTML = obj.script;
+    scratchblocks.renderMatching('pre.blocks', {
+      languages: ['en', obj.lang],
+      render: function(doc, cb) {
+        doc.render(function(svg) {
+          var el = document.createElement('div');
+          el.appendChild(svg);
+  
+          var link = exportSVGLink = document.createElement('a');
+          exportLink.href = scratchblocks.exportSVG(svg);
+          exportLink.setAttribute('download', 'scratchblocks.svg');
+          exportLink.textContent = "Export SVG";
+          exportLink.className = 'export-link';
+          var p = document.createElement('p');
+          p.appendChild(exportLink);
+          el.appendChild(p);
+  
+          cb(el);
+        });
+      },
+    });
+    */
+
+    var doc = window.doc = scratchblocks.parse(obj.script, {
+      languages: obj.lang ? ['en', obj.lang] : ['en'],
+    });
+
+    // doc.translate(scratchblocks.allLanguages['de']);
+
+    // var doc = window.doc = scratchblocks.fromJSON({
+    //   scripts: eval(obj.script),
+    // });
+
+    console.log(scratchblocks.stringify(doc));
+    var docView3HighContrast = scratchblocks.newView(doc, {
+      style: "scratch3-high-contrast",
+      scale: 0.675
+    });
+    var docView3 = scratchblocks.newView(doc, {
+      style: "scratch3",
+      scale: 0.675
+    });
+    var docView2 = scratchblocks.newView(doc, {
+      style: "scratch2",
+      scale: 1
+    });
+    var svg3HighContrast = docView3HighContrast.render();
+    var svg3 = docView3.render();
+    var svg2 = docView2.render();
+    preview.innerHTML = "";
+    preview.appendChild(svg3HighContrast);
+    preview.appendChild(svg3);
+    preview.appendChild(svg2);
+    svg3HighContrast.classList.add("scratch3");
+    svg3.classList.add("scratch3")
+    // Need to add manually if calling View#render (folks, this is why you shouldn't use private API!)
+    svg3HighContrast.classList.add("scratchblocks-style-scratch3-high-contrast")
+    svg3.classList.add("scratchblocks-style-scratch3")
+
+    const getSelectedView = () => {
+      switch (exportDropdown.value) {
+        case "3-high-contrast":
+          return docView3HighContrast;
+        case "2":
+          return docView2;
+        default:
+          return docView3;
+      }
+    }
+
+    // add export link
+    setTimeout(function () {
+      if (!exportSVGLink) exportSVGLink = document.createElement('a');
+      exportSVGLink.onclick = () => download("scratchblocks.svg", getSelectedView().exportSVG());
+      exportSVGLink.textContent = "Export SVG";
+      exportSVGLink.className = 'export-link';
+      if (!exportSVGLink.isConnected) document.body.appendChild(exportSVGLink);
+
+      if (!exportPNGLink) exportPNGLink = document.createElement('a');
+      exportPNGLink.onclick = () => getSelectedView().exportPNG((url) => download("scratchblocks.png", url));
+      exportPNGLink.textContent = "Export PNG";
+      exportPNGLink.className = 'export-link';
+      if (!exportPNGLink.isConnected) document.body.appendChild(exportPNGLink);
+
+      if (!exportDropdown) {
+        exportDropdown = document.createElement("select");
+        exportDropdown.appendChild(Object.assign(document.createElement("option"), {
+          label: "3.0 (original)",
+          value: "3",
+          selected: true,
+        }));
+        exportDropdown.appendChild(Object.assign(document.createElement("option"), {
+          label: "3.0 (high contrast)",
+          value: "3-high-contrast",
+        }));
+        exportDropdown.appendChild(Object.assign(document.createElement("option"), {
+          label: "2.0",
+          value: "2",
+        }));
+        exportDropdown.className = 'export-link';
+      }
+      if (!exportDropdown.isConnected) document.body.appendChild(exportDropdown);
+    }, 0);
+
+    // update language dropdown
+    var lang = scratchblocks.allLanguages[obj.lang]
+    langStatus.textContent = lang ? `${lang.percentTranslated}%` : "";
+  }
+
+  setInterval(function () {
+    if (extractHash()) {
+      updatedFromHash();
+    }
+  }, 200);
+
+  function updatedFromHash() {
+    editor.value = obj.script;
+    objUpdated();
+    chooseLang.value = obj.lang || "";
+  }
+
+  updatedFromHash();
 
 </script>
 
 <script>
-function showDiff(e) {
-  document.body.classList[e.ctrlKey ? 'add' : 'remove']('cmp');
-  document.body.classList[e.altKey  ? 'add' : 'remove']('diff');
-}
-document.addEventListener('keydown', showDiff);
-document.addEventListener('keyup', showDiff);
+  function showDiff(e) {
+    document.body.classList[e.ctrlKey ? 'add' : 'remove']('cmp');
+    document.body.classList[e.altKey ? 'add' : 'remove']('diff');
+  }
+  document.addEventListener('keydown', showDiff);
+  document.addEventListener('keyup', showDiff);
 
 </script>
-

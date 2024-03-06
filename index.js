@@ -17,19 +17,37 @@ import {
   Comment,
   Script,
   Document,
+  movedExtensions,
+  extensions,
 } from "./syntax/index.js"
 import * as scratch2 from "./scratch2/index.js"
 import * as scratch3 from "./scratch3/index.js"
+import Style from "./scratch3/style.js"
+import { overrideCategories } from "./syntax/blocks.js"
 
 export default function (window) {
   const document = window.document
+  let styles = [];
 
   scratch2.init(window)
   scratch3.init(window)
 
   function appendStyles() {
-    document.head.appendChild(scratch2.makeStyle())
-    document.head.appendChild(scratch3.makeStyle())
+    styles.forEach(i => document.head.removeChild(i))
+    const newStyles = [scratch2.makeStyle(), scratch3.makeStyle()]
+    newStyles.forEach(i => document.head.appendChild(i))
+    styles = newStyles;
+  }
+
+  function appendExtension(info) {
+    if (!extensions[info.id]) {
+      movedExtensions[info.id] = info.id;
+      extensions[info.id] = info.id;
+      overrideCategories.push(info.id);
+
+      Style.setExtensionIcons(info);
+      appendStyles();
+    }
   }
 
   function newView(doc, options) {
@@ -159,6 +177,7 @@ export default function (window) {
     newView: newView,
     read: readCode,
     parse: parse,
+    appendExtension: appendExtension,
     replace: replace,
     render: render,
     renderMatching: renderMatching,

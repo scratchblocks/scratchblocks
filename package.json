@@ -1,20 +1,27 @@
 {
-  "name": "scratchblocks",
-  "version": "3.6.4",
+  "name": "gandiblocks",
+  "version": "1.0.0-beta.0",
   "description": "Make pictures of Scratch blocks from text.",
   "license": "MIT",
   "author": "Tim Radvan",
   "homepage": "https://scratchblocks.github.io/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/scratchblocks/scratchblocks.git"
+    "url": "git+https://github.com/Gandi-IDE/gandiblocks.git"
   },
   "bugs": {
-    "url": "https://github.com/scratchblocks/scratchblocks/issues"
+    "url": "https://github.com/Gandi-IDE/gandiblocks/issues"
   },
+  "files": [
+    "build",
+    "locales"
+  ],
   "type": "module",
   "main": "build/scratchblocks.min.js",
   "module": "build/scratchblocks.min.es.js",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.com/"
+  },
   "directories": {
     "test": "tests"
   },
