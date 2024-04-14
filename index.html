@@ -243,9 +243,6 @@ function objUpdated() {
   preview.appendChild(svg2);
   svg3HighContrast.classList.add("scratch3");
   svg3.classList.add("scratch3")
-  // Need to add manually if calling View#render (folks, this is why you shouldn't use private API!)
-  svg3HighContrast.classList.add("scratchblocks-style-scratch3-high-contrast")
-  svg3.classList.add("scratchblocks-style-scratch3")
 
   const getSelectedView = () => {
     switch (exportDropdown.value) {

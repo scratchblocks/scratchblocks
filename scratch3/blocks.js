@@ -22,6 +22,16 @@ const {
   iconName,
 } = style
 
+const classNamePrefix = iconStyle => {
+  if (iconStyle == null) throw new Error("oh no")
+  switch (iconStyle) {
+    case "high-contrast":
+      return "sb3hc"
+    default:
+      return "sb3"
+  }
+}
+
 export class LabelView {
   constructor(label) {
     Object.assign(this, label)
@@ -44,11 +54,11 @@ export class LabelView {
     return this.metrics.width
   }
 
-  measure() {
+  measure(iconStyle) {
     const value = this.value
-    const cls = `sb3-${this.cls}`
+    const cls = `${classNamePrefix(iconStyle)}-${this.cls}`
     this.el = SVG.text(0, 13, value, {
-      class: `sb3-label ${cls}`,
+      class: `${classNamePrefix(iconStyle)}-label ${cls}`,
     })
 
     let cache = LabelView.metricsCache[cls]
@@ -135,12 +145,12 @@ export class LineView {
     return true
   }
 
-  measure() {}
+  measureiconStyle() {}
 
-  draw(_iconStyle, parent) {
+  draw(iconStyle, parent) {
     const category = parent.info.category
     return SVG.el("line", {
-      class: `sb3-${category}-line`,
+      class: `${classNamePrefix(iconStyle)}-${category}-line`,
       "stroke-linecap": "round",
       x1: 0,
       y1: 0,
@@ -167,9 +177,9 @@ export class InputView {
     return true
   }
 
-  measure() {
+  measure(iconStyle) {
     if (this.hasLabel) {
-      this.label.measure()
+      this.label.measure(iconStyle)
     }
   }
 
@@ -214,8 +224,12 @@ export class InputView {
     const el = InputView.shapes[this.shape](w, h)
     SVG.setProps(el, {
       class: `${
-        this.isColor ? "" : `sb3-${parent.info.category}`
-      } sb3-input sb3-input-${this.shape}`,
+        this.isColor
+          ? ""
+          : `${classNamePrefix(iconStyle)}-${parent.info.category}`
+      } ${classNamePrefix(iconStyle)}-input ${classNamePrefix(
+        iconStyle,
+      )}-input-${this.shape}`,
     })
 
     if (this.isColor) {
@@ -231,7 +245,9 @@ export class InputView {
         })
       }
     } else if (this.shape === "number-dropdown") {
-      el.classList.add(`sb3-${parent.info.category}-alt`)
+      el.classList.add(
+        `${classNamePrefix(iconStyle)}-${parent.info.category}-alt`,
+      )
 
       // custom colors
       if (parent.info.color) {
@@ -241,8 +257,12 @@ export class InputView {
         })
       }
     } else if (this.shape === "boolean") {
-      el.classList.remove(`sb3-${parent.info.category}`)
-      el.classList.add(`sb3-${parent.info.category}-dark`)
+      el.classList.remove(
+        `${classNamePrefix(iconStyle)}-${parent.info.category}`,
+      )
+      el.classList.add(
+        `${classNamePrefix(iconStyle)}-${parent.info.category}-dark`,
+      )
 
       // custom colors
       if (parent.info.color) {
@@ -307,14 +327,14 @@ class BlockView {
     return true
   }
 
-  measure() {
+  measure(iconStyle) {
     for (const child of this.children) {
       if (child.measure) {
-        child.measure()
+        child.measure(iconStyle)
       }
     }
     if (this.comment) {
-      this.comment.measure()
+      this.comment.measure(iconStyle)
     }
   }
 
@@ -340,14 +360,16 @@ class BlockView {
     // mouths
     if (lines.length > 1) {
       return SVG.mouthRect(w, h, this.isFinal, lines, {
-        class: `sb3-${this.info.category}`,
+        class: `${classNamePrefix(iconStyle)}-${this.info.category}`,
       })
     }
 
     // outlines
     if (this.info.shape === "outline") {
       return SVG.setProps(SVG.stackRect(w, h), {
-        class: `sb3-${this.info.category} sb3-${this.info.category}-alt`,
+        class: `${classNamePrefix(iconStyle)}-${
+          this.info.category
+        } ${classNamePrefix(iconStyle)}-${this.info.category}-alt`,
       })
     }
 
@@ -356,7 +378,7 @@ class BlockView {
       const child = this.children[0]
       if (child && (child.isInput || child.isBlock || child.isScript)) {
         return SVG.roundRect(w, h, {
-          class: `sb3-${this.info.category}`,
+          class: `${classNamePrefix(iconStyle)}-${this.info.category}`,
         })
       }
     }
@@ -366,7 +388,7 @@ class BlockView {
       throw new Error(`no shape func: ${this.info.shape}`)
     }
     return func(w, h, {
-      class: `sb3-${this.info.category}`,
+      class: `${classNamePrefix(iconStyle)}-${this.info.category}`,
     })
   }
 
@@ -640,8 +662,8 @@ export class CommentView {
     return 20
   }
 
-  measure() {
-    this.label.measure()
+  measure(iconStyle) {
+    this.label.measure(iconStyle)
   }
 
   draw(iconStyle) {
@@ -651,7 +673,7 @@ export class CommentView {
     return SVG.group([
       SVG.commentLine(this.hasBlock ? CommentView.lineLength : 0, 6),
       SVG.commentRect(this.width, this.height, {
-        class: "sb3-comment",
+        class: "${classNamePrefix(iconStyle)}-comment",
       }),
       SVG.move(8, 4, labelEl),
     ])
@@ -672,11 +694,11 @@ class GlowView {
     return true
   }
 
-  measure() {
-    this.child.measure()
+  measure(iconStyle) {
+    this.child.measure(iconStyle)
   }
 
-  drawSelf() {
+  drawSelf(iconStyle) {
     const c = this.child
     let el
     const w = this.width
@@ -693,7 +715,8 @@ class GlowView {
       el = c.drawSelf(w, h, [])
     }
     return SVG.setProps(el, {
-      class: "sb3-diff sb3-diff-ins",
+      class:
+        "${classNamePrefix(iconStyle)}-diff ${classNamePrefix(iconStyle)}-diff-ins",
     })
   }
   // TODO how can we always raise Glows above their parents?
@@ -706,7 +729,7 @@ class GlowView {
     this.height = (c.isBlock && c.firstLine.height) || c.height
 
     // encircle
-    return SVG.group([el, this.drawSelf()])
+    return SVG.group([el, this.drawSelf(iconStyle)])
   }
 }
 
@@ -722,9 +745,9 @@ class ScriptView {
     return true
   }
 
-  measure() {
+  measure(iconStyle) {
     for (const block of this.blocks) {
-      block.measure()
+      block.measure(iconStyle)
     }
   }
 
@@ -783,9 +806,9 @@ class DocumentView {
     this.iconStyle = options.style.replace("scratch3-", "")
   }
 
-  measure() {
+  measure(iconStyle) {
     this.scripts.forEach(script => {
-      script.measure()
+      script.measure(iconStyle)
     })
   }
 
@@ -795,7 +818,7 @@ class DocumentView {
     }
 
     // measure strings
-    this.measure()
+    this.measure(this.iconStyle)
 
     // TODO: separate layout + render steps.
     // render each script

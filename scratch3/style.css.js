@@ -44,52 +44,52 @@ const commonOverride = `
   word-spacing: 0;
 }`
 
-const createRule = (category, name, style) => `
-svg${name} .sb3-${category} {
+const createRule = (category, prefix, style) => `
+.${prefix}-${category} {
   fill: ${style[category + "Primary"]};
   stroke: ${style[category + "Tertiary"]};
 }
-svg${name} .sb3-${category}-alt {
+.${prefix}-${category}-alt {
   fill: ${style[category + "Secondary"]};
 }
-svg${name} .sb3-${category}-dark {
+.${prefix}-${category}-dark {
   fill: ${style[category + "Tertiary"]};
 }
 `
 
-const create = (name, style) => `
-${createRule("motion", name, style)}
-${createRule("looks", name, style)}
-${createRule("sound", name, style)}
-${createRule("control", name, style)}
-${createRule("events", name, style)}
-${createRule("sensing", name, style)}
-${createRule("operators", name, style)}
-${createRule("variables", name, style)}
-${createRule("list", name, style)}
-${createRule("custom", name, style)}
-${createRule("extension", name, style)}
-${createRule("obsolete", name, style)}
-${createRule("grey", name, style)}
+const create = (prefix, style) => `
+${createRule("motion", prefix, style)}
+${createRule("looks", prefix, style)}
+${createRule("sound", prefix, style)}
+${createRule("control", prefix, style)}
+${createRule("events", prefix, style)}
+${createRule("sensing", prefix, style)}
+${createRule("operators", prefix, style)}
+${createRule("variables", prefix, style)}
+${createRule("list", prefix, style)}
+${createRule("custom", prefix, style)}
+${createRule("extension", prefix, style)}
+${createRule("obsolete", prefix, style)}
+${createRule("grey", prefix, style)}
 
-svg${name} .sb3-label {
+.${prefix}-label {
   fill: ${style.label};
 }
 
-svg${name} .sb3-input-color {
+.${prefix}-input-color {
   stroke: ${style.inputColorStroke};
 }
 
-svg${name} .sb3-input-number,
-svg${name} .sb3-input-string {
+.${prefix}-input-number,
+.${prefix}-input-string {
   fill: ${style.inputFill};
 }
-svg${name} .sb3-literal-number,
-svg${name} .sb3-literal-string {
+.${prefix}-literal-number,
+.${prefix}-literal-string {
   fill: ${style.literal};
 }
 
-svg${name} .sb3-custom-arg {
+.${prefix}-custom-arg {
   fill: ${style.customPrimary};
   stroke: ${style.customTertiary};
 }
@@ -221,6 +221,6 @@ const highContrastStyle = {
 }
 
 export default common +
-  create("", originalStyle) +
-  create(".scratchblocks-style-scratch3-high-contrast", highContrastStyle) +
+  create("sb3", originalStyle) +
+  create("sb3hc", highContrastStyle) +
   commonOverride
