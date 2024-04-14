@@ -773,7 +773,7 @@ export default [
     category: "list",
   },
   {
-    id: "SENSING_OF_XPOSITION",
+    id: "MOTION_XPOSITION",
     selector: "xpos",
     spec: "x position",
     inputs: [],
@@ -781,7 +781,7 @@ export default [
     category: "motion",
   },
   {
-    id: "SENSING_OF_YPOSITION",
+    id: "MOTION_YPOSITION",
     selector: "ypos",
     spec: "y position",
     inputs: [],
@@ -789,7 +789,7 @@ export default [
     category: "motion",
   },
   {
-    id: "SENSING_OF_DIRECTION",
+    id: "MOTION_DIRECTION",
     selector: "heading",
     spec: "direction",
     inputs: [],
@@ -797,7 +797,7 @@ export default [
     category: "motion",
   },
   {
-    id: "SENSING_OF_COSTUMENUMBER",
+    id: "LOOKS_COSTUMENUMBERNAME", // TODO
     selector: "costumeIndex",
     spec: "costume #",
     inputs: [],
@@ -813,7 +813,7 @@ export default [
     category: "looks",
   },
   {
-    id: "SENSING_OF_SIZE",
+    id: "LOOKS_SIZE",
     selector: "scale",
     spec: "size",
     inputs: [],
@@ -821,7 +821,7 @@ export default [
     category: "looks",
   },
   {
-    id: "SENSING_OF_BACKDROPNAME",
+    id: "LOOKS_BACKDROPNUMBERNAME", // TODO
     selector: "sceneName",
     spec: "backdrop name",
     inputs: [],
@@ -836,7 +836,7 @@ export default [
     category: "looks",
   },
   {
-    id: "SENSING_OF_BACKDROPNUMBER",
+    id: "LOOKS_BACKDROPNUMBERNAME",
     selector: "backgroundIndex",
     spec: "backdrop #",
     inputs: [],
