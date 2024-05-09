@@ -140,7 +140,7 @@ export class LineView {
   draw(_iconStyle, parent) {
     const category = parent.info.category
     return SVG.el("line", {
-      class: `sb3-${category}-line`,
+      class: `sb3-${category}`,
       "stroke-linecap": "round",
       x1: 0,
       y1: 0,
