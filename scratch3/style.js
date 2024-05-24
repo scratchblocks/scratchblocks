@@ -24,7 +24,6 @@ export default class Style {
   }
 
   static setExtensionIcons(info) {
-    console.log('setExtensionIcons', info);
     cssContent =
     ` .sb3-${info.id} {fill: ${info.colour};stroke: ${info.colourSecondary};}
       .sb3-${info.id}-line {stroke: #0DA57A;}
