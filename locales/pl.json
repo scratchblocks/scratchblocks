@@ -31,7 +31,7 @@
     "LOOKS_CHANGESIZEBY": "zmień rozmiar o %1",
     "LOOKS_SETSIZETO": "ustaw rozmiar na %1 %",
     "LOOKS_GOTOFRONTBACK": "przesuń na %1",
-    "LOOKS_GOFORWARDBACKWARDLAYERS": "przesuń %1 o %2 warstw",
+    "LOOKS_GOFORWARDBACKWARDLAYERS": "przesuń do %1 o %2 warstw",
     "SOUND_PLAY": "zagraj dźwięk %1",
     "SOUND_CHANGEEFFECTBY": "zmień efekt %1 o %2",
     "SOUND_SETEFFECTO": "ustaw efekt %1 na %2",
