@@ -675,7 +675,7 @@ class GlowView {
     this.child.measure()
   }
 
-  drawSelf() {
+  drawSelf(iconStyle) {
     const c = this.child
     let el
     const w = this.width
@@ -689,7 +689,7 @@ class GlowView {
         el = SVG.stackRect(w, h)
       }
     } else {
-      el = c.drawSelf("", w, h, [])
+      el = c.drawSelf(iconStyle, w, h, [])
     }
     return SVG.setProps(el, {
       class: "sb3-diff sb3-diff-ins",
@@ -705,7 +705,7 @@ class GlowView {
     this.height = (c.isBlock && c.firstLine.height) || c.height
 
     // encircle
-    return SVG.group([el, this.drawSelf()])
+    return SVG.group([el, this.drawSelf(iconStyle)])
   }
 }
 
