@@ -605,7 +605,7 @@ class BlockView {
         objects.push(SVG.move(x, (line.y + y) | 0, child.el))
       }
     }
-
+    
     const el = this.drawSelf(iconStyle, innerWidth, this.height, lines)
     objects.splice(0, 0, el)
     if (this.info.color) {
@@ -689,7 +689,7 @@ class GlowView {
         el = SVG.stackRect(w, h)
       }
     } else {
-      el = c.drawSelf(w, h, [])
+      el = c.drawSelf('', w, h, [])
     }
     return SVG.setProps(el, {
       class: "sb3-diff sb3-diff-ins",
