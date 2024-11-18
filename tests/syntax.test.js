@@ -832,4 +832,10 @@ describe("define hats", () => {
   })
 })
 
+describe("misc regression test", () => {
+  test("#534", () => {
+    expect(parseBlock("::+").info).toMatchObject({ category: "obsolete" })
+  })
+})
+
 // TODO test { } handling
