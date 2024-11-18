@@ -1,11 +1,11 @@
 import { parse, loadLanguages, allLanguages } from "../syntax"
 
-import de from "../locales/de.json" with { "type": "json" }
-import ja from "../locales/ja.json" with { "type": "json" }
-import ko from "../locales/ko.json" with { "type": "json" }
-import pt_br from "../locales/pt-br.json" with { "type": "json" }
-import rap from "../locales/rap.json" with { "type": "json" }
-import uz from "../locales/uz.json" with { "type": "json" }
+import de from "../locales/de.json" with { type: "json" }
+import ja from "../locales/ja.json" with { type: "json" }
+import ko from "../locales/ko.json" with { type: "json" }
+import pt_br from "../locales/pt-br.json" with { type: "json" }
+import rap from "../locales/rap.json" with { type: "json" }
+import uz from "../locales/uz.json" with { type: "json" }
 
 loadLanguages({
   de,
