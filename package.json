@@ -37,13 +37,15 @@
     "@babel/plugin-syntax-import-assertions": "^7.26.0",
     "@babel/plugin-transform-object-assign": "^7.25.9",
     "@babel/preset-env": "^7.26.0",
+    "@eslint/js": "^9.15.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-terser": "^0.4.4",
     "cross-env": "^7.0.3",
     "csso": "^5.0.5",
-    "eslint": "^8.57.1",
+    "eslint": "^9.15.0",
     "express": "^4.21.1",
+    "globals": "^15.12.0",
     "jest": "^29.7.0",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
@@ -74,101 +76,5 @@
   },
   "jest": {
     "transform": {}
-  },
-  "eslintConfig": {
-    "extends": "eslint:recommended",
-    "env": {
-      "browser": true,
-      "es6": true,
-      "node": true
-    },
-    "parser": "@babel/eslint-parser",
-    "parserOptions": {
-      "requireConfigFile": false,
-      "sourceType": "module",
-      "ecmaVersion": 13
-    },
-    "rules": {
-      "curly": [
-        2,
-        "all"
-      ],
-      "default-case": 2,
-      "default-case-last": 2,
-      "dot-notation": 2,
-      "eqeqeq": [
-        2,
-        "always",
-        {
-          "null": "never"
-        }
-      ],
-      "no-constant-condition": [
-        2,
-        {
-          "checkLoops": false
-        }
-      ],
-      "no-constant-binary-expression": 2,
-      "no-duplicate-imports": 2,
-      "no-else-return": 2,
-      "no-lonely-if": 2,
-      "no-loop-func": 2,
-      "no-restricted-syntax": [
-        2,
-        {
-          "selector": "CallExpression > MemberExpression[property.name=\"join\"] > ArrayExpression",
-          "message": "Do not call Array.join on newly constructed array; use template string instead"
-        },
-        {
-          "selector": "BinaryExpression[left.callee.property.name=\"indexOf\"] > UnaryExpression[operator=\"-\"][argument.value=\"1\"]",
-          "message": "Use includes method instead of indexOf method"
-        }
-      ],
-      "no-self-compare": 2,
-      "no-sequences": 2,
-      "no-unreachable-loop": 2,
-      "no-unused-private-class-members": 2,
-      "no-unused-vars": [
-        2,
-        {
-          "argsIgnorePattern": "^_",
-          "varsIgnorePattern": "^_"
-        }
-      ],
-      "no-useless-concat": 2,
-      "no-var": 2,
-      "prefer-arrow-callback": 2,
-      "prefer-const": 2,
-      "prefer-object-spread": 2,
-      "prefer-rest-params": 2,
-      "prefer-spread": 2,
-      "yoda": [
-        2,
-        "never"
-      ]
-    },
-    "overrides": [
-      {
-        "files": [
-          "tests/*.js"
-        ],
-        "env": {
-          "jest": true
-        }
-      },
-      {
-        "files": [
-          "rollup.config.js"
-        ],
-        "parserOptions": {
-          "babelOptions": {
-            "plugins": [
-              "@babel/plugin-syntax-import-assertions"
-            ]
-          }
-        }
-      }
-    ]
   }
 }
