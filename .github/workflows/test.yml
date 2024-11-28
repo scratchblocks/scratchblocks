@@ -4,7 +4,7 @@ on: [push, pull_request]
 jobs:
   run:
     name: Run tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
@@ -16,11 +16,14 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "npm"
 
       - name: Install
         run: npm ci
+
+      - name: Disable AppArmor restriction
+        run: echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
 
       - name: Test
         run: npm run test

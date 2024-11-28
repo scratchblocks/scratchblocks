@@ -543,12 +543,12 @@ class BlockView {
       this.hasScript
         ? 160
         : this.isHat
-        ? 100 // Correct for Scratch 3.0.
-        : this.isCommand || this.isOutline
-        ? 64
-        : this.isReporter
-        ? 48
-        : 0,
+          ? 100 // Correct for Scratch 3.0.
+          : this.isCommand || this.isOutline
+            ? 64
+            : this.isReporter
+              ? 48
+              : 0,
       innerWidth,
     )
 

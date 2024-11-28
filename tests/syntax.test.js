@@ -1,11 +1,11 @@
 import { parse, loadLanguages, allLanguages } from "../syntax"
 
-import de from "../locales/de.json" assert { "type": "json" }
-import ja from "../locales/ja.json" assert { "type": "json" }
-import ko from "../locales/ko.json" assert { "type": "json" }
-import pt_br from "../locales/pt-br.json" assert { "type": "json" }
-import rap from "../locales/rap.json" assert { "type": "json" }
-import uz from "../locales/uz.json" assert { "type": "json" }
+import de from "../locales/de.json" with { type: "json" }
+import ja from "../locales/ja.json" with { type: "json" }
+import ko from "../locales/ko.json" with { type: "json" }
+import pt_br from "../locales/pt-br.json" with { type: "json" }
+import rap from "../locales/rap.json" with { type: "json" }
+import uz from "../locales/uz.json" with { type: "json" }
 
 loadLanguages({
   de,
@@ -829,6 +829,12 @@ describe("define hats", () => {
     expect(
       parseBlock("foo (bar) quxx ni belgilash", optionsFor("uz")).info,
     ).toMatchObject(defineHat)
+  })
+})
+
+describe("misc regression test", () => {
+  test("#534", () => {
+    expect(parseBlock("::+").info).toMatchObject({ category: "obsolete" })
   })
 })
 
