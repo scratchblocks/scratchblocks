@@ -123,10 +123,11 @@ export class Input {
             : text
   }
 
-  translate(_lang) {
+  translate(lang) {
     if (this.hasArrow) {
       const value = this.menu || this.value
-      this.value = value // TODO translate dropdown value
+      this.value = lang.dropdowns[value] || value
+      console.log(this.value)
       this.label = new Label(this.value, `literal-${this.shape}`)
     }
   }

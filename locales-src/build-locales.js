@@ -3,6 +3,7 @@ import path from "path"
 
 import scratchCommands from "../syntax/commands.js"
 import extraAliases from "./extra_aliases.js"
+import { dropdowns, getMakeyMakeySequenceDropdowns, getLanguageDropdowns } from "../syntax/dropdowns.js"
 
 import scratch_l10n from "scratch-l10n"
 // We can't `import {default}` since it's a reserved word.
@@ -35,6 +36,10 @@ const rawLocales = async () => {
   }
   return result
 }
+
+const languageNames = await readJSONFile(
+  "node_modules/scratch-translate-extension-languages/languages.json",
+)
 
 const soundEffects = ["SOUND_EFFECTS_PITCH", "SOUND_EFFECTS_PAN"]
 const microbitWhen = [
@@ -147,6 +152,15 @@ const buildLocale = (code, rawLocale) => {
     aliases: aliases || {},
 
     name: localeNames[code].name,
+  }
+
+  dropdowns.forEach(info => {
+    locale.dropdowns[info.id] = translateKey(rawLocale, info.id) || info.spec
+  })
+  locale.dropdowns = {
+    ...locale.dropdowns,
+    ...getMakeyMakeySequenceDropdowns(locale.dropdowns),
+    ...getLanguageDropdowns(code, languageNames, localeNames),
   }
 
   for (const command of scratchCommands) {

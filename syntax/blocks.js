@@ -36,6 +36,7 @@ export const rtlLanguages = ["ar", "ckb", "fa", "he"]
 
 // List of commands taken from Scratch
 import scratchCommands from "./commands.js"
+import { dropdowns as scratchDropdowns, getMakeyMakeySequenceDropdowns } from "./dropdowns.js"
 
 const inputNumberPat = /%([0-9]+)/
 export const inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
@@ -54,12 +55,7 @@ export function parseInputNumber(part) {
 export function parseSpec(spec) {
   const parts = spec.split(splitPat).filter(x => x)
   const inputs = parts.filter(p => inputPat.test(p))
-  return {
-    spec: spec,
-    parts: parts,
-    inputs: inputs,
-    hash: hashSpec(spec),
-  }
+  return { spec: spec, parts: parts, inputs: inputs, hash: hashSpec(spec) }
 }
 
 export function hashSpec(spec) {
@@ -253,9 +249,85 @@ export const english = {
 allBlocks.forEach(info => {
   english.commands[info.id] = info.spec
 })
-loadLanguages({
-  en: english,
+scratchDropdowns.forEach(info => {
+  english.dropdowns[info.id] = info.spec
 })
+english.dropdowns = {
+  ...english.dropdowns,
+  ...getMakeyMakeySequenceDropdowns(english.dropdowns),
+  "translate.language.am": "Amharic",
+  "translate.language.ar": "Arabic",
+  "translate.language.az": "Azerbaijani",
+  "translate.language.eu": "Basque",
+  "translate.language.bg": "Bulgarian",
+  "translate.language.ca": "Catalan",
+  "translate.language.zh-cn": "Chinese (Simplified)",
+  "translate.language.zh-tw": "Chinese (Traditional)",
+  "translate.language.hr": "Croatian",
+  "translate.language.cs": "Czech",
+  "translate.language.da": "Danish",
+  "translate.language.nl": "Dutch",
+  "translate.language.en": "English",
+  "translate.language.et": "Estonian",
+  "translate.language.fi": "Finnish",
+  "translate.language.fr": "French",
+  "translate.language.gl": "Galician",
+  "translate.language.de": "German",
+  "translate.language.el": "Greek",
+  "translate.language.he": "Hebrew",
+  "translate.language.hu": "Hungarian",
+  "translate.language.is": "Icelandic",
+  "translate.language.id": "Indonesian",
+  "translate.language.ga": "Irish",
+  "translate.language.it": "Italian",
+  "translate.language.ja": "Japanese",
+  "translate.language.ko": "Korean",
+  "translate.language.lv": "Latvian",
+  "translate.language.lt": "Lithuanian",
+  "translate.language.mi": "Maori",
+  "translate.language.nb": "Norwegian",
+  "translate.language.fa": "Persian",
+  "translate.language.pl": "Polish",
+  "translate.language.pt": "Portuguese",
+  "translate.language.ro": "Romanian",
+  "translate.language.ru": "Russian",
+  "translate.language.gd": "Scots Gaelic",
+  "translate.language.sr": "Serbian",
+  "translate.language.sk": "Slovak",
+  "translate.language.sl": "Slovenian",
+  "translate.language.es": "Spanish",
+  "translate.language.sv": "Swedish",
+  "translate.language.th": "Thai",
+  "translate.language.tr": "Turkish",
+  "translate.language.uk": "Ukrainian",
+  "translate.language.vi": "Vietnamese",
+  "translate.language.cy": "Welsh",
+  "translate.language.zu": "Zulu",
+  "text2speech.language.ar": "Arabic",
+  "text2speech.language.zh-cn": "Chinese (Mandarin)",
+  "text2speech.language.da": "Danish",
+  "text2speech.language.nl": "Dutch",
+  "text2speech.language.en": "English",
+  "text2speech.language.fr": "French",
+  "text2speech.language.de": "German",
+  "text2speech.language.hi": "Hindi",
+  "text2speech.language.is": "Icelandic",
+  "text2speech.language.it": "Italian",
+  "text2speech.language.ja": "Japanese",
+  "text2speech.language.ko": "Korean",
+  "text2speech.language.nb": "Norwegian",
+  "text2speech.language.pl": "Polish",
+  "text2speech.language.pt-br": "Portuguese (Brazilian)",
+  "text2speech.language.pt": "Portuguese",
+  "text2speech.language.ro": "Romanian",
+  "text2speech.language.ru": "Russian",
+  "text2speech.language.es": "Spanish",
+  "text2speech.language.es-419": "Spanish (Latin American)",
+  "text2speech.language.sv": "Swedish",
+  "text2speech.language.tr": "Turkish",
+  "text2speech.language.cy": "Welsh",
+}
+loadLanguages({ en: english })
 
 /*****************************************************************************/
 
