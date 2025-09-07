@@ -54,7 +54,7 @@
     "rollup": "^4.27.2",
     "rollup-plugin-license": "^3.5.3",
     "rollup-plugin-serve": "^3.0.0",
-    "scratch-l10n": "^4.0.31"
+    "scratch-l10n": "^6.0.35"
   },
   "keywords": [
     "scratch"

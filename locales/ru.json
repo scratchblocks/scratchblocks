@@ -137,7 +137,7 @@
     "OPERATORS_JOIN": "объединить %1 %2",
     "OPERATORS_LETTEROF": "буква %1 в %2",
     "OPERATORS_LENGTH": "длина %1",
-    "OPERATORS_MOD": "%1 mod %2",
+    "OPERATORS_MOD": "остаток от деления %1 на %2",
     "OPERATORS_ROUND": "округлить %1",
     "OPERATORS_MATHOP": "%1 от %2",
     "OPERATORS_CONTAINS": "%1 содержит %2?",
