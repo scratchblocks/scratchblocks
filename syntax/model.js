@@ -125,9 +125,9 @@ export class Input {
 
   translate(lang) {
     if (this.hasArrow) {
-      const value = this.menu || this.value
-      this.value = lang.dropdowns[value] || value
-      console.log(this.value)
+      if (this.menu) {
+        this.value = lang.dropdowns[this.menu]
+      }
       this.label = new Label(this.value, `literal-${this.shape}`)
     }
   }

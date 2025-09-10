@@ -236,7 +236,7 @@ function parseLines(code, languages) {
   }
 
   function makeMenu(shape, value) {
-    const menu = lookupDropdown(value, languages) || value
+    const menu = lookupDropdown(value, languages)
     return new Input(shape, value, menu)
   }
 
