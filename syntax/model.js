@@ -111,6 +111,7 @@ export class Input {
     // Order sensitive; see #439
     let text = (this.value ? String(this.value) : "")
       .replace(/([\]\\])/g, "\\$1")
+      .replace(/([()])/g, "\\$1")
       .replace(/ v$/, " \\v")
     if (this.hasArrow) {
       text += " v"
