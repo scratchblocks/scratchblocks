@@ -160,7 +160,10 @@ const buildLocale = (code, rawLocale) => {
 
   getDropdowns().forEach(info => {
     const translated = translateKey(rawLocale, info.id) || info.value
-    locale.dropdowns[info.id] = { value: translated, parents: info.parents || [] }
+    locale.dropdowns[info.id] = {
+      value: translated,
+      parents: info.parents || [],
+    }
   })
   locale.dropdowns = {
     ...locale.dropdowns,
