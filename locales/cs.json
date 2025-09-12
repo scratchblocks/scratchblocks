@@ -211,228 +211,1659 @@
     "boost.setLightHue": "nastav barvu světla na %1"
   },
   "dropdowns": {
-    "MOTION_GOTO_POINTER": "ukazatel myši",
-    "MOTION_GOTO_RANDOM": "náhodná pozice",
-    "MOTION_POINTTOWARDS_RANDOM": "náhodný směr",
-    "MOTION_SETROTATIONSTYLE_LEFTRIGHT": "vlevo-vpravo",
-    "MOTION_SETROTATIONSTYLE_DONTROTATE": "neotáčet",
-    "MOTION_SETROTATIONSTYLE_ALLAROUND": "dokola",
-    "LOOKS_EFFECT_COLOR": "barva",
-    "LOOKS_EFFECT_FISHEYE": "rybí oko",
-    "LOOKS_EFFECT_WHIRL": "víření",
-    "LOOKS_EFFECT_PIXELATE": "kostičkování",
-    "LOOKS_EFFECT_MOSAIC": "mozaika",
-    "LOOKS_EFFECT_BRIGHTNESS": "jas",
-    "LOOKS_EFFECT_GHOST": "průhlednost",
-    "LOOKS_GOTOFRONTBACK_FRONT": "popředí",
-    "LOOKS_GOTOFRONTBACK_BACK": "pozadí",
-    "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD": "dopředu",
-    "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD": "dozadu",
-    "LOOKS_NUMBERNAME_NUMBER": "číslo",
-    "LOOKS_NUMBERNAME_NAME": "název",
-    "SOUND_EFFECTS_PITCH": "poloha",
-    "SOUND_EFFECTS_PAN": "stereo vlevo/vpravo",
-    "EVENT_WHENKEYPRESSED_SPACE": "mezerník",
-    "EVENT_WHENKEYPRESSED_LEFT": "šipka vlevo",
-    "EVENT_WHENKEYPRESSED_RIGHT": "šipka vpravo",
-    "EVENT_WHENKEYPRESSED_DOWN": "šipka dolů",
-    "EVENT_WHENKEYPRESSED_UP": "šipka nahoru",
-    "EVENT_WHENKEYPRESSED_ANY": "libovolná",
-    "EVENT_WHENGREATERTHAN_TIMER": "stopky",
-    "EVENT_WHENGREATERTHAN_LOUDNESS": "hlasitost",
-    "CONTROL_STOP_ALL": "všechno",
-    "CONTROL_STOP_THIS": "tento scénář",
-    "CONTROL_STOP_OTHER": "jiné scénáře postavy",
-    "CONTROL_CREATECLONEOF_MYSELF": "sebe",
-    "SENSING_TOUCHINGOBJECT_EDGE": "okraje",
-    "SENSING_SETDRAGMODE_DRAGGABLE": "ano",
-    "SENSING_SETDRAGMODE_NOTDRAGGABLE": "ne",
-    "SENSING_OF_XPOSITION": "x",
-    "SENSING_OF_YPOSITION": "y",
-    "SENSING_OF_DIRECTION": "směr",
-    "SENSING_OF_COSTUMENUMBER": "číslo kostýmu",
-    "SENSING_OF_COSTUMENAME": "název kostýmu",
-    "SENSING_OF_SIZE": "velikost",
-    "SENSING_OF_VOLUME": "hlasitost",
-    "SENSING_OF_BACKDROPNUMBER": "číslo pozadí",
-    "SENSING_OF_BACKDROPNAME": "název pozadí",
-    "SENSING_OF_STAGE": "Scéna",
-    "SENSING_CURRENT_YEAR": "rok",
-    "SENSING_CURRENT_MONTH": "měsíc",
-    "SENSING_CURRENT_DATE": "den v měsíci",
-    "SENSING_CURRENT_DAYOFWEEK": "den týdne",
-    "SENSING_CURRENT_HOUR": "hodina",
-    "SENSING_CURRENT_MINUTE": "minuta",
-    "SENSING_CURRENT_SECOND": "sekunda",
-    "OPERATORS_MATHOP_ABS": "abs",
-    "OPERATORS_MATHOP_FLOOR": "zaokr. dolů",
-    "OPERATORS_MATHOP_CEILING": "zaokr. nahoru",
-    "OPERATORS_MATHOP_SQRT": "odmocnina",
-    "music.drumSnare": "(1) Malý bubínek virbl",
-    "music.drumBass": "(2) Velký buben",
-    "music.drumSideStick": "(3) Okraj bubínku",
-    "music.drumCrashCymbal": "(4) Crash činel",
-    "music.drumOpenHiHat": "(5) Otevřený hi-hat",
-    "music.drumClosedHiHat": "(6) Uzavřený hi-hat",
-    "music.drumTambourine": "(7) Tamburína",
-    "music.drumHandClap": "(8) Tlesknutí",
-    "music.drumClaves": "(9) Claves",
-    "music.drumWoodBlock": "(10) Dřevěný blok",
-    "music.drumCowbell": "(11) Kravský zvonec",
-    "music.drumTriangle": "(12) Triangl",
-    "music.drumBongo": "(13) Bongo",
-    "music.drumConga": "(14) Konga",
-    "music.drumCabasa": "(15) Kabasa",
-    "music.drumGuiro": "(16) Guiro",
-    "music.drumVibraslap": "(17) Vibraslap",
-    "music.drumCuica": "(18) Cuica",
-    "music.instrumentPiano": "(1) Piáno",
-    "music.instrumentElectricPiano": "(2) Elektronické piáno",
-    "music.instrumentOrgan": "(3) Varhany",
-    "music.instrumentGuitar": "(4) Kytara",
-    "music.instrumentElectricGuitar": "(5) Elektronická kytara",
-    "music.instrumentBass": "(6) Kontrabas",
-    "music.instrumentPizzicato": "(7) Drnkání prstem",
-    "music.instrumentCello": "(8) Violoncello",
-    "music.instrumentTrombone": "(9) Trombón",
-    "music.instrumentClarinet": "(10) Klarinet",
-    "music.instrumentSaxophone": "(11) Saxofon",
-    "music.instrumentFlute": "(12) Flétna",
-    "music.instrumentWoodenFlute": "(13) Dřevěná flétna",
-    "music.instrumentBassoon": "(14) Fagot",
-    "music.instrumentChoir": "(15) Sbor",
-    "music.instrumentVibraphone": "(16) Vibrafon",
-    "music.instrumentMusicBox": "(17) Hrací skříňka",
-    "music.instrumentSteelDrum": "(18) Ocelový buben",
-    "music.instrumentMarimba": "(19) Marimba",
-    "music.instrumentSynthLead": "(20) Syntetizátor sólo",
-    "music.instrumentSynthPad": "(21) Syntetizátor pozadí",
-    "pen.colorMenu.saturation": "sytost",
-    "pen.colorMenu.transparency": "průhlednost",
-    "videoSensing.direction": "směr",
-    "videoSensing.motion": "pohyb",
-    "videoSensing.sprite": "postava",
-    "videoSensing.stage": "scéna",
-    "videoSensing.off": "vypni",
-    "videoSensing.on": "zapni",
-    "videoSensing.onFlipped": "na převrácené straně",
-    "text2speech.alto": "alt",
-    "text2speech.tenor": "tenor",
-    "text2speech.squeak": "kvik",
-    "text2speech.giant": "obr",
-    "text2speech.kitten": "kotě",
-    "makeymakey.upArrowShort": "nahoru",
-    "makeymakey.downArrowShort": "dolů",
-    "makeymakey.leftArrowShort": "vlevo",
-    "makeymakey.rightArrowShort": "vpravo",
-    "microbit.gesturesMenu.jumped": "poskočí",
-    "microbit.gesturesMenu.moved": "se pohne",
-    "microbit.gesturesMenu.shaken": "se zatřese",
-    "microbit.tiltDirectionMenu.back": "dozadu",
-    "microbit.tiltDirectionMenu.front": "dopředu",
-    "microbit.tiltDirectionMenu.left": "vlevo",
-    "microbit.tiltDirectionMenu.right": "vpravo",
-    "boost.motorDirection.backward": "jinak",
-    "boost.motorDirection.forward": "takto",
-    "boost.motorDirection.reverse": "pozpátku",
-    "boost.color.any": "libovolná barva",
-    "boost.color.black": "černá",
-    "boost.color.blue": "modrá",
-    "boost.color.green": "zelená",
-    "boost.color.red": "červená",
-    "boost.color.white": "bílá",
-    "boost.color.yellow": "žlutá",
-    "wedo2.motorId.a": "motor A",
-    "wedo2.motorId.b": "motor B",
-    "wedo2.motorId.all": "všechny motory",
-    "wedo2.motorId.default": "motor",
-    "gdxfor.pulled": "tažený",
-    "gdxfor.pushed": "tlačený",
-    "gdxfor.shaken": "se třese",
-    "gdxfor.startedFalling": "počátek pádu",
-    "gdxfor.turnedFaceDown": "otočený lícem dolů",
-    "gdxfor.turnedFaceUp": "otočený lícem nahoru",
-    "makeymakey.sequence.0": "vlevo nahoru vpravo",
-    "makeymakey.sequence.1": "vpravo nahoru vlevo",
-    "makeymakey.sequence.2": "vlevo vpravo",
-    "makeymakey.sequence.3": "vpravo vlevo",
-    "makeymakey.sequence.4": "nahoru dolů",
-    "makeymakey.sequence.5": "dolů nahoru",
-    "makeymakey.sequence.6": "nahoru vpravo dolů vlevo",
-    "makeymakey.sequence.7": "nahoru vlevo dolů vpravo",
-    "makeymakey.sequence.8": "nahoru nahoru dolů dolů vlevo vpravo vlevo vpravo",
-    "translate.language.am": "amharština",
-    "translate.language.en": "angličtina",
-    "translate.language.ar": "arabština",
-    "translate.language.az": "ázerbájdžánština",
-    "translate.language.eu": "baskičtina",
-    "translate.language.bg": "bulharština",
-    "translate.language.cs": "čeština",
-    "translate.language.zh-tw": "čínština (tradiční)",
-    "translate.language.zh-cn": "čínština (zjednodušená)",
-    "translate.language.da": "dánština",
-    "translate.language.et": "estonština",
-    "translate.language.fi": "finština",
-    "translate.language.fr": "francouzština",
-    "translate.language.gl": "galicijština",
-    "translate.language.he": "hebrejština",
-    "translate.language.nl": "holandština",
-    "translate.language.hr": "chorvatština",
-    "translate.language.id": "indonéština",
-    "translate.language.ga": "irština",
-    "translate.language.is": "islandština",
-    "translate.language.it": "italština",
-    "translate.language.ja": "japonština",
-    "translate.language.ca": "katalánština",
-    "translate.language.ko": "korejština",
-    "translate.language.ckb": "kurdština (sorání)",
-    "translate.language.lt": "litevština",
-    "translate.language.lv": "lotyština",
-    "translate.language.hu": "maďarština",
-    "translate.language.mi": "maorština",
-    "translate.language.de": "němčina",
-    "translate.language.nb": "norština",
-    "translate.language.fa": "perština",
-    "translate.language.pl": "polština",
-    "translate.language.pt": "portugalština",
-    "translate.language.ro": "rumunština",
-    "translate.language.ru": "ruština",
-    "translate.language.el": "řečtina",
-    "translate.language.gd": "skotská gaelština",
-    "translate.language.sk": "slovenština",
-    "translate.language.sl": "slovinština",
-    "translate.language.sr": "srbština",
-    "translate.language.es": "španělština",
-    "translate.language.sv": "švédština",
-    "translate.language.th": "thajština",
-    "translate.language.tr": "turečtina",
-    "translate.language.uk": "ukrajinština",
-    "translate.language.cy": "velština",
-    "translate.language.vi": "vietnamština",
-    "translate.language.zu": "zulu",
-    "text2speech.language.ar": "Arabština",
-    "text2speech.language.cy": "Velština",
-    "text2speech.language.da": "Dánština",
-    "text2speech.language.de": "Němčina",
-    "text2speech.language.en": "Angličtina",
-    "text2speech.language.es": "Španělština",
-    "text2speech.language.es-419": "Španělština (latinskoamerická)",
-    "text2speech.language.fr": "Francouzština",
-    "text2speech.language.ko": "Korejština",
-    "text2speech.language.hi": "Hindština",
-    "text2speech.language.is": "Islandština",
-    "text2speech.language.it": "Italština",
-    "text2speech.language.nl": "Holandština",
-    "text2speech.language.ja": "Japonština",
-    "text2speech.language.nb": "Norština",
-    "text2speech.language.pl": "Polština",
-    "text2speech.language.pt": "Portugalština",
-    "text2speech.language.pt-br": "Portugalština (brazilská)",
-    "text2speech.language.ro": "Rumunština",
-    "text2speech.language.ru": "Ruština",
-    "text2speech.language.sv": "Švédština",
-    "text2speech.language.tr": "Turečtina",
-    "text2speech.language.zh-cn": "Čínština (mandarínština)"
+    "MOTION_GOTO_POINTER": {
+      "value": "ukazatel myši",
+      "parents": [
+        "MOTION_GOTO"
+      ]
+    },
+    "MOTION_GOTO_RANDOM": {
+      "value": "náhodná pozice",
+      "parents": [
+        "MOTION_GOTO"
+      ]
+    },
+    "MOTION_GLIDETO_POINTER": {
+      "value": "ukazatel myši",
+      "parents": [
+        "MOTION_GLIDETO"
+      ]
+    },
+    "MOTION_GLIDETO_RANDOM": {
+      "value": "náhodná pozice",
+      "parents": [
+        "MOTION_GLIDETO"
+      ]
+    },
+    "MOTION_POINTTOWARDS_POINTER": {
+      "value": "ukazateli myši",
+      "parents": [
+        "MOTION_POINTTOWARDS"
+      ]
+    },
+    "MOTION_POINTTOWARDS_RANDOM": {
+      "value": "náhodný směr",
+      "parents": [
+        "MOTION_POINTTOWARDS"
+      ]
+    },
+    "MOTION_SETROTATIONSTYLE_LEFTRIGHT": {
+      "value": "vlevo-vpravo",
+      "parents": [
+        "MOTION_SETROTATIONSTYLE"
+      ]
+    },
+    "MOTION_SETROTATIONSTYLE_DONTROTATE": {
+      "value": "neotáčet",
+      "parents": [
+        "MOTION_SETROTATIONSTYLE"
+      ]
+    },
+    "MOTION_SETROTATIONSTYLE_ALLAROUND": {
+      "value": "dokola",
+      "parents": [
+        "MOTION_SETROTATIONSTYLE"
+      ]
+    },
+    "LOOKS_NEXTBACKDROP": {
+      "value": "další pozadí",
+      "parents": [
+        "LOOKS_SWITCHBACKDROPTO"
+      ]
+    },
+    "LOOKS_PREVIOUSBACKDROP": {
+      "value": "předchozí pozadí",
+      "parents": [
+        "LOOKS_SWITCHBACKDROPTO"
+      ]
+    },
+    "LOOKS_RANDOMBACKDROP": {
+      "value": "náhodné pozadí",
+      "parents": [
+        "LOOKS_SWITCHBACKDROPTO"
+      ]
+    },
+    "LOOKS_EFFECT_COLOR": {
+      "value": "barva",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_FISHEYE": {
+      "value": "rybí oko",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_WHIRL": {
+      "value": "víření",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_PIXELATE": {
+      "value": "kostičkování",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_MOSAIC": {
+      "value": "mozaika",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_BRIGHTNESS": {
+      "value": "jas",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_GHOST": {
+      "value": "průhlednost",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_GOTOFRONTBACK_FRONT": {
+      "value": "popředí",
+      "parents": [
+        "LOOKS_GOTOFRONTBACK"
+      ]
+    },
+    "LOOKS_GOTOFRONTBACK_BACK": {
+      "value": "pozadí",
+      "parents": [
+        "LOOKS_GOTOFRONTBACK"
+      ]
+    },
+    "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD": {
+      "value": "dopředu",
+      "parents": [
+        "LOOKS_GOFORWARDBACKWARDLAYERS"
+      ]
+    },
+    "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD": {
+      "value": "dozadu",
+      "parents": [
+        "LOOKS_GOFORWARDBACKWARDLAYERS"
+      ]
+    },
+    "LOOKS_NUMBERNAME_NUMBER": {
+      "value": "číslo",
+      "parents": [
+        "LOOKS_COSTUMENUMBERNAME",
+        "LOOKS_BACKDROPNUMBERNAME"
+      ]
+    },
+    "LOOKS_NUMBERNAME_NAME": {
+      "value": "název",
+      "parents": [
+        "LOOKS_COSTUMENUMBERNAME",
+        "LOOKS_BACKDROPNUMBERNAME"
+      ]
+    },
+    "SOUND_EFFECTS_PITCH": {
+      "value": "poloha",
+      "parents": [
+        "SOUND_CHANGEEFFECTBY",
+        "SOUND_SETEFFECTO"
+      ]
+    },
+    "SOUND_EFFECTS_PAN": {
+      "value": "stereo vlevo/vpravo",
+      "parents": [
+        "SOUND_CHANGEEFFECTBY",
+        "SOUND_SETEFFECTO"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_SPACE": {
+      "value": "mezerník",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_LEFT": {
+      "value": "šipka vlevo",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_RIGHT": {
+      "value": "šipka vpravo",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_DOWN": {
+      "value": "šipka dolů",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_UP": {
+      "value": "šipka nahoru",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_ANY": {
+      "value": "libovolná",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED"
+      ]
+    },
+    "EVENT_WHENGREATERTHAN_TIMER": {
+      "value": "stopky",
+      "parents": [
+        "EVENT_WHENGREATERTHAN"
+      ]
+    },
+    "EVENT_WHENGREATERTHAN_LOUDNESS": {
+      "value": "hlasitost",
+      "parents": [
+        "EVENT_WHENGREATERTHAN"
+      ]
+    },
+    "CONTROL_STOP_ALL": {
+      "value": "všechno",
+      "parents": [
+        "CONTROL_STOP"
+      ]
+    },
+    "CONTROL_STOP_THIS": {
+      "value": "tento scénář",
+      "parents": [
+        "CONTROL_STOP"
+      ]
+    },
+    "CONTROL_STOP_OTHER": {
+      "value": "jiné scénáře postavy",
+      "parents": [
+        "CONTROL_STOP"
+      ]
+    },
+    "CONTROL_CREATECLONEOF_MYSELF": {
+      "value": "sebe",
+      "parents": [
+        "CONTROL_CREATECLONEOF"
+      ]
+    },
+    "SENSING_TOUCHINGOBJECT_POINTER": {
+      "value": "ukazatele myši",
+      "parents": [
+        "SENSING_TOUCHINGOBJECT"
+      ]
+    },
+    "SENSING_TOUCHINGOBJECT_EDGE": {
+      "value": "okraje",
+      "parents": [
+        "SENSING_TOUCHINGOBJECT"
+      ]
+    },
+    "SENSING_DISTANCETO_POINTER": {
+      "value": "ukazateli myši",
+      "parents": [
+        "SENSING_DISTANCETO"
+      ]
+    },
+    "SENSING_SETDRAGMODE_DRAGGABLE": {
+      "value": "ano",
+      "parents": [
+        "SENSING_SETDRAGMODE"
+      ]
+    },
+    "SENSING_SETDRAGMODE_NOTDRAGGABLE": {
+      "value": "ne",
+      "parents": [
+        "SENSING_SETDRAGMODE"
+      ]
+    },
+    "SENSING_OF_XPOSITION": {
+      "value": "x",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_YPOSITION": {
+      "value": "y",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_DIRECTION": {
+      "value": "směr",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_COSTUMENUMBER": {
+      "value": "číslo kostýmu",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_COSTUMENAME": {
+      "value": "název kostýmu",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_SIZE": {
+      "value": "velikost",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_VOLUME": {
+      "value": "hlasitost",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_BACKDROPNUMBER": {
+      "value": "číslo pozadí",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_BACKDROPNAME": {
+      "value": "název pozadí",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_STAGE": {
+      "value": "Scéna",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_CURRENT_YEAR": {
+      "value": "rok",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_MONTH": {
+      "value": "měsíc",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_DATE": {
+      "value": "den v měsíci",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_DAYOFWEEK": {
+      "value": "den týdne",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_HOUR": {
+      "value": "hodina",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_MINUTE": {
+      "value": "minuta",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_SECOND": {
+      "value": "sekunda",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "OPERATORS_MATHOP_ABS": {
+      "value": "abs",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_FLOOR": {
+      "value": "zaokr. dolů",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_CEILING": {
+      "value": "zaokr. nahoru",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_SQRT": {
+      "value": "odmocnina",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_SIN": {
+      "value": "sin",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_COS": {
+      "value": "cos",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_TAN": {
+      "value": "tg",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_ASIN": {
+      "value": "arcsin",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_ACOS": {
+      "value": "arccos",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_ATAN": {
+      "value": "arctg",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_LN": {
+      "value": "ln",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_LOG": {
+      "value": "log",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_EEXP": {
+      "value": "e ^",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_10EXP": {
+      "value": "10 ^",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "music.drumSnare": {
+      "value": "(1) Malý bubínek virbl",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumBass": {
+      "value": "(2) Velký buben",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumSideStick": {
+      "value": "(3) Okraj bubínku",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCrashCymbal": {
+      "value": "(4) Crash činel",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumOpenHiHat": {
+      "value": "(5) Otevřený hi-hat",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumClosedHiHat": {
+      "value": "(6) Uzavřený hi-hat",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumTambourine": {
+      "value": "(7) Tamburína",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumHandClap": {
+      "value": "(8) Tlesknutí",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumClaves": {
+      "value": "(9) Claves",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumWoodBlock": {
+      "value": "(10) Dřevěný blok",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCowbell": {
+      "value": "(11) Kravský zvonec",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumTriangle": {
+      "value": "(12) Triangl",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumBongo": {
+      "value": "(13) Bongo",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumConga": {
+      "value": "(14) Konga",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCabasa": {
+      "value": "(15) Kabasa",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumGuiro": {
+      "value": "(16) Guiro",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumVibraslap": {
+      "value": "(17) Vibraslap",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCuica": {
+      "value": "(18) Cuica",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.instrumentPiano": {
+      "value": "(1) Piáno",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentElectricPiano": {
+      "value": "(2) Elektronické piáno",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentOrgan": {
+      "value": "(3) Varhany",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentGuitar": {
+      "value": "(4) Kytara",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentElectricGuitar": {
+      "value": "(5) Elektronická kytara",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentBass": {
+      "value": "(6) Kontrabas",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentPizzicato": {
+      "value": "(7) Drnkání prstem",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentCello": {
+      "value": "(8) Violoncello",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentTrombone": {
+      "value": "(9) Trombón",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentClarinet": {
+      "value": "(10) Klarinet",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSaxophone": {
+      "value": "(11) Saxofon",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentFlute": {
+      "value": "(12) Flétna",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentWoodenFlute": {
+      "value": "(13) Dřevěná flétna",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentBassoon": {
+      "value": "(14) Fagot",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentChoir": {
+      "value": "(15) Sbor",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentVibraphone": {
+      "value": "(16) Vibrafon",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentMusicBox": {
+      "value": "(17) Hrací skříňka",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSteelDrum": {
+      "value": "(18) Ocelový buben",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentMarimba": {
+      "value": "(19) Marimba",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSynthLead": {
+      "value": "(20) Syntetizátor sólo",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSynthPad": {
+      "value": "(21) Syntetizátor pozadí",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "pen.colorMenu.color": {
+      "value": "barva",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "pen.colorMenu.saturation": {
+      "value": "sytost",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "pen.colorMenu.brightness": {
+      "value": "jas",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "pen.colorMenu.transparency": {
+      "value": "průhlednost",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "videoSensing.direction": {
+      "value": "směr",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.motion": {
+      "value": "pohyb",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.sprite": {
+      "value": "postava",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.stage": {
+      "value": "scéna",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.off": {
+      "value": "vypni",
+      "parents": [
+        "videoSensing.videoToggle"
+      ]
+    },
+    "videoSensing.on": {
+      "value": "zapni",
+      "parents": [
+        "videoSensing.videoToggle"
+      ]
+    },
+    "videoSensing.onFlipped": {
+      "value": "na převrácené straně",
+      "parents": [
+        "videoSensing.videoToggle"
+      ]
+    },
+    "text2speech.alto": {
+      "value": "alt",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.tenor": {
+      "value": "tenor",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.squeak": {
+      "value": "kvik",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.giant": {
+      "value": "obr",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.kitten": {
+      "value": "kotě",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "makeymakey.upArrowShort": {
+      "value": "nahoru",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "makeymakey.downArrowShort": {
+      "value": "dolů",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "makeymakey.leftArrowShort": {
+      "value": "vlevo",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "makeymakey.rightArrowShort": {
+      "value": "vpravo",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "microbit.buttonsMenu.any": {
+      "value": "libovolný",
+      "parents": [
+        "microbit.whenButtonPressed",
+        "microbit.isButtonPressed"
+      ]
+    },
+    "microbit.gesturesMenu.jumped": {
+      "value": "poskočí",
+      "parents": [
+        "microbit.whenGesture"
+      ]
+    },
+    "microbit.gesturesMenu.moved": {
+      "value": "se pohne",
+      "parents": [
+        "microbit.whenGesture"
+      ]
+    },
+    "microbit.gesturesMenu.shaken": {
+      "value": "se zatřese",
+      "parents": [
+        "microbit.whenGesture"
+      ]
+    },
+    "microbit.tiltDirectionMenu.any": {
+      "value": "libovolně",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted"
+      ]
+    },
+    "microbit.tiltDirectionMenu.back": {
+      "value": "dozadu",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "microbit.tiltDirectionMenu.front": {
+      "value": "dopředu",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "microbit.tiltDirectionMenu.left": {
+      "value": "vlevo",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "microbit.tiltDirectionMenu.right": {
+      "value": "vpravo",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "boost.motorDirection.backward": {
+      "value": "jinak",
+      "parents": [
+        "boost.setMotorDirection"
+      ]
+    },
+    "boost.motorDirection.forward": {
+      "value": "takto",
+      "parents": [
+        "boost.setMotorDirection"
+      ]
+    },
+    "boost.motorDirection.reverse": {
+      "value": "pozpátku",
+      "parents": [
+        "boost.setMotorDirection"
+      ]
+    },
+    "boost.color.any": {
+      "value": "libovolná barva",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.black": {
+      "value": "černá",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.blue": {
+      "value": "modrá",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.green": {
+      "value": "zelená",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.red": {
+      "value": "červená",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.white": {
+      "value": "bílá",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.yellow": {
+      "value": "žlutá",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.tiltDirection.any": {
+      "value": "libovolný",
+      "parents": [
+        "boost.whenTilted"
+      ]
+    },
+    "boost.tiltDirection.up": {
+      "value": "nahoru",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "boost.tiltDirection.down": {
+      "value": "dolů",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "boost.tiltDirection.left": {
+      "value": "vlevo",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "boost.tiltDirection.right": {
+      "value": "vpravo",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "wedo2.motorId.a": {
+      "value": "motor A",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorId.b": {
+      "value": "motor B",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorId.all": {
+      "value": "všechny motory",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorId.default": {
+      "value": "motor",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorDirection.forward": {
+      "value": "po směru hodin",
+      "parents": [
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorDirection.backward": {
+      "value": "proti směru hodin",
+      "parents": [
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorDirection.reverse": {
+      "value": "pozpátku",
+      "parents": [
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.tiltDirection.any": {
+      "value": "libovolně",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted"
+      ]
+    },
+    "wedo2.tiltDirection.up": {
+      "value": "nahoru",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "wedo2.tiltDirection.down": {
+      "value": "dolů",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "wedo2.tiltDirection.left": {
+      "value": "vlevo",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "wedo2.tiltDirection.right": {
+      "value": "vpravo",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "gdxfor.pulled": {
+      "value": "tažený",
+      "parents": [
+        "gdxfor.whenForcePushedOrPulled"
+      ]
+    },
+    "gdxfor.pushed": {
+      "value": "tlačený",
+      "parents": [
+        "gdxfor.whenForcePushedOrPulled"
+      ]
+    },
+    "gdxfor.shaken": {
+      "value": "se třese",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.startedFalling": {
+      "value": "počátek pádu",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.turnedFaceDown": {
+      "value": "otočený lícem dolů",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.turnedFaceUp": {
+      "value": "otočený lícem nahoru",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.front": {
+      "value": "dopředu",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.back": {
+      "value": "dozadu",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.left": {
+      "value": "vlevo",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.right": {
+      "value": "vpravo",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.any": {
+      "value": "libovolný",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted"
+      ]
+    },
+    "makeymakey.sequence.0": {
+      "value": "vlevo nahoru vpravo",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.1": {
+      "value": "vpravo nahoru vlevo",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.2": {
+      "value": "vlevo vpravo",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.3": {
+      "value": "vpravo vlevo",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.4": {
+      "value": "nahoru dolů",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.5": {
+      "value": "dolů nahoru",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.6": {
+      "value": "nahoru vpravo dolů vlevo",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.7": {
+      "value": "nahoru vlevo dolů vpravo",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.8": {
+      "value": "nahoru nahoru dolů dolů vlevo vpravo vlevo vpravo",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "translate.language.am": {
+      "value": "amharština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.en": {
+      "value": "angličtina",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ar": {
+      "value": "arabština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.az": {
+      "value": "ázerbájdžánština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.eu": {
+      "value": "baskičtina",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.bg": {
+      "value": "bulharština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.cs": {
+      "value": "čeština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.zh-tw": {
+      "value": "čínština (tradiční)",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.zh-cn": {
+      "value": "čínština (zjednodušená)",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.da": {
+      "value": "dánština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.et": {
+      "value": "estonština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.fi": {
+      "value": "finština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.fr": {
+      "value": "francouzština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.gl": {
+      "value": "galicijština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.he": {
+      "value": "hebrejština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.nl": {
+      "value": "holandština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.hr": {
+      "value": "chorvatština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.id": {
+      "value": "indonéština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ga": {
+      "value": "irština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.is": {
+      "value": "islandština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.it": {
+      "value": "italština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ja": {
+      "value": "japonština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ca": {
+      "value": "katalánština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ko": {
+      "value": "korejština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ckb": {
+      "value": "kurdština (sorání)",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.lt": {
+      "value": "litevština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.lv": {
+      "value": "lotyština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.hu": {
+      "value": "maďarština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.mi": {
+      "value": "maorština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.de": {
+      "value": "němčina",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.nb": {
+      "value": "norština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.fa": {
+      "value": "perština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.pl": {
+      "value": "polština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.pt": {
+      "value": "portugalština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ro": {
+      "value": "rumunština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ru": {
+      "value": "ruština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.el": {
+      "value": "řečtina",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.gd": {
+      "value": "skotská gaelština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sk": {
+      "value": "slovenština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sl": {
+      "value": "slovinština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sr": {
+      "value": "srbština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.es": {
+      "value": "španělština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sv": {
+      "value": "švédština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.th": {
+      "value": "thajština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.tr": {
+      "value": "turečtina",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.uk": {
+      "value": "ukrajinština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.cy": {
+      "value": "velština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.vi": {
+      "value": "vietnamština",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.zu": {
+      "value": "zulu",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "text2speech.language.ar": {
+      "value": "Arabština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.cy": {
+      "value": "Velština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.da": {
+      "value": "Dánština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.de": {
+      "value": "Němčina",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.en": {
+      "value": "Angličtina",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.es": {
+      "value": "Španělština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.es-419": {
+      "value": "Španělština (latinskoamerická)",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.fr": {
+      "value": "Francouzština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ko": {
+      "value": "Korejština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.hi": {
+      "value": "Hindština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.is": {
+      "value": "Islandština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.it": {
+      "value": "Italština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.nl": {
+      "value": "Holandština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ja": {
+      "value": "Japonština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.nb": {
+      "value": "Norština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.pl": {
+      "value": "Polština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.pt": {
+      "value": "Portugalština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.pt-br": {
+      "value": "Portugalština (brazilská)",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ro": {
+      "value": "Rumunština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ru": {
+      "value": "Ruština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.sv": {
+      "value": "Švédština",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.tr": {
+      "value": "Turečtina",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.zh-cn": {
+      "value": "Čínština (mandarínština)",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    }
   },
   "ignorelt": [],
   "soundEffects": [

@@ -49,7 +49,7 @@ function paintBlock(info, children, languages) {
   const shortHash = (info.hash = minifyHash(string))
 
   // paint
-  const o = lookupHash(shortHash, info, children, languages)
+  const o = lookupHash(shortHash, info, children, languages, overrides)
   let lang
   let type
   if (o) {
@@ -151,6 +151,13 @@ function paintBlock(info, children, languages) {
   // Apply overrides.
   applyOverrides(info, overrides)
 
+  // dropdowns menus
+  children.forEach(child => {
+    if (child.hasArrow) {
+      child.setMenu(lookupDropdown(child.value, info.id, languages))
+    }
+  })
+
   // loop arrows
   if (info.hasLoopArrow) {
     children.push(new Icon("loopArrow"))
@@ -236,8 +243,7 @@ function parseLines(code, languages) {
   }
 
   function makeMenu(shape, value) {
-    const menu = lookupDropdown(value, languages)
-    return new Input(shape, value, menu)
+    return new Input(shape, value)
   }
 
   function pParts(end) {

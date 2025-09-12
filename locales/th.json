@@ -211,228 +211,1659 @@
     "boost.setLightHue": "ตั้งสีหลอดไฟเป็น %1"
   },
   "dropdowns": {
-    "MOTION_GOTO_POINTER": "ตัวชี้เมาส์",
-    "MOTION_GOTO_RANDOM": "ตำแหน่งสุ่ม",
-    "MOTION_POINTTOWARDS_RANDOM": "สุ่มทิศทาง",
-    "MOTION_SETROTATIONSTYLE_LEFTRIGHT": "ซ้าย-ขวา",
-    "MOTION_SETROTATIONSTYLE_DONTROTATE": "ห้ามหมุน",
-    "MOTION_SETROTATIONSTYLE_ALLAROUND": "รอบด้าน",
-    "LOOKS_EFFECT_COLOR": "สี",
-    "LOOKS_EFFECT_FISHEYE": "ตาปลา",
-    "LOOKS_EFFECT_WHIRL": "หมุนวน",
-    "LOOKS_EFFECT_PIXELATE": "แยกพิกเซล",
-    "LOOKS_EFFECT_MOSAIC": "โมเสก",
-    "LOOKS_EFFECT_BRIGHTNESS": "ความสว่าง",
-    "LOOKS_EFFECT_GHOST": "ล่องหน",
-    "LOOKS_GOTOFRONTBACK_FRONT": "หน้าสุด",
-    "LOOKS_GOTOFRONTBACK_BACK": "หลังสุด",
-    "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD": "ด้านหน้า",
-    "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD": "ด้านหลัง",
-    "LOOKS_NUMBERNAME_NUMBER": "หมายเลข",
-    "LOOKS_NUMBERNAME_NAME": "ชื่อ",
-    "SOUND_EFFECTS_PITCH": "เสียงสูงต่ำ",
-    "SOUND_EFFECTS_PAN": "แพนเสียงซ้าย/ขวา",
-    "EVENT_WHENKEYPRESSED_SPACE": "สเปซบาร์",
-    "EVENT_WHENKEYPRESSED_LEFT": "ลูกศรชี้ทางซ้าย",
-    "EVENT_WHENKEYPRESSED_RIGHT": "ลูกศรชี้ขวา",
-    "EVENT_WHENKEYPRESSED_DOWN": "ลูกศรชี้ลง",
-    "EVENT_WHENKEYPRESSED_UP": "ลูกศรขึ้น",
-    "EVENT_WHENKEYPRESSED_ANY": "อะไรก็ได้",
-    "EVENT_WHENGREATERTHAN_TIMER": "ตัวจับเวลา",
-    "EVENT_WHENGREATERTHAN_LOUDNESS": "ระดับความดัง",
-    "CONTROL_STOP_ALL": "ทั้งหมด",
-    "CONTROL_STOP_THIS": "สคริปต์นี้",
-    "CONTROL_STOP_OTHER": "สริปต์อื่นในตัวละคร",
-    "CONTROL_CREATECLONEOF_MYSELF": "ตัวฉันเอง",
-    "SENSING_TOUCHINGOBJECT_EDGE": "ขอบ",
-    "SENSING_SETDRAGMODE_DRAGGABLE": "ลากได้",
-    "SENSING_SETDRAGMODE_NOTDRAGGABLE": "ลากไม่ได้",
-    "SENSING_OF_XPOSITION": "ตำแหน่ง x",
-    "SENSING_OF_YPOSITION": "ตำแหน่ง y",
-    "SENSING_OF_DIRECTION": "ทิศทาง",
-    "SENSING_OF_COSTUMENUMBER": "คอสตูม #",
-    "SENSING_OF_COSTUMENAME": "ชื่อคอสตูม",
-    "SENSING_OF_SIZE": "ขนาด",
-    "SENSING_OF_VOLUME": "ระดับเสียง",
-    "SENSING_OF_BACKDROPNUMBER": "ฉากหลัง #",
-    "SENSING_OF_BACKDROPNAME": "ชื่อฉากหลัง",
-    "SENSING_OF_STAGE": "เวที",
-    "SENSING_CURRENT_YEAR": "ปี",
-    "SENSING_CURRENT_MONTH": "เดือน",
-    "SENSING_CURRENT_DATE": "วันที่",
-    "SENSING_CURRENT_DAYOFWEEK": "วันของสัปดาห์",
-    "SENSING_CURRENT_HOUR": "ชั่วโมง",
-    "SENSING_CURRENT_MINUTE": "นาที",
-    "SENSING_CURRENT_SECOND": "วินาที",
-    "OPERATORS_MATHOP_ABS": "ค่าสัมบูรณ์",
-    "OPERATORS_MATHOP_FLOOR": "พื้น",
-    "OPERATORS_MATHOP_CEILING": "เพดาน",
-    "OPERATORS_MATHOP_SQRT": "รากที่สอง",
-    "music.drumSnare": "(1) กลองเล็ก",
-    "music.drumBass": "(2) กลองใหญ่",
-    "music.drumSideStick": "(3) ไซด์สติค",
-    "music.drumCrashCymbal": "(4) ฉาบ",
-    "music.drumOpenHiHat": "(5) ฉาบไฮแฮทเปิด",
-    "music.drumClosedHiHat": "(6) ฉาบไฮแฮทปิด",
-    "music.drumTambourine": "(7) แทมบูรีน",
-    "music.drumHandClap": "(8) ตบมือ",
-    "music.drumClaves": "(9) เคลฟ",
-    "music.drumWoodBlock": "(10) วูดบล็อก",
-    "music.drumCowbell": "(11) คาวเบล",
-    "music.drumTriangle": "(12) กิ๋ง",
-    "music.drumBongo": "(13) บองโก",
-    "music.drumConga": "(14) คองกา",
-    "music.drumCabasa": "(15) คาบาซา",
-    "music.drumGuiro": "(16) กวีโร",
-    "music.drumVibraslap": "(17) ไวบราสแลป",
-    "music.drumCuica": "(18) คุยกา",
-    "music.instrumentPiano": "(1) เปียโน",
-    "music.instrumentElectricPiano": "(2) เปียโนไฟฟ้า",
-    "music.instrumentOrgan": "(3) ออร์แกน",
-    "music.instrumentGuitar": "(4) กีตาร์",
-    "music.instrumentElectricGuitar": "(5) กีต้าร์ไฟฟ้า",
-    "music.instrumentBass": "(6) เบส",
-    "music.instrumentPizzicato": "(7) พิซซิคาโต",
-    "music.instrumentCello": "(8) เชลโล",
-    "music.instrumentTrombone": "(9) ทรอมโบน",
-    "music.instrumentClarinet": "(10) แคลริเน็ต",
-    "music.instrumentSaxophone": "(11) แซกโซโฟน",
-    "music.instrumentFlute": "(12) ฟลูต",
-    "music.instrumentWoodenFlute": "(13) ฟลูตไม้",
-    "music.instrumentBassoon": "(14) บาสซูน",
-    "music.instrumentChoir": "(15) เสียงประสาน",
-    "music.instrumentVibraphone": "(16) ไวปราโฟน",
-    "music.instrumentMusicBox": "(17) กล่องดนตรี",
-    "music.instrumentSteelDrum": "(18) กลองเหล็ก",
-    "music.instrumentMarimba": "(19) มาริมบา",
-    "music.instrumentSynthLead": "(20) ซินธ์ลีด",
-    "music.instrumentSynthPad": "(21) ซินธ์แพด",
-    "pen.colorMenu.saturation": "ความอิ่มตัวของสี",
-    "pen.colorMenu.transparency": "ความโปร่งใส",
-    "videoSensing.direction": "ทิศทาง",
-    "videoSensing.motion": "การเคลื่อนไหว",
-    "videoSensing.sprite": "สไปรต์",
-    "videoSensing.stage": "เวที",
-    "videoSensing.off": "ปิด",
-    "videoSensing.on": "เปิด",
-    "videoSensing.onFlipped": "พลิก",
-    "text2speech.alto": "อัลโต",
-    "text2speech.tenor": "เทเนอร์",
-    "text2speech.squeak": "เอี๊ยด ๆ",
-    "text2speech.giant": "ไจแอนท์",
-    "text2speech.kitten": "ลูกแมว",
-    "makeymakey.upArrowShort": "ขึ้น",
-    "makeymakey.downArrowShort": "ลง",
-    "makeymakey.leftArrowShort": "ซ้าย",
-    "makeymakey.rightArrowShort": "ขวา",
-    "microbit.gesturesMenu.jumped": "กระโดด",
-    "microbit.gesturesMenu.moved": "เคลื่อนไหว",
-    "microbit.gesturesMenu.shaken": "เขย่า",
-    "microbit.tiltDirectionMenu.back": "หลัง",
-    "microbit.tiltDirectionMenu.front": "หน้า",
-    "microbit.tiltDirectionMenu.left": "ซ้าย",
-    "microbit.tiltDirectionMenu.right": "ขวา",
-    "boost.motorDirection.backward": "ทางนั้น",
-    "boost.motorDirection.forward": "ทางนี้",
-    "boost.motorDirection.reverse": "ย้อนกลับ",
-    "boost.color.any": "any color",
-    "boost.color.black": "ดำ",
-    "boost.color.blue": "น้ำเงิน",
-    "boost.color.green": "เขียว",
-    "boost.color.red": "แดง",
-    "boost.color.white": "ขาว",
-    "boost.color.yellow": "เหลือง",
-    "wedo2.motorId.a": "มอเตอร์ A",
-    "wedo2.motorId.b": "มอเตอร์ B",
-    "wedo2.motorId.all": "มอเตอร์ทั้งหมด",
-    "wedo2.motorId.default": "มอเตอร์",
-    "gdxfor.pulled": "pulled",
-    "gdxfor.pushed": "pushed",
-    "gdxfor.shaken": "เขย่า",
-    "gdxfor.startedFalling": "เริ่มตกลงมา",
-    "gdxfor.turnedFaceDown": "turned face down",
-    "gdxfor.turnedFaceUp": "turned face up",
-    "makeymakey.sequence.0": "ซ้าย ขึ้น ขวา",
-    "makeymakey.sequence.1": "ขวา ขึ้น ซ้าย",
-    "makeymakey.sequence.2": "ซ้าย ขวา",
-    "makeymakey.sequence.3": "ขวา ซ้าย",
-    "makeymakey.sequence.4": "ขึ้น ลง",
-    "makeymakey.sequence.5": "ลง ขึ้น",
-    "makeymakey.sequence.6": "ขึ้น ขวา ลง ซ้าย",
-    "makeymakey.sequence.7": "ขึ้น ซ้าย ลง ขวา",
-    "makeymakey.sequence.8": "ขึ้น ขึ้น ลง ลง ซ้าย ขวา ซ้าย ขวา",
-    "translate.language.el": "กรีก",
-    "translate.language.gl": "กาลิเชียน",
-    "translate.language.gd": "เกลิกสกอต",
-    "translate.language.ko": "เกาหลี",
-    "translate.language.ca": "คาตาลัน",
-    "translate.language.ckb": "เคิร์ด (โซรานี)",
-    "translate.language.hr": "โครเอเชีย",
-    "translate.language.zh-tw": "จีน (ตัวเต็ม)",
-    "translate.language.zh-cn": "จีน (ตัวย่อ)",
-    "translate.language.cs": "เช็ก",
-    "translate.language.zu": "ซูลู",
-    "translate.language.sr": "เซอร์เบียน",
-    "translate.language.ja": "ญี่ปุ่น",
-    "translate.language.nl": "ดัตช์",
-    "translate.language.da": "เดนมาร์ก",
-    "translate.language.tr": "ตุรกี",
-    "translate.language.th": "ไทย",
-    "translate.language.nb": "นอร์เวย์",
-    "translate.language.bg": "บัลแกเรีย",
-    "translate.language.eu": "บาสก์",
-    "translate.language.fa": "เปอร์เซีย",
-    "translate.language.pt": "โปรตุเกส",
-    "translate.language.pl": "โปแลนด์",
-    "translate.language.fr": "ฝรั่งเศส",
-    "translate.language.fi": "ฟินแลนด์",
-    "translate.language.mi": "เมารี",
-    "translate.language.uk": "ยูเครน",
-    "translate.language.de": "เยอรมัน",
-    "translate.language.ru": "รัสเซีย",
-    "translate.language.ro": "โรมาเนีย",
-    "translate.language.lv": "ลัตเวีย",
-    "translate.language.lt": "ลิทัวเนีย",
-    "translate.language.cy": "เวลส์",
-    "translate.language.vi": "เวียดนาม",
-    "translate.language.es": "สเปน",
-    "translate.language.sk": "สโลวัก",
-    "translate.language.sl": "สโลวีเนีย",
-    "translate.language.sv": "สวีเดน",
-    "translate.language.en": "อังกฤษ",
-    "translate.language.am": "อัมฮาริก",
-    "translate.language.az": "อาร์เซอร์ไบจัน",
-    "translate.language.ar": "อาหรับ",
-    "translate.language.it": "อิตาลี",
-    "translate.language.id": "อินโดนีเซีย",
-    "translate.language.et": "เอสโทเนีย",
-    "translate.language.is": "ไอซ์แลนด์",
-    "translate.language.ga": "ไอร์แลนด์",
-    "translate.language.hu": "ฮังการี",
-    "translate.language.he": "ฮีบรู",
-    "text2speech.language.ar": "อาหรับ",
-    "text2speech.language.cy": "เวลส์",
-    "text2speech.language.da": "เดนมาร์ก",
-    "text2speech.language.de": "เยอรมัน",
-    "text2speech.language.en": "อังกฤษ",
-    "text2speech.language.es": "สเปน",
-    "text2speech.language.es-419": "สเปน (ลาตินอเมริกา)",
-    "text2speech.language.fr": "ฝรั่งเศส",
-    "text2speech.language.ko": "เกาหลี",
-    "text2speech.language.hi": "ภาษาฮินดี",
-    "text2speech.language.is": "ไอซ์แลนด์",
-    "text2speech.language.it": "อิตาลี",
-    "text2speech.language.nl": "ดัตช์",
-    "text2speech.language.ja": "ญี่ปุ่น",
-    "text2speech.language.nb": "นอร์เวย์",
-    "text2speech.language.pl": "โปแลนด์",
-    "text2speech.language.pt": "โปรตุเกส",
-    "text2speech.language.pt-br": "โปรตุเกส (บราซิล)",
-    "text2speech.language.ro": "โรมาเนีย",
-    "text2speech.language.ru": "รัสเซีย",
-    "text2speech.language.sv": "สวีเดน",
-    "text2speech.language.tr": "ตุรกี",
-    "text2speech.language.zh-cn": "ภาษาจีน (แมนดาริน)"
+    "MOTION_GOTO_POINTER": {
+      "value": "ตัวชี้เมาส์",
+      "parents": [
+        "MOTION_GOTO"
+      ]
+    },
+    "MOTION_GOTO_RANDOM": {
+      "value": "ตำแหน่งสุ่ม",
+      "parents": [
+        "MOTION_GOTO"
+      ]
+    },
+    "MOTION_GLIDETO_POINTER": {
+      "value": "ตัวชี้เมาส์",
+      "parents": [
+        "MOTION_GLIDETO"
+      ]
+    },
+    "MOTION_GLIDETO_RANDOM": {
+      "value": "ตำแหน่งสุ่ม",
+      "parents": [
+        "MOTION_GLIDETO"
+      ]
+    },
+    "MOTION_POINTTOWARDS_POINTER": {
+      "value": "ตัวชี้เมาส์",
+      "parents": [
+        "MOTION_POINTTOWARDS"
+      ]
+    },
+    "MOTION_POINTTOWARDS_RANDOM": {
+      "value": "สุ่มทิศทาง",
+      "parents": [
+        "MOTION_POINTTOWARDS"
+      ]
+    },
+    "MOTION_SETROTATIONSTYLE_LEFTRIGHT": {
+      "value": "ซ้าย-ขวา",
+      "parents": [
+        "MOTION_SETROTATIONSTYLE"
+      ]
+    },
+    "MOTION_SETROTATIONSTYLE_DONTROTATE": {
+      "value": "ห้ามหมุน",
+      "parents": [
+        "MOTION_SETROTATIONSTYLE"
+      ]
+    },
+    "MOTION_SETROTATIONSTYLE_ALLAROUND": {
+      "value": "รอบด้าน",
+      "parents": [
+        "MOTION_SETROTATIONSTYLE"
+      ]
+    },
+    "LOOKS_NEXTBACKDROP": {
+      "value": "ฉากหลังต่อไป",
+      "parents": [
+        "LOOKS_SWITCHBACKDROPTO"
+      ]
+    },
+    "LOOKS_PREVIOUSBACKDROP": {
+      "value": "ฉากหลังก่อนหน้า",
+      "parents": [
+        "LOOKS_SWITCHBACKDROPTO"
+      ]
+    },
+    "LOOKS_RANDOMBACKDROP": {
+      "value": "ฉากหลังแบบสุ่ม",
+      "parents": [
+        "LOOKS_SWITCHBACKDROPTO"
+      ]
+    },
+    "LOOKS_EFFECT_COLOR": {
+      "value": "สี",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_FISHEYE": {
+      "value": "ตาปลา",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_WHIRL": {
+      "value": "หมุนวน",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_PIXELATE": {
+      "value": "แยกพิกเซล",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_MOSAIC": {
+      "value": "โมเสก",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_BRIGHTNESS": {
+      "value": "ความสว่าง",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_GHOST": {
+      "value": "ล่องหน",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_GOTOFRONTBACK_FRONT": {
+      "value": "หน้าสุด",
+      "parents": [
+        "LOOKS_GOTOFRONTBACK"
+      ]
+    },
+    "LOOKS_GOTOFRONTBACK_BACK": {
+      "value": "หลังสุด",
+      "parents": [
+        "LOOKS_GOTOFRONTBACK"
+      ]
+    },
+    "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD": {
+      "value": "ด้านหน้า",
+      "parents": [
+        "LOOKS_GOFORWARDBACKWARDLAYERS"
+      ]
+    },
+    "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD": {
+      "value": "ด้านหลัง",
+      "parents": [
+        "LOOKS_GOFORWARDBACKWARDLAYERS"
+      ]
+    },
+    "LOOKS_NUMBERNAME_NUMBER": {
+      "value": "หมายเลข",
+      "parents": [
+        "LOOKS_COSTUMENUMBERNAME",
+        "LOOKS_BACKDROPNUMBERNAME"
+      ]
+    },
+    "LOOKS_NUMBERNAME_NAME": {
+      "value": "ชื่อ",
+      "parents": [
+        "LOOKS_COSTUMENUMBERNAME",
+        "LOOKS_BACKDROPNUMBERNAME"
+      ]
+    },
+    "SOUND_EFFECTS_PITCH": {
+      "value": "เสียงสูงต่ำ",
+      "parents": [
+        "SOUND_CHANGEEFFECTBY",
+        "SOUND_SETEFFECTO"
+      ]
+    },
+    "SOUND_EFFECTS_PAN": {
+      "value": "แพนเสียงซ้าย/ขวา",
+      "parents": [
+        "SOUND_CHANGEEFFECTBY",
+        "SOUND_SETEFFECTO"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_SPACE": {
+      "value": "สเปซบาร์",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_LEFT": {
+      "value": "ลูกศรชี้ทางซ้าย",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_RIGHT": {
+      "value": "ลูกศรชี้ขวา",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_DOWN": {
+      "value": "ลูกศรชี้ลง",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_UP": {
+      "value": "ลูกศรขึ้น",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_ANY": {
+      "value": "อะไรก็ได้",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED"
+      ]
+    },
+    "EVENT_WHENGREATERTHAN_TIMER": {
+      "value": "ตัวจับเวลา",
+      "parents": [
+        "EVENT_WHENGREATERTHAN"
+      ]
+    },
+    "EVENT_WHENGREATERTHAN_LOUDNESS": {
+      "value": "ระดับความดัง",
+      "parents": [
+        "EVENT_WHENGREATERTHAN"
+      ]
+    },
+    "CONTROL_STOP_ALL": {
+      "value": "ทั้งหมด",
+      "parents": [
+        "CONTROL_STOP"
+      ]
+    },
+    "CONTROL_STOP_THIS": {
+      "value": "สคริปต์นี้",
+      "parents": [
+        "CONTROL_STOP"
+      ]
+    },
+    "CONTROL_STOP_OTHER": {
+      "value": "สริปต์อื่นในตัวละคร",
+      "parents": [
+        "CONTROL_STOP"
+      ]
+    },
+    "CONTROL_CREATECLONEOF_MYSELF": {
+      "value": "ตัวฉันเอง",
+      "parents": [
+        "CONTROL_CREATECLONEOF"
+      ]
+    },
+    "SENSING_TOUCHINGOBJECT_POINTER": {
+      "value": "ตัวชี้เมาส์",
+      "parents": [
+        "SENSING_TOUCHINGOBJECT"
+      ]
+    },
+    "SENSING_TOUCHINGOBJECT_EDGE": {
+      "value": "ขอบ",
+      "parents": [
+        "SENSING_TOUCHINGOBJECT"
+      ]
+    },
+    "SENSING_DISTANCETO_POINTER": {
+      "value": "ตัวชี้เมาส์",
+      "parents": [
+        "SENSING_DISTANCETO"
+      ]
+    },
+    "SENSING_SETDRAGMODE_DRAGGABLE": {
+      "value": "ลากได้",
+      "parents": [
+        "SENSING_SETDRAGMODE"
+      ]
+    },
+    "SENSING_SETDRAGMODE_NOTDRAGGABLE": {
+      "value": "ลากไม่ได้",
+      "parents": [
+        "SENSING_SETDRAGMODE"
+      ]
+    },
+    "SENSING_OF_XPOSITION": {
+      "value": "ตำแหน่ง x",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_YPOSITION": {
+      "value": "ตำแหน่ง y",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_DIRECTION": {
+      "value": "ทิศทาง",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_COSTUMENUMBER": {
+      "value": "คอสตูม #",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_COSTUMENAME": {
+      "value": "ชื่อคอสตูม",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_SIZE": {
+      "value": "ขนาด",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_VOLUME": {
+      "value": "ระดับเสียง",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_BACKDROPNUMBER": {
+      "value": "ฉากหลัง #",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_BACKDROPNAME": {
+      "value": "ชื่อฉากหลัง",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_STAGE": {
+      "value": "เวที",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_CURRENT_YEAR": {
+      "value": "ปี",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_MONTH": {
+      "value": "เดือน",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_DATE": {
+      "value": "วันที่",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_DAYOFWEEK": {
+      "value": "วันของสัปดาห์",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_HOUR": {
+      "value": "ชั่วโมง",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_MINUTE": {
+      "value": "นาที",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_SECOND": {
+      "value": "วินาที",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "OPERATORS_MATHOP_ABS": {
+      "value": "ค่าสัมบูรณ์",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_FLOOR": {
+      "value": "พื้น",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_CEILING": {
+      "value": "เพดาน",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_SQRT": {
+      "value": "รากที่สอง",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_SIN": {
+      "value": "sin",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_COS": {
+      "value": "cos",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_TAN": {
+      "value": "tan",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_ASIN": {
+      "value": "asin",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_ACOS": {
+      "value": "acos",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_ATAN": {
+      "value": "atan",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_LN": {
+      "value": "ln",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_LOG": {
+      "value": "log",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_EEXP": {
+      "value": "e ^",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_10EXP": {
+      "value": "10 ^",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "music.drumSnare": {
+      "value": "(1) กลองเล็ก",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumBass": {
+      "value": "(2) กลองใหญ่",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumSideStick": {
+      "value": "(3) ไซด์สติค",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCrashCymbal": {
+      "value": "(4) ฉาบ",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumOpenHiHat": {
+      "value": "(5) ฉาบไฮแฮทเปิด",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumClosedHiHat": {
+      "value": "(6) ฉาบไฮแฮทปิด",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumTambourine": {
+      "value": "(7) แทมบูรีน",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumHandClap": {
+      "value": "(8) ตบมือ",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumClaves": {
+      "value": "(9) เคลฟ",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumWoodBlock": {
+      "value": "(10) วูดบล็อก",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCowbell": {
+      "value": "(11) คาวเบล",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumTriangle": {
+      "value": "(12) กิ๋ง",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumBongo": {
+      "value": "(13) บองโก",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumConga": {
+      "value": "(14) คองกา",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCabasa": {
+      "value": "(15) คาบาซา",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumGuiro": {
+      "value": "(16) กวีโร",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumVibraslap": {
+      "value": "(17) ไวบราสแลป",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCuica": {
+      "value": "(18) คุยกา",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.instrumentPiano": {
+      "value": "(1) เปียโน",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentElectricPiano": {
+      "value": "(2) เปียโนไฟฟ้า",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentOrgan": {
+      "value": "(3) ออร์แกน",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentGuitar": {
+      "value": "(4) กีตาร์",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentElectricGuitar": {
+      "value": "(5) กีต้าร์ไฟฟ้า",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentBass": {
+      "value": "(6) เบส",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentPizzicato": {
+      "value": "(7) พิซซิคาโต",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentCello": {
+      "value": "(8) เชลโล",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentTrombone": {
+      "value": "(9) ทรอมโบน",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentClarinet": {
+      "value": "(10) แคลริเน็ต",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSaxophone": {
+      "value": "(11) แซกโซโฟน",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentFlute": {
+      "value": "(12) ฟลูต",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentWoodenFlute": {
+      "value": "(13) ฟลูตไม้",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentBassoon": {
+      "value": "(14) บาสซูน",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentChoir": {
+      "value": "(15) เสียงประสาน",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentVibraphone": {
+      "value": "(16) ไวปราโฟน",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentMusicBox": {
+      "value": "(17) กล่องดนตรี",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSteelDrum": {
+      "value": "(18) กลองเหล็ก",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentMarimba": {
+      "value": "(19) มาริมบา",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSynthLead": {
+      "value": "(20) ซินธ์ลีด",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSynthPad": {
+      "value": "(21) ซินธ์แพด",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "pen.colorMenu.color": {
+      "value": "สี",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "pen.colorMenu.saturation": {
+      "value": "ความอิ่มตัวของสี",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "pen.colorMenu.brightness": {
+      "value": "ความสว่าง",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "pen.colorMenu.transparency": {
+      "value": "ความโปร่งใส",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "videoSensing.direction": {
+      "value": "ทิศทาง",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.motion": {
+      "value": "การเคลื่อนไหว",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.sprite": {
+      "value": "สไปรต์",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.stage": {
+      "value": "เวที",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.off": {
+      "value": "ปิด",
+      "parents": [
+        "videoSensing.videoToggle"
+      ]
+    },
+    "videoSensing.on": {
+      "value": "เปิด",
+      "parents": [
+        "videoSensing.videoToggle"
+      ]
+    },
+    "videoSensing.onFlipped": {
+      "value": "พลิก",
+      "parents": [
+        "videoSensing.videoToggle"
+      ]
+    },
+    "text2speech.alto": {
+      "value": "อัลโต",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.tenor": {
+      "value": "เทเนอร์",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.squeak": {
+      "value": "เอี๊ยด ๆ",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.giant": {
+      "value": "ไจแอนท์",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.kitten": {
+      "value": "ลูกแมว",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "makeymakey.upArrowShort": {
+      "value": "ขึ้น",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "makeymakey.downArrowShort": {
+      "value": "ลง",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "makeymakey.leftArrowShort": {
+      "value": "ซ้าย",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "makeymakey.rightArrowShort": {
+      "value": "ขวา",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "microbit.buttonsMenu.any": {
+      "value": "ทิศใดก็ได้",
+      "parents": [
+        "microbit.whenButtonPressed",
+        "microbit.isButtonPressed"
+      ]
+    },
+    "microbit.gesturesMenu.jumped": {
+      "value": "กระโดด",
+      "parents": [
+        "microbit.whenGesture"
+      ]
+    },
+    "microbit.gesturesMenu.moved": {
+      "value": "เคลื่อนไหว",
+      "parents": [
+        "microbit.whenGesture"
+      ]
+    },
+    "microbit.gesturesMenu.shaken": {
+      "value": "เขย่า",
+      "parents": [
+        "microbit.whenGesture"
+      ]
+    },
+    "microbit.tiltDirectionMenu.any": {
+      "value": "ทิศใดก็ได้",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted"
+      ]
+    },
+    "microbit.tiltDirectionMenu.back": {
+      "value": "หลัง",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "microbit.tiltDirectionMenu.front": {
+      "value": "หน้า",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "microbit.tiltDirectionMenu.left": {
+      "value": "ซ้าย",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "microbit.tiltDirectionMenu.right": {
+      "value": "ขวา",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "boost.motorDirection.backward": {
+      "value": "ทางนั้น",
+      "parents": [
+        "boost.setMotorDirection"
+      ]
+    },
+    "boost.motorDirection.forward": {
+      "value": "ทางนี้",
+      "parents": [
+        "boost.setMotorDirection"
+      ]
+    },
+    "boost.motorDirection.reverse": {
+      "value": "ย้อนกลับ",
+      "parents": [
+        "boost.setMotorDirection"
+      ]
+    },
+    "boost.color.any": {
+      "value": "any color",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.black": {
+      "value": "ดำ",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.blue": {
+      "value": "น้ำเงิน",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.green": {
+      "value": "เขียว",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.red": {
+      "value": "แดง",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.white": {
+      "value": "ขาว",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.yellow": {
+      "value": "เหลือง",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.tiltDirection.any": {
+      "value": "ทิศใดก็ได้",
+      "parents": [
+        "boost.whenTilted"
+      ]
+    },
+    "boost.tiltDirection.up": {
+      "value": "ขึ้น",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "boost.tiltDirection.down": {
+      "value": "ลง",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "boost.tiltDirection.left": {
+      "value": "ซ้าย",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "boost.tiltDirection.right": {
+      "value": "ขวา",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "wedo2.motorId.a": {
+      "value": "มอเตอร์ A",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorId.b": {
+      "value": "มอเตอร์ B",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorId.all": {
+      "value": "มอเตอร์ทั้งหมด",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorId.default": {
+      "value": "มอเตอร์",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorDirection.forward": {
+      "value": "ทางนี้",
+      "parents": [
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorDirection.backward": {
+      "value": "ทางนั้น",
+      "parents": [
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorDirection.reverse": {
+      "value": "ย้อนกลับ",
+      "parents": [
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.tiltDirection.any": {
+      "value": "ทิศใดก็ได้",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted"
+      ]
+    },
+    "wedo2.tiltDirection.up": {
+      "value": "ขึ้น",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "wedo2.tiltDirection.down": {
+      "value": "ลง",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "wedo2.tiltDirection.left": {
+      "value": "ซ้าย",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "wedo2.tiltDirection.right": {
+      "value": "ขวา",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "gdxfor.pulled": {
+      "value": "pulled",
+      "parents": [
+        "gdxfor.whenForcePushedOrPulled"
+      ]
+    },
+    "gdxfor.pushed": {
+      "value": "pushed",
+      "parents": [
+        "gdxfor.whenForcePushedOrPulled"
+      ]
+    },
+    "gdxfor.shaken": {
+      "value": "เขย่า",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.startedFalling": {
+      "value": "เริ่มตกลงมา",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.turnedFaceDown": {
+      "value": "turned face down",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.turnedFaceUp": {
+      "value": "turned face up",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.front": {
+      "value": "หน้า",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.back": {
+      "value": "หลัง",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.left": {
+      "value": "ซ้าย",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.right": {
+      "value": "ขวา",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.any": {
+      "value": "ทิศใดก็ได้",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted"
+      ]
+    },
+    "makeymakey.sequence.0": {
+      "value": "ซ้าย ขึ้น ขวา",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.1": {
+      "value": "ขวา ขึ้น ซ้าย",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.2": {
+      "value": "ซ้าย ขวา",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.3": {
+      "value": "ขวา ซ้าย",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.4": {
+      "value": "ขึ้น ลง",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.5": {
+      "value": "ลง ขึ้น",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.6": {
+      "value": "ขึ้น ขวา ลง ซ้าย",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.7": {
+      "value": "ขึ้น ซ้าย ลง ขวา",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.8": {
+      "value": "ขึ้น ขึ้น ลง ลง ซ้าย ขวา ซ้าย ขวา",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "translate.language.el": {
+      "value": "กรีก",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.gl": {
+      "value": "กาลิเชียน",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.gd": {
+      "value": "เกลิกสกอต",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ko": {
+      "value": "เกาหลี",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ca": {
+      "value": "คาตาลัน",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ckb": {
+      "value": "เคิร์ด (โซรานี)",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.hr": {
+      "value": "โครเอเชีย",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.zh-tw": {
+      "value": "จีน (ตัวเต็ม)",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.zh-cn": {
+      "value": "จีน (ตัวย่อ)",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.cs": {
+      "value": "เช็ก",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.zu": {
+      "value": "ซูลู",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sr": {
+      "value": "เซอร์เบียน",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ja": {
+      "value": "ญี่ปุ่น",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.nl": {
+      "value": "ดัตช์",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.da": {
+      "value": "เดนมาร์ก",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.tr": {
+      "value": "ตุรกี",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.th": {
+      "value": "ไทย",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.nb": {
+      "value": "นอร์เวย์",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.bg": {
+      "value": "บัลแกเรีย",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.eu": {
+      "value": "บาสก์",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.fa": {
+      "value": "เปอร์เซีย",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.pt": {
+      "value": "โปรตุเกส",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.pl": {
+      "value": "โปแลนด์",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.fr": {
+      "value": "ฝรั่งเศส",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.fi": {
+      "value": "ฟินแลนด์",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.mi": {
+      "value": "เมารี",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.uk": {
+      "value": "ยูเครน",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.de": {
+      "value": "เยอรมัน",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ru": {
+      "value": "รัสเซีย",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ro": {
+      "value": "โรมาเนีย",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.lv": {
+      "value": "ลัตเวีย",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.lt": {
+      "value": "ลิทัวเนีย",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.cy": {
+      "value": "เวลส์",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.vi": {
+      "value": "เวียดนาม",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.es": {
+      "value": "สเปน",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sk": {
+      "value": "สโลวัก",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sl": {
+      "value": "สโลวีเนีย",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sv": {
+      "value": "สวีเดน",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.en": {
+      "value": "อังกฤษ",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.am": {
+      "value": "อัมฮาริก",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.az": {
+      "value": "อาร์เซอร์ไบจัน",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ar": {
+      "value": "อาหรับ",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.it": {
+      "value": "อิตาลี",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.id": {
+      "value": "อินโดนีเซีย",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.et": {
+      "value": "เอสโทเนีย",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.is": {
+      "value": "ไอซ์แลนด์",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ga": {
+      "value": "ไอร์แลนด์",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.hu": {
+      "value": "ฮังการี",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.he": {
+      "value": "ฮีบรู",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "text2speech.language.ar": {
+      "value": "อาหรับ",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.cy": {
+      "value": "เวลส์",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.da": {
+      "value": "เดนมาร์ก",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.de": {
+      "value": "เยอรมัน",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.en": {
+      "value": "อังกฤษ",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.es": {
+      "value": "สเปน",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.es-419": {
+      "value": "สเปน (ลาตินอเมริกา)",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.fr": {
+      "value": "ฝรั่งเศส",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ko": {
+      "value": "เกาหลี",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.hi": {
+      "value": "ภาษาฮินดี",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.is": {
+      "value": "ไอซ์แลนด์",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.it": {
+      "value": "อิตาลี",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.nl": {
+      "value": "ดัตช์",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ja": {
+      "value": "ญี่ปุ่น",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.nb": {
+      "value": "นอร์เวย์",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.pl": {
+      "value": "โปแลนด์",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.pt": {
+      "value": "โปรตุเกส",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.pt-br": {
+      "value": "โปรตุเกส (บราซิล)",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ro": {
+      "value": "โรมาเนีย",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ru": {
+      "value": "รัสเซีย",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.sv": {
+      "value": "สวีเดน",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.tr": {
+      "value": "ตุรกี",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.zh-cn": {
+      "value": "ภาษาจีน (แมนดาริน)",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    }
   },
   "ignorelt": [],
   "soundEffects": [

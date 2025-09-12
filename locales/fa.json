@@ -211,228 +211,1659 @@
     "boost.setLightHue": "رنگ %1 شود"
   },
   "dropdowns": {
-    "MOTION_GOTO_POINTER": "اشاره‌گر ماوس",
-    "MOTION_GOTO_RANDOM": "مکان تصادفی",
-    "MOTION_POINTTOWARDS_RANDOM": "جهت تصافی",
-    "MOTION_SETROTATIONSTYLE_LEFTRIGHT": "چپ-راست",
-    "MOTION_SETROTATIONSTYLE_DONTROTATE": "گردش ممنوع",
-    "MOTION_SETROTATIONSTYLE_ALLAROUND": "همه طرف",
-    "LOOKS_EFFECT_COLOR": "رنگ",
-    "LOOKS_EFFECT_FISHEYE": "چشم ماهی",
-    "LOOKS_EFFECT_WHIRL": "گردابی",
-    "LOOKS_EFFECT_PIXELATE": "شطرنجی",
-    "LOOKS_EFFECT_MOSAIC": "موزاييکی",
-    "LOOKS_EFFECT_BRIGHTNESS": "روشنایی",
-    "LOOKS_EFFECT_GHOST": "شبح",
-    "LOOKS_GOTOFRONTBACK_FRONT": "اولین",
-    "LOOKS_GOTOFRONTBACK_BACK": "آخرین",
-    "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD": "جلوتر",
-    "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD": "عقب‌تر",
-    "LOOKS_NUMBERNAME_NUMBER": "شماره‌ی",
-    "LOOKS_NUMBERNAME_NAME": "نام",
-    "SOUND_EFFECTS_PITCH": "زیری یا بمی",
-    "SOUND_EFFECTS_PAN": "پخش صدا از چپ/راست",
-    "EVENT_WHENKEYPRESSED_SPACE": "فاصله",
-    "EVENT_WHENKEYPRESSED_LEFT": "جهت چپ",
-    "EVENT_WHENKEYPRESSED_RIGHT": "جهت راست",
-    "EVENT_WHENKEYPRESSED_DOWN": "جهت پایین",
-    "EVENT_WHENKEYPRESSED_UP": "جهت بالا",
-    "EVENT_WHENKEYPRESSED_ANY": "هر",
-    "EVENT_WHENGREATERTHAN_TIMER": "زمان سنج",
-    "EVENT_WHENGREATERTHAN_LOUDNESS": "بلندی صدا",
-    "CONTROL_STOP_ALL": "همه",
-    "CONTROL_STOP_THIS": "این برنامه",
-    "CONTROL_STOP_OTHER": "سایر برنامه‌های این شکلک",
-    "CONTROL_CREATECLONEOF_MYSELF": "خودم",
-    "SENSING_TOUCHINGOBJECT_EDGE": "لبه",
-    "SENSING_SETDRAGMODE_DRAGGABLE": "باشد",
-    "SENSING_SETDRAGMODE_NOTDRAGGABLE": "نباشد",
-    "SENSING_OF_XPOSITION": "مکان x",
-    "SENSING_OF_YPOSITION": "مکان y",
-    "SENSING_OF_DIRECTION": "جهت",
-    "SENSING_OF_COSTUMENUMBER": "# حالت",
-    "SENSING_OF_COSTUMENAME": "نام حالت",
-    "SENSING_OF_SIZE": "اندازه‌ی",
-    "SENSING_OF_VOLUME": "بلندی صدای",
-    "SENSING_OF_BACKDROPNUMBER": "# پس‌زمینه‌ی",
-    "SENSING_OF_BACKDROPNAME": "نام پس‌زمینه‌ی",
-    "SENSING_OF_STAGE": "صحنه",
-    "SENSING_CURRENT_YEAR": "سال",
-    "SENSING_CURRENT_MONTH": "ماه",
-    "SENSING_CURRENT_DATE": "تاریخ",
-    "SENSING_CURRENT_DAYOFWEEK": "روز هفته",
-    "SENSING_CURRENT_HOUR": "ساعت",
-    "SENSING_CURRENT_MINUTE": "دقیقه",
-    "SENSING_CURRENT_SECOND": "ثانیه",
-    "OPERATORS_MATHOP_ABS": "قدر مطلق",
-    "OPERATORS_MATHOP_FLOOR": "جزء صحیح",
-    "OPERATORS_MATHOP_CEILING": "سقف",
-    "OPERATORS_MATHOP_SQRT": "جذر",
-    "music.drumSnare": "(1) طبل کوچک",
-    "music.drumBass": "(2) طبل بزرگ بم",
-    "music.drumSideStick": "(3) ضربه ی کنار چوب",
-    "music.drumCrashCymbal": "(4) سنج تک پایه دار",
-    "music.drumOpenHiHat": "(5) سنج دوگانه‌ی موازی ضربه‌ای با چوب",
-    "music.drumClosedHiHat": "(6) ضرب دوسنج موازی نزدیک به هم",
-    "music.drumTambourine": "(7) دایره زنگی",
-    "music.drumHandClap": "(8) دست زدن",
-    "music.drumClaves": "(9) چوب‌های کلیوز",
-    "music.drumWoodBlock": "(10) قطعه‌ی چوب",
-    "music.drumCowbell": "(11) زنگ مدل کبل",
-    "music.drumTriangle": "(12) زنگ مثلثی",
-    "music.drumBongo": "(13) طبل بانگو",
-    "music.drumConga": "(14) تیمپوی مدل کنگا",
-    "music.drumCabasa": "(15) جغجغه‌ی کاباسا",
-    "music.drumGuiro": "(16) جغجغه‌ی چوبی گویرو",
-    "music.drumVibraslap": "(17) ضربه‌ی ارتعاشی",
-    "music.drumCuica": "(18) طبل مدل کویکا",
-    "music.instrumentPiano": "(1) پیانو",
-    "music.instrumentElectricPiano": "(2) پیانو الکتریک",
-    "music.instrumentOrgan": "(3) ارگ",
-    "music.instrumentGuitar": "(4) گیتار",
-    "music.instrumentElectricGuitar": "(5) گیتار الکتریک",
-    "music.instrumentBass": "(6) گیتار بیس",
-    "music.instrumentPizzicato": "(7)صدای پیتزیکاتو",
-    "music.instrumentCello": "(8) ویولن سل",
-    "music.instrumentTrombone": "(9) ترومبون",
-    "music.instrumentClarinet": "(10) کلارینت",
-    "music.instrumentSaxophone": "(11) ساکسیفون",
-    "music.instrumentFlute": "(12) فلوت",
-    "music.instrumentWoodenFlute": "(13) فلوت چوبی",
-    "music.instrumentBassoon": "(14) باسون",
-    "music.instrumentChoir": "(15) گروه کر",
-    "music.instrumentVibraphone": "(16) ویبرافون",
-    "music.instrumentMusicBox": "(17) جعبه‌ی موسیقی",
-    "music.instrumentSteelDrum": "(18) طبل فولادی",
-    "music.instrumentMarimba": "(19) سنتور چوبی آفریقایی مدل ماریمبا",
-    "music.instrumentSynthLead": "(20) صدای زیر ساز برقی",
-    "music.instrumentSynthPad": "(21) صدای پایدار ساز برقی",
-    "pen.colorMenu.saturation": "شدت رنگ",
-    "pen.colorMenu.transparency": "شفافیت",
-    "videoSensing.direction": "جهت",
-    "videoSensing.motion": "حرکت",
-    "videoSensing.sprite": "شکلک",
-    "videoSensing.stage": "صحنه",
-    "videoSensing.off": "خاموش",
-    "videoSensing.on": "روشن",
-    "videoSensing.onFlipped": "روشن و قرینه",
-    "text2speech.alto": "زیر",
-    "text2speech.tenor": "بم",
-    "text2speech.squeak": "کودکانه",
-    "text2speech.giant": "غول",
-    "text2speech.kitten": "بچه گربه‌ای",
-    "makeymakey.upArrowShort": "بالا",
-    "makeymakey.downArrowShort": "پایین",
-    "makeymakey.leftArrowShort": "چپ",
-    "makeymakey.rightArrowShort": "راست",
-    "microbit.gesturesMenu.jumped": "پرید",
-    "microbit.gesturesMenu.moved": "حرکت کرد",
-    "microbit.gesturesMenu.shaken": "تکان داده شد",
-    "microbit.tiltDirectionMenu.back": "به سمت عقب",
-    "microbit.tiltDirectionMenu.front": "به سمت جلو",
-    "microbit.tiltDirectionMenu.left": "به سمت چپ",
-    "microbit.tiltDirectionMenu.right": "به سمت راست",
-    "boost.motorDirection.backward": "پادساعتگرد",
-    "boost.motorDirection.forward": "ساعتگرد",
-    "boost.motorDirection.reverse": "برعکس",
-    "boost.color.any": "هر رنگی",
-    "boost.color.black": "سیاه",
-    "boost.color.blue": "آبی",
-    "boost.color.green": "سبز",
-    "boost.color.red": "قرمز",
-    "boost.color.white": "سفید",
-    "boost.color.yellow": "زرد",
-    "wedo2.motorId.a": "موتور A",
-    "wedo2.motorId.b": "موتور B",
-    "wedo2.motorId.all": "همه‌ی موتورها",
-    "wedo2.motorId.default": "موتور",
-    "gdxfor.pulled": "کشیده شد",
-    "gdxfor.pushed": "فشرده",
-    "gdxfor.shaken": "تکان داده شد",
-    "gdxfor.startedFalling": "سقوط شروع شد",
-    "gdxfor.turnedFaceDown": "رو به پایین شد",
-    "gdxfor.turnedFaceUp": "رو به بالا شد",
-    "makeymakey.sequence.0": "چپ بالا راست",
-    "makeymakey.sequence.1": "راست بالا چپ",
-    "makeymakey.sequence.2": "چپ راست",
-    "makeymakey.sequence.3": "راست چپ",
-    "makeymakey.sequence.4": "بالا پایین",
-    "makeymakey.sequence.5": "پایین بالا",
-    "makeymakey.sequence.6": "بالا راست پایین چپ",
-    "makeymakey.sequence.7": "بالا چپ پایین راست",
-    "makeymakey.sequence.8": "بالا بالا پایین پایین چپ راست چپ راست",
-    "translate.language.az": "آذرباﻳﺠﺎﻧﻰ",
-    "translate.language.de": "آلمانی",
-    "translate.language.es": "اسپانیایی",
-    "translate.language.et": "استونيايی",
-    "translate.language.sk": "اسلواکی",
-    "translate.language.sl": "اسلونیایی",
-    "translate.language.uk": "اکراينی",
-    "translate.language.am": "امهری",
-    "translate.language.id": "اندونزيايی",
-    "translate.language.en": "انگلیسی",
-    "translate.language.it": "ایتالیایی",
-    "translate.language.ga": "ایرلندی",
-    "translate.language.is": "ايسلندی",
-    "translate.language.eu": "باسکی",
-    "translate.language.bg": "بلغاری",
-    "translate.language.pt": "پرتغالی",
-    "translate.language.th": "تايلندی",
-    "translate.language.tr": "ترکی استانبولی",
-    "translate.language.cs": "چک",
-    "translate.language.zh-cn": "چینی (ساده‌شده)",
-    "translate.language.zh-tw": "چینی (سنتی)",
-    "translate.language.da": "دانمارکی",
-    "translate.language.ru": "روسی",
-    "translate.language.ro": "رومانيايی",
-    "translate.language.zu": "زولو",
-    "translate.language.ja": "ژاپنی",
-    "translate.language.sv": "سوئدی",
-    "translate.language.sr": "صربی",
-    "translate.language.he": "عبری",
-    "translate.language.ar": "عربی",
-    "translate.language.fa": "فارسی",
-    "translate.language.fr": "فرانسوی",
-    "translate.language.fi": "فنلاندی",
-    "translate.language.ca": "کاتالان",
-    "translate.language.ckb": "کردی (سورانی)",
-    "translate.language.hr": "کرواتی",
-    "translate.language.ko": "کره‌ای",
-    "translate.language.gl": "گالیسی",
-    "translate.language.gd": "گاليک اسکاتلندی",
-    "translate.language.lv": "لتونيايی",
-    "translate.language.pl": "لهستانی",
-    "translate.language.lt": "ليتوانيايی",
-    "translate.language.mi": "مائوری",
-    "translate.language.hu": "مجاری",
-    "translate.language.nb": "نروژی",
-    "translate.language.cy": "ولزی",
-    "translate.language.vi": "ويتنامی",
-    "translate.language.nl": "هلندی",
-    "translate.language.el": "يونانی",
-    "text2speech.language.ar": "عربی",
-    "text2speech.language.cy": "ولزی",
-    "text2speech.language.da": "دانمارکی",
-    "text2speech.language.de": "آلمانی",
-    "text2speech.language.en": "انگلیسی",
-    "text2speech.language.es": "اسپانیایی",
-    "text2speech.language.es-419": "اسپانیایی (آمریکای لاتین)",
-    "text2speech.language.fr": "فرانسوی",
-    "text2speech.language.ko": "کره‌ای",
-    "text2speech.language.hi": "هندی",
-    "text2speech.language.is": "ايسلندی",
-    "text2speech.language.it": "ایتالیایی",
-    "text2speech.language.nl": "هلندی",
-    "text2speech.language.ja": "ژاپنی",
-    "text2speech.language.nb": "نروژی",
-    "text2speech.language.pl": "لهستانی",
-    "text2speech.language.pt": "پرتغالی",
-    "text2speech.language.pt-br": "پرتغالی (برزیلی)",
-    "text2speech.language.ro": "رومانيايی",
-    "text2speech.language.ru": "روسی",
-    "text2speech.language.sv": "سوئدی",
-    "text2speech.language.tr": "ترکی استانبولی",
-    "text2speech.language.zh-cn": "چینی (ماندارین)"
+    "MOTION_GOTO_POINTER": {
+      "value": "اشاره‌گر ماوس",
+      "parents": [
+        "MOTION_GOTO"
+      ]
+    },
+    "MOTION_GOTO_RANDOM": {
+      "value": "مکان تصادفی",
+      "parents": [
+        "MOTION_GOTO"
+      ]
+    },
+    "MOTION_GLIDETO_POINTER": {
+      "value": "اشاره‌گر ماوس",
+      "parents": [
+        "MOTION_GLIDETO"
+      ]
+    },
+    "MOTION_GLIDETO_RANDOM": {
+      "value": "مکان تصادفی",
+      "parents": [
+        "MOTION_GLIDETO"
+      ]
+    },
+    "MOTION_POINTTOWARDS_POINTER": {
+      "value": "اشاره‌گر ماوس",
+      "parents": [
+        "MOTION_POINTTOWARDS"
+      ]
+    },
+    "MOTION_POINTTOWARDS_RANDOM": {
+      "value": "جهت تصافی",
+      "parents": [
+        "MOTION_POINTTOWARDS"
+      ]
+    },
+    "MOTION_SETROTATIONSTYLE_LEFTRIGHT": {
+      "value": "چپ-راست",
+      "parents": [
+        "MOTION_SETROTATIONSTYLE"
+      ]
+    },
+    "MOTION_SETROTATIONSTYLE_DONTROTATE": {
+      "value": "گردش ممنوع",
+      "parents": [
+        "MOTION_SETROTATIONSTYLE"
+      ]
+    },
+    "MOTION_SETROTATIONSTYLE_ALLAROUND": {
+      "value": "همه طرف",
+      "parents": [
+        "MOTION_SETROTATIONSTYLE"
+      ]
+    },
+    "LOOKS_NEXTBACKDROP": {
+      "value": "پس‌زمینه‌ی بعدی",
+      "parents": [
+        "LOOKS_SWITCHBACKDROPTO"
+      ]
+    },
+    "LOOKS_PREVIOUSBACKDROP": {
+      "value": "پس‌زمینه‌ی قبلی",
+      "parents": [
+        "LOOKS_SWITCHBACKDROPTO"
+      ]
+    },
+    "LOOKS_RANDOMBACKDROP": {
+      "value": "پس‌زمینه‌ی تصادفی",
+      "parents": [
+        "LOOKS_SWITCHBACKDROPTO"
+      ]
+    },
+    "LOOKS_EFFECT_COLOR": {
+      "value": "رنگ",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_FISHEYE": {
+      "value": "چشم ماهی",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_WHIRL": {
+      "value": "گردابی",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_PIXELATE": {
+      "value": "شطرنجی",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_MOSAIC": {
+      "value": "موزاييکی",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_BRIGHTNESS": {
+      "value": "روشنایی",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_GHOST": {
+      "value": "شبح",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_GOTOFRONTBACK_FRONT": {
+      "value": "اولین",
+      "parents": [
+        "LOOKS_GOTOFRONTBACK"
+      ]
+    },
+    "LOOKS_GOTOFRONTBACK_BACK": {
+      "value": "آخرین",
+      "parents": [
+        "LOOKS_GOTOFRONTBACK"
+      ]
+    },
+    "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD": {
+      "value": "جلوتر",
+      "parents": [
+        "LOOKS_GOFORWARDBACKWARDLAYERS"
+      ]
+    },
+    "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD": {
+      "value": "عقب‌تر",
+      "parents": [
+        "LOOKS_GOFORWARDBACKWARDLAYERS"
+      ]
+    },
+    "LOOKS_NUMBERNAME_NUMBER": {
+      "value": "شماره‌ی",
+      "parents": [
+        "LOOKS_COSTUMENUMBERNAME",
+        "LOOKS_BACKDROPNUMBERNAME"
+      ]
+    },
+    "LOOKS_NUMBERNAME_NAME": {
+      "value": "نام",
+      "parents": [
+        "LOOKS_COSTUMENUMBERNAME",
+        "LOOKS_BACKDROPNUMBERNAME"
+      ]
+    },
+    "SOUND_EFFECTS_PITCH": {
+      "value": "زیری یا بمی",
+      "parents": [
+        "SOUND_CHANGEEFFECTBY",
+        "SOUND_SETEFFECTO"
+      ]
+    },
+    "SOUND_EFFECTS_PAN": {
+      "value": "پخش صدا از چپ/راست",
+      "parents": [
+        "SOUND_CHANGEEFFECTBY",
+        "SOUND_SETEFFECTO"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_SPACE": {
+      "value": "فاصله",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_LEFT": {
+      "value": "جهت چپ",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_RIGHT": {
+      "value": "جهت راست",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_DOWN": {
+      "value": "جهت پایین",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_UP": {
+      "value": "جهت بالا",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_ANY": {
+      "value": "هر",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED"
+      ]
+    },
+    "EVENT_WHENGREATERTHAN_TIMER": {
+      "value": "زمان سنج",
+      "parents": [
+        "EVENT_WHENGREATERTHAN"
+      ]
+    },
+    "EVENT_WHENGREATERTHAN_LOUDNESS": {
+      "value": "بلندی صدا",
+      "parents": [
+        "EVENT_WHENGREATERTHAN"
+      ]
+    },
+    "CONTROL_STOP_ALL": {
+      "value": "همه",
+      "parents": [
+        "CONTROL_STOP"
+      ]
+    },
+    "CONTROL_STOP_THIS": {
+      "value": "این برنامه",
+      "parents": [
+        "CONTROL_STOP"
+      ]
+    },
+    "CONTROL_STOP_OTHER": {
+      "value": "سایر برنامه‌های این شکلک",
+      "parents": [
+        "CONTROL_STOP"
+      ]
+    },
+    "CONTROL_CREATECLONEOF_MYSELF": {
+      "value": "خودم",
+      "parents": [
+        "CONTROL_CREATECLONEOF"
+      ]
+    },
+    "SENSING_TOUCHINGOBJECT_POINTER": {
+      "value": "اشاره‌گر ماوس",
+      "parents": [
+        "SENSING_TOUCHINGOBJECT"
+      ]
+    },
+    "SENSING_TOUCHINGOBJECT_EDGE": {
+      "value": "لبه",
+      "parents": [
+        "SENSING_TOUCHINGOBJECT"
+      ]
+    },
+    "SENSING_DISTANCETO_POINTER": {
+      "value": "اشاره‌گر ماوس",
+      "parents": [
+        "SENSING_DISTANCETO"
+      ]
+    },
+    "SENSING_SETDRAGMODE_DRAGGABLE": {
+      "value": "باشد",
+      "parents": [
+        "SENSING_SETDRAGMODE"
+      ]
+    },
+    "SENSING_SETDRAGMODE_NOTDRAGGABLE": {
+      "value": "نباشد",
+      "parents": [
+        "SENSING_SETDRAGMODE"
+      ]
+    },
+    "SENSING_OF_XPOSITION": {
+      "value": "مکان x",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_YPOSITION": {
+      "value": "مکان y",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_DIRECTION": {
+      "value": "جهت",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_COSTUMENUMBER": {
+      "value": "# حالت",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_COSTUMENAME": {
+      "value": "نام حالت",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_SIZE": {
+      "value": "اندازه‌ی",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_VOLUME": {
+      "value": "بلندی صدای",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_BACKDROPNUMBER": {
+      "value": "# پس‌زمینه‌ی",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_BACKDROPNAME": {
+      "value": "نام پس‌زمینه‌ی",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_STAGE": {
+      "value": "صحنه",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_CURRENT_YEAR": {
+      "value": "سال",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_MONTH": {
+      "value": "ماه",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_DATE": {
+      "value": "تاریخ",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_DAYOFWEEK": {
+      "value": "روز هفته",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_HOUR": {
+      "value": "ساعت",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_MINUTE": {
+      "value": "دقیقه",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_SECOND": {
+      "value": "ثانیه",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "OPERATORS_MATHOP_ABS": {
+      "value": "قدر مطلق",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_FLOOR": {
+      "value": "جزء صحیح",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_CEILING": {
+      "value": "سقف",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_SQRT": {
+      "value": "جذر",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_SIN": {
+      "value": "sin",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_COS": {
+      "value": "cos",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_TAN": {
+      "value": "tan",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_ASIN": {
+      "value": "asin",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_ACOS": {
+      "value": "acos",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_ATAN": {
+      "value": "atan",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_LN": {
+      "value": "ln",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_LOG": {
+      "value": "log",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_EEXP": {
+      "value": "e به توان",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_10EXP": {
+      "value": "۱۰ به توان",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "music.drumSnare": {
+      "value": "(1) طبل کوچک",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumBass": {
+      "value": "(2) طبل بزرگ بم",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumSideStick": {
+      "value": "(3) ضربه ی کنار چوب",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCrashCymbal": {
+      "value": "(4) سنج تک پایه دار",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumOpenHiHat": {
+      "value": "(5) سنج دوگانه‌ی موازی ضربه‌ای با چوب",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumClosedHiHat": {
+      "value": "(6) ضرب دوسنج موازی نزدیک به هم",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumTambourine": {
+      "value": "(7) دایره زنگی",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumHandClap": {
+      "value": "(8) دست زدن",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumClaves": {
+      "value": "(9) چوب‌های کلیوز",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumWoodBlock": {
+      "value": "(10) قطعه‌ی چوب",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCowbell": {
+      "value": "(11) زنگ مدل کبل",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumTriangle": {
+      "value": "(12) زنگ مثلثی",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumBongo": {
+      "value": "(13) طبل بانگو",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumConga": {
+      "value": "(14) تیمپوی مدل کنگا",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCabasa": {
+      "value": "(15) جغجغه‌ی کاباسا",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumGuiro": {
+      "value": "(16) جغجغه‌ی چوبی گویرو",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumVibraslap": {
+      "value": "(17) ضربه‌ی ارتعاشی",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCuica": {
+      "value": "(18) طبل مدل کویکا",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.instrumentPiano": {
+      "value": "(1) پیانو",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentElectricPiano": {
+      "value": "(2) پیانو الکتریک",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentOrgan": {
+      "value": "(3) ارگ",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentGuitar": {
+      "value": "(4) گیتار",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentElectricGuitar": {
+      "value": "(5) گیتار الکتریک",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentBass": {
+      "value": "(6) گیتار بیس",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentPizzicato": {
+      "value": "(7)صدای پیتزیکاتو",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentCello": {
+      "value": "(8) ویولن سل",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentTrombone": {
+      "value": "(9) ترومبون",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentClarinet": {
+      "value": "(10) کلارینت",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSaxophone": {
+      "value": "(11) ساکسیفون",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentFlute": {
+      "value": "(12) فلوت",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentWoodenFlute": {
+      "value": "(13) فلوت چوبی",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentBassoon": {
+      "value": "(14) باسون",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentChoir": {
+      "value": "(15) گروه کر",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentVibraphone": {
+      "value": "(16) ویبرافون",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentMusicBox": {
+      "value": "(17) جعبه‌ی موسیقی",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSteelDrum": {
+      "value": "(18) طبل فولادی",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentMarimba": {
+      "value": "(19) سنتور چوبی آفریقایی مدل ماریمبا",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSynthLead": {
+      "value": "(20) صدای زیر ساز برقی",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSynthPad": {
+      "value": "(21) صدای پایدار ساز برقی",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "pen.colorMenu.color": {
+      "value": "رنگ",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "pen.colorMenu.saturation": {
+      "value": "شدت رنگ",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "pen.colorMenu.brightness": {
+      "value": "روشنایی",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "pen.colorMenu.transparency": {
+      "value": "شفافیت",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "videoSensing.direction": {
+      "value": "جهت",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.motion": {
+      "value": "حرکت",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.sprite": {
+      "value": "شکلک",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.stage": {
+      "value": "صحنه",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.off": {
+      "value": "خاموش",
+      "parents": [
+        "videoSensing.videoToggle"
+      ]
+    },
+    "videoSensing.on": {
+      "value": "روشن",
+      "parents": [
+        "videoSensing.videoToggle"
+      ]
+    },
+    "videoSensing.onFlipped": {
+      "value": "روشن و قرینه",
+      "parents": [
+        "videoSensing.videoToggle"
+      ]
+    },
+    "text2speech.alto": {
+      "value": "زیر",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.tenor": {
+      "value": "بم",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.squeak": {
+      "value": "کودکانه",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.giant": {
+      "value": "غول",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.kitten": {
+      "value": "بچه گربه‌ای",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "makeymakey.upArrowShort": {
+      "value": "بالا",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "makeymakey.downArrowShort": {
+      "value": "پایین",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "makeymakey.leftArrowShort": {
+      "value": "چپ",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "makeymakey.rightArrowShort": {
+      "value": "راست",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "microbit.buttonsMenu.any": {
+      "value": "A یا B",
+      "parents": [
+        "microbit.whenButtonPressed",
+        "microbit.isButtonPressed"
+      ]
+    },
+    "microbit.gesturesMenu.jumped": {
+      "value": "پرید",
+      "parents": [
+        "microbit.whenGesture"
+      ]
+    },
+    "microbit.gesturesMenu.moved": {
+      "value": "حرکت کرد",
+      "parents": [
+        "microbit.whenGesture"
+      ]
+    },
+    "microbit.gesturesMenu.shaken": {
+      "value": "تکان داده شد",
+      "parents": [
+        "microbit.whenGesture"
+      ]
+    },
+    "microbit.tiltDirectionMenu.any": {
+      "value": "هر سمتی",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted"
+      ]
+    },
+    "microbit.tiltDirectionMenu.back": {
+      "value": "به سمت عقب",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "microbit.tiltDirectionMenu.front": {
+      "value": "به سمت جلو",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "microbit.tiltDirectionMenu.left": {
+      "value": "به سمت چپ",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "microbit.tiltDirectionMenu.right": {
+      "value": "به سمت راست",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "boost.motorDirection.backward": {
+      "value": "پادساعتگرد",
+      "parents": [
+        "boost.setMotorDirection"
+      ]
+    },
+    "boost.motorDirection.forward": {
+      "value": "ساعتگرد",
+      "parents": [
+        "boost.setMotorDirection"
+      ]
+    },
+    "boost.motorDirection.reverse": {
+      "value": "برعکس",
+      "parents": [
+        "boost.setMotorDirection"
+      ]
+    },
+    "boost.color.any": {
+      "value": "هر رنگی",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.black": {
+      "value": "سیاه",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.blue": {
+      "value": "آبی",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.green": {
+      "value": "سبز",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.red": {
+      "value": "قرمز",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.white": {
+      "value": "سفید",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.yellow": {
+      "value": "زرد",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.tiltDirection.any": {
+      "value": "هر سمتی",
+      "parents": [
+        "boost.whenTilted"
+      ]
+    },
+    "boost.tiltDirection.up": {
+      "value": "بالا",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "boost.tiltDirection.down": {
+      "value": "پایین",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "boost.tiltDirection.left": {
+      "value": "به سمت چپ",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "boost.tiltDirection.right": {
+      "value": "به سمت راست",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "wedo2.motorId.a": {
+      "value": "موتور A",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorId.b": {
+      "value": "موتور B",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorId.all": {
+      "value": "همه‌ی موتورها",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorId.default": {
+      "value": "موتور",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorDirection.forward": {
+      "value": "ساعتگرد",
+      "parents": [
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorDirection.backward": {
+      "value": "پادساعتگرد",
+      "parents": [
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorDirection.reverse": {
+      "value": "برعکس",
+      "parents": [
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.tiltDirection.any": {
+      "value": "هر سمتی",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted"
+      ]
+    },
+    "wedo2.tiltDirection.up": {
+      "value": "بالا",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "wedo2.tiltDirection.down": {
+      "value": "پایین",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "wedo2.tiltDirection.left": {
+      "value": "چپ",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "wedo2.tiltDirection.right": {
+      "value": "راست",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "gdxfor.pulled": {
+      "value": "کشیده شد",
+      "parents": [
+        "gdxfor.whenForcePushedOrPulled"
+      ]
+    },
+    "gdxfor.pushed": {
+      "value": "فشرده",
+      "parents": [
+        "gdxfor.whenForcePushedOrPulled"
+      ]
+    },
+    "gdxfor.shaken": {
+      "value": "تکان داده شد",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.startedFalling": {
+      "value": "سقوط شروع شد",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.turnedFaceDown": {
+      "value": "رو به پایین شد",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.turnedFaceUp": {
+      "value": "رو به بالا شد",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.front": {
+      "value": "به سمت جلو",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.back": {
+      "value": "به سمت عقب",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.left": {
+      "value": "به سمت چپ",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.right": {
+      "value": "به سمت راست",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.any": {
+      "value": "هر سمتی",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted"
+      ]
+    },
+    "makeymakey.sequence.0": {
+      "value": "چپ بالا راست",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.1": {
+      "value": "راست بالا چپ",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.2": {
+      "value": "چپ راست",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.3": {
+      "value": "راست چپ",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.4": {
+      "value": "بالا پایین",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.5": {
+      "value": "پایین بالا",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.6": {
+      "value": "بالا راست پایین چپ",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.7": {
+      "value": "بالا چپ پایین راست",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.8": {
+      "value": "بالا بالا پایین پایین چپ راست چپ راست",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "translate.language.az": {
+      "value": "آذرباﻳﺠﺎﻧﻰ",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.de": {
+      "value": "آلمانی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.es": {
+      "value": "اسپانیایی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.et": {
+      "value": "استونيايی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sk": {
+      "value": "اسلواکی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sl": {
+      "value": "اسلونیایی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.uk": {
+      "value": "اکراينی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.am": {
+      "value": "امهری",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.id": {
+      "value": "اندونزيايی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.en": {
+      "value": "انگلیسی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.it": {
+      "value": "ایتالیایی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ga": {
+      "value": "ایرلندی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.is": {
+      "value": "ايسلندی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.eu": {
+      "value": "باسکی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.bg": {
+      "value": "بلغاری",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.pt": {
+      "value": "پرتغالی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.th": {
+      "value": "تايلندی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.tr": {
+      "value": "ترکی استانبولی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.cs": {
+      "value": "چک",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.zh-cn": {
+      "value": "چینی (ساده‌شده)",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.zh-tw": {
+      "value": "چینی (سنتی)",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.da": {
+      "value": "دانمارکی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ru": {
+      "value": "روسی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ro": {
+      "value": "رومانيايی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.zu": {
+      "value": "زولو",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ja": {
+      "value": "ژاپنی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sv": {
+      "value": "سوئدی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sr": {
+      "value": "صربی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.he": {
+      "value": "عبری",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ar": {
+      "value": "عربی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.fa": {
+      "value": "فارسی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.fr": {
+      "value": "فرانسوی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.fi": {
+      "value": "فنلاندی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ca": {
+      "value": "کاتالان",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ckb": {
+      "value": "کردی (سورانی)",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.hr": {
+      "value": "کرواتی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ko": {
+      "value": "کره‌ای",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.gl": {
+      "value": "گالیسی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.gd": {
+      "value": "گاليک اسکاتلندی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.lv": {
+      "value": "لتونيايی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.pl": {
+      "value": "لهستانی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.lt": {
+      "value": "ليتوانيايی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.mi": {
+      "value": "مائوری",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.hu": {
+      "value": "مجاری",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.nb": {
+      "value": "نروژی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.cy": {
+      "value": "ولزی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.vi": {
+      "value": "ويتنامی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.nl": {
+      "value": "هلندی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.el": {
+      "value": "يونانی",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "text2speech.language.ar": {
+      "value": "عربی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.cy": {
+      "value": "ولزی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.da": {
+      "value": "دانمارکی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.de": {
+      "value": "آلمانی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.en": {
+      "value": "انگلیسی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.es": {
+      "value": "اسپانیایی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.es-419": {
+      "value": "اسپانیایی (آمریکای لاتین)",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.fr": {
+      "value": "فرانسوی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ko": {
+      "value": "کره‌ای",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.hi": {
+      "value": "هندی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.is": {
+      "value": "ايسلندی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.it": {
+      "value": "ایتالیایی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.nl": {
+      "value": "هلندی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ja": {
+      "value": "ژاپنی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.nb": {
+      "value": "نروژی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.pl": {
+      "value": "لهستانی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.pt": {
+      "value": "پرتغالی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.pt-br": {
+      "value": "پرتغالی (برزیلی)",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ro": {
+      "value": "رومانيايی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ru": {
+      "value": "روسی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.sv": {
+      "value": "سوئدی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.tr": {
+      "value": "ترکی استانبولی",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.zh-cn": {
+      "value": "چینی (ماندارین)",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    }
   },
   "ignorelt": [],
   "soundEffects": [

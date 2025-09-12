@@ -211,228 +211,1659 @@
     "boost.setLightHue": "όρισε χρώμα φωτός σε %1"
   },
   "dropdowns": {
-    "MOTION_GOTO_POINTER": "δείκτη ποντικιού",
-    "MOTION_GOTO_RANDOM": "τυχαία θέση",
-    "MOTION_POINTTOWARDS_RANDOM": "τυχαία κατεύθυνση",
-    "MOTION_SETROTATIONSTYLE_LEFTRIGHT": "αριστερά-δεξιά",
-    "MOTION_SETROTATIONSTYLE_DONTROTATE": "μην περιστρέψεις",
-    "MOTION_SETROTATIONSTYLE_ALLAROUND": "τριγύρω",
-    "LOOKS_EFFECT_COLOR": "χρώματος",
-    "LOOKS_EFFECT_FISHEYE": "κυρτότητας",
-    "LOOKS_EFFECT_WHIRL": "δίνης",
-    "LOOKS_EFFECT_PIXELATE": "εικονοστοιχειοποίησης",
-    "LOOKS_EFFECT_MOSAIC": "ψηφιδωτού",
-    "LOOKS_EFFECT_BRIGHTNESS": "φωτεινότητας",
-    "LOOKS_EFFECT_GHOST": "φαντάσματος",
-    "LOOKS_GOTOFRONTBACK_FRONT": "προσκήνιο",
-    "LOOKS_GOTOFRONTBACK_BACK": "υπόβαθρο",
-    "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD": "μπροστά",
-    "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD": "πίσω",
-    "LOOKS_NUMBERNAME_NUMBER": "νούμερο",
-    "LOOKS_NUMBERNAME_NAME": "όνομα",
-    "SOUND_EFFECTS_PITCH": "τόνος",
-    "SOUND_EFFECTS_PAN": "μετατόπιση αριστερά/δεξιά",
-    "EVENT_WHENKEYPRESSED_SPACE": "διάστημα",
-    "EVENT_WHENKEYPRESSED_LEFT": "αριστερό βέλος",
-    "EVENT_WHENKEYPRESSED_RIGHT": "δεξί βέλος",
-    "EVENT_WHENKEYPRESSED_DOWN": "κάτω βέλος",
-    "EVENT_WHENKEYPRESSED_UP": "πάνω βέλος",
-    "EVENT_WHENKEYPRESSED_ANY": "οποιοδήποτε",
-    "EVENT_WHENGREATERTHAN_TIMER": "χρονομέτρο",
-    "EVENT_WHENGREATERTHAN_LOUDNESS": "ένταση",
-    "CONTROL_STOP_ALL": "όλα",
-    "CONTROL_STOP_THIS": "αυτό το σενάριο",
-    "CONTROL_STOP_OTHER": "άλλα σενάρια σε αυτό το αντικείμενο",
-    "CONTROL_CREATECLONEOF_MYSELF": "εαυτού μου",
-    "SENSING_TOUCHINGOBJECT_EDGE": "όριο",
-    "SENSING_SETDRAGMODE_DRAGGABLE": "συρόμενο",
-    "SENSING_SETDRAGMODE_NOTDRAGGABLE": "μη συρόμενο",
-    "SENSING_OF_XPOSITION": "θέση x",
-    "SENSING_OF_YPOSITION": "θέση y",
-    "SENSING_OF_DIRECTION": "κατεύθυνση",
-    "SENSING_OF_COSTUMENUMBER": "# ενδυμασίας",
-    "SENSING_OF_COSTUMENAME": "όνομα ενδυμασίας",
-    "SENSING_OF_SIZE": "μέγεθος",
-    "SENSING_OF_VOLUME": "ένταση",
-    "SENSING_OF_BACKDROPNUMBER": "# υποβάθρου",
-    "SENSING_OF_BACKDROPNAME": "όνομα υποβάθρου",
-    "SENSING_OF_STAGE": "Σκηνή",
-    "SENSING_CURRENT_YEAR": "έτος",
-    "SENSING_CURRENT_MONTH": "μήνας",
-    "SENSING_CURRENT_DATE": "ημερομηνία",
-    "SENSING_CURRENT_DAYOFWEEK": "μέρα της εβδομάδας",
-    "SENSING_CURRENT_HOUR": "ώρα",
-    "SENSING_CURRENT_MINUTE": "λεπτό",
-    "SENSING_CURRENT_SECOND": "δευτερόλεπτο",
-    "OPERATORS_MATHOP_ABS": "απόλυτο",
-    "OPERATORS_MATHOP_FLOOR": "στρογγυλ. κάτω",
-    "OPERATORS_MATHOP_CEILING": "στρογγυλ. άνω",
-    "OPERATORS_MATHOP_SQRT": "τετρ. ρίζα",
-    "music.drumSnare": "(1) Ταμπούρο",
-    "music.drumBass": "(2) Μπάσο Τύμπανο",
-    "music.drumSideStick": "(3) Side Stick",
-    "music.drumCrashCymbal": "(4) Κύμβαλο Crash",
-    "music.drumOpenHiHat": "(5) Ανοικτά Πιατίνια",
-    "music.drumClosedHiHat": "(6) Κλειστά Πιατίνια",
-    "music.drumTambourine": "(7) Ντέφι",
-    "music.drumHandClap": "(8) Παλαμάκια",
-    "music.drumClaves": "(9) Κλάβες",
-    "music.drumWoodBlock": "(10) Ξύλινη Κασετίνα",
-    "music.drumCowbell": "(11) Κουδούνα",
-    "music.drumTriangle": "(12) Τρίγωνο",
-    "music.drumBongo": "(13) Μπόνγκο",
-    "music.drumConga": "(14) Κόνγκα",
-    "music.drumCabasa": "(15) Καμπάσα",
-    "music.drumGuiro": "(16) Γκουίρο",
-    "music.drumVibraslap": "(17) Βίμπρασλαπ",
-    "music.drumCuica": "(18) Κουίκα",
-    "music.instrumentPiano": "(1) Πιάνο",
-    "music.instrumentElectricPiano": "(2) Ηλεκτρικό πιάνο",
-    "music.instrumentOrgan": "(3) Εκκλησιαστικό Όργανο",
-    "music.instrumentGuitar": "(4) Κιθάρα",
-    "music.instrumentElectricGuitar": "(5) Ηλεκτρική κιθάρα",
-    "music.instrumentBass": "(6) Μπάσο",
-    "music.instrumentPizzicato": "(7) Πιτσικάτο",
-    "music.instrumentCello": "(8) Τσέλο",
-    "music.instrumentTrombone": "(9) Τρομπόνι",
-    "music.instrumentClarinet": "(10) Κλαρινέτο",
-    "music.instrumentSaxophone": "(11) Σαξόφωνο",
-    "music.instrumentFlute": "(12) Φλάουτο",
-    "music.instrumentWoodenFlute": "(13) Ξύλινο φλάουτο",
-    "music.instrumentBassoon": "(14) Φαγκότο",
-    "music.instrumentChoir": "(15) Χορωδία",
-    "music.instrumentVibraphone": "(16) Βιμπράφωνο",
-    "music.instrumentMusicBox": "(17) Μουσικό Κουτί",
-    "music.instrumentSteelDrum": "(18) Μεταλλικό Τύμπανο",
-    "music.instrumentMarimba": "(19) Μαρίμπα",
-    "music.instrumentSynthLead": "(20) Εισαγωγή Συνθεσάιζερ",
-    "music.instrumentSynthPad": "(21) Πληκτρολόγιο Συνθεσάιζερ",
-    "pen.colorMenu.saturation": "κορεσμό",
-    "pen.colorMenu.transparency": "διαφάνεια",
-    "videoSensing.direction": "κατεύθυνση",
-    "videoSensing.motion": "κίνηση",
-    "videoSensing.sprite": "αντικείμενο",
-    "videoSensing.stage": "σκηνή",
-    "videoSensing.off": "απενεργοποιημένο",
-    "videoSensing.on": "ενεργοποιημένο",
-    "videoSensing.onFlipped": "αναστραμμένο",
-    "text2speech.alto": "άλτο",
-    "text2speech.tenor": "τενόρος",
-    "text2speech.squeak": "στριγκλιά",
-    "text2speech.giant": "γίγαντας",
-    "text2speech.kitten": "γατάκι",
-    "makeymakey.upArrowShort": "πάνω",
-    "makeymakey.downArrowShort": "κάτω",
-    "makeymakey.leftArrowShort": "αριστερά",
-    "makeymakey.rightArrowShort": "δεξιά",
-    "microbit.gesturesMenu.jumped": "αναπηδήσει",
-    "microbit.gesturesMenu.moved": "κινηθεί",
-    "microbit.gesturesMenu.shaken": "τρανταχθεί",
-    "microbit.tiltDirectionMenu.back": "πίσω",
-    "microbit.tiltDirectionMenu.front": "μπροστά",
-    "microbit.tiltDirectionMenu.left": "αριστερά",
-    "microbit.tiltDirectionMenu.right": "δεξιά",
-    "boost.motorDirection.backward": "προς εκείνη την κατεύθυνση",
-    "boost.motorDirection.forward": "προς αυτήν την κατεύθυνση",
-    "boost.motorDirection.reverse": "αντιστροφή",
-    "boost.color.any": "όποιο χρώμα",
-    "boost.color.black": "μαύρο",
-    "boost.color.blue": "μπλε",
-    "boost.color.green": "πράσινο",
-    "boost.color.red": "κόκκινο",
-    "boost.color.white": "άσπρο",
-    "boost.color.yellow": "κίτρινο",
-    "wedo2.motorId.a": "κινητήρα A",
-    "wedo2.motorId.b": "κινητήρα B",
-    "wedo2.motorId.all": "όλους κινητήρες",
-    "wedo2.motorId.default": "κινητήρα",
-    "gdxfor.pulled": "τραβηχτεί",
-    "gdxfor.pushed": "πιεστεί",
-    "gdxfor.shaken": "τρανταχθεί",
-    "gdxfor.startedFalling": "αρχίσει πτώση",
-    "gdxfor.turnedFaceDown": "στραμμένο προς τα κάτω",
-    "gdxfor.turnedFaceUp": "στραμμένο προς τα πάνω",
-    "makeymakey.sequence.0": "αριστερά πάνω δεξιά",
-    "makeymakey.sequence.1": "δεξιά πάνω αριστερά",
-    "makeymakey.sequence.2": "αριστερά δεξιά",
-    "makeymakey.sequence.3": "δεξιά αριστερά",
-    "makeymakey.sequence.4": "πάνω κάτω",
-    "makeymakey.sequence.5": "κάτω πάνω",
-    "makeymakey.sequence.6": "πάνω δεξιά κάτω αριστερά",
-    "makeymakey.sequence.7": "πάνω αριστερά κάτω δεξιά",
-    "makeymakey.sequence.8": "πάνω πάνω κάτω κάτω αριστερά δεξιά αριστερά δεξιά",
-    "translate.language.en": "Αγγλικά",
-    "translate.language.az": "Αζερμπαϊτζανικά",
-    "translate.language.am": "Αμχαρικά",
-    "translate.language.ar": "Αραβικά",
-    "translate.language.eu": "Βασκικά",
-    "translate.language.vi": "Βιετναμεζικά",
-    "translate.language.bg": "Βουλγαρικά",
-    "translate.language.gd": "Γαελικά Σκοτίας",
-    "translate.language.gl": "Γαλικιακά",
-    "translate.language.fr": "Γαλλικά",
-    "translate.language.de": "Γερμανικά",
-    "translate.language.da": "Δανικά",
-    "translate.language.he": "Εβραϊκά",
-    "translate.language.el": "Ελληνικά",
-    "translate.language.et": "Εσθονικά",
-    "translate.language.zu": "Ζουλού",
-    "translate.language.ja": "Ιαπωνικά",
-    "translate.language.id": "Ινδονησιακά",
-    "translate.language.ga": "Ιρλανδικά",
-    "translate.language.is": "Ισλανδικά",
-    "translate.language.es": "Ισπανικά",
-    "translate.language.it": "Ιταλικά",
-    "translate.language.ca": "Καταλανικά",
-    "translate.language.zh-cn": "Κινεζικά (Απλοποιημένα)",
-    "translate.language.zh-tw": "Κινεζικά (Παραδοσιακά)",
-    "translate.language.ko": "Κορεατικά",
-    "translate.language.ckb": "Κουρδικά (Σορανί)",
-    "translate.language.hr": "Κροατικά",
-    "translate.language.lv": "Λετονικά",
-    "translate.language.lt": "Λιθουανικά",
-    "translate.language.mi": "Μαορί",
-    "translate.language.nb": "Νορβηγικά",
-    "translate.language.nl": "Ολλανδικά",
-    "translate.language.cy": "Ουαλικά",
-    "translate.language.hu": "Ουγγρικά",
-    "translate.language.uk": "Ουκρανικά",
-    "translate.language.fa": "Περσικά",
-    "translate.language.pl": "Πολωνικά",
-    "translate.language.pt": "Πορτογαλικά",
-    "translate.language.ro": "Ρουμανικά",
-    "translate.language.ru": "Ρωσικά",
-    "translate.language.sr": "Σερβικά",
-    "translate.language.sk": "Σλοβακικά",
-    "translate.language.sl": "Σλοβενικά",
-    "translate.language.sv": "Σουηδικά",
-    "translate.language.th": "Ταϊλανδεζικά",
-    "translate.language.tr": "Τουρκικά",
-    "translate.language.cs": "Τσεχικά",
-    "translate.language.fi": "Φινλανδικά",
-    "text2speech.language.ar": "Αραβικά",
-    "text2speech.language.cy": "Ουαλικά",
-    "text2speech.language.da": "Δανικά",
-    "text2speech.language.de": "Γερμανικά",
-    "text2speech.language.en": "Αγγλικά",
-    "text2speech.language.es": "Ισπανικά",
-    "text2speech.language.es-419": "Ισπανικά (Λατινικής Αμερικής)",
-    "text2speech.language.fr": "Γαλλικά",
-    "text2speech.language.ko": "Κορεατικά",
-    "text2speech.language.hi": "Χίντι",
-    "text2speech.language.is": "Ισλανδικά",
-    "text2speech.language.it": "Ιταλικά",
-    "text2speech.language.nl": "Ολλανδικά",
-    "text2speech.language.ja": "Ιαπωνικά",
-    "text2speech.language.nb": "Νορβηγικά",
-    "text2speech.language.pl": "Πολωνικά",
-    "text2speech.language.pt": "Πορτογαλικά",
-    "text2speech.language.pt-br": "Πορτογαλικά (Βραζιλιάνικα)",
-    "text2speech.language.ro": "Ρουμανικά",
-    "text2speech.language.ru": "Ρωσικά",
-    "text2speech.language.sv": "Σουηδικά",
-    "text2speech.language.tr": "Τουρκικά",
-    "text2speech.language.zh-cn": "Κινέζικα (μανταρίνια)"
+    "MOTION_GOTO_POINTER": {
+      "value": "δείκτη ποντικιού",
+      "parents": [
+        "MOTION_GOTO"
+      ]
+    },
+    "MOTION_GOTO_RANDOM": {
+      "value": "τυχαία θέση",
+      "parents": [
+        "MOTION_GOTO"
+      ]
+    },
+    "MOTION_GLIDETO_POINTER": {
+      "value": "δείκτη ποντικιού",
+      "parents": [
+        "MOTION_GLIDETO"
+      ]
+    },
+    "MOTION_GLIDETO_RANDOM": {
+      "value": "τυχαία θέση",
+      "parents": [
+        "MOTION_GLIDETO"
+      ]
+    },
+    "MOTION_POINTTOWARDS_POINTER": {
+      "value": "δείκτη ποντικιού",
+      "parents": [
+        "MOTION_POINTTOWARDS"
+      ]
+    },
+    "MOTION_POINTTOWARDS_RANDOM": {
+      "value": "τυχαία κατεύθυνση",
+      "parents": [
+        "MOTION_POINTTOWARDS"
+      ]
+    },
+    "MOTION_SETROTATIONSTYLE_LEFTRIGHT": {
+      "value": "αριστερά-δεξιά",
+      "parents": [
+        "MOTION_SETROTATIONSTYLE"
+      ]
+    },
+    "MOTION_SETROTATIONSTYLE_DONTROTATE": {
+      "value": "μην περιστρέψεις",
+      "parents": [
+        "MOTION_SETROTATIONSTYLE"
+      ]
+    },
+    "MOTION_SETROTATIONSTYLE_ALLAROUND": {
+      "value": "τριγύρω",
+      "parents": [
+        "MOTION_SETROTATIONSTYLE"
+      ]
+    },
+    "LOOKS_NEXTBACKDROP": {
+      "value": "επόμενο υπόβαθρο",
+      "parents": [
+        "LOOKS_SWITCHBACKDROPTO"
+      ]
+    },
+    "LOOKS_PREVIOUSBACKDROP": {
+      "value": "προηγούμενο υπόβαθρο",
+      "parents": [
+        "LOOKS_SWITCHBACKDROPTO"
+      ]
+    },
+    "LOOKS_RANDOMBACKDROP": {
+      "value": "τυχαίο υπόβαθρο",
+      "parents": [
+        "LOOKS_SWITCHBACKDROPTO"
+      ]
+    },
+    "LOOKS_EFFECT_COLOR": {
+      "value": "χρώματος",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_FISHEYE": {
+      "value": "κυρτότητας",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_WHIRL": {
+      "value": "δίνης",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_PIXELATE": {
+      "value": "εικονοστοιχειοποίησης",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_MOSAIC": {
+      "value": "ψηφιδωτού",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_BRIGHTNESS": {
+      "value": "φωτεινότητας",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_EFFECT_GHOST": {
+      "value": "φαντάσματος",
+      "parents": [
+        "LOOKS_SETEFFECTTO",
+        "LOOKS_CHANGEEFFECTBY"
+      ]
+    },
+    "LOOKS_GOTOFRONTBACK_FRONT": {
+      "value": "προσκήνιο",
+      "parents": [
+        "LOOKS_GOTOFRONTBACK"
+      ]
+    },
+    "LOOKS_GOTOFRONTBACK_BACK": {
+      "value": "υπόβαθρο",
+      "parents": [
+        "LOOKS_GOTOFRONTBACK"
+      ]
+    },
+    "LOOKS_GOFORWARDBACKWARDLAYERS_FORWARD": {
+      "value": "μπροστά",
+      "parents": [
+        "LOOKS_GOFORWARDBACKWARDLAYERS"
+      ]
+    },
+    "LOOKS_GOFORWARDBACKWARDLAYERS_BACKWARD": {
+      "value": "πίσω",
+      "parents": [
+        "LOOKS_GOFORWARDBACKWARDLAYERS"
+      ]
+    },
+    "LOOKS_NUMBERNAME_NUMBER": {
+      "value": "νούμερο",
+      "parents": [
+        "LOOKS_COSTUMENUMBERNAME",
+        "LOOKS_BACKDROPNUMBERNAME"
+      ]
+    },
+    "LOOKS_NUMBERNAME_NAME": {
+      "value": "όνομα",
+      "parents": [
+        "LOOKS_COSTUMENUMBERNAME",
+        "LOOKS_BACKDROPNUMBERNAME"
+      ]
+    },
+    "SOUND_EFFECTS_PITCH": {
+      "value": "τόνος",
+      "parents": [
+        "SOUND_CHANGEEFFECTBY",
+        "SOUND_SETEFFECTO"
+      ]
+    },
+    "SOUND_EFFECTS_PAN": {
+      "value": "μετατόπιση αριστερά/δεξιά",
+      "parents": [
+        "SOUND_CHANGEEFFECTBY",
+        "SOUND_SETEFFECTO"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_SPACE": {
+      "value": "διάστημα",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_LEFT": {
+      "value": "αριστερό βέλος",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_RIGHT": {
+      "value": "δεξί βέλος",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_DOWN": {
+      "value": "κάτω βέλος",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_UP": {
+      "value": "πάνω βέλος",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED",
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "EVENT_WHENKEYPRESSED_ANY": {
+      "value": "οποιοδήποτε",
+      "parents": [
+        "EVENT_WHENKEYPRESSED",
+        "SENSING_KEYPRESSED"
+      ]
+    },
+    "EVENT_WHENGREATERTHAN_TIMER": {
+      "value": "χρονομέτρο",
+      "parents": [
+        "EVENT_WHENGREATERTHAN"
+      ]
+    },
+    "EVENT_WHENGREATERTHAN_LOUDNESS": {
+      "value": "ένταση",
+      "parents": [
+        "EVENT_WHENGREATERTHAN"
+      ]
+    },
+    "CONTROL_STOP_ALL": {
+      "value": "όλα",
+      "parents": [
+        "CONTROL_STOP"
+      ]
+    },
+    "CONTROL_STOP_THIS": {
+      "value": "αυτό το σενάριο",
+      "parents": [
+        "CONTROL_STOP"
+      ]
+    },
+    "CONTROL_STOP_OTHER": {
+      "value": "άλλα σενάρια σε αυτό το αντικείμενο",
+      "parents": [
+        "CONTROL_STOP"
+      ]
+    },
+    "CONTROL_CREATECLONEOF_MYSELF": {
+      "value": "εαυτού μου",
+      "parents": [
+        "CONTROL_CREATECLONEOF"
+      ]
+    },
+    "SENSING_TOUCHINGOBJECT_POINTER": {
+      "value": "δείκτη ποντικιού",
+      "parents": [
+        "SENSING_TOUCHINGOBJECT"
+      ]
+    },
+    "SENSING_TOUCHINGOBJECT_EDGE": {
+      "value": "όριο",
+      "parents": [
+        "SENSING_TOUCHINGOBJECT"
+      ]
+    },
+    "SENSING_DISTANCETO_POINTER": {
+      "value": "δείκτη ποντικιού",
+      "parents": [
+        "SENSING_DISTANCETO"
+      ]
+    },
+    "SENSING_SETDRAGMODE_DRAGGABLE": {
+      "value": "συρόμενο",
+      "parents": [
+        "SENSING_SETDRAGMODE"
+      ]
+    },
+    "SENSING_SETDRAGMODE_NOTDRAGGABLE": {
+      "value": "μη συρόμενο",
+      "parents": [
+        "SENSING_SETDRAGMODE"
+      ]
+    },
+    "SENSING_OF_XPOSITION": {
+      "value": "θέση x",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_YPOSITION": {
+      "value": "θέση y",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_DIRECTION": {
+      "value": "κατεύθυνση",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_COSTUMENUMBER": {
+      "value": "# ενδυμασίας",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_COSTUMENAME": {
+      "value": "όνομα ενδυμασίας",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_SIZE": {
+      "value": "μέγεθος",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_VOLUME": {
+      "value": "ένταση",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_BACKDROPNUMBER": {
+      "value": "# υποβάθρου",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_BACKDROPNAME": {
+      "value": "όνομα υποβάθρου",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_OF_STAGE": {
+      "value": "Σκηνή",
+      "parents": [
+        "SENSING_OF"
+      ]
+    },
+    "SENSING_CURRENT_YEAR": {
+      "value": "έτος",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_MONTH": {
+      "value": "μήνας",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_DATE": {
+      "value": "ημερομηνία",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_DAYOFWEEK": {
+      "value": "μέρα της εβδομάδας",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_HOUR": {
+      "value": "ώρα",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_MINUTE": {
+      "value": "λεπτό",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "SENSING_CURRENT_SECOND": {
+      "value": "δευτερόλεπτο",
+      "parents": [
+        "SENSING_CURRENT"
+      ]
+    },
+    "OPERATORS_MATHOP_ABS": {
+      "value": "απόλυτο",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_FLOOR": {
+      "value": "στρογγυλ. κάτω",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_CEILING": {
+      "value": "στρογγυλ. άνω",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_SQRT": {
+      "value": "τετρ. ρίζα",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_SIN": {
+      "value": "ημ",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_COS": {
+      "value": "συν",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_TAN": {
+      "value": "εφ",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_ASIN": {
+      "value": "τοξημ",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_ACOS": {
+      "value": "τοξσυν",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_ATAN": {
+      "value": "τοξεφ",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_LN": {
+      "value": "ln",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_LOG": {
+      "value": "log",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_EEXP": {
+      "value": "e ^",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "OPERATORS_MATHOP_10EXP": {
+      "value": "10 ^",
+      "parents": [
+        "OPERATORS_MATHOP"
+      ]
+    },
+    "music.drumSnare": {
+      "value": "(1) Ταμπούρο",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumBass": {
+      "value": "(2) Μπάσο Τύμπανο",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumSideStick": {
+      "value": "(3) Side Stick",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCrashCymbal": {
+      "value": "(4) Κύμβαλο Crash",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumOpenHiHat": {
+      "value": "(5) Ανοικτά Πιατίνια",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumClosedHiHat": {
+      "value": "(6) Κλειστά Πιατίνια",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumTambourine": {
+      "value": "(7) Ντέφι",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumHandClap": {
+      "value": "(8) Παλαμάκια",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumClaves": {
+      "value": "(9) Κλάβες",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumWoodBlock": {
+      "value": "(10) Ξύλινη Κασετίνα",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCowbell": {
+      "value": "(11) Κουδούνα",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumTriangle": {
+      "value": "(12) Τρίγωνο",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumBongo": {
+      "value": "(13) Μπόνγκο",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumConga": {
+      "value": "(14) Κόνγκα",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCabasa": {
+      "value": "(15) Καμπάσα",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumGuiro": {
+      "value": "(16) Γκουίρο",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumVibraslap": {
+      "value": "(17) Βίμπρασλαπ",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.drumCuica": {
+      "value": "(18) Κουίκα",
+      "parents": [
+        "music.playDrumForBeats"
+      ]
+    },
+    "music.instrumentPiano": {
+      "value": "(1) Πιάνο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentElectricPiano": {
+      "value": "(2) Ηλεκτρικό πιάνο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentOrgan": {
+      "value": "(3) Εκκλησιαστικό Όργανο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentGuitar": {
+      "value": "(4) Κιθάρα",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentElectricGuitar": {
+      "value": "(5) Ηλεκτρική κιθάρα",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentBass": {
+      "value": "(6) Μπάσο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentPizzicato": {
+      "value": "(7) Πιτσικάτο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentCello": {
+      "value": "(8) Τσέλο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentTrombone": {
+      "value": "(9) Τρομπόνι",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentClarinet": {
+      "value": "(10) Κλαρινέτο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSaxophone": {
+      "value": "(11) Σαξόφωνο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentFlute": {
+      "value": "(12) Φλάουτο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentWoodenFlute": {
+      "value": "(13) Ξύλινο φλάουτο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentBassoon": {
+      "value": "(14) Φαγκότο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentChoir": {
+      "value": "(15) Χορωδία",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentVibraphone": {
+      "value": "(16) Βιμπράφωνο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentMusicBox": {
+      "value": "(17) Μουσικό Κουτί",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSteelDrum": {
+      "value": "(18) Μεταλλικό Τύμπανο",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentMarimba": {
+      "value": "(19) Μαρίμπα",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSynthLead": {
+      "value": "(20) Εισαγωγή Συνθεσάιζερ",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "music.instrumentSynthPad": {
+      "value": "(21) Πληκτρολόγιο Συνθεσάιζερ",
+      "parents": [
+        "music.setInstrument"
+      ]
+    },
+    "pen.colorMenu.color": {
+      "value": "χρώμα",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "pen.colorMenu.saturation": {
+      "value": "κορεσμό",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "pen.colorMenu.brightness": {
+      "value": "φωτεινότητα",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "pen.colorMenu.transparency": {
+      "value": "διαφάνεια",
+      "parents": [
+        "pen.setColorParam",
+        "pen.changeColorParam"
+      ]
+    },
+    "videoSensing.direction": {
+      "value": "κατεύθυνση",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.motion": {
+      "value": "κίνηση",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.sprite": {
+      "value": "αντικείμενο",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.stage": {
+      "value": "σκηνή",
+      "parents": [
+        "videoSensing.videoOn"
+      ]
+    },
+    "videoSensing.off": {
+      "value": "απενεργοποιημένο",
+      "parents": [
+        "videoSensing.videoToggle"
+      ]
+    },
+    "videoSensing.on": {
+      "value": "ενεργοποιημένο",
+      "parents": [
+        "videoSensing.videoToggle"
+      ]
+    },
+    "videoSensing.onFlipped": {
+      "value": "αναστραμμένο",
+      "parents": [
+        "videoSensing.videoToggle"
+      ]
+    },
+    "text2speech.alto": {
+      "value": "άλτο",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.tenor": {
+      "value": "τενόρος",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.squeak": {
+      "value": "στριγκλιά",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.giant": {
+      "value": "γίγαντας",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "text2speech.kitten": {
+      "value": "γατάκι",
+      "parents": [
+        "text2speech.setVoiceBlock"
+      ]
+    },
+    "makeymakey.upArrowShort": {
+      "value": "πάνω",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "makeymakey.downArrowShort": {
+      "value": "κάτω",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "makeymakey.leftArrowShort": {
+      "value": "αριστερά",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "makeymakey.rightArrowShort": {
+      "value": "δεξιά",
+      "parents": [
+        "makeymakey.whenKeyPressed"
+      ]
+    },
+    "microbit.buttonsMenu.any": {
+      "value": "οποιοδήποτε",
+      "parents": [
+        "microbit.whenButtonPressed",
+        "microbit.isButtonPressed"
+      ]
+    },
+    "microbit.gesturesMenu.jumped": {
+      "value": "αναπηδήσει",
+      "parents": [
+        "microbit.whenGesture"
+      ]
+    },
+    "microbit.gesturesMenu.moved": {
+      "value": "κινηθεί",
+      "parents": [
+        "microbit.whenGesture"
+      ]
+    },
+    "microbit.gesturesMenu.shaken": {
+      "value": "τρανταχθεί",
+      "parents": [
+        "microbit.whenGesture"
+      ]
+    },
+    "microbit.tiltDirectionMenu.any": {
+      "value": "οπουδήποτε",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted"
+      ]
+    },
+    "microbit.tiltDirectionMenu.back": {
+      "value": "πίσω",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "microbit.tiltDirectionMenu.front": {
+      "value": "μπροστά",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "microbit.tiltDirectionMenu.left": {
+      "value": "αριστερά",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "microbit.tiltDirectionMenu.right": {
+      "value": "δεξιά",
+      "parents": [
+        "microbit.whenTilted",
+        "microbit.isTilted",
+        "microbit.tiltAngle"
+      ]
+    },
+    "boost.motorDirection.backward": {
+      "value": "προς εκείνη την κατεύθυνση",
+      "parents": [
+        "boost.setMotorDirection"
+      ]
+    },
+    "boost.motorDirection.forward": {
+      "value": "προς αυτήν την κατεύθυνση",
+      "parents": [
+        "boost.setMotorDirection"
+      ]
+    },
+    "boost.motorDirection.reverse": {
+      "value": "αντιστροφή",
+      "parents": [
+        "boost.setMotorDirection"
+      ]
+    },
+    "boost.color.any": {
+      "value": "όποιο χρώμα",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.black": {
+      "value": "μαύρο",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.blue": {
+      "value": "μπλε",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.green": {
+      "value": "πράσινο",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.red": {
+      "value": "κόκκινο",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.white": {
+      "value": "άσπρο",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.color.yellow": {
+      "value": "κίτρινο",
+      "parents": [
+        "boost.whenColor",
+        "boost.seeingColor"
+      ]
+    },
+    "boost.tiltDirection.any": {
+      "value": "οπουδήποτε",
+      "parents": [
+        "boost.whenTilted"
+      ]
+    },
+    "boost.tiltDirection.up": {
+      "value": "πάνω",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "boost.tiltDirection.down": {
+      "value": "κάτω",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "boost.tiltDirection.left": {
+      "value": "αριστερά",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "boost.tiltDirection.right": {
+      "value": "δεξιά",
+      "parents": [
+        "boost.whenTilted",
+        "boost.getTiltAngle"
+      ]
+    },
+    "wedo2.motorId.a": {
+      "value": "κινητήρα A",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorId.b": {
+      "value": "κινητήρα B",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorId.all": {
+      "value": "όλους κινητήρες",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorId.default": {
+      "value": "κινητήρα",
+      "parents": [
+        "wedo2.motorOnFor",
+        "wedo2.motorOn",
+        "wedo2.motorOff",
+        "wedo2.startMotorPower",
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorDirection.forward": {
+      "value": "προς αυτήν την κατεύθυνση",
+      "parents": [
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorDirection.backward": {
+      "value": "προς εκείνη την κατεύθυνση",
+      "parents": [
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.motorDirection.reverse": {
+      "value": "αντιστροφή",
+      "parents": [
+        "wedo2.setMotorDirection"
+      ]
+    },
+    "wedo2.tiltDirection.any": {
+      "value": "οπουδήποτε",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted"
+      ]
+    },
+    "wedo2.tiltDirection.up": {
+      "value": "πάνω",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "wedo2.tiltDirection.down": {
+      "value": "κάτω",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "wedo2.tiltDirection.left": {
+      "value": "αριστερά",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "wedo2.tiltDirection.right": {
+      "value": "δεξιά",
+      "parents": [
+        "wedo2.whenTilted",
+        "wedo2.isTilted",
+        "wedo2.getTiltAngle"
+      ]
+    },
+    "gdxfor.pulled": {
+      "value": "τραβηχτεί",
+      "parents": [
+        "gdxfor.whenForcePushedOrPulled"
+      ]
+    },
+    "gdxfor.pushed": {
+      "value": "πιεστεί",
+      "parents": [
+        "gdxfor.whenForcePushedOrPulled"
+      ]
+    },
+    "gdxfor.shaken": {
+      "value": "τρανταχθεί",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.startedFalling": {
+      "value": "αρχίσει πτώση",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.turnedFaceDown": {
+      "value": "στραμμένο προς τα κάτω",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.turnedFaceUp": {
+      "value": "στραμμένο προς τα πάνω",
+      "parents": [
+        "gdxfor.whenGesture"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.front": {
+      "value": "μπροστά",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.back": {
+      "value": "πίσω",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.left": {
+      "value": "αριστερά",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.right": {
+      "value": "δεξιά",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted",
+        "gdxfor.getTilt"
+      ]
+    },
+    "gdxfor.tiltDirectionMenu.any": {
+      "value": "οπουδήποτε",
+      "parents": [
+        "gdxfor.whenTilted",
+        "gdxfor.isTilted"
+      ]
+    },
+    "makeymakey.sequence.0": {
+      "value": "αριστερά πάνω δεξιά",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.1": {
+      "value": "δεξιά πάνω αριστερά",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.2": {
+      "value": "αριστερά δεξιά",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.3": {
+      "value": "δεξιά αριστερά",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.4": {
+      "value": "πάνω κάτω",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.5": {
+      "value": "κάτω πάνω",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.6": {
+      "value": "πάνω δεξιά κάτω αριστερά",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.7": {
+      "value": "πάνω αριστερά κάτω δεξιά",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "makeymakey.sequence.8": {
+      "value": "πάνω πάνω κάτω κάτω αριστερά δεξιά αριστερά δεξιά",
+      "parents": [
+        "makeymakey.whenKeysPressedInOrder"
+      ]
+    },
+    "translate.language.en": {
+      "value": "Αγγλικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.az": {
+      "value": "Αζερμπαϊτζανικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.am": {
+      "value": "Αμχαρικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ar": {
+      "value": "Αραβικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.eu": {
+      "value": "Βασκικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.vi": {
+      "value": "Βιετναμεζικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.bg": {
+      "value": "Βουλγαρικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.gd": {
+      "value": "Γαελικά Σκοτίας",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.gl": {
+      "value": "Γαλικιακά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.fr": {
+      "value": "Γαλλικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.de": {
+      "value": "Γερμανικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.da": {
+      "value": "Δανικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.he": {
+      "value": "Εβραϊκά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.el": {
+      "value": "Ελληνικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.et": {
+      "value": "Εσθονικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.zu": {
+      "value": "Ζουλού",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ja": {
+      "value": "Ιαπωνικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.id": {
+      "value": "Ινδονησιακά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ga": {
+      "value": "Ιρλανδικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.is": {
+      "value": "Ισλανδικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.es": {
+      "value": "Ισπανικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.it": {
+      "value": "Ιταλικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ca": {
+      "value": "Καταλανικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.zh-cn": {
+      "value": "Κινεζικά (Απλοποιημένα)",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.zh-tw": {
+      "value": "Κινεζικά (Παραδοσιακά)",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ko": {
+      "value": "Κορεατικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ckb": {
+      "value": "Κουρδικά (Σορανί)",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.hr": {
+      "value": "Κροατικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.lv": {
+      "value": "Λετονικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.lt": {
+      "value": "Λιθουανικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.mi": {
+      "value": "Μαορί",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.nb": {
+      "value": "Νορβηγικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.nl": {
+      "value": "Ολλανδικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.cy": {
+      "value": "Ουαλικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.hu": {
+      "value": "Ουγγρικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.uk": {
+      "value": "Ουκρανικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.fa": {
+      "value": "Περσικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.pl": {
+      "value": "Πολωνικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.pt": {
+      "value": "Πορτογαλικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ro": {
+      "value": "Ρουμανικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.ru": {
+      "value": "Ρωσικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sr": {
+      "value": "Σερβικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sk": {
+      "value": "Σλοβακικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sl": {
+      "value": "Σλοβενικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.sv": {
+      "value": "Σουηδικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.th": {
+      "value": "Ταϊλανδεζικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.tr": {
+      "value": "Τουρκικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.cs": {
+      "value": "Τσεχικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "translate.language.fi": {
+      "value": "Φινλανδικά",
+      "parents": [
+        "translate.translateBlock"
+      ]
+    },
+    "text2speech.language.ar": {
+      "value": "Αραβικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.cy": {
+      "value": "Ουαλικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.da": {
+      "value": "Δανικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.de": {
+      "value": "Γερμανικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.en": {
+      "value": "Αγγλικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.es": {
+      "value": "Ισπανικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.es-419": {
+      "value": "Ισπανικά (Λατινικής Αμερικής)",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.fr": {
+      "value": "Γαλλικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ko": {
+      "value": "Κορεατικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.hi": {
+      "value": "Χίντι",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.is": {
+      "value": "Ισλανδικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.it": {
+      "value": "Ιταλικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.nl": {
+      "value": "Ολλανδικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ja": {
+      "value": "Ιαπωνικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.nb": {
+      "value": "Νορβηγικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.pl": {
+      "value": "Πολωνικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.pt": {
+      "value": "Πορτογαλικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.pt-br": {
+      "value": "Πορτογαλικά (Βραζιλιάνικα)",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ro": {
+      "value": "Ρουμανικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.ru": {
+      "value": "Ρωσικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.sv": {
+      "value": "Σουηδικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.tr": {
+      "value": "Τουρκικά",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    },
+    "text2speech.language.zh-cn": {
+      "value": "Κινέζικα (μανταρίνια)",
+      "parents": [
+        "text2speech.setLanguageBlock"
+      ]
+    }
   },
   "ignorelt": [],
   "soundEffects": [

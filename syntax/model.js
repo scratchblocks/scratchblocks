@@ -73,10 +73,9 @@ export class Icon {
 }
 
 export class Input {
-  constructor(shape, value, menu) {
+  constructor(shape, value) {
     this.shape = shape
     this.value = value
-    this.menu = menu || null
 
     this.isRound = shape === "number" || shape === "number-dropdown"
     this.isBoolean = shape === "boolean"
@@ -98,6 +97,10 @@ export class Input {
   }
   get isInput() {
     return true
+  }
+
+  setMenu(value) {
+    this.menu = value
   }
 
   stringify() {
@@ -126,7 +129,7 @@ export class Input {
   translate(lang) {
     if (this.hasArrow) {
       if (this.menu) {
-        this.value = lang.dropdowns[this.menu]
+        this.value = lang.dropdowns[this.menu].value
       }
       this.label = new Label(this.value, `literal-${this.shape}`)
     }

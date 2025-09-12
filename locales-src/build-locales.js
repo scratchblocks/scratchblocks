@@ -3,7 +3,11 @@ import path from "path"
 
 import scratchCommands from "../syntax/commands.js"
 import extraAliases from "./extra_aliases.js"
-import { dropdowns, getMakeyMakeySequenceDropdowns, getLanguageDropdowns } from "../syntax/dropdowns.js"
+import {
+  getDropdowns,
+  getMakeyMakeySequenceDropdowns,
+  getLanguageDropdowns,
+} from "../syntax/dropdowns.js"
 
 import scratch_l10n from "scratch-l10n"
 // We can't `import {default}` since it's a reserved word.
@@ -154,8 +158,9 @@ const buildLocale = (code, rawLocale) => {
     name: localeNames[code].name,
   }
 
-  dropdowns.forEach(info => {
-    locale.dropdowns[info.id] = translateKey(rawLocale, info.id) || info.spec
+  getDropdowns().forEach(info => {
+    const translated = translateKey(rawLocale, info.id) || info.value
+    locale.dropdowns[info.id] = { value: translated, parents: info.parents || [] }
   })
   locale.dropdowns = {
     ...locale.dropdowns,
