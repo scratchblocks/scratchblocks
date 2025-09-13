@@ -210,7 +210,7 @@ export class Block {
       text += ` :: ${overrides}`
     }
     return this.hasScript
-      ? text + "\nend"
+      ? text + "\n" + Object.keys(lang.aliases).find(key => lang.aliases[key] === "scratchblocks:end") || "end"
       : this.info.shape === "reporter"
         ? `(${text})`
         : this.info.shape === "boolean"
