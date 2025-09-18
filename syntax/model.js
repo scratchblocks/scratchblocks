@@ -312,7 +312,7 @@ export class Comment {
   }
 
   stringify() {
-    return `// ${this.label.value}`
+    return `// ${this.label.value.trim()}`
   }
 }
 
