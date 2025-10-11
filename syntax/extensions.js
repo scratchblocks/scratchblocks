@@ -15,14 +15,15 @@ export const movedExtensions = {
 
 export const extensions = {
   ...movedExtensions,
+  facesensing: "facesensing",
   tts: "tts",
   translate: "translate",
   microbit: "microbit",
+  gdxfor: "gdxfor",
   wedo: "wedo",
   makeymakey: "makeymakey",
   ev3: "ev3",
   boost: "boost",
-  gdxfor: "gdxfor",
 }
 
 // Alias extensions: unlike movedExtensions, this is handled for both scratch2 and scratch3.

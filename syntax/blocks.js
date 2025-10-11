@@ -237,6 +237,9 @@ export const english = {
   // Language name is needed for the English locale as well
   name: "English",
 
+  // Valid arguments to "go to" face sensing dropdown, for resolving ambiguous situations
+  faceParts: ["nose", "mouth", "left eye", "right eye", "between eyes", "left ear", "right ear", "top of head"],
+
   // Valid arguments to "sound effect" dropdown, for resolving ambiguous situations
   soundEffects: ["pitch", "pan left/right"],
 
@@ -346,6 +349,21 @@ disambig("pen.setColor", "pen.setHue", (children, _lang) => {
   // If variable, assume color input, since the RGBA hack is common.
   // TODO fix Scratch :P
   return (last.isInput && last.isColor) || last.isBlock
+})
+
+disambig("facesensing.goToPart", "MOTION_GOTO", (children, lang) => {
+  // Sound if sound effect, otherwise default to graphic effect
+  for (const child of children) {
+    if (child.shape === "dropdown") {
+      const name = child.value
+      for (const effect of lang.faceParts) {
+        if (minifyHash(effect) === minifyHash(name)) {
+          return true
+        }
+      }
+    }
+  }
+  return false
 })
 
 disambig("microbit.whenGesture", "gdxfor.whenGesture", (children, lang) => {
