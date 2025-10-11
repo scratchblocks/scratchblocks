@@ -697,15 +697,15 @@ describe("renamed blocks", () => {
 
 describe("translate", () => {
   test("reorders arguments: en -> de", () => {
-    const b = parseBlock("go [back v] (1) layers")
+    const b = parseBlock("go [backward v] (1) layers")
     b.translate(allLanguages.de)
-    expect(b.stringify()).toEqual("gehe (1) Ebenen [back v]")
+    expect(b.stringify()).toEqual("gehe (1) Ebenen [nach hinten v]")
   })
 
   test("reorders arguments: de -> en", () => {
-    const b = parseBlock("gehe (1) Ebenen [back v]", optionsFor("de"))
+    const b = parseBlock("gehe (1) Ebenen [nach hinten v]", optionsFor("de"))
     b.translate(allLanguages.en)
-    expect(b.stringify()).toEqual("go [back v] (1) layers")
+    expect(b.stringify()).toEqual("go [backward v] (1) layers")
   })
 
   test("turn left: en -> de", () => {
@@ -762,8 +762,7 @@ describe("translate", () => {
   test("translates stop block: en -> ja", () => {
     const b = parseBlock("stop [all v]")
     b.translate(allLanguages.ja)
-    // Note: currently we don't translate dropdown menu contents.
-    expect(b.stringify()).toEqual("[all v]")
+    expect(b.stringify()).toEqual("[すべてを止める v]")
   })
 
   // TODO translate end

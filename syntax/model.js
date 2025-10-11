@@ -73,10 +73,9 @@ export class Icon {
 }
 
 export class Input {
-  constructor(shape, value, menu) {
+  constructor(shape, value) {
     this.shape = shape
     this.value = value
-    this.menu = menu || null
 
     this.isRound = shape === "number" || shape === "number-dropdown"
     this.isBoolean = shape === "boolean"
@@ -100,6 +99,10 @@ export class Input {
     return true
   }
 
+  setMenu(value) {
+    this.menu = value
+  }
+
   stringify() {
     if (this.isColor) {
       assert(this.value[0] === "#")
@@ -108,6 +111,7 @@ export class Input {
     // Order sensitive; see #439
     let text = (this.value ? String(this.value) : "")
       .replace(/([\]\\])/g, "\\$1")
+      .replace(this.isRound ? /([<>])/g : /$^/, "\\$1")
       .replace(/ v$/, " \\v")
     if (this.hasArrow) {
       text += " v"
@@ -123,10 +127,11 @@ export class Input {
             : text
   }
 
-  translate(_lang) {
+  translate(lang) {
     if (this.hasArrow) {
-      const value = this.menu || this.value
-      this.value = value // TODO translate dropdown value
+      if (this.menu) {
+        this.value = lang.dropdowns[this.menu].value
+      }
       this.label = new Label(this.value, `literal-${this.shape}`)
     }
   }
