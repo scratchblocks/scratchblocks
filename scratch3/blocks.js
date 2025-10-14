@@ -190,22 +190,25 @@ export class InputView {
   draw(iconStyle, parent) {
     let w
     let label
+    let px
     if (this.isBoolean) {
       w = 48
     } else if (this.isColor) {
       w = 40
     } else if (this.hasLabel) {
       label = this.label.draw(iconStyle)
-      // Minimum padding of 11
-      // Minimum width of 40, at which point we center the label
-      const px = this.label.width >= 18 ? 11 : (40 - this.label.width) / 2
-      w = this.label.width + 2 * px
+      if (this.hasArrow) {
+        px = 11
+        w = this.label.width + px + 31
+      } else {
+        // Minimum padding of 11
+        // Minimum width of 40, at which point we center the label
+        px = this.label.width >= 18 ? 11 : (40 - this.label.width) / 2
+        w = this.label.with + (2 * px)
+      }
       label = SVG.move(px, 9, label)
     } else {
       w = this.isInset ? 30 : null
-    }
-    if (this.hasArrow) {
-      w += 20
     }
     this.width = w
 
