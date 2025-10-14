@@ -47,7 +47,7 @@ export class LabelView {
   measure() {
     const value = this.value
     const cls = `sb3-${this.cls}`
-    this.el = SVG.text(0, 13, value, {
+    this.el = SVG.text(0, 13.1, value, {
       class: `sb3-label ${cls}`,
     })
 
@@ -69,8 +69,7 @@ export class LabelView {
     const context = LabelView.measuring
     context.font = font
     const textMetrics = context.measureText(value)
-    const width = (textMetrics.width + 0.5) | 0
-    return { width: width }
+    return { width: textMetrics.width }
   }
 }
 
@@ -412,9 +411,9 @@ class BlockView {
 
   marginBetween(a, b) {
     // Consecutive labels should be rendered as a single text element.
-    // For now, approximate the size of one space
+    // For now, manually offset by the size of one space
     if (a.isLabel && b.isLabel) {
-      return 5
+      return 4.447998046875
     }
 
     return 8 // default: 2 units
