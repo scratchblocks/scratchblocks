@@ -204,7 +204,7 @@ export class InputView {
         // Minimum padding of 11
         // Minimum width of 40, at which point we center the label
         px = this.label.width >= 18 ? 11 : (40 - this.label.width) / 2
-        w = this.label.width + (2 * px)
+        w = this.label.width + 2 * px
       }
       label = SVG.move(px, 9, label)
     } else {
