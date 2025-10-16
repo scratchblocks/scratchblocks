@@ -260,7 +260,7 @@ export class InputView {
       result.appendChild(
         SVG.move(
           w - 24,
-          13,
+          12.8505114083, // (12 - ((12 / 12.71) * 8.79)) / 2 + 11
           SVG.symbol(
             iconStyle === "high-contrast"
               ? "#sb3-dropdownArrow-high-contrast"
