@@ -241,7 +241,16 @@ export const english = {
   name: "English",
 
   // Valid arguments to "go to" face sensing dropdown, for resolving ambiguous situations
-  faceParts: ["nose", "mouth", "left eye", "right eye", "between eyes", "left ear", "right ear", "top of head"],
+  faceParts: [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head",
+  ],
 
   // Valid arguments to "sound effect" dropdown, for resolving ambiguous situations
   soundEffects: ["pitch", "pan left/right"],
