@@ -1311,7 +1311,7 @@ export default [
     category: "faceSensing",
   },
   {
-    id: "faceSensing.faceIsDetected",
+    id: "faceSensing.faceDetected",
     spec: "a face is detected?",
     inputs: [],
     shape: "boolean",
