@@ -367,7 +367,7 @@ export class Script {
   }
 
   translate(lang) {
-    this.blocks.forEach(block => block.translate(lang))
+    this.blocks.forEach(block => block.translate && block.translate(lang))
   }
 }
 
