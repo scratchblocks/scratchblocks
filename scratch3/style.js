@@ -11,7 +11,7 @@ const highContrastIcons = new Set([
   "musicBlock",
   "penBlock",
   "videoBlock",
-  "facesensingBlock",
+  "faceSensingBlock",
   "ttsBlock",
   "translationBlock",
 ])
@@ -594,7 +594,7 @@ export default class Style {
           }),
         ]),
         {
-          id: "sb3-facesensingBlock",
+          id: "sb3-faceSensingBlock",
           transform: "scale(1.67785234899 1.67785234899)", // 40 / 23.84
         },
       ),
@@ -816,7 +816,7 @@ export default class Style {
           }),
         ]),
         {
-          id: "sb3-facesensingBlock-high-contrast",
+          id: "sb3-faceSensingBlock-high-contrast",
           transform: "scale(1.67785234899 1.67785234899)", // 40 / 23.84
         },
       ),

@@ -360,7 +360,7 @@ disambig("pen.setColor", "pen.setHue", (children, _lang) => {
   return (last.isInput && last.isColor) || last.isBlock
 })
 
-disambig("facesensing.goToPart", "MOTION_GOTO", (children, lang) => {
+disambig("faceSensing.goToPart", "MOTION_GOTO", (children, lang) => {
   // Face sensing if face part, otherwise default to motion block
   for (const child of children) {
     if (child.shape === "dropdown") {
