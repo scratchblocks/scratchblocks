@@ -130,8 +130,8 @@ function paintBlock(info, children, languages) {
             // Convert variables to number arguments, predicates to boolean arguments.
             if (child.info.categoryIsDefault) {
               child.info.category = "custom-arg"
-              child.info.argument = child.isBoolean ? "boolean" : "number"
             }
+            child.info.argument = child.isBoolean ? "boolean" : "number"
           }
           return child
         })

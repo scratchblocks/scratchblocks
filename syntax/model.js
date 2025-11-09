@@ -215,7 +215,11 @@ export class Block {
       text += ` :: ${overrides}`
     }
     return this.hasScript
-      ? text + "\nend"
+      ? text +
+          "\n" +
+          (Object.keys(lang.aliases).find(
+            key => lang.aliases[key] === "scratchblocks:end",
+          ) || "end")
       : this.info.shape === "reporter"
         ? `(${text})`
         : this.info.shape === "boolean"
@@ -317,7 +321,7 @@ export class Comment {
   }
 
   stringify() {
-    return `// ${this.label.value}`
+    return `// ${this.label.value.trim()}`
   }
 }
 
@@ -372,7 +376,7 @@ export class Script {
   }
 
   translate(lang) {
-    this.blocks.forEach(block => block.translate(lang))
+    this.blocks.forEach(block => block.translate && block.translate(lang))
   }
 }
 

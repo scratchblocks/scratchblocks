@@ -3,7 +3,6 @@
 const common = `
 .sb3-label {
   font: 500 12pt Helvetica Neue, Helvetica, sans-serif;
-  word-spacing: +1pt;
 }
 
 .sb3-literal-number,
@@ -92,6 +91,10 @@ svg${name} .sb3-literal-string {
 svg${name} .sb3-custom-arg {
   fill: ${style.customPrimary};
   stroke: ${style.customTertiary};
+}
+
+svg${name} .sb3-extension-line {
+  stroke: ${style.extensionSecondary};
 }
 `
 
@@ -203,7 +206,7 @@ const highContrastStyle = {
 
   customPrimary: "#ff99aa",
   customSecondary: "#ffccd5",
-  customTertiary: "#e64d00",
+  customTertiary: "#ff3355",
 
   extensionPrimary: "#13ecaf",
   extensionSecondary: "#75f0cd",

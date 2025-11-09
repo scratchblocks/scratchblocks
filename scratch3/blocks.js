@@ -47,7 +47,7 @@ export class LabelView {
   measure() {
     const value = this.value
     const cls = `sb3-${this.cls}`
-    this.el = SVG.text(0, 13, value, {
+    this.el = SVG.text(0, 13.1, value, {
       class: `sb3-label ${cls}`,
     })
 
@@ -69,8 +69,7 @@ export class LabelView {
     const context = LabelView.measuring
     context.font = font
     const textMetrics = context.measureText(value)
-    const width = (textMetrics.width + 0.5) | 0
-    return { width: width }
+    return { width: textMetrics.width }
   }
 }
 
@@ -101,7 +100,7 @@ export class IconView {
 
   static get icons() {
     return {
-      greenFlag: { width: 20, height: 21, dy: -2 },
+      greenFlag: { width: 20, height: 21, dy: -1 },
       stopSign: { width: 20, height: 20 },
       turnLeft: { width: 24, height: 24 },
       turnRight: { width: 24, height: 24 },
@@ -112,6 +111,7 @@ export class IconView {
       musicBlock: { width: 40, height: 40 },
       penBlock: { width: 40, height: 40 },
       videoBlock: { width: 40, height: 40, dy: 10 },
+      facesensingBlock: { width: 40, height: 40, dy: 3.9932885906 }, // 40 - 21.46 * (40 / 23.84), expcept this is still slightly off?
       ttsBlock: { width: 40, height: 40 },
       translateBlock: { width: 40, height: 40 },
       wedoBlock: { width: 40, height: 40 },
@@ -140,7 +140,7 @@ export class LineView {
   draw(_iconStyle, parent) {
     const category = parent.info.category
     return SVG.el("line", {
-      class: `sb3-${category}`,
+      class: `sb3-extension-line`,
       "stroke-linecap": "round",
       x1: 0,
       y1: 0,
@@ -190,22 +190,25 @@ export class InputView {
   draw(iconStyle, parent) {
     let w
     let label
+    let px
     if (this.isBoolean) {
       w = 48
     } else if (this.isColor) {
       w = 40
     } else if (this.hasLabel) {
       label = this.label.draw(iconStyle)
-      // Minimum padding of 11
-      // Minimum width of 40, at which point we center the label
-      const px = this.label.width >= 18 ? 11 : (40 - this.label.width) / 2
-      w = this.label.width + 2 * px
+      if (this.hasArrow) {
+        px = 11
+        w = this.label.width + px + 31
+      } else {
+        // Minimum padding of 11
+        // Minimum width of 40, at which point we center the label
+        px = this.label.width >= 18 ? 11 : (40 - this.label.width) / 2
+        w = this.label.width + 2 * px
+      }
       label = SVG.move(px, 9, label)
     } else {
       w = this.isInset ? 30 : null
-    }
-    if (this.hasArrow) {
-      w += 20
     }
     this.width = w
 
@@ -260,7 +263,7 @@ export class InputView {
       result.appendChild(
         SVG.move(
           w - 24,
-          13,
+          12.8505114083, // (12 - ((12 / 12.71) * 8.79)) / 2 + 11
           SVG.symbol(
             iconStyle === "high-contrast"
               ? "#sb3-dropdownArrow-high-contrast"
@@ -412,9 +415,9 @@ class BlockView {
 
   marginBetween(a, b) {
     // Consecutive labels should be rendered as a single text element.
-    // For now, approximate the size of one space
+    // For now, manually offset by the size of one space
     if (a.isLabel && b.isLabel) {
-      return 5
+      return 4.447998046875
     }
 
     return 8 // default: 2 units
