@@ -418,7 +418,7 @@ export default class Style {
         ]),
         {
           id: "sb3-dropdownArrow",
-          transform: "scale(0.944)",
+          transform: "scale(0.94413847364)", // 12 / 12.71
         },
       ),
 
