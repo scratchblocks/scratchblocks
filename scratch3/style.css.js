@@ -207,7 +207,7 @@ const highContrastStyle = {
 
   customPrimary: "#ff99aa",
   customSecondary: "#ffccd5",
-  customTertiary: "#e64d00",
+  customTertiary: "#ff3355",
 
   extensionPrimary: "#13ecaf",
   extensionSecondary: "#75f0cd",
