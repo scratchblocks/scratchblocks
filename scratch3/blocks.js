@@ -101,7 +101,7 @@ export class IconView {
 
   static get icons() {
     return {
-      greenFlag: { width: 20, height: 21, dy: -2 },
+      greenFlag: { width: 20, height: 21, dy: -1 },
       stopSign: { width: 20, height: 20 },
       turnLeft: { width: 24, height: 24 },
       turnRight: { width: 24, height: 24 },
