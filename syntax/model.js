@@ -245,6 +245,13 @@ export class Block {
         this.children.push(new Label(word))
       }
       return
+    } else if (id === "PROCEDURES_CALL") {
+      this.children.forEach(child => {
+        if (!child.isLabel && !child.isIcon) {
+          child.translate(lang)
+        }
+      })
+      return
     }
 
     const oldSpec = this.info.language.commands[id]

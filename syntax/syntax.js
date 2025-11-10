@@ -823,6 +823,7 @@ function recogniseStuff(scripts) {
         // custom blocks
         const info = customBlocksByHash[block.info.hash]
         if (info) {
+          block.info.id = "PROCEDURES_CALL"
           block.info.selector = "call"
           block.info.call = info.spec
           block.info.names = info.names
