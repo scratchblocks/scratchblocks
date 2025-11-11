@@ -167,16 +167,22 @@ export class Block {
     let firstInput = null
     let checkAlias = false
     let text = this.children
-      .map(child => {
+      .map((child, i, arr) => {
         if (child.isIcon) {
           checkAlias = true
         }
         if (!firstInput && !(child.isLabel || child.isIcon)) {
           firstInput = child
         }
-        return child.isScript
-          ? `\n${indent(child.stringify())}\n`
-          : child.stringify().trim() + " "
+        if (child.isScript) {
+          return `\n${indent(child.stringify())}\n`
+        }
+        // If the next child is a script, do not append a space after the
+        // current child. Appending a space here produced an extra space
+        // before the newline (for example: "then \n").
+        const next = arr[i + 1]
+        const needsSpace = !(next && next.isScript)
+        return child.stringify().trim() + (needsSpace ? " " : "")
       })
       .join("")
       .trim()
