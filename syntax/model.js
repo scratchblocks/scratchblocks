@@ -370,7 +370,21 @@ export class Script {
       .map(block => {
         let line = block.stringify()
         if (block.comment) {
-          line += ` ${block.comment.stringify()}`
+          // If this block contains a script (multi-line), insert the
+          // comment on the first line (the opening line) instead of
+          // appending it after the whole multi-line block (which would
+          // place it after the trailing "end").
+          if (block.isBlock && block.hasScript) {
+            const commentText = ` ${block.comment.stringify()}`
+            const nl = line.indexOf("\n")
+            if (nl !== -1) {
+              line = line.slice(0, nl) + commentText + line.slice(nl)
+            } else {
+              line += commentText
+            }
+          } else {
+            line += ` ${block.comment.stringify()}`
+          }
         }
         return line
       })
