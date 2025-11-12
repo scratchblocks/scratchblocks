@@ -206,6 +206,12 @@ export class Block {
       }
       overrides += this.info.category
     }
+    if (this.info.shapeIsDefault === false) {
+      if (overrides) {
+        overrides += " "
+      }
+      overrides += this.info.shape
+    }
     if (overrides) {
       text += ` :: ${overrides}`
     }

@@ -463,6 +463,7 @@ export function applyOverrides(info, overrides) {
       info.categoryIsDefault = false
     } else if (overrideShapes.includes(name)) {
       info.shape = name
+      info.shapeIsDefault = false
     } else if (name === "loop") {
       info.hasLoopArrow = true
     } else if (name === "+" || name === "-") {
