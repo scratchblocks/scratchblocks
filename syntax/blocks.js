@@ -467,6 +467,9 @@ export function applyOverrides(info, overrides) {
       info.hasLoopArrow = true
     } else if (name === "+" || name === "-") {
       info.diff = name
+    } else if (name === "reset") {
+      info.categoryIsDefault = false
+      info.isReset = true
     }
   }
 }

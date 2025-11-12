@@ -204,7 +204,11 @@ export class Block {
       if (overrides) {
         overrides += " "
       }
-      overrides += this.info.category
+      if (this.info.isReset && this.info.category === "obsolete") {
+        overrides += "reset"
+      } else {
+        overrides += this.info.category
+      }
     }
     if (overrides) {
       text += ` :: ${overrides}`
