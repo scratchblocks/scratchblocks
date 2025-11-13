@@ -49,102 +49,104 @@ function paintBlock(info, children, languages) {
   const shortHash = (info.hash = minifyHash(string))
 
   // paint
-  const o = lookupHash(shortHash, info, children, languages)
   let lang
   let type
-  if (o) {
-    lang = o.lang
-    type = o.type
-    info.language = lang
-    info.isRTL = rtlLanguages.includes(lang.code)
+  if (!overrides.includes("reset")) {
+    const o = lookupHash(shortHash, info, children, languages)
+    if (o) {
+      lang = o.lang
+      type = o.type
+      info.language = lang
+      info.isRTL = rtlLanguages.includes(lang.code)
 
-    if (
+      if (
       type.shape === "ring" ? info.shape === "reporter" : info.shape === "stack"
-    ) {
-      info.shape = type.shape
-    }
-    info.category = type.category
-    info.categoryIsDefault = true
-    // store selector, used for translation among other things
-    if (type.selector) {
-      info.selector = type.selector
-    }
-    if (type.id) {
-      info.id = type.id
-    }
-    info.hasLoopArrow = type.hasLoopArrow
-
-    // ellipsis block
-    if (type.spec === ". . .") {
-      children = [new Label(". . .")]
-    }
-  } else {
-    // The block was not recognised, so we check if it's a define block.
-    //
-    // We check for built-in blocks first to avoid ambiguity, e.g. the
-    // `defina o tamanho como (100) %` block in pt_BR.
-    for (const lang of languages) {
-      if (!isDefineBlock(children, lang)) {
-        continue
+      ) {
+        info.shape = type.shape
       }
+      info.category = type.category
+      info.categoryIsDefault = true
+      // store selector, used for translation among other things
+      if (type.selector) {
+        info.selector = type.selector
+      }
+      if (type.id) {
+        info.id = type.id
+      }
+      info.hasLoopArrow = type.hasLoopArrow
 
-      // Setting the shape also triggers some logic in recogniseStuff.
-      info.shape = "define-hat"
-      info.category = "custom"
+      // ellipsis block
+      if (type.spec === ". . .") {
+        children = [new Label(". . .")]
+      }
+    } else {
+      // The block was not recognised, so we check if it's a define block.
+      //
+      // We check for built-in blocks first to avoid ambiguity, e.g. the
+      // `defina o tamanho como (100) %` block in pt_BR.
+      for (const lang of languages) {
+        if (!isDefineBlock(children, lang)) {
+          continue
+        }
 
-      // Move the children of the define block into an "outline", transforming
-      // () and [] shapes as we go.
-      const outlineChildren = children
-        .splice(
-          lang.definePrefix.length,
-          children.length - lang.defineSuffix.length,
-        )
-        .map(child => {
-          if (child.isInput && child.isBoolean) {
-            // Convert empty boolean slot to empty boolean argument.
-            child = paintBlock(
-              {
-                shape: "boolean",
-                argument: "boolean",
-                category: "custom-arg",
-              },
-              [new Label("")],
-              languages,
-            )
-          } else if (
-            child.isInput &&
-            (child.shape === "string" || child.shape === "number")
-          ) {
-            // Convert string inputs to string arguments, number inputs to number arguments.
+        // Setting the shape also triggers some logic in recogniseStuff.
+        info.shape = "define-hat"
+        info.category = "custom"
+
+        // Move the children of the define block into an "outline", transforming
+        // () and [] shapes as we go.
+        const outlineChildren = children
+          .splice(
+            lang.definePrefix.length,
+            children.length - lang.defineSuffix.length,
+          )
+          .map(child => {
+            if (child.isInput && child.isBoolean) {
+              // Convert empty boolean slot to empty boolean argument.
+              child = paintBlock(
+                {
+                  shape: "boolean",
+                  argument: "boolean",
+                  category: "custom-arg",
+                },
+                [new Label("")],
+                languages,
+              )
+            } else if (
+              child.isInput &&
+              (child.shape === "string" || child.shape === "number")
+            ) {
+              // Convert string inputs to string arguments, number inputs to number arguments.
             const labels = child.value.split(/ +/g).map(word => new Label(word))
-            child = paintBlock(
-              {
-                shape: "reporter",
-                argument: child.shape === "string" ? "string" : "number",
-                category: "custom-arg",
-              },
-              labels,
-              languages,
-            )
-          } else if (child.isReporter || child.isBoolean) {
-            // Convert variables to number arguments, predicates to boolean arguments.
-            if (child.info.categoryIsDefault) {
-              child.info.category = "custom-arg"
+              child = paintBlock(
+                {
+                  shape: "reporter",
+                  argument: child.shape === "string" ? "string" : "number",
+                  category: "custom-arg",
+                },
+                labels,
+                languages,
+              )
+            } else if (child.isReporter || child.isBoolean) {
+              // Convert variables to number arguments, predicates to boolean arguments.
+              if (child.info.categoryIsDefault) {
+                child.info.category = "custom-arg"
+              }
+              child.info.argument = child.isBoolean ? "boolean" : "number"
             }
-            child.info.argument = child.isBoolean ? "boolean" : "number"
-          }
-          return child
-        })
+            return child
+          })
 
-      const outlineInfo = {
-        shape: "outline",
-        category: "custom",
-        categoryIsDefault: true,
-        hasLoopArrow: false,
+        const outlineInfo = {
+          shape: "outline",
+          category: "custom",
+          categoryIsDefault: true,
+          hasLoopArrow: false,
+        }
+        const outline = new Block(outlineInfo, outlineChildren)
+        children.splice(lang.definePrefix.length, 0, outline)
+        break
       }
-      const outline = new Block(outlineInfo, outlineChildren)
-      children.splice(lang.definePrefix.length, 0, outline)
-      break
     }
   }
 
