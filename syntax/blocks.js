@@ -472,10 +472,14 @@ export function applyOverrides(info, overrides) {
       info.categoryIsDefault = false
     } else if (overrideShapes.includes(name)) {
       info.shape = name
+      info.shapeIsDefault = false
     } else if (name === "loop") {
       info.hasLoopArrow = true
     } else if (name === "+" || name === "-") {
       info.diff = name
+    } else if (name === "reset") {
+      info.categoryIsDefault = false
+      info.isReset = true
     }
   }
 }
