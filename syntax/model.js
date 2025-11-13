@@ -180,6 +180,7 @@ export class Block {
       })
       .join("")
       .trim()
+      .replace(/ +\n/g, "\n")
 
     const lang = this.info.language
     if (checkAlias && lang && this.info.selector) {
