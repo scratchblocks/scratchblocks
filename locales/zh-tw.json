@@ -267,6 +267,7 @@
   "aliases": {
     "左轉 %1 度": "MOTION_TURNLEFT",
     "右轉 %1 度": "MOTION_TURNRIGHT",
+    "當綠旗被點擊": "EVENT_WHENFLAGCLICKED",
     "當綠旗被點擊時": "EVENT_WHENFLAGCLICKED",
     "結束": "scratchblocks:end"
   },

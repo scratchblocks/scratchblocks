@@ -69,6 +69,7 @@ export default {
     // Chinese (simplified)
     "左转 %1 度": "MOTION_TURNLEFT",
     "右转 %1 度": "MOTION_TURNRIGHT",
+    当绿旗被点击: "EVENT_WHENFLAGCLICKED",
     点击绿旗时: "EVENT_WHENFLAGCLICKED",
     结束: "scratchblocks:end",
   },
@@ -77,6 +78,7 @@ export default {
     // Chinese (traditional)
     "左轉 %1 度": "MOTION_TURNLEFT",
     "右轉 %1 度": "MOTION_TURNRIGHT",
+    當綠旗被點擊: "EVENT_WHENFLAGCLICKED",
     當綠旗被點擊時: "EVENT_WHENFLAGCLICKED",
     結束: "scratchblocks:end",
   },
