@@ -238,7 +238,16 @@ export const english = {
   name: "English",
 
   // Valid arguments to "go to" face sensing dropdown, for resolving ambiguous situations
-  faceParts: ["nose", "mouth", "left eye", "right eye", "between eyes", "left ear", "right ear", "top of head"],
+  faceParts: [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head",
+  ],
 
   // Valid arguments to "sound effect" dropdown, for resolving ambiguous situations
   soundEffects: ["pitch", "pan left/right"],
@@ -351,7 +360,7 @@ disambig("pen.setColor", "pen.setHue", (children, _lang) => {
   return (last.isInput && last.isColor) || last.isBlock
 })
 
-disambig("facesensing.goToPart", "MOTION_GOTO", (children, lang) => {
+disambig("faceSensing.goToPart", "MOTION_GOTO", (children, lang) => {
   // Face sensing if face part, otherwise default to motion block
   for (const child of children) {
     if (child.shape === "dropdown") {
