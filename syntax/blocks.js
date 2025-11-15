@@ -453,17 +453,23 @@ export function lookupDropdown(name, languages) {
 }
 
 export function applyOverrides(info, overrides) {
+  // Save the original category and shape to determine if overrides match defaults
+  const originalCategory = info.categoryIsDefault ? info.category : null
+  const originalShape = info.shapeIsDefault !== false ? info.shape : null
+  
   for (const name of overrides) {
     if (hexColorPat.test(name)) {
       info.color = name
       info.category = ""
       info.categoryIsDefault = false
-    } else if (overrideCategories.includes(name) && info.categoryIsDefault && info.category !== name) {
+    } else if (overrideCategories.includes(name) && info.category !== name) {
       info.category = name
-      info.categoryIsDefault = false
-    } else if (overrideShapes.includes(name) && info.shapeIsDefault !== false && info.shape !== name) {
+      // If the override matches the original category, keep categoryIsDefault as true
+      info.categoryIsDefault = (originalCategory !== null && name === originalCategory)
+    } else if (overrideShapes.includes(name) && info.shape !== name) {
       info.shape = name
-      info.shapeIsDefault = false
+      // If the override matches the original shape, keep shapeIsDefault as true
+      info.shapeIsDefault = (originalShape !== null && name === originalShape)
     } else if (name === "loop") {
       info.hasLoopArrow = true
     } else if (name === "+" || name === "-") {
