@@ -182,9 +182,9 @@ class MatrixView {
         })
 
         if (isFilled) {
-          rect.classList.add(`sb-${parent.info.category}`)
-        } else {
           rect.setAttribute("fill", "#FFFFFF")
+        } else {
+          rect.classList.add(`sb-${parent.info.category}`)
         }
 
         elements.push(rect)
@@ -267,12 +267,16 @@ class InputView {
         ? 13
         : 14)
 
-    let el = InputView.shapes[this.shape](w, h)
+    // For matrix inputs, use rounded rect shape but with dropdown styling
+    const shapeForRender = hasMatrix ? "number-dropdown" : this.shape
+    let el = InputView.shapes[shapeForRender](w, h)
+
     if (this.isColor) {
       SVG.setProps(el, {
         fill: this.value,
       })
-    } else if (this.isDarker) {
+    } else if (this.isDarker || hasMatrix) {
+      // Apply darkRect styling for dropdown-like appearance
       el = darkRect(w, h, parent.info.category, el)
       if (parent.info.color) {
         SVG.setProps(el, {
@@ -283,7 +287,7 @@ class InputView {
 
     const result = SVG.group([
       SVG.setProps(el, {
-        class: `sb-input sb-input-${this.shape}`,
+        class: `sb-input sb-input-${hasMatrix ? "number-dropdown" : this.shape}`,
       }),
     ])
 
