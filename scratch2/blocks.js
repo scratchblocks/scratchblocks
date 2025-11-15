@@ -119,11 +119,91 @@ class IconView {
   }
 }
 
+class MatrixView {
+  constructor(matrix) {
+    Object.assign(this, matrix)
+    this.x = 0
+
+    if (this.rows && this.rows.length > 0) {
+      const numRows = this.rows.length
+      const numCols = this.rows[0].length
+
+      // Calculate cell size based on target height and number of rows
+      const cellSpacing = 0.5
+      const targetHeight = 10 // Target height for matrix display (scratch2 text dropdown is 14, subtract padding)
+      const availableHeight = targetHeight - (numRows - 1) * cellSpacing
+      this.cellSize = Math.max(1, Math.floor(availableHeight / numRows))
+
+      // Calculate actual rendered dimensions
+      this.width = numCols * (this.cellSize + cellSpacing) - cellSpacing
+      this.height = numRows * (this.cellSize + cellSpacing) - cellSpacing
+    } else {
+      this.width = 0
+      this.height = 0
+      this.cellSize = 0
+    }
+  }
+
+  get isMatrix() {
+    return true
+  }
+
+  measure() {
+    // Already measured in constructor
+  }
+
+  draw(parent) {
+    if (!this.rows || this.rows.length === 0) {
+      return SVG.group([])
+    }
+
+    const cellSize = this.cellSize
+    const cellSpacing = 0.5
+    const totalCellSize = cellSize + cellSpacing
+    const elements = []
+
+    // Draw matrix cells
+    for (let rowIdx = 0; rowIdx < this.rows.length; rowIdx++) {
+      const row = this.rows[rowIdx]
+      for (let colIdx = 0; colIdx < row.length; colIdx++) {
+        const cell = row[colIdx]
+        const x = colIdx * totalCellSize
+        const y = rowIdx * totalCellSize
+
+        const isFilled = cell === true
+
+        // Use custom color or category-based styling
+        const rect = SVG.el("rect", {
+          x: x,
+          y: y,
+          width: cellSize,
+          height: cellSize,
+          "stroke-width": 0,
+        })
+
+        if (isFilled) {
+          rect.classList.add(`sb-${parent.info.category}`)
+        } else {
+          rect.setAttribute("fill", "#FFFFFF")
+        }
+
+        elements.push(rect)
+      }
+    }
+
+    return SVG.group(elements)
+  }
+}
+
 class InputView {
   constructor(input) {
     Object.assign(this, input)
     if (input.label) {
       this.label = newView(input.label)
+    }
+    // Create MatrixView if value is a Matrix
+    if (input.value && input.value.isMatrix) {
+      this.matrixView = new MatrixView(input.value)
     }
 
     this.x = 0
@@ -132,6 +212,9 @@ class InputView {
   measure() {
     if (this.hasLabel) {
       this.label.measure()
+    }
+    if (this.matrixView) {
+      this.matrixView.measure()
     }
   }
 
@@ -152,7 +235,18 @@ class InputView {
   draw(parent) {
     let w
     let label
-    if (this.hasLabel) {
+    let px
+
+    // Check if this has a matrix view
+    const hasMatrix = !!this.matrixView
+
+    if (hasMatrix) {
+      // Use same padding as text dropdowns for consistency
+      px = 4
+      const matrixWidth = this.matrixView.width
+      w = matrixWidth + px + 4 // Left padding + right margin before arrow
+      this.height = 14 // Fixed height matching scratch2 text dropdown
+    } else if (this.hasLabel) {
       label = this.label.draw()
       w = Math.max(
         14,
@@ -167,7 +261,11 @@ class InputView {
     }
     this.width = w
 
-    const h = (this.height = this.isRound || this.isColor ? 13 : 14)
+    const h = (this.height = hasMatrix
+      ? 14
+      : this.isRound || this.isColor
+        ? 13
+        : 14)
 
     let el = InputView.shapes[this.shape](w, h)
     if (this.isColor) {
@@ -188,6 +286,16 @@ class InputView {
         class: `sb-input sb-input-${this.shape}`,
       }),
     ])
+
+    // Render matrix content using MatrixView
+    if (hasMatrix) {
+      const matrixStartX = px
+      const matrixStartY = (h - this.matrixView.height) / 2
+
+      const matrixEl = this.matrixView.draw(parent)
+      result.appendChild(SVG.move(matrixStartX, matrixStartY, matrixEl))
+    }
+
     if (this.hasLabel) {
       const x = this.isRound ? 5 : 4
       result.appendChild(SVG.move(x, 0, label))

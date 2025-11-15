@@ -4,6 +4,7 @@ export {
   Label,
   Icon,
   Input,
+  Matrix,
   Block,
   Comment,
   Glow,
