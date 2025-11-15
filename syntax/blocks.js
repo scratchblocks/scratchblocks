@@ -458,10 +458,10 @@ export function applyOverrides(info, overrides) {
       info.color = name
       info.category = ""
       info.categoryIsDefault = false
-    } else if (overrideCategories.includes(name) && info.category !== name) {
+    } else if (overrideCategories.includes(name) && info.categoryIsDefault && info.category !== name) {
       info.category = name
       info.categoryIsDefault = false
-    } else if (overrideShapes.includes(name) && info.shape !== name) {
+    } else if (overrideShapes.includes(name) && info.shapeIsDefault !== false && info.shape !== name) {
       info.shape = name
       info.shapeIsDefault = false
     } else if (name === "loop") {
