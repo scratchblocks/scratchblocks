@@ -325,7 +325,7 @@ export class Block {
 
 export class Comment {
   constructor(value, hasBlock) {
-    this.label = new Label(value, "comment-label")
+    this.label = new Label(value.trim(), "comment-label")
     this.width = null
     this.hasBlock = hasBlock
   }
