@@ -39,7 +39,9 @@ export class Label {
     if (this.value === "<" || this.value === ">") {
       return this.value
     }
-    return this.value.replace(/([<>[\](){}])/g, "\\$1")
+    return this.value
+      .replace(/([<>[\](){}\\])/g, "\\$1")
+      .replace(/:{2,}/g, m => ":" + "\\:".repeat(m.length - 1))
   }
 }
 
