@@ -1403,7 +1403,7 @@ export default [
   {
     id: "microbit.displaySymbol",
     spec: "display %1",
-    inputs: ["%m"], // TODO add matrix support
+    inputs: ["%m"],
     shape: "stack",
     category: "microbit",
   },

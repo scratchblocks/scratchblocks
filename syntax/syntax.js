@@ -13,6 +13,7 @@ import {
   Glow,
   Script,
   Document,
+  Matrix,
 } from "./model.js"
 
 import {
@@ -60,7 +61,9 @@ function paintBlock(info, children, languages) {
       info.isRTL = rtlLanguages.includes(lang.code)
 
       if (
-      type.shape === "ring" ? info.shape === "reporter" : info.shape === "stack"
+        type.shape === "ring"
+          ? info.shape === "reporter"
+          : info.shape === "stack"
       ) {
         info.shape = type.shape
       }
@@ -117,7 +120,9 @@ function paintBlock(info, children, languages) {
               (child.shape === "string" || child.shape === "number")
             ) {
               // Convert string inputs to string arguments, number inputs to number arguments.
-            const labels = child.value.split(/ +/g).map(word => new Label(word))
+              const labels = child.value
+                .split(/ +/g)
+                .map(word => new Label(word))
               child = paintBlock(
                 {
                   shape: "reporter",
@@ -393,6 +398,99 @@ function parseLines(code, languages) {
 
   function pReporter() {
     next() // '('
+
+    // Check if this is a matrix pattern: ({...} v)
+    if (tok === "{") {
+      const savedIndex = index
+      const savedTok = tok
+
+      // Try to parse as matrix
+      let braceCount = 1
+      let matrixContent = ""
+      next() // skip '{'
+
+      while (tok && braceCount > 0) {
+        if (tok === "{") {
+          braceCount++
+        } else if (tok === "}") {
+          braceCount--
+          if (braceCount === 0) {
+            break
+          }
+        }
+        matrixContent += tok
+        next()
+      }
+
+      // Check if followed by ' v)'
+      if (tok === "}" && braceCount === 0) {
+        next() // skip '}'
+
+        // Check for whitespace and 'v' and ')'
+        let afterBrace = 0
+        while (afterBrace < code.length && code[index + afterBrace] === " ") {
+          afterBrace++
+        }
+
+        if (
+          index + afterBrace < code.length &&
+          code[index + afterBrace] === "v" &&
+          index + afterBrace + 1 < code.length &&
+          code[index + afterBrace + 1] === ")"
+        ) {
+          // This is a matrix! Parse it
+          index += afterBrace
+          tok = code[index]
+          next() // skip 'v'
+          next() // skip ')'
+
+          // Parse the matrix content
+          const rows = []
+          let currentRow = ""
+
+          for (let i = 0; i < matrixContent.length; i++) {
+            const c = matrixContent[i]
+            if (c === "\n" || c === " " || c === "\t") {
+              // Skip whitespace
+              continue
+            } else if (c === ",") {
+              // End of row
+              if (currentRow.trim()) {
+                // Convert string digits to boolean values
+                const booleanRow = currentRow
+                  .trim()
+                  .split("")
+                  .map(ch => ch === "1")
+                rows.push(booleanRow)
+                currentRow = ""
+              }
+            } else {
+              // Add to current row
+              currentRow += c
+            }
+          }
+
+          // Add last row if any
+          if (currentRow.trim()) {
+            // Convert string digits to boolean values
+            const booleanRow = currentRow
+              .trim()
+              .split("")
+              .map(ch => ch === "1")
+            rows.push(booleanRow)
+          }
+
+          // Return as a number-dropdown input containing the matrix
+          const matrix = new Matrix(rows)
+          const input = new Input("number-dropdown", matrix, null)
+          return input
+        }
+      }
+
+      // Reset if not a valid matrix pattern
+      index = savedIndex
+      tok = savedTok
+    }
 
     // empty number-dropdown
     if (tok === " ") {

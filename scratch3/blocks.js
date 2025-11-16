@@ -137,8 +137,7 @@ export class LineView {
 
   measure() {}
 
-  draw(_iconStyle, parent) {
-    const category = parent.info.category
+  draw(_iconStyle, _parent) {
     return SVG.el("line", {
       class: `sb3-extension-line`,
       "stroke-linecap": "round",
@@ -150,11 +149,93 @@ export class LineView {
   }
 }
 
+export class MatrixView {
+  constructor(matrix) {
+    Object.assign(this, matrix)
+    this.x = 0
+
+    if (this.rows && this.rows.length > 0) {
+      const numRows = this.rows.length
+      const numCols = this.rows[0].length
+
+      // Calculate cell size based on target height and number of rows
+      const cellSpacing = 1
+      const targetHeight = 26 // Target height for matrix display
+      const availableHeight = targetHeight - (numRows - 1) * cellSpacing
+      this.cellSize = Math.max(1, Math.floor(availableHeight / numRows))
+
+      // Calculate actual rendered dimensions
+      this.width = numCols * (this.cellSize + cellSpacing) - cellSpacing
+      this.height = numRows * (this.cellSize + cellSpacing) - cellSpacing
+    } else {
+      this.width = 0
+      this.height = 0
+      this.cellSize = 0
+    }
+  }
+
+  get isMatrix() {
+    return true
+  }
+
+  measure() {
+    // Already measured in constructor
+  }
+
+  draw(iconStyle, parent) {
+    if (!this.rows || this.rows.length === 0) {
+      return SVG.group([])
+    }
+
+    const cellSize = this.cellSize
+    const cellSpacing = 1
+    const totalCellSize = cellSize + cellSpacing
+    const elements = []
+
+    // Draw matrix cells
+    for (let rowIdx = 0; rowIdx < this.rows.length; rowIdx++) {
+      const row = this.rows[rowIdx]
+      for (let colIdx = 0; colIdx < row.length; colIdx++) {
+        const cell = row[colIdx]
+        const x = colIdx * totalCellSize
+        const y = rowIdx * totalCellSize
+
+        const isFilled = cell === true
+
+        // Use custom color or category-based styling
+        const rect = SVG.el("rect", {
+          x: x,
+          y: y,
+          width: cellSize,
+          height: cellSize,
+          rx: 1,
+          ry: 1,
+          "stroke-width": 0,
+        })
+
+        if (isFilled) {
+          rect.setAttribute("fill", "#FFFFFF")
+        } else {
+          rect.classList.add(`sb3-${parent.info.category}`)
+        }
+
+        elements.push(rect)
+      }
+    }
+
+    return SVG.group(elements)
+  }
+}
+
 export class InputView {
   constructor(input) {
     Object.assign(this, input)
     if (input.label) {
       this.label = newView(input.label)
+    }
+    // Create MatrixView if value is a Matrix
+    if (input.value && input.value.isMatrix) {
+      this.matrixView = new MatrixView(input.value)
     }
     this.isBoolean = this.shape === "boolean"
     this.isDropdown = this.shape === "dropdown"
@@ -170,6 +251,9 @@ export class InputView {
   measure() {
     if (this.hasLabel) {
       this.label.measure()
+    }
+    if (this.matrixView) {
+      this.matrixView.measure()
     }
   }
 
@@ -191,7 +275,17 @@ export class InputView {
     let w
     let label
     let px
-    if (this.isBoolean) {
+
+    // Check if this has a matrix view
+    const hasMatrix = !!this.matrixView
+
+    if (hasMatrix) {
+      // Use same padding as text dropdowns for consistency
+      px = 11
+      const matrixWidth = this.matrixView.width
+      w = matrixWidth + px + 31 // Same calculation as text dropdown with arrow
+      this.height = 32 // Fixed height for consistency with other inputs
+    } else if (this.isBoolean) {
       w = 48
     } else if (this.isColor) {
       w = 40
@@ -212,7 +306,8 @@ export class InputView {
     }
     this.width = w
 
-    const h = (this.height = 32)
+    const h = this.height || 32
+    this.height = h
 
     const el = InputView.shapes[this.shape](w, h)
     SVG.setProps(el, {
@@ -256,6 +351,17 @@ export class InputView {
     }
 
     const result = SVG.group([el])
+
+    // Render matrix content using MatrixView
+    if (hasMatrix) {
+      // Use same left margin as text dropdowns (px is already set to 11)
+      const matrixStartX = px
+      const matrixStartY = (h - this.matrixView.height) / 2
+
+      const matrixEl = this.matrixView.draw(iconStyle, parent)
+      result.appendChild(SVG.move(matrixStartX, matrixStartY, matrixEl))
+    }
+
     if (this.hasLabel) {
       result.appendChild(label)
     }
@@ -263,7 +369,7 @@ export class InputView {
       result.appendChild(
         SVG.move(
           w - 24,
-          12.8505114083, // (12 - ((12 / 12.71) * 8.79)) / 2 + 11
+          h === 32 ? 12.8505114083 : (h - 32) / 2 + 12.8505114083,
           SVG.symbol(
             iconStyle === "high-contrast"
               ? "#sb3-dropdownArrow-high-contrast"
