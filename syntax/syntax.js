@@ -52,7 +52,7 @@ function paintBlock(info, children, languages) {
   let lang
   let type
   if (!overrides.includes("reset")) {
-    const o = lookupHash(shortHash, info, children, languages)
+    const o = lookupHash(shortHash, info, children, languages, overrides)
     if (o) {
       lang = o.lang
       type = o.type
@@ -153,6 +153,13 @@ function paintBlock(info, children, languages) {
   // Apply overrides.
   applyOverrides(info, overrides)
 
+  // dropdowns menus
+  children.forEach(child => {
+    if (child.hasArrow) {
+      child.setMenu(lookupDropdown(child.value, info.id, languages))
+    }
+  })
+
   // loop arrows
   if (info.hasLoopArrow) {
     children.push(new Icon("loopArrow"))
@@ -238,8 +245,7 @@ function parseLines(code, languages) {
   }
 
   function makeMenu(shape, value) {
-    const menu = lookupDropdown(value, languages) || value
-    return new Input(shape, value, menu)
+    return new Input(shape, value)
   }
 
   function pParts(end) {

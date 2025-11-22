@@ -36,6 +36,10 @@ export const rtlLanguages = ["ar", "ckb", "fa", "he"]
 
 // List of commands taken from Scratch
 import scratchCommands from "./commands.js"
+import {
+  getDropdowns as getScratchDropdowns,
+  getMakeyMakeySequenceDropdowns,
+} from "./dropdowns.js"
 
 const inputNumberPat = /%([0-9]+)/
 export const inputPat = /(%[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)?)/
@@ -54,12 +58,7 @@ export function parseInputNumber(part) {
 export function parseSpec(spec) {
   const parts = spec.split(splitPat).filter(x => x)
   const inputs = parts.filter(p => inputPat.test(p))
-  return {
-    spec: spec,
-    parts: parts,
-    inputs: inputs,
-    hash: hashSpec(spec),
-  }
+  return { spec: spec, parts: parts, inputs: inputs, hash: hashSpec(spec) }
 }
 
 export function hashSpec(spec) {
@@ -180,8 +179,12 @@ function loadLanguage(code, language) {
 
   language.nativeDropdowns = {}
   Object.keys(language.dropdowns).forEach(name => {
-    const nativeName = language.dropdowns[name]
-    language.nativeDropdowns[nativeName] = name
+    const nativeName = language.dropdowns[name].value
+    const parents = language.dropdowns[name].parents
+    if (!language.nativeDropdowns[nativeName]) {
+      language.nativeDropdowns[nativeName] = []
+    }
+    language.nativeDropdowns[nativeName].push({ id: name, parents: parents })
   })
 
   language.code = code
@@ -238,7 +241,16 @@ export const english = {
   name: "English",
 
   // Valid arguments to "go to" face sensing dropdown, for resolving ambiguous situations
-  faceParts: ["nose", "mouth", "left eye", "right eye", "between eyes", "left ear", "right ear", "top of head"],
+  faceParts: [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head",
+  ],
 
   // Valid arguments to "sound effect" dropdown, for resolving ambiguous situations
   soundEffects: ["pitch", "pan left/right"],
@@ -256,9 +268,301 @@ export const english = {
 allBlocks.forEach(info => {
   english.commands[info.id] = info.spec
 })
-loadLanguages({
-  en: english,
+getScratchDropdowns().forEach(info => {
+  english.dropdowns[info.id] = {
+    value: info.value,
+    parents: info.parents || [],
+  }
 })
+english.dropdowns = {
+  ...english.dropdowns,
+  ...getMakeyMakeySequenceDropdowns(english.dropdowns),
+  "translate.language.am": {
+    value: "Amharic",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.ar": {
+    value: "Arabic",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.az": {
+    value: "Azerbaijani",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.eu": {
+    value: "Basque",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.bg": {
+    value: "Bulgarian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.ca": {
+    value: "Catalan",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.zh-cn": {
+    value: "Chinese (Simplified)",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.zh-tw": {
+    value: "Chinese (Traditional)",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.hr": {
+    value: "Croatian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.cs": {
+    value: "Czech",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.da": {
+    value: "Danish",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.nl": {
+    value: "Dutch",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.en": {
+    value: "English",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.et": {
+    value: "Estonian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.fi": {
+    value: "Finnish",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.fr": {
+    value: "French",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.gl": {
+    value: "Galician",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.de": {
+    value: "German",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.el": {
+    value: "Greek",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.he": {
+    value: "Hebrew",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.hu": {
+    value: "Hungarian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.is": {
+    value: "Icelandic",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.id": {
+    value: "Indonesian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.ga": {
+    value: "Irish",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.it": {
+    value: "Italian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.ja": {
+    value: "Japanese",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.ko": {
+    value: "Korean",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.lv": {
+    value: "Latvian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.lt": {
+    value: "Lithuanian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.mi": {
+    value: "Maori",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.nb": {
+    value: "Norwegian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.fa": {
+    value: "Persian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.pl": {
+    value: "Polish",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.pt": {
+    value: "Portuguese",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.ro": {
+    value: "Romanian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.ru": {
+    value: "Russian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.gd": {
+    value: "Scots Gaelic",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.sr": {
+    value: "Serbian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.sk": {
+    value: "Slovak",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.sl": {
+    value: "Slovenian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.es": {
+    value: "Spanish",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.sv": {
+    value: "Swedish",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.th": {
+    value: "Thai",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.tr": {
+    value: "Turkish",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.uk": {
+    value: "Ukrainian",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.vi": {
+    value: "Vietnamese",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.cy": {
+    value: "Welsh",
+    parents: ["translate.translateBlock"],
+  },
+  "translate.language.zu": {
+    value: "Zulu",
+    parents: ["translate.translateBlock"],
+  },
+  "text2speech.language.ar": {
+    value: "Arabic",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.zh-cn": {
+    value: "Chinese (Mandarin)",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.da": {
+    value: "Danish",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.nl": {
+    value: "Dutch",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.en": {
+    value: "English",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.fr": {
+    value: "French",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.de": {
+    value: "German",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.hi": {
+    value: "Hindi",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.is": {
+    value: "Icelandic",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.it": {
+    value: "Italian",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.ja": {
+    value: "Japanese",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.ko": {
+    value: "Korean",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.nb": {
+    value: "Norwegian",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.pl": {
+    value: "Polish",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.pt-br": {
+    value: "Portuguese (Brazilian)",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.pt": {
+    value: "Portuguese",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.ro": {
+    value: "Romanian",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.ru": {
+    value: "Russian",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.es": {
+    value: "Spanish",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.es-419": {
+    value: "Spanish (Latin American)",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.sv": {
+    value: "Swedish",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.tr": {
+    value: "Turkish",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+  "text2speech.language.cy": {
+    value: "Welsh",
+    parents: ["text2speech.setLanguageBlock"],
+  },
+}
+loadLanguages({ en: english })
 
 /*****************************************************************************/
 
@@ -413,10 +717,135 @@ specialCase("CONTROL_STOP", (_, children, lang) => {
   }
 })
 
-export function lookupHash(hash, info, children, languages) {
+function narrowByNativeDropdowns(collisions, children, languages) {
+  const dropdownValues = []
+  for (const child of children) {
+    if (!child) {
+      continue
+    }
+    const shape = child.shape || ""
+    if (shape.endsWith("dropdown") || shape === "dropdown") {
+      if (child.value != null) {
+        dropdownValues.push(child.value)
+      }
+    }
+  }
+  if (!dropdownValues.length) {
+    return collisions
+  }
+
+  // Preprocess: build a map value -> concatenated list of dropdown entry strings
+  const valueEntriesMap = new Map()
+  for (const lang of languages) {
+    for (const val of dropdownValues) {
+      if (
+        lang.nativeDropdowns &&
+        Object.prototype.hasOwnProperty.call(lang.nativeDropdowns, val)
+      ) {
+        const arr = lang.nativeDropdowns[val]
+        if (arr && arr.length) {
+          if (!valueEntriesMap.has(val)) {
+            valueEntriesMap.set(val, [])
+          }
+          // arr: [{ id, parents }] ; merge (keep duplicates harmless)
+          valueEntriesMap.get(val).push(...arr)
+        }
+      }
+    }
+  }
+  if (!valueEntriesMap.size) {
+    return collisions
+  }
+
+  const filtered = collisions.filter(block => {
+    const candidates = [
+      block.id,
+      block.selector && block.selector.replace(/^sb3:/, ""),
+      block.selector,
+    ].filter(Boolean)
+    for (const entries of valueEntriesMap.values()) {
+      for (const entry of entries) {
+        if (!entry) {
+          continue
+        }
+        // entry can be { id, parents } per loadLanguage(); parents may be undefined
+        const parents = Array.isArray(entry.parents) ? entry.parents : []
+        // If any parent matches the block id/selector, keep it
+        if (parents.some(p => candidates.includes(p))) {
+          return true
+        }
+        // Fallback: some (older) data could have stored id as parent indicator
+        if (entry.id && candidates.includes(entry.id)) {
+          return true
+        }
+      }
+    }
+    return false
+  })
+  return filtered.length ? filtered : collisions
+}
+
+export function lookupHash(hash, info, children, languages, overrides) {
   for (const lang of languages) {
     if (Object.prototype.hasOwnProperty.call(lang.blocksByHash, hash)) {
-      const collisions = lang.blocksByHash[hash]
+      let collisions = lang.blocksByHash[hash]
+
+      if (overrides && overrides.length) {
+        // 1) Highest priority: If a value in overrides matches a category in collisions uniquely, return it directly
+        const collisionCategories = new Set(
+          collisions.map(b => b.category).filter(Boolean),
+        )
+        for (const o of overrides) {
+          if (!o) {
+            continue
+          }
+          // Only process if the override appears in the current collision category set
+          if (collisionCategories.has(o)) {
+            const matching = collisions.filter(b => b.category === o)
+            if (matching.length === 1) {
+              const block = matching[0]
+              // Keep shape filtering consistent with subsequent logic
+              if (
+                (info.shape === "reporter" &&
+                  block.shape !== "reporter" &&
+                  block.shape !== "ring") ||
+                (info.shape === "boolean" && block.shape !== "boolean")
+              ) {
+                // If the shape is incompatible, do not break, continue to try other overrides
+              } else {
+                return { type: block, lang: lang }
+              }
+            } else if (matching.length > 1) {
+              // Multiple same categories, narrow down the collision range, continue further refinement
+              collisions = matching
+              break
+            }
+          }
+        }
+
+        // 2) Secondary: Use the original mechanism, identify the first override in the allowed override category list
+        const categoryOverride = overrides.find(o =>
+          overrideCategories.includes(o),
+        )
+        if (categoryOverride) {
+          const filtered = collisions.filter(
+            b => b.category === categoryOverride,
+          )
+          if (filtered.length) {
+            // If only one remains, return it directly; otherwise, continue normal disambiguation
+            if (filtered.length === 1) {
+              return { type: filtered[0], lang: lang }
+            }
+            collisions = filtered
+          }
+        }
+      }
+
+      // Try to narrow down the collision set using nativeDropdowns
+      if (collisions.length > 1) {
+        collisions = narrowByNativeDropdowns(collisions, children, languages)
+      }
+
       for (let block of collisions) {
         if (
           info.shape === "reporter" &&
@@ -444,10 +873,15 @@ export function lookupHash(hash, info, children, languages) {
   }
 }
 
-export function lookupDropdown(name, languages) {
+export function lookupDropdown(name, parentType, languages) {
   for (const lang of languages) {
     if (Object.prototype.hasOwnProperty.call(lang.nativeDropdowns, name)) {
-      return lang.nativeDropdowns[name]
+      const objs = lang.nativeDropdowns[name]
+      for (const { id, parents } of objs) {
+        if (parents.includes(parentType)) {
+          return id
+        }
+      }
     }
   }
 }
