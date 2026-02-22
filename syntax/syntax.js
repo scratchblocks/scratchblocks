@@ -26,6 +26,7 @@ import {
   rtlLanguages,
   iconPat,
   blockName,
+  aliasCategories,
 } from "./blocks.js"
 
 function paintBlock(info, children, languages) {
@@ -66,7 +67,12 @@ function paintBlock(info, children, languages) {
       ) {
         info.shape = type.shape
       }
-      info.category = type.category
+      console.log('alias', aliasCategories[type.category])
+      if (aliasCategories[type.category]) {
+        info.category = aliasCategories[type.category]
+      } else {
+        info.category = type.category
+      }
       info.categoryIsDefault = true
       // store selector, used for translation among other things
       if (type.selector) {
