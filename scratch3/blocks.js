@@ -22,6 +22,34 @@ const {
   iconName,
 } = style
 
+// to be compatible with node.js xmldom
+function addClass(el, className) {
+  if (el.classList) {
+    el.classList.add(className)
+  } else {
+    const current = el.getAttribute("class") || ""
+    const classes = current.split(/\s+/).filter(Boolean)
+    if (!classes.includes(className)) {
+      classes.push(className)
+      el.setAttribute("class", classes.join(" "))
+    }
+  }
+}
+
+function removeClass(el, className) {
+  if (el.classList) {
+    el.classList.remove(className)
+  } else {
+    const current = el.getAttribute("class") || ""
+    const classes = current.split(/\s+/).filter(cls => cls !== className)
+    if (classes.length) {
+      el.setAttribute("class", classes.join(" "))
+    } else {
+      el.removeAttribute("class")
+    }
+  }
+}
+
 export class LabelView {
   constructor(label) {
     Object.assign(this, label)
@@ -234,7 +262,7 @@ export class InputView {
         })
       }
     } else if (this.shape === "number-dropdown") {
-      el.classList.add(`sb3-${parent.info.category}-alt`)
+      addClass(el, `sb3-${parent.info.category}-alt`)
 
       // custom colors
       if (parent.info.color) {
@@ -244,8 +272,8 @@ export class InputView {
         })
       }
     } else if (this.shape === "boolean") {
-      el.classList.remove(`sb3-${parent.info.category}`)
-      el.classList.add(`sb3-${parent.info.category}-dark`)
+      removeClass(el, `sb3-${parent.info.category}`)
+      addClass(el, `sb3-${parent.info.category}-dark`)
 
       // custom colors
       if (parent.info.color) {

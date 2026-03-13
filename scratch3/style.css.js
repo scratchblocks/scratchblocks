@@ -2,7 +2,9 @@
 
 const common = `
 .sb3-label {
-  font: 500 12pt Helvetica Neue, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 12pt;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
 }
 
 .sb3-literal-number,
@@ -38,7 +40,9 @@ const commonOverride = `
 }
 /* specificity */
 .sb3-comment-label, .sb3-label.sb3-comment-label {
-  font: 400 12pt Helvetica Neue, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 12pt;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
   fill: #000;
   word-spacing: 0;
 }`

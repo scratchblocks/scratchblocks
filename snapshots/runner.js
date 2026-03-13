@@ -1,4 +1,11 @@
 import path from "path"
+import { renderToSVGString, loadLanguages } from "../node-ssr.js"
+import { Resvg } from "@resvg/resvg-js"
+import fs from "fs"
+
+loadLanguages({
+  de: JSON.parse(fs.readFileSync(path.join("locales", "de.json"), "utf-8")),
+})
 
 const tests = []
 
@@ -20,24 +27,32 @@ export function test(style, name, source, lang) {
   }
 }
 
-export function runTests(r) {
-  return Promise.all(
-    tests.map(tc => {
-      const outputPath = path.join(
-        "snapshots",
-        tc.style,
-        tc.name.replace(/ /g, "-") + ".png",
-      )
-      console.log("running", tc.name)
-      return (async () => {
-        const options = {
-          lang: tc.lang,
-          style: tc.style,
-          scale: 1,
-        }
-        await r.snapshotToFile(tc.source, options, outputPath)
-        console.log("✓ wrote", outputPath)
-      })()
-    }),
-  )
+export function runTests() {
+  tests.forEach(tc => {
+    const outputPath = path.join(
+      "snapshots",
+      tc.style,
+      tc.name.replace(/ /g, "-") + ".png",
+    )
+    console.log("running", tc.name)
+    const options = {
+      languages: ["en", tc.lang],
+      style: tc.style,
+      scale: 1,
+    }
+    const svgString = renderToSVGString(tc.source, options)
+    const resvg = new Resvg(svgString, {
+      fitTo: {
+        mode: "width",
+        value: 800,
+      },
+      font: {
+        loadSystemFonts: true,
+      },
+    })
+    const pngData = resvg.render().asPng()
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true })
+    fs.writeFileSync(outputPath, pngData)
+    console.log("✓ wrote", outputPath)
+  })
 }
