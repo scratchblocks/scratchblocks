@@ -1,5 +1,4 @@
 import globals from "globals"
-import babelParser from "@babel/eslint-parser"
 import js from "@eslint/js"
 
 export default [
@@ -11,7 +10,6 @@ export default [
         ...globals.node,
       },
 
-      parser: babelParser,
       ecmaVersion: 14,
       sourceType: "module",
 
@@ -92,6 +90,13 @@ export default [
       globals: {
         ...globals.jest,
       },
+    },
+  },
+  {
+    files: ["tests/*.js", "rollup.config.js"],
+
+    languageOptions: {
+      ecmaVersion: 16,
     },
   },
 ]
