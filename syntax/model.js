@@ -267,6 +267,13 @@ export class Block {
       return
     }
 
+    if (
+      this.info.category === "custom-arg" ||
+      this.info.category === "custom"
+    ) {
+      return
+    }
+
     const oldSpec = this.info.language.commands[id]
 
     const nativeSpec = lang.commands[id]
