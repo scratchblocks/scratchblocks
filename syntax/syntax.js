@@ -67,7 +67,6 @@ function paintBlock(info, children, languages) {
       ) {
         info.shape = type.shape
       }
-      console.log('alias', aliasCategories[type.category])
       if (aliasCategories[type.category]) {
         info.category = aliasCategories[type.category]
       } else {

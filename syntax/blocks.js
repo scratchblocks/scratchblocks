@@ -21,10 +21,10 @@ const overrideCategories = [
   ...Object.keys(aliasExtensions),
 ]
 
-export const aliasCategories = {
+export const aliasCategories = Object.assign(Object.create(null), {
   gray: "grey",
   other: "grey",
-}
+})
 
 const overrideShapes = [
   "hat",
