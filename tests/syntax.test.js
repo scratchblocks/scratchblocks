@@ -641,18 +641,20 @@ describe("disambiguation", () => {
     test(id, () => {
       expect(parseBlock(messages.en).info).toMatchObject(result)
     })
-    if (messages.de)
+    if (messages.de) {
       test(id + ": de", () => {
         expect(parseBlock(messages.de, optionsFor("de")).info).toMatchObject(
           result,
         )
       })
-    if (messages.ja)
+    }
+    if (messages.ja) {
       test(id + ": ja", () => {
         expect(parseBlock(messages.ja, optionsFor("ja")).info).toMatchObject(
           result,
         )
       })
+    }
   })
 })
 

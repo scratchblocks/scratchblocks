@@ -566,7 +566,9 @@ function parseLines(code, languages) {
     const firstNonWsTok = tok === " " ? peekNonWs() : tok
     if (firstNonWsTok === "+" || firstNonWsTok === "-") {
       diff = firstNonWsTok
-      while (tok !== firstNonWsTok) next()
+      while (tok !== firstNonWsTok) {
+        next()
+      }
       next()
     }
     const block = pBlock()
