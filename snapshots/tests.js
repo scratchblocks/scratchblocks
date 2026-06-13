@@ -830,6 +830,17 @@ when force sensor [pushed v]
 <falling?>
 (spin speed [z v])
 (acceleration [x v])
+
+// Face Sensing
+go to [nose v]
+point in direction of face tilt
+set size to face size
+when face tilts [left v]
+when this sprite touches a [nose v]
+when a face is detected
+<a face is detected?>
+(face tilt)
+(face size)
 `,
 )
 
