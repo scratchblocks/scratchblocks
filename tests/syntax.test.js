@@ -604,22 +604,55 @@ describe("disambiguation", () => {
         id: "microbit.isButtonPressed",
       },
     ],
+    [
+      {
+        en: "go to [nose v]",
+      },
+      {
+        shape: "stack",
+        id: "faceSensing.goToPart",
+      },
+    ],
+    [
+      {
+        en: "go to [mouse-pointer v]",
+      },
+      {
+        shape: "stack",
+        id: "MOTION_GOTO",
+        testName: "MOTION_GOTO (mouse-pointer)",
+      },
+    ],
+    [
+      {
+        en: "go to [Sprite v]",
+      },
+      {
+        shape: "stack",
+        id: "MOTION_GOTO",
+        testName: "MOTION_GOTO (sprite)",
+      },
+    ],
   ])
 
   simpleRemapping.forEach((result, messages) => {
-    test(result.id, () => {
+    const id = result.testName ? result.testName : result.id
+    delete result.testName
+    test(id, () => {
       expect(parseBlock(messages.en).info).toMatchObject(result)
     })
-    test(result.id + ": de", () => {
-      expect(parseBlock(messages.de, optionsFor("de")).info).toMatchObject(
-        result,
-      )
-    })
-    test(result.id + ": ja", () => {
-      expect(parseBlock(messages.ja, optionsFor("ja")).info).toMatchObject(
-        result,
-      )
-    })
+    if (messages.de)
+      test(id + ": de", () => {
+        expect(parseBlock(messages.de, optionsFor("de")).info).toMatchObject(
+          result,
+        )
+      })
+    if (messages.ja)
+      test(id + ": ja", () => {
+        expect(parseBlock(messages.ja, optionsFor("ja")).info).toMatchObject(
+          result,
+        )
+      })
   })
 })
 
