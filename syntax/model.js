@@ -185,7 +185,7 @@ export class Block {
           firstInput = child
         }
         if (child.isScript) {
-          return `\n${indent(child.stringify())}\n`
+          return child.isEmpty ? "\n" : `\n${indent(child.stringify())}\n`
         }
         let next = arr[i + 1]
         next = next && next.name === "loopArrow" ? arr[i + 2] : next

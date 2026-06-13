@@ -670,9 +670,25 @@ describe("c blocks", () => {
     expect(parseScript(script).stringify()).toEqual("if <> then\nend")
   })
 
-  test("#567: comments cannot be attached to else", () => {
+  test("#567: comments cannot be attached to else; #582 no indent for empty if-else", () => {
     const script = "if <> then\nelse //comment\nend"
-    expect(parseScript(script).stringify()).toEqual("if <> then\n\nelse\nend")
+    expect(parseScript(script).stringify()).toEqual("if <> then\nelse\nend")
+  })
+  test("#582: if indenting", () => {
+    const script = "if <> then\nstamp\nend"
+    expect(parseScript(script).stringify()).toEqual("if <> then\n  stamp\nend")
+  })
+  test("#582: repeat until indenting", () => {
+    const script = "repeat until <>\nstamp\nend"
+    expect(parseScript(script).stringify()).toEqual(
+      "repeat until <>\n  stamp\nend",
+    )
+  })
+  test("#582: if else indenting", () => {
+    const script = "if <> then\nstamp\nelse\nclear\nend"
+    expect(parseScript(script).stringify()).toEqual(
+      "if <> then\n  stamp\nelse\n  clear\nend",
+    )
   })
 })
 
