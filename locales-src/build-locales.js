@@ -36,6 +36,16 @@ const rawLocales = async () => {
   return result
 }
 
+const faceParts = [
+  "faceSensing.nose",
+  "faceSensing.mouth",
+  "faceSensing.leftEye",
+  "faceSensing.rightEye",
+  "faceSensing.betweenEyes",
+  "faceSensing.leftEar",
+  "faceSensing.rightEar",
+  "faceSensing.topOfHead",
+]
 const soundEffects = ["SOUND_EFFECTS_PITCH", "SOUND_EFFECTS_PAN"]
 const microbitWhen = [
   "microbit.gesturesMenu.moved",
@@ -129,6 +139,7 @@ const buildLocale = (code, rawLocale) => {
     commands: {},
     dropdowns: {},
     ignorelt: [],
+    faceParts: listFor(faceParts),
     soundEffects: listFor(soundEffects),
     microbitWhen: listFor(microbitWhen),
     osis: listFor(osis),
