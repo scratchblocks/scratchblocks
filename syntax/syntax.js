@@ -769,7 +769,7 @@ function recogniseStuff(scripts) {
         const parts = []
         for (const child of outline.children) {
           if (child.isLabel) {
-            parts.push(child.value)
+            parts.push(child.value.replace(/%/g, "")) // see #581 - % is a special char, as seen below, and should be removed
           } else if (child.isBlock) {
             if (!child.info.argument) {
               return
