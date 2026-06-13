@@ -122,6 +122,7 @@
     "SENSING_OF": "%1 الخاص بـ %2",
     "SENSING_CURRENT": "%1 الآن",
     "SENSING_DAYSSINCE2000": "الأيام منذ عام 2000",
+    "SENSING_ONLINE": "هل هو متصل بالإنترنت؟",
     "SENSING_USERNAME": "اسم المستخدم",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "طبقة الصوت",
     "توزيع الصوت يسار/يمين"

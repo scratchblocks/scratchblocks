@@ -122,6 +122,7 @@
     "SENSING_OF": "%1 kwa%2",
     "SENSING_CURRENT": "manje  %1",
     "SENSING_DAYSSINCE2000": "izinsuku kusukela 2000",
+    "SENSING_ONLINE": "is online?",
     "SENSING_USERNAME": "igama elisebenzile",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "izinga elidlulele / iphimbo",
     "jikisa isinxele-nangakwesokudla"

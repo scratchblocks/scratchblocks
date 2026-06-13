@@ -122,6 +122,7 @@
     "SENSING_OF": "%1 o te %2",
     "SENSING_CURRENT": "%1 apī",
     "SENSING_DAYSSINCE2000": "he mahana mai te 2000",
+    "SENSING_ONLINE": "is online?",
     "SENSING_USERNAME": "iŋoa o te  usuario",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "roa roatano",
     "haka iri te reʾo o a te maui o a te mataʾu"

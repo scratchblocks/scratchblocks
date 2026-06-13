@@ -122,6 +122,7 @@
     "SENSING_OF": "%1 của %2",
     "SENSING_CURRENT": "%1 hiện tại",
     "SENSING_DAYSSINCE2000": "số ngày từ năm 2000",
+    "SENSING_ONLINE": "is online?",
     "SENSING_USERNAME": "tên đăng nhập",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "cao độ",
     "pan trái/phải"

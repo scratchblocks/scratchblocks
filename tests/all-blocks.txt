@@ -222,6 +222,7 @@ reset timer
 
 (current [minute v])
 (days since 2000)
+<online?>
 (username)
 (user id)
 

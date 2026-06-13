@@ -122,6 +122,7 @@
     "SENSING_OF": "%1 ya %2",
     "SENSING_CURRENT": "ya bjale %1",
     "SENSING_DAYSSINCE2000": "matšatši go tloga ka 2000",
+    "SENSING_ONLINE": "is online?",
     "SENSING_USERNAME": "leinatšhomišo",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "tlhabelelo",
     "hwidinyetša go la nngele/la go ja"

@@ -122,6 +122,7 @@
     "SENSING_OF": "%2 का %1",
     "SENSING_CURRENT": "मौजुदा %1",
     "SENSING_DAYSSINCE2000": "वर्ष 2000 के बाद के दिन",
+    "SENSING_ONLINE": "is online?",
     "SENSING_USERNAME": "यूज़र नेम",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "ध्वनि अंक",
     "पुँछ बाएँ / दांए"

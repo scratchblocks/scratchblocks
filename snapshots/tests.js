@@ -577,7 +577,7 @@ stop [all v]
 
 when I start as a clone
 create clone of (myself v)
-delete this clone 
+delete this clone
 
 `,
 )
@@ -616,6 +616,7 @@ reset timer
 
 (current [year v])
 (days since 2000)
+<online?>
 (username)
 
 `,
@@ -766,7 +767,7 @@ set video transparency to (50)
 test(
   "scratch3",
   "en-extensions",
-  `  
+  `
 // Text-to-Sppech
 speak [hello]
 set voice to [alto v]
@@ -1064,6 +1065,7 @@ setze Stoppuhr zurück
 
 ([Jahr v] im Moment)
 (Tage seit 2000)
+<ist online?>
 (Benutzername)
 
 `,

@@ -122,6 +122,7 @@
     "SENSING_OF": "%1 din %2",
     "SENSING_CURRENT": "%1 curent(ă)",
     "SENSING_DAYSSINCE2000": "zile din 2000",
+    "SENSING_ONLINE": "is online?",
     "SENSING_USERNAME": "nume utilizator",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1  - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "înălțimea sunetului",
     "deplasare la stânga/dreapta"
