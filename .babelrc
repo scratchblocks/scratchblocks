@@ -1,8 +1,6 @@
 {
   "exclude": "node_modules/**",
   "plugins": [
-    "@babel/plugin-transform-object-assign",
-    "@babel/plugin-syntax-import-assertions"
   ],
   "presets": [
     [

@@ -15,7 +15,7 @@ export const movedExtensions = {
 
 export const extensions = {
   ...movedExtensions,
-  facesensing: "facesensing",
+  faceSensing: "faceSensing",
   tts: "tts",
   translate: "translate",
   microbit: "microbit",

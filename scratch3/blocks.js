@@ -111,7 +111,7 @@ export class IconView {
       musicBlock: { width: 40, height: 40 },
       penBlock: { width: 40, height: 40 },
       videoBlock: { width: 40, height: 40, dy: 10 },
-      facesensingBlock: { width: 40, height: 40, dy: 3.9932885906 }, // 40 - 21.46 * (40 / 23.84), expcept this is still slightly off?
+      faceSensingBlock: { width: 40, height: 40, dy: 3.9932885906 }, // 40 - 21.46 * (40 / 23.84), expcept this is still slightly off?
       ttsBlock: { width: 40, height: 40 },
       translateBlock: { width: 40, height: 40 },
       wedoBlock: { width: 40, height: 40 },
@@ -137,8 +137,7 @@ export class LineView {
 
   measure() {}
 
-  draw(_iconStyle, parent) {
-    const category = parent.info.category
+  draw(_iconStyle, _parent) {
     return SVG.el("line", {
       class: `sb3-extension-line`,
       "stroke-linecap": "round",

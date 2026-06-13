@@ -11,7 +11,7 @@ const highContrastIcons = new Set([
   "musicBlock",
   "penBlock",
   "videoBlock",
-  "facesensingBlock",
+  "faceSensingBlock",
   "ttsBlock",
   "translationBlock",
 ])
@@ -563,13 +563,13 @@ export default class Style {
           SVG.el("circle", {
             cx: 8.35,
             cy: 9.65,
-            r: .97,
+            r: 0.97,
             fill: "#FFF",
           }),
           SVG.el("circle", {
             cx: 14.19,
             cy: 9.65,
-            r: .97,
+            r: 0.97,
             fill: "#FFF",
           }),
           SVG.el("path", {
@@ -594,7 +594,7 @@ export default class Style {
           }),
         ]),
         {
-          id: "sb3-facesensingBlock",
+          id: "sb3-faceSensingBlock",
           transform: "scale(1.67785234899 1.67785234899)", // 40 / 23.84
         },
       ),
@@ -786,13 +786,13 @@ export default class Style {
             fill: "#231f20",
             cx: 8.35,
             cy: 9.65,
-            r: .97,
+            r: 0.97,
           }),
           SVG.el("circle", {
             fill: "#231f20",
             cx: 14.19,
             cy: 9.65,
-            r: .97,
+            r: 0.97,
           }),
           SVG.el("path", {
             d: "M11.27 4.14c-3.94 0-7.13 3.19-7.13 7.13s3.19 7.13 7.13 7.13 7.13-3.19 7.13-7.13-3.19-7.13-7.13-7.13m0 1.3c3.22 0 5.84 2.61 5.84 5.84s-2.61 5.84-5.84 5.84-5.84-2.61-5.84-5.84 2.61-5.84 5.84-5.84",
@@ -816,7 +816,7 @@ export default class Style {
           }),
         ]),
         {
-          id: "sb3-facesensingBlock-high-contrast",
+          id: "sb3-faceSensingBlock-high-contrast",
           transform: "scale(1.67785234899 1.67785234899)", // 40 / 23.84
         },
       ),
