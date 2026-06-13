@@ -20,6 +20,7 @@ import {
   iconPat,
   rtlLanguages,
   unicodeIcons,
+  hexColorPat,
 } from "./blocks.js"
 
 export class Label {
@@ -113,6 +114,8 @@ export class Input {
       .replace(/ v$/, " \\v")
     if (this.hasArrow) {
       text += " v"
+    } else if (hexColorPat.test(text)) {
+      text = "\\" + text // Escape hex colors
     }
     return this.isRound
       ? `(${text})`
@@ -186,6 +189,10 @@ export class Block {
       })
       .join("")
       .trim()
+
+    if (this.info.shape === "reporter" && hexColorPat.test(text)) {
+      return `(\\${text})`
+    }
 
     const lang = this.info.language
     if (checkAlias && lang && this.info.selector) {

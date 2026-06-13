@@ -345,6 +345,7 @@ function parseLines(code, languages) {
     next() // '['
     let s = ""
     let escapeV = false
+    const escaped = tok === "\\"
     while (tok && tok !== "]" && tok !== "\n") {
       if (tok === "\\") {
         next()
@@ -363,7 +364,7 @@ function parseLines(code, languages) {
     if (tok === "]") {
       next()
     }
-    if (hexColorPat.test(s)) {
+    if (!escaped && hexColorPat.test(s)) {
       return new Input("color", s)
     }
     return !escapeV && / v$/.test(s)
@@ -398,6 +399,8 @@ function parseLines(code, languages) {
   function pReporter() {
     next() // '('
 
+    const escaped = tok === "\\"
+
     // empty number-dropdown
     if (tok === " ") {
       next()
@@ -424,7 +427,7 @@ function parseLines(code, languages) {
       if (/^[0-9e.-]*$/.test(value)) {
         return new Input("number", value)
       }
-      if (hexColorPat.test(value)) {
+      if (!escaped && hexColorPat.test(value)) {
         return new Input("color", value)
       }
     }
