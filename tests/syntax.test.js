@@ -204,6 +204,31 @@ describe("escaping and stringifying", () => {
     const code = String.raw`test \\ test`
     expect(parseBlock(code).stringify()).toBe(code)
   })
+
+  test("parentheses in number-dropdown", () => {
+    const code = String.raw`say (\(\) v)`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("brackets in number-dropdown", () => {
+    const code = String.raw`say (\[] v)`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("boolean in number-dropdown", () => {
+    const code = String.raw`say (\<> v)`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("parentheses in dropdown", () => {
+    const code = String.raw`say [() v]`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("brackets in dropdown", () => {
+    const code = String.raw`say [[\] v]`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
 })
 
 describe("overrides", () => {

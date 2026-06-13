@@ -109,9 +109,14 @@ export class Input {
       return `[${this.value}]`
     }
     // Order sensitive; see #439
-    let text = (this.value ? String(this.value) : "")
-      .replace(/([\]\\])/g, "\\$1")
-      .replace(/ v$/, " \\v")
+    let text = this.value ? String(this.value) : ""
+    if (this.isSquare) {
+      text = text.replace(/([\]\\])/g, "\\$1")
+    }
+    if (this.isRound) {
+      text = text.replace(/([()[<])/g, "\\$1")
+    }
+    text = text.replace(/ v$/, " \\v")
     if (this.hasArrow) {
       text += " v"
     } else if (hexColorPat.test(text)) {
