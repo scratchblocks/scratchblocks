@@ -13,6 +13,23 @@ function indent(text) {
     .join("\n")
 }
 
+const DIFF_MARK = "\uFFFCDIFF"
+
+function prettyPrintDiff(text) {
+  if (!text.includes(DIFF_MARK)) {
+    return text
+  }
+  return text
+    .split("\n")
+    .map(line => {
+      if (line.includes(DIFF_MARK)) {
+        return line.replace(new RegExp(`( *)${DIFF_MARK}([-+])`, "g"), `$2$1`)
+      }
+      return `  ${line}`
+    })
+    .join("\n")
+}
+
 import {
   parseSpec,
   inputPat,
@@ -212,7 +229,7 @@ export class Block {
       }
     }
 
-    let overrides = extras || ""
+    let overrides = extras || this.info.diff || ""
     if (
       this.info.categoryIsDefault === false ||
       (this.info.category === "custom-arg" &&
@@ -237,6 +254,14 @@ export class Block {
     if (overrides) {
       text += ` :: ${overrides}`
     }
+    if (
+      (text.startsWith("+") || text.startsWith("-")) &&
+      this.info.shape !== "reporter" &&
+      this.info.shape !== "boolean"
+    ) {
+      text = `\\${text}`
+    }
+    text = (this.diff ? `${DIFF_MARK}${this.diff} ` : "") + text
     return this.hasScript
       ? text +
           "\n" +
@@ -382,7 +407,11 @@ export class Glow {
       return this.child.stringify("+")
     }
     const lines = this.child.stringify().split("\n")
-    return lines.map(line => `+ ${line}`).join("\n")
+    return lines
+      .map(line =>
+        line.includes(DIFF_MARK) ? `  ${line}` : `${DIFF_MARK}+ ${line}`,
+      )
+      .join("\n")
   }
 
   translate(lang) {
@@ -437,7 +466,9 @@ export class Document {
   }
 
   stringify() {
-    return this.scripts.map(script => script.stringify()).join("\n\n")
+    return this.scripts
+      .map(script => prettyPrintDiff(script.stringify()))
+      .join("\n\n")
   }
 
   translate(lang) {
