@@ -122,6 +122,7 @@
     "SENSING_OF": "%1 de %2",
     "SENSING_CURRENT": "%1 actual",
     "SENSING_DAYSSINCE2000": "o número de dias desde 2000",
+    "SENSING_ONLINE": "está online?",
     "SENSING_USERNAME": "o nome de utilizador",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 − %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "tom",
     "canal esquerdo/direito"

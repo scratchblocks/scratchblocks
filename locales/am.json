@@ -122,6 +122,7 @@
     "SENSING_OF": "%1 ከ%2",
     "SENSING_CURRENT": "ያሁኑ %1",
     "SENSING_DAYSSINCE2000": "ከ2000 ጀምሮ ያሉ ቀናት",
+    "SENSING_ONLINE": "is online?",
     "SENSING_USERNAME": "የተጠቃሚ ስም",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "ፒች",
     "ሸብልል ወደ ግራ/ቀኝ"

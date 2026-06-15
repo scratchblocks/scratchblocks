@@ -26,6 +26,7 @@
     "locales": "node locales-src/build-locales.js",
     "rollup": "rollup -c",
     "snapshots": "node ./snapshots/index.js",
+    "manual": "node ./snapshots/manual.js",
     "start": "rollup -c -m -w",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },

@@ -211,6 +211,7 @@ setze Stoppuhr zurück
 
 ([minute v] im Moment)
 (Tage seit 2000)
+<ist online?>
 (Benutzername)
 (user id)
 

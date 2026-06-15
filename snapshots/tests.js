@@ -577,7 +577,7 @@ stop [all v]
 
 when I start as a clone
 create clone of (myself v)
-delete this clone 
+delete this clone
 
 `,
 )
@@ -616,6 +616,7 @@ reset timer
 
 (current [year v])
 (days since 2000)
+<online?>
 (username)
 
 `,
@@ -766,7 +767,7 @@ set video transparency to (50)
 test(
   "scratch3",
   "en-extensions",
-  `  
+  `
 // Text-to-Sppech
 speak [hello]
 set voice to [alto v]
@@ -829,6 +830,17 @@ when force sensor [pushed v]
 <falling?>
 (spin speed [z v])
 (acceleration [x v])
+
+// Face Sensing
+go to [nose v]
+point in direction of face tilt
+set size to face size
+when face tilts [left v]
+when this sprite touches a [nose v]
+when a face is detected
+<a face is detected?>
+(face tilt)
+(face size)
 `,
 )
 
@@ -1064,6 +1076,7 @@ setze Stoppuhr zurück
 
 ([Jahr v] im Moment)
 (Tage seit 2000)
+<ist online?>
 (Benutzername)
 
 `,

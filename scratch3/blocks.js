@@ -373,11 +373,12 @@ class BlockView {
   }
 
   static get padding() {
+    // top, bottom, comment Y offset
     return {
-      hat: [24, 8],
-      cat: [24, 8],
-      "define-hat": [20, 16],
-      null: [4, 4],
+      hat: [24, 8, 17],
+      cat: [24, 8, 49], // add 16*2 (see L435)
+      "define-hat": [20, 16, 0],
+      null: [4, 4, 0],
     }
   }
 
@@ -753,7 +754,10 @@ class ScriptView {
       if (comment) {
         const line = block.firstLine
         const cx = block.innerWidth + 2 + CommentView.lineLength
-        const cy = y - block.height + line.height / 2
+        const padding =
+          BlockView.padding[block.info.shape] || BlockView.padding.null
+        const cy =
+          y - block.height + (line.height - padding[2]) / 2 + padding[2] // ensure hat block comments are attached to middle of solid part
         const el = comment.draw(iconStyle)
         children.push(SVG.move(cx, cy - comment.height / 2, el))
         this.width = Math.max(this.width, cx + comment.width)

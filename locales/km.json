@@ -122,6 +122,7 @@
     "SENSING_OF": "%1 នៃ %2",
     "SENSING_CURRENT": "%1 បច្ចុប្បន្ន",
     "SENSING_DAYSSINCE2000": "ចំនួនថ្ងៃចាប់ពីឆ្នាំ 2000",
+    "SENSING_ONLINE": "is online?",
     "SENSING_USERNAME": "ឈ្មោះគណនី",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "កម្រិតខ្ពស់ទាប",
     "កម្រិតឆ្វេងស្តាំ"

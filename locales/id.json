@@ -122,6 +122,7 @@
     "SENSING_OF": "%1 dari %2",
     "SENSING_CURRENT": "%1 saat ini",
     "SENSING_DAYSSINCE2000": "hari-hari sejak 2000",
+    "SENSING_ONLINE": "is online?",
     "SENSING_USERNAME": "nama pengguna",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "nada",
     "pan kiri/kanan"

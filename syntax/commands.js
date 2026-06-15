@@ -987,6 +987,13 @@ export default [
     category: "sensing",
   },
   {
+    id: "SENSING_ONLINE",
+    spec: "online?",
+    inputs: [],
+    shape: "boolean",
+    category: "sensing",
+  },
+  {
     id: "SENSING_USERNAME",
     selector: "getUserName",
     spec: "username",

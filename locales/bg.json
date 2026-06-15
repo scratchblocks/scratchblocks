@@ -122,6 +122,7 @@
     "SENSING_OF": "%1 от %2",
     "SENSING_CURRENT": "текущ/а %1",
     "SENSING_DAYSSINCE2000": "дни след 2000 година",
+    "SENSING_ONLINE": "is online?",
     "SENSING_USERNAME": "потребителско име",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "промяна на тона",
     "ляво/дясно"

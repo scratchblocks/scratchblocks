@@ -204,6 +204,31 @@ describe("escaping and stringifying", () => {
     const code = String.raw`test \\ test`
     expect(parseBlock(code).stringify()).toBe(code)
   })
+
+  test("parentheses in number-dropdown", () => {
+    const code = String.raw`say (\(\) v)`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("brackets in number-dropdown", () => {
+    const code = String.raw`say (\[] v)`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("boolean in number-dropdown", () => {
+    const code = String.raw`say (\<> v)`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("parentheses in dropdown", () => {
+    const code = String.raw`say [() v]`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("brackets in dropdown", () => {
+    const code = String.raw`say [[\] v]`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
 })
 
 describe("overrides", () => {
@@ -579,22 +604,57 @@ describe("disambiguation", () => {
         id: "microbit.isButtonPressed",
       },
     ],
+    [
+      {
+        en: "go to [nose v]",
+      },
+      {
+        shape: "stack",
+        id: "faceSensing.goToPart",
+      },
+    ],
+    [
+      {
+        en: "go to [mouse-pointer v]",
+      },
+      {
+        shape: "stack",
+        id: "MOTION_GOTO",
+        testName: "MOTION_GOTO (mouse-pointer)",
+      },
+    ],
+    [
+      {
+        en: "go to [Sprite v]",
+      },
+      {
+        shape: "stack",
+        id: "MOTION_GOTO",
+        testName: "MOTION_GOTO (sprite)",
+      },
+    ],
   ])
 
   simpleRemapping.forEach((result, messages) => {
-    test(result.id, () => {
+    const id = result.testName ? result.testName : result.id
+    delete result.testName
+    test(id, () => {
       expect(parseBlock(messages.en).info).toMatchObject(result)
     })
-    test(result.id + ": de", () => {
-      expect(parseBlock(messages.de, optionsFor("de")).info).toMatchObject(
-        result,
-      )
-    })
-    test(result.id + ": ja", () => {
-      expect(parseBlock(messages.ja, optionsFor("ja")).info).toMatchObject(
-        result,
-      )
-    })
+    if (messages.de) {
+      test(id + ": de", () => {
+        expect(parseBlock(messages.de, optionsFor("de")).info).toMatchObject(
+          result,
+        )
+      })
+    }
+    if (messages.ja) {
+      test(id + ": ja", () => {
+        expect(parseBlock(messages.ja, optionsFor("ja")).info).toMatchObject(
+          result,
+        )
+      })
+    }
   })
 })
 
@@ -645,9 +705,25 @@ describe("c blocks", () => {
     expect(parseScript(script).stringify()).toEqual("if <> then\nend")
   })
 
-  test("#567: comments cannot be attached to else", () => {
+  test("#567: comments cannot be attached to else; #582 no indent for empty if-else", () => {
     const script = "if <> then\nelse //comment\nend"
-    expect(parseScript(script).stringify()).toEqual("if <> then\n\nelse\nend")
+    expect(parseScript(script).stringify()).toEqual("if <> then\nelse\nend")
+  })
+  test("#582: if indenting", () => {
+    const script = "if <> then\nstamp\nend"
+    expect(parseScript(script).stringify()).toEqual("if <> then\n  stamp\nend")
+  })
+  test("#582: repeat until indenting", () => {
+    const script = "repeat until <>\nstamp\nend"
+    expect(parseScript(script).stringify()).toEqual(
+      "repeat until <>\n  stamp\nend",
+    )
+  })
+  test("#582: if else indenting", () => {
+    const script = "if <> then\nstamp\nelse\nclear\nend"
+    expect(parseScript(script).stringify()).toEqual(
+      "if <> then\n  stamp\nelse\n  clear\nend",
+    )
   })
 })
 

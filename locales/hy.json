@@ -122,6 +122,7 @@
     "SENSING_OF": "%2 -ի %1 -ը",
     "SENSING_CURRENT": "ընթացիկ %1",
     "SENSING_DAYSSINCE2000": "օրերը՝ սկսած 2000-ից",
+    "SENSING_ONLINE": "is online?",
     "SENSING_USERNAME": "մուտքանուն",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "խոսք",
     "տարածում ձախ/աջ"

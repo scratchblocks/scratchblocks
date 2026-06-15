@@ -122,6 +122,7 @@
     "SENSING_OF": "%2 의 %1",
     "SENSING_CURRENT": "현재 %1",
     "SENSING_DAYSSINCE2000": "2000년 이후 현재까지 날짜 수",
+    "SENSING_ONLINE": "온라인인가요?",
     "SENSING_USERNAME": "사용자 이름",
     "OPERATORS_ADD": "%1 + %2",
     "OPERATORS_SUBTRACT": "%1 - %2",
@@ -221,6 +222,16 @@
   },
   "dropdowns": {},
   "ignorelt": [],
+  "faceParts": [
+    "nose",
+    "mouth",
+    "left eye",
+    "right eye",
+    "between eyes",
+    "left ear",
+    "right ear",
+    "top of head"
+  ],
   "soundEffects": [
     "음 높이",
     "음향 위치 왼쪽/오른쪽"

@@ -21,6 +21,11 @@ const overrideCategories = [
   ...Object.keys(aliasExtensions),
 ]
 
+export const aliasCategories = Object.assign(Object.create(null), {
+  gray: "grey",
+  other: "grey",
+})
+
 const overrideShapes = [
   "hat",
   "cap",
@@ -466,6 +471,12 @@ export function applyOverrides(info, overrides) {
     if (hexColorPat.test(name)) {
       info.color = name
       info.category = ""
+      info.categoryIsDefault = false
+    } else if (
+      aliasCategories[name] &&
+      overrideCategories.includes(aliasCategories[name])
+    ) {
+      info.category = aliasCategories[name]
       info.categoryIsDefault = false
     } else if (overrideCategories.includes(name)) {
       info.category = name

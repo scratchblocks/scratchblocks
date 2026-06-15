@@ -109,9 +109,14 @@ export class Input {
       return `[${this.value}]`
     }
     // Order sensitive; see #439
-    let text = (this.value ? String(this.value) : "")
-      .replace(/([\]\\])/g, "\\$1")
-      .replace(/ v$/, " \\v")
+    let text = this.value ? String(this.value) : ""
+    if (this.isSquare) {
+      text = text.replace(/([\]\\])/g, "\\$1")
+    }
+    if (this.isRound) {
+      text = text.replace(/([()[<])/g, "\\$1")
+    }
+    text = text.replace(/ v$/, " \\v")
     if (this.hasArrow) {
       text += " v"
     } else if (hexColorPat.test(text)) {
@@ -180,7 +185,7 @@ export class Block {
           firstInput = child
         }
         if (child.isScript) {
-          return `\n${indent(child.stringify())}\n`
+          return child.isEmpty ? "\n" : `\n${indent(child.stringify())}\n`
         }
         let next = arr[i + 1]
         next = next && next.name === "loopArrow" ? arr[i + 2] : next
