@@ -261,18 +261,20 @@ export class Block {
     ) {
       text = `\\${text}`
     }
-    text = (this.diff ? `${DIFF_MARK}${this.diff} ` : "") + text
+    const diff_text =
+      this.diff && !this.info.diff ? `${DIFF_MARK}${this.diff} ` : ""
     return this.hasScript
-      ? text +
+      ? diff_text +
+          text +
           "\n" +
           (Object.keys(lang.aliases).find(
             key => lang.aliases[key] === "scratchblocks:end",
           ) || "end")
       : this.info.shape === "reporter"
-        ? `(${text})`
+        ? `${diff_text}(${text})`
         : this.info.shape === "boolean"
-          ? `<${text}>`
-          : text
+          ? `${diff_text}<${text}>`
+          : diff_text + text
   }
 
   translate(lang, isShallow) {
