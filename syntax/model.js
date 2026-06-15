@@ -411,7 +411,7 @@ export class Glow {
     const lines = this.child.stringify().split("\n")
     return lines
       .map(line =>
-        line.includes(DIFF_MARK) ? `  ${line}` : `${DIFF_MARK}+ ${line}`,
+        line.includes(DIFF_MARK) ? line : `${DIFF_MARK}+ ${line}`,
       )
       .join("\n")
   }
