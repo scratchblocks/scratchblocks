@@ -852,6 +852,9 @@ move (10) steps
 
 when flag clicked :: cat
 move (10) steps
+
+define test :: cat
+move (10) steps
 `,
 )
 
