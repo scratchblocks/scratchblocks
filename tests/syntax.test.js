@@ -229,6 +229,21 @@ describe("escaping and stringifying", () => {
     const code = String.raw`say [[\] v]`
     expect(parseBlock(code).stringify()).toBe(code)
   })
+
+  test("#602: diff escaping (+)", () => {
+    const code = String.raw`\+ test`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("#602: diff escaping (-)", () => {
+    const code = String.raw`\- test`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("#602: do not escape diffs in the middle", () => {
+    const code = String.raw`a + b - c`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
 })
 
 describe("overrides", () => {
@@ -967,6 +982,33 @@ describe("define hats", () => {
 describe("misc regression test", () => {
   test("#534", () => {
     expect(parseBlock("::+").info).toMatchObject({ category: "obsolete" })
+  })
+})
+
+describe("diff", () => {
+  test("#588: diff is at the beginning, first-level diff", () => {
+    const code = "- show\n  forever\n+   show\n    hide\n  end"
+    expect(parseScript(code).stringify()).toEqual(code)
+  })
+
+  test("#588: diff is at the beginning, no first-level diff", () => {
+    const code = "  show\n  forever\n+   show\n    hide\n  end"
+    expect(parseScript(code).stringify()).toEqual(code)
+  })
+
+  test("#602: stringify does not duplicate diff", () => {
+    const code = "+ forever\n+   show\n+ end"
+    expect(parseScript(code).stringify()).toEqual(code)
+  })
+
+  test("#602: negation diff gets stringified", () => {
+    const code = "- clear"
+    expect(parseScript(code).stringify()).toEqual(code)
+  })
+
+  test("#602: negation override gets stringified", () => {
+    const code = "clear :: -\nsay (answer :: -)"
+    expect(parseScript(code).stringify()).toEqual(code)
   })
 })
 
