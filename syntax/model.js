@@ -54,6 +54,10 @@ export class Label {
   }
 
   stringify() {
+    return this._stringify()
+  }
+
+  _stringify() {
     if (this.value === "<" || this.value === ">") {
       return this.value
     }
@@ -88,6 +92,10 @@ export class Icon {
   }
 
   stringify() {
+    return this._stringify()
+  }
+
+  _stringify() {
     return unicodeIcons[`@${this.name}`] || ""
   }
 }
@@ -121,6 +129,10 @@ export class Input {
   }
 
   stringify() {
+    return this._stringify()
+  }
+
+  _stringify() {
     if (this.isColor) {
       assert(this.value[0] === "#")
       return `[${this.value}]`
@@ -191,6 +203,10 @@ export class Block {
   }
 
   stringify(extras) {
+    return prettyPrintDiff(this._stringify(extras))
+  }
+
+  _stringify(extras) {
     let firstInput = null
     let checkAlias = false
     let text = this.children
@@ -202,12 +218,12 @@ export class Block {
           firstInput = child
         }
         if (child.isScript) {
-          return child.isEmpty ? "\n" : `\n${indent(child.stringify())}\n`
+          return child.isEmpty ? "\n" : `\n${indent(child._stringify())}\n`
         }
         let next = arr[i + 1]
         next = next && next.name === "loopArrow" ? arr[i + 2] : next
         const needsSpace = !(next && next.isScript)
-        return child.stringify().trim() + (needsSpace ? " " : "")
+        return child._stringify().trim() + (needsSpace ? " " : "")
       })
       .join("")
       .trim()
@@ -223,7 +239,7 @@ export class Block {
         let alias = aliases[0]
         // TODO make translate() not in-place, and use that
         if (inputPat.test(alias) && firstInput) {
-          alias = alias.replace(inputPat, firstInput.stringify())
+          alias = alias.replace(inputPat, firstInput._stringify())
         }
         return alias
       }
@@ -385,6 +401,10 @@ export class Comment {
   }
 
   stringify() {
+    return this._stringify()
+  }
+
+  _stringify() {
     return `// ${this.label.value.trim()}`
   }
 }
@@ -405,10 +425,14 @@ export class Glow {
   }
 
   stringify() {
+    return prettyPrintDiff(this._stringify())
+  }
+
+  _stringify() {
     if (this.child.isBlock) {
-      return this.child.stringify("+")
+      return this.child._stringify("+")
     }
-    const lines = this.child.stringify().split("\n")
+    const lines = this.child._stringify().split("\n")
     return lines
       .map(line => (line.includes(DIFF_MARK) ? line : `${DIFF_MARK}+ ${line}`))
       .join("\n")
@@ -430,16 +454,20 @@ export class Script {
   }
 
   stringify() {
+    return prettyPrintDiff(this._stringify())
+  }
+
+  _stringify() {
     return this.blocks
       .map(block => {
-        let line = block.stringify()
+        let line = block._stringify()
         if (block.comment) {
           // If this block contains a script (multi-line), insert the
           // comment on the first line (the opening line) instead of
           // appending it after the whole multi-line block (which would
           // place it after the trailing "end").
           if (block.isBlock && block.hasScript) {
-            const commentText = ` ${block.comment.stringify()}`
+            const commentText = ` ${block.comment._stringify()}`
             const nl = line.indexOf("\n")
             if (nl !== -1) {
               line = line.slice(0, nl) + commentText + line.slice(nl)
@@ -447,7 +475,7 @@ export class Script {
               line += commentText
             }
           } else {
-            line += ` ${block.comment.stringify()}`
+            line += ` ${block.comment._stringify()}`
           }
         }
         return line
@@ -466,9 +494,7 @@ export class Document {
   }
 
   stringify() {
-    return this.scripts
-      .map(script => prettyPrintDiff(script.stringify()))
-      .join("\n\n")
+    return this.scripts.map(script => script.stringify()).join("\n\n")
   }
 
   translate(lang) {
