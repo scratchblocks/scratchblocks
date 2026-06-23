@@ -481,6 +481,9 @@ export function applyOverrides(info, overrides) {
     } else if (overrideCategories.includes(name)) {
       info.category = name
       info.categoryIsDefault = false
+    } else if (name === "cat" && info.shape === "define-hat") {
+      info.shape = "define-cat"
+      info.shapeIsDefault = false
     } else if (overrideShapes.includes(name)) {
       info.shape = name
       info.shapeIsDefault = false

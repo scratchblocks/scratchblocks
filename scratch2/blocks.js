@@ -268,6 +268,7 @@ class BlockView {
       hat: SVG.hatRect,
       cat: SVG.hatRect,
       "define-hat": SVG.procHatRect,
+      "define-cat": SVG.procHatRect,
       ring: SVG.roundedRect,
     }
   }
@@ -338,6 +339,7 @@ class BlockView {
       hat: [15, 6, 2],
       cat: [15, 6, 2],
       "define-hat": [21, 8, 9],
+      "define-cat": [21, 8, 9],
       reporter: [3, 4, 1],
       boolean: [3, 4, 2],
       cap: [6, 6, 2],
@@ -349,7 +351,8 @@ class BlockView {
   }
 
   draw() {
-    const isDefine = this.info.shape === "define-hat"
+    const isDefine =
+      this.info.shape === "define-hat" || this.info.shape === "define-cat"
     let children = this.children
 
     const padding = BlockView.padding[this.info.shape] || BlockView.padding.null

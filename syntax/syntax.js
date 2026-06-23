@@ -756,7 +756,10 @@ function recogniseStuff(scripts) {
       }
 
       // custom blocks
-      if (block.info.shape === "define-hat") {
+      if (
+        block.info.shape === "define-hat" ||
+        block.info.shape === "define-cat"
+      ) {
         // There should be exactly one `outline` child, added in paintBlock.
         const outline = block.children.find(child => child.isOutline)
         if (!outline) {
