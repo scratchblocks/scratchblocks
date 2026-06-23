@@ -190,6 +190,16 @@ describe("escaping and stringifying", () => {
     expect(parseBlock(input).stringify()).toBe(expected)
   })
 
+  test("#517: hex color (round)", () => {
+    const code = String.raw`say (\#000)`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("#517: hex color (bracket)", () => {
+    const code = String.raw`say [\#000]`
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
   test("#576: colon escaping", () => {
     const code = String.raw`test :\: test`
     expect(parseBlock(code).stringify()).toBe(code)
@@ -913,7 +923,11 @@ describe("translate", () => {
     expect(doc.scripts[1].stringify()).toEqual("(答え) と言う :: custom")
   })
 
-  // TODO translate end
+  test("#550: translation of end", () => {
+    const s = parseScript("forever\nend")
+    s.translate(allLanguages.de)
+    expect(s.stringify()).toEqual("wiederhole fortlaufend\nEnde")
+  })
 })
 
 describe("define hats", () => {
@@ -943,6 +957,13 @@ describe("define hats", () => {
     expect(
       parseBlock("Definiere foo (bar) quxx", optionsFor("de")).info,
     ).toMatchObject(defineHat)
+  })
+
+  test("#551: specifying custom-arg should not break recognition", () => {
+    const b = parseBlock("define foo (bar :: custom-arg) quxx")
+    b.translate(allLanguages.de)
+    // TODO omit custom-arg here
+    expect(b.stringify()).toEqual("Definiere foo (bar :: custom-arg) quxx")
   })
 
   test("matches define keyword last", () => {
