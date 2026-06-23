@@ -13,6 +13,23 @@ function indent(text) {
     .join("\n")
 }
 
+const DIFF_MARK = "\uFFFCDIFF"
+
+function prettyPrintDiff(text) {
+  if (!text.includes(DIFF_MARK)) {
+    return text
+  }
+  return text
+    .split("\n")
+    .map(line => {
+      if (line.includes(DIFF_MARK)) {
+        return line.replace(new RegExp(`( *)${DIFF_MARK}([-+])`, "g"), `$2$1`)
+      }
+      return `  ${line}`
+    })
+    .join("\n")
+}
+
 import {
   parseSpec,
   inputPat,
@@ -37,6 +54,10 @@ export class Label {
   }
 
   stringify() {
+    return this._stringify()
+  }
+
+  _stringify() {
     if (this.value === "<" || this.value === ">") {
       return this.value
     }
@@ -71,6 +92,10 @@ export class Icon {
   }
 
   stringify() {
+    return this._stringify()
+  }
+
+  _stringify() {
     return unicodeIcons[`@${this.name}`] || ""
   }
 }
@@ -104,6 +129,10 @@ export class Input {
   }
 
   stringify() {
+    return this._stringify()
+  }
+
+  _stringify() {
     if (this.isColor) {
       assert(this.value[0] === "#")
       return `[${this.value}]`
@@ -174,6 +203,10 @@ export class Block {
   }
 
   stringify(extras) {
+    return prettyPrintDiff(this._stringify(extras))
+  }
+
+  _stringify(extras) {
     let firstInput = null
     let checkAlias = false
     let text = this.children
@@ -185,12 +218,12 @@ export class Block {
           firstInput = child
         }
         if (child.isScript) {
-          return child.isEmpty ? "\n" : `\n${indent(child.stringify())}\n`
+          return child.isEmpty ? "\n" : `\n${indent(child._stringify())}\n`
         }
         let next = arr[i + 1]
         next = next && next.name === "loopArrow" ? arr[i + 2] : next
         const needsSpace = !(next && next.isScript)
-        return child.stringify().trim() + (needsSpace ? " " : "")
+        return child._stringify().trim() + (needsSpace ? " " : "")
       })
       .join("")
       .trim()
@@ -206,13 +239,13 @@ export class Block {
         let alias = aliases[0]
         // TODO make translate() not in-place, and use that
         if (inputPat.test(alias) && firstInput) {
-          alias = alias.replace(inputPat, firstInput.stringify())
+          alias = alias.replace(inputPat, firstInput._stringify())
         }
         return alias
       }
     }
 
-    let overrides = extras || ""
+    let overrides = extras || this.info.diff || ""
     if (
       this.info.categoryIsDefault === false ||
       (this.info.category === "custom-arg" &&
@@ -237,17 +270,27 @@ export class Block {
     if (overrides) {
       text += ` :: ${overrides}`
     }
+    if (
+      (text.startsWith("+") || text.startsWith("-")) &&
+      this.info.shape !== "reporter" &&
+      this.info.shape !== "boolean"
+    ) {
+      text = `\\${text}`
+    }
+    const diff_text =
+      this.diff && !this.info.diff ? `${DIFF_MARK}${this.diff} ` : ""
     return this.hasScript
-      ? text +
+      ? diff_text +
+          text +
           "\n" +
           (Object.keys(lang.aliases).find(
             key => lang.aliases[key] === "scratchblocks:end",
           ) || "end")
       : this.info.shape === "reporter"
-        ? `(${text})`
+        ? `${diff_text}(${text})`
         : this.info.shape === "boolean"
-          ? `<${text}>`
-          : text
+          ? `${diff_text}<${text}>`
+          : diff_text + text
   }
 
   translate(lang, isShallow) {
@@ -358,6 +401,10 @@ export class Comment {
   }
 
   stringify() {
+    return this._stringify()
+  }
+
+  _stringify() {
     return `// ${this.label.value.trim()}`
   }
 }
@@ -378,11 +425,17 @@ export class Glow {
   }
 
   stringify() {
+    return prettyPrintDiff(this._stringify())
+  }
+
+  _stringify() {
     if (this.child.isBlock) {
-      return this.child.stringify("+")
+      return this.child._stringify("+")
     }
-    const lines = this.child.stringify().split("\n")
-    return lines.map(line => `+ ${line}`).join("\n")
+    const lines = this.child._stringify().split("\n")
+    return lines
+      .map(line => (line.includes(DIFF_MARK) ? line : `${DIFF_MARK}+ ${line}`))
+      .join("\n")
   }
 
   translate(lang) {
@@ -401,16 +454,20 @@ export class Script {
   }
 
   stringify() {
+    return prettyPrintDiff(this._stringify())
+  }
+
+  _stringify() {
     return this.blocks
       .map(block => {
-        let line = block.stringify()
+        let line = block._stringify()
         if (block.comment) {
           // If this block contains a script (multi-line), insert the
           // comment on the first line (the opening line) instead of
           // appending it after the whole multi-line block (which would
           // place it after the trailing "end").
           if (block.isBlock && block.hasScript) {
-            const commentText = ` ${block.comment.stringify()}`
+            const commentText = ` ${block.comment._stringify()}`
             const nl = line.indexOf("\n")
             if (nl !== -1) {
               line = line.slice(0, nl) + commentText + line.slice(nl)
@@ -418,7 +475,7 @@ export class Script {
               line += commentText
             }
           } else {
-            line += ` ${block.comment.stringify()}`
+            line += ` ${block.comment._stringify()}`
           }
         }
         return line

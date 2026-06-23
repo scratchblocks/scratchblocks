@@ -740,7 +740,7 @@ class ScriptView {
       children.push(SVG.move(x, y, child))
       this.width = Math.max(this.width, block.width)
 
-      const diff = block.diff
+      const diff = block.diff || block.info?.diff
       if (diff === "-") {
         const dw = block.width
         const dh = block.firstLine.height || block.height
