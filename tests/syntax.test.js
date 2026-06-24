@@ -632,6 +632,8 @@ describe("disambiguation", () => {
     [
       {
         en: "go to [nose v]",
+        de: "gehe zu [Nase v]",
+        ja: "[鼻 v] へ行く",
       },
       {
         shape: "stack",
@@ -641,6 +643,8 @@ describe("disambiguation", () => {
     [
       {
         en: "go to [mouse-pointer v]",
+        de: "gehe zu [Mauszeiger v]",
+        ja: "[マウスのポインタ― v] へ行く",
       },
       {
         shape: "stack",
@@ -651,6 +655,8 @@ describe("disambiguation", () => {
     [
       {
         en: "go to [Sprite v]",
+        de: "gehe zu [Figur v]",
+        ja: "[スプライト v] へ行く",
       },
       {
         shape: "stack",
