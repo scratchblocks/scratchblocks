@@ -1306,6 +1306,17 @@ Wenn Kraftsensor [gedrückt v]
 <fallend?>
 (Rotationsgeschwindigkeit [z v])
 (Beschleunigung [x v])
+
+// Face Sensing
+gehe zu [Nase v]
+Richtung der Gesichtsneigung zeigen
+setze Größe auf Gesichtsgröße
+wenn Gesicht kippt [nach links v]
+wenn diese Figur ein [Nase v] berührt
+wenn ein Gesicht erkannt wird
+<wird ein Gesicht erkannt?>
+(Kopfneigung)
+(Gesichtsgröße)
 `,
   "de",
 )
