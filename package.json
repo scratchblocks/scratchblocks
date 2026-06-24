@@ -1,6 +1,6 @@
 {
   "name": "scratchblocks",
-  "version": "3.7.0",
+  "version": "3.7.1",
   "description": "Make pictures of Scratch blocks from text.",
   "license": "MIT",
   "author": "Tim Radvan",
@@ -41,18 +41,18 @@
     "@rollup/plugin-terser": "^1.0.0",
     "cross-env": "^10.1.0",
     "csso": "^5.0.5",
-    "eslint": "^10.4.1",
+    "eslint": "^10.5.0",
     "express": "^5.2.1",
     "globals": "^17.6.0",
     "jest": "^30.4.2",
     "lint-staged": "^17.0.7",
-    "prettier": "^3.8.3",
+    "prettier": "^3.8.4",
     "prettier-package-json": "^2.8.0",
     "puppeteer": "^25.1.0",
-    "rollup": "^4.61.1",
+    "rollup": "^4.62.0",
     "rollup-plugin-license": "^3.7.1",
     "rollup-plugin-serve": "^3.0.0",
-    "scratch-l10n": "^6.1.85"
+    "scratch-l10n": "^6.1.86"
   },
   "keywords": [
     "scratch"

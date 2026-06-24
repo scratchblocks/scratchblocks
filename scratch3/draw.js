@@ -225,12 +225,8 @@ export default class SVG {
     })
   }
 
-  static catHat(w, h, props) {
+  static catParts() {
     return SVG.group([
-      SVG.path({
-        ...props,
-        path: [SVG.getCatTop(w), SVG.getRightAndBottom(w, h, true, 0), "Z"],
-      }),
       SVG.move(
         0,
         32,
@@ -277,8 +273,22 @@ export default class SVG {
     ])
   }
 
+  static catHat(w, h, props) {
+    return SVG.group([
+      SVG.path({
+        ...props,
+        path: [SVG.getCatTop(w), SVG.getRightAndBottom(w, h, true, 0), "Z"],
+      }),
+      SVG.catParts(),
+    ])
+  }
+
   static getProcHatTop(w) {
     return `M 0 20 a 20 20 0 0 1 20 -20 L ${w - 20} 0 a 20,20 0 0,1 20,20`
+  }
+
+  static getProcCatTop(w) {
+    return `M 0 20 c 0,-7.1 3.7,-13.3 9.3,-16.9 c 1.7,-7.5 5.4,-13.2 7.6,-14.2 c 2.6,-1.3 10,6 14.6,11.1 h 33 c 4.6,-5.1 11.9,-12.4 14.6,-11.1 c 1.9,0.9 4.9,5.2 6.8,11.1 h 7.8 L ${w - 20} 0 a 20,20 0 0,1 20,20`
   }
 
   static procHatRect(w, h, props) {
@@ -286,6 +296,16 @@ export default class SVG {
       ...props,
       path: [SVG.getProcHatTop(w), SVG.getRightAndBottom(w, h, true, 0), "Z"],
     })
+  }
+
+  static procCatRect(w, h, props) {
+    return SVG.group([
+      SVG.path({
+        ...props,
+        path: [SVG.getProcCatTop(w), SVG.getRightAndBottom(w, h, true, 0), "Z"],
+      }),
+      SVG.move(0, -13, SVG.catParts()),
+    ])
   }
 
   static mouthRect(w, h, isFinal, lines, props) {
