@@ -773,7 +773,7 @@ export default [
     category: "list",
   },
   {
-    id: "SENSING_OF_XPOSITION",
+    id: "MOTION_XPOSITION",
     selector: "xpos",
     spec: "x position",
     inputs: [],
@@ -781,7 +781,7 @@ export default [
     category: "motion",
   },
   {
-    id: "SENSING_OF_YPOSITION",
+    id: "MOTION_YPOSITION",
     selector: "ypos",
     spec: "y position",
     inputs: [],
@@ -789,7 +789,7 @@ export default [
     category: "motion",
   },
   {
-    id: "SENSING_OF_DIRECTION",
+    id: "MOTION_DIRECTION",
     selector: "heading",
     spec: "direction",
     inputs: [],
@@ -813,7 +813,7 @@ export default [
     category: "looks",
   },
   {
-    id: "SENSING_OF_SIZE",
+    id: "LOOKS_SIZE",
     selector: "scale",
     spec: "size",
     inputs: [],
