@@ -1004,6 +1004,11 @@ describe("define hats", () => {
       parseBlock("foo (bar) quxx ni belgilash", optionsFor("uz")).info,
     ).toMatchObject(defineHat)
   })
+
+  test("cat define blocks get properly stringified", () => {
+    const code = "define test :: cat"
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
 })
 
 describe("misc regression test", () => {
