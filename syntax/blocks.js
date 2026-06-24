@@ -497,6 +497,7 @@ export function applyOverrides(info, overrides) {
     } else if (name === "define") {
       info.shape = info.shape === "cat" ? "define-cat" : "define-hat"
       info.shapeIsDefault = false
+      info.defineOverride = true
     }
   }
 }

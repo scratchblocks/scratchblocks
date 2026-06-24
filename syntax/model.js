@@ -270,7 +270,12 @@ export class Block {
       if (overrides) {
         overrides += " "
       }
-      overrides += this.info.shape === "define-cat" ? "cat" : this.info.shape
+
+      if (this.info.defineOverride) {
+        overrides += this.info.shape === "define-cat" ? "define cat" : "define"
+      } else {
+        overrides += this.info.shape === "define-cat" ? "cat" : this.info.shape
+      }
     }
     if (overrides) {
       text += ` :: ${overrides}`

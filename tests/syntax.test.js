@@ -1005,9 +1005,25 @@ describe("define hats", () => {
     ).toMatchObject(defineHat)
   })
 
+  test("custom define blocks get properly stringified", () => {
+    const code = "this is define test :: define"
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
   test("cat define blocks get properly stringified", () => {
     const code = "define test :: cat"
     expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("override define cat define blocks get properly stringified", () => {
+    const code = "this is define test :: define cat"
+    expect(parseBlock(code).stringify()).toBe(code)
+  })
+
+  test("define and cat can be specified in any order", () => {
+    const code = "this is define test :: cat define"
+    const expected = "this is define test :: define cat"
+    expect(parseBlock(code).stringify()).toBe(expected)
   })
 })
 
